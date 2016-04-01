@@ -6,20 +6,24 @@ package backend.game_object.components;
 
 public class PositionComponent extends Component{
 	
-	private double coordX;
-	private double coordY;
+	private double myCoordX;
+	private double myCoordY;
 	
 	public PositionComponent(double x, double y) {
 		// TODO Auto-generated constructor stub
-		coordX = x;
-		coordY = y;
+		myCoordX = x;
+		myCoordY = y;
 		tag = "Position";
 	}
 	
 	public double[] getPosition(){
-		double[] position = {coordX, coordY};
+		double[] position = {myCoordX, myCoordY};
 		return position;
 	}
-
+	
+	public void setPosition(double x, double y){
+		myCoordX = x;
+		myCoordY = y;
+	}
 
 }
