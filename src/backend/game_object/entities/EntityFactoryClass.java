@@ -1,4 +1,7 @@
-package backend;
+package backend.game_object.entities;
+
+import backend.GameObject;
+import backend.game_object.components.Component;
 
 public class EntityFactoryClass {
 

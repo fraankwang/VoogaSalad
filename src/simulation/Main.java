@@ -1,8 +1,5 @@
 package simulation;
 
-import backend.FrontEndGameAuthoringEnvironment;
-import backend.GameAuthoringEnvironment;
-import backend.GameObject;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
