@@ -7,13 +7,13 @@ public class Entity {
 
 	private int myID;
 	private List<Component> components;
-	
+
 	public Entity(int ID) {
 		components = new ArrayList<Component>();
 		this.myID = ID;
 	}
-	
-	public void addComponent(Component component){
+
+	public void addComponent(Component component) {
 		components.add(component);
 	}
 

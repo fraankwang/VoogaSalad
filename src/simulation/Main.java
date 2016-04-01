@@ -18,7 +18,7 @@ public class Main extends Application {
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private static final int SIZE = 600;
 	private GameAuthenticationEnvironment bae;
-	
+
 	public Main() {
 	}
 
@@ -31,13 +31,13 @@ public class Main extends Application {
 		primaryStage.show();
 
 		bae.setGameObjectWithFrontEndInfo(new FrontEndGameAuthorizationEnvironment());
-		
+
 		// setup game's loop
 		KeyFrame frame = bae.startGameLoop(NUM_FRAMES_PER_SECOND);
-        Timeline animation = new Timeline();
-        animation.setCycleCount(Animation.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Animation.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
 	}
 
 	public static void main(String[] args) {

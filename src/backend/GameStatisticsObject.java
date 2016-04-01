@@ -7,32 +7,32 @@ public class GameStatisticsObject {
 	private int numOfLevels = 0;
 	private int numOfModes = 0;
 	private int nextAvailableID = 0;
-	
+
 	public GameStatisticsObject() {
 	}
-	
-	public void nextLevel(){
+
+	public void nextLevel() {
 		++currentLevel;
 	}
-	
-	public int getCurrentMode(){
+
+	public int getCurrentMode() {
 		return currentMode;
 	}
-	
-	public int getCurrentLevel(){
+
+	public int getCurrentLevel() {
 		return currentLevel;
 	}
-	
-	public void incrementNumLevels(){
+
+	public void incrementNumLevels() {
 		++numOfLevels;
 	}
-	
-	public void incrementNumModes(){
+
+	public void incrementNumModes() {
 		++numOfModes;
 	}
 
 	public int nextAvailableID() {
 		return nextAvailableID++;
 	}
-	
+
 }

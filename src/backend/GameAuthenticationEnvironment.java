@@ -60,7 +60,8 @@ public class GameAuthenticationEnvironment {
 	public void setGameObjectWithFrontEndInfo(FrontEndGameAuthorizationEnvironment mockData) {
 		trumpGame = new GameObject();
 		trumpGame.initializeGameObject(mockData.modesWanted, mockData.levelsWanted);
-		// can add extra layer iterating through each level so we add entity to the right level
+		// can add extra layer iterating through each level so we add entity to
+		// the right level
 		// assuming we only want to add to level one right now
 		for (int eachSprite = 0; eachSprite < mockData.level1SpritesComponentWanted.length; eachSprite++) {
 			Entity entity = entityFactory.makeEntity(trumpGame, mockData.level1SpritesComponentWanted[eachSprite]);
