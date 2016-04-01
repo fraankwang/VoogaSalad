@@ -3,16 +3,14 @@ package backend;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 /**
  * 
  * @author mario_oliver93
  *
  */
-=======
 import backend.game_object.entities.Entity;
 
->>>>>>> 5096c0afdc311e3f29bb6256e06b9c3d94af500c
+
 public class Level {
 
 	private List<Entity> entities;
