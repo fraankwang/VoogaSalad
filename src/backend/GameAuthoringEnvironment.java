@@ -9,20 +9,21 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class GameAuthenticationEnvironment {
+public class GameAuthoringEnvironment {
 
 	SystemsController systems;
 	EntityFactoryClass entityFactory;
 	GameObject trumpGame;
-	FrontEndGameAuthorizationEnvironment frontMockData;
+	FrontEndGameAuthoringEnvironment frontMockData;
 
-	public GameAuthenticationEnvironment() {
+	public GameAuthoringEnvironment() {
 		systems = new SystemsController();
 		entityFactory = new EntityFactoryClass();
-		frontMockData = new FrontEndGameAuthorizationEnvironment();
+		frontMockData = new FrontEndGameAuthoringEnvironment();
+		
 	}
 
-	private void addDrumpfImage(Group myRoot) {
+	public void addDrumpfImage(Group myRoot) {
 		// adding arbitrary donald drumpf darth vader character
 		ImageView myPlayer = new ImageView(new Image(getClass().getResourceAsStream("/DrumpfVader.png")));
 		myPlayer.setFitWidth(80);
@@ -32,35 +33,15 @@ public class GameAuthenticationEnvironment {
 		myRoot.getChildren().add(myPlayer);
 	}
 
-	/**
-	 * Create game loop
-	 * 
-	 * @param numFramesPerSecond
-	 * @return
-	 */
-	public KeyFrame startGameLoop(int numFramesPerSecond) {
-		return new KeyFrame(Duration.millis(1000 / numFramesPerSecond), e -> step(trumpGame));
-	}
-
-	private void step(GameObject game) {
-		systems.iterateThroughSystems(game);
-	}
-
-	public Scene init(Stage primaryStage, int width, int height) {
-		Group myRoot = new Group();
-		addDrumpfImage(myRoot);
-		Scene myScene = new Scene(myRoot, width, height, Color.WHITE);
-		return myScene;
-	}
-
 	public GameObject createGameObject() {
 		return new GameObject();
 	}
 
-	public void setGameObjectWithFrontEndInfo(FrontEndGameAuthorizationEnvironment mockData) {
+	public GameObject setGameObjectWithFrontEndInfo(FrontEndGameAuthoringEnvironment mockData) {
 		trumpGame = new GameObject();
 		trumpGame.initializeGameObject(mockData.modesWanted, mockData.levelsWanted);
-		// can add extra layer iterating through each level so we add entity to the right level
+		// can add extra layer iterating through each level so we add entity to
+		// the right level
 		// assuming we only want to add to level one right now
 		for (int eachSprite = 0; eachSprite < mockData.level1SpritesComponentWanted.length; eachSprite++) {
 			Entity entity = entityFactory.makeEntity(trumpGame, mockData.level1SpritesComponentWanted[eachSprite]);
@@ -69,6 +50,7 @@ public class GameAuthenticationEnvironment {
 					.get(trumpGame.getGameStats().getCurrentLevel()).addToEntities(entity);
 		}
 		trumpGame.printWhatIHave();
+		return trumpGame;
 	}
 
 }

@@ -1,9 +1,9 @@
 package backend;
 
-public class DisplayComponent implements Component{
+public class DisplayComponent implements Component {
 
 	public DisplayComponent() {
-		
+
 	}
 
 }
