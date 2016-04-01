@@ -9,7 +9,7 @@ public class GameObject {
 	private GameStatisticsObject gameStats;
 
 	public GameObject() {
-		this.gameStats = new GameStatisticsObject(this);
+		this.gameStats = new GameStatisticsObject();
 		this.modes = new ArrayList<Mode>();
 	}
 
