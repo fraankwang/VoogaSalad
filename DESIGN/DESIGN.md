@@ -21,28 +21,28 @@ The primary architecture of the design is very open between the two backend comp
 	* Game Authoring Environment
 		* The authoring environment is primarily structured as a group of tabs that the user can switch between. There is a menu bar that the user can access at any time if they wish to save or load an authoring environment, to open any editors, or if they wish to open a help page. The tabs include Game, Mode, Levels, Towers, and Enemies. Another tab for grid pieces may be added depending on group preference for whether we want to make that an editable aspect of the game.
 		* The game tab consists of a simple collection of dropdown menus and text input areas for the user to select rules that apply throughout the entire game. This would include things like the base number of lives (if applicable), winning and losing conditions, number of players (if applicable), how resources are obtained, and how score is calculated. At a conspicuous part of the tab will be a save button that locks in all the information set by the user and updates the backend.
-			* ![main screen](Main-Screen.jpg "Main Screen with Game Tab view")
+			* ![main screen](design_images/Main-Screen.jpg "Main Screen with Game Tab view")
 		* The modes tab is set up in four quadrants. 
 			* The top left quadrant consists of a brief summary of game rules at the top, a grid, and options to change the number of columns in the grid. Each of the grid squares will contain either a photo or a name of a mode, and the final element in the grid that isn’t empty will be an “add mode” button. This grid will automatically expand itself and the user will be able to scroll down if multiple modes are created. 
 			* The top right quadrant consists of an expandable list (that the user can scroll through) that lists all the created rules for the mode the user selects. If no mode is selected, then no rules are displayed. The rules each have an option to edit or delete.
 			* The bottom left quadrant is a rule editor. This is split into a left half and a right half. The left half contains the “if” conditions, along with a button for adding additional conditions. Another expandable list (that the user can scroll through) of statements displays all the if conditions for that specific rule. The right half is mirrored, except with actions instead of if conditions. At the very right of this quadrant is the option to save or cancel the rule.
 			* The bottom right quadrant is simply a collection of large buttons (save, duplicate, or cancel button) which locks in the information for the rules created for each mode.
-			* ![Modes](Modes Tab.jpg "Modes-Tab view")
+			* ![Modes](design_images/Modes-Tab.jpg "Modes-Tab view")
 		* The Levels tab is constructed in a very similar manner to the Modes tab. 
 			* Inside this tab is another set of tabs, one corresponding to each of the modes created by the user. 
 				* Instead of the left having a top and bottom half, however, the entire left half is just a quick summary of the mode rules at the top, an option to change the number of columns, and a grid displaying all the levels with the number of the level in the middle of each square. 
 				* The top right half contains a collapsible panel for enemies, towers, grid pieces, and rules. Each of the collapsible sub-panels displays the level-specific objects that are created by the user. Each of these sub-panels has an edit option upon right-clicking each element in the list of enemies/towers/grid pieces and a button at the bottom of the sub-panel that allows the user to create additional game pieces. Pressing the create additional game pieces button will pop up the corresponding editor window, which is described later. 
 				* The bottom right contains buttons that affect the level selected (the buttons do nothing if no level is selected). These options include delete level, duplicate level, and cancel or save level.
-			* ![Levels](Levels Tab.jpg "Levels-Tab view")
+			* ![Levels](design_images/Levels-Tab.jpg "Levels-Tab view")
 		* The Enemies and Towers tab are also constructed similarly, though the two differ slightly from the Levels and Modes tabs (while being nearly identical to each other).
 			* The left half looks exactly like the Levels tab, except with photos and names of enemies/towers instead of the level number.
 			* The top right contains game object-specific attribute information, for example HP/armor type/speed for enemies or attack range/attack speed/damage for towers. These are displayed in rows, with no user option for adding additional attributes. At the bottom part of the top right quadrant is an expandable list (that the user can scroll through) for rules that apply to only the game object (for example, enemy type could speed up if hit points falls below a certain amount). At the bottom of the top right quadrant is a large button that allows the user to edit the enemy/tower, which pops up the corresponding editor.
 			* The bottom right looks identical to the bottom right of the levels tab, with a save/cancel/duplicate/delete option for the game object selected. 
-			* ![Enemies/Towers](Enemies-Towers-Tab.jpg "Enemies and Towers Tab view")
+			* ![Enemies/Towers](design_images/Enemies-Towers-Tab.jpg "Enemies and Towers Tab view")
 		* There are also editor panels which pop out (and are separate from the main scene that the tabs are on). The user can navigate to the TowerEditor, LevelEditor, or EnemyEditor directly from the menubar, which would pop up a blank editor. Selecting the edit option directly from the main tab window would pop up an editor that is already populated with the created attributes. The editors are also divided into quadrants and look very similar to the existing views. 
 			* The left side is split into two halves again, with the top left being primarily composed of the tower/enemy image, along with an upload image button. The bottom left contains a rule editor panel that looks identical to the rule editor panel in the Modes tab. 
 			* The top right contains enemy/tower specific attribute information that the user can change directly (as opposed to the Enemy/Tower tab views, which do not allow direct editing). The bottom right contains the same options that the enemies/towers/levels tabs have: save, delete, duplicate, or cancel.
-			* ![Editor Pop Up](Editor-Pop-Up.jpg "Editor Pop Up Panel")
+			* ![Editor Pop Up](design_images/Editor-Pop-Up.jpg "Editor Pop Up Panel")
 	* Game Player
 		* The Game Player is intended to graphically display the state of the game that is both stored and executed by the game engine. 
 		* In order to provide for later extensibility to the player, displays are to be segmented into objects called panes each of which can hold multiple graphical nodes. Each display can be defined to have a given size and location with respect to the window in which the program is executing  
@@ -70,7 +70,7 @@ The primary architecture of the design is very open between the two backend comp
 			* New Game
 			* Load Game
 			* Save Game
-			* ![Game Player Mock Up](Game-Player-Mock-Up.png "Game Player Mock Up")
+			* ![Game Player Mock Up](design_images/Game-Player-Mock-Up.png "Game Player Mock Up")
 
 #Design Details 
 * This section describes each module introduced in the Overview in detail (as well as any other sub-modules that may be needed but are not significant to include in a high-level description of the program). Describe how each module handles specific features given in the assignment specification, what resources it might use, how it collaborates with other modules, and how each could be extended to include additional requirements (from the assignment specification or discussed by your team). Note, each sub-team should have its own API for others in the overall team or for new team members to write extensions. Finally, justify the decision to create each module with respect to the design's key goals, principles, and abstractions.
@@ -83,9 +83,9 @@ The primary architecture of the design is very open between the two backend comp
 		* System
 			* Systems run your game's logic. They take in entities and run operations on entities that have specific components the system requires. For example, if we have a Movement System, it would only look for Entities that have both a Position Component and a Velocity Component, and the Movement system would update those components accordingly. 	
 		* Here is a diagram of how the Entities and Components will be structured:
-			* ![Entities Components](Entities-Components-Diagram.png "Entities and Components Diagram")
+			* ![Entities Components](design_images/Entities-Components-Diagram.png "Entities and Components Diagram")
 		* So in our design, an actual Game object will be structured as follows:
-			* ![Game Object](Game-Object-Structure.png "Game Object Structure")
+			* ![Game Object](design_images/Game-Object-Structure.png "Game Object Structure")
 		* Sprite creation
 			* This will occur through use of abstract factory design. Sprite is composed of different components. Calling a factory class for a sprite is going to call all of the necessary factory classes for each component.
 			* Our Engine class will essentially have one method called step(), which will iterate through all the different Systems and apply them to our Game object. This is how the Game will progress. 
