@@ -1,7 +1,7 @@
 package simulation;
 
-import backend.FrontEndGameAuthorizationEnvironment;
-import backend.GameAuthenticationEnvironment;
+import backend.FrontEndGameAuthoringEnvironment;
+import backend.GameAuthoringEnvironment;
 import backend.GameObject;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -16,24 +16,21 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	private static final int SIZE = 600;
-	private GameAuthenticationEnvironment bae;
-
+	private MasterController master;
+	
 	public Main() {
+		master = new MasterController();
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Simulation");
-		bae = new GameAuthenticationEnvironment();
-		Scene scene = bae.init(primaryStage, SIZE, SIZE);
+		Scene scene = master.init(primaryStage);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		bae.setGameObjectWithFrontEndInfo(new FrontEndGameAuthorizationEnvironment());
-
 		// setup game's loop
-		KeyFrame frame = bae.startGameLoop(NUM_FRAMES_PER_SECOND);
+		KeyFrame frame = master.startGameLoop(NUM_FRAMES_PER_SECOND);
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FrontEndGameAuthorizationEnvironment {
+public class FrontEndGameAuthoringEnvironment {
 
 	public int modesWanted;
 	public int levelsWanted;
 	public int entitiesWanted;
 	public String[][] level1SpritesComponentWanted;
 
-	public FrontEndGameAuthorizationEnvironment() {
+	public FrontEndGameAuthoringEnvironment() {
 		initMockData();
 	}
 
@@ -23,8 +23,7 @@ public class FrontEndGameAuthorizationEnvironment {
 		entitiesWanted = 2;
 		// also pretend that she also wants a list of things she wants one
 		// sprite to be able to do
-		// outside list represents level 1, inside list is components for one
-		// sprite
+		// outside list represents level 1, inside list is components for one sprite
 		String[][] mock = { { "Display" }, { "Display" } };
 		level1SpritesComponentWanted = mock;
 	}

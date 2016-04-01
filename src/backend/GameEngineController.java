@@ -3,9 +3,9 @@ package backend;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
-public class GameBackendController {
+public class GameEngineController {
 
-	public GameBackendController() {
+	public GameEngineController() {
 		// TODO Auto-generated constructor stub
 	}
 
