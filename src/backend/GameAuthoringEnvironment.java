@@ -6,6 +6,8 @@
 
 package backend;
 
+import backend.game_object.entities.Entity;
+import backend.game_object.entities.EntityFactoryClass;
 import backend.systems.SystemsController;
 import javafx.animation.KeyFrame;
 import javafx.scene.Group;
