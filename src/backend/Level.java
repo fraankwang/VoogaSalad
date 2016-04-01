@@ -3,6 +3,11 @@ package backend;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
 public class Level {
 
 	private List<Entity> entities;
@@ -17,8 +22,7 @@ public class Level {
 
 	@Override
 	public String toString() {
-		return "Level [entities=" + entities + "] ";// +
-													// entities.get(0).toString();
+		return "Level [entities=" + entities + "] ";
 	}
 
 	public void addToEntities(Entity entity) {

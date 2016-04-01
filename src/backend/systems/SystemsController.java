@@ -1,7 +1,9 @@
-package backend;
+package backend.systems;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import backend.GameObject;
 
 public class SystemsController {
 

@@ -1,5 +1,6 @@
 package backend;
 
+import backend.systems.SystemsController;
 import javafx.animation.KeyFrame;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,6 +10,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
 public class GameAuthoringEnvironment {
 
 	SystemsController systems;

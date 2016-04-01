@@ -3,6 +3,11 @@ package backend;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
 public class GameEngineController {
 
 	public GameEngineController() {
