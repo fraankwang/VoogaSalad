@@ -1,5 +1,7 @@
 package backend;
 
+import backend.game_object.entities.Entity;
+import backend.game_object.entities.EntityFactoryClass;
 import javafx.animation.KeyFrame;
 import javafx.scene.Group;
 import javafx.scene.Scene;

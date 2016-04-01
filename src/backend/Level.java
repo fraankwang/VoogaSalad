@@ -3,6 +3,8 @@ package backend;
 import java.util.ArrayList;
 import java.util.List;
 
+import backend.game_object.entities.Entity;
+
 public class Level {
 
 	private List<Entity> entities;

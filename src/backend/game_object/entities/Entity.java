@@ -1,7 +1,9 @@
-package backend;
+package backend.game_object.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import backend.game_object.components.Component;
 
 public class Entity {
 
