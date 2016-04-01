@@ -2,15 +2,13 @@ package backend;
 
 public class GameStatisticsObject {
 
-	private GameObject myCurrGame;
 	private int currentMode = 0;
 	private int currentLevel = 0;
 	private int numOfLevels = 0;
 	private int numOfModes = 0;
 	private int nextAvailableID = 0;
 	
-	public GameStatisticsObject(GameObject currGame) {
-		this.myCurrGame = currGame;
+	public GameStatisticsObject() {
 	}
 	
 	public void nextLevel(){
