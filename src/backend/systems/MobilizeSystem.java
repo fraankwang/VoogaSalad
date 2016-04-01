@@ -12,7 +12,10 @@ public class MobilizeSystem implements Systems {
 
 	@Override
 	public void update(List<Entity> entities) {
-		// TODO Auto-generated method stub
+		
+		//do rotations first
+		
+		//do movements next
 		
 	}
 	
