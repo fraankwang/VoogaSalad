@@ -18,14 +18,14 @@ public class GameObject {
 		while (iteration < numOfMode) {
 			Mode mode1 = new Mode();
 			addMode(mode1);
-			for(int i = 0; iteration<numOfLevels; iteration++){
+			for (int i = 0; iteration < numOfLevels; iteration++) {
 				addNewLevelToCurrentMode(mode1);
 			}
 			iteration++;
 		}
 	}
-	
-	public GameStatisticsObject getGameStats(){
+
+	public GameStatisticsObject getGameStats() {
 		return gameStats;
 	}
 
@@ -39,7 +39,7 @@ public class GameObject {
 		mode.addToLevelsList(level1);
 		gameStats.incrementNumLevels();
 	}
-	
+
 	/**
 	 * Returns all possible types of modes
 	 * 

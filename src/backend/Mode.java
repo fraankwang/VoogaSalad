@@ -5,17 +5,17 @@ import java.util.List;
 
 public class Mode {
 
-	private List<Level> levels= null;
-	
+	private List<Level> levels = null;
+
 	public Mode() {
 		levels = new ArrayList<Level>();
 	}
-	
-	public List<Level> getLevels(){
+
+	public List<Level> getLevels() {
 		return levels;
 	}
-	
-	public void addToLevelsList(Level level){
+
+	public void addToLevelsList(Level level) {
 		levels.add(level);
 	}
 
@@ -23,5 +23,5 @@ public class Mode {
 	public String toString() {
 		return "Mode [levels=" + levels + "]";
 	}
-	
+
 }
