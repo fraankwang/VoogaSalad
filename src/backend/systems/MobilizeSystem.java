@@ -19,6 +19,10 @@ public class MobilizeSystem implements Systems {
 		
 	}
 	
+	public void updateRotations(List<Entity> entities){
+		
+	}
+	
 	
 
 }
