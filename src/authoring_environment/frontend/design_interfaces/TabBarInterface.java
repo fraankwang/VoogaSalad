@@ -1,20 +1,16 @@
 package authoring_environment.frontend.design_interfaces;
 
-/**
- * This interface will allow other components in the UI to have access to the
- * different tab options, including Game, Modes, Levels, Enemies, and Towers.
- * @author benchesnut
- *
- */
 public interface TabBarInterface extends AuthoringDisplayElement {
 
-	PanelInterface getGamePanel();
+	void show(DisplayInterface display);
 	
-	PanelInterface getModesPanel();
+	DisplayInterface getGameDisplay();
 	
-	PanelInterface getLevelsPanel();
+	DisplayInterface getModesDisplay();
 	
-	PanelInterface getTowersPanel();
+	DisplayInterface getLevelsDisplay();
 	
-	PanelInterface getEnemiesPanel();
+	DisplayInterface getTowersDisplay();
+	
+	DisplayInterface getEnemiesDisplay();
 }

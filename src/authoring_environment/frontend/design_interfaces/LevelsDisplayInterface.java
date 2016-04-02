@@ -1,5 +1,5 @@
 package authoring_environment.frontend.design_interfaces;
 
-public interface ModesPanelInterface {
+public interface LevelsDisplayInterface {
 
 }
