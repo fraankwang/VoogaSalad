@@ -1,18 +1,12 @@
 package backend.game_object.components;
 
-public class DisplayComponent implements Component {
+public class DisplayComponent extends Component {
 	
-	private String tag = "Display";
 	private boolean canBeShown;
 	
-	public DisplayComponent() {
-		this.canBeShown = true;
-	}
-
-	@Override
-	public String getTag() {
-		// TODO Auto-generated method stub
-		return tag;
+	public DisplayComponent(boolean shown) {
+		this.canBeShown = shown;
+		tag = "Display";
 	}
 	
 	public boolean shouldBeShown(){

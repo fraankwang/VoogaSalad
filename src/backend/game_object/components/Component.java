@@ -1,7 +1,11 @@
 package backend.game_object.components;
 
-public interface Component {
+public abstract class Component {
 	
-	public String getTag();
+	protected String tag = "Blank";
+	
+	public String getTag(){
+		return tag;
+	}
 	
 }
