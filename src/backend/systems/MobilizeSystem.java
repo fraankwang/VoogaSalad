@@ -23,7 +23,11 @@ public class MobilizeSystem extends Systems {
 		
 	}
 	
-	public void updateRotations(List<Entity> entities){
+	public void updateRotations(List<Entity> rotatableEntities){
+		
+	}
+	
+	public void updateMovements(List<Entity> movableEntities){
 		
 	}
 	
