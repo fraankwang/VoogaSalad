@@ -2,10 +2,15 @@ package backend.systems;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import backend.game_object.entities.Entity;
 
 public abstract class Systems {
+	
+	private static final String DEFAULT_RESOURCE_PACKAGE = "backend/resources/";
+	private ResourceBundle myActionRequirementsResources;
+	myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
 	
 	public void update(List<Entity> entities){
 		

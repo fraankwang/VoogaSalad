@@ -3,14 +3,9 @@ package backend;
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.EntityFactoryClass;
 import backend.systems.SystemsController;
-import javafx.animation.KeyFrame;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * 
