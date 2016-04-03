@@ -6,13 +6,9 @@ import java.util.List;
 import backend.game_object.entities.Entity;
 
 public class MobilizeSystem extends Systems {
-
-	private List<String> rotationComponents = new ArrayList<String>();
-	private List<String> movementComponents = new ArrayList<String>();
 	
 	public MobilizeSystem() {
 		// TODO Auto-generated constructor stub
-		rotationComponents.add("Direction");
 		
 	}
 
