@@ -1,4 +1,6 @@
-package authoring_environment.frontend.design_interfaces;
+package authoring_environment.frontend.design_interfaces.display;
+
+import authoring_environment.frontend.design_interfaces.AuthoringDisplayElement;
 
 public interface TabBarInterface extends AuthoringDisplayElement {
 
