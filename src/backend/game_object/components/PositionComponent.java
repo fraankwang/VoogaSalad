@@ -8,9 +8,11 @@ public class PositionComponent extends Component{
 	
 	private double myCoordX;
 	private double myCoordY;
+	private Vector myPositionVector;
 	
 	public PositionComponent(double x, double y) {
 		// TODO Auto-generated constructor stub
+		myPositionVector = new Vector(x, y);
 		myCoordX = x;
 		myCoordY = y;
 		tag = "Position";
