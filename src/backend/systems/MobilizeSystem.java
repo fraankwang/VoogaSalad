@@ -27,12 +27,19 @@ public class MobilizeSystem extends Systems {
 		for(Entity entity : movableEntities){
 			
 			MovementComponent movComponent = (MovementComponent) entity.getComponent("Movement");
-			movComponent.
+			PositionComponent posComponent = (PositionComponent) entity.getComponent("Position");
+			
 			if(movComponent.canMove()){
 				//do movement
+				Vector posVector = posComponent.getPositionVector();
+				Vector velVector = movComponent.getVelocityVector();
+				posVector.add(velVector);
 			}
 			if(movComponent.canRotate()){
 				//do rotation
+				double theta = movComponent.getTheta();
+				double angle = movComponent.getAngle();
+				movComponent.setTheta(theta+angle);
 			}
 			
 		}

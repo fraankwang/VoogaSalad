@@ -12,7 +12,7 @@ public class PositionComponent extends Component{
 	
 	public PositionComponent(double x, double y) {
 		// TODO Auto-generated constructor stub
-		myPositionVector = new Vector(x, y);
+		setPositionVector(new Vector(x, y));
 		myCoordX = x;
 		myCoordY = y;
 		tag = "Position";
@@ -26,6 +26,19 @@ public class PositionComponent extends Component{
 	public void setPosition(double x, double y){
 		myCoordX = x;
 		myCoordY = y;
+	}
+	
+	@Override
+	public void update(){
+		
+	}
+
+	public Vector getPositionVector() {
+		return myPositionVector;
+	}
+
+	public void setPositionVector(Vector myPositionVector) {
+		this.myPositionVector = myPositionVector;
 	}
 
 }

@@ -29,7 +29,11 @@ public class MovementComponent extends Component{
 	public double getTheta(){
 		return myTheta;
 	}
-
+	
+	public void setTheta(double theta){
+		myTheta = theta;
+	}
+	
 	public double getAngle() {
 		return myAngle;
 	}
