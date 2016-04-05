@@ -4,26 +4,31 @@ public class MovementComponent extends Component{
 	
 	//private double myVelocity;
 	//private double myAcceleration;
-	private Vector myVelocityVector;
+	private Vector myCurrentVelocityVector;
+	private Vector myDefaultVelocityVector;
 	private double myTheta;
 	
+	//figure out direction of velocity;
 	
 	//this is the angle to rotate myTheta by
-	private double myAngle;
+	private double myCurrentOmega;
+	private double myInitialOmega;
 	
 	private boolean canMove;
 	private boolean canRotate;
 	
-	public MovementComponent(double velocity, double angle) {
+	public MovementComponent(double velocity, double theta, double omega) {
 		// TODO Auto-generated constructor stub
-		myVelocityVector = new Vector(velocity, 0);
-		setAngle(angle);
+		myCurrentVelocityVector = new Vector(velocity, 0);
+		myDefaultVelocityVector = new Vector(velocity, 0);
+		myTheta = theta;
+		myCurrentOmega = omega;
 		//myVelocity = velocity;
 		//myAcceleration = acceleration;
 	}
 	
-	public Vector getVelocityVector(){
-		return myVelocityVector;
+	public Vector getCurrentVelocityVector(){
+		return myCurrentVelocityVector;
 	}
 	
 	public double getTheta(){
@@ -34,12 +39,12 @@ public class MovementComponent extends Component{
 		myTheta = theta;
 	}
 	
-	public double getAngle() {
-		return myAngle;
+	public double getCurrentOmega() {
+		return myCurrentOmega;
 	}
 
-	public void setAngle(double myAngle) {
-		this.myAngle = myAngle;
+	public void setOmega(double omega) {
+		this.myCurrentOmega = omega;
 	}
 	
 	public boolean canMove(){

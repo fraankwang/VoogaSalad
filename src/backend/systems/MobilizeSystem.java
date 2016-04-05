@@ -15,9 +15,12 @@ public class MobilizeSystem extends Systems {
 		
 	}
 	
+	//Bézier curve
+	
 	//THINGS TO DO
 	//Check for boundaries
 	//Check for rules
+	//Make default velocity vector
 	
 	@Override
 	public void update(List<Entity> entities) {
@@ -29,18 +32,16 @@ public class MobilizeSystem extends Systems {
 			MovementComponent movComponent = (MovementComponent) entity.getComponent("Movement");
 			PositionComponent posComponent = (PositionComponent) entity.getComponent("Position");
 			
-			if(movComponent.canMove()){
-				//do movement
-				Vector posVector = posComponent.getPositionVector();
-				Vector velVector = movComponent.getVelocityVector();
-				posVector.add(velVector);
-			}
-			if(movComponent.canRotate()){
-				//do rotation
-				double theta = movComponent.getTheta();
-				double angle = movComponent.getAngle();
-				movComponent.setTheta(theta+angle);
-			}
+			//do movement
+			Vector posVector = posComponent.getPositionVector();
+			Vector velVector = movComponent.getCurrentVelocityVector();
+			posVector.add(velVector);
+			
+			//do rotation
+			double theta = movComponent.getTheta();
+			double omega = movComponent.getOmega();
+			movComponent.setTheta(theta+omega);
+			
 			
 		}
 
