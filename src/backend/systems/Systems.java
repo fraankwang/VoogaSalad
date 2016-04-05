@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author mario_oliver93
+ * 
+ */
 package backend.systems;
 
 import java.util.ArrayList;
@@ -10,16 +15,15 @@ public abstract class Systems {
 	
 	private static final String DEFAULT_RESOURCE_PACKAGE = "backend/resources/";
 	private ResourceBundle myActionRequirementsResources;
-	myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
 	
 	public void update(List<Entity> entities){
-		
+		myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
 	}
 	
 	//for filter list for desired entities
 	public List<Entity> filter(List<Entity> entities, List<String> requiredComponents){
 		
-		List<Entity> filteredEntities = new ArrayList<Entity>();
+		List<Entity> filteredEntities = new ArrayList<Entity>(); 
 		
 		for(Entity entity : entities){
 			

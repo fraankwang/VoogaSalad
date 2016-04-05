@@ -9,6 +9,7 @@ package backend;
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.EntityFactoryClass;
 import backend.systems.SystemsController;
+import exception.DrumpfTowerException;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,8 +43,8 @@ public class GameAuthoringEnvironment {
 		return new GameObject();
 	}
 
-	public GameObject setGameObjectWithFrontEndInfo(FrontEndGameAuthoringEnvironment mockData) {
-		trumpGame = new GameObject();
+	public GameObject setGameObjectWithMockData(FrontEndGameAuthoringEnvironment mockData) throws DrumpfTowerException {
+		trumpGame = createGameObject();
 		trumpGame.initializeGameObject(mockData.modesWanted, mockData.levelsWanted);
 		// can add extra layer iterating through each level so we add entity to
 		// the right level

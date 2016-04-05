@@ -1,9 +1,15 @@
-package simulation;
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
+package gamecontroller;
 
 import backend.FrontEndGameAuthoringEnvironment;
 import backend.GameAuthoringEnvironment;
 import backend.GameObject;
 import backend.systems.SystemsController;
+import exception.DrumpfTowerException;
 import javafx.animation.KeyFrame;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,12 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
-/**
- * 
- * @author mario_oliver93
- *
- */
 public class MasterController {
 
 	private static final int SIZE = 600;
@@ -28,7 +28,12 @@ public class MasterController {
 		systems = new SystemsController();
 		bae = new GameAuthoringEnvironment();
 		//creates a game object
-		trumpGame = bae.setGameObjectWithFrontEndInfo(new FrontEndGameAuthoringEnvironment());
+		try {
+			trumpGame = bae.setGameObjectWithMockData(new FrontEndGameAuthoringEnvironment());
+		} catch (DrumpfTowerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Scene init(Stage primaryStage) {
