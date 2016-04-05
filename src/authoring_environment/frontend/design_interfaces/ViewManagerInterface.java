@@ -1,7 +1,8 @@
 package authoring_environment.frontend.design_interfaces;
 
-import javafx.scene.Scene;
+import authoring_environment.frontend.design_interfaces.display.TabBarInterface;
 import javafx.scene.control.MenuBar;
+import javafx.stage.Stage;
 
 /**
  * This interface will allow other components in the UI to have access to the
@@ -11,7 +12,7 @@ import javafx.scene.control.MenuBar;
  */
 public interface ViewManagerInterface {
 
-	Scene initializeScene();
+	void initialize(Stage s);
 	
 	MenuBar getMenuBar();
 	
