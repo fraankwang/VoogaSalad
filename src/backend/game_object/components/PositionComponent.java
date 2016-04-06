@@ -10,6 +10,7 @@ public class PositionComponent extends Component{
 	private double myCoordY;
 	private Vector myPositionVector;
 	
+	
 	public PositionComponent(double x, double y) {
 		// TODO Auto-generated constructor stub
 		setPositionVector(new Vector(x, y));

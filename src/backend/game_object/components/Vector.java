@@ -21,6 +21,20 @@ public class Vector {
 		myYComponent += v.getY();
 	}
 	
+	public void scale(double s){
+		myXComponent *= s;
+		myYComponent *= s;
+	}
+	
+	//calculate distance between this and vector v
+	public double calculateDistance(Vector v){
+		double xDistance = myXComponent - v.getX();
+		double yDistance = myYComponent - v.getY();
+		
+		return Math.sqrt(xDistance*xDistance + yDistance*yDistance);
+		
+	}
+	
 	public double getX(){
 		return myXComponent;
 	}

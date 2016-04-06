@@ -1,5 +1,9 @@
 package backend.systems;
 
+/**
+ * author raghavkedia
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +43,7 @@ public class MobilizeSystem extends Systems {
 			
 			//do rotation
 			double theta = movComponent.getTheta();
-			double omega = movComponent.getOmega();
+			double omega = movComponent.getCurrentOmega();
 			movComponent.setTheta(theta+omega);
 			
 			
