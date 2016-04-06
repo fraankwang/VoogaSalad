@@ -3,21 +3,27 @@ package authoring_environment.controller;
 import java.util.Map;
 
 import authoring_environment.frontend.ViewManager;
-import authoring_environment.frontend.design_interfaces.ViewManagerInterface;
+import authoring_environment.frontend.interfaces.IViewManager;
 import javafx.stage.Stage;
 
-public class Controller implements ControllerInterface {
+/**
+ * 
+ * @author Frank, benchesnut
+ *
+ */
 
-	Stage stage;
-	ViewManagerInterface view;
+public class Controller implements IController {
+
+	private Stage myPrimaryStage;
+	private IViewManager myViewManager;
 	
 	public Controller(Stage s) {
-		stage = s;
-		view = new ViewManager(this);
+		myPrimaryStage = s;
+		myViewManager = new ViewManager(this);
 	}
 	
 	protected void start() {
-		view.initialize(stage);
+		myViewManager.initialize(myPrimaryStage);
 	}
 
 	@Override

@@ -3,6 +3,12 @@ package authoring_environment.controller;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Frank, benchesnut
+ *
+ */
+
 public class Main extends Application {
     
 	/**

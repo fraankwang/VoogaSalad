@@ -1,8 +1,11 @@
 package authoring_environment.frontend;
 
-import authoring_environment.controller.ControllerInterface;
-import authoring_environment.frontend.design_interfaces.display.TabBarInterface;
-import authoring_environment.frontend.design_interfaces.ViewManagerInterface;
+import authoring_environment.controller.IController;
+import authoring_environment.frontend.display_elements.MenuBarElement;
+import authoring_environment.frontend.display_elements.TabBarElement;
+import authoring_environment.frontend.interfaces.IViewManager;
+import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElements.IMenuBarElement;
+import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElements.ITabBarElement;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -10,44 +13,47 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class ViewManager implements ViewManagerInterface {
+/**
+ * The ViewManager is responsible for initializing the stage, the scene, and the
+ * BorderPane that contains the two primary UI elements: the MenuBarElement and
+ * the TabBarElement. 
+ * 
+ * @author Frank, benchesnut
+ *
+ */
 
-	private MenuBar menuBar;
-	private TabBarInterface tabBar;
-	private ControllerInterface controller;
-	
-	public ViewManager(ControllerInterface c) {
-		controller = c;
+public class ViewManager implements IViewManager {
+
+	private IMenuBarElement myMenuBar;
+	private ITabBarElement myTabBar;
+	private IController myController;
+
+	public ViewManager(IController controller) {
+		myController = controller;
 	}
-	
+
 	@Override
 	public void initialize(Stage s) {
-		createMenuBar();
-		tabBar = new TabBar();
+		myMenuBar = new MenuBarElement();
+		myTabBar = new TabBarElement();
+
 		BorderPane borderPane = new BorderPane();
-		borderPane.setTop(menuBar);
-		borderPane.setCenter(tabBar.buildNode());
+		borderPane.setTop(myMenuBar.buildNode());
+		borderPane.setCenter(myTabBar.buildNode());
+
 		Scene scene = new Scene(borderPane, 1200, 800, Color.WHITE);
 		s.setScene(scene);
 		s.show();
 	}
 
-	public void createMenuBar() {
-		menuBar = new MenuBar();
-		Menu file = new Menu("File");
-		Menu create = new Menu("Create");
-		Menu help = new Menu("Help");
-		menuBar.getMenus().addAll(file, create, help);
-	}
-	
 	@Override
-	public MenuBar getMenuBar() {
-		return menuBar;
+	public IMenuBarElement getMenuBarElement() {
+		return myMenuBar;
 	}
 
 	@Override
-	public TabBarInterface getTabBar() {
-		return tabBar;
+	public ITabBarElement getTabBarElement() {
+		return myTabBar;
 	}
 
 }
