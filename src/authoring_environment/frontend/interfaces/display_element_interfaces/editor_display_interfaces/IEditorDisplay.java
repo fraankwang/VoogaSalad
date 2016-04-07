@@ -18,5 +18,5 @@ public interface IEditorDisplay extends IDisplayElement {
 	 * @param oldEntity
 	 * @return newEntity
 	 */
-	IDisplayEntity edit(IDisplayEntity oldEntity);
+	public IDisplayEntity edit(IDisplayEntity oldEntity);
 }
