@@ -13,7 +13,6 @@ public class FrontEndAccessController implements IFrontEndAccess {
 	}
 	
 	public void createCharacter(double xCoord, double yCoord, String image){
-		System.out.println("enter here");
 		ImageView myPlayer = new ImageView(new Image(getClass().getResourceAsStream(image)));
 		myPlayer.setFitWidth(80);
 		myPlayer.setFitHeight(100);

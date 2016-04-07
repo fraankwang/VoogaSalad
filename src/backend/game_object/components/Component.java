@@ -8,4 +8,8 @@ public abstract class Component {
 		return tag;
 	}
 	
+	public void update(){
+		
+	}
+	
 }

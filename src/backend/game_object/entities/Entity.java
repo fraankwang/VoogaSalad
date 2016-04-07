@@ -18,6 +18,15 @@ public class Entity {
 	public void addComponent(Component component) {
 		myComponents.add(component);
 	}
+	
+	public Component getComponent(String tag){
+		for(Component component : myComponents){
+			if(component.getTag().equals(tag)){
+				return component;
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public String toString() {

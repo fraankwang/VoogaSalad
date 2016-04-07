@@ -17,7 +17,7 @@ public abstract class Systems {
 	
 	private static final String DEFAULT_RESOURCE_PACKAGE = "backend/resources/";
 	private ResourceBundle myActionRequirementsResources;
-	
+
 	public void update(List<Entity> entities){
 		myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
 	}

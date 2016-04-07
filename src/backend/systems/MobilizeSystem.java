@@ -1,33 +1,61 @@
 package backend.systems;
 
+/**
+ * author raghavkedia
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
+import backend.game_object.components.Component;
+import backend.game_object.components.MovementComponent;
+import backend.game_object.components.*;
 import backend.game_object.entities.Entity;
 
 public class MobilizeSystem extends Systems {
-
-	private List<String> rotationComponents = new ArrayList<String>();
-	private List<String> movementComponents = new ArrayList<String>();
 	
 	public MobilizeSystem() {
 		// TODO Auto-generated constructor stub
-		rotationComponents.add("Direction");
-		
-	}
-
-	@Override
-	public void update(List<Entity> entities) {
-		
-		//do rotations first
-
-		List<Entity> rotatableEntities = filter(entities, )
-		
-		//do movements next
 		
 	}
 	
-	public void updateRotations(List<Entity> entities){
+	//Bézier curve
+	
+	//THINGS TO DO
+	//Check for boundaries
+	//Check for rules
+	//Make default velocity vector
+	
+	@Override
+	public void update(List<Entity> entities) {
+
+		List<Entity> movableEntities = filter(entities, );
+		
+		for(Entity entity : movableEntities){
+			
+			MovementComponent movComponent = (MovementComponent) entity.getComponent("Movement");
+			PositionComponent posComponent = (PositionComponent) entity.getComponent("Position");
+			
+			//do movement
+			Vector posVector = posComponent.getPositionVector();
+			Vector velVector = movComponent.getCurrentVelocityVector();
+			posVector.add(velVector);
+			
+			//do rotation
+			double theta = movComponent.getTheta();
+			double omega = movComponent.getCurrentOmega();
+			movComponent.setTheta(theta+omega);
+			
+			
+		}
+
+	}
+	
+	public void updateRotations(List<Entity> rotatableEntities){
+		
+	}
+	
+	public void updateMovements(List<Entity> movableEntities){
 		
 	}
 	

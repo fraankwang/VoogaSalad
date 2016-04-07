@@ -2,8 +2,8 @@ package exception;
 
 public class ResourceLoader extends FileLoader{
 
-    private static final String RESOURCE_PATH = "resources/";
-    private static final String RESOURCE_EXTENSION = "slogo_resources.resources";
+    private static final String RESOURCE_PATH = "resources";
+    private static final String RESOURCE_EXTENSION = "error.properties";
     private static final String NON_MATCH_MESSAGE = "Non-match exists in resource file";
 
     /**

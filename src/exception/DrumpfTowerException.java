@@ -59,6 +59,7 @@ public class DrumpfTowerException extends Exception {
 	        alert.getDialogPane().getButtonTypes().add(buttonTypeOk);
 
 	        DialogPane dialogPane = alert.getDialogPane();
+	        //Add a css file to make the dialog box look good
 //	        dialogPane.getStylesheets().add(getClass().getResource("myDialog.css")
 //	                                                            .toExternalForm());
 	        dialogPane.getStyleClass().add("myDialog");
