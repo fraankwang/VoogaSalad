@@ -17,6 +17,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 /**
+ * The TabBar element is a main UI component that contains and creates all the
+ * game-related tabs. If the game must be changed to incorporate or remove
+ * components, the TabBar's TabPane is modified within this class, as each of
+ * the Tab's contents are set to their respective TabDisplay's Node.
  * 
  * @author Frank, benchesnut
  *
