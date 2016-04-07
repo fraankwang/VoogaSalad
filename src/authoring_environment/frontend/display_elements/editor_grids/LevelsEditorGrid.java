@@ -1,6 +1,6 @@
-package authoring_environment.frontend.display_elements.tab_grids;
+package authoring_environment.frontend.display_elements.editor_grids;
 
-import authoring_environment.frontend.interfaces.display_element_interfaces.IGrids.ITabGrids.ITowersTabGrid;
+import authoring_environment.frontend.interfaces.display_element_interfaces.IGrids.IEditorGrids.ILevelsEditorGrid;
 import javafx.scene.Node;
 
 /**
@@ -9,30 +9,36 @@ import javafx.scene.Node;
  *
  */
 
-public class TowersTabGrid implements ITowersTabGrid {
+public class LevelsEditorGrid implements ILevelsEditorGrid {
 
 	@Override
-	public void createPrimaryDisplay() {
+	public void createRulesPanel() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void createAttributesPanel() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void createLeftSubGrid() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void createRightSubGrid() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void createButtonDashboard() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

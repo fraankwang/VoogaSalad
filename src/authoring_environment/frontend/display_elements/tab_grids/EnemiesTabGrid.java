@@ -1,6 +1,6 @@
 package authoring_environment.frontend.display_elements.tab_grids;
 
-import authoring_environment.frontend.interfaces.display_element_interfaces.tab_element_interfaces.ITabGrids.IEnemiesTabGrid;
+import authoring_environment.frontend.interfaces.display_element_interfaces.IGrids.ITabGrids.IEnemiesTabGrid;
 import javafx.scene.Node;
 
 /**
@@ -12,9 +12,35 @@ import javafx.scene.Node;
 public class EnemiesTabGrid implements IEnemiesTabGrid {
 
 	@Override
+	public void createPrimaryDisplay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createLeftSubGrid() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createRightSubGrid() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createButtonDashboard() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public Node buildNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
