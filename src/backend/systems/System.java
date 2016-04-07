@@ -6,11 +6,9 @@ import java.util.ResourceBundle;
 
 import backend.game_object.entities.Entity;
 
-public abstract class Systems {
+public abstract class System implements ISystem{
 	
-	public void update(List<Entity> entities){
-		
-	}
+	
 	
 	//for filter list for desired entities
 	public List<Entity> filter(List<Entity> entities, List<String> requiredComponents){

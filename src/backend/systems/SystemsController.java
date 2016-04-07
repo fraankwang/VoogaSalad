@@ -10,7 +10,7 @@ public class SystemsController {
 
 	private RenderingSystem render;
 	private MobilizeSystem mobilize;
-	private List<Systems> bagOfSystems = new ArrayList<Systems>();
+	private List<System> bagOfSystems = new ArrayList<System>();
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend/resources/";
 	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
@@ -24,12 +24,12 @@ public class SystemsController {
 		addToBagOfSystems(mobilize);
 	}
 
-	public void addToBagOfSystems(Systems system) {
+	public void addToBagOfSystems(System system) {
 		bagOfSystems.add(system);
 	}
 
 	public void iterateThroughSystems(GameObject game) {
-		for (Systems myCurrSystem : bagOfSystems) {
+		for (System myCurrSystem : bagOfSystems) {
 
 		}
 	}

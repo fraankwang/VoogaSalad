@@ -12,7 +12,7 @@ import backend.game_object.components.MovementComponent;
 import backend.game_object.components.*;
 import backend.game_object.entities.Entity;
 
-public class MobilizeSystem extends Systems {
+public class MobilizeSystem extends System implements ISystem {
 	
 	public MobilizeSystem() {
 		// TODO Auto-generated constructor stub

@@ -77,29 +77,3 @@ public class BezierCurve {
 	//given velocity, calculate distance of bezier curve, and then divide to find time
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

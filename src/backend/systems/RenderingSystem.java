@@ -9,7 +9,7 @@ import backend.game_object.entities.Entity;
  * @author mario_oliver93
  *
  */
-public class RenderingSystem extends Systems {
+public class RenderingSystem extends System {
 
 	public RenderingSystem() {
 		// TODO Auto-generated constructor stub

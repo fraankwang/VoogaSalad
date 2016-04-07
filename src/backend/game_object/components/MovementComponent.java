@@ -1,5 +1,11 @@
 package backend.game_object.components;
 
+/**
+ * 
+ * @author raghavkedia
+ *
+ */
+
 public class MovementComponent extends Component{
 	
 	//private double myVelocity;
@@ -7,6 +13,8 @@ public class MovementComponent extends Component{
 	private Vector myCurrentVelocityVector;
 	private Vector myDefaultVelocityVector;
 	private double myTheta;
+	
+	//need to track if it's on a path or not, and if so, what it's bezier time is
 	
 	//figure out direction of velocity;
 	
