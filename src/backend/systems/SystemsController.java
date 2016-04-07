@@ -20,7 +20,7 @@ public class SystemsController {
 
 	private RenderingSystem render;
 	private MobilizeSystem mobilize;
-	private List<Systems> bagOfSystems = new ArrayList<Systems>();
+	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
 	private FrontEndAccessController backendController;
 	private ResourceLoader myResourceLoader;
 	
@@ -43,12 +43,12 @@ public class SystemsController {
 //		addToBagOfSystems(mobilize);
 	}
 
-	public void addToBagOfSystems(Systems system) {
+	public void addToBagOfSystems(Systemm system) {
 		bagOfSystems.add(system);
 	}
 
 	public void iterateThroughSystems(GameObject game) {
-		for (Systems myCurrSystem : bagOfSystems) {
+		for (Systemm myCurrSystem : bagOfSystems) {
 			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
 			List<Level> currLevels = game.getLevelsForMode(currMode);
 			myCurrSystem.update(currLevels.get(game.getGameStats().getCurrentLevel()).getEntities());

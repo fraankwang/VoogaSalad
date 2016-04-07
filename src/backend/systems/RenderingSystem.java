@@ -9,13 +9,14 @@ import backend.game_object.components.Component;
 import backend.game_object.components.DisplayComponent;
 import backend.game_object.components.PositionComponent;
 import backend.game_object.entities.Entity;
+import java.util.*;
 
 /**
  * 
  * @author mario_oliver93
  *
  */
-public class RenderingSystem extends Systems {
+public class RenderingSystem extends Systemm {
 
 //	private IFrontEndAccess frontEndController;
 	private FrontEndAccessController frontEndController;

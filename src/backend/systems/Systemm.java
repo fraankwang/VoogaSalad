@@ -13,14 +13,13 @@ import backend.FrontEndAccessController;
 import backend.Level;
 import backend.game_object.entities.Entity;
 
-public abstract class Systems {
+public abstract class Systemm implements ISystem{
+	
 	
 	private static final String DEFAULT_RESOURCE_PACKAGE = "backend/resources/";
-	private ResourceBundle myActionRequirementsResources;
+	private ResourceBundle myActionRequirementsResources= ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
 
-	public void update(List<Entity> entities){
-		myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
-	}
+	public abstract void update(List<Entity> entities);
 	
 	public abstract void execute(List<Level> list);
 	

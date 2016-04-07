@@ -9,10 +9,11 @@ import java.util.List;
 
 import backend.game_object.components.Component;
 import backend.game_object.components.MovementComponent;
+import backend.Level;
 import backend.game_object.components.*;
 import backend.game_object.entities.Entity;
 
-public class MobilizeSystem extends Systems {
+public class MobilizeSystem extends Systemm implements ISystem {
 	
 	public MobilizeSystem() {
 		// TODO Auto-generated constructor stub
@@ -56,6 +57,12 @@ public class MobilizeSystem extends Systems {
 	}
 	
 	public void updateMovements(List<Entity> movableEntities){
+		
+	}
+
+	@Override
+	public void execute(List<Level> list) {
+		// TODO Auto-generated method stub
 		
 	}
 	

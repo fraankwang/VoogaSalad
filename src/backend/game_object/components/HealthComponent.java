@@ -3,6 +3,7 @@ package backend.game_object.components;
 public class HealthComponent extends Component{
 	
 	private double myHealth;
+	private double myDamage;
 	
 	public HealthComponent(double health) {
 		// TODO Auto-generated constructor stub
@@ -16,6 +17,10 @@ public class HealthComponent extends Component{
 	
 	public void setHealth(double newHealth){
 		myHealth = newHealth;
+	}
+	
+	public void setDamage(double newDamage){
+		myDamage = newDamage;
 	}
 
 }

@@ -1,6 +1,6 @@
 package backend.game_object.components;
 
-public abstract class Component {
+public abstract class Component implements IComponent{
 	
 	protected String tag = "Blank";
 	
