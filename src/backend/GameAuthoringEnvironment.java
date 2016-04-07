@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
+
 package backend;
 
 import backend.game_object.entities.Entity;
@@ -7,11 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-/**
- * 
- * @author mario_oliver93
- *
- */
+
 public class GameAuthoringEnvironment {
 
 	SystemsController systems;
