@@ -9,7 +9,13 @@ import javafx.scene.Node;
  *
  */
 
-public class TowersEditorGrid extends EditorGrid {
+public class TowerEditorGrid extends EditorGrid {
+
+	@Override
+	protected void assembleGridComponents() {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	protected Node createRulesPanel() {
@@ -52,7 +58,5 @@ public class TowersEditorGrid extends EditorGrid {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }

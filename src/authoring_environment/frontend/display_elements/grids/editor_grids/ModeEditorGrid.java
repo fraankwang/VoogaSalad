@@ -9,7 +9,13 @@ import javafx.scene.Node;
  *
  */
 
-public class EnemiesEditorGrid extends EditorGrid {
+public class ModeEditorGrid extends EditorGrid {
+
+	@Override
+	protected void assembleGridComponents() {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	protected Node createRulesPanel() {
@@ -52,6 +58,5 @@ public class EnemiesEditorGrid extends EditorGrid {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

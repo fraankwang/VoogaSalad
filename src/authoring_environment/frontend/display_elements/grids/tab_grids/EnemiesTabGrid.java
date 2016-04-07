@@ -12,6 +12,12 @@ import javafx.scene.Node;
 public class EnemiesTabGrid extends TabGrid {
 
 	@Override
+	protected void assembleGridComponents() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	protected Node createUnmodifiableAttributesPanel() {
 		// TODO Auto-generated method stub
 		return null;
