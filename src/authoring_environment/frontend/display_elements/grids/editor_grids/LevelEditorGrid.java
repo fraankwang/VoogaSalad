@@ -53,10 +53,4 @@ public class LevelEditorGrid extends EditorGrid {
 		return null;
 	}
 
-	@Override
-	public Node buildNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

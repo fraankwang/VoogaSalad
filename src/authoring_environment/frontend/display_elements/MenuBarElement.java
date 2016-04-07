@@ -6,6 +6,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 
 /**
+ * The MenuBarElement acts as a primary UI component that creates and manages
+ * the MenuBar, which can be accessed at all times throughout the game authoring
+ * environment.
  * 
  * @author Frank, benchesnut
  *
@@ -14,18 +17,18 @@ import javafx.scene.control.MenuBar;
 public class MenuBarElement implements IMenuBarElement {
 
 	private MenuBar myMenuBar;
-	
-	public MenuBarElement() { 
+
+	public MenuBarElement() {
 		myMenuBar = new MenuBar();
 		Menu file = new Menu("File");
 		Menu create = new Menu("Create");
 		Menu help = new Menu("Help");
 		myMenuBar.getMenus().addAll(file, create, help);
 	}
-	
+
 	@Override
 	public Node buildNode() {
 		return myMenuBar;
 	}
-	
+
 }

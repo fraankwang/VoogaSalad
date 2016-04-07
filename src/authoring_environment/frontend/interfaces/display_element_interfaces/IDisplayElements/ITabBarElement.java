@@ -4,6 +4,9 @@ import authoring_environment.frontend.interfaces.display_element_interfaces.IDis
 import authoring_environment.frontend.interfaces.display_element_interfaces.tab_display_interfaces.ITabDisplay;
 
 /**
+ * The ITabBarElement allows for the easy creation of additional TabBar types,
+ * provided they contain the relevant game components defined as methods in this
+ * interface.
  * 
  * @author Frank, benchesnut
  *

@@ -47,10 +47,4 @@ public class GameTabGrid extends TabGrid {
 		return null;
 	}
 
-	@Override
-	public Node buildNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
