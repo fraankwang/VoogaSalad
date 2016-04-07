@@ -17,6 +17,20 @@ public abstract class Grid implements IGrid {
 	protected Node myPrimaryDisplay;
 	protected Node myButtonDashboard;
 	
+	public Grid() {
+		initializeGrid();
+		assembleGridComponents();
+	}
+	
+	protected void initializeGrid() {
+		myPrimaryDisplay = createPrimaryDisplay();
+		myButtonDashboard = createButtonDashboard();
+		myLeftSubGrid = createLeftSubGrid();
+		myRightSubGrid = createRightSubGrid();
+	}
+	
+	protected abstract void assembleGridComponents();
+	
 	protected abstract Node createPrimaryDisplay();
 	
 	protected abstract Node createButtonDashboard();
