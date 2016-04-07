@@ -36,5 +36,9 @@ public class Entity {
 		
 		return tags;
 	}
+	
+	public List<Component> getComponents(){
+		return myComponents;
+	}
 
 }

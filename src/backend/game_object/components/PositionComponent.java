@@ -9,6 +9,12 @@ public class PositionComponent extends Component{
 	private double myCoordX;
 	private double myCoordY;
 	
+	public PositionComponent(){
+		myCoordX = 100;
+		myCoordY = 100;
+		tag = "Position";
+	}
+	
 	public PositionComponent(double x, double y) {
 		// TODO Auto-generated constructor stub
 		myCoordX = x;
@@ -24,6 +30,14 @@ public class PositionComponent extends Component{
 	public void setPosition(double x, double y){
 		myCoordX = x;
 		myCoordY = y;
+	}
+
+	public double getX() {
+		return myCoordX;
+	}
+	
+	public double getY() {
+		return myCoordY;
 	}
 
 }

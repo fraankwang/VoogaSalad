@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import backend.FrontEndAccessController;
+import backend.Level;
 import backend.game_object.entities.Entity;
 
 public abstract class Systems {
@@ -19,6 +21,8 @@ public abstract class Systems {
 	public void update(List<Entity> entities){
 		myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
 	}
+	
+	public abstract void execute(List<Level> list);
 	
 	//for filter list for desired entities
 	public List<Entity> filter(List<Entity> entities, List<String> requiredComponents){

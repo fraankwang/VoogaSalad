@@ -54,7 +54,7 @@ public class GameObject {
 		return modes;
 	}
 
-	public List<?> getLevelsForMode(Mode mode, int modeNum) {
+	public List<Level> getLevelsForMode(Mode mode) {
 		return mode.getLevels();
 	}
 

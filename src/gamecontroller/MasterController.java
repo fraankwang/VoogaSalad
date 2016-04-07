@@ -6,6 +6,7 @@
 package gamecontroller;
 
 import backend.FrontEndGameAuthoringEnvironment;
+import backend.FrontEndAccessController;
 import backend.GameAuthoringEnvironment;
 import backend.GameObject;
 import backend.systems.SystemsController;
@@ -22,27 +23,25 @@ public class MasterController {
 	private static final int SIZE = 600;
 	private GameAuthoringEnvironment bae;
 	private GameObject trumpGame;
-	SystemsController systems;
-	
-	public MasterController() {
-		systems = new SystemsController();
+	private SystemsController systems;
+	private Group myRoot;
+	private FrontEndAccessController displayController;
+
+	public MasterController() {	
+		myRoot = new Group();
+		displayController = new FrontEndAccessController(myRoot);
+		systems = new SystemsController(displayController);
 		bae = new GameAuthoringEnvironment();
-		//creates a game object
-		try {
-			trumpGame = bae.setGameObjectWithMockData(new FrontEndGameAuthoringEnvironment());
-		} catch (DrumpfTowerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		// creates a game object
+		trumpGame = bae.setGameObjectWithMockData(new FrontEndGameAuthoringEnvironment());
 	}
 
 	public Scene init(Stage primaryStage) {
-		Group myRoot = new Group();
-		bae.addDrumpfImage(myRoot);
 		Scene myScene = new Scene(myRoot, SIZE, SIZE, Color.WHITE);
 		return myScene;
 	}
-	
+
 	/**
 	 * Create game loop
 	 * 
@@ -52,8 +51,8 @@ public class MasterController {
 	public KeyFrame startGameLoop(int numFramesPerSecond) {
 		return new KeyFrame(Duration.millis(1000 / numFramesPerSecond), e -> step(trumpGame));
 	}
-	
-	public void step(GameObject game){
+
+	public void step(GameObject game) {
 		systems.iterateThroughSystems(game);
 	}
 

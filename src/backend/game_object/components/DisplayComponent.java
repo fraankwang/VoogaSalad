@@ -3,6 +3,12 @@ package backend.game_object.components;
 public class DisplayComponent extends Component {
 	
 	private boolean canBeShown;
+	private String imageToShow = "/DrumpfVader.png";
+	
+	public DisplayComponent(){
+		this.canBeShown = true;
+		tag = "Display";
+	}
 	
 	public DisplayComponent(boolean shown) {
 		this.canBeShown = shown;
@@ -11,6 +17,10 @@ public class DisplayComponent extends Component {
 	
 	public boolean shouldBeShown(){
 		return canBeShown;
+	}
+	
+	public String getImage(){
+		return imageToShow;
 	}
 	
 	public static void main(String[] args){
