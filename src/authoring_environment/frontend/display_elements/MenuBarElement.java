@@ -1,6 +1,6 @@
 package authoring_environment.frontend.display_elements;
 
-import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElements.IMenuBarElement;
+import authoring_environment.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;

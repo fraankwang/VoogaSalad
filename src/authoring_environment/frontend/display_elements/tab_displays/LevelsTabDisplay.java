@@ -1,12 +1,14 @@
 package authoring_environment.frontend.display_elements.tab_displays;
 
-import authoring_environment.frontend.interfaces.display_element_interfaces.editor_display_interfaces.IEditorDisplay;
+import authoring_environment.frontend.display_elements.editor_displays.LevelEditorDisplay;
+import authoring_environment.frontend.display_elements.grids.Grid;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 
 /**
- * The LevelsTabDisplay contains multiple tabs of a set of user-created levels depending on
- * which Mode is selected (sets of levels correspond to each Mode created).
+ * The LevelsTabDisplay contains multiple tabs of a set of user-created levels
+ * depending on which Mode is selected (sets of levels correspond to each Mode
+ * created).
  * 
  * @author Frank, benchesnut
  *
@@ -15,22 +17,17 @@ import javafx.scene.control.TabPane;
 public class LevelsTabDisplay extends TabDisplay {
 
 	private TabPane myLevelsTabPane;
+	private Grid myActiveGrid;
 
 	public LevelsTabDisplay() {
 		myLevelsTabPane = new TabPane();
+		myGrid = myActiveGrid;
+		myEditorDisplay = new LevelEditorDisplay();
 
-	}
-
-	@Override
-	public IEditorDisplay getEditor() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public Node buildNode() {
-		// TODO Auto-generated method stub
-		return null;
+		return myLevelsTabPane;
 	}
-
 }

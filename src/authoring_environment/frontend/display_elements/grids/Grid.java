@@ -1,5 +1,6 @@
 package authoring_environment.frontend.display_elements.grids;
 
+import authoring_environment.frontend.display_elements.grid_factories.GridFactory;
 import authoring_environment.frontend.interfaces.display_element_interfaces.IGrid;
 import javafx.scene.Node;
 
@@ -10,12 +11,13 @@ import javafx.scene.Node;
  * of these elements are contained within the myGrid variable, which is created
  * in the buildNode() method.
  * 
- * @author Frank, benchesnut
+ * @author Frank
  *
  */
 
 public abstract class Grid implements IGrid {
 
+	protected GridFactory myGridFactory;
 	protected Node myGrid;
 	protected Node myLeftSubGrid;
 	protected Node myRightSubGrid;
@@ -28,18 +30,24 @@ public abstract class Grid implements IGrid {
 	 * methods).
 	 */
 	public Grid() {
+		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
 	}
 
 	/**
+	 * Initializes GridFactory so that Grid components can be build
+	 */
+	protected abstract void initializeGridFactory();
+
+	/**
 	 * Initializes the four primary components of the Grid.
 	 */
 	protected void initializeGrid() {
-		myPrimaryDisplay = createPrimaryDisplay();
-		myButtonDashboard = createButtonDashboard();
-		myLeftSubGrid = createLeftSubGrid();
-		myRightSubGrid = createRightSubGrid();
+		myPrimaryDisplay = myGridFactory.createPrimaryDisplay();
+		myButtonDashboard = myGridFactory.createButtonDashboard();
+		myLeftSubGrid = myGridFactory.createLeftSubGrid();
+		myRightSubGrid = myGridFactory.createRightSubGrid();
 	}
 
 	/**
@@ -47,26 +55,6 @@ public abstract class Grid implements IGrid {
 	 * myGrid.
 	 */
 	protected abstract void assembleGridComponents();
-
-	/**
-	 * @return instantiated and formatted myPrimaryDisplay
-	 */
-	protected abstract Node createPrimaryDisplay();
-
-	/**
-	 * @return instantiated and formatted myButtonDashboard
-	 */
-	protected abstract Node createButtonDashboard();
-
-	/**
-	 * @return instantiated and formatted myLeftSubGrid
-	 */
-	protected abstract Node createLeftSubGrid();
-
-	/**
-	 * @return instantiated and formatted myRightSubGrid
-	 */
-	protected abstract Node createRightSubGrid();
 
 	/**
 	 * @return assembled and formatted Grid

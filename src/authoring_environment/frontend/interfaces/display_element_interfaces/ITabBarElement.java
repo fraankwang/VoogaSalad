@@ -1,8 +1,6 @@
-package authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElements;
+package authoring_environment.frontend.interfaces.display_element_interfaces;
 
 import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
-import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElement;
-import authoring_environment.frontend.interfaces.display_element_interfaces.tab_display_interfaces.ITabDisplay;
 
 /**
  * The ITabBarElement allows for the easy creation of additional TabBar types,

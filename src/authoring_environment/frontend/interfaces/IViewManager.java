@@ -1,7 +1,7 @@
 package authoring_environment.frontend.interfaces;
 
-import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElements.IMenuBarElement;
-import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElements.ITabBarElement;
+import authoring_environment.frontend.interfaces.display_element_interfaces.IMenuBarElement;
+import authoring_environment.frontend.interfaces.display_element_interfaces.ITabBarElement;
 import javafx.stage.Stage;
 
 /**
