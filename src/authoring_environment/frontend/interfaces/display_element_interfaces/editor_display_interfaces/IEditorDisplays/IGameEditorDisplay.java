@@ -8,6 +8,6 @@ import authoring_environment.frontend.interfaces.display_element_interfaces.edit
  *
  */
 
-public interface IModesEditorDisplay extends IEditorDisplay {
+public interface IGameEditorDisplay extends IEditorDisplay {
 
 }

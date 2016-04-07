@@ -1,8 +1,7 @@
-package authoring_environment.frontend.display_elements.grids.tab_grids;
+package authoring_environment.frontend.display_elements.grids.editor_grids;
 
-import authoring_environment.frontend.display_elements.grids.TabGrid;
+import authoring_environment.frontend.display_elements.grids.EditorGrid;
 import javafx.scene.Node;
-import javafx.scene.control.TabPane;
 
 /**
  * 
@@ -10,18 +9,24 @@ import javafx.scene.control.TabPane;
  *
  */
 
-public class LevelsTabGrid extends TabGrid {
-	
+public class GameEditorGrid extends EditorGrid {
+
+	@Override
+	protected Node createRulesPanel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Node createModifiableAttributesPanel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	protected void assembleGridComponents() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	protected Node createUnmodifiableAttributesPanel() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
