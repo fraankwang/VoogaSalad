@@ -11,6 +11,12 @@ import javafx.scene.Node;
 
 public abstract class Grid implements IGrid {
 
+	protected Node myGrid;
+	protected Node myLeftSubGrid;
+	protected Node myRightSubGrid;
+	protected Node myPrimaryDisplay;
+	protected Node myButtonDashboard;
+	
 	protected abstract Node createPrimaryDisplay();
 	
 	protected abstract Node createButtonDashboard();

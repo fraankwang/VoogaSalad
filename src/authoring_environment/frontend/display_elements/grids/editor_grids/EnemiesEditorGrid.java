@@ -12,15 +12,15 @@ import javafx.scene.Node;
 public class EnemiesEditorGrid extends EditorGrid {
 
 	@Override
-	protected void createRulesPanel() {
+	protected Node createRulesPanel() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	protected void createModifiableAttributesPanel() {
+	protected Node createModifiableAttributesPanel() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override

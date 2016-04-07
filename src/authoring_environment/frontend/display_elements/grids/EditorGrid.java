@@ -1,5 +1,7 @@
 package authoring_environment.frontend.display_elements.grids;
 
+import javafx.scene.Node;
+
 /**
  * 
  * @author Frank, benchesnut
@@ -8,8 +10,11 @@ package authoring_environment.frontend.display_elements.grids;
 
 public abstract class EditorGrid extends Grid {
 
-	protected abstract void createRulesPanel();
+	protected Node myRulesPane;
+	protected Node myModifiableAttributesPanel;
 	
-	protected abstract void createModifiableAttributesPanel();	
+	protected abstract Node createRulesPanel();
+	
+	protected abstract Node createModifiableAttributesPanel();	
 
 }

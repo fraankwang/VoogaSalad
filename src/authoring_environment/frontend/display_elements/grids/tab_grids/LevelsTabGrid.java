@@ -12,9 +12,9 @@ import javafx.scene.Node;
 public class LevelsTabGrid extends TabGrid {
 
 	@Override
-	protected void createUnmodifiableAttributesPanel() {
+	protected Node createUnmodifiableAttributesPanel() {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
