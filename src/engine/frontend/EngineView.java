@@ -7,61 +7,68 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class EngineView{
 
-	public static final String DEFAULT_UI_RESOURCE = "view/ui";
+	public static final String DEFAULT_UI_RESOURCE = "engine/frontend/engine_window";
 	private ResourceBundle myUIResources;
 	
 	private VBox myBody;
 	
-	private BoardPane myBoardView;
-	private TowerPane myTowerView;
-	private StatusPane myStatusView;
+	private BoardPane myBoardPane;
+	private TowerPane myTowerPane;
+	private StatusPane myStatusPane;
 	
 	public EngineView(){
-		myBoardView = new BoardPane(this);
-		myTowerView = new TowerPane(this);
-		myStatusView = new StatusPane(this);
+		myBoardPane = new BoardPane(this);
+		myTowerPane = new TowerPane(this);
+		myStatusPane = new StatusPane(this);
+		myUIResources = ResourceBundle.getBundle(DEFAULT_UI_RESOURCE);
 	}
 	
 	/**
 	 * builds a "body HBox" for the current view
 	 * @return
 	 */
-	protected Scene getScene(){
-		VBox top = new VBox(padding);
-		VBox bottom = new VBox(padding);
+	public Scene getScene(){
+		int padding = loadUIIntResource("OuterPadding");
+		int width = loadUIIntResource("WindowWidth");
+		int height = loadUIIntResource("WindowHeight");
 		
-		top.setPadding(new Insets(padding,0,padding, padding));
-		bottom.setPadding(new Insets(padding, padding,padding, 0));
+		HBox top = new HBox(padding);
+		HBox bottom = new HBox(padding);
 		
-		fillTopVBox(top);
-		fillBottomVBox(bottom);
+		top.setPadding(new Insets(padding,0,0, padding));
+		bottom.setPadding(new Insets(0, padding, 0, padding));
 		
-		myBody = new HBox(padding);
-		myBody.getChildren().addAll(left, center, right);
+		fillTopHBox(top);
+		fillBottomHBox(bottom);
+		
+		myBody = new VBox(padding);
+		myBody.getChildren().addAll(top, bottom);
+		
+		Scene scene = new Scene(myBody, width, height, Color.WHITE);
+		return scene;
 	}
 	
 	/**
-	 * Fills the given vbox with the top row elements
-	 * Top row has the board and the towers
-	 * @param vbox vbox to be filled
+	 * Fills the top Hbox with the BoardPane and the TowerPane
+	 * @param vbox
 	 */
-	private void fillTopVBox(VBox vbox){
-		Node commands = myUserCommandView.buildNode();
-		Node variables = myUserVariableView.buildNode();
-		vbox.getChildren().addAll(commands, variables);
+	private void fillTopHBox(HBox hbox){
+		Node board = myBoardPane.buildNode();
+		Node tower = myTowerPane.buildNode();
+		hbox.getChildren().addAll(board, tower);
 	}
 	
 	/**
-	 * Fills the given vbox with the bottom row elements
-	 * Bottom Row holds the status and options 
-	 * @param vbox vbox to be filled
+	 * Fills the bottom HBox with the statuspane
+	 * @param vbox
 	 */
-	private void fillBottomVBox(VBox vbox){
-		Node status = 
-		vbox.getChildren().addAll(status, history);
+	private void fillBottomHBox(HBox hbox){
+		Node status = myStatusPane.buildNode();
+		hbox.getChildren().addAll(status);
 	}
 	
 	protected int loadUIIntResource(String input){

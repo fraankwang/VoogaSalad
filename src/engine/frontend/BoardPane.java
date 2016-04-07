@@ -1,6 +1,7 @@
 package engine.frontend;
 
 import javafx.scene.Node;
+import javafx.scene.shape.Rectangle;
 
 public class BoardPane {
 	private EngineView myEngineView;
@@ -10,6 +11,9 @@ public class BoardPane {
 	}
 	
 	public Node buildNode(){
-		return null;
+		Rectangle rect = new Rectangle();
+		rect.setWidth(myEngineView.loadUIIntResource("BoardSize"));
+		rect.setHeight(myEngineView.loadUIIntResource("BoardSize"));
+		return rect;
 	}
 }
