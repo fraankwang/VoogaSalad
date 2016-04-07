@@ -1,5 +1,6 @@
 package authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElements;
 
+import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
 import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import authoring_environment.frontend.interfaces.display_element_interfaces.tab_display_interfaces.ITabDisplay;
 
@@ -16,13 +17,13 @@ public interface ITabBarElement extends IDisplayElement {
 
 	public void show(ITabDisplay display);
 
-	public ITabDisplay getGameTabDisplay();
+	public TabDisplay getGameTabDisplay();
 
-	public ITabDisplay getModesTabDisplay();
+	public TabDisplay getModesTabDisplay();
 
-	public ITabDisplay getLevelsTabDisplay();
+	public TabDisplay getLevelsTabDisplay();
 
-	public ITabDisplay getTowersTabDisplay();
+	public TabDisplay getTowersTabDisplay();
 
-	public ITabDisplay getEnemiesTabDisplay();
+	public TabDisplay getEnemiesTabDisplay();
 }
