@@ -16,14 +16,12 @@ public class Vector {
 		myYComponent = y;
 	}
 	
-	public void add(Vector v){
-		myXComponent += v.getX();
-		myYComponent += v.getY();
+	public Vector add(Vector v){
+		return new Vector(myXComponent + v.getX(), myYComponent + v.getY());
 	}
 	
-	public void scale(double s){
-		myXComponent *= s;
-		myYComponent *= s;
+	public Vector scale(double s){
+		return new Vector(myXComponent * s, myYComponent * s);
 	}
 	
 	//calculate distance between this and vector v
@@ -39,7 +37,7 @@ public class Vector {
 		return myXComponent;
 	}
 	public double getY(){
-		return myXComponent;
+		return myYComponent;
 	}
 	
 
