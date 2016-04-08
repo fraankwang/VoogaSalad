@@ -2,6 +2,7 @@ package authoring_environment.frontend.display_elements.tab_displays;
 
 import authoring_environment.frontend.display_elements.editor_displays.LevelEditorDisplay;
 import authoring_environment.frontend.display_elements.grids.Grid;
+import authoring_environment.frontend.display_elements.grids.tab_grids.LevelsTabGrid;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 
@@ -21,6 +22,7 @@ public class LevelsTabDisplay extends TabDisplay {
 
 	public LevelsTabDisplay() {
 		myLevelsTabPane = new TabPane();
+		myActiveGrid = new LevelsTabGrid();
 		myGrid = myActiveGrid;
 		myEditorDisplay = new LevelEditorDisplay();
 
