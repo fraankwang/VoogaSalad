@@ -1,6 +1,4 @@
-package authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElements;
-
-import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElement;
+package authoring_environment.frontend.interfaces.display_element_interfaces;
 
 /**
  * The IMenuBarElement interface allows for easy creation of variations of a

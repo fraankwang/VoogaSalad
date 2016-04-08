@@ -1,29 +1,19 @@
 package authoring_environment.frontend.display_elements.tab_displays;
 
+import authoring_environment.frontend.display_elements.editor_displays.EnemyEditorDisplay;
 import authoring_environment.frontend.display_elements.grids.tab_grids.EnemiesTabGrid;
-import authoring_environment.frontend.interfaces.display_element_interfaces.editor_display_interfaces.IEditorDisplay;
-import authoring_environment.frontend.interfaces.display_element_interfaces.tab_display_interfaces.ITabDisplays.IEnemiesTabDisplay;
-import javafx.scene.Node;
 
-public class EnemiesTabDisplay implements IEnemiesTabDisplay {
+/**
+ * 
+ * @author Frank
+ *
+ */
 
-	private EnemiesTabGrid myEnemiesTabGrid;
+public class EnemiesTabDisplay extends TabDisplay {
 
 	public EnemiesTabDisplay() {
-		myEnemiesTabGrid = new EnemiesTabGrid();
-
-	}
-
-	@Override
-	public IEditorDisplay getEditor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Node buildNode() {
-		// TODO Auto-generated method stub
-		return null;
+		myGrid = new EnemiesTabGrid();
+		myEditorDisplay = new EnemyEditorDisplay();
 	}
 
 }
