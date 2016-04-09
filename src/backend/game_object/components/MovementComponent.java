@@ -14,6 +14,9 @@ public class MovementComponent extends Component{
 	private Vector myDefaultVelocityVector;
 	private double myTheta;
 	
+	//I think this should only be between 0 and 1
+	private double myBezierTime;
+	
 	//need to track if it's on a path or not, and if so, what it's bezier time is
 	
 	//figure out direction of velocity;

@@ -37,6 +37,11 @@ public class MobilizeSystem extends Systemm implements ISystem {
 			MovementComponent movComponent = (MovementComponent) entity.getComponent("Movement");
 			PositionComponent posComponent = (PositionComponent) entity.getComponent("Position");
 			
+			//movement if on path
+			Vector velVector = movComponent.getCurrentVelocityVector();
+			double speed = velVector.calculateMagnitude();
+			
+			
 			//do movement
 			Vector posVector = posComponent.getPositionVector();
 			Vector velVector = movComponent.getCurrentVelocityVector();

@@ -33,6 +33,13 @@ public class Vector {
 		
 	}
 	
+	public double calculateMagnitude(){
+		double val1 = myXComponent * myXComponent;
+		double val2 = myYComponent * myYComponent;
+		
+		return Math.sqrt(val1 + val2);
+	}
+	
 	public double getX(){
 		return myXComponent;
 	}
