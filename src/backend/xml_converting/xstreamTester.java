@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import backend.ComponentFactory;
 import backend.Entity;
 import backend.EntityFactoryClass;
-import backend.GameObject;
+import backend.GameWorld;
 import backend.Level;
 import backend.Mode;
+import backend.game_object.entities.IEntity;
 
 public class xstreamTester {
 
@@ -16,18 +17,18 @@ public class xstreamTester {
 	}
 	
 	public static void main(String[] args) {
-		GameObject myGameObject = new GameObject();
+		GameWorld myGameObject = new GameWorld();
 		Mode testMode = new Mode();
 		Level testLevel = new Level();
 		testMode.addToLevelsList(testLevel);
 		EntityFactoryClass factory = new EntityFactoryClass(myGameObject.getGameStats());
-		Entity testEntity = factory.makeEntity();
+		Entity testEntity = new Entity(0);
 		ComponentFactory compfactory = new ComponentFactory();
 		testEntity.addComponent(compfactory.makeComponent("Display", new ArrayList()));
 		testLevel.addToEntities(testEntity);
 		
 		myGameObject.addMode(testMode);
-		GameObjectToXMLWriter myConverter = new GameObjectToXMLWriter();
+		GameWorldToXMLWriter myConverter = new GameWorldToXMLWriter();
 		String xml = myConverter.getXMLfromObject(myGameObject);
 		System.out.println(xml);
 		System.out.println(myConverter.formattedXML(myGameObject));
