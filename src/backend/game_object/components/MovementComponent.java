@@ -6,7 +6,7 @@ package backend.game_object.components;
  *
  */
 
-public class MovementComponent extends Component{
+public class MovementComponent extends Component implements IComponent{
 	
 	//private double myVelocity;
 	//private double myAcceleration;
@@ -14,10 +14,6 @@ public class MovementComponent extends Component{
 	private Vector myDefaultVelocityVector;
 	private double myTheta;
 	
-	//I think this should only be between 0 and 1
-	private double myBezierTime;
-	
-	//need to track if it's on a path or not, and if so, what it's bezier time is
 	
 	//figure out direction of velocity;
 	
@@ -41,7 +37,12 @@ public class MovementComponent extends Component{
 	public Vector getCurrentVelocityVector(){
 		return myCurrentVelocityVector;
 	}
-	
+	public void setCurrentVelocityVector(Vector vel){
+		myCurrentVelocityVector = vel;
+	}
+	public void setDefaultVelocityVector(Vector vel){
+		myDefaultVelocityVector = vel;
+	}
 	public double getTheta(){
 		return myTheta;
 	}
@@ -72,12 +73,10 @@ public class MovementComponent extends Component{
 	public void setCanRotate(boolean bool){
 		canRotate = bool;
 	}
-
-	public double getBezierTime() {
-		return myBezierTime;
+	
+	@Override
+	public String getTag(){
+		return "Movement";
 	}
 
-	public void setBezierTime(double myBezierTime) {
-		this.myBezierTime = myBezierTime;
-	}
 }

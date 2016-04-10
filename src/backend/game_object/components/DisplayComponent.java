@@ -21,6 +21,10 @@ public class DisplayComponent extends Component implements IComponent{
 		return imageToShow;
 	}
 	
+	public void doNotShow(){
+		canBeShown = false;
+	}
+	
 	public static void main(String[] args){
 		Object c = new DisplayComponent(true);
 		System.out.println(c.getClass());
