@@ -1,4 +1,4 @@
-package backend;
+package authoring_environment.backend.deprecated;
 
 import java.util.List;
 

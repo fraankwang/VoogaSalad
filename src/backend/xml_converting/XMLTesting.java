@@ -12,9 +12,9 @@ public class XMLTesting {
 
 	public static void main(String args[]) throws XMLStreamException, IOException {
 		XMLWriter xmlWriter = new XMLWriter();
-		xmlWriter.writeStartTag("GameObject");
+		xmlWriter.writeStartTag("backend.GameWorld");
 		xmlWriter.writeStartTag("modes");
-		xmlWriter.writeStartTag("Mode");
+		xmlWriter.writeStartTag("backend.Mode");
 		xmlWriter.writeStartTag("levels");
 		xmlWriter.writeStartTag("backend.Level");
 		xmlWriter.writeStartTag("entities");
@@ -53,7 +53,7 @@ public class XMLTesting {
 		xmlWriter.endXMLDocument();
 		xmlWriter.printXMLString();
 		String xml = xmlWriter.getXMLString();
-		GameObjectToXMLWriter myConverter = new GameObjectToXMLWriter();
+		GameWorldToXMLWriter myConverter = new GameWorldToXMLWriter();
 		Object copyObject = myConverter.xMLToObject(xml);
 		System.out.println(copyObject);
 	}

@@ -1,6 +1,6 @@
 package authoring_environment.controller;
 
-import authoring_environment.backend.Entity;
+import backend.game_object.entities.Entity;
 
 public class AuthoringController implements ControllerInterface {
 

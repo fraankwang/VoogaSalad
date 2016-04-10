@@ -1,7 +1,9 @@
 //Kushal Byatnal
-package backend;
+package authoring_environment.backend.deprecated;
 
 import java.util.List;
+
+import backend.GameStatisticsObject;
 
 public class EntityFactoryClass {
 	private GameStatisticsObject myStats;

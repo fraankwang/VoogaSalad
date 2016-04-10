@@ -1,14 +1,10 @@
 package backend.xml_converting;
 
-import java.util.ArrayList;
-
-import backend.ComponentFactory;
-import backend.Entity;
-import backend.EntityFactoryClass;
+import authoring_environment.backend.deprecated.EntityFactoryClass;
 import backend.GameWorld;
 import backend.Level;
 import backend.Mode;
-import backend.game_object.entities.IEntity;
+import backend.game_object.components.DisplayComponent;
 
 public class xstreamTester {
 
@@ -22,9 +18,9 @@ public class xstreamTester {
 		Level testLevel = new Level();
 		testMode.addToLevelsList(testLevel);
 		EntityFactoryClass factory = new EntityFactoryClass(myGameObject.getGameStats());
-		Entity testEntity = new Entity(0);
-		ComponentFactory compfactory = new ComponentFactory();
-		testEntity.addComponent(compfactory.makeComponent("Display", new ArrayList()));
+		backend.game_object.entities.Entity testEntity = new backend.game_object.entities.Entity(0);
+		DisplayComponent testComponent = new DisplayComponent();
+		testEntity.addComponent(testComponent);
 		testLevel.addToEntities(testEntity);
 		
 		myGameObject.addMode(testMode);
