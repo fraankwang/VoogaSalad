@@ -1,32 +1,43 @@
+//Kushal Byatnal
 package backend;
 
-public class EntityFactoryClass {
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
-	public EntityFactoryClass() {
-		// TODO Auto-generated constructor stub
+public class EntityFactoryClass {
+	private GameStatisticsObject myStats;
+	
+	public EntityFactoryClass(GameStatisticsObject stats) {
+		this.myStats = stats;
 	}
 
 	public Entity makeEntity(String entityType){
-		Entity trump = null;
+		Class trump = null;
 		try{
-			trump = (Entity) Class.forName(entityType + "Entity").newInstance();
+			trump = Class.forName(entityType + "Entity");
 		}
-		catch (InstantiationException | ClassNotFoundException | IllegalAccessException e){
+		catch (ClassNotFoundException e){
 			e.printStackTrace();
 		}
-		return trump;
+		Constructor c = null;
+		try {
+			c = trump.getDeclaredConstructor(Integer.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+		try {
+			return (Entity) c.newInstance(myStats.nextAvailableID());
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
-	public void addComponents(Entity entity, String[] components){
-		for (String componentType : components) {
-			Component myComponent = null;
-			try {
-				myComponent = (Component) Class.forName(componentType + "Component").newInstance();
-				// I hate exceptions
-			} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-			entity.addComponent(myComponent);
+	public void addComponents(Entity entity, List<Component> components){
+		for (Component component : components) {
+			entity.addComponent(component);
 		}
 	}
 }
