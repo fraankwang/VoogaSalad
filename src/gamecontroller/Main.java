@@ -1,8 +1,10 @@
-package simulation;
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
+package gamecontroller;
 
-import backend.FrontEndGameAuthoringEnvironment;
-import backend.GameAuthoringEnvironment;
-import backend.GameObject;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
