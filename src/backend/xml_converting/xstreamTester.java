@@ -14,7 +14,10 @@ public class xstreamTester {
 		Mode testMode = new Mode();
 		myGameObject.addMode(testMode);
 		GameObjectToXMLWriter myConverter = new GameObjectToXMLWriter();
-		System.out.println(myConverter.getXMLfromObject(myGameObject));
+		String xml = myConverter.getXMLfromObject(myGameObject);
+		System.out.println(xml);
+		Object copyObject = myConverter.xMLToObject(xml);
+		System.out.println(copyObject);
 	}
 
 }

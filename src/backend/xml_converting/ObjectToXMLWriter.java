@@ -47,12 +47,10 @@ public abstract class ObjectToXMLWriter {
 	}
 
 	public String getXMLfromObject(Object o) {
-		BufferedOutputStream stdout = new BufferedOutputStream(System.out);
-		xstream.marshal(o, new PrettyPrintWriter(new OutputStreamWriter(stdout)));
-		return xstream.toString();
+//		BufferedOutputStream stdout = new BufferedOutputStream(System.out);
+//		xstream.marshal(o, new PrettyPrintWriter(new OutputStreamWriter(stdout)));
+		return xstream.toXML(o);
 	}
-
-	public abstract void setXMLAlias();
 
 	public abstract Object xMLToObject(String xml);
 
