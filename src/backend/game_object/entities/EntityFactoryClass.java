@@ -8,7 +8,6 @@ public class EntityFactoryClass {
 	public EntityFactoryClass() {
 		// TODO Auto-generated constructor stub
 	}
-
 	public Entity makeEntity(GameObject trumpGame, String[] componentsWanted) {
 		Entity trump = new Entity(trumpGame.getGameStats().nextAvailableID());
 		// wants to add a display component to trump
