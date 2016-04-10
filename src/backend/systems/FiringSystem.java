@@ -9,6 +9,12 @@ import backend.game_object.components.Vector;
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
+/**
+ * 
+ * @author raghavkedia
+ *
+ */
+
 public class FiringSystem extends Systemm implements ISystem{
 
 	@Override

@@ -1,5 +1,10 @@
 package backend.game_object.components;
 
+/**
+ * 
+ * @author raghavkedia
+ *
+ */
 public class PathComponent extends Component implements IComponent{
 	
 	//stores which path you're on

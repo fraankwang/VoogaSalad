@@ -4,6 +4,12 @@ import java.util.List;
 
 import backend.game_object.entities.IEntity;
 
+/**
+ * 
+ * @author raghavkedia
+ *
+ */
+
 public class FiringComponent extends Component implements IComponent{
 	
 	private IEntity myAmmunition;
