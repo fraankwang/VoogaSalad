@@ -23,7 +23,6 @@ public class Level {
 
 	public void addToEntities(Entity entity) {
 		entities.add(entity);
-
 	}
 
 }

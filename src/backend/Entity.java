@@ -16,10 +16,18 @@ public class Entity {
 	public void addComponent(Component component) {
 		components.add(component);
 	}
+	
+	public List<Component> getComponents() {
+		return components;
+	}
 
 	@Override
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + components + "]";
+	}
+	
+	public int getMyID() {
+		return myID;
 	}
 
 }
