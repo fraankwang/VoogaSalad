@@ -32,6 +32,7 @@ public class MasterController {
 		displayController = new FrontEndAccessController(myRoot);
 		systems = new SystemsController(displayController);
 		bae = new GameAuthoringEnvironment();
+		bae.setBackendController(displayController);
 		
 		// creates a game object
 		trumpGame = bae.setGameObjectWithMockData(new FrontEndGameAuthoringEnvironment());

@@ -1,4 +1,4 @@
-package backend.game_object.path;
+package backend.game_object.map;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
