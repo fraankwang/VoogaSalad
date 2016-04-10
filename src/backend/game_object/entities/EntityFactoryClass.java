@@ -15,12 +15,11 @@ public class EntityFactoryClass {
 	public EntityFactoryClass() {
 		// TODO Auto-generated constructor stub
 	}
-<<<<<<< HEAD
-	public Entity makeEntity(GameObject trumpGame, String[] componentsWanted) {
-=======
+	
+
 
 	public Entity makeEntity(GameWorld trumpGame, String[] componentsWanted) {
->>>>>>> origin/engine_backend_systems_rk145
+
 		Entity trump = new Entity(trumpGame.getGameStats().nextAvailableID());
 		// wants to add a display component to trump
 		for (String componentType : componentsWanted) {
