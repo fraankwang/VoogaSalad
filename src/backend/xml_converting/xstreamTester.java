@@ -2,9 +2,9 @@ package backend.xml_converting;
 
 import java.util.ArrayList;
 
-import backend.ComponentFactory;
+import authoring_environment.backend.deprecated.ComponentFactory;
+import authoring_environment.backend.deprecated.EntityFactoryClass;
 import backend.Entity;
-import backend.EntityFactoryClass;
 import backend.GameObject;
 import backend.Level;
 import backend.Mode;

@@ -2,7 +2,7 @@ package authoring_environment.controller;
 
 import java.util.Map;
 
-import authoring_environment.backend.Entity;
+import backend.game_object.entities.Entity;
 
 public interface ControllerInterface {
 	
