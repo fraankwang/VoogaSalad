@@ -2,9 +2,10 @@ package authoring_environment.controller;
 
 import java.util.Map;
 
-public interface ControllerInterface {
+import authoring_environment.backend.Entity;
 
-	Map<String, String> loadData();
+public interface ControllerInterface {
 	
-	void writeData(Map<String, String> data);
+	public void loadData(Entity entity);
+	
 }
