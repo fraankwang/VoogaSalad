@@ -7,5 +7,4 @@ import authoring_environment.backend.Entity;
 public interface ControllerInterface {
 	
 	public void loadData(Entity entity);
-	
 }
