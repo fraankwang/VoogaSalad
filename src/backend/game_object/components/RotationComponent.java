@@ -4,7 +4,7 @@
 
 package backend.game_object.components;
 
-public class RotationComponent extends Component{
+public class RotationComponent extends Component implements IComponent{
 	
 	private double myAngle;
 	private double myAngularVelocity;
@@ -13,7 +13,6 @@ public class RotationComponent extends Component{
 	public RotationComponent(double direction) {
 		// TODO Auto-generated constructor stub
 		myAngle = direction;
-		tag = "Direction";
 	}
 	
 	public double getAngle(){
@@ -22,6 +21,11 @@ public class RotationComponent extends Component{
 	
 	public void setAngle(double dir){
 		myAngle = dir;
+	}
+	
+	@Override
+	public String getTag(){
+		return "Rotation";
 	}
 
 }

@@ -72,4 +72,12 @@ public class MovementComponent extends Component{
 	public void setCanRotate(boolean bool){
 		canRotate = bool;
 	}
+
+	public double getBezierTime() {
+		return myBezierTime;
+	}
+
+	public void setBezierTime(double myBezierTime) {
+		this.myBezierTime = myBezierTime;
+	}
 }

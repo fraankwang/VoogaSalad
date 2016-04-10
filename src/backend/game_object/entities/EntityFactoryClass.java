@@ -5,7 +5,7 @@
  */
 package backend.game_object.entities;
 
-import backend.GameObject;
+import backend.GameWorld;
 import backend.game_object.components.Component;
 import backend.game_object.components.DisplayComponent;
 import exception.DrumpfTowerException;
@@ -16,7 +16,7 @@ public class EntityFactoryClass {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Entity makeEntity(GameObject trumpGame, String[] componentsWanted) {
+	public Entity makeEntity(GameWorld trumpGame, String[] componentsWanted) {
 		Entity trump = new Entity(trumpGame.getGameStats().nextAvailableID());
 		// wants to add a display component to trump
 		for (String componentType : componentsWanted) {

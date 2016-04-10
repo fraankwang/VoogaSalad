@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import backend.FrontEndAccessController;
-import backend.GameObject;
+import backend.GameWorld;
 import backend.IFrontEndAccess;
 import backend.Level;
 import backend.Mode;
@@ -47,7 +47,7 @@ public class SystemsController {
 		bagOfSystems.add(system);
 	}
 
-	public void iterateThroughSystems(GameObject game) {
+	public void iterateThroughSystems(GameWorld game) {
 		for (Systemm myCurrSystem : bagOfSystems) {
 			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
 			List<Level> currLevels = game.getLevelsForMode(currMode);

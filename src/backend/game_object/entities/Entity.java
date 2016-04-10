@@ -1,53 +1,62 @@
 package backend.game_object.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import backend.game_object.components.Component;
+import backend.game_object.components.IComponent;
 
-public class Entity {
-
+public class Entity implements IEntity{
+	
+	private String myLabel;
 	private int myID;
-	private List<Component> myComponents;
+	//private List<Component> myComponents;
+	private Map<String, IComponent> myComponents;
 
 	public Entity(int ID) {
-		myComponents = new ArrayList<Component>();
+		myComponents = new HashMap<String, IComponent>();
 		this.myID = ID;
 	}
 
-	public void addComponent(Component component) {
-		myComponents.add(component);
+	public void addComponent(IComponent component) {
+		myComponents.put(component.getTag(), component);
 	}
 	
-	public Component getComponent(String tag){
-		for(Component component : myComponents){
-			if(component.getTag().equals(tag)){
-				return component;
-			}
-		}
-		return null;
+	public IComponent getComponent(String tag){
+		return myComponents.get(tag);
 	}
+	
 
 	@Override
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
 	
-	public List<String> getComponentTags(){
-		List<String> tags = new ArrayList<String>();
-		
-		for(Component component : myComponents){
-			tags.add(component.getTag());
-		}
+	public Set<String> getComponentTags(){
 		
 		//sort alphabetically
-		java.util.Collections.sort(tags);
+		return myComponents.keySet();
 		
-		return tags;
 	}
 	
-	public List<Component> getComponents(){
-		return myComponents;
+	public Collection<IComponent> getComponents(){
+		return myComponents.values();
+	}
+
+	public String getLabel() {
+		return myLabel;
+	}
+
+	public void setLabel(String label) {
+		this.myLabel = label;
+	}
+	
+	public boolean hasComponent(String tag){
+		return myComponents.get(tag) != null;
 	}
 
 }

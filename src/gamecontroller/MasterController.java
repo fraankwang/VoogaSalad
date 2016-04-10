@@ -8,7 +8,7 @@ package gamecontroller;
 import backend.FrontEndGameAuthoringEnvironment;
 import backend.FrontEndAccessController;
 import backend.GameAuthoringEnvironment;
-import backend.GameObject;
+import backend.GameWorld;
 import backend.systems.SystemsController;
 import exception.DrumpfTowerException;
 import javafx.animation.KeyFrame;
@@ -22,7 +22,7 @@ public class MasterController {
 
 	private static final int SIZE = 600;
 	private GameAuthoringEnvironment bae;
-	private GameObject trumpGame;
+	private GameWorld trumpGame;
 	private SystemsController systems;
 	private Group myRoot;
 	private FrontEndAccessController displayController;
@@ -52,7 +52,7 @@ public class MasterController {
 		return new KeyFrame(Duration.millis(1000 / numFramesPerSecond), e -> step(trumpGame));
 	}
 
-	public void step(GameObject game) {
+	public void step(GameWorld game) {
 		systems.iterateThroughSystems(game);
 	}
 

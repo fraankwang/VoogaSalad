@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
 public class GameAuthoringEnvironment {
 
 	private EntityFactoryClass entityFactory;
-	private GameObject trumpGame;
+	private GameWorld trumpGame;
 	private FrontEndGameAuthoringEnvironment frontMockData;
 	private FrontEndAccessController backendController;
 
@@ -31,11 +31,11 @@ public class GameAuthoringEnvironment {
 		this.backendController = backendController;
 	}
 
-	public GameObject createGameObject() {
-		return new GameObject();
+	public GameWorld createGameObject() {
+		return new GameWorld();
 	}
 
-	public GameObject setGameObjectWithMockData(FrontEndGameAuthoringEnvironment mockData) {
+	public GameWorld setGameObjectWithMockData(FrontEndGameAuthoringEnvironment mockData) {
 		trumpGame = createGameObject();
 		trumpGame.initializeGameObject(mockData.modesWanted, mockData.levelsWanted);
 		// can add extra layer iterating through each level so we add entity to

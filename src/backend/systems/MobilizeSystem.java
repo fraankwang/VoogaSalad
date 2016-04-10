@@ -12,6 +12,7 @@ import backend.game_object.components.MovementComponent;
 import backend.Level;
 import backend.game_object.components.*;
 import backend.game_object.entities.Entity;
+import backend.game_object.entities.IEntity;
 
 public class MobilizeSystem extends Systemm implements ISystem {
 	
@@ -28,11 +29,13 @@ public class MobilizeSystem extends Systemm implements ISystem {
 	//Make default velocity vector
 	
 	@Override
-	public void update(List<Entity> entities) {
-
-		List<Entity> movableEntities = filter(entities, );
+	public void update(List<IEntity> entities) {
 		
-		for(Entity entity : movableEntities){
+		for(IEntity entity : entities){
+			
+			if(!entity.hasComponent("Movement")){
+				continue;
+			}
 			
 			MovementComponent movComponent = (MovementComponent) entity.getComponent("Movement");
 			PositionComponent posComponent = (PositionComponent) entity.getComponent("Position");
@@ -56,22 +59,7 @@ public class MobilizeSystem extends Systemm implements ISystem {
 		}
 
 	}
-	
-	public void updateRotations(List<Entity> rotatableEntities){
-		
-	}
-	
-	public void updateMovements(List<Entity> movableEntities){
-		
-	}
 
-	@Override
-	public void execute(List<Level> list) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 	
 
 }

@@ -2,10 +2,8 @@ package backend.game_object.components;
 
 public abstract class Component implements IComponent{
 	
-	protected String tag = "Blank";
-	
 	public String getTag(){
-		return tag;
+		return "Blank";
 	}
 	
 	public void update(){

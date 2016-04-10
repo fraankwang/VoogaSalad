@@ -1,14 +1,14 @@
 package backend.game_object.components;
 
-public class HealthComponent extends Component{
+public class HealthComponent extends Component implements IComponent{
 	
 	private double myHealth;
 	private double myDamage;
 	
-	public HealthComponent(double health) {
+	public HealthComponent(double health, double damage) {
 		// TODO Auto-generated constructor stub
 		myHealth = health;
-		tag="Health";
+		myDamage = damage;
 	}
 	
 	public double getHealth(){
@@ -21,6 +21,16 @@ public class HealthComponent extends Component{
 	
 	public void setDamage(double newDamage){
 		myDamage = newDamage;
+	}
+	
+	@Override
+	public String getTag(){
+		return "Health";
+	}
+
+	public double getDamage() {
+		// TODO Auto-generated method stub
+		return myDamage;
 	}
 
 }

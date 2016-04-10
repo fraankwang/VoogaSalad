@@ -8,12 +8,12 @@ package backend;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameObject {
+public class GameWorld {
 
 	private List<Mode> modes;
 	private GameStatisticsObject gameStats;
 
-	public GameObject() {
+	public GameWorld() {
 		this.gameStats = new GameStatisticsObject();
 		this.modes = new ArrayList<Mode>();
 	}

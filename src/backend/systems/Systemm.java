@@ -18,10 +18,8 @@ public abstract class Systemm implements ISystem{
 	
 	private static final String DEFAULT_RESOURCE_PACKAGE = "backend/resources/";
 	private ResourceBundle myActionRequirementsResources= ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
-
-	public abstract void update(List<Entity> entities);
 	
-	public abstract void execute(List<Level> list);
+	//public abstract void execute(List<Level> list);
 	
 	//for filter list for desired entities
 	public List<Entity> filter(List<Entity> entities, List<String> requiredComponents){

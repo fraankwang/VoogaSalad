@@ -14,7 +14,6 @@ public class PositionComponent extends Component{
 	public PositionComponent(){
 		myCoordX = 100;
 		myCoordY = 100;
-		tag = "Position";
 	}
 	
 	public PositionComponent(double x, double y) {
@@ -22,7 +21,6 @@ public class PositionComponent extends Component{
 //		setPositionVector(new Vector(x, y));
 		myCoordX = x;
 		myCoordY = y;
-		tag = "Position";
 	}
 	
 	public double[] getPosition(){
@@ -38,6 +36,11 @@ public class PositionComponent extends Component{
 	@Override
 	public void update(){
 		
+	}
+	
+	@Override
+	public String getTag(){
+		return "Position";
 	}
 
 	public Vector getPositionVector() {
