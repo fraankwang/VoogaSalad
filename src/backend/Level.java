@@ -22,9 +22,12 @@ public class Level {
 
 	private List<IEntity> entities;
 	private Mapp map = new Mapp();
+	private int myId;
+	private int myParentId;
 
-	public Level() {
+	public Level(int id) {
 		entities = new ArrayList<IEntity>();
+		this.myId = id;
 	}
 
 	public List<IEntity> getEntities() {
@@ -42,6 +45,14 @@ public class Level {
 
 	public void addToEntities(Entity entity) {
 		entities.add(entity);
+	}
+	
+	public int getId(){
+		return this.myId;
+	}
+	
+	public int getParentId(){
+		return this.myParentId;
 	}
 
 }

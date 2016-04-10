@@ -5,6 +5,7 @@ import backend.GameWorld;
 import backend.Level;
 import backend.Mode;
 import backend.game_object.components.DisplayComponent;
+import backend.game_object.entities.Entity;
 
 public class xstreamTester {
 

@@ -4,15 +4,16 @@ package authoring_environment.backend.deprecated;
 import java.util.List;
 
 import backend.GameStatisticsObject;
+import backend.game_object.components.Component;
+import backend.game_object.entities.Entity;
 
-public class EntityFactoryClass {
-	private GameStatisticsObject myStats;
+public class EntityFactory {
 	
-	public EntityFactoryClass(GameStatisticsObject stats) {
-		this.myStats = stats;
+	public EntityFactory() {
+		
 	}
 
-	public Entity makeEntity(){
+	public Entity makeEntity(int id){
 		/*Class trump = null;
 		try{
 			trump = Class.forName(entityType + "Entity");
@@ -32,7 +33,7 @@ public class EntityFactoryClass {
 			e.printStackTrace();
 		}
 		return null;*/
-		return new Entity(myStats.nextAvailableID());
+		return new Entity(id);
 	}
 	
 	public void addComponents(Entity entity, List<Component> components){

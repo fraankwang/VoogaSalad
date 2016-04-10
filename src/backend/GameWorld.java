@@ -18,7 +18,7 @@ public class GameWorld {
 		this.modes = new ArrayList<Mode>();
 	}
 
-	public void initializeGameObject(int numOfMode, int numOfLevels) {
+/*	public void initializeGameObject(int numOfMode, int numOfLevels) {
 		int iteration = 0;
 		while (iteration < numOfMode) {
 			Mode mode1 = new Mode();
@@ -29,7 +29,7 @@ public class GameWorld {
 			iteration++;
 		}
 	}
-
+*/
 	public GameStatisticsObject getGameStats() {
 		return gameStats;
 	}
@@ -38,13 +38,23 @@ public class GameWorld {
 		modes.add(mode);
 		gameStats.incrementNumModes();
 	}
-
+	
+	public Mode getMode(int modeId){
+		for (Mode mode : modes){
+			if (mode.getId() == modeId){
+				return mode; //potential exception
+			}
+		}
+		return null;
+	}
+/*
 	public void addNewLevelToCurrentMode(Mode mode) {
 		Level level1 = new Level();
-		mode.addToLevelsList(level1);
+		mode.addLevel(level1);
 		gameStats.incrementNumLevels();
 	}
-
+*/
+	
 	/**
 	 * Returns all possible types of modes
 	 * 

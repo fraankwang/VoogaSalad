@@ -10,17 +10,23 @@ import java.util.List;
 
 public class Mode {
 
-	private List<Level> levels = null;
-
-	public Mode() {
+	private List<Level> levels;
+	private int myId;
+	
+	public Mode(int id) {
 		levels = new ArrayList<Level>();
+		this.myId = id;
 	}
 
 	public List<Level> getLevels() {
 		return levels;
 	}
+	
+	public int getId(){
+		return this.myId;
+	}
 
-	public void addToLevelsList(Level level) {
+	public void addLevel(Level level) {
 		levels.add(level);
 	}
 
