@@ -69,4 +69,9 @@ public class GameWorld {
 		return super.toString();
 	}
 
+	public void addMapImage(Level level) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -1,3 +1,10 @@
+/**
+ * 
+ * @author mario_oliver93
+ * 
+ */
+
+
 package backend.game_object.components;
 
 public class DisplayComponent extends Component implements IComponent{
@@ -7,6 +14,10 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	public DisplayComponent(){
 		this.canBeShown = true;
+	}
+	
+	public void setImage(String image){
+		imageToShow = image;
 	}
 	
 	public DisplayComponent(boolean shown) {

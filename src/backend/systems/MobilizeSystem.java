@@ -47,7 +47,7 @@ public class MobilizeSystem extends Systemm implements ISystem {
 			
 			//do movement
 			Vector posVector = posComponent.getPositionVector();
-			Vector velVector = movComponent.getCurrentVelocityVector();
+//			Vector velVector = movComponent.getCurrentVelocityVector();
 			posVector.add(velVector);
 			
 			//do rotation

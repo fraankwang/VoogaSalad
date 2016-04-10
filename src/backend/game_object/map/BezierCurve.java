@@ -1,4 +1,4 @@
-package backend.game_object.path;
+package backend.game_object.map;
 
 /**
  * Author Raghav Kedia rk145

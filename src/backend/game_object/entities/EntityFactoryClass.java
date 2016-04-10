@@ -22,6 +22,7 @@ public class EntityFactoryClass {
 		for (String componentType : componentsWanted) {
 			Component myComponent = null;
 			try {
+				System.out.println(componentType);
 				myComponent = (Component) Class.forName("backend.game_object.components." + componentType + "Component").newInstance();
 				// I hate exceptions
 			} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {

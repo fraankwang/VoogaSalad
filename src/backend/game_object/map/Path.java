@@ -1,4 +1,6 @@
-package backend.game_object.path;
+
+
+package backend.game_object.map;
 
 import java.util.List;
 
