@@ -1,8 +1,6 @@
 //Kushal Byatnal
 package backend;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class EntityFactoryClass {
@@ -12,7 +10,7 @@ public class EntityFactoryClass {
 		this.myStats = stats;
 	}
 
-	public Entity makeEntity(String entityType){
+	public Entity makeEntity(){
 		/*Class trump = null;
 		try{
 			trump = Class.forName(entityType + "Entity");

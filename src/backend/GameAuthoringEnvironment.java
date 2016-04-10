@@ -44,7 +44,7 @@ public class GameAuthoringEnvironment {
 		// the right level
 		// assuming we only want to add to level one right now
 		for (int eachSprite = 0; eachSprite < mockData.level1SpritesComponentWanted.length; eachSprite++) {
-			Entity entity = entityFactory.makeEntity(mockData.level1SpritesComponentWanted[1][eachSprite]);
+			Entity entity = entityFactory.makeEntity();
 			// this is the line that assumes we are on mode one and level one
 			trumpGame.getModes().get(trumpGame.getGameStats().getCurrentMode()).getLevels()
 					.get(trumpGame.getGameStats().getCurrentLevel()).addToEntities(entity);
