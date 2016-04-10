@@ -8,19 +8,16 @@ public class ComponentFactory {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Component makeComponent(String componentType){
-		Component myComponent = null;
+	public Component makeComponent(String componentType, List parameters){
+		Component component = null;
 		try {
-			myComponent = (Component) Class.forName(componentType + "Component").newInstance();
+			component = (Component) Class.forName(componentType + "Component").newInstance();
 			
 		} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return myComponent;
-	}
-	
-	public void initComponentWithParams(Component component, List parameters){
 		component.initWithParams(parameters);
+		return component;
 	}
 
 }

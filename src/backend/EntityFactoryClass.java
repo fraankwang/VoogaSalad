@@ -13,14 +13,14 @@ public class EntityFactoryClass {
 	}
 
 	public Entity makeEntity(String entityType){
-		Class trump = null;
+		/*Class trump = null;
 		try{
 			trump = Class.forName(entityType + "Entity");
-		}
-		catch (ClassNotFoundException e){
+		} catch (ClassNotFoundException e){
 			e.printStackTrace();
 		}
 		Constructor c = null;
+		
 		try {
 			c = trump.getDeclaredConstructor(Integer.class);
 		} catch (NoSuchMethodException | SecurityException e) {
@@ -28,11 +28,11 @@ public class EntityFactoryClass {
 		}
 		try {
 			return (Entity) c.newInstance(myStats.nextAvailableID());
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException| InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return null;*/
+		return new Entity(myStats.nextAvailableID());
 	}
 	
 	public void addComponents(Entity entity, List<Component> components){
