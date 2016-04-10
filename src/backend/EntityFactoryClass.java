@@ -1,25 +1,41 @@
+//Kushal Byatnal
 package backend;
 
+import java.util.List;
+
 public class EntityFactoryClass {
-
-	public EntityFactoryClass() {
-		// TODO Auto-generated constructor stub
+	private GameStatisticsObject myStats;
+	
+	public EntityFactoryClass(GameStatisticsObject stats) {
+		this.myStats = stats;
 	}
 
-	public Entity makeEntity(GameObject trumpGame, String[] componentsWanted) {
-		Entity trump = new Entity(trumpGame.getGameStats().nextAvailableID());
-		// wants to add a display component to trump
-		for (String componentType : componentsWanted) {
-			Component myComponent = null;
-			try {
-				myComponent = (Component) Class.forName("backend." + componentType + "Component").newInstance();
-				// I hate exceptions
-			} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-			trump.addComponent(myComponent);
+	public Entity makeEntity(){
+		/*Class trump = null;
+		try{
+			trump = Class.forName(entityType + "Entity");
+		} catch (ClassNotFoundException e){
+			e.printStackTrace();
 		}
-		return trump;
+		Constructor c = null;
+		
+		try {
+			c = trump.getDeclaredConstructor(Integer.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+		try {
+			return (Entity) c.newInstance(myStats.nextAvailableID());
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException| InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return null;*/
+		return new Entity(myStats.nextAvailableID());
 	}
-
+	
+	public void addComponents(Entity entity, List<Component> components){
+		for (Component component : components) {
+			entity.addComponent(component);
+		}
+	}
 }

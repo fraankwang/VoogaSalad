@@ -1,5 +1,8 @@
 package backend;
 
+import java.util.List;
+
 public interface Component {
-	public String getName();
+	public void initWithParams(List parameters);
+
 }

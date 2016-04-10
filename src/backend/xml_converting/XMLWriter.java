@@ -18,7 +18,7 @@ public class XMLWriter {
 		stringWriter = new StringWriter();
 
 		XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
-		xmlStreamWriter = new IndentingXMLStreamWriter(xmlOutputFactory.createXMLStreamWriter(stringWriter));
+		xmlStreamWriter = xmlOutputFactory.createXMLStreamWriter(stringWriter);
 		xmlStreamWriter.writeStartDocument();
 	}
 
@@ -46,5 +46,8 @@ public class XMLWriter {
 	public void printXMLString() {
 		System.out.println(xmlString);
 	}
-
+	
+	public String getXMLString() {
+		return xmlString;
+	}
 }

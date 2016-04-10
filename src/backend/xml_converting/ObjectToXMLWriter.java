@@ -47,11 +47,14 @@ public abstract class ObjectToXMLWriter {
 	}
 
 	public String getXMLfromObject(Object o) {
-//		BufferedOutputStream stdout = new BufferedOutputStream(System.out);
-//		xstream.marshal(o, new PrettyPrintWriter(new OutputStreamWriter(stdout)));
 		return xstream.toXML(o);
 	}
-
+	
+	public String formattedXML(Object o) {
+		BufferedOutputStream stdout = new BufferedOutputStream(System.out);
+		xstream.marshal(o, new PrettyPrintWriter(new OutputStreamWriter(stdout)));
+		return xstream.toString();
+	}
 	public abstract Object xMLToObject(String xml);
 
 	public XStream getXstream() {
