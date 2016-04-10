@@ -6,20 +6,27 @@ public class EntityFactoryClass {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Entity makeEntity(GameObject trumpGame, String[] componentsWanted) {
-		Entity trump = new Entity(trumpGame.getGameStats().nextAvailableID());
-		// wants to add a display component to trump
-		for (String componentType : componentsWanted) {
+	public Entity makeEntity(String entityType){
+		Entity trump = null;
+		try{
+			trump = (Entity) Class.forName(entityType + "Entity").newInstance();
+		}
+		catch (InstantiationException | ClassNotFoundException | IllegalAccessException e){
+			e.printStackTrace();
+		}
+		return trump;
+	}
+	
+	public void addComponents(Entity entity, String[] components){
+		for (String componentType : components) {
 			Component myComponent = null;
 			try {
-				myComponent = (Component) Class.forName("backend." + componentType + "Component").newInstance();
+				myComponent = (Component) Class.forName(componentType + "Component").newInstance();
 				// I hate exceptions
 			} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
-			trump.addComponent(myComponent);
+			entity.addComponent(myComponent);
 		}
-		return trump;
 	}
-
 }
