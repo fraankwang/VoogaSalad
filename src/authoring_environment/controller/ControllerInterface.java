@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface ControllerInterface {
 
-	Map<String, String> loadData();
+	public Map<String, String> loadData();
 	
-	void writeData(Map<String, String> data);
+	public void writeData(Map<String, String> data);
 }
