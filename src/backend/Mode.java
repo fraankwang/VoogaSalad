@@ -1,8 +1,3 @@
-/**
- * 
- * @author mario_oliver93
- *
- */
 package backend;
 
 import java.util.ArrayList;
