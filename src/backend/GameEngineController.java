@@ -1,13 +1,13 @@
-package backend;
-
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
-
 /**
  * 
  * @author mario_oliver93
  *
  */
+package backend;
+
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
+
 public class GameEngineController {
 
 	public GameEngineController() {

@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
 package backend;
 
 public class FrontEndGameAuthoringEnvironment {
@@ -20,7 +25,7 @@ public class FrontEndGameAuthoringEnvironment {
 		// also pretend that she also wants a list of things she wants one
 		// sprite to be able to do
 		// outside list represents level 1, inside list is components for one sprite
-		String[][] mock = { { "Display" }, { "Display" } };
+		String[][] mock = { { "Display", "Position" }, { "Display", "Position" } };
 		level1SpritesComponentWanted = mock;
 	}
 

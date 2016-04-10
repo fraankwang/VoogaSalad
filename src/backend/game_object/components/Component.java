@@ -1,7 +1,13 @@
 package backend.game_object.components;
 
-public interface Component {
+public abstract class Component implements IComponent{
 	
-	public String getTag();
+	public String getTag(){
+		return "Blank";
+	}
+	
+	public void update(){
+		
+	}
 	
 }

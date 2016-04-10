@@ -1,14 +1,19 @@
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
 package backend;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameObject {
+public class GameWorld {
 
 	private List<Mode> modes;
 	private GameStatisticsObject gameStats;
 
-	public GameObject() {
+	public GameWorld() {
 		this.gameStats = new GameStatisticsObject();
 		this.modes = new ArrayList<Mode>();
 	}
@@ -49,7 +54,7 @@ public class GameObject {
 		return modes;
 	}
 
-	public List<?> getLevelsForMode(Mode mode, int modeNum) {
+	public List<Level> getLevelsForMode(Mode mode) {
 		return mode.getLevels();
 	}
 
