@@ -23,7 +23,7 @@ public class Level {
 	private List<IEntity> entities;
 	private Mapp map = new Mapp();
 	private int myId;
-	private int myParentId;
+	private int myLevelId;
 
 	public Level(int id) {
 		entities = new ArrayList<IEntity>();
@@ -52,7 +52,7 @@ public class Level {
 	}
 	
 	public int getParentId(){
-		return this.myParentId;
+		return this.myLevelId;
 	}
 
 }

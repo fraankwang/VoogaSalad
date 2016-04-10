@@ -13,27 +13,16 @@ public class EntityFactory {
 		
 	}
 
-	public Entity makeEntity(int id){
-		/*Class trump = null;
-		try{
-			trump = Class.forName(entityType + "Entity");
-		} catch (ClassNotFoundException e){
-			e.printStackTrace();
-		}
-		Constructor c = null;
-		
-		try {
-			c = trump.getDeclaredConstructor(Integer.class);
-		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
-		try {
-			return (Entity) c.newInstance(myStats.nextAvailableID());
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException| InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return null;*/
-		return new Entity(id);
+	public Entity createEntity(Object info){
+		//parse string
+		int parsedId = 0;
+		Entity newEntity = new Entity(parsedId);
+		setUpEntity(newEntity, info);
+		return newEntity;
+	}
+	
+	private void setUpEntity(Entity entity, Object info){
+		//set up parent id
 	}
 	
 	public void addComponents(Entity entity, List<Component> components){

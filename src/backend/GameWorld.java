@@ -8,6 +8,9 @@ package backend;
 import java.util.ArrayList;
 import java.util.List;
 
+import backend.game_object.entities.Entity;
+import backend.game_object.entities.IEntity;
+
 public class GameWorld {
 
 	private List<Mode> modes;
@@ -39,10 +42,34 @@ public class GameWorld {
 		gameStats.incrementNumModes();
 	}
 	
-	public Mode getMode(int modeId){
+	public Mode getModeWithId(int modeId){
 		for (Mode mode : modes){
 			if (mode.getId() == modeId){
 				return mode; //potential exception
+			}
+		}
+		return null;
+	}
+	
+	public Level getLevelWithId(int id){
+		for (Mode mode: modes){
+			for (Level level : mode.getLevels()){
+				if (level.getId() == id){
+					return level;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public IEntity getEntityWithId(int id){
+		for (Mode mode : modes){
+			for(Level level : mode.getLevels()){
+				for (IEntity entity : level.getEntities()){
+					if(entity.getId() == id){
+						return entity;
+					}
+				}
 			}
 		}
 		return null;

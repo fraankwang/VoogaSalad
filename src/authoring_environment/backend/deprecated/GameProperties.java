@@ -12,8 +12,8 @@ public class GameProperties {
 	public GameProperties() {
 		setMyModes(new ArrayList<>());
 		setMyLevels(new ArrayList<>());
-		myEntities = new ArrayList<>();
-		myComponents = new ArrayList<>();
+		setMyEntities(new ArrayList<>());
+		setMyComponents(new ArrayList<>());
 	}
 
 	public List getMyModes() {
@@ -30,6 +30,22 @@ public class GameProperties {
 
 	public void setMyLevels(List myLevels) {
 		this.myLevels = myLevels;
+	}
+
+	public List getMyEntities() {
+		return myEntities;
+	}
+
+	public void setMyEntities(List myEntities) {
+		this.myEntities = myEntities;
+	}
+
+	public List getMyComponents() {
+		return myComponents;
+	}
+
+	public void setMyComponents(List myComponents) {
+		this.myComponents = myComponents;
 	}
 
 }
