@@ -1,13 +1,10 @@
 package backend.xml_converting;
 
-import java.util.ArrayList;
-
-import authoring_environment.backend.deprecated.ComponentFactory;
 import authoring_environment.backend.deprecated.EntityFactoryClass;
-import backend.Entity;
-import backend.GameObject;
+import backend.GameWorld;
 import backend.Level;
 import backend.Mode;
+import backend.game_object.components.DisplayComponent;
 
 public class xstreamTester {
 
@@ -16,18 +13,18 @@ public class xstreamTester {
 	}
 	
 	public static void main(String[] args) {
-		GameObject myGameObject = new GameObject();
+		GameWorld myGameObject = new GameWorld();
 		Mode testMode = new Mode();
 		Level testLevel = new Level();
 		testMode.addToLevelsList(testLevel);
 		EntityFactoryClass factory = new EntityFactoryClass(myGameObject.getGameStats());
-		Entity testEntity = factory.makeEntity();
-		ComponentFactory compfactory = new ComponentFactory();
-		testEntity.addComponent(compfactory.makeComponent("Display", new ArrayList()));
+		backend.game_object.entities.Entity testEntity = new backend.game_object.entities.Entity(0);
+		DisplayComponent testComponent = new DisplayComponent();
+		testEntity.addComponent(testComponent);
 		testLevel.addToEntities(testEntity);
 		
 		myGameObject.addMode(testMode);
-		GameObjectToXMLWriter myConverter = new GameObjectToXMLWriter();
+		GameWorldToXMLWriter myConverter = new GameWorldToXMLWriter();
 		String xml = myConverter.getXMLfromObject(myGameObject);
 		System.out.println(xml);
 		System.out.println(myConverter.formattedXML(myGameObject));
