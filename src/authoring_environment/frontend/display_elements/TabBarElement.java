@@ -1,5 +1,6 @@
 package authoring_environment.frontend.display_elements;
 
+import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.tab_displays.EnemiesTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.GameTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.LevelsTabDisplay;
@@ -30,8 +31,10 @@ public class TabBarElement implements ITabBarElement {
 	private TabDisplay myLevelsTabDisplay;
 	private TabDisplay myTowersTabDisplay;
 	private TabDisplay myEnemiesTabDisplay;
+	private IController myController;
 
-	public TabBarElement() {
+	public TabBarElement(IController controller) {
+		myController = controller;
 		myTabPane = new TabPane();
 		myGameTabDisplay = new GameTabDisplay();
 		myModesTabDisplay = new ModesTabDisplay();

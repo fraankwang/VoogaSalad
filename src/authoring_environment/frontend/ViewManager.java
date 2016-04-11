@@ -36,7 +36,7 @@ public class ViewManager implements IViewManager {
 	@Override
 	public void initialize(Stage s) {
 		myMenuBar = new MenuBarElement();
-		myTabBar = new TabBarElement();
+		myTabBar = new TabBarElement(myController);
 
 		BorderPane borderPane = new BorderPane();
 		borderPane.setTop(myMenuBar.buildNode());
