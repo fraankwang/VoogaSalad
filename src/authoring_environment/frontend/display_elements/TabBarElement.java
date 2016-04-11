@@ -36,11 +36,11 @@ public class TabBarElement implements ITabBarElement {
 	public TabBarElement(IController controller) {
 		myController = controller;
 		myTabPane = new TabPane();
-		myGameTabDisplay = new GameTabDisplay();
-		myModesTabDisplay = new ModesTabDisplay();
-		myLevelsTabDisplay = new LevelsTabDisplay();
-		myTowersTabDisplay = new TowersTabDisplay();
-		myEnemiesTabDisplay = new EnemiesTabDisplay();
+		myGameTabDisplay = new GameTabDisplay(controller);
+		myModesTabDisplay = new ModesTabDisplay(controller);
+		myLevelsTabDisplay = new LevelsTabDisplay(controller);
+		myTowersTabDisplay = new TowersTabDisplay(controller);
+		myEnemiesTabDisplay = new EnemiesTabDisplay(controller);
 	}
 
 	@Override
