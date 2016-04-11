@@ -1,7 +1,8 @@
 package authoring_environment.frontend.display_elements.grids;
 
+import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
-import javafx.scene.Node;
+import authoring_environment.frontend.display_elements.panels.Panel;
 
 /**
  * The EditorGrid superclass is a subset of Grid, which is in all the
@@ -15,8 +16,12 @@ import javafx.scene.Node;
 
 public abstract class EditorGrid extends Grid {
 
-	protected Node myRulesPanel;
-	protected Node myModifiableAttributesPanel;
+	protected Panel myRulesPanel;
+	protected Panel myModifiableAttributesPanel;
+
+	public EditorGrid(IController controller) {
+		super(controller);
+	}
 
 	@Override
 	protected void initializeGrid() {
