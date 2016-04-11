@@ -14,8 +14,14 @@ public class ModesTabDisplay extends TabDisplay {
 
 	public ModesTabDisplay(IController controller) {
 		super(controller);
-		myGrid = new ModesTabGrid();
-		myEditorDisplay = new ModeEditorDisplay();
+		myController = controller;
+	}
+
+	@Override
+	public void initialize() {
+		myGrid = new ModesTabGrid(myController, this);
+		myEditorDisplay = new ModeEditorDisplay(myController);
+		
 	}
 
 }

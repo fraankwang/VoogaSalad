@@ -12,11 +12,15 @@ import authoring_environment.frontend.display_elements.grids.tab_grids.GameTabGr
 
 public class GameTabDisplay extends TabDisplay {
 
-
 	public GameTabDisplay(IController controller) {
 		super(controller);
-		myGrid = new GameTabGrid();
-		myEditorDisplay = new GameEditorDisplay();
+		myController = controller;
+	}
+
+	@Override
+	public void initialize() {
+		myGrid = new GameTabGrid(myController, this);
+		myEditorDisplay = new GameEditorDisplay(myController);
 	}
 
 }

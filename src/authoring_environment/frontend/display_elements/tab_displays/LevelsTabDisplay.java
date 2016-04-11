@@ -5,6 +5,7 @@ import authoring_environment.frontend.display_elements.editor_displays.LevelEdit
 import authoring_environment.frontend.display_elements.grids.Grid;
 import authoring_environment.frontend.display_elements.grids.tab_grids.LevelsTabGrid;
 import javafx.scene.Node;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 /**
@@ -23,16 +24,26 @@ public class LevelsTabDisplay extends TabDisplay {
 
 	public LevelsTabDisplay(IController controller) {
 		super(controller);
+		myController = controller;
+	}
+
+	@Override
+	public void initialize() {
 		myLevelsTabPane = new TabPane();
-		myActiveGrid = new LevelsTabGrid();
+		myActiveGrid = new LevelsTabGrid(myController, this);
+		Tab activeTab = new Tab();
+		activeTab.setContent(myActiveGrid.buildNode());
+		myLevelsTabPane.getTabs().add(activeTab);
 		myGrid = myActiveGrid;
-		myEditorDisplay = new LevelEditorDisplay();
-		
+		myEditorDisplay = new LevelEditorDisplay(myController);
+
 		// Testing
 	}
 
 	@Override
 	public Node buildNode() {
+		initialize();
 		return myLevelsTabPane;
 	}
+
 }

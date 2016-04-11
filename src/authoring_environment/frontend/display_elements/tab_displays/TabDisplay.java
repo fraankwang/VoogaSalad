@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 
 public abstract class TabDisplay implements ITabDisplay {
 
+	private static final int EDITOR_SCENE_WIDTH = 800;
+	private static final int EDITOR_SCENE_HEIGHT = 800;
 	protected EditorDisplay myEditorDisplay;
 	protected Grid myGrid;
 	protected IController myController;
@@ -30,6 +32,7 @@ public abstract class TabDisplay implements ITabDisplay {
 
 	@Override
 	public Node buildNode() {
+		initialize();
 		return myGrid.buildNode();
 	}
 
@@ -38,7 +41,7 @@ public abstract class TabDisplay implements ITabDisplay {
 		Stage editorStage = new Stage();
 		Group root = new Group();
 		root.getChildren().add(myEditorDisplay.buildNode());
-		Scene editorScene = new Scene(root, 800, 800, Color.WHITE);
+		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
 		editorStage.setScene(editorScene);
 		editorStage.showAndWait();
 	}
