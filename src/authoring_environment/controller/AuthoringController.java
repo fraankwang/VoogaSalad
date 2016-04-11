@@ -2,7 +2,7 @@ package authoring_environment.controller;
 
 import java.util.Map;
 
-import authoring_environment.frontend.ViewManager;
+import authoring_environment.frontend.AuthoringViewManager;
 import authoring_environment.frontend.interfaces.IViewManager;
 import javafx.stage.Stage;
 
@@ -12,17 +12,17 @@ import javafx.stage.Stage;
  *
  */
 
-public class Controller implements IController {
+public class AuthoringController implements IController {
 
 	private Stage myPrimaryStage;
 	private IViewManager myViewManager;
 	
-	public Controller(Stage s) {
+	public AuthoringController(Stage s) {
 		myPrimaryStage = s;
-		myViewManager = new ViewManager(this);
+		myViewManager = new AuthoringViewManager(this);
 	}
 	
-	protected void start() {
+	public void start() {
 		myViewManager.initialize(myPrimaryStage);
 	}
 
