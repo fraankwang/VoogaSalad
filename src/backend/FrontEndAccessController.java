@@ -1,8 +1,10 @@
 package backend;
 
+import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 
 public class FrontEndAccessController implements IFrontEndAccess {
 
@@ -25,6 +27,12 @@ public class FrontEndAccessController implements IFrontEndAccess {
 	public void register() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void handleEvent(Event e){
+		if(e instanceof KeyEvent){
+			 System.out.println("hello");
+		}
 	}
 
 }
