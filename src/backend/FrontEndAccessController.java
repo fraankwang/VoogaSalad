@@ -25,13 +25,7 @@ public class FrontEndAccessController implements IFrontEndAccess {
 	@Override
 	public void register() {
 		// TODO Auto-generated method stub
-		
-	}
-//Collision can accesss all of the variables
-	//or if you click and you want it to explode, grab that rule and change the component
-	//if click right means speed up, grab predicate and go from there
-	public Event getCurrentEvent(){
 
 	}
-
+//
 }

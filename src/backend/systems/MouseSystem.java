@@ -1,8 +1,7 @@
 package backend.systems;
 
 import backend.FrontEndAccessController;
-import backend.game_object.components.MouseComponent;
-import backend.game_object.entities.Entity;
+import backend.game_object.entities.IEntity;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class MouseSystem extends Systemm implements ISystem {
         this.myFrontEndAccessController = myFrontEndAccessController;
     }
     @Override
-    public void update(List<Entity> entities) {
+    public void update(List<IEntity> entities) {
 
     }
 }

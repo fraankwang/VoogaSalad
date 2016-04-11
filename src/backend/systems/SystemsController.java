@@ -24,12 +24,7 @@ public class SystemsController {
 	private FrontEndAccessController frontendController;
 	private ResourceLoader myResourceLoader;
 	
-<<<<<<< HEAD
-	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	private ResourceBundle myActionRequirementsResources;
-	private ResourceBundle myComponentTagResources;
-=======
->>>>>>> engine_backend_systems
+
 
 	public SystemsController(FrontEndAccessController frontendController) {
 		this.frontendController = frontendController;

@@ -1,7 +1,6 @@
 package backend.systems;
 
 import backend.game_object.components.CollisionComponent;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
 import java.util.List;
@@ -14,7 +13,7 @@ public class CollisionSystem extends Systemm implements ISystem {
     /**
      * Implemented in O^2 for now.  Will eventually scale down to quadrant checks
      */
-    public void update(List<Entity> entities) {
+    public void update(List<IEntity> entities) {
         for(IEntity outEntity : entities){
             for(IEntity inEntity : entities){
                 //default isCollided  = false.  Only update if there is a collision

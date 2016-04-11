@@ -8,7 +8,6 @@ import java.util.List;
 
 import backend.game_object.components.MovementComponent;
 import backend.game_object.components.*;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
 public class MobilizeSystem extends Systemm implements ISystem {
@@ -26,7 +25,7 @@ public class MobilizeSystem extends Systemm implements ISystem {
 	//Make default velocity vector
 	
 	@Override
-	public void update(List<Entity> entities) {
+	public void update(List<IEntity> entities) {
 		
 		for(IEntity entity : entities){
 			
@@ -44,11 +43,7 @@ public class MobilizeSystem extends Systemm implements ISystem {
 			
 			//do movement
 			Vector posVector = posComponent.getPositionVector();
-<<<<<<< HEAD
-			velVector = movComponent.getCurrentVelocityVector();
-=======
-//			Vector velVector = movComponent.getCurrentVelocityVector();
->>>>>>> engine_backend_systems
+
 			posVector.add(velVector);
 			
 			//do rotation

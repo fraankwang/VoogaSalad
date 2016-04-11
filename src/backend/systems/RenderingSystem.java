@@ -14,22 +14,17 @@ import backend.Level;
 import backend.game_object.components.DisplayComponent;
 import backend.game_object.components.IComponent;
 import backend.game_object.components.PositionComponent;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
-<<<<<<< HEAD
+
 
 /**
  * 
  * @author mario_oliver93
  *
  */
-public class RenderingSystem extends Systemm implements ISystem {
-=======
-
-import java.util.*;
 
 public class RenderingSystem extends Systemm {
->>>>>>> engine_backend_systems
+
 
 //	private IFrontEndAccess frontEndController;
 	private FrontEndAccessController frontEndController;
@@ -46,15 +41,10 @@ public class RenderingSystem extends Systemm {
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
-<<<<<<< HEAD
-			for(IComponent eachComponent: myEntity.getComponents()){
-				if(eachComponent.getTag().equals("Display")){
-=======
 			double sizex = 80;
 			double sizey = 100;
 			for(IComponent eachComponent: myEntity.getComponents()){
 				if(eachComponent.getTag().equals(getComponentTagResources().getString("Display"))){
->>>>>>> engine_backend_systems
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
 				}
 				if(eachComponent.getTag().equals(getComponentTagResources().getString("Position"))){
@@ -63,9 +53,8 @@ public class RenderingSystem extends Systemm {
 				}
 				//if(eachComponent == "Size") -->  getSize()
 			}
-			
-<<<<<<< HEAD
-			frontEndController.createCharacter(x, y, imageToDisplay);
+			frontEndController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
+
 		}
 	}
 
@@ -75,9 +64,8 @@ public class RenderingSystem extends Systemm {
 		// TODO Auto-generated method stub
 		for(Level each: list){
 			System.out.println(each.toString());
-=======
-			frontEndController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
->>>>>>> engine_backend_systems
+			//frontEndController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
+
 		}
 	}
 

@@ -18,10 +18,9 @@ public abstract class Systemm implements ISystem{
 	
 	private static final String DEFAULT_RESOURCE_PACKAGE = "backend/resources/";
 	private ResourceBundle myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements");
-<<<<<<< HEAD
-=======
+
 	private ResourceBundle myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
->>>>>>> engine_backend_systems
+
 	
 	//public abstract void execute(List<Level> list);
 	
