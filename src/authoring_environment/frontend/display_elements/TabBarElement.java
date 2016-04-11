@@ -1,12 +1,10 @@
 package authoring_environment.frontend.display_elements;
 
-import authoring_environment.frontend.display_elements.tab_displays.EnemiesTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.GameTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.ModesTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
-import authoring_environment.frontend.display_elements.tab_displays.TowersTabDisplay;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabBarElement;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
@@ -29,8 +27,6 @@ public class TabBarElement implements ITabBarElement {
 	private TabDisplay myGameTabDisplay;
 	private TabDisplay myModesTabDisplay;
 	private TabDisplay myLevelsTabDisplay;
-	private TabDisplay myTowersTabDisplay;
-	private TabDisplay myEnemiesTabDisplay;
 	private TabDisplay myEntitiesTabDisplay;
 
 	public TabBarElement() {
@@ -38,8 +34,6 @@ public class TabBarElement implements ITabBarElement {
 		myGameTabDisplay = new GameTabDisplay();
 		myModesTabDisplay = new ModesTabDisplay();
 		myLevelsTabDisplay = new LevelsTabDisplay();
-		myTowersTabDisplay = new TowersTabDisplay();
-		myEnemiesTabDisplay = new EnemiesTabDisplay();
 		myEntitiesTabDisplay = new EntitiesTabDisplay();
 	}
 
@@ -48,10 +42,8 @@ public class TabBarElement implements ITabBarElement {
 		Tab gameTab = createTab("Game", myGameTabDisplay.buildNode());
 		Tab modeTab = createTab("Modes", myModesTabDisplay.buildNode());
 		Tab levelTab = createTab("Levels", myLevelsTabDisplay.buildNode());
-		Tab towerTab = createTab("Towers", myTowersTabDisplay.buildNode());
-		Tab enemyTab = createTab("Enemies", myEnemiesTabDisplay.buildNode());
 		Tab entityTab = createTab("Entities", myEntitiesTabDisplay.buildNode());
-		myTabPane.getTabs().addAll(gameTab, modeTab, levelTab, towerTab, enemyTab, entityTab);
+		myTabPane.getTabs().addAll(gameTab, modeTab, levelTab, entityTab);
 		return myTabPane;
 	}
 
@@ -77,16 +69,6 @@ public class TabBarElement implements ITabBarElement {
 	@Override
 	public TabDisplay getLevelsTabDisplay() {
 		return myLevelsTabDisplay;
-	}
-
-	@Override
-	public TabDisplay getTowersTabDisplay() {
-		return myTowersTabDisplay;
-	}
-
-	@Override
-	public TabDisplay getEnemiesTabDisplay() {
-		return myEnemiesTabDisplay;
 	}
 
 	@Override

@@ -20,10 +20,6 @@ public interface ITabBarElement extends IDisplayElement {
 	TabDisplay getModesTabDisplay();
 
 	TabDisplay getLevelsTabDisplay();
-
-	TabDisplay getTowersTabDisplay();
-
-	TabDisplay getEnemiesTabDisplay();
 	
 	TabDisplay getEntitiesTabDisplay();
 }

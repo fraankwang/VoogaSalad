@@ -15,6 +15,7 @@ import javafx.scene.Node;
 public abstract class TabGridFactory extends GridFactory {
 
 	protected ITabDisplay myTabDisplay;
+	
 	public TabGridFactory(ITabDisplay tab) {
 		myTabDisplay = tab;
 	}

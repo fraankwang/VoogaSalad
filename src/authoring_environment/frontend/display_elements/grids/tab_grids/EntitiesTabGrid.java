@@ -24,24 +24,5 @@ public class EntitiesTabGrid extends TabGrid {
 		myGridFactory = new EntitiesTabGridFactory(myTabDisplay);
 	}
 
-	@Override
-	protected void assembleGridComponents() {
-		myGrid = new GridPane();
-		ColumnConstraints column1 = new ColumnConstraints();
-	    column1.setPercentWidth(70);
-	    ColumnConstraints column2 = new ColumnConstraints();
-	    column2.setPercentWidth(30);
-	    RowConstraints row1 = new RowConstraints();
-	    row1.setPercentHeight(70);
-	    RowConstraints row2 = new RowConstraints();
-	    row2.setPercentHeight(30);
-	    myGrid.getColumnConstraints().addAll(column1, column2);
-	    myGrid.getRowConstraints().addAll(row1, row2);
-	    
-	    myGrid.add(myPrimaryDisplay, 0, 0);
-	    myGrid.add(myRightSubGrid, 1, 0);
-	    myGrid.add(myLeftSubGrid, 0, 1);
-	    myGrid.add(myButtonDashboard, 1, 1);
-	}
 
 }

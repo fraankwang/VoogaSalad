@@ -23,6 +23,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 	private Grid myActiveGrid;
 
 	public EntitiesTabDisplay() {
+		
+	}
+
+	public void initialize() {
 		myEntitiesTabPane = new TabPane();	// tab of entity types
 		myEditorDisplay = new EntityEditorDisplay();
 		myGrid = new EntitiesTabGrid(this);
@@ -41,9 +45,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 		});
 		myEntitiesTabPane.getTabs().add(addNewTypeTab);
 	}
-
+	
 	@Override
 	public Node buildNode() {
+		initialize();
 		return myEntitiesTabPane;
 	}
 	
