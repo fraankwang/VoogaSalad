@@ -12,9 +12,7 @@ import authoring_environment.frontend.interfaces.display_element_interfaces.ITab
 
 public class GameTabGrid extends TabGrid {
 
-	public GameTabGrid(ITabDisplay tab) {
-		super(tab);
-		// TODO Auto-generated constructor stub
+	public GameTabGrid() {
 	}
 
 	@Override

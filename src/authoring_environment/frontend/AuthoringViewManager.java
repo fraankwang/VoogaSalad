@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * The ViewManager is responsible for initializing the stage, the scene, and the
+ * The AuthoringViewManager is responsible for initializing the stage, the scene, and the
  * BorderPane that contains the two primary UI elements: the MenuBarElement and
  * the TabBarElement.
  * 
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class ViewManager implements IViewManager {
+public class AuthoringViewManager implements IViewManager {
 
 	private static final int SCENE_WIDTH = 1200;
 	private static final int SCENE_HEIGHT = 800;
@@ -29,14 +29,14 @@ public class ViewManager implements IViewManager {
 	private ITabBarElement myTabBar;
 	private IController myController;
 
-	public ViewManager(IController controller) {
+	public AuthoringViewManager(IController controller) {
 		myController = controller;
 	}
 
 	@Override
 	public void initialize(Stage s) {
 		myMenuBar = new MenuBarElement();
-		myTabBar = new TabBarElement();
+		myTabBar = new TabBarElement(myController);
 
 		BorderPane borderPane = new BorderPane();
 		borderPane.setTop(myMenuBar.buildNode());

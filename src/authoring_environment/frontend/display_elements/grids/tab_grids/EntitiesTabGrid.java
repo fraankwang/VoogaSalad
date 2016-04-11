@@ -15,8 +15,7 @@ import javafx.scene.layout.RowConstraints;
 
 public class EntitiesTabGrid extends TabGrid {
 
-	public EntitiesTabGrid(ITabDisplay tab) {
-		super(tab);
+	public EntitiesTabGrid() {
 	}
 
 	@Override

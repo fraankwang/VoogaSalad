@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class Main extends Application {
+public class AuthoringMain extends Application {
     
 	/**
      * Set things up at the beginning.
@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
     	
-        Controller control = new Controller(stage);
+        AuthoringController control = new AuthoringController(stage);
         control.start();
     }
 

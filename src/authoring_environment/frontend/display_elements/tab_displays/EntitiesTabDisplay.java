@@ -1,5 +1,6 @@
 package authoring_environment.frontend.display_elements.tab_displays;
 
+import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring_environment.frontend.display_elements.grids.Grid;
 import authoring_environment.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
@@ -22,14 +23,19 @@ public class EntitiesTabDisplay extends TabDisplay {
 	private TabPane myEntitiesTabPane;
 	private Grid myActiveGrid;
 
-	public EntitiesTabDisplay() {
-		
+	public EntitiesTabDisplay(IController controller) {
+		super(controller);
+		myEntitiesTabPane = new TabPane();
+		myActiveGrid = new EntitiesTabGrid();
+		myGrid = myActiveGrid;
+		myEditorDisplay = new EntityEditorDisplay();
+
 	}
 
 	public void initialize() {
 		myEntitiesTabPane = new TabPane();	// tab of entity types
 		myEditorDisplay = new EntityEditorDisplay();
-		myGrid = new EntitiesTabGrid(this);
+		myGrid = new EntitiesTabGrid();
 		createNewTab("Unknown Type");
 		Tab addNewTypeTab = new Tab("Add New...", null);
 		myEntitiesTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
@@ -53,7 +59,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 	}
 	
 	public void createNewTab(String name) {
-		EntitiesTabGrid grid = new EntitiesTabGrid(this);
+		EntitiesTabGrid grid = new EntitiesTabGrid();
 		Tab newTab = new Tab(name, grid.buildNode());
 		myEntitiesTabPane.getTabs().add(newTab);
 		myEntitiesTabPane.getSelectionModel().select(newTab);

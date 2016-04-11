@@ -12,9 +12,7 @@ import authoring_environment.frontend.interfaces.display_element_interfaces.ITab
 
 public class ModesTabGrid extends TabGrid {
 
-	public ModesTabGrid(ITabDisplay tab) {
-		super(tab);
-		// TODO Auto-generated constructor stub
+	public ModesTabGrid() {
 	}
 
 	@Override

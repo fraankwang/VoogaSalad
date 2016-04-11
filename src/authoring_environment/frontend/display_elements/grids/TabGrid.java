@@ -18,8 +18,7 @@ public abstract class TabGrid extends Grid {
 	protected Node myUnmodifiableAttributesPanel;
 	protected ITabDisplay myTabDisplay;
 	
-	public TabGrid(ITabDisplay tab) {
-		myTabDisplay = tab;
+	public TabGrid() {
 	}
 
 	@Override
