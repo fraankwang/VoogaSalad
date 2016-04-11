@@ -1,6 +1,7 @@
 package engine.frontend;
 
 import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
 public class BoardPane {
@@ -11,9 +12,13 @@ public class BoardPane {
 	}
 	
 	public Node buildNode(){
-		Rectangle rect = new Rectangle();
-		rect.setWidth(myEngineView.loadUIIntResource("BoardSize"));
-		rect.setHeight(myEngineView.loadUIIntResource("BoardSize"));
-		return rect;
+		
+		GridPane gridpane = new GridPane();
+		gridpane.setMinWidth(myEngineView.loadUIIntResource("BoardSize"));
+		gridpane.setMaxWidth(myEngineView.loadUIIntResource("BoardSize"));
+		gridpane.setMinHeight(myEngineView.loadUIIntResource("BoardSize"));
+		gridpane.setMaxHeight(myEngineView.loadUIIntResource("BoardSize"));
+		
+		return gridpane;
 	}
 }

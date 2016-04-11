@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -13,8 +15,6 @@ public class EngineView{
 
 	public static final String DEFAULT_UI_RESOURCE = "engine/frontend/engine_window";
 	private ResourceBundle myUIResources;
-	
-	private VBox myBody;
 	
 	private BoardPane myBoardPane;
 	private TowerPane myTowerPane;
@@ -39,14 +39,16 @@ public class EngineView{
 		HBox top = new HBox(padding);
 		HBox bottom = new HBox(padding);
 		
-		top.setPadding(new Insets(padding,0,0, padding));
-		bottom.setPadding(new Insets(0, padding, 0, padding));
+		top.setPadding(new Insets(0, padding, 0, padding));
+		bottom.setPadding(new Insets(0, padding, padding, padding));
 		
 		fillTopHBox(top);
 		fillBottomHBox(bottom);
 		
-		myBody = new VBox(padding);
-		myBody.getChildren().addAll(top, bottom);
+		VBox myBody = new VBox(padding);
+		ToolBar toolbar = new ToolBar();
+		toolbar.getItems().add(new Button("Hello"));
+		myBody.getChildren().addAll(toolbar, top, bottom);
 		
 		Scene scene = new Scene(myBody, width, height, Color.WHITE);
 		return scene;
