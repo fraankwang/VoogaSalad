@@ -4,43 +4,19 @@
 
 package backend.game_object.components;
 
-public class PositionComponent extends Component{
+public class PositionComponent extends Component implements IComponent{
 	
-	private double myCoordX;
-	private double myCoordY;
 	private Vector myPositionVector;
 	
 	
 	public PositionComponent(){
-		myCoordX = 100;
-		myCoordY = 100;
+		myPositionVector = new Vector();
 	}
 	
 	public PositionComponent(double x, double y) {
 		// TODO Auto-generated constructor stub
 //		setPositionVector(new Vector(x, y));
-		myCoordX = x;
-		myCoordY = y;
-	}
-	
-	public double[] getPosition(){
-		double[] position = {myCoordX, myCoordY};
-		return position;
-	}
-	
-	public void setPosition(double x, double y){
-		myCoordX = x;
-		myCoordY = y;
-	}
-	
-	@Override
-	public void update(){
-		
-	}
-	
-	@Override
-	public String getTag(){
-		return "Position";
+		myPositionVector = new Vector(x, y);
 	}
 
 	public Vector getPositionVector() {
@@ -52,11 +28,11 @@ public class PositionComponent extends Component{
 	}
 
 	public double getX() {
-		return myCoordX;
+		return myPositionVector.getX();
 	}
 	
 	public double getY() {
-		return myCoordY;
+		return myPositionVector.getY();
 	}
 
 }

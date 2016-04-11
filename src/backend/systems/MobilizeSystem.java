@@ -33,12 +33,12 @@ public class MobilizeSystem extends Systemm implements ISystem {
 		
 		for(IEntity entity : entities){
 			
-			if(!entity.hasComponent("Movement")){
+			if(!entity.hasComponent(getComponentTagResources().getString("Movement"))){
 				continue;
 			}
 			
-			MovementComponent movComponent = (MovementComponent) entity.getComponent("Movement");
-			PositionComponent posComponent = (PositionComponent) entity.getComponent("Position");
+			MovementComponent movComponent = (MovementComponent) entity.getComponent(getComponentTagResources().getString("Movement"));
+			PositionComponent posComponent = (PositionComponent) entity.getComponent(getComponentTagResources().getString("Position"));
 			
 			//movement if on path
 			Vector velVector = movComponent.getCurrentVelocityVector();

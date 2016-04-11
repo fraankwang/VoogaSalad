@@ -91,10 +91,8 @@ public class BezierCurve implements IBezierCurve{
 				control2Vector, endPointVector);
 			Vector q2 = calculateNewBezierTangent(t, startPointVector, control1Vector, 
 					control2Vector, endPointVector);
-			System.out.println(q2.getX());
 			length += q1.calculateDistance(q0);
 
-			//System.out.println(length);
 			q0 = q1;
 		}
 		
