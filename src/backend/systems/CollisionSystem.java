@@ -18,7 +18,7 @@ public class CollisionSystem extends Systemm implements ISystem {
         for(IEntity outEntity : entities){
             for(IEntity inEntity : entities){
                 //default isCollided  = false.  Only update if there is a collision
-                if(outEntity.hasComponent("Collision") && inEntity.hasComponent("Collision")){
+                if(outEntity.hasComponent(getComponentTagResources().getString("Collision")) && inEntity.hasComponent(getComponentTagResources().getString("Collision"))){
                     if(checkIntersection((CollisionComponent)outEntity, (CollisionComponent)inEntity)){
                         updateIsCollided((CollisionComponent) outEntity, (CollisionComponent) inEntity);
                     }

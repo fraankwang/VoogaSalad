@@ -20,15 +20,15 @@ public class GameAuthoringEnvironment {
 	private EntityFactoryClass entityFactory;
 	private GameWorld trumpGame;
 	private FrontEndGameAuthoringEnvironment frontMockData;
-	private FrontEndAccessController backendController;
+	private FrontEndAccessController frontendController;
 
 	public GameAuthoringEnvironment() {
-		entityFactory = new EntityFactoryClass();
-		frontMockData = new FrontEndGameAuthoringEnvironment();
+		this.entityFactory = new EntityFactoryClass();
+		this.frontMockData = new FrontEndGameAuthoringEnvironment();
 	}
 	
-	public void setBackendController(FrontEndAccessController backendController){
-		this.backendController = backendController;
+	public void setBackendController(FrontEndAccessController frontendController){
+		this.frontendController = frontendController;
 	}
 
 	public GameWorld createGameObject() {
@@ -41,6 +41,11 @@ public class GameAuthoringEnvironment {
 		// can add extra layer iterating through each level so we add entity to
 		// the right level
 		// assuming we only want to add to level one right now
+		System.out.println(frontendController);
+		Level currLevel = (trumpGame.getModes().get(trumpGame.getGameStats().getCurrentMode()).getLevels()
+				.get(trumpGame.getGameStats().getCurrentLevel()));
+		int tempx_y = 0;
+		frontendController.createCharacterImage(tempx_y, tempx_y, currLevel.getMap().getImage(), currLevel.getMap().getXSize(), currLevel.getMap().getYSize());
 		for (int eachSprite = 0; eachSprite < mockData.level1SpritesComponentWanted.length; eachSprite++) {
 			Entity entity;
 			entity = entityFactory.makeEntity(trumpGame, mockData.level1SpritesComponentWanted[eachSprite]);
@@ -48,6 +53,7 @@ public class GameAuthoringEnvironment {
 			trumpGame.getModes().get(trumpGame.getGameStats().getCurrentMode()).getLevels()
 					.get(trumpGame.getGameStats().getCurrentLevel()).addToEntities(entity);
 		}
+		
 		trumpGame.printWhatIHave();
 		return trumpGame;
 	}

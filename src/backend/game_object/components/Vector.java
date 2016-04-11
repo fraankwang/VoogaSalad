@@ -47,5 +47,14 @@ public class Vector {
 		return myYComponent;
 	}
 	
+	public Vector normalize(){
+		double length = calculateMagnitude();
+		double val1 = myXComponent / length;
+		double val2 = myYComponent / length;
+		
+		return new Vector(val1, val2);
+				
+	}
+	
 
 }

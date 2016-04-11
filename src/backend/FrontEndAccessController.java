@@ -13,10 +13,10 @@ public class FrontEndAccessController implements IFrontEndAccess {
 		this.myRoot = myRoot;
 	}
 	
-	public void createCharacter(double xCoord, double yCoord, String image){
-		ImageView myPlayer = new ImageView(new Image(getClass().getResourceAsStream(image)));
-		myPlayer.setFitWidth(80);
-		myPlayer.setFitHeight(100);
+	public void createCharacterImage(double xCoord, double yCoord, String image, double width, double height){
+		ImageView myPlayer = new ImageView(new Image(image));
+		myPlayer.setFitWidth(width);
+		myPlayer.setFitHeight(height);
 		myPlayer.setX(xCoord);
 		myPlayer.setY(yCoord);
 		myRoot.getChildren().add(myPlayer);

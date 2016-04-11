@@ -21,23 +21,20 @@ public class SystemsController {
 	private RenderingSystem render;
 	private MobilizeSystem mobilize;
 	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
-	private FrontEndAccessController backendController;
+	private FrontEndAccessController frontendController;
 	private ResourceLoader myResourceLoader;
 	
+<<<<<<< HEAD
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
+=======
+>>>>>>> engine_backend_systems
 
-	public SystemsController(FrontEndAccessController backendController) {
-		this.backendController = backendController;
+	public SystemsController(FrontEndAccessController frontendController) {
+		this.frontendController = frontendController;
 		myResourceLoader = new ResourceLoader();
-		
-//		myActionRequirementsResources = new ResourceLoader("action_component_requirements.properties");
-//		myComponentTagResources = new ResourceLoader("component_tag.properties");
-//		myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements.properties");
-//		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tag.properties");
-		
-		render = new RenderingSystem(backendController);
+		render = new RenderingSystem(frontendController);
 //		mobilize = new MobilizeSystem();
 		addToBagOfSystems(render);
 //		addToBagOfSystems(mobilize);

@@ -57,12 +57,4 @@ public class CollisionComponent extends Component implements IComponent{
         this.myWidth = myWidth;
     }
 
-    @Override
-    public String getTag(){
-        return "Collision";
-    }
-
-
-
-
 }
