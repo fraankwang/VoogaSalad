@@ -1,7 +1,8 @@
 package authoring_environment.frontend.display_elements.grid_factories;
 
-import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.Node;
+import authoring_environment.controller.IController;
+import authoring_environment.frontend.display_elements.panels.Panel;
+import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
 
 /**
  * The TabGridFactory superclass is responsible for creating the additional
@@ -14,14 +15,16 @@ import javafx.scene.Node;
 
 public abstract class TabGridFactory extends GridFactory {
 
-	protected ITabDisplay myTabDisplay;
+	protected TabDisplay myTabDisplay;
 	
-	public TabGridFactory(ITabDisplay tab) {
-		myTabDisplay = tab;
+	public TabGridFactory(IController controller, TabDisplay tabDisplay) {
+		super(controller);
+		myTabDisplay = tabDisplay;
 	}
+
 	/**
 	 * @return instantiated and formatted myUnmodifiableAttributesPanel
 	 */
-	public abstract Node createUnmodifiableAttributesPanel();
+	public abstract Panel createUnmodifiableAttributesPanel();
 
 }
