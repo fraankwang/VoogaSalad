@@ -1,6 +1,8 @@
 package authoring_environment.frontend.display_elements.grid_factories.editor_grid_factories;
 
+import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
+import authoring_environment.frontend.display_elements.panels.Panel;
 import javafx.scene.Node;
 
 /**
@@ -11,26 +13,31 @@ import javafx.scene.Node;
 
 public class ModeEditorGridFactory extends EditorGridFactory {
 
+	public ModeEditorGridFactory(IController controller) {
+		super(controller);
+
+	}
+
 	@Override
-	public Node createRulesPanel() {
+	public Panel createRulesPanel() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Node createModifiableAttributesPanel() {
+	public Panel createModifiableAttributesPanel() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Node createPrimaryDisplay() {
+	public Panel createPrimaryDisplay() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Node createButtonDashboard() {
+	public Panel createButtonDashboard() {
 		// TODO Auto-generated method stub
 		return null;
 	}

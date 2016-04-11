@@ -2,11 +2,12 @@ package authoring_environment.frontend.display_elements.grid_factories.editor_gr
 
 import java.io.File;
 
+import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
+import authoring_environment.frontend.display_elements.panels.Panel;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -21,56 +22,64 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class EntityEditorGridFactory extends EditorGridFactory {
 
+	public EntityEditorGridFactory(IController controller) {
+		super(controller);
+	}
+
 	@Override
-	public Node createPrimaryDisplay() {
+	public Panel createPrimaryDisplay() {
 		StackPane imageDisplay = new StackPane();
-		ImageView entityImage = new ImageView("DrumpfVader.png");	// set default image as question mark or something
-		
+		ImageView entityImage = new ImageView("DrumpfVader.png"); // set default
+																	// image as
+																	// question
+																	// mark or
+																	// something
+
 		Button changeImage = new Button("Change Image");
 		changeImage.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(
-			        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-			 File imageFile = fileChooser.showOpenDialog(null);
-			 if (imageFile != null) {
-			    entityImage.setImage(new Image(imageFile.toURI().toString()));
-			 } 
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+			File imageFile = fileChooser.showOpenDialog(null);
+			if (imageFile != null) {
+				entityImage.setImage(new Image(imageFile.toURI().toString()));
+			}
 		});
 		changeImage.setAlignment(Pos.TOP_LEFT);
-		
+
 		imageDisplay.getChildren().addAll(entityImage, changeImage);
-		return imageDisplay;
+		// return imageDisplay;
+		return null;
 	}
 
 	@Override
-	public Node createButtonDashboard() {
+	public Panel createButtonDashboard() {
 		// TODO Auto-generated method stub
-		return new Label("Buttons");
+		return null;
 	}
 
 	@Override
 	public Node createLeftSubGrid() {
 		// TODO Auto-generated method stub
-		return createRulesPanel();
+		return null;
 	}
 
 	@Override
 	public Node createRightSubGrid() {
 		// TODO Auto-generated method stub
-		return createModifiableAttributesPanel();
+		return null;
 	}
 
 	@Override
-	public Node createRulesPanel() {
+	public Panel createRulesPanel() {
 		// TODO Auto-generated method stub
-		return new Label("Rules Panel");
+		return null;
 	}
 
 	@Override
-	public Node createModifiableAttributesPanel() {
+	public Panel createModifiableAttributesPanel() {
 		// TODO Auto-generated method stub
-		return new Label("Attributes Panel");
+		return null;
 	}
 
 }
