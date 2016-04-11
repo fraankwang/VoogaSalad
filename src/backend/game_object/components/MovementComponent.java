@@ -73,10 +73,5 @@ public class MovementComponent extends Component implements IComponent{
 	public void setCanRotate(boolean bool){
 		canRotate = bool;
 	}
-	
-	@Override
-	public String getTag(){
-		return "Movement";
-	}
 
 }

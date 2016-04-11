@@ -5,7 +5,7 @@
  */
 package backend.game_object.components;
 
-public class SizeComponent {
+public class SizeComponent extends Component implements IComponent{
 
 	private double width;
 	private double height;

@@ -18,17 +18,6 @@ public class PositionComponent extends Component implements IComponent{
 //		setPositionVector(new Vector(x, y));
 		myPositionVector = new Vector(x, y);
 	}
-	
-	
-	@Override
-	public void update(){
-		
-	}
-	
-	@Override
-	public String getTag(){
-		return "Position";
-	}
 
 	public Vector getPositionVector() {
 		return myPositionVector;

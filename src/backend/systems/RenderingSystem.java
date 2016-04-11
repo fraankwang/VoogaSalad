@@ -41,10 +41,10 @@ public class RenderingSystem extends Systemm {
 			double sizex = 80;
 			double sizey = 100;
 			for(IComponent eachComponent: myEntity.getComponents()){
-				if(eachComponent.getTag().equals("Display")){
+				if(eachComponent.getTag().equals(getComponentTagResources().getString("Display"))){
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
 				}
-				if(eachComponent.getTag().equals("Position")){
+				if(eachComponent.getTag().equals(getComponentTagResources().getString("Position"))){
 					x = ((PositionComponent) eachComponent).getX();
 					y = ((PositionComponent) eachComponent).getY();
 				}

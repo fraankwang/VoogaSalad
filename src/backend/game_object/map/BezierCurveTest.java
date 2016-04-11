@@ -47,12 +47,14 @@ public class BezierCurveTest {
 		testEntity.addComponent(pathComponent);
 		testEntity.addComponent(dispComponent);
 		
+		System.out.println(movComponent.getTag());
+		
 		for(int i = 0; i < 200; i++){
 			testPath.updatePositionOnPath(testEntity);
 			PositionComponent posComp = (PositionComponent) testEntity.getComponent("Position");
 			PathComponent pathComp = (PathComponent) testEntity.getComponent("Path");
-			System.out.println(posComp.getX());
-			System.out.println(pathComp.getBezierTime());
+			//System.out.println(posComp.getX());
+			//System.out.println(pathComp.getBezierTime());
 		}
 	}
 	

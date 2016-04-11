@@ -1,6 +1,7 @@
 package backend.systems;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import backend.game_object.components.FiringComponent;
 import backend.game_object.components.MovementComponent;
@@ -23,7 +24,7 @@ public class FiringSystem extends Systemm implements ISystem{
 		
 		for(IEntity shootingEntity : entities){
 			
-			if(shootingEntity.hasComponent("Firing")){
+			if(shootingEntity.hasComponent(getComponentTagResources().getString("Firing"))){
 				
 				for(IEntity targetEntity : entities){
 					
@@ -49,17 +50,16 @@ public class FiringSystem extends Systemm implements ISystem{
 			}
 			
 		}
-		
 	}
 	
 	private IEntity handleFiring(IEntity shootingEntity, IEntity targetEntity){
 		
 		//Get firing component from shooting Entity
-		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent("Firing");
+		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(getComponentTagResources().getString("Firing"));
 		//Get Position component of shooting entity
-		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent("Position");
+		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(getComponentTagResources().getString("Position"));
 		//Get position component of target entity;
-		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent("Position");
+		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(getComponentTagResources().getString("Position"));
 		
 		//Get position of shooting entity
 		Vector shootingPosVector = shootingPosComponent.getPositionVector();
@@ -74,8 +74,8 @@ public class FiringSystem extends Systemm implements ISystem{
 			IEntity firedEntity = firingComponent.getAmmunition();
 			
 			//set the position and movement components of the ammo
-			PositionComponent firedPosComponent = (PositionComponent) firedEntity.getComponent("Position");
-			MovementComponent firedMovComponent = (MovementComponent) firedEntity.getComponent("Movement");
+			PositionComponent firedPosComponent = (PositionComponent) firedEntity.getComponent(getComponentTagResources().getString("Position"));
+			MovementComponent firedMovComponent = (MovementComponent) firedEntity.getComponent(getComponentTagResources().getString("Movement"));
 			
 			firedPosComponent.setPositionVector(shootingPosVector);
 			

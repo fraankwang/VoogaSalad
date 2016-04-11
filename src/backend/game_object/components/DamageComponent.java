@@ -16,9 +16,4 @@ public class DamageComponent extends Component implements IComponent{
 		this.myDamage = myDamage;
 	}
 	
-	@Override
-	public String getTag(){
-		return "Damage";
-	}
-	
 }

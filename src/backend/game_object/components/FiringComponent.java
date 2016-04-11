@@ -17,11 +17,6 @@ public class FiringComponent extends Component implements IComponent{
 	private double myAmmunitionSpeed;
 	private double myEnemyInSightRange;
 	private double myDirectionToFire;
-	
-	@Override
-	public String getTag(){
-		return "Firing";
-	}
 
 	public IEntity getAmmunition() {
 		return myAmmunition;

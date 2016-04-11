@@ -46,9 +46,4 @@ public class PathComponent extends Component implements IComponent{
 		return movesWithTime;
 	}
 	
-	@Override
-	public String getTag(){
-		return "Path";
-	}
-	
 }

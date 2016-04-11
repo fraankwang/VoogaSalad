@@ -24,19 +24,10 @@ public class SystemsController {
 	private FrontEndAccessController frontendController;
 	private ResourceLoader myResourceLoader;
 	
-	public static final String DEFAULT_RESOURCE_PACKAGE = "/backend/resources/";
-	private ResourceBundle myActionRequirementsResources;
-	private ResourceBundle myComponentTagResources;
 
 	public SystemsController(FrontEndAccessController frontendController) {
 		this.frontendController = frontendController;
 		myResourceLoader = new ResourceLoader();
-		
-//		myActionRequirementsResources = new ResourceLoader("action_component_requirements.properties");
-//		myComponentTagResources = new ResourceLoader("component_tag.properties");
-//		myActionRequirementsResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "action_component_requirements.properties");
-//		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tag.properties");
-		
 		render = new RenderingSystem(frontendController);
 //		mobilize = new MobilizeSystem();
 		addToBagOfSystems(render);
