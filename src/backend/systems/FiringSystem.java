@@ -58,6 +58,7 @@ public class FiringSystem extends Systemm implements ISystem{
 		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(getComponentTagResources().getString("Firing"));
 		//Get Position component of shooting entity
 		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(getComponentTagResources().getString("Position"));
+		MovementComponent shootingMovComponent = (MovementComponent) shootingEntity.getComponent(getComponentTagResources().getString("Movement"));
 		//Get position component of target entity;
 		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(getComponentTagResources().getString("Position"));
 		
@@ -86,6 +87,8 @@ public class FiringSystem extends Systemm implements ISystem{
 			firedVelVector.scale(firingComponent.getAmmunitionSpeed());
 			firedMovComponent.setCurrentVelocityVector(firedVelVector);
 			firedMovComponent.setDefaultVelocityVector(firedVelVector);
+			
+			shootingMovComponent.setTheta(targetPosVector.calculateDirection(shootingPosVector));
 			
 			return firedEntity;
 			
