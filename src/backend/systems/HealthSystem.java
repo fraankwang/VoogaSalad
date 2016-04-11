@@ -2,7 +2,6 @@ package backend.systems;
 
 import java.util.List;
 
-import backend.Level;
 import backend.game_object.components.HealthComponent;
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
@@ -16,7 +15,7 @@ import backend.game_object.entities.IEntity;
 public class HealthSystem extends Systemm implements ISystem{
 
 	@Override
-	public void update(List<IEntity> entities) {
+	public void update(List<Entity> entities) {
 		// TODO Auto-generated method stub
 		
 		for(IEntity entity : entities){

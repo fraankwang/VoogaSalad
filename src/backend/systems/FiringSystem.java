@@ -11,7 +11,7 @@ import backend.game_object.entities.IEntity;
 public class FiringSystem extends Systemm implements ISystem{
 
 	@Override
-	public void update(List<IEntity> entities) {
+	public void update(List<Entity> entities) {
 		// TODO Auto-generated method stub
 		
 		for(IEntity shootingEntity : entities){

@@ -4,12 +4,9 @@ package backend.systems;
  * author raghavkedia
  */
 
-import java.util.ArrayList;
 import java.util.List;
 
-import backend.game_object.components.Component;
 import backend.game_object.components.MovementComponent;
-import backend.Level;
 import backend.game_object.components.*;
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
@@ -29,7 +26,7 @@ public class MobilizeSystem extends Systemm implements ISystem {
 	//Make default velocity vector
 	
 	@Override
-	public void update(List<IEntity> entities) {
+	public void update(List<Entity> entities) {
 		
 		for(IEntity entity : entities){
 			
@@ -47,7 +44,7 @@ public class MobilizeSystem extends Systemm implements ISystem {
 			
 			//do movement
 			Vector posVector = posComponent.getPositionVector();
-			Vector velVector = movComponent.getCurrentVelocityVector();
+			velVector = movComponent.getCurrentVelocityVector();
 			posVector.add(velVector);
 			
 			//do rotation

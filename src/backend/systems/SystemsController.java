@@ -24,7 +24,7 @@ public class SystemsController {
 	private FrontEndAccessController backendController;
 	private ResourceLoader myResourceLoader;
 	
-	public static final String DEFAULT_RESOURCE_PACKAGE = "/backend/resources/";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
 

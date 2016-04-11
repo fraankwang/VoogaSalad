@@ -3,20 +3,19 @@ package backend.systems;
 import java.util.List;
 
 import backend.FrontEndAccessController;
-import backend.IFrontEndAccess;
 import backend.Level;
-import backend.game_object.components.Component;
 import backend.game_object.components.DisplayComponent;
+import backend.game_object.components.IComponent;
 import backend.game_object.components.PositionComponent;
 import backend.game_object.entities.Entity;
-import java.util.*;
+import backend.game_object.entities.IEntity;
 
 /**
  * 
  * @author mario_oliver93
  *
  */
-public class RenderingSystem extends Systemm {
+public class RenderingSystem extends Systemm implements ISystem {
 
 //	private IFrontEndAccess frontEndController;
 	private FrontEndAccessController frontEndController;
@@ -28,12 +27,12 @@ public class RenderingSystem extends Systemm {
 	@Override
 	public void update(List<Entity> entities) {
 		// TODO Auto-generated method stub
-		for(Entity myEntity: entities){
+		for(IEntity myEntity: entities){
 			System.out.println(myEntity.toString());
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
-			for(Component eachComponent: myEntity.getComponents()){
+			for(IComponent eachComponent: myEntity.getComponents()){
 				if(eachComponent.getTag().equals("Display")){
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
 				}
@@ -48,12 +47,13 @@ public class RenderingSystem extends Systemm {
 	}
 
 
-	@Override
+	//@Override
 	public void execute(List<Level> list) {
 		// TODO Auto-generated method stub
 		for(Level each: list){
 			System.out.println(each.toString());
 		}
 	}
+
 
 }
