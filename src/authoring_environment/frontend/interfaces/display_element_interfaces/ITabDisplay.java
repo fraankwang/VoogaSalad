@@ -1,7 +1,5 @@
 package authoring_environment.frontend.interfaces.display_element_interfaces;
 
-import authoring_environment.frontend.display_elements.editor_displays.EditorDisplay;
-
 /**
  * TabDisplays are the primary game components that the user switches between.
  * The various Displays contain information regarding the user-created game
@@ -14,5 +12,9 @@ import authoring_environment.frontend.display_elements.editor_displays.EditorDis
 
 public interface ITabDisplay extends IDisplayElement {
 
+	public void initialize();
+	
 	public void openEditorDisplay();
+	
+	
 }
