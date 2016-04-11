@@ -40,15 +40,18 @@ public class MobilizeSystem extends Systemm implements ISystem {
 			MovementComponent movComponent = (MovementComponent) entity.getComponent(getComponentTagResources().getString("Movement"));
 			PositionComponent posComponent = (PositionComponent) entity.getComponent(getComponentTagResources().getString("Position"));
 			
-			//movement if on path
-			Vector velVector = movComponent.getCurrentVelocityVector();
-			double speed = velVector.calculateMagnitude();
 			
+			if(entity.hasComponent(getComponentTagResources().getString("Path"))){
+				//if on path
+				updatePathMovement(entity);
+			}
+			else{
+				//do movement
+				Vector posVector = posComponent.getPositionVector();
+				Vector velVector = movComponent.getCurrentVelocityVector();
+				posVector.add(velVector);
+			}
 			
-			//do movement
-			Vector posVector = posComponent.getPositionVector();
-//			Vector velVector = movComponent.getCurrentVelocityVector();
-			posVector.add(velVector);
 			
 			//do rotation
 			double theta = movComponent.getTheta();
@@ -59,7 +62,13 @@ public class MobilizeSystem extends Systemm implements ISystem {
 		}
 
 	}
-
+	
+	private void updatePathMovement(IEntity entity){
+		//needs access to path
+		
+		Map.getPath().updatePositionOnPath(entity);
+		
+	}
 	
 
 }

@@ -8,14 +8,14 @@ package backend;
 import java.util.ArrayList;
 import java.util.List;
 
-import backend.game_object.map.Mapp;
+import backend.game_object.map.MapObject;
 
 public class FrontEndGameAuthoringEnvironment {
 
 	public int modesWanted;
 	public int levelsWanted;
 	public int entitiesWanted;
-	public List<Mapp> maps = new ArrayList<Mapp>();
+	public List<MapObject> maps = new ArrayList<MapObject>();
 	public String[][] level1SpritesComponentWanted;
 
 	public FrontEndGameAuthoringEnvironment() {
@@ -36,7 +36,7 @@ public class FrontEndGameAuthoringEnvironment {
 	}
 	
 	private void addMap(){
-		maps.add(new Mapp());
+		maps.add(new MapObject());
 	}
 
 }

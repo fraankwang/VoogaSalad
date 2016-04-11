@@ -13,13 +13,15 @@ import backend.game_object.components.IComponent;
 public class Entity implements IEntity{
 	
 	private String myLabel;
+	private double myValue;
 	private int myID;
 	//private List<Component> myComponents;
 	private Map<String, IComponent> myComponents;
 
-	public Entity(int ID) {
+	public Entity(int ID, double value) {
 		myComponents = new HashMap<String, IComponent>();
 		this.myID = ID;
+		this.setValue(value);
 	}
 
 	public void addComponent(IComponent component) {
@@ -57,6 +59,14 @@ public class Entity implements IEntity{
 	
 	public boolean hasComponent(String tag){
 		return myComponents.get(tag) != null;
+	}
+
+	public double getValue() {
+		return myValue;
+	}
+
+	public void setValue(double myValue) {
+		this.myValue = myValue;
 	}
 
 }
