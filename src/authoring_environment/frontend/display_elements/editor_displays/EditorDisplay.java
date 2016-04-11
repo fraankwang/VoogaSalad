@@ -1,5 +1,6 @@
 package authoring_environment.frontend.display_elements.editor_displays;
 
+import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grids.Grid;
 import authoring_environment.frontend.interfaces.IDisplayEntity;
 import authoring_environment.frontend.interfaces.display_element_interfaces.IEditorDisplay;
@@ -16,9 +17,15 @@ import javafx.scene.Node;
 public abstract class EditorDisplay implements IEditorDisplay {
 
 	protected Grid myGrid;
+	protected IController myController;
 
+	public EditorDisplay(IController controller) {
+		myController = controller;
+	}
+	
 	@Override
 	public Node buildNode() {
+		initialize();
 		return myGrid.buildNode();
 	}
 

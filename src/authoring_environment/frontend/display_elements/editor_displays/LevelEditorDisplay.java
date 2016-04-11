@@ -1,5 +1,6 @@
 package authoring_environment.frontend.display_elements.editor_displays;
 
+import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grids.editor_grids.LevelEditorGrid;
 import authoring_environment.frontend.interfaces.IDisplayEntity;
 
@@ -11,8 +12,13 @@ import authoring_environment.frontend.interfaces.IDisplayEntity;
 
 public class LevelEditorDisplay extends EditorDisplay {
 
-	public LevelEditorDisplay() {
-		myGrid = new LevelEditorGrid();
+	public LevelEditorDisplay(IController controller) {
+		super(controller);
+	}
+
+	@Override
+	public void initialize() {
+		myGrid = new LevelEditorGrid(myController);
 
 	}
 
