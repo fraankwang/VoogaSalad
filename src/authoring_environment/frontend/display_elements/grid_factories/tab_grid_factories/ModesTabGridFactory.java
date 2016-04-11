@@ -1,6 +1,7 @@
 package authoring_environment.frontend.display_elements.grid_factories.tab_grid_factories;
 
 import authoring_environment.frontend.display_elements.grid_factories.TabGridFactory;
+import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
 
 /**
@@ -10,6 +11,11 @@ import javafx.scene.Node;
  */
 
 public class ModesTabGridFactory extends TabGridFactory {
+
+	public ModesTabGridFactory(ITabDisplay tab) {
+		super(tab);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public Node createPrimaryDisplay() {

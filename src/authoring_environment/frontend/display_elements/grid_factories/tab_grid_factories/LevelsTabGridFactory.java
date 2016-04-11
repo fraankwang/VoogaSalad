@@ -1,6 +1,8 @@
 package authoring_environment.frontend.display_elements.grid_factories.tab_grid_factories;
 
 import authoring_environment.frontend.display_elements.grid_factories.TabGridFactory;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.unmodifiable_panels.UnmodifiableLevelAttributesPanel;
+import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
 
 /**
@@ -10,6 +12,11 @@ import javafx.scene.Node;
  */
 
 public class LevelsTabGridFactory extends TabGridFactory {
+
+	public LevelsTabGridFactory(ITabDisplay tab) {
+		super(tab);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public Node createPrimaryDisplay() {
@@ -32,13 +39,13 @@ public class LevelsTabGridFactory extends TabGridFactory {
 	@Override
 	public Node createRightSubGrid() {
 		// TODO Auto-generated method stub
-		return null;
+		return createUnmodifiableAttributesPanel();
 	}
 
 	@Override
 	public Node createUnmodifiableAttributesPanel() {
-		// TODO Auto-generated method stub
-		return null;
+		UnmodifiableLevelAttributesPanel attributesPanel = new UnmodifiableLevelAttributesPanel(100, 100);
+		return attributesPanel.buildNode();
 	}
 
 }

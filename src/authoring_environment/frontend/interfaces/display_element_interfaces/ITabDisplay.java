@@ -14,5 +14,5 @@ import authoring_environment.frontend.display_elements.editor_displays.EditorDis
 
 public interface ITabDisplay extends IDisplayElement {
 
-	public EditorDisplay getEditorDisplay();
+	public void openEditorDisplay();
 }

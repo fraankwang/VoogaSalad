@@ -16,9 +16,4 @@ public class EntityEditorGrid extends EditorGrid {
 		myGridFactory = new EntityEditorGridFactory();
 	}
 
-	@Override
-	protected void assembleGridComponents() {
-		// TODO Auto-generated method stub
-
-	}
 }

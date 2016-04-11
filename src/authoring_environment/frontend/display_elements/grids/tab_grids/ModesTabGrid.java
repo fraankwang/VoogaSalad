@@ -2,6 +2,7 @@ package authoring_environment.frontend.display_elements.grids.tab_grids;
 
 import authoring_environment.frontend.display_elements.grid_factories.tab_grid_factories.ModesTabGridFactory;
 import authoring_environment.frontend.display_elements.grids.TabGrid;
+import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 
 /**
  * 
@@ -11,9 +12,12 @@ import authoring_environment.frontend.display_elements.grids.TabGrid;
 
 public class ModesTabGrid extends TabGrid {
 
+	public ModesTabGrid() {
+	}
+
 	@Override
 	protected void initializeGridFactory() {
-		myGridFactory = new ModesTabGridFactory();
+		myGridFactory = new ModesTabGridFactory(myTabDisplay);
 	}
 
 	@Override

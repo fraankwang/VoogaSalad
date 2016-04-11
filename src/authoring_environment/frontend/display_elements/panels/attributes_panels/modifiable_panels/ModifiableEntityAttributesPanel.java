@@ -2,15 +2,16 @@ package authoring_environment.frontend.display_elements.panels.attributes_panels
 
 import authoring_environment.frontend.display_elements.panels.attributes_panels.AttributesPanel;
 
+
 /**
  * 
- * @author Frank
+ * @author benchesnut
  *
  */
 
-public class ModifiableEnemyAttributesPanel extends AttributesPanel {
+public class ModifiableEntityAttributesPanel extends AttributesPanel {
 
-	public ModifiableEnemyAttributesPanel(int height, int width) {
+	public ModifiableEntityAttributesPanel(int height, int width) {
 		super(height, width);
 		// TODO Auto-generated constructor stub
 	}
