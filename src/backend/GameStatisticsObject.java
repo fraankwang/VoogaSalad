@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
 package backend;
 
 public class GameStatisticsObject {

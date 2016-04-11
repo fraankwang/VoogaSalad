@@ -1,7 +1,18 @@
+/**
+ * 
+ * @author mario_oliver93
+ * 
+ */
+
+
 package backend.game_object.components;
 
-public interface Component {
+import java.util.ResourceBundle;
+
+public abstract class Component implements IComponent{
 	
-	public String getTag();
+	public String getTag(){
+		return this.getClass().getSimpleName();
+	}
 	
 }

@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author mario_oliver93
+ *
+ */
 package backend;
 
 import java.util.ArrayList;
@@ -9,18 +14,25 @@ import java.util.List;
  *
  */
 import backend.game_object.entities.Entity;
+import backend.game_object.entities.IEntity;
+import backend.game_object.map.Mapp;
 
 
 public class Level {
 
-	private List<Entity> entities;
+	private List<IEntity> entities;
+	private Mapp map = new Mapp();
 
 	public Level() {
-		entities = new ArrayList<Entity>();
+		entities = new ArrayList<IEntity>();
 	}
 
-	public List<Entity> getEntities() {
+	public List<IEntity> getEntities() {
 		return entities;
+	}
+	
+	public Mapp getMap(){
+		return map;
 	}
 
 	@Override
