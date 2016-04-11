@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 
 public class EngineView{
 
-	public static final String DEFAULT_UI_RESOURCE = "engine/frontend/engine_window";
+	public static final String DEFAULT_UI_RESOURCE = "engine/engine/engine_window";
 	private ResourceBundle myUIResources;
 	
 	private BoardPane myBoardPane;
