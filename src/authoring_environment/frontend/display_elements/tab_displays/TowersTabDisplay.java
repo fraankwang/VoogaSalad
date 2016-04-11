@@ -12,7 +12,7 @@ import authoring_environment.frontend.display_elements.grids.tab_grids.TowersTab
 public class TowersTabDisplay extends TabDisplay {
 
 	public TowersTabDisplay() {
-		myGrid = new TowersTabGrid();
+		myGrid = new TowersTabGrid(this);
 		myEditorDisplay = new TowerEditorDisplay();
 	}
 

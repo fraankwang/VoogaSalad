@@ -12,7 +12,7 @@ import authoring_environment.frontend.display_elements.grids.tab_grids.ModesTabG
 public class ModesTabDisplay extends TabDisplay {
 
 	public ModesTabDisplay() {
-		myGrid = new ModesTabGrid();
+		myGrid = new ModesTabGrid(this);
 		myEditorDisplay = new ModeEditorDisplay();
 	}
 

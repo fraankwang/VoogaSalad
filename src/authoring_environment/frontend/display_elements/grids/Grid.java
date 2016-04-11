@@ -3,6 +3,7 @@ package authoring_environment.frontend.display_elements.grids;
 import authoring_environment.frontend.display_elements.grid_factories.GridFactory;
 import authoring_environment.frontend.interfaces.display_element_interfaces.IGrid;
 import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 
 /**
  * The Grid superclass is the object that populates all the EditorDisplays and
@@ -18,7 +19,7 @@ import javafx.scene.Node;
 public abstract class Grid implements IGrid {
 
 	protected GridFactory myGridFactory;
-	protected Node myGrid;
+	protected GridPane myGrid;
 	protected Node myLeftSubGrid;
 	protected Node myRightSubGrid;
 	protected Node myPrimaryDisplay;

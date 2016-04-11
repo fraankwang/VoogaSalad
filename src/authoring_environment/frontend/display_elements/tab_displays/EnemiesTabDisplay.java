@@ -12,7 +12,7 @@ import authoring_environment.frontend.display_elements.grids.tab_grids.EnemiesTa
 public class EnemiesTabDisplay extends TabDisplay {
 
 	public EnemiesTabDisplay() {
-		myGrid = new EnemiesTabGrid();
+		myGrid = new EnemiesTabGrid(this);
 		myEditorDisplay = new EnemyEditorDisplay();
 	}
 

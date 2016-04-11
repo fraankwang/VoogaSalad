@@ -22,10 +22,11 @@ public class LevelsTabDisplay extends TabDisplay {
 
 	public LevelsTabDisplay() {
 		myLevelsTabPane = new TabPane();
-		myActiveGrid = new LevelsTabGrid();
+		myActiveGrid = new LevelsTabGrid(this);
 		myGrid = myActiveGrid;
 		myEditorDisplay = new LevelEditorDisplay();
-
+		
+		// Testing
 	}
 
 	@Override

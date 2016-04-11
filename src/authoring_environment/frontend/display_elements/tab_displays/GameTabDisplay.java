@@ -12,7 +12,7 @@ import authoring_environment.frontend.display_elements.grids.tab_grids.GameTabGr
 public class GameTabDisplay extends TabDisplay {
 
 	public GameTabDisplay() {
-		myGrid = new GameTabGrid();
+		myGrid = new GameTabGrid(this);
 		myEditorDisplay = new GameEditorDisplay();
 	}
 

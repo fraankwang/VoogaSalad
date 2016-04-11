@@ -2,6 +2,7 @@ package authoring_environment.frontend.display_elements.grids.tab_grids;
 
 import authoring_environment.frontend.display_elements.grid_factories.tab_grid_factories.LevelsTabGridFactory;
 import authoring_environment.frontend.display_elements.grids.TabGrid;
+import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 
 /**
  * 
@@ -11,9 +12,14 @@ import authoring_environment.frontend.display_elements.grids.TabGrid;
 
 public class LevelsTabGrid extends TabGrid {
 
+	public LevelsTabGrid(ITabDisplay tab) {
+		super(tab);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	protected void initializeGridFactory() {
-		myGridFactory = new LevelsTabGridFactory();
+		myGridFactory = new LevelsTabGridFactory(myTabDisplay);
 
 	}
 
