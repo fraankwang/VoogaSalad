@@ -39,9 +39,18 @@ public class TabBarElement implements ITabBarElement {
 		myModesTabDisplay = new ModesTabDisplay(controller);
 		myLevelsTabDisplay = new LevelsTabDisplay(controller);
 		myEntitiesTabDisplay = new EntitiesTabDisplay(controller);
-
+		
+		initializeTabDisplays();
 	}
 
+	private void initializeTabDisplays() {
+		myGameTabDisplay.initialize();
+		myModesTabDisplay.initialize();
+		myLevelsTabDisplay.initialize();
+		myEntitiesTabDisplay.initialize();
+		
+	}
+	
 	@Override
 	public Node buildNode() {
 		Tab gameTab = createTab("Game", myGameTabDisplay.buildNode());
