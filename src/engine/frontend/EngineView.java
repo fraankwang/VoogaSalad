@@ -5,22 +5,30 @@ import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import main.Main;
 
 public class EngineView{
 
 	public static final String DEFAULT_UI_RESOURCE = "engine/resources/engine_window";
 	private ResourceBundle myUIResources;
+	private Stage myStage;
+	private Main myMain;
 	
+	private ToolbarManager myToolbarManager;
 	private BoardPane myBoardPane;
 	private TowerPane myTowerPane;
 	private StatusPane myStatusPane;
 	
-	public EngineView(){
+	public EngineView(Stage s, Main m){
+		myStage = s;
+		myMain = m;
+		
+		myToolbarManager = new ToolbarManager(this);
 		myBoardPane = new BoardPane(this);
 		myTowerPane = new TowerPane(this);
 		myStatusPane = new StatusPane(this);
@@ -46,8 +54,7 @@ public class EngineView{
 		fillBottomHBox(bottom);
 		
 		VBox myBody = new VBox(padding);
-		ToolBar toolbar = new ToolBar();
-		toolbar.getItems().add(new Button("Hello"));
+		ToolBar toolbar = myToolbarManager.buildToolBar();
 		myBody.getChildren().addAll(toolbar, top, bottom);
 		
 		Scene scene = new Scene(myBody, width, height, Color.WHITE);
@@ -84,6 +91,14 @@ public class EngineView{
 	 */
 	protected String loadUIStringResource(String input){
 		return myUIResources.getString(input);
+	}
+	
+	public Stage getStage(){
+		return myStage;
+	}
+	
+	protected Main getMain(){
+		return myMain;
 	}
 	
 }
