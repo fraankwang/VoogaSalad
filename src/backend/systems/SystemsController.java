@@ -28,11 +28,17 @@ public class SystemsController {
 	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
 
+
 	public SystemsController(FrontEndAccessController frontendController) {
 		this.frontendController = frontendController;
 //		myResourceLoader = new ResourceLoader();
 		render = new RenderingSystem(frontendController);
+
 		rulesSystem = new RulesSystem();
+
+
+		addToBagOfSystems(new CollisionSystem());
+
 //		mobilize = new MobilizeSystem();
 		addToBagOfSystems(render);
 		addToBagOfSystems(rulesSystem);

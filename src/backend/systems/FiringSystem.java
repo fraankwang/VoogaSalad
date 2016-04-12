@@ -1,13 +1,11 @@
 package backend.systems;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
 import backend.game_object.components.FiringComponent;
 import backend.game_object.components.MovementComponent;
 import backend.game_object.components.PositionComponent;
 import backend.game_object.components.Vector;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
 /**
@@ -33,7 +31,7 @@ public class FiringSystem extends Systemm implements ISystem{
 					}
 					
 					//needs to check if it's something it can fire at
-					if(targetEntity.getLabel().equals("Enemy")){
+					if(targetEntity.getName().equals("Enemy")){
 						
 						IEntity firedEntity = handleFiring(shootingEntity, targetEntity);
 						if(firedEntity == null){
@@ -72,7 +70,8 @@ public class FiringSystem extends Systemm implements ISystem{
 				&& firingComponent.getAmmunitionAmount() > 0){
 			
 			//get an instance of the shooters ammo
-			IEntity firedEntity = firingComponent.getAmmunition();
+			String firedEntityName = firingComponent.getAmmunition();
+			IEntity firedEntity = EntityFactory.getEntity(firedEntityName);
 			
 			//set the position and movement components of the ammo
 			PositionComponent firedPosComponent = (PositionComponent) firedEntity.getComponent(getComponentTagResources().getString("Position"));
