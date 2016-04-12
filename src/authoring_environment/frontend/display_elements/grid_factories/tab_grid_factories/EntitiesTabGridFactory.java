@@ -2,6 +2,7 @@ package authoring_environment.frontend.display_elements.grid_factories.tab_grid_
 
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.TabGridFactory;
+import authoring_environment.frontend.display_elements.panels.GridViewPanel;
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.attributes_panels.unmodifiable_panels.UnmodifiableEntityAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
@@ -17,7 +18,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		return null;
+		return new GridViewPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
 	}
 
 	@Override

@@ -24,8 +24,7 @@ public class ModesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		// TODO Auto-generated method stub
-		return new GridViewPanel(50, 50);
+		return new GridViewPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
 	}
 
 	@Override

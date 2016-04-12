@@ -36,7 +36,7 @@ public abstract class TabGrid extends Grid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 
-//		myGrid.add(myPrimaryDisplay.buildNode(), 0, 0);
+		myGrid.add(myPrimaryDisplay.buildNode(), 0, 0);
 //		GridPane.setRowSpan(myPrimaryDisplay.buildNode(), 2);
 //		myGrid.add(myRightSubGrid, 1, 0);
 		myGrid.add(myUnmodifiableAttributesPanel.buildNode(), 1, 0);
