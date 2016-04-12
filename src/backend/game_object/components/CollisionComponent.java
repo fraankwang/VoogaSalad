@@ -4,9 +4,9 @@
 package backend.game_object.components;
 
 public class CollisionComponent extends Component implements IComponent{
-    private boolean isCollided;
+    
+	private boolean isCollided;
     private double myX, myY, myWidth, myHeight;
-
 
     public CollisionComponent(double myX, double myY, double myWidth, double myHeight){
         this.myX = myX;

@@ -13,18 +13,24 @@ import backend.rules.Rule;
 
 public class Entity implements IEntity{
 	
-	private String myLabel;
+	private String myName;
+	private String myType;
 	private double myValue;
 	private List<Rule> myRules;
 	private int myID;
 	//private List<Component> myComponents;
 	private Map<String, IComponent> myComponents;
+	
+	private boolean hasBeenModified;
 
-	public Entity(int ID, double value) {
+	public Entity(int ID, String name, String type, double value) {
 		this.myRules = new ArrayList<Rule>();
 		this.myComponents = new HashMap<String, IComponent>();
+		myName = name;
+		myType = type;
 		this.myID = ID;
 		this.setValue(value);
+		hasBeenModified = false;
 	}
 	
 	public List<Rule> getRules(){
@@ -60,12 +66,12 @@ public class Entity implements IEntity{
 		return myComponents.values();
 	}
 
-	public String getLabel() {
-		return myLabel;
+	public String getName() {
+		return myName;
 	}
 
-	public void setLabel(String label) {
-		this.myLabel = label;
+	public void setMane(String name) {
+		this.myName = name;
 	}
 	
 	public boolean hasComponent(String tag){
@@ -78,6 +84,13 @@ public class Entity implements IEntity{
 
 	public void setValue(double myValue) {
 		this.myValue = myValue;
+	}
+	
+	public boolean hasBeenModified(){
+		return hasBeenModified;
+	}
+	public void setHasBeenModified(boolean bool){
+		hasBeenModified = bool;
 	}
 
 }
