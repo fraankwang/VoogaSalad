@@ -1,5 +1,7 @@
 package backend.game_object.components;
 
+import java.util.List;
+
 public class PathComponent extends Component implements IComponent{
 	
 	//stores which path you're on
@@ -8,9 +10,8 @@ public class PathComponent extends Component implements IComponent{
 	//stores which curve in the path you're on
 	private int curveID;
 	
-	public PathComponent(int path, int curve){
-		pathID = path;
-		curveID = curve;
+	public PathComponent(){
+
 	}
 	
 	public int getCurveID(){
@@ -24,6 +25,12 @@ public class PathComponent extends Component implements IComponent{
 	}
 	public void setPathID(int newID){
 		pathID = newID;
+	}
+
+	@Override
+	public void initWithParams(List params) {
+		pathID = (int) params.get(0);
+		curveID = (int) params.get(1);
 	}
 	
 }

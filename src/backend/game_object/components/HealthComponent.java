@@ -1,14 +1,14 @@
 package backend.game_object.components;
 
+import java.util.List;
+
 public class HealthComponent extends Component implements IComponent{
 	
 	private double myHealth;
 	private double myDamage;
 	
-	public HealthComponent(double health, double damage) {
-		// TODO Auto-generated constructor stub
-		myHealth = health;
-		myDamage = damage;
+	public HealthComponent() {
+
 	}
 	
 	public double getHealth(){
@@ -31,6 +31,14 @@ public class HealthComponent extends Component implements IComponent{
 	public double getDamage() {
 		// TODO Auto-generated method stub
 		return myDamage;
+	}
+
+	@Override
+	public void initWithParams(List params) {
+		// TODO Auto-generated method stub
+		myHealth = (double) params.get(0);
+		myDamage = (double) params.get(1);
+		
 	}
 
 }

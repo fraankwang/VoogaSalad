@@ -7,13 +7,15 @@
 
 package backend.game_object.components;
 
+import java.util.List;
+
 public class DisplayComponent extends Component implements IComponent{
 	
 	private boolean canBeShown;
 	private String imageToShow = "/DrumpfVader.png";
 	
 	public DisplayComponent(){
-		this.canBeShown = true;
+
 	}
 	
 	public void setImage(String image){
@@ -41,6 +43,12 @@ public class DisplayComponent extends Component implements IComponent{
 	@Override
 	public String getTag(){
 		return "Display";
+	}
+
+	@Override
+	public void initWithParams(List params) {
+		this.canBeShown = true;
+		
 	}
 
 }
