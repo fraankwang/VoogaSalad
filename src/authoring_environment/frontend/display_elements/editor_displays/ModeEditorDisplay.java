@@ -13,7 +13,7 @@ public class ModeEditorDisplay extends EditorDisplay {
 	@Override
 	public void initialize() {
 		myGrid = new ModeEditorGrid(myController);
-		
+		myGrid.initialize();
 	}
 
 	@Override

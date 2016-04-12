@@ -24,8 +24,7 @@ public class MenuBarElement implements IMenuBarElement {
 
 	
 	@Override
-	public Node buildNode() {
-		initialize();
+	public Node getNode() {
 		return myMenuBar;
 	}
 

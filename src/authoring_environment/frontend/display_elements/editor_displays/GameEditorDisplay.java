@@ -19,7 +19,7 @@ public class GameEditorDisplay extends EditorDisplay {
 	@Override
 	public void initialize() {
 		myGrid = new GameEditorGrid(myController);
-
+		myGrid.initialize();
 	}
 
 	@Override

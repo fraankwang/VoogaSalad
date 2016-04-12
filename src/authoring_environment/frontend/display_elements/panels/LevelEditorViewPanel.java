@@ -19,14 +19,16 @@ public class LevelEditorViewPanel extends Panel {
 	public void initializeComponents() {
 		myMap = new ImageView("DrumpfVader.png");
 		myPanelBar = new EditorPanelBar(50,50);
+		myPanelBar.initialize();
 		myPathBuilder = new CurveBuilder();
+		myPathBuilder.initialize();
 	}
 	
 	public void assembleComponents() {
 		Group view = new Group();
 		VBox vbox = new VBox();
-		view.getChildren().addAll(myMap, myPathBuilder.buildNode());
-		vbox.getChildren().addAll(myPanelBar.buildNode(), view);
+		view.getChildren().addAll(myMap, myPathBuilder.getNode());
+		vbox.getChildren().addAll(myPanelBar.getNode(), view);
 		myPanelBar.addButton("Add Path", e -> myPathBuilder.createNewCurve());
 	}
 

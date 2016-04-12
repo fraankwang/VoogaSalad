@@ -57,8 +57,23 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	}
 
 	@Override
+	public Panel createRulesPanel() {
+		RulesEditorPanel editorPanel = new RulesEditorPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		editorPanel.initialize();
+		return editorPanel;
+	}
+
+	@Override
+	public Panel createModifiableAttributesPanel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public Panel createButtonDashboard() {
-		return new StandardButtonDashboard(ARBITRARY_PANEL_SIZE,ARBITRARY_PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE,ARBITRARY_PANEL_SIZE);
+		buttons.initialize();
+		return buttons;
 	}
 
 	@Override
@@ -69,17 +84,6 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Node createRightSubGrid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Panel createRulesPanel() {
-		return new RulesEditorPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
-	}
-
-	@Override
-	public Panel createModifiableAttributesPanel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

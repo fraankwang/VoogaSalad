@@ -35,9 +35,9 @@ public abstract class EditorGrid extends Grid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 //		myGrid.add(myPrimaryDisplay.buildNode(), 0, 0);
-		myGrid.add(myRulesPanel.buildNode(), 0, 1);
+//		myGrid.add(myRulesPanel.getNode(), 0, 1);
 //		myGrid.add(myModifiableAttributesPanel.buildNode(), 1, 0);
-		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
+//		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 		
 	}
 }
