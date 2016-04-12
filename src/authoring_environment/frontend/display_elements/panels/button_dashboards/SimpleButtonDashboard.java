@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 
 public class SimpleButtonDashboard extends ButtonDashboard {
 
-	private Button myResetButton;
+	protected Button myResetButton;
 
 	public SimpleButtonDashboard(int height, int width) {
 		super(height, width);
@@ -22,11 +22,11 @@ public class SimpleButtonDashboard extends ButtonDashboard {
 	@Override
 	protected void initializeComponents() {
 		mySaveButton = new Button("Save");
-		mySaveButton.setPrefHeight(600);
-		mySaveButton.setPrefWidth(600);
+		mySaveButton.setPrefHeight(myHeight);
+		mySaveButton.setPrefWidth(myWidth);
 		myResetButton = new Button("Reset");
-		myResetButton.setPrefHeight(600);
-		myResetButton.setPrefWidth(600);
+		myResetButton.setPrefHeight(myHeight);
+		myResetButton.setPrefWidth(myWidth);
 
 	}
 
