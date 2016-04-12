@@ -36,6 +36,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	@Override
 	public Panel createPrimaryDisplay() {
 		LevelEditorViewPanel levelEditor = new LevelEditorViewPanel(50,50);
+		levelEditor.initialize();
 		return levelEditor;
 	}
 

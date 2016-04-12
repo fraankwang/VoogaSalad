@@ -5,6 +5,7 @@ import authoring_environment.frontend.display_elements.grid_factories.TabGridFac
 import authoring_environment.frontend.display_elements.panels.GridViewPanel;
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.attributes_panels.unmodifiable_panels.UnmodifiableLevelAttributesPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.unmodifiable_panels.UnmodifiableModeAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
@@ -51,7 +52,9 @@ public class LevelsTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		return new UnmodifiableLevelAttributesPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, tabDisplay);
+		UnmodifiableLevelAttributesPanel attributes = new UnmodifiableLevelAttributesPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, tabDisplay);
+		attributes.initialize();
+		return attributes;
 	}
 
 }
