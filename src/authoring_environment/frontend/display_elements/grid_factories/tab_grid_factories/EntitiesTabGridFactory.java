@@ -21,7 +21,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		return new StandardButtonDashboard(myArbitraryPanelSize, myArbitraryPanelSize);
+		return new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		return new UnmodifiableEntityAttributesPanel(myArbitraryPanelSize, myArbitraryPanelSize, tabDisplay);
+		return new UnmodifiableEntityAttributesPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, tabDisplay);
 	}
 }
