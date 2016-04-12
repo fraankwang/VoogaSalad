@@ -38,14 +38,22 @@ public class Main extends Application {
     	Optional<ButtonType> result = alert.showAndWait();
     	
     	if (result.get() == buttonTypeAuthor){
-    	    AuthoringController controller = new AuthoringController(stage);
-    	    controller.start();
+    	    createAuthor(stage);
     	} else if (result.get() == buttonTypePlayer) {
-    		EngineView engineView = new EngineView(); 
-    		Scene scene = engineView.getScene();
-            stage.setScene(scene);
-            stage.show();
+    		createPlayer(stage);
     	}
+    }
+    
+    public void createAuthor(Stage stage){
+    	AuthoringController controller = new AuthoringController(stage);
+	    controller.start();
+    }
+    
+    public void createPlayer(Stage stage){
+    	EngineView engineView = new EngineView(stage, this); 
+		Scene scene = engineView.getScene();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private Scene getStartDialogue(){
