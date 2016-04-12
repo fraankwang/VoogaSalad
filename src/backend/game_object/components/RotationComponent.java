@@ -23,11 +23,6 @@ public class RotationComponent extends Component implements IComponent{
 	public void setAngle(double dir){
 		myAngle = dir;
 	}
-	
-	@Override
-	public String getTag(){
-		return "Rotation";
-	}
 
 	@Override
 	public void initWithParams(List params) {

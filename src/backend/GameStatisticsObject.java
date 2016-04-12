@@ -7,6 +7,10 @@ package backend;
 
 public class GameStatisticsObject {
 
+	private double myMoney;
+	private double myScore;
+	private double myHealth;
+	
 	private int currentMode = 0;
 	private int currentLevel = 0;
 	private int numOfLevels = 0;
@@ -14,6 +18,7 @@ public class GameStatisticsObject {
 	private int nextAvailableID = 0;
 
 	public GameStatisticsObject() {
+		
 	}
 
 	public void nextLevel() {

@@ -7,15 +7,13 @@
 
 package backend.game_object.components;
 
+import java.util.ResourceBundle;
+
 public abstract class Component implements IComponent{
 	private int entityId;
 	
 	public String getTag(){
-		return "Blank";
-	}
-	
-	public void update(){
-		
+		return this.getClass().getSimpleName();
 	}
 	
 	public int getEntityId(){

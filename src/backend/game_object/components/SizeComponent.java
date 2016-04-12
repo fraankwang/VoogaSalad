@@ -7,7 +7,7 @@ package backend.game_object.components;
 
 import java.util.List;
 
-public class SizeComponent extends Component{
+public class SizeComponent extends Component implements IComponent{
 
 	private double width;
 	private double height;
@@ -22,8 +22,18 @@ public class SizeComponent extends Component{
 		this.height = height;
 	}
 	
+	@Override
+	public String toString() {
+		return this.getTag() + " with width: " + this.width + " with height: " + this.height;
+	}
+
 	public double getHeight(){
 		return height;
+	}
+	
+	public void increaseSize(int delta){
+		this.width += delta;
+		this.height += delta;
 	}
 	
 	public double getWidth(){

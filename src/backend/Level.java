@@ -15,26 +15,23 @@ import java.util.List;
  */
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
-import backend.game_object.map.Mapp;
+import backend.game_object.map.MapObject;
 
 
 public class Level {
 
 	private List<IEntity> entities;
-	private Mapp map = new Mapp();
-	private int myId;
-	private int myLevelId;
+	private MapObject map = new MapObject();
 
 	public Level(int id) {
 		entities = new ArrayList<IEntity>();
-		this.myId = id;
 	}
 
 	public List<IEntity> getEntities() {
 		return entities;
 	}
 	
-	public Mapp getMap(){
+	public MapObject getMap(){
 		return map;
 	}
 
@@ -47,12 +44,4 @@ public class Level {
 		entities.add(entity);
 	}
 	
-	public int getId(){
-		return this.myId;
-	}
-	
-	public int getParentId(){
-		return this.myLevelId;
-	}
-
 }

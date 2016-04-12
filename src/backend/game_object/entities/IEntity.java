@@ -19,8 +19,6 @@ public interface IEntity {
 	
 	public IComponent getComponent(String tag);
 	
-
-	@Override
 	public String toString();
 	
 	public Set<String> getComponentTags();
@@ -29,7 +27,9 @@ public interface IEntity {
 	
 	public boolean hasComponent(String tag);
 	
-	public String getLabel();
+	public String getName();
 	
-	public int getId();
+	public boolean hasBeenModified();
+	
+	public void setHasBeenModified(boolean bool);
 }

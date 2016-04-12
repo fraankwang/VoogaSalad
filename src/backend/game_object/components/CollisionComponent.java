@@ -6,7 +6,8 @@ package backend.game_object.components;
 import java.util.List;
 
 public class CollisionComponent extends Component implements IComponent{
-    private boolean isCollided;
+    
+	private boolean isCollided;
     private double myX, myY, myWidth, myHeight;
 
     public CollisionComponent(double myX, double myY, double myWidth, double myHeight){
@@ -68,8 +69,5 @@ public class CollisionComponent extends Component implements IComponent{
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
 
 }
