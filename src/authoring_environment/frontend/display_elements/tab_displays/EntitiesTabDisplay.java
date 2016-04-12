@@ -29,7 +29,9 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public void initialize() {
 		myEntitiesTabPane = new TabPane();	// tab of entity types
 		myEditorDisplay = new EntityEditorDisplay(myController);
+		myEditorDisplay.initialize();
 		myActiveGrid = new EntitiesTabGrid(myController, this);
+		myActiveGrid.initialize();
 		myGrid = myActiveGrid;
 		
 		createNewTab("Unknown Type");
@@ -49,14 +51,14 @@ public class EntitiesTabDisplay extends TabDisplay {
 	}
 	
 	@Override
-	public Node buildNode() {
-		initialize();
+	public Node getNode() {
 		return myEntitiesTabPane;
 	}
 	
 	public void createNewTab(String name) {
 		EntitiesTabGrid grid = new EntitiesTabGrid(myController, this);
-		Tab newTab = new Tab(name, grid.buildNode());
+		grid.initialize();
+		Tab newTab = new Tab(name, grid.getNode());
 		myEntitiesTabPane.getTabs().add(newTab);
 		myEntitiesTabPane.getSelectionModel().select(newTab);
 	}

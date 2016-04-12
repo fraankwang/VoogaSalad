@@ -38,6 +38,7 @@ public class RulesEditorPanel extends Panel {
 	@Override
 	protected void initializeComponents() {
 		mySimpleButtonDashboard = new SimpleButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		mySimpleButtonDashboard.initialize();
 		myAddNewIfButton = new Button("Add New If");
 		myAddNewThenButton = new Button("Add New Then");
 		myIfStatements = new ListView<String>();
@@ -56,7 +57,7 @@ public class RulesEditorPanel extends Panel {
 				createSubNode(myThenNode, thenbox, myThenStatements));
 
 		grid.add(ifthen, 1, 0);
-		grid.add(mySimpleButtonDashboard.buildNode(), 0, 0);
+		grid.add(mySimpleButtonDashboard.getNode(), 0, 0);
 		myNode = grid;
 	}
 

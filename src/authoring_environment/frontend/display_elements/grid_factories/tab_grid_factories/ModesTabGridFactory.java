@@ -24,12 +24,16 @@ public class ModesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		return new GridViewPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, myTabDisplay);
+		GridViewPanel gridView = new GridViewPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, myTabDisplay);
+		gridView.initialize();
+		return gridView;
 	}
 
 	@Override
 	public Panel createButtonDashboard() {
-		return new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		buttons.initialize();
+		return buttons;
 	}
 
 	@Override
@@ -46,7 +50,9 @@ public class ModesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		return new UnmodifiableModeAttributesPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, tabDisplay);
+		UnmodifiableModeAttributesPanel attributes = new UnmodifiableModeAttributesPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, tabDisplay);
+		attributes.initialize();
+		return attributes;
 	}
 
 }

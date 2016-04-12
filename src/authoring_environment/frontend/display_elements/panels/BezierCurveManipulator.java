@@ -32,8 +32,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	}
 
 	@Override
-	public Node buildNode() {
-		initialize();
+	public Node getNode() {
 		return myNode;
 	}
 

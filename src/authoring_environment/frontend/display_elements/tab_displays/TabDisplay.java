@@ -31,16 +31,15 @@ public abstract class TabDisplay implements ITabDisplay {
 	}
 
 	@Override
-	public Node buildNode() {
-		initialize();
-		return myGrid.buildNode();
+	public Node getNode() {
+		return myGrid.getNode();
 	}
 
 	@Override
 	public void openEditorDisplay() {
 		Stage editorStage = new Stage();
 		BorderPane root = new BorderPane();
-		root.setCenter(myEditorDisplay.buildNode());
+		root.setCenter(myEditorDisplay.getNode());
 		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
 		editorStage.setScene(editorScene);
 		editorStage.show();

@@ -23,13 +23,13 @@ public class CurveBuilder implements IDisplayElement {
 	
 	public void createNewCurve() {
 		BezierCurveManipulator newCurve = new BezierCurveManipulator();
+		newCurve.initialize();
 		myBezierCurves.add(newCurve);
-		myNode.getChildren().add(newCurve.buildNode());
+		myNode.getChildren().add(newCurve.getNode());
 	}
 
 	@Override
-	public Node buildNode() {
-		initialize();
+	public Node getNode() {
 		return myNode;
 	}
 }

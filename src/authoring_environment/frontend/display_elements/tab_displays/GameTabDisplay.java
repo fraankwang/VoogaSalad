@@ -20,7 +20,9 @@ public class GameTabDisplay extends TabDisplay {
 	@Override
 	public void initialize() {
 		myGrid = new GameTabGrid(myController, this);
+		myGrid.initialize();
 		myEditorDisplay = new GameEditorDisplay(myController);
+		myEditorDisplay.initialize();
 	}
 
 }
