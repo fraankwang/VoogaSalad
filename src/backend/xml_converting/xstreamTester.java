@@ -1,10 +1,10 @@
 package backend.xml_converting;
 
-import authoring.backend.deprecated.EntityFactoryClass;
 import backend.GameWorld;
 import backend.Level;
 import backend.Mode;
 import backend.game_object.components.DisplayComponent;
+import deprecated.EntityFactoryClass;
 
 public class xstreamTester {
 

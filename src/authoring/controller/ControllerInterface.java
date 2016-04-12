@@ -1,6 +1,14 @@
 package authoring.controller;
 
-public interface ControllerInterface {
+import java.util.Map;
+import java.util.Observer;
+
+/*
+ * @author: Jonathan Ma
+ */
+
+public interface ControllerInterface extends Observer {
 	
-	public void loadData(Object o);
+	public void parseInput(Map<String, String> data);
+
 }

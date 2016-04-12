@@ -1,4 +1,4 @@
-package authoring.backend.deprecated;
+package deprecated;
 
 import java.util.List;
 
