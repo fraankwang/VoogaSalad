@@ -24,11 +24,15 @@ public class SystemsController {
 	private FrontEndAccessController frontendController;
 	private ResourceLoader myResourceLoader;
 	
+	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
+	private ResourceBundle myActionRequirementsResources;
+	private ResourceBundle myComponentTagResources;
 
 	public SystemsController(FrontEndAccessController frontendController) {
 		this.frontendController = frontendController;
 		myResourceLoader = new ResourceLoader();
 		render = new RenderingSystem(frontendController);
+		
 //		mobilize = new MobilizeSystem();
 		addToBagOfSystems(render);
 //		addToBagOfSystems(mobilize);
@@ -42,6 +46,8 @@ public class SystemsController {
 		for (Systemm myCurrSystem : bagOfSystems) {
 			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
 			List<Level> currLevels = game.getLevelsForMode(currMode);
+			//switch this to iterate through the quadrants contained inside of the curr levels map
+			//and that maps quadrants
 			myCurrSystem.update(currLevels.get(game.getGameStats().getCurrentLevel()).getEntities());
 		}
 	}

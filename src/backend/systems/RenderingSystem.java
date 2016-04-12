@@ -16,6 +16,7 @@ import backend.game_object.components.Component;
 import backend.game_object.components.DisplayComponent;
 import backend.game_object.components.IComponent;
 import backend.game_object.components.PositionComponent;
+import backend.game_object.components.SizeComponent;
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
@@ -24,10 +25,10 @@ import java.util.*;
 public class RenderingSystem extends Systemm {
 
 //	private IFrontEndAccess frontEndController;
-	private FrontEndAccessController frontEndController;
+	private FrontEndAccessController displayController;
 	
-	public RenderingSystem(FrontEndAccessController frontEndController) {
-		this.frontEndController = frontEndController;
+	public RenderingSystem(FrontEndAccessController displayController) {
+		this.displayController = displayController;
 	}
 
 	@Override
@@ -49,9 +50,13 @@ public class RenderingSystem extends Systemm {
 					y = ((PositionComponent) eachComponent).getY();
 				}
 				//if(eachComponent == "Size") -->  getSize()
+				if(eachComponent.getTag().equals(getComponentTagResources().getString("Size"))){
+					sizex = ((SizeComponent) eachComponent).getWidth();
+					sizex = ((SizeComponent) eachComponent).getHeight();
+				}
 			}
 			
-			frontEndController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
+			displayController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
 		}
 	}
 

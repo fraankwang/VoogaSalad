@@ -17,6 +17,7 @@ public class FrontEndGameAuthoringEnvironment {
 	public int entitiesWanted;
 	public List<MapObject> maps = new ArrayList<MapObject>();
 	public String[][] level1SpritesComponentWanted;
+	public String[][] myRules;
 
 	public FrontEndGameAuthoringEnvironment() {
 		initMockData();
@@ -31,7 +32,10 @@ public class FrontEndGameAuthoringEnvironment {
 		// also pretend that she also wants a list of things she wants one
 		// sprite to be able to do
 		// outside list represents level 1, inside list is components for one sprite
-		String[][] mock = { { "Display", "Position" }, { "Display", "Position" } };
+		String[][] mock = { { "Display", "Position", "Size"}, { "Display", "Position", "Size"} };
+		// string rules
+		String[][] rules = {{ "Size", "-5"}, {"Move", "5"}};
+		myRules = rules;
 		level1SpritesComponentWanted = mock;
 	}
 	

@@ -9,19 +9,30 @@ import java.util.Set;
 
 import backend.game_object.components.Component;
 import backend.game_object.components.IComponent;
+import backend.rules.Rule;
 
 public class Entity implements IEntity{
 	
 	private String myLabel;
 	private double myValue;
+	private List<Rule> myRules;
 	private int myID;
 	//private List<Component> myComponents;
 	private Map<String, IComponent> myComponents;
 
 	public Entity(int ID, double value) {
-		myComponents = new HashMap<String, IComponent>();
+		this.myRules = new ArrayList<Rule>();
+		this.myComponents = new HashMap<String, IComponent>();
 		this.myID = ID;
 		this.setValue(value);
+	}
+	
+	public List<Rule> getRules(){
+		return myRules;
+	}
+	
+	public void addRule(Rule myRule){
+		myRules.add(myRule);
 	}
 
 	public void addComponent(IComponent component) {
