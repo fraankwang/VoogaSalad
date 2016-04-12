@@ -21,6 +21,7 @@ public class EntityEditorGrid extends EditorGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
+		
 	}
 
 	@Override
@@ -28,11 +29,11 @@ public class EntityEditorGrid extends EditorGrid {
 		myGridFactory = new EntityEditorGridFactory(myController);
 
 	}
-	
+
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
+		
 	}
 
 }
