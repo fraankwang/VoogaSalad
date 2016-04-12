@@ -32,7 +32,7 @@ public class ModesTabGrid extends TabGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-
+		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
 	}
 
 }
