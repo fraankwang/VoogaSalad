@@ -15,13 +15,13 @@ import java.util.List;
  */
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
-import backend.game_object.map.Mapp;
+import backend.game_object.map.MapObject;
 
 
 public class Level {
 
 	private List<IEntity> entities;
-	private Mapp map = new Mapp();
+	private MapObject map = new MapObject();
 
 	public Level() {
 		entities = new ArrayList<IEntity>();
@@ -31,7 +31,7 @@ public class Level {
 		return entities;
 	}
 	
-	public Mapp getMap(){
+	public MapObject getMap(){
 		return map;
 	}
 
@@ -42,7 +42,6 @@ public class Level {
 
 	public void addToEntities(Entity entity) {
 		entities.add(entity);
-
 	}
 
 }

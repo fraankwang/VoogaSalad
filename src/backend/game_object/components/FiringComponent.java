@@ -4,22 +4,34 @@ import java.util.List;
 
 import backend.game_object.entities.IEntity;
 
+/**
+ * 
+ * @author raghavkedia
+ *
+ */
+
 public class FiringComponent extends Component implements IComponent{
 	
-	private IEntity myAmmunition;
+	//private IEntity myAmmunition;
+	private String myAmmunition;
 	private int myAmmunitionAmount;
+	private double myAmmunitionSpeed;
 	private double myEnemyInSightRange;
+	private double myDirectionToFire;
 	
-	@Override
-	public String getTag(){
-		return "Firing";
+	public FiringComponent(String ammunitionName, int amount, double speed, double range, double direction){
+		myAmmunition = ammunitionName;
+		myAmmunitionAmount = amount;
+		myAmmunitionSpeed = speed;
+		myEnemyInSightRange = range;
+		myDirectionToFire = direction;
 	}
-
-	public IEntity getAmmunition() {
+	
+	public String getAmmunition() {
 		return myAmmunition;
 	}
 
-	public void setAmmunition(IEntity myAmmunition) {
+	public void setAmmunition(String myAmmunition) {
 		this.myAmmunition = myAmmunition;
 	}
 
@@ -37,6 +49,22 @@ public class FiringComponent extends Component implements IComponent{
 
 	public void setEnemyInSightRange(double myEnemyInSightRange) {
 		this.myEnemyInSightRange = myEnemyInSightRange;
+	}
+
+	public double getDirectionToFire() {
+		return myDirectionToFire;
+	}
+
+	public void setDirectionToFire(double myDirectionToFire) {
+		this.myDirectionToFire = myDirectionToFire;
+	}
+
+	public double getAmmunitionSpeed() {
+		return myAmmunitionSpeed;
+	}
+
+	public void setAmmunitionSpeed(double myAmmunitionSpeed) {
+		this.myAmmunitionSpeed = myAmmunitionSpeed;
 	}
 	
 }

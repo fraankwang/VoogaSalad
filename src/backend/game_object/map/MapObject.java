@@ -13,14 +13,14 @@ import backend.FrontEndAccessController;
 import backend.game_object.components.DisplayComponent;
 import backend.game_object.components.SizeComponent;
 
-public class Mapp {
+public class MapObject {
 
 	private DisplayComponent image = new DisplayComponent();
 	private SizeComponent size;
 	private List<Quadrant> quadrants = new ArrayList<Quadrant>();
 	private Path path;
 	
-	public Mapp() {
+	public MapObject() {
 //		this.image.setImage("Crampton_stage.png");
 		this.size = new SizeComponent(300, 300);
 	}

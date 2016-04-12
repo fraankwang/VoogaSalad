@@ -22,11 +22,6 @@ public class HealthComponent extends Component implements IComponent{
 	public void setDamage(double newDamage){
 		myDamage = newDamage;
 	}
-	
-	@Override
-	public String getTag(){
-		return "Health";
-	}
 
 	public double getDamage() {
 		// TODO Auto-generated method stub

@@ -1,16 +1,28 @@
+
 package backend.game_object.components;
 
+/**
+ * 
+ * @author raghavkedia
+ *
+ */
 public class PathComponent extends Component implements IComponent{
 	
 	//stores which path you're on
 	private int pathID;
+	private double myBezierTime;
 	
+	
+	private boolean reachedEndOfPath;
+	private boolean movesWithTime;
 	//stores which curve in the path you're on
 	private int curveID;
 	
-	public PathComponent(int path, int curve){
+	public PathComponent(int path, int curve, boolean moves, double time){
 		pathID = path;
-		curveID = curve;
+		movesWithTime = moves;
+		myBezierTime = time;
+		reachedEndOfPath = false;
 	}
 	
 	public int getCurveID(){
@@ -24,6 +36,26 @@ public class PathComponent extends Component implements IComponent{
 	}
 	public void setPathID(int newID){
 		pathID = newID;
+	}
+	
+	public double getBezierTime() {
+		return myBezierTime;
+	}
+
+	public void setBezierTime(double myBezierTime) {
+		this.myBezierTime = myBezierTime;
+	}
+
+	public boolean movesWithTime(){
+		return movesWithTime;
+	}
+	
+	public boolean getReachedEndOfPath(){
+		return reachedEndOfPath;
+	}
+	
+	public void didReachEndOfPath(){
+		reachedEndOfPath = true;
 	}
 	
 }

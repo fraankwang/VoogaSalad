@@ -4,14 +4,10 @@ package backend.systems;
  * author raghavkedia
  */
 
-import java.util.ArrayList;
 import java.util.List;
 
-import backend.game_object.components.Component;
 import backend.game_object.components.MovementComponent;
-import backend.Level;
 import backend.game_object.components.*;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
 public class MobilizeSystem extends Systemm implements ISystem {
@@ -33,22 +29,24 @@ public class MobilizeSystem extends Systemm implements ISystem {
 		
 		for(IEntity entity : entities){
 			
-			if(!entity.hasComponent("Movement")){
+			if(!entity.hasComponent(getComponentTagResources().getString("Movement"))){
 				continue;
 			}
 			
-			MovementComponent movComponent = (MovementComponent) entity.getComponent("Movement");
-			PositionComponent posComponent = (PositionComponent) entity.getComponent("Position");
-			
-			//movement if on path
-			Vector velVector = movComponent.getCurrentVelocityVector();
-			double speed = velVector.calculateMagnitude();
+			MovementComponent movComponent = (MovementComponent) entity.getComponent(getComponentTagResources().getString("Movement"));
+			PositionComponent posComponent = (PositionComponent) entity.getComponent(getComponentTagResources().getString("Position"));
 			
 			
-			//do movement
-			Vector posVector = posComponent.getPositionVector();
-//			Vector velVector = movComponent.getCurrentVelocityVector();
-			posVector.add(velVector);
+			if(entity.hasComponent(getComponentTagResources().getString("Path"))){
+				//if on path
+				updatePathMovement(entity);
+			}
+			else{
+				//do movement
+				Vector posVector = posComponent.getPositionVector();
+				Vector velVector = movComponent.getCurrentVelocityVector();
+				posVector.add(velVector);
+			}
 			
 			//do rotation
 			double theta = movComponent.getTheta();
@@ -59,7 +57,13 @@ public class MobilizeSystem extends Systemm implements ISystem {
 		}
 
 	}
-
+	
+	private void updatePathMovement(IEntity entity){
+		//needs access to path
+		
+		Map.getPath().updatePositionOnPath(entity);
+		
+	}
 	
 
 }
