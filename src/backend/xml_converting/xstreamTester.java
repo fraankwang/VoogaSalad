@@ -1,6 +1,6 @@
 package backend.xml_converting;
 
-import authoring_environment.backend.deprecated.EntityFactoryClass;
+import authoring.backend.deprecated.EntityFactoryClass;
 import backend.GameWorld;
 import backend.Level;
 import backend.Mode;
