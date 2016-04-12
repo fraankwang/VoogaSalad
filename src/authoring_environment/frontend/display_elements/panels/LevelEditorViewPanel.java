@@ -1,7 +1,6 @@
 package authoring_environment.frontend.display_elements.panels;
 
 import authoring_environment.frontend.display_elements.panels.panel_bars.EditorPanelBar;
-import authoring_environment.frontend.interfaces.display_element_interfaces.IPanel;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;

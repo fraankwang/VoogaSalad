@@ -1,9 +1,14 @@
 package authoring_environment.frontend.display_elements.panels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import authoring_environment.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring_environment.frontend.display_elements.panels.panel_bars.PanelBar;
+import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -27,6 +32,7 @@ public class GridViewPanel extends Panel {
 	private PanelBar myPanelBar;
 	private Button myAddNewButton;
 	private int numColumns;
+	private List<ImageView> myImages;
 
 	public GridViewPanel(int height, int width) {
 		super(height, width);
@@ -38,13 +44,30 @@ public class GridViewPanel extends Panel {
 		myGridPane = new GridPane();
 	    myScrollPane = new ScrollPane();
 	    myPanelBar = new GridPanelBar(50,50, this);
+	    myImages = new ArrayList<ImageView>();
 	}
 
 	private void sizeGrid(int num) {
+		myGridPane.getChildren().clear();
+		myGridPane.getColumnConstraints().clear();
+		double gridCellSize = (myScrollPane.getViewportBounds().getWidth()-20)/num;
 		for (int i = 0; i < num; i++) {
 			ColumnConstraints column = new ColumnConstraints();
-			column.setPercentWidth(100/num);
+			column.setMinWidth(gridCellSize);
+			column.setMaxWidth(gridCellSize);
+			column.setHalignment(HPos.CENTER);
 			myGridPane.getColumnConstraints().add(column);
+		}
+		
+		ImageView currImage;
+		int colNum, rowNum;
+		for (int j = 0; j < myImages.size(); j++) {
+			colNum = j % num;
+			rowNum = j / num;
+			currImage = myImages.get(j);
+			currImage.setPreserveRatio(true);
+			currImage.fitHeightProperty().set(gridCellSize);
+			myGridPane.add(currImage, colNum, rowNum);
 		}
 	}
 	
@@ -62,9 +85,14 @@ public class GridViewPanel extends Panel {
 	protected void assembleComponents() {
 		VBox vbox = new VBox();
 		myGridPane.setGridLinesVisible(true);
-	    sizeGrid(numColumns);
+		myImages.add(new ImageView("DrumpfVader.png"));
+		myImages.add(new ImageView("DrumpfVader.png"));
+		myImages.add(new ImageView("DrumpfVader.png"));
+		myImages.add(new ImageView("DrumpfVader.png"));
+		myImages.add(new ImageView("DrumpfVader.png"));
 	    myScrollPane.setContent(myGridPane);
 	    VBox.setVgrow(myGridPane, Priority.ALWAYS);
+	    sizeGrid(numColumns);
 		vbox.getChildren().addAll(myPanelBar.buildNode(), myScrollPane);
 		myNode = vbox;
 	}
