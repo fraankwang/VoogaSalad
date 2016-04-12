@@ -1,4 +1,4 @@
-package authoring.controller;
+package authoring.main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
