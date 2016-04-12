@@ -27,7 +27,7 @@ public class GameTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		return new SimpleButtonDashboard(50, 50);
+		return new SimpleButtonDashboard(myButtonDashboardButtonSize, myButtonDashboardButtonSize);
 	}
 
 	@Override

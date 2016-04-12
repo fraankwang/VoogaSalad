@@ -28,8 +28,7 @@ public class LevelsTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		// TODO Auto-generated method stub
-		return new SimpleButtonDashboard(50,50);
+		return new SimpleButtonDashboard(myButtonDashboardButtonSize,myButtonDashboardButtonSize);
 	}
 
 	@Override
