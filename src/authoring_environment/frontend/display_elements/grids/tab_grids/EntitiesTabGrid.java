@@ -13,8 +13,8 @@ import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
 
 public class EntitiesTabGrid extends TabGrid {
 
-	public EntitiesTabGrid(IController controller, TabDisplay tabDisplay) {
-		super(controller, tabDisplay);
+	public EntitiesTabGrid(IController controller, TabDisplay tab) {
+		super(controller, tab);
 	}
 
 	@Override
@@ -22,6 +22,7 @@ public class EntitiesTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
+
 	}
 
 	@Override
@@ -32,9 +33,7 @@ public class EntitiesTabGrid extends TabGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
-//		myGrid.add(myButtonDashboard.buildNode(), 1, 0);
-		myGrid.add(myUnmodifiableAttributesPanel.buildNode(), 1, 0);
+
 	}
 
 }

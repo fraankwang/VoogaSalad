@@ -11,8 +11,6 @@ package authoring_environment.frontend.interfaces.display_element_interfaces;
  */
 
 public interface ITabDisplay extends IDisplayElement {
-
-	public void initialize();
 	
 	public void openEditorDisplay();
 	

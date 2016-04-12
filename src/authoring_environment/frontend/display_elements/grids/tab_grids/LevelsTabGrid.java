@@ -2,7 +2,6 @@ package authoring_environment.frontend.display_elements.grids.tab_grids;
 
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.tab_grid_factories.LevelsTabGridFactory;
-import authoring_environment.frontend.display_elements.grid_factories.tab_grid_factories.ModesTabGridFactory;
 import authoring_environment.frontend.display_elements.grids.TabGrid;
 import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
 
@@ -23,6 +22,7 @@ public class LevelsTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
+		
 	}
 
 	@Override
@@ -33,8 +33,7 @@ public class LevelsTabGrid extends TabGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
-		myGrid.add(myUnmodifiableAttributesPanel.buildNode(), 1, 0);
+		
 	}
 
 }

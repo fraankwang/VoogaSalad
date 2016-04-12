@@ -5,7 +5,6 @@ import authoring_environment.frontend.display_elements.grids.Grid;
 import authoring_environment.frontend.interfaces.IDisplayEntity;
 import authoring_environment.frontend.interfaces.display_element_interfaces.IEditorDisplay;
 import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
 
 /**
  * The EditorDisplay superclass is the Editor in charge of each game aspect's
@@ -18,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 public abstract class EditorDisplay implements IEditorDisplay {
 
 	protected Grid myGrid;
+
 	protected IController myController;
 
 	public EditorDisplay(IController controller) {
@@ -26,13 +26,11 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	
 	@Override
 	public Node buildNode() {
-		initialize();
 		return myGrid.buildNode();
 	}
 
 	@Override
 	public IDisplayEntity edit(IDisplayEntity oldEntity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

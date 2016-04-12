@@ -22,6 +22,7 @@ public class GameTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
+
 	}
 
 	@Override
@@ -32,8 +33,6 @@ public class GameTabGrid extends TabGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
-		myGrid.add(myUnmodifiableAttributesPanel.buildNode(), 1, 0);
 
 	}
 }

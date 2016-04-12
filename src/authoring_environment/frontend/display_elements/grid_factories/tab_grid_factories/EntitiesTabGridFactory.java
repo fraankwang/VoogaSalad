@@ -6,11 +6,12 @@ import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.attributes_panels.unmodifiable_panels.UnmodifiableEntityAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
+import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
 
 public class EntitiesTabGridFactory extends TabGridFactory {
 
-	public EntitiesTabGridFactory(IController controller, TabDisplay tabDisplay) {
+	public EntitiesTabGridFactory(IController controller, ITabDisplay tabDisplay) {
 		super(controller, tabDisplay);
 	}
 

@@ -31,11 +31,9 @@ public class StandardButtonDashboard extends SimpleButtonDashboard {
 		myDeleteButton = new Button("Delete");
 		myDeleteButton.setPrefHeight(myHeight);
 		myDeleteButton.setPrefWidth(myWidth);
+		
 	}
 
-	private void print() {
-		System.out.println("hello");
-	}
 	@Override
 	protected void assembleComponents() {
 		VBox leftButtons = new VBox(myDuplicateButton, myResetButton);

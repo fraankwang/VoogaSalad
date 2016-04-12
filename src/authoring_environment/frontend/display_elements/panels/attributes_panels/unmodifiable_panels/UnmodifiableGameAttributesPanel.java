@@ -1,7 +1,7 @@
 package authoring_environment.frontend.display_elements.panels.attributes_panels.unmodifiable_panels;
 
 import authoring_environment.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
-import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
+import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 
 public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel {
 
-	public UnmodifiableGameAttributesPanel(int height, int width, TabDisplay tabDisplay) {
+	public UnmodifiableGameAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
 	}
 
@@ -22,7 +22,7 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 		// TODO Auto-generated method stub
 		Button openEditorButton = new Button("Open Editor");
 		openEditorButton.setOnAction(e -> myTabDisplay.openEditorDisplay());
-		myNode = new HBox(new Button("hello"), openEditorButton);
+		myNode = new HBox(openEditorButton);
 	}
 
 	@Override

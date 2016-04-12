@@ -4,6 +4,7 @@ import java.io.File;
 
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
+import authoring_environment.frontend.display_elements.panels.EditorViewPanel;
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
@@ -30,6 +31,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
+		EditorViewPanel image = new EditorViewPanel(50,50);
 		StackPane imageDisplay = new StackPane();
 		ImageView entityImage = new ImageView("DrumpfVader.png"); // set default
 																	// image as

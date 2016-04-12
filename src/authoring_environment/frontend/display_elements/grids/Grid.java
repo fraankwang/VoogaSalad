@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.shape.Rectangle;
 
 /**
  * The Grid superclass is the object that populates all the EditorDisplays and
@@ -74,10 +73,6 @@ public abstract class Grid implements IGrid {
 		myGrid.getColumnConstraints().addAll(column1, column2);
 		myGrid.getRowConstraints().addAll(row1, row2);
 
-//		myGrid.add(myPrimaryDisplay.buildNode(), 0, 0);
-//		myGrid.add(myRightSubGrid, 1, 0);
-//		myGrid.add(myLeftSubGrid, 0, 1);
-//		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
 	}
 
 	/**
