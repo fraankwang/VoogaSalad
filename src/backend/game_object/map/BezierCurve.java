@@ -79,7 +79,7 @@ public class BezierCurve implements IBezierCurve{
 		return myLength;
 	}
 	
-	private double calculateBezierLength(){
+	double calculateBezierLength(){
 		
 		Vector q0 = calculateNewBezierPoint(0, startPointVector, control1Vector, 
 				control2Vector, endPointVector);

@@ -21,8 +21,18 @@ public class SizeComponent extends Component implements IComponent{
 		this.height = height;
 	}
 	
+	@Override
+	public String toString() {
+		return this.getTag() + " with width: " + this.width + " with height: " + this.height;
+	}
+
 	public double getHeight(){
 		return height;
+	}
+	
+	public void increaseSize(int delta){
+		this.width += delta;
+		this.height += delta;
 	}
 	
 	public double getWidth(){

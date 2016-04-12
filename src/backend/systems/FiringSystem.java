@@ -1,13 +1,11 @@
 package backend.systems;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
 import backend.game_object.components.FiringComponent;
 import backend.game_object.components.MovementComponent;
 import backend.game_object.components.PositionComponent;
 import backend.game_object.components.Vector;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
 /**
@@ -18,7 +16,7 @@ import backend.game_object.entities.IEntity;
 
 public class FiringSystem extends Systemm implements ISystem{
 
-	@Override
+	@Override 
 	public void update(List<IEntity> entities) {
 		// TODO Auto-generated method stub
 		
@@ -33,7 +31,7 @@ public class FiringSystem extends Systemm implements ISystem{
 					}
 					
 					//needs to check if it's something it can fire at
-					if(targetEntity.getLabel().equals("Enemy")){
+					if(targetEntity.getName().equals("Enemy")){
 						
 						IEntity firedEntity = handleFiring(shootingEntity, targetEntity);
 						if(firedEntity == null){
@@ -58,6 +56,7 @@ public class FiringSystem extends Systemm implements ISystem{
 		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(getComponentTagResources().getString("Firing"));
 		//Get Position component of shooting entity
 		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(getComponentTagResources().getString("Position"));
+		MovementComponent shootingMovComponent = (MovementComponent) shootingEntity.getComponent(getComponentTagResources().getString("Movement"));
 		//Get position component of target entity;
 		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(getComponentTagResources().getString("Position"));
 		
@@ -71,7 +70,8 @@ public class FiringSystem extends Systemm implements ISystem{
 				&& firingComponent.getAmmunitionAmount() > 0){
 			
 			//get an instance of the shooters ammo
-			IEntity firedEntity = firingComponent.getAmmunition();
+			String firedEntityName = firingComponent.getAmmunition();
+			IEntity firedEntity = EntityFactory.getEntity(firedEntityName);
 			
 			//set the position and movement components of the ammo
 			PositionComponent firedPosComponent = (PositionComponent) firedEntity.getComponent(getComponentTagResources().getString("Position"));
@@ -86,6 +86,8 @@ public class FiringSystem extends Systemm implements ISystem{
 			firedVelVector.scale(firingComponent.getAmmunitionSpeed());
 			firedMovComponent.setCurrentVelocityVector(firedVelVector);
 			firedMovComponent.setDefaultVelocityVector(firedVelVector);
+			
+			shootingMovComponent.setTheta(targetPosVector.calculateDirection(shootingPosVector));
 			
 			return firedEntity;
 			

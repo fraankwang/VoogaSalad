@@ -33,6 +33,13 @@ public class Vector {
 		
 	}
 	
+	public double calculateDirection(Vector v){
+		double val1 = myYComponent - v.getY();
+		double val2 = myXComponent - v.getX();
+		
+		return Math.atan(val1 / val2);
+	}
+	
 	public double calculateMagnitude(){
 		double val1 = myXComponent * myXComponent;
 		double val2 = myYComponent * myYComponent;
