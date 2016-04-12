@@ -24,13 +24,7 @@ public class StandardButtonDashboard extends SimpleButtonDashboard {
 
 	@Override
 	protected void initializeComponents() {
-		mySaveButton = new Button("Save");
-		mySaveButton.setPrefHeight(myHeight);
-		mySaveButton.setPrefWidth(myWidth);
-		myResetButton = new Button("Reset");
-		myResetButton.setPrefHeight(myHeight);
-		myResetButton.setPrefWidth(myWidth);
-//		super.initializeComponents();
+		super.initializeComponents();
 		myDuplicateButton = new Button("Duplicate");
 		myDuplicateButton.setPrefHeight(myHeight);
 		myDuplicateButton.setPrefWidth(myWidth);
@@ -39,6 +33,9 @@ public class StandardButtonDashboard extends SimpleButtonDashboard {
 		myDeleteButton.setPrefWidth(myWidth);
 	}
 
+	private void print() {
+		System.out.println("hello");
+	}
 	@Override
 	protected void assembleComponents() {
 		VBox leftButtons = new VBox(myDuplicateButton, myResetButton);
