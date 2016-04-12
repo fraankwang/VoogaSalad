@@ -25,6 +25,11 @@ public class SizeComponent extends Component implements IComponent{
 		return height;
 	}
 	
+	public void increaseSize(int delta){
+		this.width += delta;
+		this.height += delta;
+	}
+	
 	public double getWidth(){
 		return width;
 	}

@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 
 public class FrontEndAccessController implements IFrontEndAccess {
 
@@ -25,6 +26,17 @@ public class FrontEndAccessController implements IFrontEndAccess {
 	@Override
 	public void register() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
+=======
+		
+	}
+	
+	public void handleEvent(Event e){
+		if(e instanceof KeyEvent){
+			 System.out.println("hello");
+		}
+	}
+>>>>>>> 75596e71e7d6e24926d79378b45fe8a0dafd53e4
 
 	}
 //
