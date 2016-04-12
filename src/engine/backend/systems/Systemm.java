@@ -24,22 +24,22 @@ public abstract class Systemm implements ISystem{
 	
 	//public abstract void execute(List<Level> list);
 	
-	//for filter list for desired entities
-	public List<Entity> filter(List<Entity> entities, List<String> requiredComponents){
-		
-		List<Entity> filteredEntities = new ArrayList<Entity>(); 
-		
-		for(Entity entity : entities){
-			
-			if(entity.getComponentTags().containsAll(requiredComponents)){
-				filteredEntities.add(entity);
-			}
-			
-		}
-		
-		return filteredEntities;
-		
-	}
+//	//for filter list for desired entities
+//	public List<Entity> filter(List<Entity> entities, List<String> requiredComponents){
+//		
+//		List<Entity> filteredEntities = new ArrayList<Entity>(); 
+//		
+//		for(Entity entity : entities){
+//			
+//			if(entity.getComponentTags().containsAll(requiredComponents)){
+//				filteredEntities.add(entity);
+//			}
+//			
+//		}
+//		
+//		return filteredEntities;
+//		
+//	}
 	
 	public ResourceBundle getComponentTagResources(){
 		return myComponentTagResources;
