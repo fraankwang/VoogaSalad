@@ -17,6 +17,7 @@ import javafx.scene.Node;
 public abstract class EditorDisplay implements IEditorDisplay {
 
 	protected Grid myGrid;
+
 	protected IController myController;
 
 	public EditorDisplay(IController controller) {
@@ -25,7 +26,6 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	
 	@Override
 	public Node buildNode() {
-		initialize();
 		return myGrid.buildNode();
 	}
 

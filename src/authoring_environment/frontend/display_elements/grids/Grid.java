@@ -73,12 +73,6 @@ public abstract class Grid implements IGrid {
 		row2.setPercentHeight(30);
 		myGrid.getColumnConstraints().addAll(column1, column2);
 		myGrid.getRowConstraints().addAll(row1, row2);
-
-
-//		myGrid.add(myPrimaryDisplay.buildNode(), 0, 0);
-//		myGrid.add(myRightSubGrid, 1, 0);
-//		myGrid.add(myLeftSubGrid, 0, 1);
-		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
 	}
 
 	/**
