@@ -78,8 +78,7 @@ public abstract class Grid implements IGrid {
 	/**
 	 * @return assembled and formatted Grid
 	 */
-	public Node buildNode() {
-		initialize();
+	public Node getNode() {
 		return myGrid;
 	}
 

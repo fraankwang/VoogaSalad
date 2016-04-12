@@ -25,9 +25,8 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	}
 	
 	@Override
-	public Node buildNode() {
-		initialize();
-		return myGrid.buildNode();
+	public Node getNode() {
+		return myGrid.getNode();
 		
 	}
 

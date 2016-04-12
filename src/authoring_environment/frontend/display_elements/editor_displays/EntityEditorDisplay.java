@@ -18,7 +18,8 @@ public class EntityEditorDisplay extends EditorDisplay {
 	
 	@Override
 	public void initialize() {
-		myGrid = new EntityEditorGrid(myController);		
+		myGrid = new EntityEditorGrid(myController);
+		myGrid.initialize();
 	}
 
 	@Override

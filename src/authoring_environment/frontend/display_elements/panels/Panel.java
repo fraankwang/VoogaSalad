@@ -42,8 +42,7 @@ public abstract class Panel implements IPanel {
 	protected abstract void assembleComponents();
 
 	@Override
-	public Node buildNode() {
-		initialize();
+	public Node getNode() {
 		return myNode;
 	}
 

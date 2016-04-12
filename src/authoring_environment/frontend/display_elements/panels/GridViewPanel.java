@@ -47,6 +47,7 @@ public class GridViewPanel extends Panel {
 		myGridPane = new GridPane();
 	    myScrollPane = new ScrollPane();
 	    myPanelBar = new GridPanelBar(50,50, this);
+	    myPanelBar.initialize();
 	    myImages = new ArrayList<ImageView>();
 	    myAddNewButton = new Button("Add New...");
 	}
@@ -101,7 +102,7 @@ public class GridViewPanel extends Panel {
 	    myScrollPane.setContent(myGridPane);
 	    VBox.setVgrow(myGridPane, Priority.ALWAYS);
 	    sizeGrid(numColumns);
-		vbox.getChildren().addAll(myPanelBar.buildNode(), myScrollPane);
+		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
 		myNode = vbox;
 	}
 

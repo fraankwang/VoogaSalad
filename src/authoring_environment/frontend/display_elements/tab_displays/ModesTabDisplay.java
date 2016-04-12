@@ -20,7 +20,9 @@ public class ModesTabDisplay extends TabDisplay {
 	@Override
 	public void initialize() {
 		myGrid = new ModesTabGrid(myController, this);
+		myGrid.initialize();
 		myEditorDisplay = new ModeEditorDisplay(myController);
+		myEditorDisplay.initialize();
 		
 	}
 

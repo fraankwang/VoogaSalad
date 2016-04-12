@@ -36,11 +36,13 @@ public class AuthoringViewManager implements IViewManager {
 	@Override
 	public void initialize(Stage s) {
 		myMenuBar = new MenuBarElement();
+		myMenuBar.initialize();
 		myTabBar = new TabBarElement(myController);
+		myTabBar.initialize();
 
 		BorderPane borderPane = new BorderPane();
-		borderPane.setTop(myMenuBar.buildNode());
-		borderPane.setCenter(myTabBar.buildNode());
+		borderPane.setTop(myMenuBar.getNode());
+		borderPane.setCenter(myTabBar.getNode());
 
 		Scene scene = new Scene(borderPane, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		s.setScene(scene);
