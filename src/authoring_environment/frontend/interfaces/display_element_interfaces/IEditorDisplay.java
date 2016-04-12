@@ -23,5 +23,4 @@ public interface IEditorDisplay extends IDisplayElement {
 	 */
 	public IDisplayEntity edit(IDisplayEntity oldEntity);
 	
-	public void initialize();
 }

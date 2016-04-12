@@ -33,14 +33,6 @@ public class TabBarElement implements ITabBarElement {
 
 	public TabBarElement(IController controller) {
 		myController = controller;
-		myTabPane = new TabPane();
-
-		myGameTabDisplay = new GameTabDisplay(controller);
-		myModesTabDisplay = new ModesTabDisplay(controller);
-		myLevelsTabDisplay = new LevelsTabDisplay(controller);
-		myEntitiesTabDisplay = new EntitiesTabDisplay(controller);
-		
-		initializeTabDisplays();
 	}
 
 	private void initializeTabDisplays() {
@@ -52,7 +44,20 @@ public class TabBarElement implements ITabBarElement {
 	}
 	
 	@Override
+	public void initialize() {
+		myTabPane = new TabPane();
+
+		myGameTabDisplay = new GameTabDisplay(myController);
+		myModesTabDisplay = new ModesTabDisplay(myController);
+		myLevelsTabDisplay = new LevelsTabDisplay(myController);
+		myEntitiesTabDisplay = new EntitiesTabDisplay(myController);
+		
+		initializeTabDisplays();
+	}
+	
+	@Override
 	public Node buildNode() {
+		initialize();
 		Tab gameTab = createTab("Game", myGameTabDisplay.buildNode());
 		Tab modeTab = createTab("Modes", myModesTabDisplay.buildNode());
 		Tab levelTab = createTab("Levels", myLevelsTabDisplay.buildNode());
