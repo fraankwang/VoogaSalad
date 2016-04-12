@@ -1,11 +1,8 @@
 package backend.systems;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
-import backend.Level;
 import backend.game_object.components.HealthComponent;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
 /**

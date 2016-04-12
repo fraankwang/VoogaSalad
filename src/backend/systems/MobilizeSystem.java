@@ -4,14 +4,10 @@ package backend.systems;
  * author raghavkedia
  */
 
-import java.util.ArrayList;
 import java.util.List;
 
-import backend.game_object.components.Component;
 import backend.game_object.components.MovementComponent;
-import backend.Level;
 import backend.game_object.components.*;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
 public class MobilizeSystem extends Systemm implements ISystem {
@@ -51,7 +47,6 @@ public class MobilizeSystem extends Systemm implements ISystem {
 				Vector velVector = movComponent.getCurrentVelocityVector();
 				posVector.add(velVector);
 			}
-			
 			
 			//do rotation
 			double theta = movComponent.getTheta();

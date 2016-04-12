@@ -1,13 +1,11 @@
 package backend.systems;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
 import backend.game_object.components.FiringComponent;
 import backend.game_object.components.MovementComponent;
 import backend.game_object.components.PositionComponent;
 import backend.game_object.components.Vector;
-import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 
 /**
