@@ -37,8 +37,8 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 		myWrapper = new BorderPane();
 
 		List<Integer> rowConstraints = new ArrayList<Integer>();
-		rowConstraints.add(10);
-		rowConstraints.add(90);
+		rowConstraints.add(BUTTON_HEIGHT_PERCENTAGE);
+		rowConstraints.add(100 - BUTTON_HEIGHT_PERCENTAGE);
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);

@@ -19,7 +19,6 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 
 	@Override
 	protected void initializeComponents() {
-		// TODO Auto-generated method stub
 		Button openEditorButton = new Button("Open Editor");
 		openEditorButton.setOnAction(e -> myTabDisplay.openEditorDisplay());
 		myNode = new HBox(openEditorButton);

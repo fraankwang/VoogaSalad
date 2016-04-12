@@ -23,6 +23,7 @@ import javafx.scene.layout.RowConstraints;
 public abstract class UnmodifiableAttributesPanel extends Panel {
 
 	protected TabDisplay myTabDisplay;
+	protected final int BUTTON_HEIGHT_PERCENTAGE = 8;
 
 	public UnmodifiableAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width);
