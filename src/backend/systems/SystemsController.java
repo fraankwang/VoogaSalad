@@ -33,7 +33,8 @@ public class SystemsController {
 		this.frontendController = frontendController;
 		myResourceLoader = new ResourceLoader();
 		render = new RenderingSystem(frontendController);
-		
+
+		addToBagOfSystems(new CollisionSystem());
 //		mobilize = new MobilizeSystem();
 		addToBagOfSystems(render);
 //		addToBagOfSystems(mobilize);

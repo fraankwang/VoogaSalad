@@ -18,8 +18,8 @@ public class CollisionSystem extends Systemm implements ISystem {
             for(IEntity inEntity : entities){
                 //default isCollided  = false.  Only update if there is a collision
                 if(outEntity.hasComponent(getComponentTagResources().getString("Collision")) && inEntity.hasComponent(getComponentTagResources().getString("Collision"))){
-                    if(checkIntersection((CollisionComponent)outEntity, (CollisionComponent)inEntity)){
-                        updateIsCollided((CollisionComponent) outEntity, (CollisionComponent) inEntity);
+                    if(checkIntersection(outEntity, inEntity)){
+                        updateIsCollided(outEntity,  inEntity);
                     }
                 }
             }
@@ -34,12 +34,16 @@ public class CollisionSystem extends Systemm implements ISystem {
 
     }
 
-    private void updateIsCollided(CollisionComponent outEntity, CollisionComponent inEntity) {
-        outEntity.setCollided(true);
-        inEntity.setCollided(true);
+    private void updateIsCollided(IEntity outEntity, IEntity inEntity) {
+        CollisionComponent out = (CollisionComponent)outEntity.getComponent(getComponentTagResources().getString("Collision"));
+        CollisionComponent in = (CollisionComponent)inEntity.getComponent(getComponentTagResources().getString("Collision"));
+        out.setCollided(true);
+        in.setCollided(true);
     }
 
-    private boolean checkIntersection(CollisionComponent componentOne, CollisionComponent componentTwo) {
+    private boolean checkIntersection(IEntity outEntity, IEntity inEntity) {
+        CollisionComponent componentOne = (CollisionComponent)outEntity.getComponent(getComponentTagResources().getString("Collision"));
+        CollisionComponent componentTwo = (CollisionComponent)inEntity.getComponent(getComponentTagResources().getString("Collision"));
 
         return  componentOne.getMyX() < componentTwo.getMyX() + componentTwo.getMyWidth() &&
                 componentOne.getMyX() + componentOne.getMyWidth() > componentTwo.getMyX() &&

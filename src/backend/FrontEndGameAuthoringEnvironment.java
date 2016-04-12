@@ -32,7 +32,7 @@ public class FrontEndGameAuthoringEnvironment {
 		// also pretend that she also wants a list of things she wants one
 		// sprite to be able to do
 		// outside list represents level 1, inside list is components for one sprite
-		String[][] mock = { { "Display", "Position", "Size"}, { "Display", "Position", "Size"} };
+		String[][] mock = { { "Display", "Position", "Size", "Collision"}, { "Display", "Position", "Size", "Collision"} };
 		// string rules
 		String[][] rules = {{ "Size", "-5"}, {"Move", "5"}};
 		myRules = rules;
