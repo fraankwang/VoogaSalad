@@ -22,5 +22,7 @@ public class ComponentFactory {
 		//component.initWithParams(parameters); //set up parent id
 		return component;
 	}
+	
+	
 
 }
