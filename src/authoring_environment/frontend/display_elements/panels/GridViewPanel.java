@@ -5,6 +5,7 @@ import java.util.List;
 
 import authoring_environment.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring_environment.frontend.display_elements.panels.panel_bars.PanelBar;
+import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -33,9 +34,11 @@ public class GridViewPanel extends Panel {
 	private Button myAddNewButton;
 	private int numColumns;
 	private List<ImageView> myImages;
+	private ITabDisplay myTabDisplay;
 
-	public GridViewPanel(int height, int width) {
+	public GridViewPanel(int height, int width, ITabDisplay tab) {
 		super(height, width);
+		myTabDisplay = tab;
 		numColumns = DEFAULT_NUM_GRID_COLUMNS;
 	}
 
@@ -45,6 +48,7 @@ public class GridViewPanel extends Panel {
 	    myScrollPane = new ScrollPane();
 	    myPanelBar = new GridPanelBar(50,50, this);
 	    myImages = new ArrayList<ImageView>();
+	    myAddNewButton = new Button("Add New...");
 	}
 
 	private void sizeGrid(int num) {
@@ -69,6 +73,7 @@ public class GridViewPanel extends Panel {
 			currImage.fitHeightProperty().set(gridCellSize);
 			myGridPane.add(currImage, colNum, rowNum);
 		}
+		myGridPane.add(myAddNewButton, myImages.size() % num, myImages.size() / num);
 	}
 	
 	public void decreaseGridSize() {
@@ -85,6 +90,7 @@ public class GridViewPanel extends Panel {
 	protected void assembleComponents() {
 		VBox vbox = new VBox();
 		myGridPane.setGridLinesVisible(true);
+		myAddNewButton.setOnAction(e -> myTabDisplay.openEditorDisplay());
 		myImages.add(new ImageView("DrumpfVader.png"));
 		myImages.add(new ImageView("DrumpfVader.png"));
 		myImages.add(new ImageView("DrumpfVader.png"));
