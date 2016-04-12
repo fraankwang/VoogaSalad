@@ -1,4 +1,4 @@
-package authoring_environment.backend.deprecated;
+package authoring.backend.factories;
 
 import backend.Mode;
 

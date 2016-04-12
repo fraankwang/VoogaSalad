@@ -1,5 +1,5 @@
 //Kushal Byatnal
-package authoring_environment.backend.deprecated;
+package authoring.backend.factories;
 
 import java.util.List;
 
