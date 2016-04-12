@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author mario_oliver93
+ * 
+ */
+
 package backend.systems;
 
 import java.lang.reflect.InvocationTargetException;
@@ -5,7 +11,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import backend.GameWorld;
+import backend.GameObject;
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.EntityFactoryClass;
 import backend.game_object.entities.IEntity;
@@ -50,7 +56,7 @@ public class RulesSystem extends Systemm {
 	}
 	
 	public static void main(String[] args){
-		GameWorld game = new GameWorld();
+		GameObject game = new GameObject();
 		EntityFactoryClass entityFactory = new EntityFactoryClass();
 		String[] componentsWanted = {"Size", "Position", "Display"};
 		Entity entity = entityFactory.makeEntity(game, componentsWanted);

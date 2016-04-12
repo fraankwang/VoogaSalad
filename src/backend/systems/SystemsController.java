@@ -10,11 +10,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import backend.FrontEndAccessController;
-import backend.GameWorld;
-import backend.IFrontEndAccess;
+import backend.GameObject;
 import backend.Level;
 import backend.Mode;
-import exception.ResourceLoader;
+//import exception.ResourceLoader;
 
 public class SystemsController {
 
@@ -23,7 +22,7 @@ public class SystemsController {
 	private RulesSystem rulesSystem;
 	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
 	private FrontEndAccessController frontendController;
-	private ResourceLoader myResourceLoader;
+//	private ResourceLoader myResourceLoader;
 	
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	private ResourceBundle myActionRequirementsResources;
@@ -31,7 +30,7 @@ public class SystemsController {
 
 	public SystemsController(FrontEndAccessController frontendController) {
 		this.frontendController = frontendController;
-		myResourceLoader = new ResourceLoader();
+//		myResourceLoader = new ResourceLoader();
 		render = new RenderingSystem(frontendController);
 		rulesSystem = new RulesSystem();
 //		mobilize = new MobilizeSystem();
@@ -44,7 +43,7 @@ public class SystemsController {
 		bagOfSystems.add(system);
 	}
 
-	public void iterateThroughSystems(GameWorld game) {
+	public void iterateThroughSystems(GameObject game) {
 		for (Systemm myCurrSystem : bagOfSystems) {
 			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
 			List<Level> currLevels = game.getLevelsForMode(currMode);

@@ -1,5 +1,6 @@
+package usecases;
 
-import authoring_environment.frontend.design_interfaces.*;
+import src.authoring_environment.frontend.design_interfaces.*;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;

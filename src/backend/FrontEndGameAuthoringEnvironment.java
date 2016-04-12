@@ -1,14 +1,10 @@
-/**
- * 
- * @author mario_oliver93
- *
- */
 package backend;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import backend.game_object.map.MapObject;
+import java.util.Map;
 
 public class FrontEndGameAuthoringEnvironment {
 
@@ -27,7 +23,7 @@ public class FrontEndGameAuthoringEnvironment {
 		// pretend that bae clicks on these things that she wants in her game
 		// --> bae is picky
 		modesWanted = 1;
-		levelsWanted = 3;
+		levelsWanted = 5;
 		entitiesWanted = 2;
 		// also pretend that she also wants a list of things she wants one
 		// sprite to be able to do

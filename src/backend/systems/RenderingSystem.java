@@ -10,7 +10,6 @@ package backend.systems;
 import java.util.List;
 
 import backend.FrontEndAccessController;
-import backend.IFrontEndAccess;
 import backend.Level;
 import backend.game_object.components.Component;
 import backend.game_object.components.DisplayComponent;

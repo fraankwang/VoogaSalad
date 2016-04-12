@@ -8,9 +8,8 @@ package gamecontroller;
 import backend.FrontEndGameAuthoringEnvironment;
 import backend.FrontEndAccessController;
 import backend.GameAuthoringEnvironment;
-import backend.GameWorld;
+import backend.GameObject;
 import backend.systems.SystemsController;
-import exception.DrumpfTowerException;
 import javafx.animation.KeyFrame;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -22,7 +21,7 @@ public class MasterController {
 
 	private static final int SIZE = 600;
 	private GameAuthoringEnvironment bae;
-	private GameWorld trumpGame;
+	private GameObject trumpGame;
 	private SystemsController systems;
 	private Group myRoot;
 	private FrontEndAccessController displayController;
@@ -32,10 +31,9 @@ public class MasterController {
 		displayController = new FrontEndAccessController(myRoot);
 		systems = new SystemsController(displayController);
 		bae = new GameAuthoringEnvironment();
-		bae.setBackendController(displayController);
 		
 		// creates a game object
-		trumpGame = bae.setGameObjectWithMockData(new FrontEndGameAuthoringEnvironment());
+		trumpGame = bae.setGameObjectWithFrontEndInfo(new FrontEndGameAuthoringEnvironment());
 	}
 
 	public Scene init(Stage primaryStage) {
@@ -61,7 +59,7 @@ public class MasterController {
 		return new KeyFrame(Duration.millis(1000 / numFramesPerSecond), e -> step(trumpGame));
 	}
 
-	public void step(GameWorld game) {
+	public void step(GameObject game) {
 		systems.iterateThroughSystems(game);
 	}
 

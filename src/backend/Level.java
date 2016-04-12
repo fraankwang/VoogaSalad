@@ -3,16 +3,11 @@
  * @author mario_oliver93
  *
  */
+
 package backend;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * 
- * @author mario_oliver93
- *
- */
 import backend.game_object.entities.Entity;
 import backend.game_object.entities.IEntity;
 import backend.game_object.map.MapObject;
@@ -37,11 +32,13 @@ public class Level {
 
 	@Override
 	public String toString() {
-		return "Level [entities=" + entities + "] ";
+		return "Level [entities=" + entities + "] ";// +
+													// entities.get(0).toString();
 	}
 
 	public void addToEntities(Entity entity) {
 		entities.add(entity);
+
 	}
 
 }
