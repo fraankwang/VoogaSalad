@@ -41,7 +41,6 @@ public abstract class TabDisplay implements ITabDisplay {
 	public void openEditorDisplay() {
 		Stage editorStage = new Stage();
 		Group root = new Group();
-		
 		root.getChildren().add(myEditorDisplay.buildNode());
 		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
 		editorStage.setScene(editorScene);
