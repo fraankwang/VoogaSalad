@@ -77,8 +77,10 @@ public class GridViewPanel extends Panel {
 	}
 	
 	public void decreaseGridSize() {
-		numColumns--;
-		sizeGrid(numColumns);
+		if (numColumns != 1) {
+			numColumns--;
+			sizeGrid(numColumns);	
+		}
 	}
 	
 	public void increaseGridSize() {
