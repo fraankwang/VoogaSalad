@@ -1,6 +1,8 @@
 package engine.frontend;
 
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
@@ -18,7 +20,7 @@ public class BoardPane {
 		gridpane.setMaxWidth(myEngineView.loadUIIntResource("BoardSize"));
 		gridpane.setMinHeight(myEngineView.loadUIIntResource("BoardSize"));
 		gridpane.setMaxHeight(myEngineView.loadUIIntResource("BoardSize"));
-		
+//		gridpane.getChildren().add(new ImageView(new Image("DrumpfVader.png")));
 		return gridpane;
 	}
 }
