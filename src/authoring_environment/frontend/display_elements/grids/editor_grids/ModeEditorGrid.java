@@ -33,6 +33,7 @@ public class ModeEditorGrid extends EditorGrid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
+		myGrid.add(myButtonDashboard.buildNode(), 0, 0);
 	}
 	
 }

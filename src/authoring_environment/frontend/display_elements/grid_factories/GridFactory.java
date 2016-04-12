@@ -21,7 +21,7 @@ public abstract class GridFactory {
 	
 	public GridFactory(IController controller) {
 		myController = controller;
-		myArbitraryPanelSize = 400;
+		myArbitraryPanelSize = 350;
 	}
 
 	public abstract Panel createPrimaryDisplay();

@@ -4,10 +4,9 @@ import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.editor_displays.EditorDisplay;
 import authoring_environment.frontend.display_elements.grids.Grid;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -40,8 +39,8 @@ public abstract class TabDisplay implements ITabDisplay {
 	@Override
 	public void openEditorDisplay() {
 		Stage editorStage = new Stage();
-		Group root = new Group();
-		root.getChildren().add(myEditorDisplay.buildNode());
+		BorderPane root = new BorderPane();
+		root.setCenter(myEditorDisplay.buildNode());
 		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
 		editorStage.setScene(editorScene);
 		editorStage.show();
