@@ -35,6 +35,7 @@ public abstract class TabGrid extends Grid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
+
 		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
 		GridPane.setRowSpan(myPrimaryDisplay.getNode(), 2);
 //		myGrid.add(myRightSubGrid, 1, 0);
