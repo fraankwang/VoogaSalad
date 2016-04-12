@@ -25,6 +25,6 @@ public abstract class TabGridFactory extends GridFactory {
 	/**
 	 * @return instantiated and formatted myUnmodifiableAttributesPanel
 	 */
-	public abstract Panel createUnmodifiableAttributesPanel();
+	public abstract Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay);
 
 }

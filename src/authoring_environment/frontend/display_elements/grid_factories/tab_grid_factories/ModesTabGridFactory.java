@@ -3,6 +3,7 @@ package authoring_environment.frontend.display_elements.grid_factories.tab_grid_
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.TabGridFactory;
 import authoring_environment.frontend.display_elements.panels.Panel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.unmodifiable_panels.UnmodifiableModeAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
 import javafx.scene.Node;
@@ -27,7 +28,7 @@ public class ModesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		return new StandardButtonDashboard(myButtonDashboardButtonSize,myButtonDashboardButtonSize);
+		return new StandardButtonDashboard(myArbitraryPanelSize, myArbitraryPanelSize);
 	}
 
 	@Override
@@ -43,9 +44,8 @@ public class ModesTabGridFactory extends TabGridFactory {
 	}
 
 	@Override
-	public Panel createUnmodifiableAttributesPanel() {
-		// TODO Auto-generated method stub
-		return null;
+	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
+		return new UnmodifiableModeAttributesPanel(myArbitraryPanelSize, myArbitraryPanelSize, tabDisplay);
 	}
 
 }

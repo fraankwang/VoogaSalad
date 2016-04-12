@@ -39,7 +39,7 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		return new StandardButtonDashboard(myButtonDashboardButtonSize,myButtonDashboardButtonSize);
+		return new StandardButtonDashboard(myArbitraryPanelSize,myArbitraryPanelSize);
 	}
 
 	@Override
