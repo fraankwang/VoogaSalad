@@ -21,6 +21,7 @@ public class LevelEditorGrid extends EditorGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
+		
 	}
 
 	@Override
@@ -32,7 +33,7 @@ public class LevelEditorGrid extends EditorGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
+		
 	}
 
 }

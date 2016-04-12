@@ -28,7 +28,7 @@ public class ModesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		return new StandardButtonDashboard(myArbitraryPanelSize, myArbitraryPanelSize);
+		return new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class ModesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		return new UnmodifiableModeAttributesPanel(myArbitraryPanelSize, myArbitraryPanelSize, tabDisplay);
+		return new UnmodifiableModeAttributesPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, tabDisplay);
 	}
 
 }

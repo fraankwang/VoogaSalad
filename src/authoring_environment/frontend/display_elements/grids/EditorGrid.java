@@ -28,6 +28,10 @@ public abstract class EditorGrid extends Grid {
 		super.initializeGrid();
 		myRulesPanel = ((EditorGridFactory) myGridFactory).createRulesPanel();
 		myModifiableAttributesPanel = ((EditorGridFactory) myGridFactory).createModifiableAttributesPanel();
+//		myGrid.add(myPrimaryDisplay.buildNode(), 0, 0);
+		myGrid.add(myRulesPanel.buildNode(), 0, 1);
+//		myGrid.add(myModifiableAttributesPanel.buildNode(), 1, 0);
+		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
 	}
 
 }

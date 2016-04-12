@@ -28,7 +28,7 @@ public class LevelsTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		return new SimpleButtonDashboard(myArbitraryPanelSize, myArbitraryPanelSize);
+		return new SimpleButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class LevelsTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		return new UnmodifiableLevelAttributesPanel(myArbitraryPanelSize, myArbitraryPanelSize, tabDisplay);
+		return new UnmodifiableLevelAttributesPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, tabDisplay);
 	}
 
 }
