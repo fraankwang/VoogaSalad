@@ -7,6 +7,7 @@ import authoring_environment.frontend.interfaces.display_element_interfaces.ITab
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 
 public abstract class TabDisplay implements ITabDisplay {
 
-	private static final int EDITOR_SCENE_WIDTH = 800;
+	private static final int EDITOR_SCENE_WIDTH = 1200;
 	private static final int EDITOR_SCENE_HEIGHT = 800;
 	protected EditorDisplay myEditorDisplay;
 	protected Grid myGrid;
@@ -40,10 +41,11 @@ public abstract class TabDisplay implements ITabDisplay {
 	public void openEditorDisplay() {
 		Stage editorStage = new Stage();
 		Group root = new Group();
+		
 		root.getChildren().add(myEditorDisplay.buildNode());
 		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
 		editorStage.setScene(editorScene);
-		editorStage.showAndWait();
+		editorStage.show();
 	}
 
 }
