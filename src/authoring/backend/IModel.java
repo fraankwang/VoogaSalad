@@ -2,7 +2,7 @@ package authoring.backend;
 
 import java.util.Map;
 
-import engine.backend.GameWorld;
+import engine.backend.game_object.GameWorld;
 
 public interface IModel {
 			

@@ -3,6 +3,7 @@ package engine.backend.game_features;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 
 public class GameShop {
@@ -15,7 +16,8 @@ public class GameShop {
 	
 	public void addItem(IEntity entity){
 		myItems.put(entity.getName(), entity);
+
 	}
 	
-	public IE
+//	public IE
 }

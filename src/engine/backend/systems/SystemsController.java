@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import engine.backend.FrontEndAccessController;
-import engine.backend.GameWorld;
-import engine.backend.IFrontEndAccess;
-import engine.backend.Level;
-import engine.backend.Mode;
+import engine.backend.game_object.GameWorld;
+import engine.backend.game_object.Level;
+import engine.backend.game_object.Mode;
+import engine.controller.Engine2PlayerController;
 import exception.ResourceLoader;
 
 public class SystemsController {
@@ -22,17 +21,17 @@ public class SystemsController {
 	private MobilizeSystem mobilize;
 	private RulesSystem rulesSystem;
 	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
-	private FrontEndAccessController frontendController;
-	private ResourceLoader myResourceLoader;
+	private Engine2PlayerController frontendController;
+//	private ResourceLoader myResourceLoader;
 	
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
 
 
-	public SystemsController(FrontEndAccessController frontendController) {
+	public SystemsController(Engine2PlayerController frontendController) {
 		this.frontendController = frontendController;
-		myResourceLoader = new ResourceLoader();
+//		myResourceLoader = new ResourceLoader();
 		render = new RenderingSystem(frontendController);
 
 		rulesSystem = new RulesSystem();
@@ -42,7 +41,7 @@ public class SystemsController {
 
 //		mobilize = new MobilizeSystem();
 		addToBagOfSystems(render);
-		addToBagOfSystems(rulesSystem);
+//		addToBagOfSystems(rulesSystem);
 //		addToBagOfSystems(mobilize);
 	}
 
