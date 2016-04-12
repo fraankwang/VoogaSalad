@@ -5,11 +5,11 @@
  */
 package gamecontroller;
 
-import backend.FrontEndGameAuthoringEnvironment;
-import backend.FrontEndAccessController;
-import backend.GameAuthoringEnvironment;
-import backend.GameWorld;
-import backend.systems.SystemsController;
+import engine.backend.FrontEndAccessController;
+import engine.backend.FrontEndGameAuthoringEnvironment;
+import engine.backend.GameAuthoringEnvironment;
+import engine.backend.GameWorld;
+import engine.backend.systems.SystemsController;
 import exception.DrumpfTowerException;
 import javafx.animation.KeyFrame;
 import javafx.scene.Group;

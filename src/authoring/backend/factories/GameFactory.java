@@ -1,11 +1,11 @@
 package authoring.backend.factories;
 
-import backend.GameWorld;
-import backend.Level;
-import backend.Mode;
-import backend.game_object.components.Component;
-import backend.game_object.entities.Entity;
-import backend.game_object.entities.IEntity;
+import engine.backend.GameWorld;
+import engine.backend.Level;
+import engine.backend.Mode;
+import engine.backend.components.Component;
+import engine.backend.entities.Entity;
+import engine.backend.entities.IEntity;
 
 public class GameFactory {
 	private EntityFactory myEntityFactory;

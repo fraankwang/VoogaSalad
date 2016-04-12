@@ -3,9 +3,8 @@ package authoring.backend.factories;
 
 import java.util.List;
 
-import backend.GameStatisticsObject;
-import backend.game_object.components.Component;
-import backend.game_object.entities.Entity;
+import engine.backend.components.Component;
+import engine.backend.entities.Entity;
 
 public class EntityFactory {
 	

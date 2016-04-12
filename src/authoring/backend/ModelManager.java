@@ -3,10 +3,10 @@ package authoring.backend;
 import java.util.Map;
 
 import authoring.controller.GlobalData;
-import backend.GameWorld;
-import backend.Level;
-import backend.Mode;
-import backend.game_object.entities.Entity;
+import engine.backend.GameWorld;
+import engine.backend.Level;
+import engine.backend.Mode;
+import engine.backend.entities.Entity;
 
 /*
  * @author: Jonathan Ma
