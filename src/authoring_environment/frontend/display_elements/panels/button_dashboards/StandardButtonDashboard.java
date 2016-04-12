@@ -1,6 +1,8 @@
 package authoring_environment.frontend.display_elements.panels.button_dashboards;
 
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * The StandardButtonDashboard contains a duplicate and delete option in
@@ -22,13 +24,27 @@ public class StandardButtonDashboard extends SimpleButtonDashboard {
 
 	@Override
 	protected void initializeComponents() {
-		// TODO Auto-generated method stub
-
+		mySaveButton = new Button("Save");
+		mySaveButton.setPrefHeight(myHeight);
+		mySaveButton.setPrefWidth(myWidth);
+		myResetButton = new Button("Reset");
+		myResetButton.setPrefHeight(myHeight);
+		myResetButton.setPrefWidth(myWidth);
+//		super.initializeComponents();
+		myDuplicateButton = new Button("Duplicate");
+		myDuplicateButton.setPrefHeight(myHeight);
+		myDuplicateButton.setPrefWidth(myWidth);
+		myDeleteButton = new Button("Delete");
+		myDeleteButton.setPrefHeight(myHeight);
+		myDeleteButton.setPrefWidth(myWidth);
 	}
 
 	@Override
 	protected void assembleComponents() {
-		// TODO Auto-generated method stub
+		VBox leftButtons = new VBox(myDuplicateButton, myResetButton);
+		VBox rightButtons = new VBox(myDeleteButton, mySaveButton);
+		HBox myButtons = new HBox(leftButtons, rightButtons);
+		myNode = myButtons;
 
 	}
 

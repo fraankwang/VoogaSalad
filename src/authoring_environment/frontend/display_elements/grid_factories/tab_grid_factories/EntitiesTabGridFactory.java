@@ -4,7 +4,7 @@ import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.TabGridFactory;
 import authoring_environment.frontend.display_elements.panels.GridViewPanel;
 import authoring_environment.frontend.display_elements.panels.Panel;
-import authoring_environment.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
+import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -25,11 +25,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		Button editButton = new Button("Edit");
-		editButton.setOnAction(e -> myTabDisplay.openEditorDisplay());
-//		return editButton;
-//		return null;
-		return new SimpleButtonDashboard(50,50);
+		return new StandardButtonDashboard(myButtonDashboardButtonSize,myButtonDashboardButtonSize);
 	}
 
 	@Override

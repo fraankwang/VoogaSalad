@@ -78,7 +78,7 @@ public abstract class Grid implements IGrid {
 //		myGrid.add(myPrimaryDisplay.buildNode(), 0, 0);
 //		myGrid.add(myRightSubGrid, 1, 0);
 //		myGrid.add(myLeftSubGrid, 0, 1);
-		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
+//		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
 	}
 
 	/**

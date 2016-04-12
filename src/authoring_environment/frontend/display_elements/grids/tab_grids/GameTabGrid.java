@@ -34,7 +34,7 @@ public class GameTabGrid extends TabGrid {
 		super.assembleGridComponents();
 		//superclass method creates SimpleButtonDashboard at position 1,1
 		
-		myGrid.add(myButtonDashboard.buildNode(), 0, 0);
+		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
 		//overridden method creates additional simple button dashboard at 0,0
 	}
 }

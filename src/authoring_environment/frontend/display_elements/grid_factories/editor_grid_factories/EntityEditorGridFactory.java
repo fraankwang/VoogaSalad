@@ -5,6 +5,7 @@ import java.io.File;
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring_environment.frontend.display_elements.panels.Panel;
+import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -54,8 +55,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		// TODO Auto-generated method stub
-		return null;
+		return new StandardButtonDashboard(myButtonDashboardButtonSize,myButtonDashboardButtonSize);
 	}
 
 	@Override

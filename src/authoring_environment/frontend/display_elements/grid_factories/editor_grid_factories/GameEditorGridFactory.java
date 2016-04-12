@@ -3,6 +3,7 @@ package authoring_environment.frontend.display_elements.grid_factories.editor_gr
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring_environment.frontend.display_elements.panels.Panel;
+import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import javafx.scene.Node;
 
 /**
@@ -19,7 +20,6 @@ public class GameEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createRulesPanel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -37,8 +37,7 @@ public class GameEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		// TODO Auto-generated method stub
-		return null;
+		return new StandardButtonDashboard(myButtonDashboardButtonSize,myButtonDashboardButtonSize);
 	}
 
 	@Override
