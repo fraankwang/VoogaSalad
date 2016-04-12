@@ -40,9 +40,15 @@ public class MasterController {
 
 	public Scene init(Stage primaryStage) {
 		Scene myScene = new Scene(myRoot, SIZE, SIZE, Color.WHITE);
+		setEventHandler(myScene);
+		return myScene;
+	}
+	
+	public void setEventHandler(Scene myScene){
 		myScene.setOnKeyPressed(e->displayController.handleEvent(e));
 		myScene.setOnMouseClicked(e->displayController.handleEvent(e));
-		return myScene;
+		myScene.setOnMouseDragEntered(e->displayController.handleEvent(e));
+		myScene.setOnMouseDragEntered(e->displayController.handleEvent(e));
 	}
 
 	/**

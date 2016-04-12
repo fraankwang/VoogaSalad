@@ -20,6 +20,7 @@ public class SystemsController {
 
 	private RenderingSystem render;
 	private MobilizeSystem mobilize;
+	private RulesSystem rulesSystem;
 	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
 	private FrontEndAccessController frontendController;
 	private ResourceLoader myResourceLoader;
@@ -32,9 +33,10 @@ public class SystemsController {
 		this.frontendController = frontendController;
 		myResourceLoader = new ResourceLoader();
 		render = new RenderingSystem(frontendController);
-		
+		rulesSystem = new RulesSystem();
 //		mobilize = new MobilizeSystem();
 		addToBagOfSystems(render);
+		addToBagOfSystems(rulesSystem);
 //		addToBagOfSystems(mobilize);
 	}
 

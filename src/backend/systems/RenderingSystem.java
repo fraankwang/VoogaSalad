@@ -49,7 +49,6 @@ public class RenderingSystem extends Systemm {
 					x = ((PositionComponent) eachComponent).getX();
 					y = ((PositionComponent) eachComponent).getY();
 				}
-				//if(eachComponent == "Size") -->  getSize()
 				if(eachComponent.getTag().equals(getComponentTagResources().getString("Size"))){
 					sizex = ((SizeComponent) eachComponent).getWidth();
 					sizex = ((SizeComponent) eachComponent).getHeight();
