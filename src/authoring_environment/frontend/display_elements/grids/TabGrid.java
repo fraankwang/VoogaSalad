@@ -28,7 +28,7 @@ public abstract class TabGrid extends Grid {
 	@Override
 	protected void initializeGrid() {
 		super.initializeGrid();
-		myUnmodifiableAttributesPanel = ((TabGridFactory) myGridFactory).createUnmodifiableAttributesPanel();
+		myUnmodifiableAttributesPanel = ((TabGridFactory) myGridFactory).createUnmodifiableAttributesPanel(myTabDisplay);
 	}
 
 }

@@ -1,15 +1,14 @@
 package authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
-import authoring_environment.frontend.display_elements.panels.attributes_panels.AttributesPanel;
-
+import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 
 /**
  * 
- * @author benchesnut
+ * @author benchesnut, Frank
  *
  */
 
-public class ModifiableEntityAttributesPanel extends AttributesPanel {
+public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
 	public ModifiableEntityAttributesPanel(int height, int width) {
 		super(height, width);

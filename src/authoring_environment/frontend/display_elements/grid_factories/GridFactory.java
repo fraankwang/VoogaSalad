@@ -17,11 +17,11 @@ import javafx.scene.Node;
 public abstract class GridFactory {
 	
 	private IController myController;
-	protected final int myButtonDashboardButtonSize;
+	protected final int myArbitraryPanelSize;
 	
 	public GridFactory(IController controller) {
 		myController = controller;
-		myButtonDashboardButtonSize = 300;
+		myArbitraryPanelSize = 350;
 	}
 
 	public abstract Panel createPrimaryDisplay();

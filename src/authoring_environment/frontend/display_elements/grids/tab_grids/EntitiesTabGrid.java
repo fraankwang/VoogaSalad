@@ -33,6 +33,8 @@ public class EntitiesTabGrid extends TabGrid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
+//		myGrid.add(myButtonDashboard.buildNode(), 1, 0);
+		myGrid.add(myUnmodifiableAttributesPanel.buildNode(), 1, 0);
 	}
 
 }

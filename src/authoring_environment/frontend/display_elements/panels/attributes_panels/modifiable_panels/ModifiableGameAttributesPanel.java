@@ -1,6 +1,6 @@
 package authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
-import authoring_environment.frontend.display_elements.panels.attributes_panels.AttributesPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 
 /**
  * 
@@ -8,7 +8,7 @@ import authoring_environment.frontend.display_elements.panels.attributes_panels.
  *
  */
 
-public class ModifiableGameAttributesPanel extends AttributesPanel {
+public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 
 	public ModifiableGameAttributesPanel(int height, int width) {
 		super(height, width);
