@@ -5,11 +5,11 @@
  */
 package gamecontroller;
 
-import backend.FrontEndGameAuthoringEnvironment;
-import backend.FrontEndAccessController;
-import backend.GameAuthoringEnvironment;
-import backend.GameWorld;
-import backend.systems.SystemsController;
+import engine.backend.FrontEndAccessController;
+import engine.backend.FrontEndGameAuthoringEnvironment;
+import engine.backend.GameAuthoringEnvironment;
+import engine.backend.GameWorld;
+import engine.backend.systems.SystemsController;
 import exception.DrumpfTowerException;
 import javafx.animation.KeyFrame;
 import javafx.scene.Group;
@@ -40,7 +40,15 @@ public class MasterController {
 
 	public Scene init(Stage primaryStage) {
 		Scene myScene = new Scene(myRoot, SIZE, SIZE, Color.WHITE);
+		setEventHandler(myScene);
 		return myScene;
+	}
+	
+	public void setEventHandler(Scene myScene){
+		myScene.setOnKeyPressed(e->displayController.handleEvent(e));
+		myScene.setOnMouseClicked(e->displayController.handleEvent(e));
+		myScene.setOnMouseDragEntered(e->displayController.handleEvent(e));
+		myScene.setOnMouseDragEntered(e->displayController.handleEvent(e));
 	}
 
 	/**

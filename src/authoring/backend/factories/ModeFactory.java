@@ -1,6 +1,6 @@
 package authoring.backend.factories;
 
-import backend.Mode;
+import engine.backend.Mode;
 
 public class ModeFactory {
 

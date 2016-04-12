@@ -23,7 +23,7 @@ public class ResourceLoader extends FileLoader{
      * Constructor to be used with a filename
      * 
      * @param filename
-     * @throws SLogoException
+     * @throws DrumpfTowerException
      */
     public ResourceLoader (String filename) {
         try {

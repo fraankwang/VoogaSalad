@@ -25,7 +25,7 @@ public abstract class FileLoader {
 
     /**
      * Loads language property file into property object
-     * @throws SLogoException 
+     * @throws DrumpfTowerException
      */
     public void load(String path, String extension) throws DrumpfTowerException{
         fileName = path + "/" + extension;

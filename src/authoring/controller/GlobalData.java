@@ -7,9 +7,9 @@ package authoring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import backend.Level;
-import backend.Mode;
-import backend.game_object.entities.Entity;
+import engine.backend.Level;
+import engine.backend.Mode;
+import engine.backend.entities.Entity;
 
 public class GlobalData {
 	

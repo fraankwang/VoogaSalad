@@ -2,7 +2,7 @@ package authoring.backend.factories;
 
 import java.util.List;
 
-import backend.game_object.components.Component;
+import engine.backend.components.Component;
 
 public class ComponentFactory {
 
