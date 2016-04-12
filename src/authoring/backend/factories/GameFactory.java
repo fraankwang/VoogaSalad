@@ -1,5 +1,8 @@
 package authoring.backend.factories;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import engine.backend.GameWorld;
 import engine.backend.Level;
 import engine.backend.Mode;
@@ -20,7 +23,7 @@ public class GameFactory {
 		myProperties = new GameProperties();
 		myModeFactory = new ModeFactory();
 		myComponentFactory = new ComponentFactory();
-		myEntityFactory = new EntityFactory();
+		myEntityFactory = new EntityFactory(myGame.getGameStats());
 	}
 	
 	public GameWorld createGame(){
@@ -59,6 +62,21 @@ public class GameFactory {
 			Component newComponent = myComponentFactory.createComponent(info);
 			IEntity currentEntity = myGame.getEntityWithId(newComponent.getEntityId());
 			currentEntity.addComponent(newComponent);
+		}
+	}
+	
+	private void setUpEntityMap(){
+		Map<String, Map<String, Entity>> map = new HashMap<String, Map<String, Entity>>();
+		for (Entity entity : myProperties.getMyEntities()){
+			Map<String, Entity> existingMap = null;
+			if (map.containsKey(entity.getMyType())){
+				existingMap = map.get(entity.getMyType());
+			}
+			else{
+				existingMap = new HashMap<String, Entity>();
+				map.put(entity.getMyType(), existingMap);
+			}
+			existingMap.put(entity.getName(), entity);
 		}
 	}
 	
