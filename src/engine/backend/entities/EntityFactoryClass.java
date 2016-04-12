@@ -4,10 +4,10 @@
  * 
  */
 package engine.backend.entities;
-
-import engine.backend.GameWorld;
+import exception.DrumpfTowerException;
 import engine.backend.components.Component;
 import engine.backend.components.DisplayComponent;
+import engine.backend.game_object.GameWorld;
 import exception.DrumpfTowerException;
 
 public class EntityFactoryClass {
@@ -22,7 +22,7 @@ public class EntityFactoryClass {
 		for (String componentType : componentsWanted) {
 			Component myComponent = null;
 			try {
-				myComponent = (Component) Class.forName("backend.game_object.components." + componentType + "Component").newInstance();
+				myComponent = (Component) Class.forName("engine.backend.components." + componentType).newInstance();
 				// I hate exceptions
 			} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 				try {

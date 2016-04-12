@@ -1,6 +1,6 @@
 package authoring.backend.factories;
 
-import engine.backend.Level;
+import engine.backend.game_object.Level;
 
 public class LevelFactory {
 
