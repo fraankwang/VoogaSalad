@@ -32,7 +32,7 @@ public class EntityEditorGrid extends EditorGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		//more
+		myGrid.add(myButtonDashboard.buildNode(), 1, 1);
 	}
 
 }
