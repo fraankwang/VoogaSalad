@@ -17,7 +17,7 @@ import javafx.scene.Node;
 public abstract class GridFactory {
 	
 	private IController myController;
-	protected final int ARBITRARY_PANEL_SIZE = 350;
+	protected final int ARBITRARY_PANEL_SIZE = 450;
 	
 	public GridFactory(IController controller) {
 		myController = controller;

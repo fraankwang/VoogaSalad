@@ -30,14 +30,14 @@ public class LevelsTabDisplay extends TabDisplay {
 	@Override
 	public void initialize() {
 		myLevelsTabPane = new TabPane();
+		myEditorDisplay = new LevelEditorDisplay(myController);
+		myEditorDisplay.initialize();
 		myActiveGrid = new LevelsTabGrid(myController, this);
 		myActiveGrid.initialize();
 		Tab activeTab = new Tab();
 		activeTab.setContent(myActiveGrid.getNode());
 		myLevelsTabPane.getTabs().add(activeTab);
 		myGrid = myActiveGrid;
-		myEditorDisplay = new LevelEditorDisplay(myController);
-		myEditorDisplay.initialize();
 		// Testing
 	}
 
