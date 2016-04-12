@@ -23,6 +23,7 @@ public class HealthSystem extends Systemm implements ISystem{
 			if(entity.hasComponent(getComponentTagResources().getString("Health"))){
 				HealthComponent healthComp = (HealthComponent) entity.getComponent(getComponentTagResources().getString("Health"));
 				healthComp.setHealth(healthComp.getHealth() - healthComp.getDamage());
+				healthComp.setDamage(0);
 			}
 		}
 	}
