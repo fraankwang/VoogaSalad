@@ -34,7 +34,7 @@ public class ModelManager implements IModel {
 
 	public void updateLevels(Map<String, String> data) {
 		//TODO: invoke factory class to make new Level
-		Level level = new Level();
+		Level level = new Level(0);
 		for (Level l : globaldata.getLevels()) {
 			if (l.equals(level)) {
 				l = level;
@@ -47,7 +47,7 @@ public class ModelManager implements IModel {
 
 	public void updateModes(Map<String, String> data) {
 		//TODO: invoke factory class to make new Mode
-		Mode mode = new Mode();
+		Mode mode = new Mode(0);
 		for (Mode m : globaldata.getModes()) {
 			if (m.equals(mode)) {
 				m = mode;

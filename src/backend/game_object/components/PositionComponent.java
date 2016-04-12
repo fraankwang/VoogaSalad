@@ -4,6 +4,8 @@
 
 package backend.game_object.components;
 
+import java.util.List;
+
 public class PositionComponent extends Component{
 	
 	private double myCoordX;
@@ -11,16 +13,13 @@ public class PositionComponent extends Component{
 	private Vector myPositionVector;
 	
 	
-	public PositionComponent(){
+/*	public PositionComponent(){
 		myCoordX = 100;
 		myCoordY = 100;
 	}
-	
-	public PositionComponent(double x, double y) {
-		// TODO Auto-generated constructor stub
-//		setPositionVector(new Vector(x, y));
-		myCoordX = x;
-		myCoordY = y;
+*/
+	public PositionComponent() {
+		
 	}
 	
 	public double[] getPosition(){
@@ -57,6 +56,13 @@ public class PositionComponent extends Component{
 	
 	public double getY() {
 		return myCoordY;
+	}
+
+	@Override
+	public void initWithParams(List params) {
+//		setPositionVector(new Vector(x, y));
+		myCoordX = (double) params.get(0);
+		myCoordY = (double) params.get(1);
 	}
 
 }

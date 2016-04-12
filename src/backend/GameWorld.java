@@ -8,6 +8,9 @@ package backend;
 import java.util.ArrayList;
 import java.util.List;
 
+import backend.game_object.entities.Entity;
+import backend.game_object.entities.IEntity;
+
 public class GameWorld {
 
 	private List<Mode> modes;
@@ -18,7 +21,7 @@ public class GameWorld {
 		this.modes = new ArrayList<Mode>();
 	}
 
-	public void initializeGameObject(int numOfMode, int numOfLevels) {
+/*	public void initializeGameObject(int numOfMode, int numOfLevels) {
 		int iteration = 0;
 		while (iteration < numOfMode) {
 			Mode mode1 = new Mode();
@@ -29,7 +32,7 @@ public class GameWorld {
 			iteration++;
 		}
 	}
-
+*/
 	public GameStatisticsObject getGameStats() {
 		return gameStats;
 	}
@@ -38,13 +41,47 @@ public class GameWorld {
 		modes.add(mode);
 		gameStats.incrementNumModes();
 	}
-
+	
+	public Mode getModeWithId(int modeId){
+		for (Mode mode : modes){
+			if (mode.getId() == modeId){
+				return mode; //potential exception
+			}
+		}
+		return null;
+	}
+	
+	public Level getLevelWithId(int id){
+		for (Mode mode: modes){
+			for (Level level : mode.getLevels()){
+				if (level.getId() == id){
+					return level;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public IEntity getEntityWithId(int id){
+		for (Mode mode : modes){
+			for(Level level : mode.getLevels()){
+				for (IEntity entity : level.getEntities()){
+					if(entity.getId() == id){
+						return entity;
+					}
+				}
+			}
+		}
+		return null;
+	}
+/*
 	public void addNewLevelToCurrentMode(Mode mode) {
 		Level level1 = new Level();
-		mode.addToLevelsList(level1);
+		mode.addLevel(level1);
 		gameStats.incrementNumLevels();
 	}
-
+*/
+	
 	/**
 	 * Returns all possible types of modes
 	 * 

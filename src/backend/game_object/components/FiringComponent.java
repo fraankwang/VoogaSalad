@@ -38,5 +38,11 @@ public class FiringComponent extends Component implements IComponent{
 	public void setEnemyInSightRange(double myEnemyInSightRange) {
 		this.myEnemyInSightRange = myEnemyInSightRange;
 	}
+
+	@Override
+	public void initWithParams(List params) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

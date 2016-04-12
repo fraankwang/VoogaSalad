@@ -30,4 +30,6 @@ public interface IEntity {
 	public boolean hasComponent(String tag);
 	
 	public String getLabel();
+	
+	public int getId();
 }

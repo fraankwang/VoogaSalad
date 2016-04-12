@@ -3,10 +3,11 @@
  */
 package backend.game_object.components;
 
+import java.util.List;
+
 public class CollisionComponent extends Component implements IComponent{
     private boolean isCollided;
     private double myX, myY, myWidth, myHeight;
-
 
     public CollisionComponent(double myX, double myY, double myWidth, double myHeight){
         this.myX = myX;
@@ -61,6 +62,12 @@ public class CollisionComponent extends Component implements IComponent{
     public String getTag(){
         return "Collision";
     }
+
+	@Override
+	public void initWithParams(List params) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 

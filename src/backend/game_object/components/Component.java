@@ -8,6 +8,7 @@
 package backend.game_object.components;
 
 public abstract class Component implements IComponent{
+	private int entityId;
 	
 	public String getTag(){
 		return "Blank";
@@ -15,6 +16,10 @@ public abstract class Component implements IComponent{
 	
 	public void update(){
 		
+	}
+	
+	public int getEntityId(){
+		return this.entityId;
 	}
 	
 }

@@ -1,5 +1,7 @@
 package backend.game_object.components;
 
+import java.util.List;
+
 /**
  * 
  * @author raghavkedia
@@ -79,5 +81,11 @@ public class MovementComponent extends Component{
 
 	public void setBezierTime(double myBezierTime) {
 		this.myBezierTime = myBezierTime;
+	}
+
+	@Override
+	public void initWithParams(List params) {
+		// TODO Auto-generated method stub
+		
 	}
 }

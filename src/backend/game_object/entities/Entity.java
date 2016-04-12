@@ -11,6 +11,7 @@ public class Entity implements IEntity{
 	
 	private String myLabel;
 	private int myID;
+	private int myLevelId;
 	//private List<Component> myComponents;
 	private Map<String, IComponent> myComponents;
 
@@ -50,6 +51,14 @@ public class Entity implements IEntity{
 
 	public void setLabel(String label) {
 		this.myLabel = label;
+	}
+	
+	public int getLevelId(){
+		return this.myLevelId;
+	}
+	
+	public int getId(){
+		return this.myID;
 	}
 	
 	public boolean hasComponent(String tag){

@@ -5,15 +5,16 @@
  */
 package backend.game_object.components;
 
-public class SizeComponent {
+import java.util.List;
+
+public class SizeComponent extends Component{
 
 	private double width;
 	private double height;
 	
 	//default component
 	public SizeComponent() {
-		this.width = 80;
-		this.height = 100;
+
 	}
 	
 	public SizeComponent(double width, double height){
@@ -27,6 +28,12 @@ public class SizeComponent {
 	
 	public double getWidth(){
 		return width;
+	}
+
+	@Override
+	public void initWithParams(List params) {
+		this.width = (double) params.get(0);
+		this.height = (double) params.get(1);
 	}
 
 }
