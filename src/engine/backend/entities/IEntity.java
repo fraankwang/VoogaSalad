@@ -35,4 +35,6 @@ public interface IEntity {
 	public double getValue();
 
 	public String getType();
+	
+	public int getID();
 }
