@@ -44,7 +44,7 @@ public class ModelManager implements IModel {
 	}
 
 	public void updateLevels(Map<String, String> data) {
-		Level level = levelfactory.createLevel(, data)
+		Level level = levelfactory.createLevel(nextAssignedLevelID, data);
 		for (Level l : globaldata.getLevels()) {
 			if (l.equals(level)) {
 				l = level;
@@ -67,11 +67,4 @@ public class ModelManager implements IModel {
 		globaldata.getModes().add(mode);
 	}
 	
-	public GameWorld initializeGame() {
-		GameWorld game = new GameWorld();
-		
-		return game;
-	}
-	
-
 }

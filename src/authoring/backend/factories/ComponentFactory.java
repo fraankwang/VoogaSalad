@@ -5,7 +5,7 @@ import engine.backend.components.Component;
 public class ComponentFactory {
 
 	public ComponentFactory() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public Component createComponent(String componentType, String data){
