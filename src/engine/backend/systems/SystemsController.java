@@ -56,10 +56,11 @@ public class SystemsController {
 
 	public void iterateThroughSystems(GameWorld game) {
 		Mode currMode = game.getModes().get(game.getGameStatistics().getCurrentLevel());
-		List<Level> currLevels = game.getLevelsForMode(currMode);
+		List<Level> currLevels = currMode.getLevels();
 		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
 		for (ISystem system : mySystems) {
 			system.update(currentLevel.getEntities(), myEntityFactory);
+
 		}
 		
 	}

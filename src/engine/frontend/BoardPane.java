@@ -1,12 +1,11 @@
 package engine.frontend;
 
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-<<<<<<< HEAD
-=======
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
->>>>>>> 6dd6b4a5cbc54195098583566868d7feb6b0e785
 
 public class BoardPane {
 	private EngineView myEngineView;

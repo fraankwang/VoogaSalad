@@ -8,7 +8,6 @@ public class HealthComponent extends Component implements IComponent{
 	private double myDamage;
 	
 	public HealthComponent() {
-
 	}
 	
 	public double getHealth(){
@@ -29,11 +28,9 @@ public class HealthComponent extends Component implements IComponent{
 	}
 
 	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
-		myHealth = (double) params.get(0);
-		myDamage = (double) params.get(1);
-		
+	public void initWithParams(String[] params) {
+		myHealth = Double.parseDouble(params[0]);
+		myDamage = Double.parseDouble(params[1]);
 	}
 
 }
