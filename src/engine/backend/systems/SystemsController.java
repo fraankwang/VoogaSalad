@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
-import engine.controller.Engine2PlayerController;
+import engine.controller.EngineController;
 
 public class SystemsController {
 
@@ -20,7 +20,7 @@ public class SystemsController {
 	private MobilizeSystem mobilize;
 	private RulesSystem rulesSystem;
 	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
-	private Engine2PlayerController frontendController;
+	private EngineController frontendController;
 //	private ResourceLoader myResourceLoader;
 	
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
@@ -28,7 +28,7 @@ public class SystemsController {
 	private ResourceBundle myComponentTagResources;
 
 
-	public SystemsController(Engine2PlayerController frontendController) {
+	public SystemsController(EngineController frontendController) {
 		this.frontendController = frontendController;
 //		myResourceLoader = new ResourceLoader();
 		render = new RenderingSystem(frontendController);

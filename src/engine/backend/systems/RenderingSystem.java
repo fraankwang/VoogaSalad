@@ -15,7 +15,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.Level;
-import engine.controller.Engine2PlayerController;
+import engine.controller.EngineController;
 
 
 
@@ -28,9 +28,9 @@ import engine.controller.Engine2PlayerController;
 public class RenderingSystem extends Systemm {
 
 
-	private Engine2PlayerController displayController;
+	private EngineController displayController;
 	
-	public RenderingSystem(Engine2PlayerController displayController) {
+	public RenderingSystem(EngineController displayController) {
 		this.displayController = displayController;
 	}
 

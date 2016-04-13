@@ -2,16 +2,23 @@ package engine.frontend;
 
 import java.util.ResourceBundle;
 
+<<<<<<< HEAD
 import engine.controller.Engine2PlayerController;
 import engine.controller.EngineBackendController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+=======
+import engine.controller.EngineController;
+>>>>>>> 6dd6b4a5cbc54195098583566868d7feb6b0e785
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
+<<<<<<< HEAD
 import javafx.scene.layout.GridPane;
+=======
+>>>>>>> 6dd6b4a5cbc54195098583566868d7feb6b0e785
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -23,23 +30,20 @@ public class EngineView{
 	public static final String DEFAULT_UI_RESOURCE = "engine/resources/engine_window";
 	private ResourceBundle myUIResources;
 	private Stage myStage;
-	private Main myMain;
-	private static final int NUM_FRAMES_PER_SECOND = 60;
 	
-	private Engine2PlayerController displayController;
-	private EngineBackendController backendEngineController;
+	private EngineController myController;
 	private ToolbarManager myToolbarManager;
 	private BoardPane myBoardPane;
-	private TowerPane myTowerPane;
+	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
 	
-	public EngineView(Stage s, Main m){
+	public EngineView(Stage s, EngineController c){
 		myStage = s;
-		myMain = m;
+		myController = c;
 		
 		myToolbarManager = new ToolbarManager(this);
 		myBoardPane = new BoardPane(this);
-		myTowerPane = new TowerPane(this);
+		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
 		myUIResources = ResourceBundle.getBundle(DEFAULT_UI_RESOURCE);
 	}
@@ -67,18 +71,6 @@ public class EngineView{
 		myBody.getChildren().addAll(toolbar, top, bottom);
 		
 		Scene scene = new Scene(myBody, width, height, Color.WHITE);
-		
-		
-		backendEngineController = new EngineBackendController(displayController);
-		backendEngineController.setEventHandler(scene);
-		
-		// setup game's loop
-		KeyFrame frame = backendEngineController.startGameLoop(NUM_FRAMES_PER_SECOND);
-		Timeline animation = new Timeline();
-		animation.setCycleCount(Animation.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-		
 		return scene;
 	}
 	
@@ -88,8 +80,7 @@ public class EngineView{
 	 */
 	private void fillTopHBox(HBox hbox){
 		Node board = myBoardPane.buildNode();
-		displayController = new Engine2PlayerController((GridPane)board);
-		Node tower = myTowerPane.buildNode();
+		Node tower = myShopPane.buildNode();
 		hbox.getChildren().addAll(board, tower);
 	}
 	
@@ -102,25 +93,32 @@ public class EngineView{
 		hbox.getChildren().addAll(status);
 	}
 	
-	protected int loadUIIntResource(String input){
-		return Integer.parseInt(myUIResources.getString(input));
-	}
-	
-	/**
-	 * Loads an int resource from the UI resource bundle and string key
-	 * @param r resource bundle
-	 * @param input String key
-	 */
-	protected String loadUIStringResource(String input){
-		return myUIResources.getString(input);
-	}
-	
 	public Stage getStage(){
 		return myStage;
 	}
 	
 	protected Main getMain(){
-		return myMain;
+		return myController.getMain();
+	}
+	
+	public BoardPane getBoardPane(){
+		return myBoardPane;
+	}
+	
+	public ShopPane getShopPane(){
+		return myShopPane;
+	}
+	
+	public StatusPane getStatusPane(){
+		return myStatusPane;
+	}
+	
+	protected int loadUIIntResource(String input){
+		return Integer.parseInt(myUIResources.getString(input));
+	}
+	
+	protected String loadUIStringResource(String input){
+		return myUIResources.getString(input);
 	}
 	
 }
