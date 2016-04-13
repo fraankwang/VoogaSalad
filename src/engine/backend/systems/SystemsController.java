@@ -41,7 +41,7 @@ public class SystemsController {
 
 //		mobilize = new MobilizeSystem();
 		addToBagOfSystems(render);
-//		addToBagOfSystems(rulesSystem);
+		addToBagOfSystems(rulesSystem);
 //		addToBagOfSystems(mobilize);
 	}
 
