@@ -2,14 +2,23 @@ package engine.frontend;
 
 import java.util.ResourceBundle;
 
+import engine.controller.EngineBackendController;
+import engine.controller.Engine2PlayerController;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import main.Main;
 
 public class EngineView{
@@ -18,7 +27,10 @@ public class EngineView{
 	private ResourceBundle myUIResources;
 	private Stage myStage;
 	private Main myMain;
+	private static final int NUM_FRAMES_PER_SECOND = 60;
 	
+	private Engine2PlayerController displayController;
+	private EngineBackendController backendEngineController;
 	private ToolbarManager myToolbarManager;
 	private BoardPane myBoardPane;
 	private TowerPane myTowerPane;
@@ -58,6 +70,18 @@ public class EngineView{
 		myBody.getChildren().addAll(toolbar, top, bottom);
 		
 		Scene scene = new Scene(myBody, width, height, Color.WHITE);
+		
+		
+		backendEngineController = new EngineBackendController(displayController);
+		backendEngineController.setEventHandler(scene);
+		
+		// setup game's loop
+		KeyFrame frame = backendEngineController.startGameLoop(NUM_FRAMES_PER_SECOND);
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Animation.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+		
 		return scene;
 	}
 	
@@ -67,6 +91,7 @@ public class EngineView{
 	 */
 	private void fillTopHBox(HBox hbox){
 		Node board = myBoardPane.buildNode();
+		displayController = new Engine2PlayerController((GridPane)board);
 		Node tower = myTowerPane.buildNode();
 		hbox.getChildren().addAll(board, tower);
 	}

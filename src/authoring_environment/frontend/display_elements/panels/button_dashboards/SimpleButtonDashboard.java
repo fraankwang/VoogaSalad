@@ -1,6 +1,7 @@
 package authoring_environment.frontend.display_elements.panels.button_dashboards;
 
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 
 /**
  * The SimpleButtonDashboard only contains a save and reset button.
@@ -11,7 +12,7 @@ import javafx.scene.control.Button;
 
 public class SimpleButtonDashboard extends ButtonDashboard {
 
-	private Button myResetButton;
+	protected Button myResetButton;
 
 	public SimpleButtonDashboard(int height, int width) {
 		super(height, width);
@@ -20,14 +21,19 @@ public class SimpleButtonDashboard extends ButtonDashboard {
 
 	@Override
 	protected void initializeComponents() {
-		// TODO Auto-generated method stub
+		mySaveButton = new Button("Save");
+		mySaveButton.setPrefHeight(myHeight);
+		mySaveButton.setPrefWidth(myWidth);
+		myResetButton = new Button("Reset");
+		myResetButton.setPrefHeight(myHeight);
+		myResetButton.setPrefWidth(myWidth);
 
 	}
 
 	@Override
 	protected void assembleComponents() {
-		// TODO Auto-generated method stub
-
+		VBox myButtons = new VBox(myResetButton, mySaveButton);
+		myNode = myButtons;
 	}
 
 }
