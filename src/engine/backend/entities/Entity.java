@@ -17,15 +17,15 @@ public class Entity implements IEntity {
 	private double myValue;
 	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
+	private int myLevelID;
 	
-	// private List<Component> myComponents;
-	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
+	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();
 
 	private boolean hasBeenModified = false;
 
 	public Entity(int ID, String name, String type, double value) {
 		myName = name;
-		myType = type;
+		setMyType(type);
 		this.myID = ID;
 		this.setValue(value);
 	}
@@ -91,6 +91,22 @@ public class Entity implements IEntity {
 
 	public void setHasBeenModified(boolean bool) {
 		hasBeenModified = bool;
+	}
+
+	public int getLevelID() {
+		return myLevelID;
+	}
+
+	public void setLevelID(int levelID) {
+		this.myLevelID = levelID;
+	}
+
+	public String getMyType() {
+		return myType;
+	}
+
+	public void setMyType(String myType) {
+		this.myType = myType;
 	}
 
 }
