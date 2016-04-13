@@ -32,6 +32,13 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 		super(height, width, tabDisplay);
 	}
 
+	
+	/**
+	 * 
+	 * Change UI to show all levels/entities per Mode?
+	 * 
+	 */
+	
 	@Override
 	protected void initializeComponents() {
 		myWrapper = new BorderPane();

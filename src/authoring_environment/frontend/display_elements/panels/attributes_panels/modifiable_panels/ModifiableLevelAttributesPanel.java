@@ -25,7 +25,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	protected void assembleComponents() {
 		super.assembleComponents();
 		myAttributesGridPane.add(new Label("Waves"), 0, 0);
-		myAttributesGridPane.add(new Label("Timer"), 0, 1);
+		myAttributesGridPane.add(new Label("Delay Between Waves"), 0, 1);
+		myAttributesGridPane.add(new Label("Timer"), 0, 2);
 
 	}
 
