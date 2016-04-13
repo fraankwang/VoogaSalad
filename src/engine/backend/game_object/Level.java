@@ -20,6 +20,11 @@ public class Level {
 	private int myID;
 	private int myParentModeID;
 	private GameMap map;
+	
+	public Level(int myID, GameMap map) {
+		this.myID = myID;
+		this.map = map;
+	}
 
 	public Level(int myID) {
 		this.entities = new ArrayList<IEntity>();

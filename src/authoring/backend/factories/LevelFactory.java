@@ -6,7 +6,7 @@ import java.util.Map;
 
 import engine.backend.game_object.Level;
 import engine.backend.map.BezierCurve;
-import engine.backend.map.MapObject;
+import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 
 public class LevelFactory {
@@ -17,17 +17,24 @@ public class LevelFactory {
 		
 	}
 	
-	public Level createLevel(Map<String, String> data) {
-		MapObject map = new MapObject();
+	public Level createLevel(int ID, Map<String, String> data) {
+		GameMap map = new GameMap();
 		for (String key : data.keySet()) {
 			switch (key) {
 				
 			case "Path":
-				path = getPath(data.get(key));
+				map.setPath(getPath(data.get(key)));
 			case "LevelImage":
-				
+				map.setMapImage(data.get(key));
+			case "MapWidth":
+				double width = Double.parseDouble(data.get(key));
+				map.setMapWidth(width);
+			case "MapHeight":
+				double height = Double.parseDouble(data.get(key));
+				map.setMapHeight(height);
 			}
 		}
+		return new Level(ID, map);
 	}
 	
 	private Path getPath(String str) {
