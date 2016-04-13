@@ -77,7 +77,7 @@ public class GameWorld {
 		return null;
 	}
 	public void addNewLevelToCurrentMode(Mode mode) {
-		Level level1 = new Level();
+		Level level1 = new Level(0);
 		mode.addLevel(level1);
 		gameStats.incrementNumLevels();
 	}
