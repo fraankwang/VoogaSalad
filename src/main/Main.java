@@ -1,7 +1,8 @@
 package main;
 
 import java.util.Optional;
-import authoring_environment.controller.AuthoringController;
+
+import authoring.controller.AuthoringController;
 import engine.controller.EngineController;
 import javafx.application.Application;
 import javafx.scene.Scene;
