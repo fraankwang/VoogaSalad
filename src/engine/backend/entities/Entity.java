@@ -17,21 +17,16 @@ public class Entity implements IEntity {
 	private double myValue;
 	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
-	
-	// private List<Component> myComponents;
+	private int myParentLevelID;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
 
 	private boolean hasBeenModified = false;
 
 	public Entity(int ID, String name, String type, double value) {
 		myName = name;
-		myType = type;
+		setMyType(type);
 		this.myID = ID;
 		this.setValue(value);
-	}
-	
-	public Entity(int ID){
-		this.myID = ID;
 	}
 
 	public List<Rule> getRules() {
@@ -43,7 +38,7 @@ public class Entity implements IEntity {
 	}
 
 	public void addComponent(IComponent component) {
-		System.out.println(myComponents);
+		component.setEntityID(myID);
 		myComponents.put(component.getTag(), component);
 	}
 
@@ -57,7 +52,6 @@ public class Entity implements IEntity {
 	}
 
 	public Set<String> getComponentTags() {
-		// sort alphabetically
 		return myComponents.keySet();
 	}
 
@@ -97,9 +91,20 @@ public class Entity implements IEntity {
 		hasBeenModified = bool;
 	}
 
-	public String getLabel() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getLevelID() {
+		return myParentLevelID;
+	}
+
+	public void setLevelID(int levelID) {
+		this.myParentLevelID = levelID;
+	}
+
+	public String getType() {
+		return myType;
+	}
+
+	public void setMyType(String myType) {
+		this.myType = myType;
 	}
 
 }
