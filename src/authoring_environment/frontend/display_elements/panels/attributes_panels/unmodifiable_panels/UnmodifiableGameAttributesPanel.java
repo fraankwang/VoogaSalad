@@ -2,15 +2,12 @@ package authoring_environment.frontend.display_elements.panels.attributes_panels
 
 import java.util.ArrayList;
 import java.util.List;
-
 import authoring_environment.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 /**
@@ -41,14 +38,14 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myOpenEditorButton = createOpenEditorButton();
-		
+
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setGridLinesVisible(true);
 		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-		
+
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(myAttributesGridPane);
-		
+
 	}
 
 	@Override
@@ -74,8 +71,8 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 		gp.add(new Label("Game Timer"), 0, 3);
 		gp.add(new Label("Movement Speed"), 0, 4);
 		gp.add(new Label("Armor"), 0, 5);
-		//add more attributes later
-		
+		// add more attributes later
+
 		gp.setPrefSize(ATTRIBUTES_PANEL_WIDTH * 2, ATTRIBUTES_PANEL_WIDTH * 2);
 		return gp;
 

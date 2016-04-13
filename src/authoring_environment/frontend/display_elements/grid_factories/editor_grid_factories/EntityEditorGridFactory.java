@@ -7,6 +7,8 @@ import authoring_environment.frontend.display_elements.grid_factories.EditorGrid
 import authoring_environment.frontend.display_elements.panels.EditorViewPanel;
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -57,20 +59,21 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		RulesEditorPanel editorPanel = new RulesEditorPanel(PANEL_SIZE, PANEL_SIZE);
 		editorPanel.initialize();
 		return editorPanel;
 	}
 
 	@Override
 	public Panel createModifiableAttributesPanel() {
-		// TODO Auto-generated method stub
-		return null;
+		ModifiableAttributesPanel panel = new ModifiableEntityAttributesPanel(PANEL_SIZE, PANEL_SIZE);
+		panel.initialize();
+		return panel;
 	}
 
 	@Override
 	public Panel createButtonDashboard() {
-		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(PANEL_SIZE, PANEL_SIZE);
 		buttons.initialize();
 		return buttons;
 	}

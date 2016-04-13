@@ -2,7 +2,6 @@ package authoring_environment.frontend.display_elements.panels.attributes_panels
 
 import java.util.ArrayList;
 import java.util.List;
-
 import authoring_environment.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Label;
@@ -39,14 +38,14 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myOpenEditorButton = createOpenEditorButton();
-		
+
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setGridLinesVisible(true);
 		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-		
+
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(myAttributesGridPane);
-		
+
 	}
 
 	@Override
@@ -72,8 +71,8 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		gp.add(new Label("Attack Speed"), 0, 3);
 		gp.add(new Label("Movement Speed"), 0, 4);
 		gp.add(new Label("Armor"), 0, 5);
-		//add more attributes later
-		
+		// add more attributes later
+
 		gp.setPrefSize(600, 600);
 		return gp;
 
