@@ -24,22 +24,22 @@ public class GameTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		GridViewPanel gridView = new GridViewPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE, myTabDisplay);
+		GridViewPanel gridView = new GridViewPanel(PANEL_SIZE, PANEL_SIZE, myTabDisplay);
 		gridView.initialize();
 		return gridView;
 	}
 
 	@Override
 	public Panel createButtonDashboard() {
-		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(PANEL_SIZE, PANEL_SIZE);
 		buttons.initialize();
 		return buttons;
 	}
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		UnmodifiableAttributesPanel attributes = new UnmodifiableGameAttributesPanel(ARBITRARY_PANEL_SIZE,
-				ARBITRARY_PANEL_SIZE, tabDisplay);
+		UnmodifiableAttributesPanel attributes = new UnmodifiableGameAttributesPanel(PANEL_SIZE,
+				PANEL_SIZE, tabDisplay);
 		attributes.initialize();
 		return attributes;
 	}

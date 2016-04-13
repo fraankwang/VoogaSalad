@@ -2,11 +2,8 @@ package authoring_environment.frontend.display_elements.panels.attributes_panels
 
 import java.util.ArrayList;
 import java.util.List;
-
 import authoring_environment.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -14,7 +11,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -33,7 +29,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private ListView<String> myRulesListView;
 	private ListView<String> myPiecesListView;
 	private ListView<String> myEntityListView;
-	private GridPane titledPanesGridPane; 
+	private GridPane titledPanesGridPane;
 	private ScrollPane myScrollPane;
 
 	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
@@ -42,7 +38,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 	@Override
 	protected void initializeComponents() {
-		
+
 		myWrapper = new BorderPane();
 
 		List<Integer> rowConstraints = new ArrayList<Integer>();
@@ -62,7 +58,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		myRulesListView = createModeRulesListView();
 		myRulesTitledPane = createTitledPane("Rules", myRulesListView);
 		myRulesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
-		
+
 		titledPanesGridPane = new GridPane();
 		titledPanesGridPane.add(myEntityTitledPane, 0, 0);
 		titledPanesGridPane.add(myPiecesTitledPane, 0, 1);

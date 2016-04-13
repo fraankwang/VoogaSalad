@@ -4,6 +4,8 @@ import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableModeAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 
 /**
@@ -21,15 +23,16 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		RulesEditorPanel editorPanel = new RulesEditorPanel(PANEL_SIZE, PANEL_SIZE);
 		editorPanel.initialize();
 		return editorPanel;
 	}
 
 	@Override
 	public Panel createModifiableAttributesPanel() {
-		// TODO Auto-generated method stub
-		return null;
+		ModifiableAttributesPanel panel = new ModifiableModeAttributesPanel(PANEL_SIZE, PANEL_SIZE);
+		panel.initialize();
+		return panel;
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(PANEL_SIZE, PANEL_SIZE);
 		buttons.initialize();
 		return buttons;
 	}
