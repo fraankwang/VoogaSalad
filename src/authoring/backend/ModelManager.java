@@ -6,10 +6,10 @@ import authoring.backend.factories.EntityFactory;
 import authoring.backend.factories.LevelFactory;
 import authoring.backend.factories.ModeFactory;
 import authoring.controller.GlobalData;
-import engine.backend.GameWorld;
-import engine.backend.Level;
-import engine.backend.Mode;
 import engine.backend.entities.Entity;
+import engine.backend.game_object.GameWorld;
+import engine.backend.game_object.Level;
+import engine.backend.game_object.Mode;
 
 /*
  * @author: Jonathan Ma

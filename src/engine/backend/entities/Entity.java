@@ -64,6 +64,10 @@ public class Entity implements IEntity {
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
+	
+	public int getID(){
+		return myID;
+	}
 
 	public String getName() {
 		return myName;
@@ -91,6 +95,11 @@ public class Entity implements IEntity {
 
 	public void setHasBeenModified(boolean bool) {
 		hasBeenModified = bool;
+	}
+
+	public String getLabel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

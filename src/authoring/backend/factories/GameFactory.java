@@ -1,12 +1,8 @@
 package authoring.backend.factories;
 
 import authoring.controller.GlobalData;
-import engine.backend.GameWorld;
-import engine.backend.Level;
-import engine.backend.Mode;
-import engine.backend.components.Component;
-import engine.backend.entities.Entity;
-import engine.backend.entities.IEntity;
+import engine.backend.game_object.GameWorld;
+
 
 public class GameFactory {
 	

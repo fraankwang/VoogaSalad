@@ -5,6 +5,7 @@ import java.util.List;
 
 import engine.backend.components.Component;
 import engine.backend.entities.Entity;
+import engine.backend.entities.IEntity;
 
 public class EntityFactory {
 	
@@ -28,5 +29,10 @@ public class EntityFactory {
 		for (Component component : components) {
 			entity.addComponent(component);
 		}
+	}
+
+	public static IEntity getEntity(String firedEntityName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
