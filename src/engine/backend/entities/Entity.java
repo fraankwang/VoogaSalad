@@ -31,6 +31,10 @@ public class Entity implements IEntity {
 	public Entity(int ID){
 		this.myID = ID;
 	}
+	
+	public void setParentID(int parentID) {
+		this.parentLevelID = parentID;
+	}
 
 	public List<Rule> getRules() {
 		return myRules;
