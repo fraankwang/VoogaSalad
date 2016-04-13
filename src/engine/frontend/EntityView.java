@@ -24,13 +24,11 @@ public class EntityView {
 		myNode = myImageView;
 	}
 	
-	
 	public void handleClick(){
 		myController.entityClicked(myID);
 	}
-
-	public EntityView updateEntity(double xCoord, double yCoord, String image, int id, double width, double height) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public Node getNode(){
+		return myNode;
 	}
 }

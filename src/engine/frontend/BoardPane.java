@@ -39,15 +39,9 @@ public class BoardPane {
 	
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
 		Integer myKey = new Integer(id);
-		
-		myImageMap.put(myKey, new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height));
-		/*
-		if(myImageMap.containsKey(myKey)){
-			myImageMap.put(myKey, myImageMap.get(myKey).updateEntity( xCoord, yCoord, image, id, width, height)));
-		}else{
-			myImageMap.put(myKey, new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height));
-		}
-		*/
+		EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
+		myImageMap.put(myKey, ev);
+		myPane.getChildren().add(ev.getNode());
 	}
 	
 	public void attemptTower(double xLoc, double yLoc){
