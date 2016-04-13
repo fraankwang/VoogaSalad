@@ -5,6 +5,7 @@ package engine.backend.systems;
  */
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.MovementComponent;
@@ -12,7 +13,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 
-public class MobilizeSystem extends Systemm implements ISystem {
+public class MobilizeSystem implements ISystem {
 	
 	public MobilizeSystem() {
 		// TODO Auto-generated constructor stub
@@ -27,19 +28,19 @@ public class MobilizeSystem extends Systemm implements ISystem {
 	//Make default velocity vector
 	
 	@Override
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
+	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		
 		for(IEntity entity : entities){
 			
-			if(!entity.hasComponent(getComponentTagResources().getString("Movement"))){
+			if(!entity.hasComponent(myComponentTagResources.getString("Movement"))){
 				continue;
 			}
 			
-			MovementComponent movComponent = (MovementComponent) entity.getComponent(getComponentTagResources().getString("Movement"));
-			PositionComponent posComponent = (PositionComponent) entity.getComponent(getComponentTagResources().getString("Position"));
+			MovementComponent movComponent = (MovementComponent) entity.getComponent(myComponentTagResources.getString("Movement"));
+			PositionComponent posComponent = (PositionComponent) entity.getComponent(myComponentTagResources.getString("Position"));
 			
 			
-			if(entity.hasComponent(getComponentTagResources().getString("Path"))){
+			if(entity.hasComponent(myComponentTagResources.getString("Path"))){
 				//if on path
 				updatePathMovement(entity);
 			}

@@ -8,6 +8,7 @@
 package engine.backend.systems;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.DisplayComponent;
@@ -26,7 +27,7 @@ import engine.controller.EngineController;
  *
  */
 
-public class RenderingSystem extends Systemm {
+public class RenderingSystem implements ISystem{
 
 
 	private EngineController engineController;
@@ -36,7 +37,7 @@ public class RenderingSystem extends Systemm {
 	}
 
 	@Override
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
+	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		for(IEntity myEntity : entities){
 //			System.out.println(myEntity.toString());
@@ -46,14 +47,14 @@ public class RenderingSystem extends Systemm {
 			double sizex = 350;
 			double sizey = 200;
 			for(IComponent eachComponent: myEntity.getComponents()){
-				if(eachComponent.getTag().equals(getComponentTagResources().getString("Display"))){
+				if(eachComponent.getTag().equals(myComponentTagResources.getString("Display"))){
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
 				}
-				if(eachComponent.getTag().equals(getComponentTagResources().getString("Position"))){
+				if(eachComponent.getTag().equals(myComponentTagResources.getString("Position"))){
 					x = ((PositionComponent) eachComponent).getX();
 					y = ((PositionComponent) eachComponent).getY();
 				}
-				if(eachComponent.getTag().equals(getComponentTagResources().getString("Size"))){
+				if(eachComponent.getTag().equals(myComponentTagResources.getString("Size"))){
 					sizex = ((SizeComponent) eachComponent).getWidth();
 					sizex = ((SizeComponent) eachComponent).getHeight();
 				}
