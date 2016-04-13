@@ -17,21 +17,17 @@ import engine.backend.map.MapObject;
 public class Level {
 
 	private List<IEntity> entities;
-	private int id;
+	private int myID;
+	private int myParentModeID;
 	private MapObject map = new MapObject();
 
 	public Level(int id) {
 		entities = new ArrayList<IEntity>();
-		this.id = id;
-	}
-	
-	public Level(){
-		entities = new ArrayList<IEntity>();
-		
+		this.myID = id;
 	}
 	
 	public int getId(){
-		return id;
+		return myID;
 	}
 
 	public List<IEntity> getEntities() {
@@ -44,13 +40,20 @@ public class Level {
 
 	@Override
 	public String toString() {
-		return "Level [entities=" + entities + "] ";// +
-													// entities.get(0).toString();
+		return "Level [entities=" + entities + "] ";
 	}
 
 	public void addToEntities(Entity entity) {
+		entity.setLevelID(myID);
 		entities.add(entity);
-
+	}
+	
+	public void setModeID(int modeID) {
+		this.myParentModeID = modeID;
+	}
+	
+	public int getModeID() {
+		return myParentModeID;
 	}
 	
 }
