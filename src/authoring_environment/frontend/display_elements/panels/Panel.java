@@ -19,11 +19,10 @@ import javafx.scene.layout.RowConstraints;
 public abstract class Panel implements IPanel {
 
 	protected Node myNode;
-	protected int myHeight;
-	protected int myWidth;
+	protected double myHeight, myWidth;
 	protected final int MAX_SIZE = Integer.MAX_VALUE; 
 
-	public Panel(int height, int width) {
+	public Panel(double height, double width) {
 		myHeight = height;
 		myWidth = width;
 
@@ -81,12 +80,12 @@ public abstract class Panel implements IPanel {
 	}
 
 	@Override
-	public void setHeight(int height) {
+	public void setHeight(double height) {
 		myHeight = height;
 	}
 
 	@Override
-	public void setWidth(int width) {
+	public void setWidth(double width) {
 		myWidth = width;
 	}
 

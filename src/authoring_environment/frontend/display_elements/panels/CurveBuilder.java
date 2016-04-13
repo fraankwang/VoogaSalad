@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring_environment.frontend.interfaces.display_element_interfaces.IDisplayElement;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.BorderPane;
 
 public class CurveBuilder implements IDisplayElement {
 
 	private List<BezierCurveManipulator> myBezierCurves;
 	private Group myNode;
+	private double myWidth, myHeight;
 	
 	public CurveBuilder() {
 		
@@ -22,10 +25,15 @@ public class CurveBuilder implements IDisplayElement {
 	}
 	
 	public void createNewCurve() {
-		BezierCurveManipulator newCurve = new BezierCurveManipulator();
+		BezierCurveManipulator newCurve = new BezierCurveManipulator(myHeight, myWidth);
 		newCurve.initialize();
 		myBezierCurves.add(newCurve);
 		myNode.getChildren().add(newCurve.getNode());
+	}
+	
+	public void setSize(double height, double width) {
+		myWidth = width;
+		myHeight = height;
 	}
 
 	@Override

@@ -8,9 +8,9 @@ package authoring_environment.frontend.interfaces.display_element_interfaces;
 
 public interface IPanel extends IDisplayElement {
 	
-	public void setHeight(int height);
+	public void setHeight(double height);
 
-	public void setWidth(int width);
+	public void setWidth(double width);
 	
 	public void setVisible(boolean visible);
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring_environment.frontend.display_elements.panels.EditorViewPanel;
+import authoring_environment.frontend.display_elements.panels.LevelEditorViewPanel;
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
 import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
@@ -41,7 +42,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel editorView = new EditorViewPanel(50, 50);
+		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800*0.7, 1200*0.7);
 		editorView.initialize();
 		editorView.setImage(new Image("DrumpfVader.png")); // set default
 															// image as
@@ -49,6 +50,15 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 															// mark or
 															// something
 
+		editorView.getPanelBar().addButton("Upload Map Image", e -> {
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Open Resource File");
+				fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+				File imageFile = fileChooser.showOpenDialog(null);
+				if (imageFile != null) {
+					editorView.setImage(new Image(imageFile.toURI().toString()));
+				}
+			});
 		editorView.getPanelBar().addButton("Upload Image", e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
