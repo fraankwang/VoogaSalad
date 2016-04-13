@@ -58,9 +58,6 @@ public class RenderingSystem extends Systemm {
 				}
 			}
 			
-			x = 300;
-			y = 300;
-			
 			engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
 		}
 	}
