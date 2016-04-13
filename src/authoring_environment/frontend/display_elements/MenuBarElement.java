@@ -19,16 +19,22 @@ public class MenuBarElement implements IMenuBarElement {
 	private MenuBar myMenuBar;
 
 	public MenuBarElement() {
+
+	}
+
+	
+	@Override
+	public Node getNode() {
+		return myMenuBar;
+	}
+
+	@Override
+	public void initialize() {
 		myMenuBar = new MenuBar();
 		Menu file = new Menu("File");
 		Menu create = new Menu("Create");
 		Menu help = new Menu("Help");
 		myMenuBar.getMenus().addAll(file, create, help);
-	}
-
-	@Override
-	public Node buildNode() {
-		return myMenuBar;
 	}
 
 }

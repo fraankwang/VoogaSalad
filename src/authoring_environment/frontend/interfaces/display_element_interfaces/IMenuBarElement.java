@@ -11,4 +11,5 @@ package authoring_environment.frontend.interfaces.display_element_interfaces;
 
 public interface IMenuBarElement extends IDisplayElement {
 
+	public void initialize();
 }
