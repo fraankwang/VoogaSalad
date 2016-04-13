@@ -15,7 +15,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.Level;
-import engine.controller.Engine2PlayerController;
+import engine.controller.EngineController;
 
 
 
@@ -28,10 +28,10 @@ import engine.controller.Engine2PlayerController;
 public class RenderingSystem extends Systemm {
 
 
-	private Engine2PlayerController displayController;
+	private EngineController engineController;
 	
-	public RenderingSystem(Engine2PlayerController displayController) {
-		this.displayController = displayController;
+	public RenderingSystem(EngineController eController) {
+		this.engineController = eController;
 	}
 
 	@Override
@@ -61,20 +61,20 @@ public class RenderingSystem extends Systemm {
 			x = 300;
 			y = 300;
 			
-			displayController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
+			engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
 		}
 	}
 
-
-	//@Override
-	public void execute(List<Level> list) {
-		// TODO Auto-generated method stub
-		for(Level each: list){
-			System.out.println(each.toString());
-			//frontEndController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
-
-		}
-	}
+//
+//	//@Override
+//	public void execute(List<Level> list) {
+//		// TODO Auto-generated method stub
+//		for(Level each: list){
+//			System.out.println(each.toString());
+//			//frontEndController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
+//
+//		}
+//	}
 
 
 }
