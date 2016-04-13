@@ -1,13 +1,12 @@
 package authoring_environment.frontend.display_elements.panels;
 
+import java.util.ArrayList;
+import java.util.List;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -20,12 +19,12 @@ import javafx.scene.layout.VBox;
 
 public class RulesEditorPanel extends Panel {
 
-	private final int ARBITRARY_PANEL_SIZE = 300;
-	private final int COLUMN_1_WIDTH_PCT = 10;
-	private final int COLUMN_2_WIDTH_PCT = 90;
+	private final int COLUMN_1_WIDTH_PERCENTAGE = 10;
+	private final int COLUMN_2_WIDTH_PERCENTAGE = 15;
+	private final int COLUMN_3_WIDTH_PERCENTAGE = 30;
+	private final int COLUMN_4_WIDTH_PERCENTAGE = 15;
+	private final int COLUMN_5_WIDTH_PERCENTAGE = 30;
 	private SimpleButtonDashboard mySimpleButtonDashboard;
-	private Node myIfNode;
-	private Node myThenNode;
 	private Button myAddNewIfButton;
 	private Button myAddNewThenButton;
 	private ListView<String> myIfStatements;
@@ -37,45 +36,37 @@ public class RulesEditorPanel extends Panel {
 
 	@Override
 	protected void initializeComponents() {
-		mySimpleButtonDashboard = new SimpleButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		mySimpleButtonDashboard = new SimpleButtonDashboard(MAX_SIZE, MAX_SIZE);
 		mySimpleButtonDashboard.initialize();
 		myAddNewIfButton = new Button("Add New If");
 		myAddNewThenButton = new Button("Add New Then");
 		myIfStatements = new ListView<String>();
 		myThenStatements = new ListView<String>();
-		myIfNode = new GridPane();
-		myThenNode = new GridPane();
+
 	}
 
 	@Override
 	protected void assembleComponents() {
-		GridPane grid = createGridWrapper(COLUMN_1_WIDTH_PCT, COLUMN_2_WIDTH_PCT);
+		List<Integer> rowConstraints = new ArrayList<Integer>();
+		List<Integer> columnConstraints = new ArrayList<Integer>();
+		columnConstraints.add(COLUMN_1_WIDTH_PERCENTAGE);
+		columnConstraints.add(COLUMN_2_WIDTH_PERCENTAGE);
+		columnConstraints.add(COLUMN_3_WIDTH_PERCENTAGE);
+		columnConstraints.add(COLUMN_4_WIDTH_PERCENTAGE);
+		columnConstraints.add(COLUMN_5_WIDTH_PERCENTAGE);
+
+		GridPane grid = createGridWrapper(rowConstraints, columnConstraints);
+
 		VBox ifbox = createVBoxWrapper("If Statements", myAddNewIfButton);
 		VBox thenbox = createVBoxWrapper("Then Statements", myAddNewThenButton);
 
-		HBox ifthen = new HBox(createSubNode(myIfNode, ifbox, myIfStatements),
-				createSubNode(myThenNode, thenbox, myThenStatements));
-
-		grid.add(ifthen, 1, 0);
 		grid.add(mySimpleButtonDashboard.getNode(), 0, 0);
+		grid.add(ifbox, 1, 0);
+		grid.add(myIfStatements, 2, 0);
+		grid.add(thenbox, 3, 0);
+		grid.add(myThenStatements, 4, 0);
 		myNode = grid;
-	}
 
-	/**
-	 * Creates GridPane with set column constraints.
-	 * 
-	 * @param percentwidth1
-	 * @param percentwidth2
-	 * @return
-	 */
-	private GridPane createGridWrapper(int percentwidth1, int percentwidth2) {
-		GridPane grid = new GridPane();
-		ColumnConstraints column1 = new ColumnConstraints();
-		column1.setPercentWidth(percentwidth1);
-		ColumnConstraints column2 = new ColumnConstraints();
-		column2.setPercentWidth(percentwidth2);
-		grid.getColumnConstraints().addAll(column1, column2);
-		return grid;
 	}
 
 	/**
@@ -88,24 +79,11 @@ public class RulesEditorPanel extends Panel {
 	private VBox createVBoxWrapper(String labelText, Button button) {
 		VBox vb = new VBox();
 		Label label = new Label(labelText);
-		// formatting here
+		label.setPrefSize(MAX_SIZE, MAX_SIZE);
+		button.setPrefSize(MAX_SIZE, MAX_SIZE);
 		vb.getChildren().addAll(label, button);
 		return vb;
-	}
 
-	/**
-	 * Creates a sub-GridPane that pairs up the VBox containing the label and
-	 * button with the listview.
-	 * 
-	 * @param node
-	 * @param vbox
-	 * @param listview
-	 * @return
-	 */
-	private Node createSubNode(Node node, VBox vbox, ListView<String> listview) {
-		((GridPane) node).add(vbox, 0, 0);
-		((GridPane) node).add(listview, 1, 0);
-		return node;
 	}
 
 }

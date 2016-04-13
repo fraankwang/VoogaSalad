@@ -22,6 +22,9 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
 	private GridPane myAttributesGridPane;
+	private final int COLUMN_1_PERCENTAGE = 50;
+	private final int COLUMN_2_PERCENTAGE = 50;
+	private final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
 
 	public UnmodifiableGameAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
@@ -60,8 +63,8 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 	private GridPane createAttributesGridPane() {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		List<Integer> columnConstraints = new ArrayList<Integer>();
-		columnConstraints.add(50);
-		columnConstraints.add(50);
+		columnConstraints.add(COLUMN_1_PERCENTAGE);
+		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
 		GridPane gp = createGridWrapper(rowConstraints, columnConstraints);
 		gp.add(new Label("Game Type"), 0, 0);
@@ -72,7 +75,7 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 		gp.add(new Label("Starting Resources"), 0, 4);
 		// add more attributes later
 
-		gp.setPrefSize(ATTRIBUTES_PANEL_WIDTH * 2, ATTRIBUTES_PANEL_WIDTH * 2);
+		gp.setPrefSize(MAX_SIZE, DEFAULT_ATTRIBUTES_HEIGHT);
 		return gp;
 
 	}

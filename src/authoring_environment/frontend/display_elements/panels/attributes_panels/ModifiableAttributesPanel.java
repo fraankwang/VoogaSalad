@@ -2,7 +2,6 @@ package authoring_environment.frontend.display_elements.panels.attributes_panels
 
 import java.util.ArrayList;
 import java.util.List;
-
 import authoring_environment.frontend.display_elements.panels.Panel;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
@@ -12,9 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 
 /**
  * 
@@ -30,10 +27,13 @@ public abstract class ModifiableAttributesPanel extends Panel {
 	protected GridPane myAttributesGridPane;
 	protected TitledPane myRulesPane;
 	protected ListView<String> myRulesListView;
-	
+
 	protected final int RULES_HEIGHT_PERCENTAGE = 30;
 	protected final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
-	//scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
+	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
+	private final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
+	private final int COLUMN_1_PERCENTAGE = 50;
+	private final int COLUMN_2_PERCENTAGE = 50;
 	
 	public ModifiableAttributesPanel(int height, int width) {
 		super(height, width);
@@ -52,7 +52,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 
 		myRulesListView = createRulesListView();
 		myRulesPane = createTitledPane("Rules", myRulesListView);
-		
+
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setGridLinesVisible(true);
 		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
@@ -69,43 +69,19 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
-	
-	/**
-	 * Creates GridPane with set row and column constraints.
-	 * 
-	 * @return
-	 */
-	protected GridPane createGridWrapper(List<Integer> rowConstraints, List<Integer> columnConstraints) {
-		GridPane grid = new GridPane();
-
-		for (Integer i : rowConstraints) {
-			RowConstraints row = new RowConstraints();
-			row.setPercentHeight(i);
-			grid.getRowConstraints().add(row);
-		}
-		
-		for (Integer i : columnConstraints) {
-			ColumnConstraints column = new ColumnConstraints();
-			column.setPercentWidth(i);
-			grid.getColumnConstraints().add(column);
-		}
-		
-		return grid;
-	}
 
 	private GridPane createAttributesGridPane() {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		List<Integer> columnConstraints = new ArrayList<Integer>();
-		columnConstraints.add(50);
-		columnConstraints.add(50);
+		columnConstraints.add(COLUMN_1_PERCENTAGE);
+		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
 		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-
-		myAttributesGridPane.setPrefSize(600, 600);
+		myAttributesGridPane.setPrefSize(MAX_SIZE, DEFAULT_ATTRIBUTES_HEIGHT);
 		return myAttributesGridPane;
 
 	}
-	
+
 	/**
 	 * Creates a TitledPane given name and Node
 	 * 
@@ -113,11 +89,11 @@ public abstract class ModifiableAttributesPanel extends Panel {
 	 */
 	protected TitledPane createTitledPane(String name, Node node) {
 		TitledPane tp = new TitledPane(name, node);
-		tp.setPrefSize(600, 600);
+		tp.setPrefSize(MAX_SIZE, MAX_SIZE);
 		return tp;
-		
+
 	}
-	
+
 	private ListView<String> createRulesListView() {
 		ListView<String> lv = new ListView<String>();
 		lv.setCellFactory(TextFieldListCell.forListView());
@@ -131,4 +107,3 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		return lv;
 	}
 }
-	
