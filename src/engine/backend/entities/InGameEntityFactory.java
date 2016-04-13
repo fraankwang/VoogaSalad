@@ -1,4 +1,4 @@
-package authoring.backend.factories;
+package engine.backend.entities;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -6,8 +6,6 @@ import java.util.Map;
 
 import engine.backend.game_object.GameStatistics;
 import engine.backend.components.IComponent;
-import engine.backend.entities.Entity;
-import engine.backend.entities.IEntity;
 
 public class InGameEntityFactory {
 	

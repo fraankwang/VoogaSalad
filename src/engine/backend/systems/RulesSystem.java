@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.backend.factories.EntityFactory;
-import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.IComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.rules.Action;
 import engine.backend.rules.Predicate;

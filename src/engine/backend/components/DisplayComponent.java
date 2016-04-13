@@ -7,8 +7,6 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 public class DisplayComponent extends Component implements IComponent{
 	
 	private boolean canBeShown;

@@ -17,8 +17,9 @@ public class LevelFactory {
 		
 	}
 	
-	public Level createLevel(int ID, Map<String, String> data) {
+	public Level createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
+		int ID = 0;
 		for (String key : data.keySet()) {
 			switch (key) {
 				
@@ -32,6 +33,8 @@ public class LevelFactory {
 			case "MapHeight":
 				double height = Double.parseDouble(data.get(key));
 				map.setMapHeight(height);
+			case "LevelNumber":
+				ID = Integer.parseInt(data.get(key));
 			}
 		}
 		return new Level(ID, map);

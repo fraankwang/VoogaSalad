@@ -1,6 +1,5 @@
 package authoring.backend;
 
-import java.util.List;
 import java.util.Map;
 
 import authoring.backend.factories.EntityFactory;
@@ -8,7 +7,6 @@ import authoring.backend.factories.LevelFactory;
 import authoring.backend.factories.ModeFactory;
 import authoring.controller.GlobalData;
 import engine.backend.entities.Entity;
-import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
 
@@ -22,14 +20,12 @@ public class ModelManager implements IModel {
 	private final EntityFactory entityfactory;
 	private final LevelFactory levelfactory;
 	private final ModeFactory modefactory;
-	private int nextAssignedLevelID;
 	
 	public ModelManager(GlobalData globaldata) {
 		this.globaldata = globaldata;
 		this.entityfactory = new EntityFactory();
 		this.levelfactory = new LevelFactory();
 		this.modefactory = new ModeFactory();
-		this.nextAssignedLevelID = 0;
 	}
 	
 	public void updateEntities(Map<String, String> data) {
@@ -44,7 +40,7 @@ public class ModelManager implements IModel {
 	}
 
 	public void updateLevels(Map<String, String> data) {
-		Level level = levelfactory.createLevel(nextAssignedLevelID, data);
+		Level level = levelfactory.createLevel(data);
 		for (Level l : globaldata.getLevels()) {
 			if (l.equals(level)) {
 				l = level;

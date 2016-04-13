@@ -8,7 +8,6 @@ import engine.backend.game_object.Mode;
 import java.util.HashMap;
 import java.util.Map;
 import engine.backend.entities.Entity;
-import engine.backend.entities.IEntity;
 
 public class GameFactory {
 

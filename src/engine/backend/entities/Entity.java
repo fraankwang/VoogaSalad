@@ -116,5 +116,20 @@ public class Entity implements IEntity {
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Entity) {
+			Entity temp = (Entity) o;
+			if (this.myName.equals(temp.myName)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		
+	}
 
 }

@@ -2,7 +2,6 @@ package engine.backend.systems;
 
 import java.util.List;
 
-import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.CollisionComponent;
 import engine.backend.components.DamageComponent;
 import engine.backend.components.HealthComponent;
@@ -10,6 +9,7 @@ import engine.backend.components.MovementComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 
 /**
  * Created by colinduffy on 4/10/16., raghav kedia
