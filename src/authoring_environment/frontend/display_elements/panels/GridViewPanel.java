@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 /**
  * The GridViewPanel is the primary display within many of the TabDisplays. The
  * GridView contains a scrollable GridPane that shows all the existing game
- * sprites (or levels/modes) created. The PanelBar allows  
+ * sprites (or levels/modes) created. The PanelBar allows
  * 
  * @author Frank
  *
@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 public class GridViewPanel extends Panel {
 
 	private final static int DEFAULT_NUM_GRID_COLUMNS = 2;
-	
+
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
 	private PanelBar myPanelBar;
@@ -45,17 +45,17 @@ public class GridViewPanel extends Panel {
 	@Override
 	protected void initializeComponents() {
 		myGridPane = new GridPane();
-	    myScrollPane = new ScrollPane();
-	    myPanelBar = new GridPanelBar(50,50, this);
-	    myPanelBar.initialize();
-	    myImages = new ArrayList<ImageView>();
-	    myAddNewButton = new Button("Add New...");
+		myScrollPane = new ScrollPane();
+		myPanelBar = new GridPanelBar(50, 50, this);
+		myPanelBar.initialize();
+		myImages = new ArrayList<ImageView>();
+		myAddNewButton = new Button("Add New...");
 	}
 
 	private void sizeGrid(int num) {
 		myGridPane.getChildren().clear();
 		myGridPane.getColumnConstraints().clear();
-		double gridCellSize = (myScrollPane.getViewportBounds().getWidth()-20)/num;
+		double gridCellSize = (myScrollPane.getViewportBounds().getWidth() - 20) / num;
 		for (int i = 0; i < num; i++) {
 			ColumnConstraints column = new ColumnConstraints();
 			column.setMinWidth(gridCellSize);
@@ -63,7 +63,7 @@ public class GridViewPanel extends Panel {
 			column.setHalignment(HPos.CENTER);
 			myGridPane.getColumnConstraints().add(column);
 		}
-		
+
 		ImageView currImage;
 		int colNum, rowNum;
 		for (int j = 0; j < myImages.size(); j++) {
@@ -76,19 +76,19 @@ public class GridViewPanel extends Panel {
 		}
 		myGridPane.add(myAddNewButton, myImages.size() % num, myImages.size() / num);
 	}
-	
+
 	public void decreaseGridSize() {
 		if (numColumns != 1) {
 			numColumns--;
-			sizeGrid(numColumns);	
+			sizeGrid(numColumns);
 		}
 	}
-	
+
 	public void increaseGridSize() {
 		numColumns++;
 		sizeGrid(numColumns);
 	}
-	
+
 	@Override
 	protected void assembleComponents() {
 		VBox vbox = new VBox();
@@ -99,9 +99,11 @@ public class GridViewPanel extends Panel {
 		myImages.add(new ImageView("DrumpfVader.png"));
 		myImages.add(new ImageView("DrumpfVader.png"));
 		myImages.add(new ImageView("DrumpfVader.png"));
-	    myScrollPane.setContent(myGridPane);
-	    VBox.setVgrow(myGridPane, Priority.ALWAYS);
-	    sizeGrid(numColumns);
+		myImages.add(new ImageView("DrumpfVader.png"));
+
+		myScrollPane.setContent(myGridPane);
+		VBox.setVgrow(myGridPane, Priority.ALWAYS);
+		sizeGrid(numColumns);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
 		myNode = vbox;
 	}

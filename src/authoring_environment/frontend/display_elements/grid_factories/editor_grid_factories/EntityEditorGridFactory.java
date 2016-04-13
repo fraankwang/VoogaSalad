@@ -9,7 +9,6 @@ import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,7 +30,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel image = new EditorViewPanel(50,50);
+		EditorViewPanel image = new EditorViewPanel(50, 50);
 		StackPane imageDisplay = new StackPane();
 		ImageView entityImage = new ImageView("DrumpfVader.png"); // set default
 																	// image as
@@ -71,21 +70,9 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE,ARBITRARY_PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
 		buttons.initialize();
 		return buttons;
-	}
-
-	@Override
-	public Node createLeftSubGrid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Node createRightSubGrid() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
