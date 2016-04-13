@@ -109,4 +109,8 @@ public class EngineView{
 		return myUIResources.getString(input);
 	}
 	
+	public EngineController getEngineController(){
+		return myController;
+	}
+	
 }

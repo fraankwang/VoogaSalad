@@ -1,15 +1,17 @@
 package engine.frontend;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 
 public class BoardPane {
 	private EngineView myEngineView;
 	private Pane myPane;
+	private Map<Integer, EntityView> myImageMap = new HashMap<>();
 	
 	public BoardPane(EngineView ev){
 		myEngineView = ev;
@@ -21,15 +23,34 @@ public class BoardPane {
 		myPane.setMaxWidth(myEngineView.loadUIIntResource("BoardSize"));
 		myPane.setMinHeight(myEngineView.loadUIIntResource("BoardSize"));
 		myPane.setMaxHeight(myEngineView.loadUIIntResource("BoardSize"));
+		myPane.setOnMouseClicked(e -> attemptTower(e.getSceneX(), e.getSceneY()));
 		return myPane;
 	}
 	
-	public void createCharacterImage(double xCoord, double yCoord, String image, double width, double height){
+	public void createCharacterImage(double xCoord, double yCoord, String image, int id, double width, double height){
 		ImageView myPlayer = new ImageView(new Image(image));
 		myPlayer.setFitWidth(width);
 		myPlayer.setFitHeight(height);
 		myPlayer.setX(xCoord);
 		myPlayer.setY(yCoord);
 		myPane.getChildren().add(myPlayer);
+		
+	}
+	
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
+		Integer myKey = new Integer(id);
+		
+		myImageMap.put(myKey, new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height));
+		/*
+		if(myImageMap.containsKey(myKey)){
+			myImageMap.put(myKey, myImageMap.get(myKey).updateEntity( xCoord, yCoord, image, id, width, height)));
+		}else{
+			myImageMap.put(myKey, new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height));
+		}
+		*/
+	}
+	
+	public void attemptTower(double xLoc, double yLoc){
+		myEngineView.getEngineController().attemptTower(xLoc, yLoc);
 	}
 }
