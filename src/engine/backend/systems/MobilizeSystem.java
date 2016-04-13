@@ -60,7 +60,7 @@ public class MobilizeSystem extends Systemm implements ISystem {
 	private void updatePathMovement(IEntity entity){
 		//needs access to path
 		
-		Map.getPath().updatePositionOnPath(entity);
+//		Map.getPath().updatePositionOnPath(entity);
 		
 	}
 	

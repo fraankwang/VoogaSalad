@@ -9,13 +9,13 @@ package engine.backend.systems;
 
 import java.util.List;
 
-import engine.backend.FrontEndAccessController;
-import engine.backend.Level;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
+import engine.backend.game_object.Level;
+import engine.controller.Engine2PlayerController;
 
 
 
@@ -28,10 +28,9 @@ import engine.backend.entities.IEntity;
 public class RenderingSystem extends Systemm {
 
 
-//	private IFrontEndAccess frontEndController;
-	private FrontEndAccessController displayController;
+	private Engine2PlayerController displayController;
 	
-	public RenderingSystem(FrontEndAccessController displayController) {
+	public RenderingSystem(Engine2PlayerController displayController) {
 		this.displayController = displayController;
 	}
 
@@ -39,12 +38,12 @@ public class RenderingSystem extends Systemm {
 	public void update(List<IEntity> entities) {
 		// TODO Auto-generated method stub
 		for(IEntity myEntity : entities){
-			System.out.println(myEntity.toString());
+//			System.out.println(myEntity.toString());
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
-			double sizex = 80;
-			double sizey = 100;
+			double sizex = 350;
+			double sizey = 200;
 			for(IComponent eachComponent: myEntity.getComponents()){
 				if(eachComponent.getTag().equals(getComponentTagResources().getString("Display"))){
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
@@ -58,6 +57,9 @@ public class RenderingSystem extends Systemm {
 					sizex = ((SizeComponent) eachComponent).getHeight();
 				}
 			}
+			
+			x = 300;
+			y = 300;
 			
 			displayController.createCharacterImage(x, y, imageToDisplay, sizex, sizey);
 		}

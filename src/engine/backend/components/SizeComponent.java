@@ -12,9 +12,13 @@ public class SizeComponent extends Component implements IComponent{
 	private double width;
 	private double height;
 	
+	private static final int DEFAULT_HEIGHT = 200;
+	private static final int DEFAULT_WIDTH = 200;
+	
 	//default component
 	public SizeComponent() {
-
+		this.width = DEFAULT_WIDTH;
+		this.height = DEFAULT_HEIGHT;
 	}
 	
 	public SizeComponent(double width, double height){

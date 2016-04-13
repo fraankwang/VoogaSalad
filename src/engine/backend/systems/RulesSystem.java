@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author mario_oliver93
+ * 
+ */
+
 package engine.backend.systems;
 
 import java.lang.reflect.InvocationTargetException;
@@ -5,13 +11,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.backend.GameWorld;
 import engine.backend.components.Component;
 import engine.backend.components.IComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.EntityFactoryClass;
 import engine.backend.entities.IEntity;
+import engine.backend.game_object.GameWorld;
 import engine.backend.rules.Action;
 import engine.backend.rules.Predicate;
 import engine.backend.rules.Rule;
