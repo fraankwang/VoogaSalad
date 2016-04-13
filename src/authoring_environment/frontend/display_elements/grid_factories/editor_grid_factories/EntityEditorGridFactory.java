@@ -27,7 +27,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel editorView = new EditorViewPanel(50, 50);
+		EditorViewPanel editorView = new EditorViewPanel(800*0.7, 1200*0.7);
 		editorView.initialize();
 		editorView.setImage(new Image("DrumpfVader.png")); // set default
 

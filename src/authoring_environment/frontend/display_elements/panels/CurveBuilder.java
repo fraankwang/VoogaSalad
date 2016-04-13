@@ -25,10 +25,15 @@ public class CurveBuilder implements IDisplayElement {
 	}
 	
 	public void createNewCurve() {
-		BezierCurveManipulator newCurve = new BezierCurveManipulator(myHeight, myWidth);
+		BezierCurveManipulator newCurve = new BezierCurveManipulator(myHeight, myWidth, this, myBezierCurves.size());
 		newCurve.initialize();
 		myBezierCurves.add(newCurve);
 		myNode.getChildren().add(newCurve.getNode());
+	}
+	
+	protected void removeCurve(BezierCurveManipulator curve) {
+		myBezierCurves.remove(curve);
+		myNode.getChildren().remove(curve.getNode());
 	}
 	
 	public void setSize(double height, double width) {

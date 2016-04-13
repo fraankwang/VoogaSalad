@@ -30,7 +30,7 @@ public class RulesEditorPanel extends Panel {
 	private ListView<String> myIfStatements;
 	private ListView<String> myThenStatements;
 
-	public RulesEditorPanel(int height, int width) {
+	public RulesEditorPanel(double height, double width) {
 		super(height, width);
 	}
 

@@ -13,7 +13,7 @@ import authoring_environment.frontend.display_elements.panels.Panel;
 
 public abstract class PanelBar extends Panel {
 
-	public PanelBar(int height, int width) {
+	public PanelBar(double height, double width) {
 		super(height, width);
 	}
 

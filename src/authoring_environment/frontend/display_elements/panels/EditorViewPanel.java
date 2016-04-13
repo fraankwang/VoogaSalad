@@ -22,7 +22,7 @@ public class EditorViewPanel extends Panel {
 	private ScrollPane myScrollPane;
 	private EditorPanelBar myPanelBar;
 
-	public EditorViewPanel(int height, int width) {
+	public EditorViewPanel(double height, double width) {
 		super(height, width);
 		// TODO Auto-generated constructor stub
 	}

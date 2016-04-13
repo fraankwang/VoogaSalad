@@ -23,7 +23,7 @@ public class GridPanelBar extends PanelBar {
 	private Button myDecreaseColumnsButton;
 	private GridViewPanel myGridView;
 
-	public GridPanelBar(int height, int width, GridViewPanel grid) {
+	public GridPanelBar(double height, double width, GridViewPanel grid) {
 		super(height, width);
 		myGridView = grid;
 	}
