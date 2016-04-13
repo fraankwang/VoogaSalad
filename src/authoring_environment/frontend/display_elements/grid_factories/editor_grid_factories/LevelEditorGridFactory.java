@@ -41,7 +41,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel editorView = new EditorViewPanel(50,50);
+		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800*0.7, 1200*0.7);
 		editorView.initialize();
 		editorView.setImage(new Image("DrumpfVader.png"));	 		// set default
 																	// image as
@@ -49,7 +49,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 																	// mark or
 																	// something
 
-		editorView.getPanelBar().addButton("Upload Image", e -> {
+		editorView.getPanelBar().addButton("Upload Map Image", e -> {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Resource File");
 				fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));

@@ -26,9 +26,12 @@ public class BezierCurveManipulator implements IDisplayElement {
 	private CubicCurve myCurve;
 	private Anchor start, control1, control2, end;
 	private Line controlLine1, controlLine2;
+	private double myWidth, myHeight;
+	//private Node myClip;
 
-	public BezierCurveManipulator() {
-
+	public BezierCurveManipulator(double height, double width) {
+		myWidth = width;
+		myHeight = height;
 	}
 
 	@Override
@@ -40,6 +43,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 
 	public void initialize() {
 		myCurve = createInitialCurve();
+		myNode = new Group();
 		
 		controlLine1 = new BoundLine(myCurve.controlX1Property(), myCurve.controlY1Property(), myCurve.startXProperty(), myCurve.startYProperty());
 	    controlLine2 = new BoundLine(myCurve.controlX2Property(), myCurve.controlY2Property(), myCurve.endXProperty(),   myCurve.endYProperty());
@@ -65,7 +69,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    curve.setStroke(Color.BLACK);
 	    curve.setStrokeWidth(4);
 	    curve.setStrokeLineCap(StrokeLineCap.ROUND);
-	    curve.setFill(Color.CORNSILK.deriveColor(0, 1.2, 1, 0.6));
+	    curve.setFill(null);
 	    return curve;
 	}
 	
@@ -119,11 +123,11 @@ public class BezierCurveManipulator implements IDisplayElement {
 	      setOnMouseDragged(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	          double newX = mouseEvent.getX() + dragDelta.x;
-	          if (newX > 0 && newX < getScene().getWidth()) {
+	          if (newX > 0 && newX < myWidth) {
 	            setCenterX(newX);
 	          }  
 	          double newY = mouseEvent.getY() + dragDelta.y;
-	          if (newY > 0 && newY < getScene().getHeight()) {
+	          if (newY > 0 && newY < myHeight) {
 	            setCenterY(newY);
 	          }  
 	        }
