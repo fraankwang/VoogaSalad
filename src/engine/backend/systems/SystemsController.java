@@ -45,6 +45,7 @@ public class SystemsController {
 		collisionSystem = new CollisionSystem();
 		rulesSystem = new RulesSystem();
 		
+		mySystems = new ArrayList<ISystem>();
 		mySystems.add(firingSystem);
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);

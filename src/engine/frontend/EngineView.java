@@ -8,12 +8,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
-
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Main;
+
+
 
 public class EngineView{
 
@@ -101,6 +102,10 @@ public class EngineView{
 	
 	public StatusPane getStatusPane(){
 		return myStatusPane;
+	}
+
+	public EngineController getEngineController(){
+		return myController;
 	}
 	
 	protected int loadUIIntResource(String input){
