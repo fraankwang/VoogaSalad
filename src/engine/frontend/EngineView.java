@@ -2,6 +2,7 @@ package engine.frontend;
 
 import java.util.ResourceBundle;
 
+import engine.controller.EngineController;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -17,20 +18,20 @@ public class EngineView{
 	public static final String DEFAULT_UI_RESOURCE = "engine/resources/engine_window";
 	private ResourceBundle myUIResources;
 	private Stage myStage;
-	private Main myMain;
 	
+	private EngineController myController;
 	private ToolbarManager myToolbarManager;
 	private BoardPane myBoardPane;
-	private TowerPane myTowerPane;
+	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
 	
-	public EngineView(Stage s, Main m){
+	public EngineView(Stage s, EngineController c){
 		myStage = s;
-		myMain = m;
+		myController = c;
 		
 		myToolbarManager = new ToolbarManager(this);
 		myBoardPane = new BoardPane(this);
-		myTowerPane = new TowerPane(this);
+		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
 		myUIResources = ResourceBundle.getBundle(DEFAULT_UI_RESOURCE);
 	}
@@ -67,7 +68,7 @@ public class EngineView{
 	 */
 	private void fillTopHBox(HBox hbox){
 		Node board = myBoardPane.buildNode();
-		Node tower = myTowerPane.buildNode();
+		Node tower = myShopPane.buildNode();
 		hbox.getChildren().addAll(board, tower);
 	}
 	
@@ -80,25 +81,32 @@ public class EngineView{
 		hbox.getChildren().addAll(status);
 	}
 	
-	protected int loadUIIntResource(String input){
-		return Integer.parseInt(myUIResources.getString(input));
-	}
-	
-	/**
-	 * Loads an int resource from the UI resource bundle and string key
-	 * @param r resource bundle
-	 * @param input String key
-	 */
-	protected String loadUIStringResource(String input){
-		return myUIResources.getString(input);
-	}
-	
 	public Stage getStage(){
 		return myStage;
 	}
 	
 	protected Main getMain(){
-		return myMain;
+		return myController.getMain();
+	}
+	
+	public BoardPane getBoardPane(){
+		return myBoardPane;
+	}
+	
+	public ShopPane getShopPane(){
+		return myShopPane;
+	}
+	
+	public StatusPane getStatusPane(){
+		return myStatusPane;
+	}
+	
+	protected int loadUIIntResource(String input){
+		return Integer.parseInt(myUIResources.getString(input));
+	}
+	
+	protected String loadUIStringResource(String input){
+		return myUIResources.getString(input);
 	}
 	
 }

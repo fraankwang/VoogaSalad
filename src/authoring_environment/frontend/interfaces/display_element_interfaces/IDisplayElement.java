@@ -18,5 +18,7 @@ public interface IDisplayElement {
 	 * 
 	 * @return
 	 */
-	public Node buildNode();
+	public Node getNode();
+	
+	public void initialize();
 }

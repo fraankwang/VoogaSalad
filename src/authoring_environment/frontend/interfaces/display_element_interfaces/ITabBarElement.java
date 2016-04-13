@@ -14,14 +14,14 @@ import authoring_environment.frontend.display_elements.tab_displays.TabDisplay;
 public interface ITabBarElement extends IDisplayElement {
 
 	public void show(ITabDisplay display);
+	
+	public void initialize();
 
 	public TabDisplay getGameTabDisplay();
 
 	public TabDisplay getModesTabDisplay();
 
 	public TabDisplay getLevelsTabDisplay();
-
-	public TabDisplay getTowersTabDisplay();
-
-	public TabDisplay getEnemiesTabDisplay();
+	
+	public TabDisplay getEntitiesTabDisplay();
 }
