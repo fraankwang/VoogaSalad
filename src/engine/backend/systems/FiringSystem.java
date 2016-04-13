@@ -3,6 +3,7 @@ package engine.backend.systems;
 import java.util.List;
 
 import authoring.backend.factories.EntityFactory;
+import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.FiringComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PositionComponent;
@@ -18,7 +19,7 @@ import engine.backend.entities.IEntity;
 public class FiringSystem extends Systemm implements ISystem{
 
 	@Override 
-	public void update(List<IEntity> entities) {
+	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
 		// TODO Auto-generated method stub
 		
 		for(IEntity shootingEntity : entities){
