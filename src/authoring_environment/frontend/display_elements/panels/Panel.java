@@ -20,10 +20,15 @@ public abstract class Panel implements IPanel {
 	public Panel(int height, int width) {
 		myHeight = height;
 		myWidth = width;
-		initializeComponents();
-		assembleComponents();
+
 	}
 
+	public void initialize() {
+		initializeComponents();
+		assembleComponents();
+		
+	}
+	
 	/**
 	 * Each subclass of Panel will have its components that are initialized
 	 * differently.
@@ -37,7 +42,7 @@ public abstract class Panel implements IPanel {
 	protected abstract void assembleComponents();
 
 	@Override
-	public Node buildNode() {
+	public Node getNode() {
 		return myNode;
 	}
 
