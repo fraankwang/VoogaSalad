@@ -62,7 +62,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 		editorView.getPanelBar().addButton("Upload Image", e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg"));
 			File imageFile = fileChooser.showOpenDialog(null);
 			if (imageFile != null) {
 				editorView.setImage(new Image(imageFile.toURI().toString()));
