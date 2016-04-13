@@ -30,8 +30,7 @@ public class ModelManager implements IModel {
 	}
 	
 	public void updateEntities(Map<String, String> data) {
-		//TODO: invoke factory class to make a new Entity
-		Entity entity = new Entity(0);
+		Entity entity = entityfactory.createEntity(data);
 		for (Entity e : globaldata.getEntities()) {
 			if (e.equals(entity)) {
 				e = entity;

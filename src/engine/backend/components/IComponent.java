@@ -8,8 +8,8 @@ public interface IComponent {
 	
 	public void initWithParams(List<?> params);
 	
-	public void setEntityID(int entityID);
+	public void setEntityName(String entityName);
 	
-	public int getEntityID();
+	public String getEntityName();
 	
 }

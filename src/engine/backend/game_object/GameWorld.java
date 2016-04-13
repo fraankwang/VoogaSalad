@@ -23,18 +23,6 @@ public class GameWorld {
 		this.modes = new ArrayList<Mode>();
 	}
 
-//	public void initializeGameObject(int numOfMode, int numOfLevels) {
-//		int iteration = 0;
-//		while (iteration < numOfMode) {
-//			Mode mode1 = new Mode();
-//			addMode(mode1);
-//			for (int i = 0; iteration < numOfLevels; iteration++) {
-//				addNewLevelToCurrentMode(mode1);
-//			}
-//			iteration++;
-//		}
-//	}
-
 	public GameStatistics getGameStats() {
 		return gameStats;
 	}

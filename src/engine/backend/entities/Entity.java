@@ -22,11 +22,17 @@ public class Entity implements IEntity {
 
 	private boolean hasBeenModified = false;
 
-	public Entity(int ID, String name, String type, double value) {
-		myName = name;
-		setMyType(type);
-		this.myID = ID;
-		this.setValue(value);
+	public Entity(int myID, String myName, String myType, double myValue) {
+		this.myName = myName;
+		this.myType = myType;
+		this.myID = myID;
+		this.myValue = myValue;
+	}
+	
+	public Entity(String myName, String myType, double myValue) {
+		this.myName = myName;
+		this.myType = myType;
+		this.myValue = myValue;
 	}
 
 	public List<Rule> getRules() {
@@ -38,17 +44,12 @@ public class Entity implements IEntity {
 	}
 
 	public void addComponent(IComponent component) {
-		component.setEntityID(myID);
+		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
 	}
 
 	public IComponent getComponent(String tag) {
 		return myComponents.get(tag);
-	}
-
-	@Override
-	public String toString() {
-		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
 
 	public Set<String> getComponentTags() {
@@ -57,6 +58,10 @@ public class Entity implements IEntity {
 
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
+	}
+	
+	public void setID(int myID) {
+		this.myID = myID;
 	}
 	
 	public int getID(){
@@ -105,6 +110,11 @@ public class Entity implements IEntity {
 
 	public void setMyType(String myType) {
 		this.myType = myType;
+	}
+	
+	@Override
+	public String toString() {
+		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
 
 }
