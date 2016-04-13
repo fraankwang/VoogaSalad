@@ -16,10 +16,10 @@ public class GameWorld {
 	
 	private Map<String, Map<String, Entity>> myEntityTypeMap; //maps types of entities to a map containing specific entity names of that type
 	private List<Mode> modes;
-	private GameStatistics gameStats;
+	private GameStatistics myGameStatistics;
 
 	public GameWorld() {
-		this.gameStats = new GameStatistics();
+		this.myGameStatistics = new GameStatistics();
 		this.modes = new ArrayList<Mode>();
 	}
 
@@ -35,13 +35,13 @@ public class GameWorld {
 //		}
 //	}
 
-	public GameStatistics getGameStats() {
-		return gameStats;
+	public GameStatistics getGameStatistics() {
+		return myGameStatistics;
 	}
 
 	public void addMode(Mode mode) {
 		modes.add(mode);
-		gameStats.incrementNumModes();
+		myGameStatistics.incrementNumModes();
 	}
 	
 	public Mode getModeWithId(int modeId){
@@ -80,7 +80,7 @@ public class GameWorld {
 	public void addNewLevelToCurrentMode(Mode mode) {
 		Level level1 = new Level(0);
 		mode.addLevel(level1);
-		gameStats.incrementNumLevels();
+		myGameStatistics.incrementNumLevels();
 	}
 
 	/**
@@ -103,6 +103,10 @@ public class GameWorld {
 	
 	public void setEntityMap(Map<String, Map<String, Entity>> map){
 		this.myEntityTypeMap = map;
+	}
+	
+	public Map<String, Map<String, Entity>> getEntityMap(){
+		return myEntityTypeMap;
 	}
 
 }

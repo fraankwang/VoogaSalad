@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -29,10 +30,13 @@ public class SystemsController {
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
+	
+	private InGameEntityFactory myEntityFactory;
 
 
 	public SystemsController(EngineController eController) {
 		engineController = eController;
+		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), eController.getMyGameWorld().getEntityMap());
 		
 		renderingSystem = new RenderingSystem(engineController);
 		mobilizationSystem = new MobilizeSystem();
@@ -51,13 +55,11 @@ public class SystemsController {
 	}
 
 	public void iterateThroughSystems(GameWorld game) {
-		
+		Mode currMode = game.getModes().get(game.getGameStatistics().getCurrentLevel());
+		List<Level> currLevels = game.getLevelsForMode(currMode);
+		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
 		for (ISystem system : mySystems) {
-			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
-			List<Level> currLevels = game.getLevelsForMode(currMode);
-			//switch this to iterate through the quadrants contained inside of the curr levels map
-			//and that maps quadrants
-			system.update(currLevels.get(game.getGameStats().getCurrentLevel()).getEntities());
+			system.update(currentLevel.getEntities(), myEntityFactory);
 		}
 		
 	}

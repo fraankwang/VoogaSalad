@@ -2,6 +2,7 @@ package engine.backend.systems;
 
 import java.util.List;
 
+import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.MouseComponent;
 import engine.backend.entities.IEntity;
 import engine.controller.EngineController;
@@ -15,7 +16,7 @@ public class MouseSystem extends Systemm implements ISystem {
         this.myFrontEndAccessController = myFrontEndAccessController;
     }
     @Override
-    public void update(List<IEntity> entities) {
+    public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
 
             for(IEntity iEntity : entities){
                 if(iEntity.hasComponent(getComponentTagResources().getString("Mouse"))){

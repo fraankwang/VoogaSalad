@@ -9,6 +9,7 @@ package engine.backend.systems;
 
 import java.util.List;
 
+import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.PositionComponent;
@@ -35,7 +36,7 @@ public class RenderingSystem extends Systemm {
 	}
 
 	@Override
-	public void update(List<IEntity> entities) {
+	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
 		// TODO Auto-generated method stub
 		for(IEntity myEntity : entities){
 //			System.out.println(myEntity.toString());
