@@ -1,15 +1,12 @@
 package engine.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import engine.backend.FakeGAEBackend;
-import engine.backend.MockGAEData;
+import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
+import engine.backend.components.SizeComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
@@ -54,12 +51,16 @@ public class EngineController {
 		Path tempPath = new Path();
 		BezierCurve tempCurve = new BezierCurve(0,0, 0,0, 0,0, 100,0);
 		tempPath.addCurve(tempCurve);
-		GameMap tempMap = new GameMap("", tempPath, 200, 200);
+		GameMap tempMap = new GameMap("DrumpfVader.png", tempPath, 200, 200);
 		
 		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
 		IComponent tempPosition = new PositionComponent(0, 0);
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent pathComp = new PathComponent(0, 0);
+		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
+		IComponent tempSize = new SizeComponent();
+		tempEntity.addComponent(tempDisplay);
+		tempEntity.addComponent(tempSize);
 		tempEntity.addComponent(tempPosition);
 		tempEntity.addComponent(tempMovement);
 		tempEntity.addComponent(pathComp);
@@ -78,7 +79,7 @@ public class EngineController {
 	}
 	
 	public void start(){
-		KeyFrame frame = new KeyFrame(Duration.millis(100 / NUM_FRAMES_PER_SECOND), e -> step());
+		KeyFrame frame = new KeyFrame(Duration.millis(10000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
