@@ -84,7 +84,7 @@ public class EngineController {
 	}
 	
 	public void deleteEntity(int id){
-		
+		myEngineView.getBoardPane().deleteEntity(id);
 	}
 	
 	public Main getMain(){

@@ -56,6 +56,11 @@ public class BoardPane {
 		}
 	}
 	
+	public void deleteEntity(int id){
+		myPane.getChildren().remove(myImageMap.get(id).getNode());
+		myImageMap.remove(id);
+	}
+	
 	public void attemptTower(double xLoc, double yLoc){
 		myEngineView.getEngineController().attemptTower(xLoc, yLoc);
 	}

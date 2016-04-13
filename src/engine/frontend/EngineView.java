@@ -115,7 +115,4 @@ public class EngineView{
 		return myUIResources.getString(input);
 	}
 	
-	
-	
-	
 }
