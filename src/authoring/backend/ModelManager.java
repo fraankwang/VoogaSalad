@@ -56,8 +56,7 @@ public class ModelManager implements IModel {
 	}
 
 	public void updateModes(Map<String, String> data) {
-		//TODO: invoke factory class to make new Mode
-		Mode mode = new Mode(0);
+		Mode mode = modefactory.createMode(data);
 		for (Mode m : globaldata.getModes()) {
 			if (m.equals(mode)) {
 				m = mode;

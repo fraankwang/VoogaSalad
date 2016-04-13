@@ -32,9 +32,9 @@ public class GameWorld {
 		gameStats.incrementNumModes();
 	}
 	
-	public Mode getModeWithId(int modeId){
+	public Mode getModeWithName(String name){
 		for (Mode mode : modes){
-			if (mode.getId() == modeId){
+			if (mode.getName().equals(name)){
 				return mode; //potential exception
 			}
 		}
