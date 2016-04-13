@@ -1,14 +1,16 @@
-package backend.game_object.components;
+package engine.backend.components;
+
+import java.util.List;
 
 /**
- * Created by colinduffy on 4/10/16.
+ * Created by colinduffy on 4/12/16.
  */
-public class InputComponent extends Component implements IComponent {
+public class UserInputComponent extends Component implements IComponent {
 
     private boolean clicked, cursorOver, keyPressed;
     private String keyValue;
 
-    public InputComponent(){
+    public UserInputComponent(){
         clicked = false;
         cursorOver = false;
         keyPressed = false;
@@ -49,7 +51,12 @@ public class InputComponent extends Component implements IComponent {
 
 
     @Override
-    public String getTag() {
-        return "Mouse";
+    public void initWithParams(List params) {
+
+    }
+
+    @Override
+    public String getTag(){
+        return "UserInput";
     }
 }

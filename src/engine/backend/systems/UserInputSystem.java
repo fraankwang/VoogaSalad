@@ -1,22 +1,21 @@
-package backend.systems;
+package engine.backend.systems;
 
-import backend.FrontEndAccessController;
-import backend.game_object.components.InputComponent;
-import backend.game_object.entities.IEntity;
-import engine.backend.systems.ISystem;
-import engine.backend.systems.Systemm;
+import engine.backend.components.UserInputComponent;
+import engine.backend.entities.IEntity;
+import engine.controller.Engine2PlayerController;
 
 import java.util.List;
 
 /**
- * Created by colinduffy on 4/10/16.
+ * Created by colinduffy on 4/12/16.
  */
-public class InputSystem extends Systemm implements ISystem {
-    private FrontEndAccessController myFrontEndAccessController;
-    private static final String COMPONENT_TAG = "Input";
-    public InputSystem(FrontEndAccessController myFrontEndAccessController){
+public class UserInputSystem extends Systemm implements ISystem{
+    private Engine2PlayerController myFrontEndAccessController;
+    private static final String COMPONENT_TAG = "UserInput";
+    public UserInputSystem(Engine2PlayerController myFrontEndAccessController){
         this.myFrontEndAccessController = myFrontEndAccessController;
     }
+
     @Override
     public void update(List<IEntity> entities) {
 
@@ -34,8 +33,7 @@ public class InputSystem extends Systemm implements ISystem {
     }
 
     private void updateMouseClickedData(IEntity iEntity, boolean update){
-        InputComponent toChange  = (InputComponent)iEntity.getComponent(getComponentTagResources().getString(COMPONENT_TAG));
+        UserInputComponent toChange  = (UserInputComponent)iEntity.getComponent(getComponentTagResources().getString(COMPONENT_TAG));
         toChange.setClicked(update);
     }
 }
-
