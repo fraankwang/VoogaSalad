@@ -1,19 +1,15 @@
 package authoring_environment.frontend.display_elements.grid_factories.editor_grid_factories;
 
 import java.io.File;
-
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring_environment.frontend.display_elements.panels.EditorViewPanel;
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -31,56 +27,46 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel editorView = new EditorViewPanel(50,50);
+		EditorViewPanel editorView = new EditorViewPanel(50, 50);
 		editorView.initialize();
-		editorView.setImage(new Image("DrumpfVader.png"));	 		// set default
-																	// image as
-																	// question
-																	// mark or
-																	// something
+		editorView.setImage(new Image("DrumpfVader.png")); // set default
+
+		// image as
+		// question
+		// mark or
+		// something
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {
-				FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Open Resource File");
-				fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-				File imageFile = fileChooser.showOpenDialog(null);
-				if (imageFile != null) {
-					editorView.setImage(new Image(imageFile.toURI().toString()));
-				}
-			});
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Resource File");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+			File imageFile = fileChooser.showOpenDialog(null);
+			if (imageFile != null) {
+				editorView.setImage(new Image(imageFile.toURI().toString()));
+			}
+		});
 		return editorView;
 	}
 
 	@Override
 	public Panel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
+		RulesEditorPanel editorPanel = new RulesEditorPanel(PANEL_SIZE, PANEL_SIZE);
 		editorPanel.initialize();
 		return editorPanel;
 	}
 
 	@Override
 	public Panel createModifiableAttributesPanel() {
-		// TODO Auto-generated method stub
-		return null;
+		ModifiableAttributesPanel panel = new ModifiableEntityAttributesPanel(PANEL_SIZE, PANEL_SIZE);
+		panel.initialize();
+		return panel;
 	}
 
 	@Override
 	public Panel createButtonDashboard() {
-		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE,ARBITRARY_PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(PANEL_SIZE, PANEL_SIZE);
 		buttons.initialize();
 		return buttons;
-	}
-
-	@Override
-	public Node createLeftSubGrid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Node createRightSubGrid() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

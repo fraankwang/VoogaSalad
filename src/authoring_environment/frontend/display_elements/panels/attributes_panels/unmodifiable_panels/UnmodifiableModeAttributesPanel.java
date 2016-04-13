@@ -66,8 +66,9 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 
 		lv.setEditable(true);
 
-		lv.getItems().add("hello!");
-		lv.getItems().add("helloooo");
+		lv.getItems().add("Easy");
+		lv.getItems().add("Medium");
+		lv.getItems().add("Hard");
 
 		return lv;
 	}
