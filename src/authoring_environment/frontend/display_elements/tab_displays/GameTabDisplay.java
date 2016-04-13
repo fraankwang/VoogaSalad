@@ -14,8 +14,15 @@ public class GameTabDisplay extends TabDisplay {
 
 	public GameTabDisplay(IController controller) {
 		super(controller);
-		myGrid = new GameTabGrid();
-		myEditorDisplay = new GameEditorDisplay();
+		myController = controller;
+	}
+
+	@Override
+	public void initialize() {
+		myGrid = new GameTabGrid(myController, this);
+		myGrid.initialize();
+		myEditorDisplay = new GameEditorDisplay(myController);
+		myEditorDisplay.initialize();
 	}
 
 }

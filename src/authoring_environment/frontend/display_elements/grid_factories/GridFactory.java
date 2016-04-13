@@ -1,5 +1,7 @@
 package authoring_environment.frontend.display_elements.grid_factories;
 
+import authoring_environment.controller.IController;
+import authoring_environment.frontend.display_elements.panels.Panel;
 import javafx.scene.Node;
 
 /**
@@ -13,10 +15,17 @@ import javafx.scene.Node;
  */
 
 public abstract class GridFactory {
+	
+	private IController myController;
+	protected final int ARBITRARY_PANEL_SIZE = 450;
+	
+	public GridFactory(IController controller) {
+		myController = controller;
+	}
 
-	public abstract Node createPrimaryDisplay();
+	public abstract Panel createPrimaryDisplay();
 
-	public abstract Node createButtonDashboard();
+	public abstract Panel createButtonDashboard();
 
 	public abstract Node createLeftSubGrid();
 

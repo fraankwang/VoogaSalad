@@ -5,6 +5,10 @@ import authoring_environment.frontend.display_elements.editor_displays.EditorDis
 import authoring_environment.frontend.display_elements.grids.Grid;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * The TabDisplay superclass acts as a container for it's Grid and corresponding
@@ -16,6 +20,8 @@ import javafx.scene.Node;
 
 public abstract class TabDisplay implements ITabDisplay {
 
+	private static final int EDITOR_SCENE_WIDTH = 1200;
+	private static final int EDITOR_SCENE_HEIGHT = 800;
 	protected EditorDisplay myEditorDisplay;
 	protected Grid myGrid;
 	protected IController myController;
@@ -25,13 +31,18 @@ public abstract class TabDisplay implements ITabDisplay {
 	}
 
 	@Override
-	public Node buildNode() {
-		return myGrid.buildNode();
+	public Node getNode() {
+		return myGrid.getNode();
 	}
 
 	@Override
-	public EditorDisplay getEditorDisplay() {
-		return myEditorDisplay;
+	public void openEditorDisplay() {
+		Stage editorStage = new Stage();
+		BorderPane root = new BorderPane();
+		root.setCenter(myEditorDisplay.getNode());
+		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
+		editorStage.setScene(editorScene);
+		editorStage.show();
 	}
 
 }
