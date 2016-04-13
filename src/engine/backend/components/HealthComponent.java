@@ -1,7 +1,5 @@
 package engine.backend.components;
 
-import java.util.List;
-
 public class HealthComponent extends Component implements IComponent{
 	
 	private double myHealth;

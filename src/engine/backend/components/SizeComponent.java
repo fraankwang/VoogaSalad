@@ -5,8 +5,6 @@
  */
 package engine.backend.components;
 
-import java.util.List;
-
 public class SizeComponent extends Component implements IComponent{
 
 	private double width;

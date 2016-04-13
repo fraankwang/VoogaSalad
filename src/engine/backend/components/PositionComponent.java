@@ -4,8 +4,6 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 public class PositionComponent extends Component implements IComponent{
 	
 	private Vector myPositionVector;
