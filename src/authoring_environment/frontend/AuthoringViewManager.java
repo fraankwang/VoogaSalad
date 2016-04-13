@@ -1,5 +1,7 @@
 package authoring_environment.frontend;
 
+import authoring.controller.DataContainer;
+import authoring.controller.GlobalData;
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.MenuBarElement;
 import authoring_environment.frontend.display_elements.TabBarElement;
@@ -27,17 +29,19 @@ public class AuthoringViewManager implements IViewManager {
 
 	private IMenuBarElement myMenuBar;
 	private ITabBarElement myTabBar;
-	private IController myController;
-
-	public AuthoringViewManager(IController controller) {
-		myController = controller;
+	private DataContainer datacontainer;
+	private GlobalData globaldata;
+	
+	public AuthoringViewManager(DataContainer datacontainer, GlobalData globaldata) {
+		this.datacontainer = datacontainer;
+		this.globaldata = globaldata;
 	}
 
 	@Override
 	public void initialize(Stage s) {
 		myMenuBar = new MenuBarElement();
 		myMenuBar.initialize();
-		myTabBar = new TabBarElement(myController);
+		myTabBar = new TabBarElement(datacontainer);
 		myTabBar.initialize();
 
 		BorderPane borderPane = new BorderPane();
