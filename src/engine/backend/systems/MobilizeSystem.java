@@ -12,6 +12,8 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_object.Level;
+import engine.backend.map.GameMap;
 
 public class MobilizeSystem implements ISystem {
 	
@@ -28,8 +30,8 @@ public class MobilizeSystem implements ISystem {
 	//Make default velocity vector
 	
 	@Override
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-		
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity entity : entities){
 			
 			if(!entity.hasComponent(myComponentTagResources.getString("Movement"))){
@@ -42,7 +44,7 @@ public class MobilizeSystem implements ISystem {
 			
 			if(entity.hasComponent(myComponentTagResources.getString("Path"))){
 				//if on path
-				updatePathMovement(entity);
+				updatePathMovement(entity, myLevel.getMap(), myComponentTagResources);
 			}
 			else{
 				//do movement
@@ -56,15 +58,14 @@ public class MobilizeSystem implements ISystem {
 			double omega = movComponent.getCurrentOmega();
 			movComponent.setTheta(theta+omega);
 			
-			
 		}
 
 	}
 	
-	private void updatePathMovement(IEntity entity){
+	private void updatePathMovement(IEntity entity, GameMap map, ResourceBundle myComponentTagResources){
 		//needs access to path
 		
-//		Map.getPath().updatePositionOnPath(entity);
+		map.getPath().updatePositionOnPath(entity, myComponentTagResources);
 		
 	}
 	

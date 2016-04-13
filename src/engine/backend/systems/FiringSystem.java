@@ -10,6 +10,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_object.Level;
 
 /**
  * 
@@ -20,9 +21,9 @@ import engine.backend.entities.InGameEntityFactory;
 public class FiringSystem implements ISystem{
 
 	@Override 
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
-		
+		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity shootingEntity : entities){
 			
 			if(shootingEntity.hasComponent(myComponentTagResources.getString("Firing"))){

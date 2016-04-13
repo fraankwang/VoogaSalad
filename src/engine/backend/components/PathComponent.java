@@ -22,6 +22,12 @@ public class PathComponent extends Component implements IComponent{
 	public PathComponent(){
 	}
 	
+	public PathComponent(int id, double time){
+		pathID = id;
+		myBezierTime = time;
+		movesWithTime = true;
+	}
+	
 	public int getCurveID(){
 		return curveID;
 	}

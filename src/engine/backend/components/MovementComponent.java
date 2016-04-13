@@ -26,6 +26,11 @@ public class MovementComponent extends Component implements IComponent{
 	public MovementComponent() {
 	}
 	
+	//for demo purposes
+	public MovementComponent(double xspeed, double yspeed){
+		myCurrentVelocityVector = new Vector(xspeed, yspeed);
+	}
+	
 	@Override
 	public void initWithParams(String[] params) {
 		//0 is velocity, 1 is theta, 2 is omega

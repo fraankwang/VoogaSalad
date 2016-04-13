@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import engine.backend.components.HealthComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_object.Level;
 
 /**
  * 
@@ -16,8 +17,9 @@ import engine.backend.entities.InGameEntityFactory;
 public class HealthSystem implements ISystem{
 
 	@Override
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
+		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity entity : entities){
 			if(entity.hasComponent(myComponentTagResources.getString("Health"))){
 				HealthComponent healthComp = (HealthComponent) entity.getComponent(myComponentTagResources.getString("Health"));

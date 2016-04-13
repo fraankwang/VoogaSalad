@@ -37,4 +37,6 @@ public interface IEntity {
 	public String getType();
 	
 	public int getID();
+	
+	public void setLevelID(int levelID);
 }

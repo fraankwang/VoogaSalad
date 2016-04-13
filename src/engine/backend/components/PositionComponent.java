@@ -10,6 +10,10 @@ public class PositionComponent extends Component implements IComponent{
 	
 	public PositionComponent() {
 	}
+	
+	public PositionComponent(double x, double y){
+		myPositionVector = new Vector(x, y);
+	}
 
 	public Vector getPositionVector() {
 		return myPositionVector;

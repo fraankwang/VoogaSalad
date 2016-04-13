@@ -37,8 +37,9 @@ public class RenderingSystem implements ISystem{
 	}
 
 	@Override
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
+		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity myEntity : entities){
 //			System.out.println(myEntity.toString());
 			String imageToDisplay = "";
@@ -60,7 +61,7 @@ public class RenderingSystem implements ISystem{
 				}
 			}
 			
-			engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
+			//engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
 		}
 	}
 

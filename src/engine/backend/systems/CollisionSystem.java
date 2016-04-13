@@ -11,6 +11,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_object.Level;
 
 /**
  * Created by colinduffy on 4/10/16., raghav kedia
@@ -18,7 +19,9 @@ import engine.backend.entities.InGameEntityFactory;
 public class CollisionSystem implements ISystem {
  
     
-    public void update2(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
+    public void update2(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
+    	
+    	List<IEntity> entities = myLevel.getEntities();
     	
     	for(IEntity damageEntity : entities){
     		
@@ -46,8 +49,9 @@ public class CollisionSystem implements ISystem {
     /**
      * Implemented in O^2 for now.  Will eventually scale down to quadrant checks
      */
-    public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-        for(IEntity outEntity : entities){
+    public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+    	List<IEntity> entities = myLevel.getEntities();
+    	for(IEntity outEntity : entities){
             for(IEntity inEntity : entities){
                 //default isCollided  = false.  Only update if there is a collision
                 if(outEntity.hasComponent(myComponentTagResources.getString("Collision")) && inEntity.hasComponent(myComponentTagResources.getString("Collision"))){
