@@ -29,14 +29,14 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(PANEL_SIZE, PANEL_SIZE);
+		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE);
 		editorPanel.initialize();
 		return editorPanel;
 	}
 
 	@Override
 	public Panel createModifiableAttributesPanel() {
-		ModifiableAttributesPanel panel = new ModifiableModeAttributesPanel(PANEL_SIZE, PANEL_SIZE);
+		ModifiableAttributesPanel panel = new ModifiableModeAttributesPanel(MAX_SIZE, MAX_SIZE);
 		panel.initialize();
 		return panel;
 	}
@@ -65,7 +65,7 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		StandardButtonDashboard buttons = new StandardButtonDashboard(PANEL_SIZE, PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(MAX_SIZE, MAX_SIZE);
 		buttons.initialize();
 		return buttons;
 	}

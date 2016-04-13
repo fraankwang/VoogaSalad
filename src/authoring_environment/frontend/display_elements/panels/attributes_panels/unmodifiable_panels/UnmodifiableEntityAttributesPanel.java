@@ -22,6 +22,9 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
 	private GridPane myAttributesGridPane;
+	private final int COLUMN_1_PERCENTAGE = 50;
+	private final int COLUMN_2_PERCENTAGE = 50;
+	private final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
 
 	public UnmodifiableEntityAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
@@ -60,8 +63,8 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	private GridPane createAttributesGridPane() {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		List<Integer> columnConstraints = new ArrayList<Integer>();
-		columnConstraints.add(50);
-		columnConstraints.add(50);
+		columnConstraints.add(COLUMN_1_PERCENTAGE);
+		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
 		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myAttributesGridPane.add(new Label("Entity Type"), 0, 0);
@@ -81,7 +84,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		
 		// add more attributes later
 
-		myAttributesGridPane.setPrefSize(600, 600);
+		myAttributesGridPane.setPrefSize(MAX_SIZE, DEFAULT_ATTRIBUTES_HEIGHT);
 		return myAttributesGridPane;
 
 	}

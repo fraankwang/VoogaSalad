@@ -16,7 +16,7 @@ import authoring_environment.frontend.display_elements.panels.Panel;
 public abstract class GridFactory {
 
 	private IController myController;
-	protected final int PANEL_SIZE = 450;
+	protected final int MAX_SIZE = Integer.MAX_VALUE;
 
 	public GridFactory(IController controller) {
 		myController = controller;

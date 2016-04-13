@@ -24,22 +24,22 @@ public class ModesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		GridViewPanel gridView = new GridViewPanel(PANEL_SIZE, PANEL_SIZE, myTabDisplay);
+		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay);
 		gridView.initialize();
 		return gridView;
 	}
 
 	@Override
 	public Panel createButtonDashboard() {
-		StandardButtonDashboard buttons = new StandardButtonDashboard(PANEL_SIZE, PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(MAX_SIZE, MAX_SIZE);
 		buttons.initialize();
 		return buttons;
 	}
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		UnmodifiableAttributesPanel attributes = new UnmodifiableModeAttributesPanel(PANEL_SIZE,
-				PANEL_SIZE, tabDisplay);
+		UnmodifiableAttributesPanel attributes = new UnmodifiableModeAttributesPanel(MAX_SIZE,
+				MAX_SIZE, tabDisplay);
 		attributes.initialize();
 		return attributes;
 	}
