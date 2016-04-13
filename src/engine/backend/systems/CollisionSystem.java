@@ -2,6 +2,7 @@ package engine.backend.systems;
 
 import java.util.List;
 
+import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.CollisionComponent;
 import engine.backend.components.DamageComponent;
 import engine.backend.components.HealthComponent;
@@ -44,7 +45,7 @@ public class CollisionSystem extends Systemm implements ISystem {
     /**
      * Implemented in O^2 for now.  Will eventually scale down to quadrant checks
      */
-    public void update(List<IEntity> entities) {
+    public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
         for(IEntity outEntity : entities){
             for(IEntity inEntity : entities){
                 //default isCollided  = false.  Only update if there is a collision

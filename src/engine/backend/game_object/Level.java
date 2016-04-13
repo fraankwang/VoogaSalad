@@ -18,12 +18,17 @@ public class Level {
 
 	private List<IEntity> entities;
 	private int myID;
-	private int myParentModeID;
-	private GameMap map = new GameMap();
+	private String myParentModeName;
+	private GameMap map;
+	
+	public Level(int myID, GameMap map) {
+		this.myID = myID;
+		this.map = map;
+	}
 
-	public Level(int id) {
-		entities = new ArrayList<IEntity>();
-		this.myID = id;
+	public Level(int myID) {
+		this.entities = new ArrayList<IEntity>();
+		this.myID = myID;
 	}
 	
 	public int getId(){
@@ -48,12 +53,12 @@ public class Level {
 		entities.add(entity);
 	}
 	
-	public void setModeID(int modeID) {
-		this.myParentModeID = modeID;
+	public void setModeName(String modeID) {
+		this.myParentModeName = modeID;
 	}
 	
-	public int getModeID() {
-		return myParentModeID;
+	public String getModeID() {
+		return myParentModeName;
 	}
 	
 }

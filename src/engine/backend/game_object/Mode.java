@@ -11,27 +11,23 @@ import java.util.List;
 public class Mode {
 
 	private List<Level> levels;
-	private int myID;
+	private String myName;
 	
-	public Mode(int id) {
+	public Mode(String name) {
 		levels = new ArrayList<Level>();
-		this.myID = id;
-	}
-	
-	public Mode(){
-		levels = new ArrayList<Level>();
+		this.myName = name;
 	}
 
 	public List<Level> getLevels() {
 		return levels;
 	}
 	
-	public int getId(){
-		return this.myID;
+	public String getName(){
+		return this.myName;
 	}
 
 	public void addLevel(Level level) {
-		level.setModeID(myID);
+		level.setModeName(myName);
 		levels.add(level);
 	}
 
