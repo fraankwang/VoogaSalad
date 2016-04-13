@@ -1,7 +1,7 @@
 package authoring_environment.frontend.display_elements;
 
-import authoring_environment.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring_environment.controller.IController;
+import authoring_environment.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.GameTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring_environment.frontend.display_elements.tab_displays.ModesTabDisplay;

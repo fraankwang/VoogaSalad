@@ -17,10 +17,8 @@ public class Entity implements IEntity {
 	private double myValue;
 	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
-	
-	// private List<Component> myComponents;
+	private int parentLevelID;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
-
 	private boolean hasBeenModified = false;
 
 	public Entity(int ID, String name, String type, double value) {

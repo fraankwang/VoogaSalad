@@ -1,10 +1,10 @@
 package engine.backend.systems;
 
+import java.util.List;
+
 import engine.backend.components.MouseComponent;
 import engine.backend.entities.IEntity;
 import engine.controller.Engine2PlayerController;
-
-import java.util.List;
 
 /**
  * Created by colinduffy on 4/10/16.

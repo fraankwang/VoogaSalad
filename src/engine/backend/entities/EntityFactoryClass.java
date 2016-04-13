@@ -4,9 +4,7 @@
  * 
  */
 package engine.backend.entities;
-import exception.DrumpfTowerException;
 import engine.backend.components.Component;
-import engine.backend.components.DisplayComponent;
 import engine.backend.game_object.GameWorld;
 import exception.DrumpfTowerException;
 

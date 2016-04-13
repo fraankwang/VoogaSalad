@@ -1,7 +1,6 @@
 package engine.backend.entities;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Set;
 
 import engine.backend.components.IComponent;

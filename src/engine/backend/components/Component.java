@@ -7,8 +7,6 @@
 
 package engine.backend.components;
 
-import java.util.ResourceBundle;
-
 public abstract class Component implements IComponent{
 	private int entityId;
 	
