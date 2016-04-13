@@ -30,7 +30,6 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private TitledPane myPiecesTitledPane;
 	private TitledPane myRulesTitledPane;
 	private GridPane myGridPane;
-	private Button myOpenEditorButton;
 	private ListView<String> myRulesListView;
 	private ListView<String> myPiecesListView;
 	private ListView<String> myEntityListView;
@@ -68,8 +67,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		titledPanesGridPane.add(myEntityTitledPane, 0, 0);
 		titledPanesGridPane.add(myPiecesTitledPane, 0, 1);
 		titledPanesGridPane.add(myRulesTitledPane, 0, 2);
-		titledPanesGridPane.getColumnConstraints().add(new ColumnConstraints(800 * 0.4275));
-		//scene width * 0.4275, hardcoded I know
+		titledPanesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(titledPanesGridPane);

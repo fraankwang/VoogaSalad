@@ -25,6 +25,9 @@ public abstract class UnmodifiableAttributesPanel extends Panel {
 	protected TabDisplay myTabDisplay;
 	protected final int BUTTON_HEIGHT_PERCENTAGE = 8;
 	protected final int TITLED_PANE_HEIGHT = 350;
+	protected final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
+	//scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
+	protected Button myOpenEditorButton;
 
 	public UnmodifiableAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width);
