@@ -8,14 +8,14 @@ package engine.backend;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.backend.map.MapObject;
+import engine.backend.map.GameMap;
 
 public class MockGAEData {
 
 	public int modesWanted;
 	public int levelsWanted;
 	public int entitiesWanted;
-	public List<MapObject> maps = new ArrayList<MapObject>();
+	public List<GameMap> maps = new ArrayList<GameMap>();
 	public String[][] level1SpritesComponentWanted;
 	public String[][] myRules;
 
@@ -45,7 +45,7 @@ public class MockGAEData {
 	}
 	
 	private void addMap(){
-		maps.add(new MapObject());
+		maps.add(new GameMap());
 	}
 
 }

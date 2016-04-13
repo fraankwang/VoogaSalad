@@ -11,7 +11,7 @@ import java.util.List;
 
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
-import engine.backend.map.MapObject;
+import engine.backend.map.GameMap;
 
 
 public class Level {
@@ -19,7 +19,7 @@ public class Level {
 	private List<IEntity> entities;
 	private int myID;
 	private int myParentModeID;
-	private MapObject map = new MapObject();
+	private GameMap map = new GameMap();
 
 	public Level(int id) {
 		entities = new ArrayList<IEntity>();
@@ -34,7 +34,7 @@ public class Level {
 		return entities;
 	}
 	
-	public MapObject getMap(){
+	public GameMap getMap(){
 		return map;
 	}
 
