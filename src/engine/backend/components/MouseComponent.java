@@ -1,7 +1,5 @@
 package engine.backend.components;
 
-import java.util.List;
-
 /**
  * Created by colinduffy on 4/10/16.
  */
@@ -36,8 +34,7 @@ public class MouseComponent extends Component implements IComponent {
     }
 
 	@Override
-	public void initWithParams(List params) {
+	public void initWithParams(String[] params) {
 		// TODO Auto-generated method stub
-		
 	}
 }

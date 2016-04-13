@@ -10,14 +10,7 @@ public class PositionComponent extends Component implements IComponent{
 	
 	private Vector myPositionVector;
 	
-	public PositionComponent(){
-		myPositionVector = new Vector();
-	}
-	
-	public PositionComponent(double x, double y) {
-		// TODO Auto-generated constructor stub
-//		setPositionVector(new Vector(x, y));
-		myPositionVector = new Vector(x, y);
+	public PositionComponent() {
 	}
 
 	public Vector getPositionVector() {
@@ -37,9 +30,9 @@ public class PositionComponent extends Component implements IComponent{
 	}
 
 	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
-		
+	public void initWithParams(String[] params) {
+		//x is 1, y is 2
+		myPositionVector = new Vector(Double.parseDouble(params[0]), Double.parseDouble(params[1]));
 	}
 
 }

@@ -27,9 +27,9 @@ public class CollisionComponent extends Component implements IComponent{
     }
 
 	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
-		
+	public void initWithParams(String[] params) {
+        //default
+        isCollided = false;
 	}
 
 }
