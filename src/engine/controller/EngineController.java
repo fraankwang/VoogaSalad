@@ -58,25 +58,8 @@ public class EngineController {
 	}
 	
 	//backend endpoint 
-	public void createCharacterImage(double xCoord, double yCoord, String image, int id, double width, double height){
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height);
-	}
-	
-	public Main getMain(){
-		return myMain;
-	}
-
-	public void attemptTower(double xLoc, double yLoc) {
-		// TODO Auto-generated method stub
-	}
-	
-	public String getBackgroundFile(){
-		return "test";
-//		return myGameWorld.someGetFileName();
-	}
-
-	public void entityClicked(int myID) {
-		// TODO Auto-generated method stub
 	}
 	
 //	public void newShop(Shop shop){
@@ -92,4 +75,30 @@ public class EngineController {
 //		//call backend to say stat object clicked
 //	}
 	
+	public void attemptTower(double xLoc, double yLoc) {
+		// TODO Auto-generated method stub
+	}
+
+	public void entityClicked(int myID) {
+		// TODO Auto-generated method stub
+	}
+	
+	public void deleteEntity(int id){
+		
+	}
+	
+	public Main getMain(){
+		return myMain;
+	}
+
+	
+	public String getBackgroundFile(){
+		return "test";
+//		return myGameWorld.someGetFileName();
+	}
+
+	public GameWorld getMyGameWorld(){
+		return myGameWorld;
+	}
+
 }

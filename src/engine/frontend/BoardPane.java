@@ -37,11 +37,23 @@ public class BoardPane {
 		
 	}
 	
+	/**
+	 * updates entity with id to correct coordinate and size, if size is negative 
+	 * @param xCoord
+	 * @param yCoord
+	 * @param image
+	 * @param id
+	 * @param width
+	 * @param height
+	 */
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
-		Integer myKey = new Integer(id);
-		EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
-		myImageMap.put(myKey, ev);
-		myPane.getChildren().add(ev.getNode());
+		if(myImageMap.containsKey(id)){
+			myImageMap.get(id).updateEntity(xCoord, yCoord, image, width, height);
+		} else {
+			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
+			myImageMap.put(id, ev);
+			myPane.getChildren().add(ev.getNode());
+		}
 	}
 	
 	public void attemptTower(double xLoc, double yLoc){

@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Main;
 
+
+
 public class EngineView{
 
 	public static final String DEFAULT_UI_RESOURCE = "engine/resources/engine_window";
@@ -100,6 +102,10 @@ public class EngineView{
 	public StatusPane getStatusPane(){
 		return myStatusPane;
 	}
+
+	public EngineController getEngineController(){
+		return myController;
+	}
 	
 	protected int loadUIIntResource(String input){
 		return Integer.parseInt(myUIResources.getString(input));
@@ -109,8 +115,7 @@ public class EngineView{
 		return myUIResources.getString(input);
 	}
 	
-	public EngineController getEngineController(){
-		return myController;
-	}
+	
+	
 	
 }

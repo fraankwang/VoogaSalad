@@ -3,32 +3,25 @@ package authoring.backend.factories;
 
 import java.util.List;
 
+import engine.backend.game_object.GameStatisticsObject;
 import engine.backend.components.Component;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 
 public class EntityFactory {
+	private GameStatisticsObject myStats;
 	
-	public EntityFactory() {
-		
+	public EntityFactory(GameStatisticsObject stats) {
+		this.myStats = stats;
 	}
 
-	public Entity createEntity(Object info){
-		//parse string
-		int parsedId = 0;
-		Entity newEntity = new Entity(parsedId);
-		setUpEntity(newEntity, info);
-		return newEntity;
-	}
-	
-	private void setUpEntity(Entity entity, Object info){
-		//set up parent id
-	}
-	
-	public void addComponents(Entity entity, List<Component> components){
+	public Entity createEntity(int levelID, String name, String type, double price, List<Component> components){	
+		Entity newEntity = new Entity(myStats.nextEntityID(), name, type, price);
 		for (Component component : components) {
-			entity.addComponent(component);
+			newEntity.addComponent(component);
 		}
+		newEntity.setLevelID(levelID);
+		return newEntity;
 	}
 
 	public static IEntity getEntity(String firedEntityName) {

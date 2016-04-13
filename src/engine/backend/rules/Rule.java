@@ -3,8 +3,6 @@ package engine.backend.rules;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import engine.backend.components.IComponent;
 import engine.backend.components.SizeComponent;
 
