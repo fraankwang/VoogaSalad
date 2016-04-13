@@ -18,5 +18,4 @@ public class GameShop {
 		myItems.put(entity.getName(), entity);
 	}
 	
-//	public IE
 }
