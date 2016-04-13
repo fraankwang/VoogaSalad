@@ -2,7 +2,7 @@ package main;
 
 import java.util.Optional;
 
-import authoring.controller.AuthoringController;
+import authoring.controller.FrontAuthoringController;
 import engine.controller.EngineController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import authoring.main.GameAuthoring;
 
 /**
  * @author Austin Wu
@@ -45,8 +46,7 @@ public class Main extends Application {
     }
     
     public void createAuthor(Stage stage){
-    	AuthoringController controller = new AuthoringController(stage);
-	    controller.start();
+    	GameAuthoring authoring = new GameAuthoring(stage);
     }
     
     public void createPlayer(Stage stage){
