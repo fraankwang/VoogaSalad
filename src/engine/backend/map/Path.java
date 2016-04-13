@@ -41,15 +41,14 @@ public class Path implements IPath{
 		System.out.println("Num Curves: " + myCurves.size());
 		System.out.println("Moves with Time: " + pathComponent.movesWithTime());
 		//turn off display component and return
-		if((currBezTime >= myCurves.size() && pathComponent.movesWithTime())
-				||  (currBezTime <= 0 && !pathComponent.movesWithTime())){
+		if((currBezTime >= myCurves.size() - 0.01 && pathComponent.movesWithTime())){
 			
-			/*
+			
 			
 			DisplayComponent dispComponent = (DisplayComponent) entity.getComponent(myComponentTagResources.getString("Display"));
 			dispComponent.doNotShow();
 			
-			*/
+			
 			System.out.println("GONE");
 			return;
 		}

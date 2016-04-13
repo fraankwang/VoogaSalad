@@ -14,6 +14,7 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	public DisplayComponent(String image){
 		this.image = image;
+		canBeShown = true;
 	}
 	
 	public void setImage(String image){

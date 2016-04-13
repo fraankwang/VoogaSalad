@@ -49,9 +49,15 @@ public class EngineController {
 		Mode tempMode = new Mode("tempMode");
 		Level tempLevel = new Level(0);
 		Path tempPath = new Path();
-		BezierCurve tempCurve = new BezierCurve(0,0, 0,0, 0,0, 100,0);
-		tempPath.addCurve(tempCurve);
-		GameMap tempMap = new GameMap("DrumpfVader.png", tempPath, 200, 200);
+		BezierCurve tempCurve1 = new BezierCurve(0,0, 0,0, 0,0, 200,200);
+		BezierCurve tempCurve2 = new BezierCurve(200,200, 50,50, 150,150, 0,300);
+		BezierCurve tempCurve3 = new BezierCurve(0,300, 150, 150, 250, 250, 400,400);
+		
+		tempPath.addCurve(tempCurve1);
+		tempPath.addCurve(tempCurve2);
+		tempPath.addCurve(tempCurve3);
+		
+		GameMap tempMap = new GameMap("", tempPath, 200, 200);
 		
 		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
 		IComponent tempPosition = new PositionComponent(0, 0);
@@ -79,7 +85,7 @@ public class EngineController {
 	}
 	
 	public void start(){
-		KeyFrame frame = new KeyFrame(Duration.millis(10000 / NUM_FRAMES_PER_SECOND), e -> step());
+		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);

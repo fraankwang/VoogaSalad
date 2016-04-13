@@ -41,15 +41,20 @@ public class RenderingSystem implements ISystem{
 		// TODO Auto-generated method stub
 		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity myEntity : entities){
-//			System.out.println(myEntity.toString());
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
-			double sizex = 350;
+			double sizex = 200;
 			double sizey = 200;
+			boolean delete = false;
 			for(IComponent eachComponent: myEntity.getComponents()){
 				if(eachComponent.getTag().equals(myComponentTagResources.getString("Display"))){
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
+					delete = !((DisplayComponent) eachComponent).shouldBeShown();
+					if(delete){
+						engineController.deleteEntity(myEntity.getID());
+						break;
+					}
 				}
 				if(eachComponent.getTag().equals(myComponentTagResources.getString("Position"))){
 					x = ((PositionComponent) eachComponent).getX();
@@ -57,11 +62,12 @@ public class RenderingSystem implements ISystem{
 				}
 				if(eachComponent.getTag().equals(myComponentTagResources.getString("Size"))){
 					sizex = ((SizeComponent) eachComponent).getWidth();
-					sizex = ((SizeComponent) eachComponent).getHeight();
+					sizey = ((SizeComponent) eachComponent).getHeight();
 				}
 			}
-			
-			engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
+			if(!delete){
+				engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
+			}
 		}
 	}
 
