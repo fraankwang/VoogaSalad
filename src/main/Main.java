@@ -7,7 +7,7 @@ package main;
 import java.util.Optional;
 
 import authoring_environment.controller.AuthoringController;
-import authoring_environment.controller.IController;
+import engine.controller.EngineController;
 import engine.frontend.EngineView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -50,10 +50,8 @@ public class Main extends Application {
     }
     
     public void createPlayer(Stage stage){
-    	EngineView engineView = new EngineView(stage, this); 
-		Scene scene = engineView.getScene();
-        stage.setScene(scene);
-        stage.show();
+    	EngineController controller = new EngineController(stage, this);
+    	controller.start();
     }
 
     private Scene getStartDialogue(){

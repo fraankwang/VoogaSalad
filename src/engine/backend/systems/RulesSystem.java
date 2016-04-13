@@ -6,7 +6,14 @@
 
 package engine.backend.systems;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import engine.backend.components.Component;
 import engine.backend.components.IComponent;
+import engine.backend.components.SizeComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.EntityFactoryClass;
 import engine.backend.entities.IEntity;
@@ -14,11 +21,6 @@ import engine.backend.game_object.GameWorld;
 import engine.backend.rules.Action;
 import engine.backend.rules.Predicate;
 import engine.backend.rules.Rule;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 public class RulesSystem extends Systemm {
 
@@ -32,14 +34,11 @@ public class RulesSystem extends Systemm {
 			for(Rule eachRule : ((Entity)eachEntity).getRules()){
 				String componentToChange = eachRule.getMyConditionals().get(0).whichComponentToCheck();
 				Integer delta = Integer.parseInt(eachRule.getMyAction().changeByDelta());
-				//get moved to action
 				String methodToInvoke = eachRule.getMethodToCall();
 				IComponent component = eachEntity.getComponent(componentToChange);
 				try {
 					Method method = eachRule.getClass().getMethod(methodToInvoke, new Class[] {IComponent.class, Integer.class});
 					try {
-						
-						
 						method.invoke(eachRule, component, delta);
 						//above refleciton call represents this eachRule.increaseSize(component, delta);
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
