@@ -2,6 +2,7 @@ package authoring_environment.frontend.display_elements.panels.attributes_panels
 
 import java.util.ArrayList;
 import java.util.List;
+
 import authoring_environment.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Accordion;

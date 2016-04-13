@@ -15,14 +15,6 @@ import engine.backend.rules.Action;
 import engine.backend.rules.Predicate;
 import engine.backend.rules.Rule;
 import engine.backend.systems.SystemsController;
-import exception.DrumpfTowerException;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class FakeGAEBackend {
 

@@ -13,7 +13,6 @@ import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
 import engine.controller.Engine2PlayerController;
-import exception.ResourceLoader;
 
 public class SystemsController {
 

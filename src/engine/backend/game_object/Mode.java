@@ -11,11 +11,11 @@ import java.util.List;
 public class Mode {
 
 	private List<Level> levels;
-	private int myId;
+	private int myID;
 	
 	public Mode(int id) {
 		levels = new ArrayList<Level>();
-		this.myId = id;
+		this.myID = id;
 	}
 	
 	public Mode(){
@@ -27,10 +27,11 @@ public class Mode {
 	}
 	
 	public int getId(){
-		return this.myId;
+		return this.myID;
 	}
 
 	public void addLevel(Level level) {
+		level.setModeID(myID);
 		levels.add(level);
 	}
 

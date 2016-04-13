@@ -2,8 +2,6 @@ package engine.backend.components;
 
 import java.util.List;
 
-import engine.backend.entities.IEntity;
-
 /**
  * 
  * @author raghavkedia

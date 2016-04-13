@@ -2,8 +2,8 @@ package engine.frontend;
 
 import java.util.ResourceBundle;
 
-import engine.controller.EngineBackendController;
 import engine.controller.Engine2PlayerController;
+import engine.controller.EngineBackendController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,14 +11,11 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import main.Main;
 
 public class EngineView{

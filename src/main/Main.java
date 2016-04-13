@@ -7,7 +7,6 @@ package main;
 import java.util.Optional;
 
 import authoring_environment.controller.AuthoringController;
-import authoring_environment.controller.IController;
 import engine.frontend.EngineView;
 import javafx.application.Application;
 import javafx.scene.Scene;

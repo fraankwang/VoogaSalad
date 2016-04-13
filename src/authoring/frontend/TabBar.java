@@ -1,7 +1,12 @@
 package authoring.frontend;
 
-import authoring.frontend.interfaces.display.*;
-import javafx.scene.Group;
+import authoring.frontend.interfaces.display.DisplayInterface;
+import authoring.frontend.interfaces.display.EnemiesDisplayInterface;
+import authoring.frontend.interfaces.display.GameDisplayInterface;
+import authoring.frontend.interfaces.display.LevelsDisplayInterface;
+import authoring.frontend.interfaces.display.ModesDisplayInterface;
+import authoring.frontend.interfaces.display.TabBarInterface;
+import authoring.frontend.interfaces.display.TowersDisplayInterface;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
