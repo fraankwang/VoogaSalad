@@ -1,8 +1,10 @@
 package authoring_environment.frontend.display_elements.panels;
 
-import authoring_environment.frontend.display_elements.panels.panel_bars.PanelBar;
+import authoring_environment.frontend.display_elements.panels.panel_bars.EditorPanelBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 /**
  * The EditorViewPanel is the primary display in the EditorDisplays. This
@@ -18,7 +20,7 @@ public class EditorViewPanel extends Panel {
 
 	private ImageView myImageView;
 	private ScrollPane myScrollPane;
-	private PanelBar myPanelBar;
+	private EditorPanelBar myPanelBar;
 
 	public EditorViewPanel(int height, int width) {
 		super(height, width);
@@ -27,14 +29,26 @@ public class EditorViewPanel extends Panel {
 
 	@Override
 	protected void initializeComponents() {
-		// TODO Auto-generated method stub
-
+		myImageView = new ImageView();
+		myScrollPane = new ScrollPane();
+		myPanelBar = new EditorPanelBar(50,50);
+		myPanelBar.initialize();
 	}
 
 	@Override
 	protected void assembleComponents() {
-		// TODO Auto-generated method stub
-
+		VBox vbox = new VBox();
+		myScrollPane.setContent(myImageView);
+		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
+		myNode = vbox;
+	}
+	
+	public void setImage(Image image) {
+		myImageView.setImage(image);
+	}
+	
+	public EditorPanelBar getPanelBar() {
+		return myPanelBar;
 	}
 
 }

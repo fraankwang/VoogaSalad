@@ -36,9 +36,10 @@ public class EditorPanelBar extends PanelBar {
 	@Override
 	protected void assembleComponents() {
 		HBox hbox = new HBox();
-		myDescription.getChildren().add(myUploadImageButton);
+		//myDescription.getChildren().add(myUploadImageButton);
 		myZoomControls.getChildren().addAll(myZoomOutButton, myZoomInButton);
 		hbox.getChildren().addAll(myDescription, myZoomControls);
+		myNode = hbox;
 	}
 	
 	public void addButton(String label, EventHandler<ActionEvent> action) {

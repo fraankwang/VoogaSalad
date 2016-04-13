@@ -1,7 +1,6 @@
 package authoring_environment.frontend.display_elements.grid_factories.editor_grid_factories;
 
 import java.io.File;
-
 import authoring_environment.controller.IController;
 import authoring_environment.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring_environment.frontend.display_elements.panels.EditorViewPanel;
@@ -10,11 +9,7 @@ import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
 import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -32,29 +27,25 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel image = new EditorViewPanel(50, 50);
-		StackPane imageDisplay = new StackPane();
-		ImageView entityImage = new ImageView("DrumpfVader.png"); // set default
-																	// image as
-																	// question
-																	// mark or
-																	// something
+		EditorViewPanel editorView = new EditorViewPanel(50, 50);
+		editorView.initialize();
+		editorView.setImage(new Image("DrumpfVader.png")); // set default
 
-		Button changeImage = new Button("Change Image");
-		changeImage.setOnAction(e -> {
+		// image as
+		// question
+		// mark or
+		// something
+
+		editorView.getPanelBar().addButton("Upload Image", e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 			File imageFile = fileChooser.showOpenDialog(null);
 			if (imageFile != null) {
-				entityImage.setImage(new Image(imageFile.toURI().toString()));
+				editorView.setImage(new Image(imageFile.toURI().toString()));
 			}
 		});
-		changeImage.setAlignment(Pos.TOP_LEFT);
-
-		imageDisplay.getChildren().addAll(entityImage, changeImage);
-		// return imageDisplay;
-		return null;
+		return editorView;
 	}
 
 	@Override
