@@ -35,6 +35,17 @@ public class TabBarElement implements ITabBarElement {
 		myController = controller;
 	}
 	
+	/**
+	 * GlobalData - has DataContainer object
+	 * User makes input -> globalData.updateContainer(Map<String,String>)
+	 *  note: map must have Key: "Type", Value: "Game/Mode/Level/Entity"
+	 * 
+	 * 
+	 * 
+	 */
+	
+	
+	
 	@Override
 	public void initialize() {
 		myTabPane = new TabPane();
