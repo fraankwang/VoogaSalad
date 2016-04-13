@@ -12,7 +12,9 @@ public class Rule {
 	private Action action;
 	//this string needs to get moved to action
 
-
+    /**
+     * thing moves across the screen and disappears at a certain point
+     */
 
 	public Rule() {
 		conditionals = new ArrayList<Predicate>();
@@ -26,9 +28,9 @@ public class Rule {
 		action = myAction;
 	}
 
-	public String getMyAction(){
+	public Action getMyAction(){
 		if(action == null) System.out.println("throw exception--> action is null");
-		return action.getMethodToCall();
+		return action;
 	}
 	
 	public List<Predicate> getMyConditionals(){
