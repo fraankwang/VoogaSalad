@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import authoring.backend.factories.EntityFactory;
 import authoring.backend.factories.InGameEntityFactory;
@@ -21,14 +22,14 @@ import engine.backend.rules.Action;
 import engine.backend.rules.Predicate;
 import engine.backend.rules.Rule;
 
-public class RulesSystem extends Systemm {
+public class RulesSystem implements ISystem {
 
 	public RulesSystem() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
+	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		for(IEntity eachEntity: entities){
 			for(Rule eachRule : ((Entity)eachEntity).getRules()){
 				String componentToChange = eachRule.getMyConditionals().get(0).whichComponentToCheck();
