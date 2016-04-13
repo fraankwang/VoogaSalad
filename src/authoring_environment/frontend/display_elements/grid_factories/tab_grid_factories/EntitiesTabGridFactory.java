@@ -32,8 +32,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		UnmodifiableAttributesPanel attributes = new UnmodifiableEntityAttributesPanel(MAX_SIZE,
-				MAX_SIZE, tabDisplay);
+		UnmodifiableAttributesPanel attributes = new UnmodifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE, tabDisplay);
 		attributes.initialize();
 		return attributes;
 	}

@@ -38,8 +38,7 @@ public class GameTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		UnmodifiableAttributesPanel attributes = new UnmodifiableGameAttributesPanel(MAX_SIZE,
-				MAX_SIZE, tabDisplay);
+		UnmodifiableAttributesPanel attributes = new UnmodifiableGameAttributesPanel(MAX_SIZE, MAX_SIZE, tabDisplay);
 		attributes.initialize();
 		return attributes;
 	}

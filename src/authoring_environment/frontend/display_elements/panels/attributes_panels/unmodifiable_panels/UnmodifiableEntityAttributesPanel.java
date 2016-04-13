@@ -78,10 +78,10 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myAttributesGridPane.add(new Label("Rotate Speed"), 0, 7);
 		myAttributesGridPane.add(new Label("Cost"), 0, 8);
 		myAttributesGridPane.add(new Label("Collidable"), 0, 9);
-		myAttributesGridPane.add(new Label("Moves on Path"), 0, 10); 
-		myAttributesGridPane.add(new Label("Path name"), 0, 11); 
-		myAttributesGridPane.add(new Label("Random movement"), 0, 12); 
-		
+		myAttributesGridPane.add(new Label("Moves on Path"), 0, 10);
+		myAttributesGridPane.add(new Label("Path name"), 0, 11);
+		myAttributesGridPane.add(new Label("Random movement"), 0, 12);
+
 		// add more attributes later
 
 		myAttributesGridPane.setPrefSize(MAX_SIZE, DEFAULT_ATTRIBUTES_HEIGHT);

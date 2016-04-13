@@ -1,0 +1,36 @@
+/**
+ * author raghav kedia rk145
+ */
+
+package engine.backend.components;
+
+public class PositionComponent extends Component implements IComponent{
+	
+	private Vector myPositionVector;
+	
+	public PositionComponent() {
+	}
+
+	public Vector getPositionVector() {
+		return myPositionVector;
+	}
+
+	public void setPositionVector(Vector myPositionVector) {
+		this.myPositionVector = myPositionVector;
+	}
+
+	public double getX() {
+		return myPositionVector.getX();
+	}
+	
+	public double getY() {
+		return myPositionVector.getY();
+	}
+
+	@Override
+	public void initWithParams(String[] params) {
+		//x is 1, y is 2
+		myPositionVector = new Vector(Double.parseDouble(params[0]), Double.parseDouble(params[1]));
+	}
+
+}
