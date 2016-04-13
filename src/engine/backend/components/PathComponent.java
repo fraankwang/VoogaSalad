@@ -1,8 +1,6 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 /**
  * 
  * @author raghavkedia
@@ -21,11 +19,13 @@ public class PathComponent extends Component implements IComponent{
 	//stores which curve in the path you're on
 	private int curveID;
 
-	public PathComponent(int path, int curve, boolean moves, double time){
-		pathID = path;
-		movesWithTime = moves;
+	public PathComponent(){
+	}
+	
+	public PathComponent(int id, double time){
+		pathID = id;
 		myBezierTime = time;
-		reachedEndOfPath = false;
+		movesWithTime = true;
 	}
 	
 	public int getCurveID(){
@@ -42,9 +42,12 @@ public class PathComponent extends Component implements IComponent{
 	}
 
 	@Override
-	public void initWithParams(List params) {
-		pathID = (int) params.get(0);
-		curveID = (int) params.get(1);
+	public void initWithParams(String[] params) {
+		pathID = Integer.parseInt(params[0]);
+		curveID = Integer.parseInt(params[1]);
+		movesWithTime = Boolean.parseBoolean(params[2]);
+		myBezierTime = Double.parseDouble(params[3]);
+		reachedEndOfPath = false;
 	}
 	
 	public double getBezierTime() {

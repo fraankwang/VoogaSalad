@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -16,25 +17,46 @@ import engine.controller.EngineController;
 
 public class SystemsController {
 
-	private RenderingSystem render;
-	private MobilizeSystem mobilize;
-	private RulesSystem rulesSystem;
-	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
-	private EngineController frontendController;
-//	private ResourceLoader myResourceLoader;
+	private ISystem renderingSystem;
+	private ISystem mobilizationSystem;
+	private ISystem healthSystem;
+	private ISystem firingSystem;
+	private ISystem rulesSystem;
+	private ISystem collisionSystem;
+	
+	private List<ISystem> mySystems;
+	private EngineController engineController;
 	
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
+	
+	private InGameEntityFactory myEntityFactory;
 
 
-	public SystemsController(EngineController frontendController) {
-		this.frontendController = frontendController;
-//		myResourceLoader = new ResourceLoader();
-		render = new RenderingSystem(frontendController);
-
+	public SystemsController(EngineController eController) {
+		engineController = eController;
+		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), 
+				eController.getMyGameWorld().getEntityMap());
+		
+		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
+		
+		renderingSystem = new RenderingSystem(engineController);
+		mobilizationSystem = new MobilizeSystem();
+		healthSystem = new HealthSystem();
+		firingSystem = new FiringSystem();
+		collisionSystem = new CollisionSystem();
 		rulesSystem = new RulesSystem();
+		
+		mySystems = new ArrayList<ISystem>();
+		mySystems.add(firingSystem);
+		mySystems.add(mobilizationSystem);
+		mySystems.add(collisionSystem);
+		mySystems.add(healthSystem);
+		mySystems.add(rulesSystem);
+		mySystems.add(renderingSystem);
 
+<<<<<<< HEAD
 
 		addToBagOfSystems(new CollisionSystem());
 
@@ -46,15 +68,16 @@ public class SystemsController {
 
 	public void addToBagOfSystems(Systemm system) {
 		bagOfSystems.add(system);
+=======
+>>>>>>> ef39e159ba5af9a5ac82c491e6ca089fd673d273
 	}
 
 	public void iterateThroughSystems(GameWorld game) {
-		for (Systemm myCurrSystem : bagOfSystems) {
-			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
-			List<Level> currLevels = game.getLevelsForMode(currMode);
-			//switch this to iterate through the quadrants contained inside of the curr levels map
-			//and that maps quadrants
-			myCurrSystem.update(currLevels.get(game.getGameStats().getCurrentLevel()).getEntities());
+		Mode currMode = game.getModes().get(game.getGameStatistics().getCurrentLevel());
+		List<Level> currLevels = currMode.getLevels();
+		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
+		for (ISystem system : mySystems) {
+			system.update(currentLevel, myEntityFactory, myComponentTagResources);
 		}
 	}
 

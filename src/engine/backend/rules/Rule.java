@@ -1,5 +1,11 @@
 package engine.backend.rules;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+>>>>>>> ef39e159ba5af9a5ac82c491e6ca089fd673d273
 import engine.backend.components.IComponent;
 import engine.backend.components.SizeComponent;
 

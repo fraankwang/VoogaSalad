@@ -11,10 +11,15 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.stream.StreamResult;
+<<<<<<< HEAD
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
+=======
+
+import org.xml.sax.InputSource;
+>>>>>>> ef39e159ba5af9a5ac82c491e6ca089fd673d273
 
 public abstract class ObjectToXMLWriter {
 	private XStream xstream;

@@ -11,32 +11,43 @@ import java.util.List;
 public class Mode {
 
 	private List<Level> levels;
-	private int myId;
+	private String myName;
 	
-	public Mode(int id) {
+	public Mode(String name) {
 		levels = new ArrayList<Level>();
-		this.myId = id;
-	}
-	
-	public Mode(){
-		levels = new ArrayList<Level>();
+		this.myName = name;
 	}
 
 	public List<Level> getLevels() {
 		return levels;
 	}
 	
-	public int getId(){
-		return this.myId;
+	public String getName(){
+		return this.myName;
 	}
 
 	public void addLevel(Level level) {
+		level.setModeName(myName);
 		levels.add(level);
 	}
 
 	@Override
 	public String toString() {
 		return "Mode [levels=" + levels + "]";
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Mode) {
+			Mode temp = (Mode) o;
+			if (this.myName.equals(temp.myName)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 }

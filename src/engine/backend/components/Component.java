@@ -7,17 +7,20 @@
 
 package engine.backend.components;
 
-import java.util.ResourceBundle;
-
 public abstract class Component implements IComponent{
-	private int entityId;
+	
+	private String myParentEntityName;
 	
 	public String getTag(){
 		return this.getClass().getSimpleName();
 	}
 	
-	public int getEntityId(){
-		return this.entityId;
+	public void setEntityName(String entityName) {
+		this.myParentEntityName = entityName;
+	}
+	
+	public String getEntityName() {
+		return myParentEntityName;
 	}
 	
 }

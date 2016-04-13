@@ -1,7 +1,6 @@
 package engine.backend.entities;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
@@ -32,4 +31,12 @@ public interface IEntity {
 	public boolean hasBeenModified();
 	
 	public void setHasBeenModified(boolean bool);
+
+	public double getValue();
+
+	public String getType();
+	
+	public int getID();
+	
+	public void setLevelID(int levelID);
 }

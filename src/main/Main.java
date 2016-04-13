@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import authoring_environment.controller.AuthoringController;
 import engine.controller.EngineController;
-import engine.frontend.EngineView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;

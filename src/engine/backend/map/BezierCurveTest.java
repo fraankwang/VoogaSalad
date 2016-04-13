@@ -1,5 +1,8 @@
 package engine.backend.map;
 
+
+import org.junit.Test;
+
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PathComponent;
@@ -31,7 +34,7 @@ public class BezierCurveTest {
 		testPath.addCurve(curve2);
 		testPath.addCurve(curve3);
 		
-		IEntity testEntity = new Entity(1);
+		IEntity testEntity = new Entity(1, null, null, error);
 		MovementComponent movComponent = new MovementComponent(-.05, 0, 0);
 		PositionComponent posComponent = new PositionComponent(3, 0);
 		PathComponent pathComponent = new PathComponent(0, 0, false, 3);

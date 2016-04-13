@@ -17,21 +17,22 @@ public class Entity implements IEntity {
 	private double myValue;
 	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
-	
-	// private List<Component> myComponents;
+	private int myParentLevelID;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
 
 	private boolean hasBeenModified = false;
 
-	public Entity(int ID, String name, String type, double value) {
-		myName = name;
-		myType = type;
-		this.myID = ID;
-		this.setValue(value);
+	public Entity(int myID, String myName, String myType, double myValue) {
+		this.myName = myName;
+		this.myType = myType;
+		this.myID = myID;
+		this.myValue = myValue;
 	}
 	
-	public Entity(int ID){
-		this.myID = ID;
+	public Entity(String myName, String myType, double myValue) {
+		this.myName = myName;
+		this.myType = myType;
+		this.myValue = myValue;
 	}
 
 	public List<Rule> getRules() {
@@ -43,7 +44,7 @@ public class Entity implements IEntity {
 	}
 
 	public void addComponent(IComponent component) {
-		System.out.println(myComponents);
+		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
 	}
 
@@ -51,18 +52,16 @@ public class Entity implements IEntity {
 		return myComponents.get(tag);
 	}
 
-	@Override
-	public String toString() {
-		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
-	}
-
 	public Set<String> getComponentTags() {
-		// sort alphabetically
 		return myComponents.keySet();
 	}
 
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
+	}
+	
+	public void setID(int myID) {
+		this.myID = myID;
 	}
 	
 	public int getID(){
@@ -97,9 +96,40 @@ public class Entity implements IEntity {
 		hasBeenModified = bool;
 	}
 
-	public String getLabel() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getLevelID() {
+		return myParentLevelID;
+	}
+
+	public void setLevelID(int levelID) {
+		this.myParentLevelID = levelID;
+	}
+
+	public String getType() {
+		return myType;
+	}
+
+	public void setMyType(String myType) {
+		this.myType = myType;
+	}
+	
+	@Override
+	public String toString() {
+		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Entity) {
+			Entity temp = (Entity) o;
+			if (this.myName.equals(temp.myName)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		
 	}
 
 }
