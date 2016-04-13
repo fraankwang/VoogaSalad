@@ -103,6 +103,7 @@ public class GridViewPanel extends Panel {
 	    VBox.setVgrow(myGridPane, Priority.ALWAYS);
 	    sizeGrid(numColumns);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
+	    sizeGrid(numColumns);
 		myNode = vbox;
 	}
 

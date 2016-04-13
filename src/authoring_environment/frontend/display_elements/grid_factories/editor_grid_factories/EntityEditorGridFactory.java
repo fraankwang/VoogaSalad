@@ -31,29 +31,24 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel image = new EditorViewPanel(50,50);
-		StackPane imageDisplay = new StackPane();
-		ImageView entityImage = new ImageView("DrumpfVader.png"); // set default
+		EditorViewPanel editorView = new EditorViewPanel(50,50);
+		editorView.initialize();
+		editorView.setImage(new Image("DrumpfVader.png"));	 		// set default
 																	// image as
 																	// question
 																	// mark or
 																	// something
 
-		Button changeImage = new Button("Change Image");
-		changeImage.setOnAction(e -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-			File imageFile = fileChooser.showOpenDialog(null);
-			if (imageFile != null) {
-				entityImage.setImage(new Image(imageFile.toURI().toString()));
-			}
-		});
-		changeImage.setAlignment(Pos.TOP_LEFT);
-
-		imageDisplay.getChildren().addAll(entityImage, changeImage);
-		// return imageDisplay;
-		return null;
+		editorView.getPanelBar().addButton("Upload Image", e -> {
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Open Resource File");
+				fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+				File imageFile = fileChooser.showOpenDialog(null);
+				if (imageFile != null) {
+					editorView.setImage(new Image(imageFile.toURI().toString()));
+				}
+			});
+		return editorView;
 	}
 
 	@Override
