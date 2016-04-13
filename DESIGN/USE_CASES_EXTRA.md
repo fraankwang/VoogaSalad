@@ -34,7 +34,7 @@ Use Cases
  29. User can change the image of the bullet for each tower
  30. User can click on a tower to fire
  31. User can explode a tower through mouse input
-32. User can use alternative forms of input (keyboard, mouse, etc) to do certain actions
+ 32. User can use alternative forms of input (keyboard, mouse, etc) to do certain actions
  33. User can change the paths of enemies in the authoring environment
  34. Load a game from XML
  35. Apply a rule to only certain types of entities
