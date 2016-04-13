@@ -20,7 +20,7 @@ public class EditorPanelBar extends PanelBar {
 	private HBox myZoomControls;
 	private Button myZoomOutButton, myZoomInButton;
 
-	public EditorPanelBar(int height, int width) {
+	public EditorPanelBar(double height, double width) {
 		super(height, width);
 	}
 

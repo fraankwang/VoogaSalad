@@ -2,10 +2,13 @@ package authoring.frontend.display_elements.panels;
 
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -27,11 +30,14 @@ public class BezierCurveManipulator implements IDisplayElement {
 	private Anchor start, control1, control2, end;
 	private Line controlLine1, controlLine2;
 	private double myWidth, myHeight;
-	//private Node myClip;
-
-	public BezierCurveManipulator(double height, double width) {
+	private CurveBuilder myContainer;
+	private Integer myNum;
+	
+	public BezierCurveManipulator(double height, double width, CurveBuilder builder, int curveNum) {
 		myWidth = width;
 		myHeight = height;
+		myContainer = builder;
+		myNum = curveNum;
 	}
 
 	@Override
@@ -43,6 +49,26 @@ public class BezierCurveManipulator implements IDisplayElement {
 
 	public void initialize() {
 		myCurve = createInitialCurve();
+		myCurve.setOnMouseClicked(e -> myCurve.requestFocus());
+		
+		myCurve.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+				if (newValue) {
+					myCurve.setStroke(Color.BLUE);
+					return;
+				}
+				myCurve.setStroke(Color.BLACK);
+			}
+		});
+		
+		myCurve.setOnKeyPressed(e -> {
+			switch (e.getCode()) {
+			case BACK_SPACE:
+				myContainer.removeCurve(this);
+			default:
+				break;
+			}
+		});
 		myNode = new Group();
 		
 		controlLine1 = new BoundLine(myCurve.controlX1Property(), myCurve.controlY1Property(), myCurve.startXProperty(), myCurve.startYProperty());
@@ -66,7 +92,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    curve.setControlY2(150);
 	    curve.setEndX(300);
 	    curve.setEndY(100);
-	    curve.setStroke(Color.BLACK);
+	    curve.setStroke(Color.BLUE);
 	    curve.setStrokeWidth(4);
 	    curve.setStrokeLineCap(StrokeLineCap.ROUND);
 	    curve.setFill(null);
@@ -102,6 +128,12 @@ public class BezierCurveManipulator implements IDisplayElement {
 	      x.bind(centerXProperty());
 	      y.bind(centerYProperty());
 	      enableDrag();
+	      
+	      setOnMousePressed(e -> myCurve.requestFocus());
+	      Label numLabel = new Label(myNum.toString());
+	      numLabel.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
+	      numLabel.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
+	      myNode.getChildren().add(numLabel);
 	    }
 
 	    // make a node movable by dragging it around with the mouse.

@@ -36,7 +36,7 @@ public class GridViewPanel extends Panel {
 	private List<ImageView> myImages;
 	private ITabDisplay myTabDisplay;
 
-	public GridViewPanel(int height, int width, ITabDisplay tab) {
+	public GridViewPanel(double height, double width, ITabDisplay tab) {
 		super(height, width);
 		myTabDisplay = tab;
 		numColumns = DEFAULT_NUM_GRID_COLUMNS;
