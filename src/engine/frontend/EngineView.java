@@ -2,28 +2,19 @@ package engine.frontend;
 
 import java.util.ResourceBundle;
 
-<<<<<<< HEAD
-import engine.controller.Engine2PlayerController;
-import engine.controller.EngineBackendController;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-=======
+
 import engine.controller.EngineController;
->>>>>>> 6dd6b4a5cbc54195098583566868d7feb6b0e785
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
-<<<<<<< HEAD
-import javafx.scene.layout.GridPane;
-=======
->>>>>>> 6dd6b4a5cbc54195098583566868d7feb6b0e785
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Main;
+
+
 
 public class EngineView{
 
@@ -111,6 +102,10 @@ public class EngineView{
 	
 	public StatusPane getStatusPane(){
 		return myStatusPane;
+	}
+
+	public EngineController getEngineController(){
+		return myController;
 	}
 	
 	protected int loadUIIntResource(String input){

@@ -2,6 +2,7 @@ package engine.backend.systems;
 
 import java.util.List;
 
+import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.HealthComponent;
 import engine.backend.entities.IEntity;
 
@@ -14,7 +15,7 @@ import engine.backend.entities.IEntity;
 public class HealthSystem extends Systemm implements ISystem{
 
 	@Override
-	public void update(List<IEntity> entities) {
+	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
 		// TODO Auto-generated method stub
 		for(IEntity entity : entities){
 			if(entity.hasComponent(getComponentTagResources().getString("Health"))){

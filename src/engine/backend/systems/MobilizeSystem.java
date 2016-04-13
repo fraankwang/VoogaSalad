@@ -6,6 +6,7 @@ package engine.backend.systems;
 
 import java.util.List;
 
+import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
@@ -26,7 +27,7 @@ public class MobilizeSystem extends Systemm implements ISystem {
 	//Make default velocity vector
 	
 	@Override
-	public void update(List<IEntity> entities) {
+	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
 		
 		for(IEntity entity : entities){
 			

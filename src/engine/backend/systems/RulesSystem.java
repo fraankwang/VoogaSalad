@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.backend.factories.EntityFactory;
+import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.IComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
@@ -27,7 +28,7 @@ public class RulesSystem extends Systemm {
 	}
 
 	@Override
-	public void update(List<IEntity> entities) {
+	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory) {
 		for(IEntity eachEntity: entities){
 			for(Rule eachRule : ((Entity)eachEntity).getRules()){
 				String componentToChange = eachRule.getMyConditionals().get(0).whichComponentToCheck();

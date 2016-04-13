@@ -58,37 +58,47 @@ public class EngineController {
 	}
 	
 	//backend endpoint 
-	public void createCharacterImage(double xCoord, double yCoord, String image, double width, double height){
-		myEngineView.getBoardPane().createCharacterImage(xCoord, yCoord, image, width, height);
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
+		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height);
+	}
+	
+//	public void newShop(Shop shop){
+//		myEngineView.getShopPane().updateShop(shop);
+//	}
+//	public void newStatistics(Statistics statistics){
+//		myEngineView.getStatusPane().updateStatistics(statistics);
+//	}
+//	public void shopClicked(String name){
+//		//call backend to say shop object clicked
+//	}
+//	public void statisticsClicked(String name){
+//		//call backend to say stat object clicked
+//	}
+	
+	public void attemptTower(double xLoc, double yLoc) {
+		// TODO Auto-generated method stub
+	}
+
+	public void entityClicked(int myID) {
+		// TODO Auto-generated method stub
+	}
+	
+	public void deleteEntity(int id){
+		myEngineView.getBoardPane().deleteEntity(id);
 	}
 	
 	public Main getMain(){
 		return myMain;
 	}
+
 	
-//	public void newEntities(List<Entity> list){
-//		Map<String, Entity> entityMap = new HashMap<String, Entity>();
-//		myEngineView.getBoardPane().updateEntities(entityMap);
-//	}
-//	
-//	public void newShop(Shop shop){
-//		myEngineView.getShopPane().updateShop(shop);
-//	}
-//	
-//	public void newStatistics(Statistics statistics){
-//		myEngineView.getStatusPane().updateStatistics(statistics);
-//	}
-//	
-//	public void entityClicked(String id){
-//		//call backend to say entity clicked
-//	}
-//	
-//	public void shopClicked(String name){
-//		//call backend to say shop object clicked
-//	}
-//	
-//	public void statisticsClicked(String name){
-//		//call backend to say stat object clicked
-//	}
-	
+	public String getBackgroundFile(){
+		return "test";
+//		return myGameWorld.someGetFileName();
+	}
+
+	public GameWorld getMyGameWorld(){
+		return myGameWorld;
+	}
+
 }

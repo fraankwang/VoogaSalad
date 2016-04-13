@@ -8,7 +8,6 @@
 package engine.backend;
 
 import engine.backend.entities.Entity;
-import engine.backend.entities.EntityFactoryClass;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
