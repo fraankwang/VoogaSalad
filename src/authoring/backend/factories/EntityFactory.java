@@ -4,8 +4,6 @@ package authoring.backend.factories;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import engine.backend.game_object.GameStatistics;
 import engine.backend.components.Component;
 import engine.backend.entities.Entity;
 
@@ -16,7 +14,7 @@ public class EntityFactory {
 		this.myComponentFactory = new ComponentFactory();
 	}
 
-	public Entity createEntity(Map<String, String> info, List<Component> components){
+	public Entity createEntity(Map<String, String> info){
 		Entity newEntity = new Entity(info.get("name"), info.get("type"), Double.parseDouble(info.get("price")));
 		newEntity.setLevelID(Integer.parseInt(info.get("levelID")));
 		List<Component> entityComponents = createComponents(info);
