@@ -16,7 +16,7 @@ public class GameShop {
 	}
 	
 	public void addItem(IEntity entity){
-		myItems.put(((Entity)entity).getLabel(), entity);
+		myItems.put(((Entity)entity).getName(), entity);
 	}
 	
 //	public IE

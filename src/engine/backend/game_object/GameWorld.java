@@ -23,18 +23,6 @@ public class GameWorld {
 		this.modes = new ArrayList<Mode>();
 	}
 
-	public void initializeGameObject(int numOfMode, int numOfLevels) {
-		int iteration = 0;
-		while (iteration < numOfMode) {
-			Mode mode1 = new Mode();
-			addMode(mode1);
-			for (int i = 0; iteration < numOfLevels; iteration++) {
-				addNewLevelToCurrentMode(mode1);
-			}
-			iteration++;
-		}
-	}
-
 	public GameStatisticsObject getGameStats() {
 		return gameStats;
 	}
@@ -76,13 +64,13 @@ public class GameWorld {
 		}
 		return null;
 	}
+	
 	public void addNewLevelToCurrentMode(Mode mode) {
 		Level level1 = new Level(0);
 		mode.addLevel(level1);
 		gameStats.incrementNumLevels();
 	}
 
-	
 	/**
 	 * Returns all possible types of modes
 	 * 
@@ -99,17 +87,6 @@ public class GameWorld {
 	public void printWhatIHave() {
 		System.out.println("I am game object " + this.toString() + " and I have been created");
 		System.out.println("I have " + modes.size() + " mode(s) and they are composed of " + modes.get(0).toString());
-	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
-
-	public void addMapImage(Level level) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public void setEntityMap(Map<String, Map<String, Entity>> map){
