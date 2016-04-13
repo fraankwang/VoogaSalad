@@ -18,13 +18,11 @@ public class EngineView{
 	public static final String DEFAULT_UI_RESOURCE = "engine/resources/engine_window";
 	private ResourceBundle myUIResources;
 	private Stage myStage;
+	
 	private EngineController myController;
-	
-	private static final int NUM_FRAMES_PER_SECOND = 60;
-	
 	private ToolbarManager myToolbarManager;
 	private BoardPane myBoardPane;
-	private TowerPane myTowerPane;
+	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
 	
 	public EngineView(Stage s, EngineController c){
@@ -33,7 +31,7 @@ public class EngineView{
 		
 		myToolbarManager = new ToolbarManager(this);
 		myBoardPane = new BoardPane(this);
-		myTowerPane = new TowerPane(this);
+		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
 		myUIResources = ResourceBundle.getBundle(DEFAULT_UI_RESOURCE);
 	}
@@ -70,7 +68,7 @@ public class EngineView{
 	 */
 	private void fillTopHBox(HBox hbox){
 		Node board = myBoardPane.buildNode();
-		Node tower = myTowerPane.buildNode();
+		Node tower = myShopPane.buildNode();
 		hbox.getChildren().addAll(board, tower);
 	}
 	
@@ -93,6 +91,14 @@ public class EngineView{
 	
 	public BoardPane getBoardPane(){
 		return myBoardPane;
+	}
+	
+	public ShopPane getShopPane(){
+		return myShopPane;
+	}
+	
+	public StatusPane getStatusPane(){
+		return myStatusPane;
 	}
 	
 	protected int loadUIIntResource(String input){
