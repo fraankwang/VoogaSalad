@@ -8,15 +8,12 @@ public class ModeFactory {
 		
 	}
 	
-	public Mode createMode(Object info){
-		int parsedId = 0; //temporary placeholder
-		Mode newMode = new Mode(parsedId);
-		setUpMode(newMode, info);
-		return new Mode(parsedId);
+	public Mode createMode(String name){
+		//setUpMode(newMode, info);
+		return new Mode(name);
 	}
 	
 	private void setUpMode(Mode mode, Object info){
 		//do other shit with string
 	}
-
 }
