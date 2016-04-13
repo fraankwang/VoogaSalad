@@ -31,4 +31,8 @@ public interface IEntity {
 	public boolean hasBeenModified();
 	
 	public void setHasBeenModified(boolean bool);
+
+	public double getValue();
+
+	public String getType();
 }

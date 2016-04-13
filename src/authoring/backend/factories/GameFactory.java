@@ -28,12 +28,12 @@ public class GameFactory {
 		Map<String, Map<String, Entity>> map = new HashMap<String, Map<String, Entity>>();
 		for (Entity entity : myGlobalData.getEntities()){
 			Map<String, Entity> existingMap = null;
-			if (map.containsKey(entity.getMyType())){
-				existingMap = map.get(entity.getMyType());
+			if (map.containsKey(entity.getType())){
+				existingMap = map.get(entity.getType());
 			}
 			else{
 				existingMap = new HashMap<String, Entity>();
-				map.put(entity.getMyType(), existingMap);
+				map.put(entity.getType(), existingMap);
 			}
 			existingMap.put(entity.getName(), entity);
 		}

@@ -99,7 +99,7 @@ public class Entity implements IEntity {
 		this.myParentLevelID = levelID;
 	}
 
-	public String getMyType() {
+	public String getType() {
 		return myType;
 	}
 

@@ -7,6 +7,7 @@ import java.util.Map;
 import engine.backend.game_object.GameStatisticsObject;
 import engine.backend.components.IComponent;
 import engine.backend.entities.Entity;
+import engine.backend.entities.IEntity;
 
 public class InGameEntityFactory {
 	
@@ -18,9 +19,9 @@ public class InGameEntityFactory {
 		this.myEntityMap = map;
 	}
 	
-	public Entity createEntity(String entityName){
-		Entity templateEntity = findInMap(entityName);
-		Entity newEntity = new Entity(myStats.nextEntityID(), templateEntity.getName(), templateEntity.getMyType(), templateEntity.getValue());
+	public IEntity createEntity(String entityName){
+		IEntity templateEntity = findInMap(entityName);
+		IEntity newEntity = new Entity(myStats.nextEntityID(), templateEntity.getName(), templateEntity.getType(), templateEntity.getValue());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
 	}
@@ -35,7 +36,7 @@ public class InGameEntityFactory {
 		return null;
 	}
 	
-	private void copyComponents(Entity newEntity, Entity templateEntity){
+	private void copyComponents(IEntity newEntity, IEntity templateEntity){
 		Collection<IComponent> templateComponents =  templateEntity.getComponents();
 		for (IComponent component : templateComponents){
 			IComponent copyComponent = cloneComponent(component);
