@@ -11,7 +11,6 @@ import java.util.List;
 
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.SizeComponent;
-import engine.controller.Engine2PlayerController;
 
 public class MapObject {
 
