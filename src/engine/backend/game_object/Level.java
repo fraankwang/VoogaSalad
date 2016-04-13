@@ -18,7 +18,7 @@ public class Level {
 
 	private List<IEntity> entities;
 	private int myID;
-	private int myParentModeID;
+	private String myParentModeName;
 	private MapObject map = new MapObject();
 
 	public Level(int id) {
@@ -48,12 +48,12 @@ public class Level {
 		entities.add(entity);
 	}
 	
-	public void setModeID(int modeID) {
-		this.myParentModeID = modeID;
+	public void setModeName(String modeID) {
+		this.myParentModeName = modeID;
 	}
 	
-	public int getModeID() {
-		return myParentModeID;
+	public String getModeID() {
+		return myParentModeName;
 	}
 	
 }
