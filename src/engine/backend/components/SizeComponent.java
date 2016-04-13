@@ -21,11 +21,6 @@ public class SizeComponent extends Component implements IComponent{
 		this.height = DEFAULT_HEIGHT;
 	}
 	
-	public SizeComponent(double width, double height){
-		this.width = width;
-		this.height = height;
-	}
-	
 	@Override
 	public String toString() {
 		return this.getTag() + " with width: " + this.width + " with height: " + this.height;
@@ -45,9 +40,11 @@ public class SizeComponent extends Component implements IComponent{
 	}
 
 	@Override
-	public void initWithParams(List params) {
-		this.width = (double) params.get(0);
-		this.height = (double) params.get(1);
+	public void initWithParams(String[] params) {
+		if(params.length > 0){
+		this.width = Double.parseDouble(params[0]);
+		this.height = Double.parseDouble(params[1]);
+		}
 	}
 
 }

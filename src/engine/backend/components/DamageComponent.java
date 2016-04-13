@@ -9,8 +9,7 @@ public class DamageComponent extends Component implements IComponent{
 	//private Vector myDamageToPosition;
 	
 	
-	public DamageComponent(double damage){
-		setDamageToHealth(damage);
+	public DamageComponent(){
 	}
 
 	public double getDamageToHealth() {
@@ -30,9 +29,8 @@ public class DamageComponent extends Component implements IComponent{
 	}
 
 	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
-		
+	public void initWithParams(String[] params) {
+		setDamageToHealth(Double.parseDouble(params[0]));
 	}
 	
 }

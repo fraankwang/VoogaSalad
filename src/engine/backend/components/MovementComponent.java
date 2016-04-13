@@ -16,7 +16,6 @@ public class MovementComponent extends Component implements IComponent{
 	private Vector myDefaultVelocityVector;
 	private double myTheta;
 	
-	
 	//figure out direction of velocity;
 	
 	//this is the angle to rotate myTheta by
@@ -26,14 +25,16 @@ public class MovementComponent extends Component implements IComponent{
 	private boolean canMove;
 	private boolean canRotate;
 	
-	public MovementComponent(double velocity, double theta, double omega) {
-		// TODO Auto-generated constructor stub
-		myCurrentVelocityVector = new Vector(velocity, 0);
-		myDefaultVelocityVector = new Vector(velocity, 0);
-		myTheta = theta;
-		myCurrentOmega = omega;
-		//myVelocity = velocity;
-		//myAcceleration = acceleration;
+	public MovementComponent() {
+	}
+	
+	@Override
+	public void initWithParams(String[] params) {
+		//0 is velocity, 1 is theta, 2 is omega
+		myCurrentVelocityVector = new Vector(Double.parseDouble(params[0]), 0);
+		myDefaultVelocityVector = new Vector(Double.parseDouble(params[0]), 0);
+		myTheta = Double.parseDouble(params[1]);
+		myCurrentOmega = Double.parseDouble(params[2]);
 	}
 	
 	public Vector getCurrentVelocityVector(){
@@ -74,11 +75,5 @@ public class MovementComponent extends Component implements IComponent{
 	}
 	public void setCanRotate(boolean bool){
 		canRotate = bool;
-	}
-
-	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
-		
 	}
 }

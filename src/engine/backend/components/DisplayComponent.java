@@ -43,15 +43,9 @@ public class DisplayComponent extends Component implements IComponent{
 		return this.getTag() + this.imageToShow;
 	}
 
-	public static void main(String[] args){
-		Object c = new DisplayComponent(true);
-		System.out.println(c.getClass());
-	}
-
 	@Override
-	public void initWithParams(List params) {
-		this.canBeShown = true;
-		
+	public void initWithParams(String[] params) {
+		this.canBeShown = true; //default
 	}
 
 }

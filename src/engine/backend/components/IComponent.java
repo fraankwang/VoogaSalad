@@ -6,7 +6,7 @@ public interface IComponent {
 	
 	public String getTag();
 	
-	public void initWithParams(List<?> params);
+	public void initWithParams(String[] params);
 	
 	public void setEntityName(String entityName);
 	
