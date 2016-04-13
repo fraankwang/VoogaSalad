@@ -16,5 +16,4 @@ public class ModeFactory {
 	private void setUpMode(Mode mode, Object info){
 		//do other shit with string
 	}
-
 }
