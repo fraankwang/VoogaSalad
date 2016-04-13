@@ -3,10 +3,10 @@ package engine.frontend;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 
-public class TowerPane {
+public class ShopPane {
 	private EngineView myEngineView;
 	
-	public TowerPane(EngineView ev){
+	public ShopPane(EngineView ev){
 		myEngineView = ev;
 	}
 	

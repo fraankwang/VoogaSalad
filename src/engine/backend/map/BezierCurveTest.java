@@ -1,11 +1,6 @@
 package engine.backend.map;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
-
 import engine.backend.components.DisplayComponent;
-import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
