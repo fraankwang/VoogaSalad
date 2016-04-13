@@ -9,12 +9,12 @@ package engine.backend.systems;
 
 import java.util.List;
 
-import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.controller.EngineController;
 

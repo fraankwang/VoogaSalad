@@ -3,12 +3,12 @@ package engine.backend.systems;
 import java.util.List;
 
 import authoring.backend.factories.EntityFactory;
-import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.components.FiringComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 
 /**
  * 

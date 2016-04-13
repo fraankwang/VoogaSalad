@@ -2,8 +2,8 @@ package engine.backend.systems;
 
 import java.util.List;
 
-import authoring.backend.factories.InGameEntityFactory;
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 
 public interface ISystem {
 	
