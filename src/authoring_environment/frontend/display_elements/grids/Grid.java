@@ -25,8 +25,6 @@ public abstract class Grid implements IGrid {
 	protected IController myController;
 	protected GridFactory myGridFactory;
 	protected GridPane myGrid;
-	protected Node myLeftSubGrid;
-	protected Node myRightSubGrid;
 	protected Panel myPrimaryDisplay;
 	protected Panel myButtonDashboard;
 
@@ -51,8 +49,7 @@ public abstract class Grid implements IGrid {
 	protected void initializeGrid() {
 		myPrimaryDisplay = myGridFactory.createPrimaryDisplay();
 		myButtonDashboard = myGridFactory.createButtonDashboard();
-		myLeftSubGrid = myGridFactory.createLeftSubGrid();
-		myRightSubGrid = myGridFactory.createRightSubGrid();
+
 	}
 
 	/**

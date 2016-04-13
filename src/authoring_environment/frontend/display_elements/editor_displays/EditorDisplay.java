@@ -17,17 +17,16 @@ import javafx.scene.Node;
 public abstract class EditorDisplay implements IEditorDisplay {
 
 	protected Grid myGrid;
-
 	protected IController myController;
 
 	public EditorDisplay(IController controller) {
 		myController = controller;
 	}
-	
+
 	@Override
 	public Node getNode() {
 		return myGrid.getNode();
-		
+
 	}
 
 	@Override

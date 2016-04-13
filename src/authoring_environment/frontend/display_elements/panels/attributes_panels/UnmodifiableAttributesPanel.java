@@ -24,6 +24,7 @@ public abstract class UnmodifiableAttributesPanel extends Panel {
 
 	protected TabDisplay myTabDisplay;
 	protected final int BUTTON_HEIGHT_PERCENTAGE = 8;
+	protected final int TITLED_PANE_HEIGHT = 350;
 
 	public UnmodifiableAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width);
