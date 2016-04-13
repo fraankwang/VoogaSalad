@@ -38,6 +38,8 @@ public class SystemsController {
 		engineController = eController;
 		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), eController.getMyGameWorld().getEntityMap());
 		
+		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
+		
 		renderingSystem = new RenderingSystem(engineController);
 		mobilizationSystem = new MobilizeSystem();
 		healthSystem = new HealthSystem();
@@ -60,7 +62,7 @@ public class SystemsController {
 		List<Level> currLevels = currMode.getLevels();
 		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
 		for (ISystem system : mySystems) {
-			system.update(currentLevel.getEntities(), myEntityFactory);
+			system.update(currentLevel.getEntities(), myEntityFactory, myComponentTagResources);
 
 		}
 		
