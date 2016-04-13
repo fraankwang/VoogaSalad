@@ -28,14 +28,6 @@ public class Entity implements IEntity {
 		this.myID = ID;
 		this.setValue(value);
 	}
-	
-	public Entity(int ID){
-		this.myID = ID;
-	}
-	
-	public void setParentID(int parentID) {
-		this.parentLevelID = parentID;
-	}
 
 	public List<Rule> getRules() {
 		return myRules;
@@ -46,7 +38,7 @@ public class Entity implements IEntity {
 	}
 
 	public void addComponent(IComponent component) {
-		System.out.println(myComponents);
+		component.setEntityID(myID);
 		myComponents.put(component.getTag(), component);
 	}
 
@@ -60,7 +52,6 @@ public class Entity implements IEntity {
 	}
 
 	public Set<String> getComponentTags() {
-		// sort alphabetically
 		return myComponents.keySet();
 	}
 
@@ -98,11 +89,6 @@ public class Entity implements IEntity {
 
 	public void setHasBeenModified(boolean bool) {
 		hasBeenModified = bool;
-	}
-
-	public String getLabel() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public int getLevelID() {
