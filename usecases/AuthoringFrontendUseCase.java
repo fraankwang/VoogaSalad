@@ -1,6 +1,10 @@
 package usecases;
 
+<<<<<<< HEAD
 import src.authoring_environment.frontend.design_interfaces.*;
+=======
+import authoring.frontend.interfaces.*;
+>>>>>>> 430493955c7bd4f6ba11cfa31a2effcfd94415af
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;

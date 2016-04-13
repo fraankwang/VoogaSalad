@@ -94,7 +94,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
-
+.classpath
 # Eclipse Core
 .project
 
