@@ -2,6 +2,9 @@ package authoring.backend;
 
 import java.util.Map;
 
+import authoring.backend.factories.EntityFactory;
+import authoring.backend.factories.LevelFactory;
+import authoring.backend.factories.ModeFactory;
 import authoring.controller.GlobalData;
 import engine.backend.GameWorld;
 import engine.backend.Level;
@@ -15,9 +18,15 @@ import engine.backend.entities.Entity;
 public class ModelManager implements IModel {
 	
 	private final GlobalData globaldata;
+	private final EntityFactory entityfactory;
+	private final LevelFactory levelfactory;
+	private final ModeFactory modefactory;
 	
 	public ModelManager(GlobalData globaldata) {
 		this.globaldata = globaldata;
+		this.entityfactory = new EntityFactory();
+		this.levelfactory = new LevelFactory();
+		this.modefactory = new ModeFactory();
 	}
 	
 	public void updateEntities(Map<String, String> data) {
