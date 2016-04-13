@@ -1,59 +1,41 @@
 package authoring.controller;
 
 import java.util.Map;
-import java.util.Observable;
 
-import authoring.backend.ModelManager;
+import authoring.frontend.AuthoringViewManager;
+import authoring.frontend.interfaces.IViewManager;
+import javafx.stage.Stage;
 
-/*
- * @author: Jonathan Ma
+/**
+ * 
+ * @author Frank, benchesnut
+ *
  */
 
-public class AuthoringController implements ControllerInterface {
+public class AuthoringController implements IController {
+
+	private Stage myPrimaryStage;
+	private IViewManager myViewManager;
 	
-	private final GlobalData globaldata;
-	private final ModelManager model;
-	
-	public AuthoringController(GlobalData globaldata) {
-		this.globaldata = globaldata;
-		this.model = new ModelManager(globaldata);
-		setListener();
+	public AuthoringController(Stage s) {
+		myPrimaryStage = s;
+		myViewManager = new AuthoringViewManager(this);
 	}
 	
-	private void setListener() {
-		this.globaldata.getInput().addObserver(this);
+	public void start() {
+		myViewManager.initialize(myPrimaryStage);
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if (o == globaldata.getInput()) {
-			parseInput(globaldata.getInput().getData());
-		}
+	public Map<String, String> loadData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void parseInput(Map<String, String> data) {
-		for (String key : data.keySet()) {
-			if (key.equals("Object")) {
-				String type = data.get(key);
-				switch (type) {
-					case "Entity":
-						data.remove(key);
-						model.updateEntities(data);
-						break;
-					case "Level":
-						data.remove(key);
-						model.updateLevels(data);
-						break;
-					case "Mode":
-						data.remove(key);
-						model.updateModes(data);
-						break;
-				}
-				break;
-			}
-		}
+	public void writeData(Map<String, String> data) {
+		// TODO Auto-generated method stub
+		
 	}
-	
+
 }
-

@@ -1,12 +1,8 @@
 package main;
-/**
- * @author Austin Wu
- * The AuthoringMain file that starts the simulation
- */
 
 import java.util.Optional;
 
-import authoring_environment.controller.AuthoringController;
+import authoring.controller.AuthoringController;
 import engine.controller.EngineController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,6 +11,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+
+/**
+ * @author Austin Wu
+ * The Main file that starts the simulation
+ */
 
 public class Main extends Application {
     
