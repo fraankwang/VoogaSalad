@@ -1,6 +1,6 @@
 package backend.xml_converting;
 
-import backend.GameWorld;
+import engine.backend.game_object.GameWorld;
 
 public class GameWorldToXMLWriter extends ObjectToXMLWriter {
 
