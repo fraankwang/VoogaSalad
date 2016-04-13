@@ -6,7 +6,6 @@ import java.util.Map;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 
-
 public class GameShop {
 	
 	private Map<String , IEntity> myItems;
@@ -16,7 +15,7 @@ public class GameShop {
 	}
 	
 	public void addItem(IEntity entity){
-		myItems.put(((Entity)entity).getName(), entity);
+		myItems.put(entity.getName(), entity);
 	}
 	
 //	public IE
