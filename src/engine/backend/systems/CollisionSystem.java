@@ -1,12 +1,12 @@
 package engine.backend.systems;
 
+import java.util.List;
+
 import engine.backend.components.CollisionComponent;
 import engine.backend.components.DamageComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.entities.IEntity;
-
-import java.util.List;
 
 /**
  * Created by colinduffy on 4/10/16.

@@ -7,12 +7,14 @@ package engine.backend.game_object;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 
 public class GameWorld {
-
+	
+	private Map<String, Map<String, Entity>> myEntityTypeMap; //maps types of entities to a map containing specific entity names of that type
 	private List<Mode> modes;
 	private GameStatistics gameStats;
 
@@ -108,6 +110,10 @@ public class GameWorld {
 	public void addMapImage(Level level) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setEntityMap(Map<String, Map<String, Entity>> map){
+		this.myEntityTypeMap = map;
 	}
 
 }

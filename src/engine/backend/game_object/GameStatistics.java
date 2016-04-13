@@ -16,6 +16,7 @@ public class GameStatistics {
 	private int numOfLevels = 0;
 	private int numOfModes = 0;
 	private int nextAvailableID = 0;
+	private int nextAvailableEntityID = 0;
 
 	public GameStatistics() {
 		
@@ -43,6 +44,10 @@ public class GameStatistics {
 
 	public int nextAvailableID() {
 		return nextAvailableID++;
+	}
+	
+	public int nextEntityID(){
+		return nextAvailableEntityID++;
 	}
 
 }
