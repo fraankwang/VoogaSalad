@@ -61,7 +61,7 @@ public class RenderingSystem implements ISystem{
 				}
 			}
 			
-			//engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
+			engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
 		}
 	}
 
