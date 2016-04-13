@@ -1,6 +1,6 @@
 package authoring.backend.factories;
 
-import backend.rules.Actions;
+import engine.backend.rules.Rule;
 
 public class RuleFactory {
 

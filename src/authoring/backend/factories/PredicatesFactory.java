@@ -1,6 +1,6 @@
 package authoring.backend.factories;
 
-import backend.rules.Predicates;
+import engine.backend.rules.Predicate;
 
 public class PredicatesFactory {
 
@@ -8,11 +8,11 @@ public class PredicatesFactory {
 		
 	}
 
-	public Predicates createPredicate(Object info) {
+	public Predicate createPredicate(Object info) {
 		String predicateName = "";
-		Predicates predicate = null;
+		Predicate predicate = null;
 		try {
-			predicate = (Predicates) Class.forName("backend.rules"+ predicate + "Predicates").newInstance();
+			predicate = (Predicate) Class.forName("engine.backend.rules"+ predicateName + "Predicates").newInstance();
 			
 		} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 			e.printStackTrace();

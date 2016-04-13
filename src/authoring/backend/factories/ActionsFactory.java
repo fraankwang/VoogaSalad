@@ -1,7 +1,6 @@
 package authoring.backend.factories;
 
-import backend.game_object.components.Component;
-import backend.rules.Actions;
+import engine.backend.rules.Action;
 
 public class ActionsFactory {
 
@@ -9,11 +8,11 @@ public class ActionsFactory {
 		
 	}
 	
-	public Actions createAction(Object info) {
+	public Action createAction(Object info) {
 		String actionName = "";
-		Actions action = null;
+		Action action = null;
 		try {
-			action = (Actions) Class.forName("backend.rules"+ actionName + "Actions").newInstance();
+			action = (Action) Class.forName("backend.rules"+ actionName + "Actions").newInstance();
 			
 		} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 			e.printStackTrace();
