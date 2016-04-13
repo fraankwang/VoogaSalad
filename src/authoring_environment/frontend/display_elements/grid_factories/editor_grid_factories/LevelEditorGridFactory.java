@@ -5,7 +5,7 @@ import authoring_environment.frontend.display_elements.grid_factories.EditorGrid
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
 import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
+import authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableLevelAttributesPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 
 /**
@@ -29,7 +29,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createModifiableAttributesPanel() {
-		ModifiableAttributesPanel panel = new ModifiableEntityAttributesPanel(PANEL_SIZE, PANEL_SIZE);
+		ModifiableAttributesPanel panel = new ModifiableLevelAttributesPanel(PANEL_SIZE, PANEL_SIZE);
 		panel.initialize();
 		return panel;
 	}

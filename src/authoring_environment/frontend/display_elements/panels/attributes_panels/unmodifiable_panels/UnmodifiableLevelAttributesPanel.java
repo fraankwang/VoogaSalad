@@ -85,8 +85,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		cm.getItems().add(new MenuItem("context menu text"));
 		lv.setContextMenu(cm);
 		lv.setEditable(true);
-		lv.getItems().add("hello!");
-		lv.getItems().add("helloooo");
+		lv.getItems().add("Waves");
+		lv.getItems().add("Timer");
 
 		return lv;
 	}

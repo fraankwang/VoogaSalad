@@ -69,8 +69,7 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 		gp.add(new Label("Number of Starting Lives"), 0, 1);
 		gp.add(new Label("Number of Lives For Defeat"), 0, 2);
 		gp.add(new Label("Game Timer"), 0, 3);
-		gp.add(new Label("Movement Speed"), 0, 4);
-		gp.add(new Label("Armor"), 0, 5);
+		gp.add(new Label("Starting Resources"), 0, 4);
 		// add more attributes later
 
 		gp.setPrefSize(ATTRIBUTES_PANEL_WIDTH * 2, ATTRIBUTES_PANEL_WIDTH * 2);

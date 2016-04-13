@@ -1,6 +1,7 @@
 package authoring_environment.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
 import authoring_environment.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import javafx.scene.control.Label;
 
 /**
  * 
@@ -23,6 +24,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		super.assembleComponents();
+		myAttributesGridPane.add(new Label("Waves"), 0, 0);
+		myAttributesGridPane.add(new Label("Timer"), 0, 1);
 
 	}
 

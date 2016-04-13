@@ -63,18 +63,26 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		columnConstraints.add(50);
 		columnConstraints.add(50);
 
-		GridPane gp = createGridWrapper(rowConstraints, columnConstraints);
-		gp.add(new Label("Entity Type"), 0, 0);
-		gp.add(new Text("Tower or Enemy or what"), 1, 0);
-		gp.add(new Label("Name"), 0, 1);
-		gp.add(new Label("Attack"), 0, 2);
-		gp.add(new Label("Attack Speed"), 0, 3);
-		gp.add(new Label("Movement Speed"), 0, 4);
-		gp.add(new Label("Armor"), 0, 5);
+		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
+		myAttributesGridPane.add(new Label("Entity Type"), 0, 0);
+		myAttributesGridPane.add(new Text("Tower or Enemy or what"), 1, 0);
+		myAttributesGridPane.add(new Label("Name"), 0, 1);
+		myAttributesGridPane.add(new Label("Attack Damage Value"), 0, 2);
+		myAttributesGridPane.add(new Label("Attack Rate"), 0, 3);
+		myAttributesGridPane.add(new Label("Movement Speed"), 0, 4);
+		myAttributesGridPane.add(new Label("Armor"), 0, 5);
+		myAttributesGridPane.add(new Label("Health"), 0, 6);
+		myAttributesGridPane.add(new Label("Rotate Speed"), 0, 7);
+		myAttributesGridPane.add(new Label("Cost"), 0, 8);
+		myAttributesGridPane.add(new Label("Collidable"), 0, 9);
+		myAttributesGridPane.add(new Label("Moves on Path"), 0, 10); 
+		myAttributesGridPane.add(new Label("Path name"), 0, 11); 
+		myAttributesGridPane.add(new Label("Random movement"), 0, 12); 
+		
 		// add more attributes later
 
-		gp.setPrefSize(600, 600);
-		return gp;
+		myAttributesGridPane.setPrefSize(600, 600);
+		return myAttributesGridPane;
 
 	}
 
