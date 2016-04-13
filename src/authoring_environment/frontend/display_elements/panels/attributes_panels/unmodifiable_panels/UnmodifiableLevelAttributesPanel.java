@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import authoring_environment.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring_environment.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
@@ -27,11 +26,11 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private TitledPane myPiecesTitledPane;
 	private TitledPane myRulesTitledPane;
 	private GridPane myGridPane;
-	private Button myOpenEditorButton;
 	private ListView<String> myRulesListView;
 	private ListView<String> myPiecesListView;
 	private ListView<String> myEntityListView;
-	private Accordion myAccordion;
+	private GridPane titledPanesGridPane;
+	private ScrollPane myScrollPane;
 
 	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
@@ -39,7 +38,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 	@Override
 	protected void initializeComponents() {
-		
+
 		myWrapper = new BorderPane();
 
 		List<Integer> rowConstraints = new ArrayList<Integer>();
@@ -51,19 +50,29 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		myOpenEditorButton = createOpenEditorButton();
 
 		myEntityListView = createModeRulesListView();
-		myEntityTitledPane = createTitledPane("Rules", myEntityListView);
+		myEntityTitledPane = createTitledPane("Entities", myEntityListView);
+		myEntityTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
 		myPiecesListView = createModeRulesListView();
-		myPiecesTitledPane = createTitledPane("Rules", myPiecesListView);
+		myPiecesTitledPane = createTitledPane("Grid Pieces", myPiecesListView);
+		myPiecesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
 		myRulesListView = createModeRulesListView();
 		myRulesTitledPane = createTitledPane("Rules", myRulesListView);
-		myAccordion = new Accordion();
-		myAccordion.getPanes().addAll(myEntityTitledPane, myPiecesTitledPane, myRulesTitledPane);
+		myRulesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
+
+		titledPanesGridPane = new GridPane();
+		titledPanesGridPane.add(myEntityTitledPane, 0, 0);
+		titledPanesGridPane.add(myPiecesTitledPane, 0, 1);
+		titledPanesGridPane.add(myRulesTitledPane, 0, 2);
+		titledPanesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+
+		myScrollPane = new ScrollPane();
+		myScrollPane.setContent(titledPanesGridPane);
 	}
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
-		myGridPane.add(myAccordion, 0, 1);
+		myGridPane.add(myScrollPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
@@ -76,8 +85,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		cm.getItems().add(new MenuItem("context menu text"));
 		lv.setContextMenu(cm);
 		lv.setEditable(true);
-		lv.getItems().add("hello!");
-		lv.getItems().add("helloooo");
+		lv.getItems().add("Waves");
+		lv.getItems().add("Timer");
 
 		return lv;
 	}
