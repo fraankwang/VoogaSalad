@@ -6,7 +6,9 @@ package engine.backend.systems;
 
 import java.util.List;
 
-import engine.backend.components.*;
+import engine.backend.components.MovementComponent;
+import engine.backend.components.PositionComponent;
+import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 
 public class MobilizeSystem extends Systemm implements ISystem {

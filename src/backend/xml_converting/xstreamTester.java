@@ -1,10 +1,10 @@
 package backend.xml_converting;
 
 import engine.backend.components.DisplayComponent;
-import engine.backend.entities.Entity;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
+import src.engine.backend.entities.EntityFactoryClass;
 
 public class xstreamTester {
 

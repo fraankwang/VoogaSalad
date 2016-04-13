@@ -7,30 +7,20 @@ package engine.backend.game_object;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 
 public class GameWorld {
-
+	
+	private Map<String, Map<String, Entity>> myEntityTypeMap; //maps types of entities to a map containing specific entity names of that type
 	private List<Mode> modes;
 	private GameStatisticsObject gameStats;
 
 	public GameWorld() {
 		this.gameStats = new GameStatisticsObject();
 		this.modes = new ArrayList<Mode>();
-	}
-
-	public void initializeGameObject(int numOfMode, int numOfLevels) {
-		int iteration = 0;
-		while (iteration < numOfMode) {
-			Mode mode1 = new Mode();
-			addMode(mode1);
-			for (int i = 0; iteration < numOfLevels; iteration++) {
-				addNewLevelToCurrentMode(mode1);
-			}
-			iteration++;
-		}
 	}
 
 	public GameStatisticsObject getGameStats() {
@@ -74,13 +64,13 @@ public class GameWorld {
 		}
 		return null;
 	}
+	
 	public void addNewLevelToCurrentMode(Mode mode) {
-		Level level1 = new Level();
+		Level level1 = new Level(0);
 		mode.addLevel(level1);
 		gameStats.incrementNumLevels();
 	}
 
-	
 	/**
 	 * Returns all possible types of modes
 	 * 
@@ -98,16 +88,9 @@ public class GameWorld {
 		System.out.println("I am game object " + this.toString() + " and I have been created");
 		System.out.println("I have " + modes.size() + " mode(s) and they are composed of " + modes.get(0).toString());
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
-
-	public void addMapImage(Level level) {
-		// TODO Auto-generated method stub
-		
+	
+	public void setEntityMap(Map<String, Map<String, Entity>> map){
+		this.myEntityTypeMap = map;
 	}
 
 }

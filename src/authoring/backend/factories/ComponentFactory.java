@@ -1,7 +1,5 @@
 package authoring.backend.factories;
 
-import java.util.List;
-
 import engine.backend.components.Component;
 
 public class ComponentFactory {
