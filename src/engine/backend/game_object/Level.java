@@ -19,11 +19,11 @@ public class Level {
 	private List<IEntity> entities;
 	private int myID;
 	private int myParentModeID;
-	private MapObject map = new MapObject();
+	private MapObject map;
 
-	public Level(int id) {
-		entities = new ArrayList<IEntity>();
-		this.myID = id;
+	public Level(int myID) {
+		this.entities = new ArrayList<IEntity>();
+		this.myID = myID;
 	}
 	
 	public int getId(){

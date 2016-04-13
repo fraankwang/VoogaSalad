@@ -24,6 +24,10 @@ public class Path implements IPath{
 	
 	private List<BezierCurve> myCurves;
 	
+	public Path(List<BezierCurve> curves) {
+		this.myCurves = curves;
+	}
+	
 	public Path() {
 		myCurves = new ArrayList<BezierCurve>();
 	}

@@ -12,14 +12,14 @@ import java.util.List;
 public class DisplayComponent extends Component implements IComponent{
 	
 	private boolean canBeShown;
-	private String imageToShow = "/DrumpfVader.png";
+	private String image;
 	
-	public DisplayComponent(){
-
+	public DisplayComponent(String image){
+		this.image = image;
 	}
 	
 	public void setImage(String image){
-		imageToShow = image;
+		this.image = image;
 	}
 	
 	public DisplayComponent(boolean shown) {
@@ -31,7 +31,7 @@ public class DisplayComponent extends Component implements IComponent{
 	}
 	
 	public String getImage(){
-		return imageToShow;
+		return image;
 	}
 	
 	public void doNotShow(){
@@ -40,7 +40,7 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	@Override
 	public String toString() {
-		return this.getTag() + this.imageToShow;
+		return this.getTag() + this.image;
 	}
 
 	public static void main(String[] args){
@@ -49,7 +49,7 @@ public class DisplayComponent extends Component implements IComponent{
 	}
 
 	@Override
-	public void initWithParams(List params) {
+	public void initWithParams(List<?> params) {
 		this.canBeShown = true;
 		
 	}

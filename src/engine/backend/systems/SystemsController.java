@@ -51,7 +51,7 @@ public class SystemsController {
 	public void iterateThroughSystems(GameWorld game) {
 		for (Systemm myCurrSystem : bagOfSystems) {
 			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
-			List<Level> currLevels = game.getLevelsForMode(currMode);
+			List<Level> currLevels = currMode.getLevels();
 			//switch this to iterate through the quadrants contained inside of the curr levels map
 			//and that maps quadrants
 			myCurrSystem.update(currLevels.get(game.getGameStats().getCurrentLevel()).getEntities());

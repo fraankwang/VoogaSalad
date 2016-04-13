@@ -80,10 +80,6 @@ public class GameWorld {
 		return modes;
 	}
 
-	public List<Level> getLevelsForMode(Mode mode) {
-		return mode.getLevels();
-	}
-
 	public void printWhatIHave() {
 		System.out.println("I am game object " + this.toString() + " and I have been created");
 		System.out.println("I have " + modes.size() + " mode(s) and they are composed of " + modes.get(0).toString());

@@ -14,18 +14,23 @@ import engine.backend.components.SizeComponent;
 
 public class MapObject {
 
-	private DisplayComponent image = new DisplayComponent();
+	private DisplayComponent image;
 	private SizeComponent size;
-	private List<Quadrant> quadrants = new ArrayList<Quadrant>();
+	private List<Quadrant> quadrants;
 	private Path path;
 	
-	public MapObject() {
-//		this.image.setImage("Crampton_stage.png");
+	public MapObject(String image, Path path) {
+		this.image = new DisplayComponent(image);
 		this.size = new SizeComponent(300, 300);
+		this.quadrants = new ArrayList<Quadrant>();
+		this.path = path;
+	}
+	
+	public MapObject() {
+		
 	}
 	
 	public String getImage(){
-		System.out.println(image.getImage());
 		return image.getImage();
 	}
 	
@@ -35,6 +40,14 @@ public class MapObject {
 	
 	public double getYSize(){
 		return size.getHeight();
+	}
+	
+	public Path getPath() {
+		return path;
+	}
+	
+	public List<Quadrant> getQuadrants() {
+		return quadrants;
 	}
 
 }
