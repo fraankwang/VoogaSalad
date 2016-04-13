@@ -6,10 +6,12 @@ import engine.backend.components.CollisionComponent;
 import engine.backend.components.DamageComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.MovementComponent;
+import engine.backend.components.PositionComponent;
+import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 
 /**
- * Created by colinduffy on 4/10/16.
+ * Created by colinduffy on 4/10/16., raghav kedia
  */
 public class CollisionSystem extends Systemm implements ISystem {
  
@@ -95,13 +97,15 @@ public class CollisionSystem extends Systemm implements ISystem {
     }
     
     private boolean checkIntersection2(IEntity entity1, IEntity entity2){
-    	CollisionComponent componentOne = (CollisionComponent) entity1.getComponent(getComponentTagResources().getString("Collision"));
-    	CollisionComponent componentTwo = (CollisionComponent) entity2.getComponent(getComponentTagResources().getString("Collision"));
+    	PositionComponent positionOne = (PositionComponent) entity1.getComponent(getComponentTagResources().getString("Position"));
+    	PositionComponent positionTwo = (PositionComponent) entity2.getComponent(getComponentTagResources().getString("Position"));
+    	SizeComponent sizeOne = (SizeComponent) entity1.getComponent(getComponentTagResources().getString("Size"));
+    	SizeComponent sizeTwo = (SizeComponent) entity2.getComponent(getComponentTagResources().getString("Size"));
     	
-    	return  componentOne.getMyX() < componentTwo.getMyX() + componentTwo.getMyWidth() &&
-                componentOne.getMyX() + componentOne.getMyWidth() > componentTwo.getMyX() &&
-                componentOne.getMyY() < componentTwo.getMyY() + componentTwo.getMyHeight() &&
-                componentOne.getMyY() + componentOne.getMyHeight() > componentTwo.getMyY();
+    	return  positionOne.getX() < positionTwo.getX() + sizeTwo.getWidth() &&
+    			positionOne.getX() + sizeOne.getWidth() > positionTwo.getX() &&
+    			positionOne.getY() < positionTwo.getY() + sizeTwo.getHeight() &&
+    			positionOne.getY() + sizeOne.getHeight() > positionTwo.getY();
     }
 
     private boolean checkIntersection(IEntity outEntity, IEntity inEntity) {
