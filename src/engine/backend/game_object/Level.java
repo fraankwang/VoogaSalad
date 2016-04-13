@@ -61,4 +61,18 @@ public class Level {
 		return myParentModeName;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Level) {
+			Level temp = (Level) o;
+			if (this.myID == temp.myID) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
 }
