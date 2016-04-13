@@ -5,17 +5,12 @@
  */
 package engine.controller;
 
+import engine.backend.FakeGAEBackend;
 import engine.backend.MockGAEData;
 import engine.backend.game_object.GameWorld;
-import engine.backend.FakeGAEBackend;
 import engine.backend.systems.SystemsController;
-import exception.DrumpfTowerException;
 import javafx.animation.KeyFrame;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class EngineBackendController {

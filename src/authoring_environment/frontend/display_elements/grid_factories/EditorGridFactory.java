@@ -1,6 +1,7 @@
 package authoring_environment.frontend.display_elements.grid_factories;
 
-import javafx.scene.Node;
+import authoring_environment.controller.IController;
+import authoring_environment.frontend.display_elements.panels.Panel;
 
 /**
  * The EditorGridFactory superclass is responsible for creating the additional
@@ -13,13 +14,17 @@ import javafx.scene.Node;
 
 public abstract class EditorGridFactory extends GridFactory {
 
+	public EditorGridFactory(IController controller) {
+		super(controller);
+	}
+
 	/**
 	 * @return instantiated and formatted myRulesPanel
 	 */
-	public abstract Node createRulesPanel();
-	
+	public abstract Panel createRulesPanel();
+
 	/**
 	 * @return instantiated and formatted myModifiableAttributesPanel
 	 */
-	public abstract Node createModifiableAttributesPanel();	
+	public abstract Panel createModifiableAttributesPanel();
 }

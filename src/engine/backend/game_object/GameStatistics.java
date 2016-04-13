@@ -3,9 +3,9 @@
  * @author mario_oliver93
  *
  */
-package game_object.copy;
+package engine.backend.game_object;
 
-public class GameStatisticsObject {
+public class GameStatistics {
 
 	private double myMoney;
 	private double myScore;
@@ -16,8 +16,9 @@ public class GameStatisticsObject {
 	private int numOfLevels = 0;
 	private int numOfModes = 0;
 	private int nextAvailableID = 0;
+	private int nextAvailableEntityID = 0;
 
-	public GameStatisticsObject() {
+	public GameStatistics() {
 		
 	}
 
@@ -43,6 +44,10 @@ public class GameStatisticsObject {
 
 	public int nextAvailableID() {
 		return nextAvailableID++;
+	}
+	
+	public int nextEntityID(){
+		return nextAvailableEntityID++;
 	}
 
 }
