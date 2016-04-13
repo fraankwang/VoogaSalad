@@ -14,10 +14,10 @@ import engine.backend.entities.IEntity;
 public class GameWorld {
 
 	private List<Mode> modes;
-	private GameStatisticsObject gameStats;
+	private GameStatistics gameStats;
 
 	public GameWorld() {
-		this.gameStats = new GameStatisticsObject();
+		this.gameStats = new GameStatistics();
 		this.modes = new ArrayList<Mode>();
 	}
 
@@ -33,7 +33,7 @@ public class GameWorld {
 		}
 	}
 
-	public GameStatisticsObject getGameStats() {
+	public GameStatistics getGameStats() {
 		return gameStats;
 	}
 

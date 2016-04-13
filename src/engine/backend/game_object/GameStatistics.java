@@ -5,7 +5,7 @@
  */
 package engine.backend.game_object;
 
-public class GameStatisticsObject {
+public class GameStatistics {
 
 	private double myMoney;
 	private double myScore;
@@ -17,7 +17,7 @@ public class GameStatisticsObject {
 	private int numOfModes = 0;
 	private int nextAvailableID = 0;
 
-	public GameStatisticsObject() {
+	public GameStatistics() {
 		
 	}
 
