@@ -30,6 +30,8 @@ public class EntityView {
 		return myImageView;
 	}
 	
+	//THIS NEEDS TO BE OPTIMIZED
+	
 	public void updateEntity(double xCoord, double yCoord, String image, double width, double height){
 		myImageView.setX(xCoord);
 		myImageView.setY(yCoord);

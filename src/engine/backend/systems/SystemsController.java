@@ -63,7 +63,13 @@ public class SystemsController {
 		List<Level> currLevels = currMode.getLevels();
 		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
 		for (ISystem system : mySystems) {
+			
+			long startTime = System.currentTimeMillis();
 			system.update(currentLevel, myEntityFactory, myComponentTagResources);
+			long endTime   = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			//System.out.println(system.getClass().getSimpleName() + ":  " + totalTime);
+			
 		}
 	}
 

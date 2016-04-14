@@ -20,7 +20,7 @@ public class Entity implements IEntity {
 	private int myParentLevelID;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
 
-	private boolean hasBeenModified = false;
+	private boolean hasBeenModified = true;
 
 	public Entity(int myID, String myName, String myType, double myValue) {
 		this.myName = myName;

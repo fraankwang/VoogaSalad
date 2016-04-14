@@ -37,26 +37,18 @@ public class Path implements IPath{
 		
 		PathComponent pathComponent = (PathComponent) entity.getComponent(myComponentTagResources.getString("Path"));
 		double currBezTime = pathComponent.getBezierTime();
-		System.out.println("Curr Time: " + currBezTime);
-		System.out.println("Num Curves: " + myCurves.size());
-		System.out.println("Moves with Time: " + pathComponent.movesWithTime());
+
 		//turn off display component and return
 		if((currBezTime >= myCurves.size() - 0.01 && pathComponent.movesWithTime())){
-			
-			
 			
 			DisplayComponent dispComponent = (DisplayComponent) entity.getComponent(myComponentTagResources.getString("Display"));
 			dispComponent.doNotShow();
 			
-			
-			System.out.println("GONE");
 			return;
 		}
 		
 		PositionComponent posComponent = (PositionComponent) entity.getComponent(myComponentTagResources.getString("Position"));
 		MovementComponent movComponent = (MovementComponent) entity.getComponent(myComponentTagResources.getString("Movement"));
-		
-		System.out.println(posComponent.getX() + "  " + posComponent.getY());
 		
 		Vector newPos = new Vector();
 		Vector newVel = new Vector();
@@ -80,9 +72,6 @@ public class Path implements IPath{
 		posComponent.setPositionVector(newPos);
 		pathComponent.setBezierTime(newBezTime);
 		movComponent.setCurrentVelocityVector(newVel);
-		
-		System.out.println(posComponent.getX() + "  " + posComponent.getY());
-		System.out.println("-----");
 		
 	}
 	

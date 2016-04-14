@@ -22,13 +22,6 @@ public class MobilizeSystem implements ISystem {
 		
 	}
 	
-	//Bézier curve
-	
-	//THINGS TO DO
-	//Check for boundaries
-	//Check for rules
-	//Make default velocity vector
-	
 	@Override
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		List<IEntity> entities = myLevel.getEntities();
@@ -57,6 +50,8 @@ public class MobilizeSystem implements ISystem {
 			double theta = movComponent.getTheta();
 			double omega = movComponent.getCurrentOmega();
 			movComponent.setTheta(theta+omega);
+			
+			entity.setHasBeenModified(true);
 			
 		}
 

@@ -71,7 +71,29 @@ public class EngineController {
 		tempEntity.addComponent(tempMovement);
 		tempEntity.addComponent(pathComp);
 		
+		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2", 20);
+		IComponent tempPosition2 = new PositionComponent(0, 0);
+		IComponent tempMovement2 = new MovementComponent(4, 0);
+		IComponent pathComp2 = new PathComponent(0, 0);
+		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempSize2 = new SizeComponent();
+		tempEntity2.addComponent(tempDisplay2);
+		tempEntity2.addComponent(tempSize2);
+		tempEntity2.addComponent(tempPosition2);
+		tempEntity2.addComponent(tempMovement2);
+		tempEntity2.addComponent(pathComp2);
+		
+		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3", 20);
+		IComponent tempPosition3 = new PositionComponent(450, 450);
+		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempSize3 = new SizeComponent();
+		tempEntity3.addComponent(tempDisplay3);
+		tempEntity3.addComponent(tempSize3);
+		tempEntity3.addComponent(tempPosition3);
+		
 		tempLevel.addToEntities(tempEntity);
+		tempLevel.addToEntities(tempEntity2);
+		tempLevel.addToEntities(tempEntity3);
 		tempLevel.setMap(tempMap);
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);

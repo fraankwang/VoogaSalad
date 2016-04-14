@@ -47,6 +47,9 @@ public class RenderingSystem implements ISystem{
 			double sizex = 200;
 			double sizey = 200;
 			boolean delete = false;
+			if(!myEntity.hasBeenModified()){
+				continue;
+			}
 			for(IComponent eachComponent: myEntity.getComponents()){
 				if(eachComponent.getTag().equals(myComponentTagResources.getString("Display"))){
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
@@ -68,6 +71,9 @@ public class RenderingSystem implements ISystem{
 			if(!delete){
 				engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
 			}
+			
+			myEntity.setHasBeenModified(false);
+			
 		}
 	}
 
