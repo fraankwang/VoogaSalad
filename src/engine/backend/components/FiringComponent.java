@@ -67,4 +67,9 @@ public class FiringComponent extends Component implements IComponent{
 		myDirectionToFire = Double.parseDouble(params[4]);
 	}
 	
+	@Override
+	public String getValue() {
+		return myAmmunitionSpeed + "";
+	}
+	
 }

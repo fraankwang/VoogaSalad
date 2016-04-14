@@ -29,5 +29,10 @@ public class CollisionComponent extends Component implements IComponent{
         //default
         isCollided = false;
 	}
+	
+	@Override
+	public String getValue() {
+		return isCollided + "";
+	}
 
 }

@@ -2,7 +2,7 @@ package authoring.frontend.display_elements.tab_displays;
 
 import java.util.Observable;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.LevelEditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
 import authoring.frontend.display_elements.grids.tab_grids.LevelsTabGrid;
@@ -24,7 +24,7 @@ public class LevelsTabDisplay extends TabDisplay {
 	private TabPane myLevelsTabPane;
 	private Grid myActiveGrid;
 
-	public LevelsTabDisplay(IController controller) {
+	public LevelsTabDisplay(IAuthoringView controller) {
 		super(controller);
 		myController = controller;
 	}

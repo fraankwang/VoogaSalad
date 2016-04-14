@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grid_factories;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
@@ -18,7 +18,7 @@ public abstract class TabGridFactory extends GridFactory {
 
 	protected ITabDisplay myTabDisplay;
 	
-	public TabGridFactory(IController controller, ITabDisplay tabDisplay) {
+	public TabGridFactory(IAuthoringView controller, ITabDisplay tabDisplay) {
 		super(controller);
 		myTabDisplay = tabDisplay;
 	}

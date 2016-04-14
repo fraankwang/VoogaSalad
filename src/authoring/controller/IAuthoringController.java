@@ -7,7 +7,7 @@ import java.util.Observer;
  * @author: Jonathan Ma
  */
 
-public interface ControllerInterface extends Observer {
+public interface IAuthoringController extends Observer {
 	
 	public void parseInput(Map<String, String> data);
 

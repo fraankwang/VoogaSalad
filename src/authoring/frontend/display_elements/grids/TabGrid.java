@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grids;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.TabGridFactory;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -20,7 +20,7 @@ public abstract class TabGrid extends Grid {
 	protected Panel myUnmodifiableAttributesPanel;
 	protected TabDisplay myTabDisplay;
 
-	public TabGrid(IController controller, TabDisplay tabDisplay) {
+	public TabGrid(IAuthoringView controller, TabDisplay tabDisplay) {
 		super(controller);
 		myTabDisplay = tabDisplay;
 

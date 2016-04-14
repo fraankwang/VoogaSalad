@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.editor_displays;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grids.editor_grids.ModeEditorGrid;
 import authoring.frontend.interfaces.IDisplayEntity;
 
@@ -11,7 +11,7 @@ import authoring.frontend.interfaces.IDisplayEntity;
  */
 public class ModeEditorDisplay extends EditorDisplay {
 
-	public ModeEditorDisplay(IController controller) {
+	public ModeEditorDisplay(IAuthoringView controller) {
 		super(controller);
 	}
 

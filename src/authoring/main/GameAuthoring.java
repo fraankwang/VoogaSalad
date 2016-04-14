@@ -1,7 +1,9 @@
 package authoring.main;
 
 import javafx.stage.Stage;
-import authoring.controller.FrontAuthoringController;
+import authoring.backend.GlobalData;
+import authoring.controller.AuthoringController;
+import authoring.frontend.AuthoringView;
 
 /**
  * @author: Jonathan Ma, Frank
@@ -10,8 +12,10 @@ import authoring.controller.FrontAuthoringController;
 public class GameAuthoring {
 	
 	public GameAuthoring(Stage stage) {
-		FrontAuthoringController frontend = new FrontAuthoringController(stage);
-		frontend.start();
+		GlobalData globaldata = new GlobalData();
+		AuthoringController controller = new AuthoringController(globaldata);
+		AuthoringView view = new AuthoringView(stage, globaldata);
+		view.start();
 	}
 	
 }

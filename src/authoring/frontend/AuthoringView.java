@@ -1,8 +1,8 @@
-package authoring.controller;
+package authoring.frontend;
 
 import java.util.Map;
 
-import authoring.frontend.AuthoringViewManager;
+import authoring.backend.GlobalData;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.stage.Stage;
 
@@ -12,16 +12,15 @@ import javafx.stage.Stage;
  *
  */
 
-public class FrontAuthoringController implements IController {
+public class AuthoringView implements IAuthoringView {
 
 	private Stage myPrimaryStage;
 	private IViewManager myAuthoringViewManager;
 	private GlobalData myGlobalData;
 	
-	public FrontAuthoringController(Stage s) {
+	public AuthoringView(Stage s, GlobalData globalData) {
 		myPrimaryStage = s;
-		myGlobalData = new GlobalData();
-		myGlobalData.setController(this);
+		myGlobalData = globalData;
 		myAuthoringViewManager = new AuthoringViewManager(this);
 	}
 	
@@ -36,7 +35,7 @@ public class FrontAuthoringController implements IController {
 
 	@Override
 	public void writeData(Map<String, String> data) {
-		// TODO Auto-generated method stub
+		myGlobalData.updateData(data);
 		
 	}
 

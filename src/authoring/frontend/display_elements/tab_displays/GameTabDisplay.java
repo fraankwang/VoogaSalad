@@ -2,7 +2,7 @@ package authoring.frontend.display_elements.tab_displays;
 
 import java.util.Observable;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.GameEditorDisplay;
 import authoring.frontend.display_elements.grids.tab_grids.GameTabGrid;
 
@@ -14,7 +14,7 @@ import authoring.frontend.display_elements.grids.tab_grids.GameTabGrid;
 
 public class GameTabDisplay extends TabDisplay {
 
-	public GameTabDisplay(IController controller) {
+	public GameTabDisplay(IAuthoringView controller) {
 		super(controller);
 		myController = controller;
 	}

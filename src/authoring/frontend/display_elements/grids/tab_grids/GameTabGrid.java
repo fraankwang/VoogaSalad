@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.GameTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -13,7 +13,7 @@ import authoring.frontend.display_elements.tab_displays.TabDisplay;
 
 public class GameTabGrid extends TabGrid {
 
-	public GameTabGrid(IController controller, TabDisplay tabDisplay) {
+	public GameTabGrid(IAuthoringView controller, TabDisplay tabDisplay) {
 		super(controller, tabDisplay);
 	}
 

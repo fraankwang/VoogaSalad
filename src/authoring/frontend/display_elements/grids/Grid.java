@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grids;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.GridFactory;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.interfaces.display_element_interfaces.IGrid;
@@ -22,7 +22,7 @@ import javafx.scene.layout.RowConstraints;
 
 public abstract class Grid implements IGrid {
 
-	protected IController myController;
+	protected IAuthoringView myController;
 	protected GridFactory myGridFactory;
 	protected GridPane myGrid;
 	protected Panel myPrimaryDisplay;
@@ -33,7 +33,7 @@ public abstract class Grid implements IGrid {
 	 * assembled (both through the inheriting subclass' abstract creation
 	 * methods).
 	 */
-	public Grid(IController controller) {
+	public Grid(IAuthoringView controller) {
 		myController = controller;
 
 	}

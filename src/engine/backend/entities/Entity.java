@@ -15,11 +15,11 @@ public class Entity implements IEntity {
 	private String myName;
 	private String myType;
 	private double myValue;
-	private List<Rule> myRules = new ArrayList<Rule>();;
+	private double bounty;
 	private int myID;
-	private int myParentLevelID;
-	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
-
+	private List<Rule> myRules;
+	private Map<String, IComponent> myComponents;
+	private Map<String, String> entityInfo;
 	private boolean hasBeenModified = false;
 
 	public Entity(int myID, String myName, String myType, double myValue) {
@@ -27,16 +27,26 @@ public class Entity implements IEntity {
 		this.myType = myType;
 		this.myID = myID;
 		this.myValue = myValue;
+		this.myComponents = new HashMap<String, IComponent>();
+		this.myRules = new ArrayList<Rule>();
+		this.entityInfo = new HashMap<String, String>();
+		initializeInfo();
 	}
 	
 	public Entity(String myName, String myType, double myValue) {
 		this.myName = myName;
 		this.myType = myType;
 		this.myValue = myValue;
+		this.myComponents = new HashMap<String, IComponent>();
+		this.myRules = new ArrayList<Rule>();
+		this.entityInfo = new HashMap<String, String>();		
+		initializeInfo();
 	}
-
-	public List<Rule> getRules() {
-		return myRules;
+	
+	private void initializeInfo() {
+		entityInfo.put("Type", "Entity");
+		entityInfo.put("Genre", myType);
+		entityInfo.put("Name", myName);
 	}
 
 	public void addRule(Rule myRule) {
@@ -46,6 +56,7 @@ public class Entity implements IEntity {
 	public void addComponent(IComponent component) {
 		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
+		entityInfo.put(component.getTag(), component.getValue());
 	}
 
 	public IComponent getComponent(String tag) {
@@ -60,8 +71,12 @@ public class Entity implements IEntity {
 		return myComponents.values();
 	}
 	
-	public void setID(int myID) {
-		this.myID = myID;
+	public double getBounty() {
+		return bounty;
+	}
+	
+	public List<Rule> getRules() {
+		return myRules;
 	}
 	
 	public int getID(){
@@ -72,16 +87,28 @@ public class Entity implements IEntity {
 		return myName;
 	}
 
+	public double getValue() {
+		return myValue;
+	}
+
+	public String getType() {
+		return myType;
+	}
+	
+	public Map<String, String> getInfo() {
+		return entityInfo;
+	}
+	
+	public void setID(int myID) {
+		this.myID = myID;
+	}
+
 	public void setMane(String name) {
 		this.myName = name;
 	}
 
 	public boolean hasComponent(String tag) {
 		return myComponents.get(tag) != null;
-	}
-
-	public double getValue() {
-		return myValue;
 	}
 
 	public void setValue(double myValue) {
@@ -96,20 +123,12 @@ public class Entity implements IEntity {
 		hasBeenModified = bool;
 	}
 
-	public int getLevelID() {
-		return myParentLevelID;
-	}
-
-	public void setLevelID(int levelID) {
-		this.myParentLevelID = levelID;
-	}
-
-	public String getType() {
-		return myType;
-	}
-
 	public void setMyType(String myType) {
 		this.myType = myType;
+	}
+	
+	public void setBounty(double bounty) {
+		this.bounty = bounty;
 	}
 	
 	@Override
@@ -129,7 +148,6 @@ public class Entity implements IEntity {
 		} else {
 			return false;
 		}
-		
 	}
 
 }

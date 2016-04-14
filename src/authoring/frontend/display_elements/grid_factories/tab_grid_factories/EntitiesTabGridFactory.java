@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grid_factories.tab_grid_factories;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.TabGridFactory;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 
 public class EntitiesTabGridFactory extends TabGridFactory {
 
-	public EntitiesTabGridFactory(IController controller, ITabDisplay tabDisplay) {
+	public EntitiesTabGridFactory(IAuthoringView controller, ITabDisplay tabDisplay) {
 		super(controller, tabDisplay);
 	}
 

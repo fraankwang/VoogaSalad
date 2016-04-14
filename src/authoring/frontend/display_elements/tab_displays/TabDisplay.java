@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
@@ -24,9 +24,9 @@ public abstract class TabDisplay implements ITabDisplay {
 	private static final int EDITOR_SCENE_HEIGHT = 800;
 	protected EditorDisplay myEditorDisplay;
 	protected Grid myGrid;
-	protected IController myController;
+	protected IAuthoringView myController;
 
-	public TabDisplay(IController controller) {
+	public TabDisplay(IAuthoringView controller) {
 		myController = controller;
 	}
 

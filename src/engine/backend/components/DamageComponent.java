@@ -6,7 +6,6 @@ public class DamageComponent extends Component implements IComponent{
 	private double myDamageToVelocity;
 	//private Vector myDamageToPosition;
 	
-	
 	public DamageComponent(){
 	}
 
@@ -29,6 +28,11 @@ public class DamageComponent extends Component implements IComponent{
 	@Override
 	public void initWithParams(String[] params) {
 		setDamageToHealth(Double.parseDouble(params[0]));
+	}
+	
+	@Override
+	public String getValue() {
+		return myDamageToHealth + "";
 	}
 	
 }

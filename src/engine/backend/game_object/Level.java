@@ -7,7 +7,10 @@
 package engine.backend.game_object;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
@@ -16,56 +19,68 @@ import engine.backend.map.GameMap;
 
 public class Level {
 
-	private List<IEntity> entities;
-	private int myID;
-	private String myParentModeName;
+	private final String myName;
 	private GameMap map;
+	private List<IEntity> entities;
+	private Set<String> entityNames;
+	private Map<String, String> levelInfo;
+	private double levelTimer;
+	private double waveDelayTimer;
 	
-	public Level(int myID, GameMap map) {
-		this.myID = myID;
+	public Level(String myName, GameMap map, Set<String> entityNames) {
+		this.myName = myName;
 		this.map = map;
-	}
-
-	public Level(int myID) {
 		this.entities = new ArrayList<IEntity>();
-		this.myID = myID;
+		this.levelInfo = new HashMap<String, String>();
+		this.entityNames = entityNames;
+		initializeInfo();
 	}
 	
-	public int getId(){
-		return myID;
+	private void initializeInfo() {
+		levelInfo.put("Type", "Level");
+		levelInfo.put("MapBackgroundImage", map.getMapImage());
+		levelInfo.put("LevelTimer", levelTimer + "");
+		levelInfo.put("WaveDelayTimer", waveDelayTimer + "");
 	}
 
+	public Level(String myName) {
+		this.entities = new ArrayList<IEntity>();
+		this.myName = myName;
+	}
+	
+	public String getName(){
+		return myName;
+	}
+	
 	public List<IEntity> getEntities() {
 		return entities;
+	}
+	
+	public Set<String> getEntityNames() {
+		return entityNames;
 	}
 	
 	public GameMap getMap(){
 		return map;
 	}
-
-	@Override
-	public String toString() {
-		return "Level [entities=" + entities + "] ";
+	
+	public Map<String, String> getInfo() {
+		return levelInfo;
 	}
 
-	public void addToEntities(Entity entity) {
-		entity.setLevelID(myID);
+	public void addEntity(Entity entity) {
 		entities.add(entity);
 	}
 	
-	public void setModeName(String modeID) {
-		this.myParentModeName = modeID;
+	public void addEntityName(String name) {
+		entityNames.add(name);
 	}
-	
-	public String getModeID() {
-		return myParentModeName;
-	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Level) {
 			Level temp = (Level) o;
-			if (this.myID == temp.myID) {
+			if (this.myName.equals(temp.myName)) {
 				return true;
 			} else {
 				return false;
@@ -73,6 +88,11 @@ public class Level {
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Level [entities=" + entities + "] ";
 	}
 	
 }

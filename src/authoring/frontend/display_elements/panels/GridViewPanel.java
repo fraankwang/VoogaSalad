@@ -2,14 +2,12 @@ package authoring.frontend.display_elements.panels;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -18,7 +16,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  * The GridViewPanel is the primary display within many of the TabDisplays. The
@@ -104,15 +101,16 @@ public class GridViewPanel extends Panel {
 		VBox.setVgrow(myGridPane, Priority.ALWAYS);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
 		myNode = vbox;
-	    resetGrid();
+		resetGrid();
 	}
-	
+
 	public void addImage(ImageView iv) {
 		myGridPane.getChildren().remove(myAddNewButton);
 		iv.setOnMouseClicked(e -> iv.requestFocus());
-		
+
 		iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+					Boolean newValue) {
 				if (newValue) {
 					iv.setOpacity(1);
 					return;

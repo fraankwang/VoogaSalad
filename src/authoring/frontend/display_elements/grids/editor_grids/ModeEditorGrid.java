@@ -1,8 +1,10 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.ModeEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
+import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableModeAttributesPanel;
+import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 
 /**
  * 
@@ -12,7 +14,7 @@ import authoring.frontend.display_elements.grids.EditorGrid;
 
 public class ModeEditorGrid extends EditorGrid {
 
-	public ModeEditorGrid(IController controller) {
+	public ModeEditorGrid(IAuthoringView controller) {
 		super(controller);
 	}
 
@@ -33,7 +35,9 @@ public class ModeEditorGrid extends EditorGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		
+		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(
+				e -> sendData(((ModifiableModeAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
+
 	}
 	
 }

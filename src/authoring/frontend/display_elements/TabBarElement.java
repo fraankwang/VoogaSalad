@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.display_elements.tab_displays.GameTabDisplay;
 import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
@@ -29,9 +29,9 @@ public class TabBarElement implements ITabBarElement {
 	private TabDisplay myModesTabDisplay;
 	private TabDisplay myLevelsTabDisplay;
 	private TabDisplay myEntitiesTabDisplay;
-	private IController myController;
+	private IAuthoringView myController;
 
-	public TabBarElement(IController controller) {
+	public TabBarElement(IAuthoringView controller) {
 		myController = controller;
 	}
 	

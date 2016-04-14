@@ -1,8 +1,9 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 
 /**
  * 
@@ -24,29 +25,19 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		super.assembleComponents();
-		ComboBox cb = new ComboBox();
-		cb.getItems().addAll(new Label("Tower"), new Label("Enemy"));
-		cb.setPrefWidth(600);
-		myAttributesGridPane.add(cb, 1, 0);
-		myAttributesGridPane.add(new Label("Genre"), 0, 0); //
-		myAttributesGridPane.add(new Label("Name"), 0, 1);
-		myAttributesGridPane.add(new Label("Damage Value"), 0, 2);
-		myAttributesGridPane.add(new Label("Attack Rate"), 0, 3);
-		myAttributesGridPane.add(new Label("Movement Speed"), 0, 4);
-		myAttributesGridPane.add(new Label("Armor"), 0, 5);
-		myAttributesGridPane.add(new Label("Health"), 0, 6);
-		myAttributesGridPane.add(new Label("Rotate Speed"), 0, 7);
-		myAttributesGridPane.add(new Label("Cost"), 0, 8);
-		myAttributesGridPane.add(new Label("Bounty"), 0, 9);
-		myAttributesGridPane.add(new Label("Collidable"), 0, 10); // true false
-		myAttributesGridPane.add(new Label("Moves on Path"), 0, 11); // true
-																		// false
-		myAttributesGridPane.add(new Label("Path name"), 0, 12);
-		myAttributesGridPane.add(new Label("Random movement"), 0, 13); // true
-																		// false
+		List<String> attributeNames = (List<String>) Arrays.asList("Genre", "Name", "Damage Value", "Attack Rate",
+				"Movement Speed", "Armor", "Health", "Rotate Speed", "Cost", "Bounty", "Collidable", "Moves On Path",
+				"Path Name", "Random Movement");
 
-		// add more attributes later
+		assembleRows(myAttributesGridPane, attributeNames);
 
+	}
+
+	@Override
+	public Map<String, String> saveAttributes() {
+		super.saveAttributes();
+		myAttributesMap.put("Type", "Entity");
+		return myAttributesMap;
 	}
 
 }

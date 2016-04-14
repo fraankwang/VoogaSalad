@@ -8,7 +8,7 @@ package engine.backend.components;
 
 public class MovementComponent extends Component implements IComponent{
 	
-	//private double myVelocity;
+	private double myVelocity;
 	//private double myAcceleration;
 	private Vector myCurrentVelocityVector;
 	private Vector myDefaultVelocityVector;
@@ -73,5 +73,14 @@ public class MovementComponent extends Component implements IComponent{
 	}
 	public void setCanRotate(boolean bool){
 		canRotate = bool;
+	}
+	
+	public double getVelocity() {
+		return myVelocity;
+	}
+	
+	@Override
+	public String getValue() {
+		return myVelocity + "";
 	}
 }
