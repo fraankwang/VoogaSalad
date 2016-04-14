@@ -17,25 +17,25 @@ import engine.backend.map.GameMap;
 
 public class Level {
 
-	private final int myID;
+	private final String myName;
 	private GameMap map;
 	private List<IEntity> entities;
 	private Set<String> entityNames;
 	
-	public Level(int myID, GameMap map, Set<String> entityNames) {
-		this.myID = myID;
+	public Level(String myName, GameMap map, Set<String> entityNames) {
+		this.myName = myName;
 		this.map = map;
 		this.entities = new ArrayList<IEntity>();
 		this.entityNames = entityNames;
 	}
 
-	public Level(int myID) {
+	public Level(String myName) {
 		this.entities = new ArrayList<IEntity>();
-		this.myID = myID;
+		this.myName = myName;
 	}
 	
-	public int getId(){
-		return myID;
+	public String getName(){
+		return myName;
 	}
 	
 	public List<IEntity> getEntities() {
@@ -50,7 +50,7 @@ public class Level {
 		return map;
 	}
 
-	public void addToEntities(Entity entity) {
+	public void addEntity(Entity entity) {
 		entities.add(entity);
 	}
 	
@@ -62,7 +62,7 @@ public class Level {
 	public boolean equals(Object o) {
 		if (o instanceof Level) {
 			Level temp = (Level) o;
-			if (this.myID == temp.myID) {
+			if (this.myName.equals(temp.myName)) {
 				return true;
 			} else {
 				return false;

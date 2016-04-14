@@ -4,10 +4,10 @@ package authoring.controller;
  * @author: Jonathan Ma
  */
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import authoring.backend.ObservableList;
 import engine.backend.entities.Entity;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -15,15 +15,15 @@ import engine.backend.game_object.Mode;
 public class GlobalData {
 	
 	private DataContainer datacontainer;
-	private List<Entity> entities;
-	private List<Level> levels;
-	private List<Mode> modes;
+	private ObservableList<Entity> entities;
+	private ObservableList<Level> levels;
+	private ObservableList<Mode> modes;
 	
 	public GlobalData() {
 		this.datacontainer = new DataContainer();
-		this.entities = new ArrayList<Entity>();
-		this.levels = new ArrayList<Level>();
-		this.modes = new ArrayList<Mode>();
+		this.entities = new ObservableList<Entity>();
+		this.levels = new ObservableList<Level>();
+		this.modes = new ObservableList<Mode>();
 	}
 	
 	public void updateData(Map<String, String> data) {
@@ -35,15 +35,15 @@ public class GlobalData {
 	}
 	
 	public List<Entity> getEntities() {
-		return entities;
+		return entities.getList();
 	}
 	
 	public List<Level> getLevels() {
-		return levels;
+		return levels.getList();
 	}
 	
 	public List<Mode> getModes() {
-		return modes;
+		return modes.getList();
 	}
 	
 }

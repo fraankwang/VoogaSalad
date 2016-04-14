@@ -20,27 +20,31 @@ public class GameFactory {
 	}
 
 	public GameWorld createGame() {
-		setUpEntities();
 		setUpLevels();
+		setUpModes();
 		setUpEntityMap();
 		return myGame;
 	}
 	
-	private void setUpLevels(){
-		for (Mode mode: myGlobalData.getModes()){
-			for(Level level: myGlobalData.getLevels()){
-				if(level.getModeID().equals(mode.getName())){
-					mode.addLevel(level);
+	private void setUpModes(){
+		for (Mode mode : myGlobalData.getModes()){
+			for (String levelName : mode.getLevelNames()) {
+				for (Level level : myGlobalData.getLevels()) {
+					if (level.getName().equals(levelName)) {
+						mode.addLevel(level);
+					}
 				}
 			}
 		}
 	}
 	
-	private void setUpEntities(){
+	private void setUpLevels(){
 		for (Level level : myGlobalData.getLevels()){
-			for (Entity entity : myGlobalData.getEntities()){
-				if (entity.getLevelID() == level.getId()){
-					level.addToEntities(entity);
+			for (String entityName : level.getEntityNames()) {
+				for (Entity entity : myGlobalData.getEntities()) {
+					if (entity.getName().equals(entityName)) {
+						level.addEntity(entity);
+					}
 				}
 			}
 		}

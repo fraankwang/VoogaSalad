@@ -25,6 +25,10 @@ public class Mode {
 		return levels;
 	}
 	
+	public Set<String> getLevelNames() {
+		return levelNames;
+	}
+	
 	public String getName(){
 		return this.myName;
 	}
