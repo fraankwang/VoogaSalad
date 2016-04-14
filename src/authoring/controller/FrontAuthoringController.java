@@ -21,7 +21,6 @@ public class FrontAuthoringController implements IController {
 	public FrontAuthoringController(Stage s) {
 		myPrimaryStage = s;
 		myGlobalData = new GlobalData();
-		myGlobalData.setController(this);
 		myAuthoringViewManager = new AuthoringViewManager(this);
 	}
 	

@@ -21,13 +21,13 @@ public class AuthoringController implements ControllerInterface {
 	}
 	
 	private void setListener() {
-		this.globaldata.getInput().addObserver(this);
+		this.globaldata.getData().addObserver(this);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o == globaldata.getInput()) {
-			parseInput(globaldata.getInput().getData());
+		if (o == globaldata.getData()) {
+			parseInput(globaldata.getData().getData());
 		}
 	}
 
