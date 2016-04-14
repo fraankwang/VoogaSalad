@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -28,8 +29,8 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 	private Button myOpenEditorButton;
 	private ListView<String> myListView;
 
-	public UnmodifiableModeAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
-		super(height, width, tabDisplay);
+	public UnmodifiableModeAttributesPanel(int height, int width, ITabDisplay tabDisplay, ImageView image) {
+		super(height, width, tabDisplay, image);
 	}
 
 	

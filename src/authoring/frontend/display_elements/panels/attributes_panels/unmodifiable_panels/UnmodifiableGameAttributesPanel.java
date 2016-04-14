@@ -7,6 +7,7 @@ import authoring.frontend.display_elements.panels.attributes_panels.Unmodifiable
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -27,8 +28,8 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 	private final int COLUMN_2_PERCENTAGE = 50;
 	private final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
 
-	public UnmodifiableGameAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
-		super(height, width, tabDisplay);
+	public UnmodifiableGameAttributesPanel(int height, int width, ITabDisplay tabDisplay, ImageView image) {
+		super(height, width, tabDisplay, image);
 	}
 
 	@Override

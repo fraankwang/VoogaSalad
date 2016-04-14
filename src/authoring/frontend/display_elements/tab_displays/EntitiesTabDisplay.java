@@ -2,6 +2,7 @@ package authoring.frontend.display_elements.tab_displays;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import authoring.frontend.IAuthoringView;
@@ -75,6 +76,11 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		//List<Map<String, String>> entities = (List<Map<String, String>>) arg;
+		//for (Map<String, String> entity: entities) {
+		//	entity.
+		//}
+		
 		// for each entity:
 		// create an ImageView
 		// create an UnmodifiableEntityAttributesPanel

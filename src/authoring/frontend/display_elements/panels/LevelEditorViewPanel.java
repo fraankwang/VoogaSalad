@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class LevelEditorViewPanel extends Panel {
+public class LevelEditorViewPanel extends EditorViewPanel {
 
 	private ImageView myMap;
 	private EditorPanelBar myPanelBar;

@@ -29,7 +29,6 @@ public class LevelsTabGridFactory extends TabGridFactory {
 		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay);
 		gridView.initialize();
 		gridView.addImage(new ImageView("tower_defense_map_1.png"));
-		gridView.addImage(new ImageView("tower_defense_map_1.png"));
 		return gridView;
 	}
 
@@ -43,7 +42,7 @@ public class LevelsTabGridFactory extends TabGridFactory {
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
 		UnmodifiableAttributesPanel attributes = new UnmodifiableLevelAttributesPanel(MAX_SIZE,
-				MAX_SIZE, tabDisplay);
+				MAX_SIZE, tabDisplay, new ImageView("tower_defense_map_1.png"));
 		attributes.initialize();
 		return attributes;
 	}

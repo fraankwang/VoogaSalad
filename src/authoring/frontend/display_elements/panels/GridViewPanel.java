@@ -1,7 +1,10 @@
 package authoring.frontend.display_elements.panels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
@@ -36,6 +39,7 @@ public class GridViewPanel extends Panel {
 	private Button myAddNewButton;
 	private int numColumns;
 	private List<ImageView> myImages;
+	private ImageView myCurrImage;
 	private ITabDisplay myTabDisplay;
 
 	public GridViewPanel(double height, double width, ITabDisplay tab) {
@@ -96,7 +100,10 @@ public class GridViewPanel extends Panel {
 	protected void assembleComponents() {
 		VBox vbox = new VBox();
 		myGridPane.setGridLinesVisible(true);
-		myAddNewButton.setOnAction(e -> myTabDisplay.openEditorDisplay());
+		myAddNewButton.setOnAction(e -> {
+			
+			myTabDisplay.openEditorDisplay(new ImageView("DrumpfVader.png"), new HashMap<String, String>());
+		});
 		myScrollPane.setContent(myGridPane);
 		VBox.setVgrow(myGridPane, Priority.ALWAYS);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
@@ -113,6 +120,7 @@ public class GridViewPanel extends Panel {
 					Boolean newValue) {
 				if (newValue) {
 					iv.setOpacity(1);
+					myCurrImage = iv;
 					return;
 				}
 				iv.setOpacity(0.5);
@@ -121,6 +129,10 @@ public class GridViewPanel extends Panel {
 		});
 		myImages.add(iv);
 		resetGrid();
+	}
+	
+	public ImageView getImage() {
+		return myCurrImage;
 	}
 
 }
