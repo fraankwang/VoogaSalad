@@ -6,6 +6,7 @@ package authoring.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.entities.Entity;
 import engine.backend.game_object.Level;
@@ -13,21 +14,24 @@ import engine.backend.game_object.Mode;
 
 public class GlobalData {
 	
-	private IController myController;
-	private DataContainer input;
+	private DataContainer datacontainer;
 	private List<Entity> entities;
 	private List<Level> levels;
 	private List<Mode> modes;
 	
 	public GlobalData() {
-		this.input = new DataContainer();
+		this.datacontainer = new DataContainer();
 		this.entities = new ArrayList<Entity>();
 		this.levels = new ArrayList<Level>();
 		this.modes = new ArrayList<Mode>();
 	}
 	
-	public DataContainer getInput() {
-		return input;
+	public void updateData(Map<String, String> data) {
+		datacontainer.updateData(data);
+	}
+	
+	public DataContainer getData() {
+		return datacontainer;
 	}
 	
 	public List<Entity> getEntities() {
@@ -40,11 +44,6 @@ public class GlobalData {
 	
 	public List<Mode> getModes() {
 		return modes;
-	}
-
-	public void setController(IController controller) {
-		myController = controller;
-		
 	}
 	
 }
