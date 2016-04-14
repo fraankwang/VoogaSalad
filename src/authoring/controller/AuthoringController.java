@@ -3,6 +3,7 @@ package authoring.controller;
 import java.util.Map;
 import java.util.Observable;
 
+import authoring.backend.GlobalData;
 import authoring.backend.ModelManager;
 
 /*

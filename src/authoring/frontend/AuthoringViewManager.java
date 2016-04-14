@@ -1,6 +1,6 @@
 package authoring.frontend;
 
-import authoring.controller.GlobalData;
+import authoring.backend.GlobalData;
 import authoring.controller.IController;
 import authoring.frontend.display_elements.MenuBarElement;
 import authoring.frontend.display_elements.TabBarElement;

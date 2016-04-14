@@ -1,12 +1,13 @@
 package authoring.backend.factories;
 
-import authoring.controller.GlobalData;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import authoring.backend.GlobalData;
 import engine.backend.entities.Entity;
 
 public class GameFactory {

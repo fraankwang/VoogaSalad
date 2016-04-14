@@ -2,6 +2,7 @@ package authoring.controller;
 
 import java.util.Map;
 
+import authoring.backend.GlobalData;
 import authoring.frontend.AuthoringViewManager;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.stage.Stage;
