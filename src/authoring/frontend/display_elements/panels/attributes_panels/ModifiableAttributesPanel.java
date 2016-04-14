@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import authoring.frontend.display_elements.panels.Panel;
-import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * 
@@ -26,6 +25,7 @@ import javafx.scene.layout.GridPane;
 
 public abstract class ModifiableAttributesPanel extends Panel {
 
+	protected static final int FONT_SIZE = 21;
 	protected BorderPane myWrapper;
 	protected GridPane myGridPane;
 	protected GridPane myAttributesGridPane;
@@ -34,7 +34,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 
 	protected Map<String, Control> myMap;
 	protected Map<String, String> myAttributesMap;
-	
+
 	protected final int RULES_HEIGHT_PERCENTAGE = 30;
 	protected final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
@@ -98,13 +98,30 @@ public abstract class ModifiableAttributesPanel extends Panel {
 
 		return lv;
 	}
-	
-	public Map<String,String> saveAttributes() {
+
+	protected void assembleRows(GridPane gridPane, List<String> attributes) {
+		myMap = new HashMap<String, Control>();
+
+		for (int i = 0; i < attributes.size(); i++) {
+			Text text = new Text(attributes.get(i));
+			text.setFont(new Font(FONT_SIZE));
+			TextField tf = new TextField();
+			tf.setEditable(true);
+
+			gridPane.add(text, 0, i);
+			gridPane.add(tf, 1, i);
+			myMap.put(attributes.get(i), tf);
+		}
+
+	}
+
+	public Map<String, String> saveAttributes() {
 		myAttributesMap = new HashMap<String, String>();
 		for (String s : myMap.keySet()) {
 			myAttributesMap.put(s, ((TextField) myMap.get(s)).getText());
 		}
 		return myAttributesMap;
+
 	}
-	
+
 }
