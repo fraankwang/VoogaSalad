@@ -2,7 +2,7 @@ package authoring.frontend.display_elements.grid_factories.editor_grid_factories
 
 import java.io.File;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
@@ -22,7 +22,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class GameEditorGridFactory extends EditorGridFactory {
 
-	public GameEditorGridFactory(IController controller) {
+	public GameEditorGridFactory(IAuthoringView controller) {
 		super(controller);
 	}
 

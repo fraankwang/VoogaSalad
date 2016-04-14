@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grid_factories.tab_grid_factories;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.TabGridFactory;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
@@ -19,7 +19,7 @@ import javafx.scene.image.Image;
 
 public class LevelsTabGridFactory extends TabGridFactory {
 
-	public LevelsTabGridFactory(IController controller, ITabDisplay tabDisplay) {
+	public LevelsTabGridFactory(IAuthoringView controller, ITabDisplay tabDisplay) {
 		super(controller, tabDisplay);
 	}
 

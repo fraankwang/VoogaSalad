@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
@@ -21,7 +21,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 	private TabPane myEntitiesTabPane;
 	private Grid myActiveGrid;
 
-	public EntitiesTabDisplay(IController controller) {
+	public EntitiesTabDisplay(IAuthoringView controller) {
 		super(controller);
 		myController = controller;
 	}

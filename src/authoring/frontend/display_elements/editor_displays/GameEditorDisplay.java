@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.editor_displays;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grids.editor_grids.GameEditorGrid;
 import authoring.frontend.interfaces.IDisplayEntity;
 
@@ -12,7 +12,7 @@ import authoring.frontend.interfaces.IDisplayEntity;
 
 public class GameEditorDisplay extends EditorDisplay {
 
-	public GameEditorDisplay(IController controller) {
+	public GameEditorDisplay(IAuthoringView controller) {
 		super(controller);
 	}
 

@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grid_factories;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.Panel;
 
 /**
@@ -14,7 +14,7 @@ import authoring.frontend.display_elements.panels.Panel;
 
 public abstract class EditorGridFactory extends GridFactory {
 
-	public EditorGridFactory(IController controller) {
+	public EditorGridFactory(IAuthoringView controller) {
 		super(controller);
 	}
 

@@ -1,7 +1,9 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import javafx.scene.control.Label;
 
 /**
  * 
@@ -24,10 +26,15 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		super.assembleComponents();
-		myAttributesGridPane.add(new Label("Waves"), 0, 0);
-		myAttributesGridPane.add(new Label("Delay Between Waves"), 0, 1);
-		myAttributesGridPane.add(new Label("Timer"), 0, 2);
+		List<String> attributeNames = (List<String>) Arrays.asList("Waves", "Delay Between Waves", "Timer");
+		assembleRows(myAttributesGridPane, attributeNames);
+	}
 
+	@Override
+	public Map<String, String> saveAttributes() {
+		super.saveAttributes();
+		myAttributesMap.put("Type", "Entity");
+		return myAttributesMap;
 	}
 
 }

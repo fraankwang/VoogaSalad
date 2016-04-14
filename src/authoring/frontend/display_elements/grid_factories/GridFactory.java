@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grid_factories;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.Panel;
 
 /**
@@ -15,10 +15,10 @@ import authoring.frontend.display_elements.panels.Panel;
 
 public abstract class GridFactory {
 
-	private IController myController;
+	private IAuthoringView myController;
 	protected final int MAX_SIZE = Integer.MAX_VALUE;
 
-	public GridFactory(IController controller) {
+	public GridFactory(IAuthoringView controller) {
 		myController = controller;
 	}
 

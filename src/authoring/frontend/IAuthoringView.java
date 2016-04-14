@@ -1,4 +1,4 @@
-package authoring.controller;
+package authoring.frontend;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ import java.util.Map;
  *
  */
 
-public interface IController {
+public interface IAuthoringView {
 
 	public Map<String, String> loadData();
 

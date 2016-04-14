@@ -7,7 +7,6 @@ package authoring.backend;
 import java.util.List;
 import java.util.Map;
 
-import authoring.controller.DataContainer;
 import engine.backend.entities.Entity;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -45,5 +44,5 @@ public class GlobalData {
 	public List<Mode> getModes() {
 		return modes.getList();
 	}
-	
+
 }

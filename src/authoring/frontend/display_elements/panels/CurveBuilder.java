@@ -2,12 +2,9 @@ package authoring.frontend.display_elements.panels;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
-import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
 
 public class CurveBuilder implements IDisplayElement {
 

@@ -43,4 +43,12 @@ public class StandardButtonDashboard extends SimpleButtonDashboard {
 
 	}
 
+	public Button getDeleteButton() {
+		return myDeleteButton;
+	}
+	
+	public Button getDuplicateButton() {
+		return myDuplicateButton;
+	}
+	
 }
