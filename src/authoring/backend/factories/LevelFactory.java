@@ -22,7 +22,7 @@ public class LevelFactory {
 	public Level createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
 		Set<String> entityNames = new HashSet<String>();
-		int ID = 0;
+		String name = null;
 		for (String key : data.keySet()) {
 			switch (key) {
 				
@@ -37,13 +37,13 @@ public class LevelFactory {
 				double height = Double.parseDouble(data.get(key));
 				map.setMapHeight(height);
 			case "LevelNumber":
-				ID = Integer.parseInt(data.get(key));
+				name = data.get(key);
 			case "Entities":
 				String entities = data.get(key);
 				entityNames = getEntityNames(entities);
 			}
 		}
-		return new Level(ID, map, entityNames);
+		return new Level(name, map, entityNames);
 	}
 	
 	private Set<String> getEntityNames(String str) {
