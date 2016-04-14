@@ -1,6 +1,5 @@
 package authoring.frontend;
 
-import authoring.backend.GlobalData;
 import authoring.frontend.display_elements.MenuBarElement;
 import authoring.frontend.display_elements.TabBarElement;
 import authoring.frontend.interfaces.IViewManager;
@@ -12,9 +11,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * The AuthoringViewManager is responsible for initializing the stage, the scene, and the
- * BorderPane that contains the two primary UI elements: the MenuBarElement and
- * the TabBarElement.
+ * The AuthoringViewManager is responsible for initializing the stage, the
+ * scene, and the BorderPane that contains the two primary UI elements: the
+ * MenuBarElement and the TabBarElement.
  * 
  * @author Frank, benchesnut
  *
@@ -28,7 +27,7 @@ public class AuthoringViewManager implements IViewManager {
 	private IMenuBarElement myMenuBar;
 	private ITabBarElement myTabBar;
 	private IAuthoringView myController;
-	
+
 	public AuthoringViewManager(IAuthoringView controller) {
 		myController = controller;
 	}
