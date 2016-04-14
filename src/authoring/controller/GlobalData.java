@@ -49,6 +49,7 @@ public class GlobalData {
 	}
 	
 	public void updateData(Map<String,String> map) {
+		System.out.println(map == null);
 		input.updateData(map);
 	}
 }

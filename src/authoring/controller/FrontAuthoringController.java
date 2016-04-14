@@ -2,6 +2,7 @@ package authoring.controller;
 
 import java.util.Map;
 
+import authoring.backend.GlobalData;
 import authoring.frontend.AuthoringViewManager;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.stage.Stage;
@@ -21,7 +22,6 @@ public class FrontAuthoringController implements IController {
 	public FrontAuthoringController(Stage s) {
 		myPrimaryStage = s;
 		myGlobalData = new GlobalData();
-		myGlobalData.setController(this);
 		myAuthoringViewManager = new AuthoringViewManager(this);
 	}
 	

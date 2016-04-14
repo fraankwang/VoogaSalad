@@ -15,9 +15,8 @@ public class Entity implements IEntity {
 	private String myName;
 	private String myType;
 	private double myValue;
-	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
-	private int myParentLevelID;
+	private List<Rule> myRules = new ArrayList<Rule>();;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
 
 	private boolean hasBeenModified = false;
@@ -33,10 +32,6 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		this.myValue = myValue;
-	}
-
-	public List<Rule> getRules() {
-		return myRules;
 	}
 
 	public void addRule(Rule myRule) {
@@ -59,9 +54,9 @@ public class Entity implements IEntity {
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
-	
-	public void setID(int myID) {
-		this.myID = myID;
+
+	public List<Rule> getRules() {
+		return myRules;
 	}
 	
 	public int getID(){
@@ -72,16 +67,30 @@ public class Entity implements IEntity {
 		return myName;
 	}
 
+	public double getValue() {
+		return myValue;
+	}
+
+	public String getType() {
+		return myType;
+	}
+	
+	public Map<String, String> getInfo() {
+		Map<String, String> info = new HashMap<String, String>();
+		
+		return info;
+	}
+	
+	public void setID(int myID) {
+		this.myID = myID;
+	}
+
 	public void setMane(String name) {
 		this.myName = name;
 	}
 
 	public boolean hasComponent(String tag) {
 		return myComponents.get(tag) != null;
-	}
-
-	public double getValue() {
-		return myValue;
 	}
 
 	public void setValue(double myValue) {
@@ -94,18 +103,6 @@ public class Entity implements IEntity {
 
 	public void setHasBeenModified(boolean bool) {
 		hasBeenModified = bool;
-	}
-
-	public int getLevelID() {
-		return myParentLevelID;
-	}
-
-	public void setLevelID(int levelID) {
-		this.myParentLevelID = levelID;
-	}
-
-	public String getType() {
-		return myType;
 	}
 
 	public void setMyType(String myType) {
@@ -129,7 +126,6 @@ public class Entity implements IEntity {
 		} else {
 			return false;
 		}
-		
 	}
 
 }

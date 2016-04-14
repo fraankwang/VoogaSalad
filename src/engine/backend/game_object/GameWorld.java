@@ -41,10 +41,10 @@ public class GameWorld {
 		return null;
 	}
 
-	public Level getLevelWithId(int id){
+	public Level getLevelWithName(String name){
 		for (Mode mode: modes){
 			for (Level level : mode.getLevels()){
-				if (level.getId() == id){
+				if (level.getName().equals(name)){
 					return level;
 				}
 			}
@@ -63,12 +63,6 @@ public class GameWorld {
 			}
 		}
 		return null;
-	}
-
-	public void addNewLevelToCurrentMode(Mode mode) {
-		Level level1 = new Level(0);
-		mode.addLevel(level1);
-		myGameStatistics.incrementNumLevels();
 	}
 
 	/**

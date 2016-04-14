@@ -32,17 +32,18 @@ public class EntityEditorGrid extends EditorGrid {
 	protected void initializeGridFactory() {
 		myGridFactory = new EntityEditorGridFactory(myController);
 
-		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(
-				e -> sendData(((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
 	}
 
 	private void sendData(Map<String, String> map) {
+		System.out.println("hello");
 		myController.writeData(map);
 	}
 
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
+		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(
+				e -> sendData(((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
 
 	}
 

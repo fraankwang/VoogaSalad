@@ -17,7 +17,6 @@ public class EntityFactory {
 
 	public Entity createEntity(Map<String, String> info){
 		Entity newEntity = new Entity(info.get("name"), info.get("type"), Double.parseDouble(info.get("price")));
-		newEntity.setLevelID(Integer.parseInt(info.get("levelID")));
 		List<Component> entityComponents = createComponents(info);
 		for(Component comp : entityComponents){
 			newEntity.addComponent(comp);
