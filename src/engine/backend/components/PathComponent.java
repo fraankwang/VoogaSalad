@@ -64,4 +64,9 @@ public class PathComponent extends Component implements IComponent{
 		reachedEndOfPath = true;
 	}
 	
+	@Override
+	public String getValue() {
+		return pathID + "";
+	}
+	
 }

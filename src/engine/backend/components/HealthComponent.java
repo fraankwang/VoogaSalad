@@ -30,5 +30,10 @@ public class HealthComponent extends Component implements IComponent{
 		myHealth = Double.parseDouble(params[0]);
 		myDamage = Double.parseDouble(params[1]);
 	}
+	
+	@Override
+	public String getValue() {
+		return myHealth + "";
+	}
 
 }

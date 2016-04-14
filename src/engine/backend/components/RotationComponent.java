@@ -25,5 +25,10 @@ public class RotationComponent extends Component implements IComponent{
 	public void initWithParams(String[] params) {
 		myAngle = Double.parseDouble(params[0]);
 	}
+	
+	@Override
+	public String getValue() {
+		return myAngularVelocity + "";
+	}
 
 }

@@ -15,10 +15,11 @@ public class Entity implements IEntity {
 	private String myName;
 	private String myType;
 	private double myValue;
+	private double bounty;
 	private int myID;
-	private List<Rule> myRules = new ArrayList<Rule>();;
-	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
-
+	private List<Rule> myRules;
+	private Map<String, IComponent> myComponents;
+	private Map<String, String> entityInfo;
 	private boolean hasBeenModified = false;
 
 	public Entity(int myID, String myName, String myType, double myValue) {
@@ -26,12 +27,26 @@ public class Entity implements IEntity {
 		this.myType = myType;
 		this.myID = myID;
 		this.myValue = myValue;
+		this.myComponents = new HashMap<String, IComponent>();
+		this.myRules = new ArrayList<Rule>();
+		this.entityInfo = new HashMap<String, String>();
+		initializeInfo();
 	}
 	
 	public Entity(String myName, String myType, double myValue) {
 		this.myName = myName;
 		this.myType = myType;
 		this.myValue = myValue;
+		this.myComponents = new HashMap<String, IComponent>();
+		this.myRules = new ArrayList<Rule>();
+		this.entityInfo = new HashMap<String, String>();		
+		initializeInfo();
+	}
+	
+	private void initializeInfo() {
+		entityInfo.put("Type", "Entity");
+		entityInfo.put("Genre", myType);
+		entityInfo.put("Name", myName);
 	}
 
 	public void addRule(Rule myRule) {
@@ -41,6 +56,7 @@ public class Entity implements IEntity {
 	public void addComponent(IComponent component) {
 		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
+		entityInfo.put(component.getTag(), component.getValue());
 	}
 
 	public IComponent getComponent(String tag) {
@@ -54,7 +70,11 @@ public class Entity implements IEntity {
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
-
+	
+	public double getBounty() {
+		return bounty;
+	}
+	
 	public List<Rule> getRules() {
 		return myRules;
 	}
@@ -76,9 +96,7 @@ public class Entity implements IEntity {
 	}
 	
 	public Map<String, String> getInfo() {
-		Map<String, String> info = new HashMap<String, String>();
-		
-		return info;
+		return entityInfo;
 	}
 	
 	public void setID(int myID) {
@@ -107,6 +125,10 @@ public class Entity implements IEntity {
 
 	public void setMyType(String myType) {
 		this.myType = myType;
+	}
+	
+	public void setBounty(double bounty) {
+		this.bounty = bounty;
 	}
 	
 	@Override
