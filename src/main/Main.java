@@ -1,14 +1,9 @@
 package main;
-/**
- * @author Austin Wu
- * The AuthoringMain file that starts the simulation
- */
 
 import java.util.Optional;
 
-import authoring_environment.controller.AuthoringController;
-import authoring_environment.controller.IController;
-import engine.frontend.EngineView;
+import authoring.controller.FrontAuthoringController;
+import engine.controller.EngineController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,6 +11,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import authoring.main.GameAuthoring;
+
+/**
+ * @author Austin Wu
+ * The Main file that starts the simulation
+ */
 
 public class Main extends Application {
     
@@ -38,14 +39,19 @@ public class Main extends Application {
     	Optional<ButtonType> result = alert.showAndWait();
     	
     	if (result.get() == buttonTypeAuthor){
-    	    AuthoringController controller = new AuthoringController(stage);
-    	    controller.start();
+    	    createAuthor(stage);
     	} else if (result.get() == buttonTypePlayer) {
-    		EngineView engineView = new EngineView(); 
-    		Scene scene = engineView.getScene();
-            stage.setScene(scene);
-            stage.show();
+    		createPlayer(stage);
     	}
+    }
+    
+    public void createAuthor(Stage stage){
+    	GameAuthoring authoring = new GameAuthoring(stage);
+    }
+    
+    public void createPlayer(Stage stage){
+    	EngineController controller = new EngineController(stage, this);
+    	controller.start();
     }
 
     private Scene getStartDialogue(){
