@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.LevelEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
 
@@ -12,7 +12,7 @@ import authoring.frontend.display_elements.grids.EditorGrid;
 
 public class LevelEditorGrid extends EditorGrid {
 
-	public LevelEditorGrid(IController controller) {
+	public LevelEditorGrid(IAuthoringView controller) {
 		super(controller);
 	}
 

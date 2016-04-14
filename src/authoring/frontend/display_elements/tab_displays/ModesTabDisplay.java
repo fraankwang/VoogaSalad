@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
 import authoring.frontend.display_elements.grids.tab_grids.ModesTabGrid;
 
@@ -12,7 +12,7 @@ import authoring.frontend.display_elements.grids.tab_grids.ModesTabGrid;
 
 public class ModesTabDisplay extends TabDisplay {
 
-	public ModesTabDisplay(IController controller) {
+	public ModesTabDisplay(IAuthoringView controller) {
 		super(controller);
 		myController = controller;
 	}

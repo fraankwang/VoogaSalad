@@ -10,7 +10,7 @@ import authoring.backend.ModelManager;
  * @author: Jonathan Ma
  */
 
-public class AuthoringController implements ControllerInterface {
+public class AuthoringController implements IAuthoringController {
 	
 	private final GlobalData globaldata;
 	private final ModelManager model;

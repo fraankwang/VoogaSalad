@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grids;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.Panel;
 
@@ -19,7 +19,7 @@ public abstract class EditorGrid extends Grid {
 	protected Panel myRulesPanel;
 	protected Panel myModifiableAttributesPanel;
 
-	public EditorGrid(IController controller) {
+	public EditorGrid(IAuthoringView controller) {
 		super(controller);
 	}
 

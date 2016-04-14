@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grid_factories.tab_grid_factories;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.TabGridFactory;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
@@ -18,7 +18,7 @@ import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 
 public class ModesTabGridFactory extends TabGridFactory {
 
-	public ModesTabGridFactory(IController controller, ITabDisplay tabDisplay) {
+	public ModesTabGridFactory(IAuthoringView controller, ITabDisplay tabDisplay) {
 		super(controller, tabDisplay);
 	}
 

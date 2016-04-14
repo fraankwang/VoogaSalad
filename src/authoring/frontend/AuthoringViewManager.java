@@ -1,7 +1,6 @@
 package authoring.frontend;
 
 import authoring.backend.GlobalData;
-import authoring.controller.IController;
 import authoring.frontend.display_elements.MenuBarElement;
 import authoring.frontend.display_elements.TabBarElement;
 import authoring.frontend.interfaces.IViewManager;
@@ -28,10 +27,9 @@ public class AuthoringViewManager implements IViewManager {
 
 	private IMenuBarElement myMenuBar;
 	private ITabBarElement myTabBar;
-	private IController myController;
-	private GlobalData myGlobalData;
+	private IAuthoringView myController;
 	
-	public AuthoringViewManager(IController controller) {
+	public AuthoringViewManager(IAuthoringView controller) {
 		myController = controller;
 	}
 

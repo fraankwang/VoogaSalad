@@ -2,7 +2,7 @@ package authoring.frontend.display_elements.grids.editor_grids;
 
 import java.util.Map;
 
-import authoring.controller.IController;
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.EntityEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
@@ -16,7 +16,7 @@ import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashbo
 
 public class EntityEditorGrid extends EditorGrid {
 
-	public EntityEditorGrid(IController controller) {
+	public EntityEditorGrid(IAuthoringView controller) {
 		super(controller);
 	}
 
