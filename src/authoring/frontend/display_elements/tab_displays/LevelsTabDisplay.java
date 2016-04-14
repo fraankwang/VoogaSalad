@@ -22,8 +22,8 @@ public class LevelsTabDisplay extends TabDisplay {
 	private TabPane myLevelsTabPane;
 	private Grid myActiveGrid;
 
-	public LevelsTabDisplay(IAuthoringView controller) {
-		super(controller);
+	public LevelsTabDisplay(int tabIndex, IAuthoringView controller) {
+		super(tabIndex, controller);
 		myController = controller;
 	}
 
@@ -44,6 +44,11 @@ public class LevelsTabDisplay extends TabDisplay {
 	@Override
 	public Node getNode() {
 		return myLevelsTabPane;
+	}
+	
+	@Override
+	public String getName() {
+		return "Levels";
 	}
 
 }

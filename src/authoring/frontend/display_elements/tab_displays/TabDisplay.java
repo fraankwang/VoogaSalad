@@ -25,8 +25,10 @@ public abstract class TabDisplay implements ITabDisplay {
 	protected EditorDisplay myEditorDisplay;
 	protected Grid myGrid;
 	protected IAuthoringView myController;
-
-	public TabDisplay(IAuthoringView controller) {
+	private int myTabIndex;
+	
+	public TabDisplay(int index, IAuthoringView controller) {
+		myTabIndex = index;
 		myController = controller;
 	}
 
@@ -45,4 +47,7 @@ public abstract class TabDisplay implements ITabDisplay {
 		editorStage.show();
 	}
 
+	public int getTabIndex() {
+		return myTabIndex;
+	}
 }

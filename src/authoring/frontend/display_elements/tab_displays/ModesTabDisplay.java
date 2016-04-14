@@ -12,8 +12,8 @@ import authoring.frontend.display_elements.grids.tab_grids.ModesTabGrid;
 
 public class ModesTabDisplay extends TabDisplay {
 
-	public ModesTabDisplay(IAuthoringView controller) {
-		super(controller);
+	public ModesTabDisplay(int tabIndex, IAuthoringView controller) {
+		super(tabIndex, controller);
 		myController = controller;
 	}
 
@@ -24,6 +24,11 @@ public class ModesTabDisplay extends TabDisplay {
 		myEditorDisplay = new ModeEditorDisplay(myController);
 		myEditorDisplay.initialize();
 		
+	}
+
+	@Override
+	public String getName() {
+		return "Modes";
 	}
 
 }

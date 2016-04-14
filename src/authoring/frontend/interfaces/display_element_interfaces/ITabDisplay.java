@@ -13,6 +13,9 @@ package authoring.frontend.interfaces.display_element_interfaces;
 public interface ITabDisplay extends IDisplayElement {
 	
 	public void openEditorDisplay();
+
+	public String getName();
 	
+	public int getTabIndex();
 	
 }

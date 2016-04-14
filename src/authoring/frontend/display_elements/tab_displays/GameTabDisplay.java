@@ -12,8 +12,8 @@ import authoring.frontend.display_elements.grids.tab_grids.GameTabGrid;
 
 public class GameTabDisplay extends TabDisplay {
 
-	public GameTabDisplay(IAuthoringView controller) {
-		super(controller);
+	public GameTabDisplay(int tabIndex, IAuthoringView controller) {
+		super(tabIndex, controller);
 		myController = controller;
 	}
 
@@ -24,5 +24,9 @@ public class GameTabDisplay extends TabDisplay {
 		myEditorDisplay = new GameEditorDisplay(myController);
 		myEditorDisplay.initialize();
 	}
-
+	
+	@Override
+	public String getName() {
+		return "Game";
+	}
 }
