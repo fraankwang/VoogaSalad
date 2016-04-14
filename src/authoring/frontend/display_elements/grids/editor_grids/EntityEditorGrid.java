@@ -1,8 +1,12 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
+import java.util.Map;
+
 import authoring.controller.IController;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.EntityEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
+import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
+import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 
 /**
  * 
@@ -21,19 +25,25 @@ public class EntityEditorGrid extends EditorGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
-		
+
 	}
 
 	@Override
 	protected void initializeGridFactory() {
 		myGridFactory = new EntityEditorGridFactory(myController);
 
+		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(
+				e -> sendData(((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
+	}
+
+	private void sendData(Map<String, String> map) {
+		myController.writeData(map);
 	}
 
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		
+
 	}
 
 }

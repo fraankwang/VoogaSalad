@@ -17,5 +17,9 @@ public abstract class ButtonDashboard extends Panel {
 		super(height, width);
 
 	}
+	
+	public Button getSaveButton() {
+		return mySaveButton;
+	}
 
 }

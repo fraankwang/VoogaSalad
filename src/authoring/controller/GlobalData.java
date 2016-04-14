@@ -6,6 +6,7 @@ package authoring.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.entities.Entity;
 import engine.backend.game_object.Level;
@@ -47,4 +48,7 @@ public class GlobalData {
 		
 	}
 	
+	public void updateData(Map<String,String> map) {
+		input.updateData(map);
+	}
 }

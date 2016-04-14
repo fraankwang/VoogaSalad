@@ -36,7 +36,7 @@ public class FrontAuthoringController implements IController {
 
 	@Override
 	public void writeData(Map<String, String> data) {
-		// TODO Auto-generated method stub
+		myGlobalData.updateData(data);
 		
 	}
 
