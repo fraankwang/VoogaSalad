@@ -1,8 +1,10 @@
 package authoring.backend.factories;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import engine.backend.game_object.Level;
 import engine.backend.map.BezierCurve;
@@ -19,6 +21,7 @@ public class LevelFactory {
 	
 	public Level createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
+		Set<String> entityNames = new HashSet<String>();
 		int ID = 0;
 		for (String key : data.keySet()) {
 			switch (key) {
@@ -35,9 +38,21 @@ public class LevelFactory {
 				map.setMapHeight(height);
 			case "LevelNumber":
 				ID = Integer.parseInt(data.get(key));
+			case "Entities":
+				String entities = data.get(key);
+				entityNames = getEntityNames(entities);
 			}
 		}
-		return new Level(ID, map);
+		return new Level(ID, map, entityNames);
+	}
+	
+	private Set<String> getEntityNames(String str) {
+		String[] names = str.split(" ");
+		Set<String> entityNames = new HashSet<String>();
+		for (int i = 0; i < names.length; i++) {
+			entityNames.add(names[i]);
+		}
+		return entityNames;
 	}
 	
 	private Path getPath(String str) {

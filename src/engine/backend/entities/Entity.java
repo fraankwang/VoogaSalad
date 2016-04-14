@@ -15,9 +15,8 @@ public class Entity implements IEntity {
 	private String myName;
 	private String myType;
 	private double myValue;
-	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
-	private int myParentLevelID;
+	private List<Rule> myRules = new ArrayList<Rule>();;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
 
 	private boolean hasBeenModified = false;
@@ -94,14 +93,6 @@ public class Entity implements IEntity {
 
 	public void setHasBeenModified(boolean bool) {
 		hasBeenModified = bool;
-	}
-
-	public int getLevelID() {
-		return myParentLevelID;
-	}
-
-	public void setLevelID(int levelID) {
-		this.myParentLevelID = levelID;
 	}
 
 	public String getType() {

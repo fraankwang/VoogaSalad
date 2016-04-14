@@ -1,6 +1,5 @@
 package authoring.frontend;
 
-import authoring.controller.DataContainer;
 import authoring.controller.GlobalData;
 import authoring.controller.IController;
 import authoring.frontend.display_elements.MenuBarElement;

@@ -7,14 +7,17 @@ package engine.backend.game_object;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Mode {
 
-	private List<Level> levels;
 	private String myName;
+	private Set<String> levelNames;
+	private List<Level> levels;
 	
-	public Mode(String name) {
-		levels = new ArrayList<Level>();
+	public Mode(String name, Set<String> levelNames) {
+		this.levels = new ArrayList<Level>();
+		this.levelNames = levelNames;
 		this.myName = name;
 	}
 
@@ -27,8 +30,11 @@ public class Mode {
 	}
 
 	public void addLevel(Level level) {
-		level.setModeName(myName);
 		levels.add(level);
+	}
+	
+	public void addLevelName(String name) {
+		levelNames.add(name);
 	}
 
 	@Override
