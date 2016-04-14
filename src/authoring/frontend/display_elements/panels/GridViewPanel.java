@@ -107,9 +107,8 @@ public class GridViewPanel extends Panel {
 	    resetGrid();
 	}
 	
-	public void addImage(Image image) {
+	public void addImage(ImageView iv) {
 		myGridPane.getChildren().remove(myAddNewButton);
-		ImageView iv = new ImageView(image);
 		iv.setOnMouseClicked(e -> iv.requestFocus());
 		
 		iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -118,7 +117,7 @@ public class GridViewPanel extends Panel {
 					iv.setOpacity(1);
 					return;
 				}
-				iv.setOpacity(0.7);
+				iv.setOpacity(0.5);
 				//update the UnmodifiableAttributesPanel
 			}
 		});
