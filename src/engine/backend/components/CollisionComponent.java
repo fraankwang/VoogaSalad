@@ -9,7 +9,18 @@ public class CollisionComponent extends Component implements IComponent{
     
 	private boolean isCollided;
     private double myX, myY, myWidth, myHeight;
+    private static final String TAG = "Collision";
 
+    /**
+     * Collision Component stores the data required to determine if given entity is colliding with another entity
+     * relevant information includes x & y coordinates, width and height.  The key data point is the boolean
+     * isCollided, which stores whether or not the entity has collided.  It is default to false and updated to true
+     * once the Collision system detects a collison
+     * @param myX
+     * @param myY
+     * @param myWidth
+     * @param myHeight
+     */
     public CollisionComponent(double myX, double myY, double myWidth, double myHeight){
         this.myX = myX;
         this.myY = myY;
@@ -19,17 +30,21 @@ public class CollisionComponent extends Component implements IComponent{
        isCollided = false;
     }
 
+
     public double getMyX() {
         return myX;
     }
+
 
     public double getMyY() {
         return myY;
     }
 
+
     public double getMyHeight() {
         return myHeight;
     }
+
 
     public double getMyWidth() {
         return myWidth;
@@ -38,6 +53,7 @@ public class CollisionComponent extends Component implements IComponent{
     public boolean isCollided() {
         return isCollided;
     }
+
 
     public void setCollided(boolean collided) {
         isCollided = collided;
@@ -61,7 +77,7 @@ public class CollisionComponent extends Component implements IComponent{
 
     @Override
     public String getTag(){
-        return "Collision";
+        return TAG;
     }
 
 	@Override

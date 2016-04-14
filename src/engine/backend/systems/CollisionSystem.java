@@ -29,7 +29,7 @@ public class CollisionSystem extends Systemm implements ISystem {
         			continue;
         		}
     			
-    			if(checkIntersection2(damageEntity, targetEntity)){
+    			if(checkIntersection(damageEntity, targetEntity)){
                     updateIsCollided2(damageEntity, targetEntity);
                 }
     			
@@ -80,11 +80,7 @@ public class CollisionSystem extends Systemm implements ISystem {
     	tCollisionComponent.setCollided(true);
     	
     }
-    
-    private void updateIsCollided(CollisionComponent outEntity, CollisionComponent inEntity) {
-        outEntity.setCollided(true);
-        inEntity.setCollided(true);
-    }
+
 
     private void updateIsCollided(IEntity outEntity, IEntity inEntity) {
         CollisionComponent out = (CollisionComponent)outEntity.getComponent(getComponentTagResources().getString("Collision"));
@@ -93,17 +89,13 @@ public class CollisionSystem extends Systemm implements ISystem {
         in.setCollided(true);
 
     }
-    
-    private boolean checkIntersection2(IEntity entity1, IEntity entity2){
-    	CollisionComponent componentOne = (CollisionComponent) entity1.getComponent(getComponentTagResources().getString("Collision"));
-    	CollisionComponent componentTwo = (CollisionComponent) entity2.getComponent(getComponentTagResources().getString("Collision"));
-    	
-    	return  componentOne.getMyX() < componentTwo.getMyX() + componentTwo.getMyWidth() &&
-                componentOne.getMyX() + componentOne.getMyWidth() > componentTwo.getMyX() &&
-                componentOne.getMyY() < componentTwo.getMyY() + componentTwo.getMyHeight() &&
-                componentOne.getMyY() + componentOne.getMyHeight() > componentTwo.getMyY();
-    }
 
+    /**
+     * Uses 2d rectangle overlap to determine whether two components have collided
+     * @param outEntity
+     * @param inEntity
+     * @return true if two entieis overlap with each other
+     */
     private boolean checkIntersection(IEntity outEntity, IEntity inEntity) {
         CollisionComponent componentOne = (CollisionComponent)outEntity.getComponent(getComponentTagResources().getString("Collision"));
         CollisionComponent componentTwo = (CollisionComponent)inEntity.getComponent(getComponentTagResources().getString("Collision"));
