@@ -1,7 +1,5 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
-import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.EntityEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
@@ -32,11 +30,6 @@ public class EntityEditorGrid extends EditorGrid {
 	protected void initializeGridFactory() {
 		myGridFactory = new EntityEditorGridFactory(myController);
 
-	}
-
-	private void sendData(Map<String, String> map) {
-		System.out.println("hello");
-		myController.writeData(map);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package authoring.frontend.display_elements.grids;
 
+import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.Panel;
@@ -30,7 +32,7 @@ public abstract class EditorGrid extends Grid {
 		myModifiableAttributesPanel = ((EditorGridFactory) myGridFactory).createModifiableAttributesPanel();
 
 	}
-	
+
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
@@ -39,6 +41,10 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myRulesPanel.getNode(), 0, 1);
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
-		
+
+	}
+
+	protected void sendData(Map<String, String> map) {
+		myController.writeData(map);
 	}
 }
