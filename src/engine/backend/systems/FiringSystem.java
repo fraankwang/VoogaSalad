@@ -73,32 +73,39 @@ public class FiringSystem implements ISystem{
 		if(shootingPosVector.calculateDistance(targetPosVector) <= firingComponent.getEnemyInSightRange() 
 				&& firingComponent.getAmmunitionAmount() > 0){
 			
-			//get an instance of the shooters ammo
-			String firedEntityName = firingComponent.getAmmunition();
-			IEntity firedEntity = myEntityFactory.createEntity(firedEntityName);
-			
-			//set the position and movement components of the ammo
-			PositionComponent firedPosComponent = (PositionComponent) firedEntity.getComponent(myComponentTagResources.getString("Position"));
-			MovementComponent firedMovComponent = (MovementComponent) firedEntity.getComponent(myComponentTagResources.getString("Movement"));
-			
-			firedPosComponent.setPositionVector(shootingPosVector);
-			
-			double xComp = targetPosVector.getX() - shootingPosVector.getX();
-			double yComp = targetPosVector.getY() - shootingPosVector.getY();
-			Vector firedVelVector = new Vector(xComp, yComp);
-			firedVelVector = firedVelVector.normalize();
-			firedVelVector.scale(firingComponent.getAmmunitionSpeed());
-			firedMovComponent.setCurrentVelocityVector(firedVelVector);
-			firedMovComponent.setDefaultVelocityVector(firedVelVector);
-			
 			shootingMovComponent.setTheta(targetPosVector.calculateDirection(shootingPosVector));
 			
-			return firedEntity;
+			return fire(firingComponent, targetPosVector, shootingPosVector, myEntityFactory, myComponentTagResources);
 			
 		}
 		
 		return null;
 
+	}
+	
+	private IEntity fire(FiringComponent firingComponent, Vector targetPosVector, Vector shootingPosVector, 
+			InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
+		
+		//get an instance of the shooters ammo
+		String firedEntityName = firingComponent.getAmmunition();
+		IEntity firedEntity = myEntityFactory.createEntity(firedEntityName);
+		
+		//set the position and movement components of the ammo
+		PositionComponent firedPosComponent = (PositionComponent) firedEntity.getComponent(myComponentTagResources.getString("Position"));
+		MovementComponent firedMovComponent = (MovementComponent) firedEntity.getComponent(myComponentTagResources.getString("Movement"));
+		
+		firedPosComponent.setPositionVector(shootingPosVector);
+		
+		double xComp = targetPosVector.getX() - shootingPosVector.getX();
+		double yComp = targetPosVector.getY() - shootingPosVector.getY();
+		Vector firedVelVector = new Vector(xComp, yComp);
+		firedVelVector = firedVelVector.normalize();
+		firedVelVector.scale(firingComponent.getAmmunitionSpeed());
+		firedMovComponent.setCurrentVelocityVector(firedVelVector);
+		firedMovComponent.setDefaultVelocityVector(firedVelVector);
+		
+		return firedEntity;
+		
 	}
 
 }
