@@ -34,6 +34,7 @@ public class AuthoringController implements ControllerInterface {
 
 	@Override
 	public void parseInput(Map<String, String> data) {
+		System.out.println(data);
 		for (String key : data.keySet()) {
 			if (key.equals("Object")) {
 				String type = data.get(key);

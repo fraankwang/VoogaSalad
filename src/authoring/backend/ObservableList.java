@@ -1,6 +1,8 @@
 package authoring.backend;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 public class ObservableList<E> extends Observable {
@@ -23,6 +25,10 @@ public class ObservableList<E> extends Observable {
 	
 	public List<E> getList() {
 		return objects;
+	}
+	
+	public List<Map<String, String>> getInfo() {
+		
 	}
 
 }
