@@ -5,6 +5,9 @@ import java.util.Map;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.Panel;
+import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
+import authoring.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
 
 /**
  * The EditorGrid superclass is a subset of Grid, which is in all the
@@ -41,6 +44,11 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myRulesPanel.getNode(), 0, 1);
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
+
+		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(
+				e -> sendData(((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
+		((SimpleButtonDashboard) myButtonDashboard).getResetButton().setOnAction(
+				e -> ((ModifiableAttributesPanel) myModifiableAttributesPanel).resetAttributes());
 
 	}
 

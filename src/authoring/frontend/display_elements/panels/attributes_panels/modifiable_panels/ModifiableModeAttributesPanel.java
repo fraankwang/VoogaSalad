@@ -34,37 +34,47 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		super.assembleComponents();
 
 		List<String> modeNames = (List<String>) Arrays.asList("Easy", "Medium", "Hard");
-		
+
 		assembleRows(myAttributesGridPane, modeNames);
-		
+
 	}
-	
+
 	@Override
 	protected void assembleRows(GridPane gridPane, List<String> modeNames) {
-		myMap = new HashMap<String, Control>();
+		myInputMap = new HashMap<String, Control>();
 
 		ComboBox<String> cb = new ComboBox<String>();
 		cb.setEditable(true);
 
 		for (int i = 0; i < modeNames.size(); i++) {
 			cb.getItems().add(modeNames.get(i));
-	
+
 		}
-		
+
 		Text text = new Text("Mode");
 		text.setFont(new Font(FONT_SIZE));
 		gridPane.add(text, 0, 0);
 		gridPane.add(cb, 1, 0);
-		myMap.put("Mode", cb);
+		myInputMap.put("Mode", cb);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String,String> saveAttributes() {
+	public Map<String, String> saveAttributes() {
 		myAttributesMap = new HashMap<String, String>();
-		myAttributesMap.put("Mode", ((ComboBox<String>) myMap.get("Mode")).getSelectionModel().getSelectedItem());
+		myAttributesMap.put("Mode", ((ComboBox<String>) myInputMap.get("Mode")).getSelectionModel().getSelectedItem());
 		myAttributesMap.put("Type", "Mode");
 		return myAttributesMap;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void resetAttributes() {
+		for (String s : myInputMap.keySet()) {
+			ComboBox<String> inputArea = (ComboBox<String>) myInputMap.get(s);
+			inputArea.getSelectionModel().clearSelection();
+		}
+
+	}
+
 }

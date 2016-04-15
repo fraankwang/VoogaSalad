@@ -32,7 +32,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 	protected TitledPane myRulesPane;
 	protected ListView<String> myRulesListView;
 
-	protected Map<String, Control> myMap;
+	protected Map<String, Control> myInputMap;
 	protected Map<String, String> myAttributesMap;
 
 	protected final int RULES_HEIGHT_PERCENTAGE = 30;
@@ -100,7 +100,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 	}
 
 	protected void assembleRows(GridPane gridPane, List<String> attributes) {
-		myMap = new HashMap<String, Control>();
+		myInputMap = new HashMap<String, Control>();
 
 		for (int i = 0; i < attributes.size(); i++) {
 			Text text = new Text(attributes.get(i));
@@ -110,18 +110,26 @@ public abstract class ModifiableAttributesPanel extends Panel {
 
 			gridPane.add(text, 0, i);
 			gridPane.add(tf, 1, i);
-			myMap.put(attributes.get(i), tf);
+			myInputMap.put(attributes.get(i), tf);
 		}
 
 	}
 
 	public Map<String, String> saveAttributes() {
 		myAttributesMap = new HashMap<String, String>();
-		for (String s : myMap.keySet()) {
-			myAttributesMap.put(s, ((TextField) myMap.get(s)).getText());
+		for (String s : myInputMap.keySet()) {
+			myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
 		}
 		return myAttributesMap;
 
+	}
+
+	public void resetAttributes() {
+		for (String s : myInputMap.keySet()) {
+			TextField inputArea = (TextField) myInputMap.get(s);
+			inputArea.clear();
+		}
+		
 	}
 
 }
