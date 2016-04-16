@@ -47,4 +47,8 @@ public abstract class EditorGrid extends Grid {
 	protected void sendData(Map<String, String> map) {
 		myController.writeData(map);
 	}
+	
+	public Panel getAttributesPanel() {
+		return myModifiableAttributesPanel;
+	}
 }

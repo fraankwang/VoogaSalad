@@ -7,7 +7,9 @@
 package engine.backend.game_object;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import engine.backend.entities.Entity;
@@ -21,12 +23,24 @@ public class Level {
 	private GameMap map;
 	private List<IEntity> entities;
 	private Set<String> entityNames;
+	private Map<String, String> levelInfo;
+	private double levelTimer;
+	private double waveDelayTimer;
 	
 	public Level(String myName, GameMap map, Set<String> entityNames) {
 		this.myName = myName;
 		this.map = map;
 		this.entities = new ArrayList<IEntity>();
+		this.levelInfo = new HashMap<String, String>();
 		this.entityNames = entityNames;
+		initializeInfo();
+	}
+	
+	private void initializeInfo() {
+		levelInfo.put("Type", "Level");
+		levelInfo.put("MapBackgroundImage", map.getMapImage());
+		levelInfo.put("LevelTimer", levelTimer + "");
+		levelInfo.put("WaveDelayTimer", waveDelayTimer + "");
 	}
 
 	public Level(String myName) {
@@ -48,6 +62,10 @@ public class Level {
 	
 	public GameMap getMap(){
 		return map;
+	}
+	
+	public Map<String, String> getInfo() {
+		return levelInfo;
 	}
 
 	public void addEntity(Entity entity) {

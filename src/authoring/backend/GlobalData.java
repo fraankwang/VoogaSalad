@@ -14,15 +14,15 @@ import engine.backend.game_object.Mode;
 public class GlobalData {
 	
 	private DataContainer datacontainer;
-	private ObservableList<Entity> entities;
-	private ObservableList<Level> levels;
-	private ObservableList<Mode> modes;
+	private EntityList entities;
+	private LevelList levels;
+	private ModeList modes;
 	
 	public GlobalData() {
 		this.datacontainer = new DataContainer();
-		this.entities = new ObservableList<Entity>();
-		this.levels = new ObservableList<Level>();
-		this.modes = new ObservableList<Mode>();
+		this.entities = new EntityList();
+		this.levels = new LevelList();
+		this.modes = new ModeList();
 	}
 	
 	public void updateData(Map<String, String> data) {

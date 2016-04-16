@@ -123,5 +123,20 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		return myAttributesMap;
 
 	}
+	
+	public void setAttributes(Map<String, String> info) {
+		myMap = new HashMap<String, Control>();
+		int i = 0;
+		for (String key: info.keySet()) {
+			Text text = new Text(key);
+			text.setFont(new Font(FONT_SIZE));
+			TextField tf = new TextField(info.get(key));
+			tf.setEditable(true);
+
+			myAttributesGridPane.add(text, 0, i);
+			myAttributesGridPane.add(tf, 1, i);
+			myMap.put(key, tf);
+		}
+	}
 
 }

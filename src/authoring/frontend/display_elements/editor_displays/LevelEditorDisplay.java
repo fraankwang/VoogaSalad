@@ -22,10 +22,4 @@ public class LevelEditorDisplay extends EditorDisplay {
 		myGrid.initialize();
 	}
 
-	@Override
-	public IDisplayEntity edit(IDisplayEntity oldEntity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

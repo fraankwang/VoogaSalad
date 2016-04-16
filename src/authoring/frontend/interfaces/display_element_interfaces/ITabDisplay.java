@@ -1,5 +1,10 @@
 package authoring.frontend.interfaces.display_element_interfaces;
 
+import java.util.Map;
+import java.util.Observer;
+
+import javafx.scene.image.ImageView;
+
 /**
  * TabDisplays are the primary game components that the user switches between.
  * The various Displays contain information regarding the user-created game
@@ -10,9 +15,9 @@ package authoring.frontend.interfaces.display_element_interfaces;
  *
  */
 
-public interface ITabDisplay extends IDisplayElement {
+public interface ITabDisplay extends IDisplayElement, Observer {
 	
-	public void openEditorDisplay();
+	public void openEditorDisplay(ImageView image, Map<String, String> info);
 
 	public String getName();
 	

@@ -11,6 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -33,8 +34,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private GridPane titledPanesGridPane;
 	private ScrollPane myScrollPane;
 
-	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
-		super(height, width, tabDisplay);
+	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay, ImageView image) {
+		super(height, width, tabDisplay, image);
 	}
 
 	@Override
@@ -88,6 +89,10 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		lv.setEditable(true);
 		lv.getItems().add("Waves");
 		lv.getItems().add("Timer");
+		myAttributesMap.put("Waves", "");
+		myAttributesMap.put("Timer", "");
+
+
 
 		return lv;
 	}

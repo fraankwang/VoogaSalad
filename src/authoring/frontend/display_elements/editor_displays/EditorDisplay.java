@@ -1,10 +1,20 @@
 package authoring.frontend.display_elements.editor_displays;
 
+import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.grids.Grid;
+import authoring.frontend.display_elements.panels.EditorViewPanel;
+import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.interfaces.IDisplayEntity;
 import authoring.frontend.interfaces.display_element_interfaces.IEditorDisplay;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * The EditorDisplay superclass is the Editor in charge of each game aspect's
@@ -16,7 +26,9 @@ import javafx.scene.Node;
 
 public abstract class EditorDisplay implements IEditorDisplay {
 
-	protected Grid myGrid;
+	private static final int EDITOR_SCENE_WIDTH = 1200;
+	private static final int EDITOR_SCENE_HEIGHT = 800;
+	protected EditorGrid myGrid;
 	protected IAuthoringView myController;
 
 	public EditorDisplay(IAuthoringView controller) {
@@ -30,8 +42,15 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	}
 
 	@Override
-	public IDisplayEntity edit(IDisplayEntity oldEntity) {
-		return null;
+	public void edit(ImageView image, Map<String, String> info) {
+		Stage editorStage = new Stage();
+		BorderPane root = new BorderPane();
+		root.setCenter(getNode());
+		((EditorViewPanel) myGrid.getPrimaryDisplay()).setImage(image.getImage());
+		((ModifiableAttributesPanel) myGrid.getAttributesPanel()).setAttributes(info);
+		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
+		editorStage.setScene(editorScene);
+		editorStage.show();
 	}
 
 }

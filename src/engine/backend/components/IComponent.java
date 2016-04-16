@@ -10,4 +10,6 @@ public interface IComponent {
 	
 	public String getEntityName();
 	
+	public String getValue();
+	
 }

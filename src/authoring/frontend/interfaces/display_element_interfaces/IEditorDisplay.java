@@ -1,6 +1,9 @@
 package authoring.frontend.interfaces.display_element_interfaces;
 
+import java.util.Map;
+
 import authoring.frontend.interfaces.IDisplayEntity;
+import javafx.scene.image.ImageView;
 
 /**
  * This interface handles the editing of various entities and their components.
@@ -21,6 +24,6 @@ public interface IEditorDisplay extends IDisplayElement {
 	 * @param oldEntity
 	 * @return newEntity
 	 */
-	public IDisplayEntity edit(IDisplayEntity oldEntity);
+	public void edit(ImageView image, Map<String, String> info);
 	
 }

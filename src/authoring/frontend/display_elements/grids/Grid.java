@@ -78,5 +78,9 @@ public abstract class Grid implements IGrid {
 	public Node getNode() {
 		return myGrid;
 	}
+	
+	public Panel getPrimaryDisplay() {
+		return myPrimaryDisplay;
+	}
 
 }

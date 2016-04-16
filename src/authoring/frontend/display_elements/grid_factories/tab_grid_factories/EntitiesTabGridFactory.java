@@ -10,6 +10,7 @@ import authoring.frontend.display_elements.panels.button_dashboards.StandardButt
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class EntitiesTabGridFactory extends TabGridFactory {
 
@@ -21,7 +22,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 	public Panel createPrimaryDisplay() {
 		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay);
 		gridView.initialize();
-		gridView.addImage(new Image("DrumpfVader.png"));
+		gridView.addImage(new ImageView("DrumpfVader.png"));
 		return gridView;
 	}
 
@@ -34,7 +35,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		UnmodifiableAttributesPanel attributes = new UnmodifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE, tabDisplay);
+		UnmodifiableAttributesPanel attributes = new UnmodifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE, tabDisplay, new ImageView("DrumpfVader.png"));
 		attributes.initialize();
 		return attributes;
 	}

@@ -1,14 +1,25 @@
 package authoring.frontend.display_elements.tab_displays;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
+import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
+import authoring.frontend.display_elements.panels.attributes_panels.unmodifiable_panels.UnmodifiableEntityAttributesPanel;
+import engine.backend.components.IComponent;
+import engine.backend.entities.IEntity;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -61,6 +72,18 @@ public class EntitiesTabDisplay extends TabDisplay {
 		Tab newTab = new Tab(name, grid.getNode());
 		myEntitiesTabPane.getTabs().add(newTab);
 		myEntitiesTabPane.getSelectionModel().select(newTab);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		//List<Map<String, String>> entities = (List<Map<String, String>>) arg;
+		//for (Map<String, String> entity: entities) {
+		//	entity.
+		//}
+		
+		// for each entity:
+		// create an ImageView
+		// create an UnmodifiableEntityAttributesPanel
 	}
 	
 	@Override
