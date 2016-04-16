@@ -33,7 +33,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	public Map<String, String> saveAttributes() {
 		super.saveAttributes();
-		myAttributesMap.put("Type", "Entity");
+		myAttributesMap.put("Type", "Level");
 		return myAttributesMap;
 	}
 

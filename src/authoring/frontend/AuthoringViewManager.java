@@ -34,10 +34,11 @@ public class AuthoringViewManager implements IViewManager {
 
 	@Override
 	public void initialize(Stage s) {
-		myMenuBar = new MenuBarElement();
-		myMenuBar.initialize();
 		myTabBar = new TabBarElement(myController);
 		myTabBar.initialize();
+		myMenuBar = new MenuBarElement();
+		myMenuBar.initialize();
+		myMenuBar.link(myTabBar);
 
 		BorderPane borderPane = new BorderPane();
 		borderPane.setTop(myMenuBar.getNode());

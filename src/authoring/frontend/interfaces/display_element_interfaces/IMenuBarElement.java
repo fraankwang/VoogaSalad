@@ -12,4 +12,6 @@ package authoring.frontend.interfaces.display_element_interfaces;
 public interface IMenuBarElement extends IDisplayElement {
 
 	public void initialize();
+
+	public void link(ITabBarElement myTabBar);
 }

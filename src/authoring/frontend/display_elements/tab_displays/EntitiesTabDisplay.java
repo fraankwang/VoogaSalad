@@ -32,8 +32,8 @@ public class EntitiesTabDisplay extends TabDisplay {
 	private TabPane myEntitiesTabPane;
 	private Grid myActiveGrid;
 
-	public EntitiesTabDisplay(IAuthoringView controller) {
-		super(controller);
+	public EntitiesTabDisplay(int tabIndex, IAuthoringView controller) {
+		super(tabIndex, controller);
 		myController = controller;
 	}
 
@@ -85,4 +85,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 		// create an ImageView
 		// create an UnmodifiableEntityAttributesPanel
 	}
+	
+	@Override
+	public String getName() {
+		return "Entities";
+	}
+	
 }

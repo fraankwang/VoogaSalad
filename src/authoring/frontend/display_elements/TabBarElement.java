@@ -9,8 +9,11 @@ import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
  * The TabBar element is a main UI component that contains and creates all the
@@ -29,43 +32,36 @@ public class TabBarElement implements ITabBarElement {
 	private TabDisplay myModesTabDisplay;
 	private TabDisplay myLevelsTabDisplay;
 	private TabDisplay myEntitiesTabDisplay;
+	private static final int GAME_TAB_INDEX = 0;
+	private static final int MODES_TAB_INDEX = 1;
+	private static final int LEVELS_TAB_INDEX = 2;
+	private static final int ENTITIES_TAB_INDEX = 3;
 	private IAuthoringView myController;
 
 	public TabBarElement(IAuthoringView controller) {
 		myController = controller;
 	}
-	
-	/**
-	 * GlobalData - has DataContainer object
-	 * User makes input -> globalData.updateContainer(Map<String,String>)
-	 *  note: map must have Key: "Type", Value: "Game/Mode/Level/Entity"
-	 * 
-	 * 
-	 * 
-	 */
-	
-	
-	
+
 	@Override
 	public void initialize() {
 		myTabPane = new TabPane();
 
-		myGameTabDisplay = new GameTabDisplay(myController);
+		myGameTabDisplay = new GameTabDisplay(GAME_TAB_INDEX, myController);
 		myGameTabDisplay.initialize();
-		myModesTabDisplay = new ModesTabDisplay(myController);
+		myModesTabDisplay = new ModesTabDisplay(MODES_TAB_INDEX, myController);
 		myModesTabDisplay.initialize();
-		myLevelsTabDisplay = new LevelsTabDisplay(myController);
+		myLevelsTabDisplay = new LevelsTabDisplay(LEVELS_TAB_INDEX, myController);
 		myLevelsTabDisplay.initialize();
-		myEntitiesTabDisplay = new EntitiesTabDisplay(myController);
+		myEntitiesTabDisplay = new EntitiesTabDisplay(ENTITIES_TAB_INDEX, myController);
 		myEntitiesTabDisplay.initialize();
-		
-		Tab gameTab = createTab("Game", myGameTabDisplay.getNode());
-		Tab modeTab = createTab("Modes", myModesTabDisplay.getNode());
-		Tab levelTab = createTab("Levels", myLevelsTabDisplay.getNode());
-		Tab entityTab = createTab("Entities", myEntitiesTabDisplay.getNode());
+
+		Tab gameTab = createTab(myGameTabDisplay.getName(), myGameTabDisplay.getNode());
+		Tab modeTab = createTab(myModesTabDisplay.getName(), myModesTabDisplay.getNode());
+		Tab levelTab = createTab(myLevelsTabDisplay.getName(), myLevelsTabDisplay.getNode());
+		Tab entityTab = createTab(myEntitiesTabDisplay.getName(), myEntitiesTabDisplay.getNode());
 		myTabPane.getTabs().addAll(gameTab, modeTab, levelTab, entityTab);
 	}
-	
+
 	@Override
 	public Node getNode() {
 		return myTabPane;
@@ -78,6 +74,16 @@ public class TabBarElement implements ITabBarElement {
 
 		// set listeners to change tab stuff?
 		return t;
+	}
+
+	private void removeTab(ITabDisplay tabDisplay) {
+		myTabPane.getTabs().remove(tabDisplay.getTabIndex());
+
+	}
+
+	private void addTab(ITabDisplay tabDisplay) {
+		Tab tab = createTab(tabDisplay.getName(), tabDisplay.getNode());
+		myTabPane.getTabs().add(tabDisplay.getTabIndex(), tab);
 	}
 
 	@Override
@@ -96,14 +102,23 @@ public class TabBarElement implements ITabBarElement {
 	}
 
 	@Override
-	public void show(ITabDisplay display) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public TabDisplay getEntitiesTabDisplay() {
 		return myEntitiesTabDisplay;
 	}
 
+	@Override
+	public void show(ITabDisplay display) {
+		Stage s = new Stage();
+		s.setTitle(display.getName());
+		s.setOnCloseRequest(e -> addTab(display));
+		
+		BorderPane bp = new BorderPane();
+		bp.setCenter(display.getNode());
+		Scene scene = new Scene(bp, 1200, 800);
+		s.setScene(scene);
+		s.show();
+
+		removeTab(display);
+	}
+	
 }

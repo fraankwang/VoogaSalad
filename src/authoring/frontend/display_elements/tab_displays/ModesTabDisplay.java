@@ -13,8 +13,8 @@ import authoring.frontend.display_elements.grids.tab_grids.ModesTabGrid;
 
 public class ModesTabDisplay extends TabDisplay {
 
-	public ModesTabDisplay(IAuthoringView controller) {
-		super(controller);
+	public ModesTabDisplay(int tabIndex, IAuthoringView controller) {
+		super(tabIndex, controller);
 		myController = controller;
 	}
 
@@ -31,6 +31,10 @@ public class ModesTabDisplay extends TabDisplay {
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public String getName() {
+		return "Modes";
 	}
 
 }
