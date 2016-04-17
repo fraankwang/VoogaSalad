@@ -21,7 +21,7 @@ import engine.backend.systems.Events.FireEvent;
  *
  */
 
-public class FiringSystem extends Observable implements ISystem{
+public class FiringSystem implements ISystem{
 
 	@Override 
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
@@ -51,7 +51,7 @@ public class FiringSystem extends Observable implements ISystem{
 							Vector firedVelVector = new Vector(xComp, yComp);
 							firingComponent.setDirectionToFire(firedVelVector);
 							
-							sendFireEvent(shootingEntity);
+							entities.add(initilizeFire(shootingEntity, myEntityFactory, myComponentTagResources));
 							firingComponent.resetCurrentTimeStep();
 							//create firing event
 						}
@@ -71,9 +71,29 @@ public class FiringSystem extends Observable implements ISystem{
 		
 	}
 	
-	private void sendFireEvent(IEntity firingEntity){
-		FireEvent fireEvent = new FireEvent(firingEntity);
-		notifyObservers(fireEvent);
+	private IEntity initilizeFire(IEntity firingEntity, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
+		
+		FiringComponent firingComponent = (FiringComponent) firingEntity.getComponent(myComponentTagResources.getString("Firing"));
+		PositionComponent posComponent = (PositionComponent) firingEntity.getComponent(myComponentTagResources.getString("Position"));
+		
+		String ammunition = firingComponent.getAmmunition();
+		
+		IEntity ammoEntity = myEntityFactory.createEntity(ammunition);
+		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(myComponentTagResources.getString("Position"));
+		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(myComponentTagResources.getString("Movement"));
+		
+		firedPosComponent.setPositionVector(posComponent.getPositionVector());
+		
+		Vector velVector = firingComponent.getDirectionToFire();
+
+		velVector = velVector.normalize();
+		velVector.scale(firingComponent.getAmmunitionSpeed());
+		firedMovComponent.setCurrentVelocityVector(velVector);
+		firedMovComponent.setDefaultVelocityVector(velVector);
+		
+		return ammoEntity;
+		//add ammoEntity to list of Entites in level;
+		
 	}
 
 }
