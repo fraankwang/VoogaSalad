@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
-import authoring.backend.factories.EntityFactory;
 import engine.backend.components.FiringComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PositionComponent;
@@ -13,8 +12,6 @@ import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
-import engine.backend.systems.Events.DeathEvent;
-import engine.backend.systems.Events.FireEvent;
 
 /**
  * 

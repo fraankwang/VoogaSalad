@@ -1,26 +1,15 @@
 package engine.backend.systems;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import engine.backend.components.FiringComponent;
-import engine.backend.components.MovementComponent;
-import engine.backend.components.PositionComponent;
-import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
-import engine.backend.entities.InGameEntityFactory;
-import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
-import engine.backend.systems.Events.CollisionEvent;
-import engine.backend.systems.Events.DeathEvent;
-import engine.backend.systems.Events.Event;
-import engine.backend.systems.Events.FireEvent;
 import engine.backend.systems.Events.IEvent;
 
 
@@ -47,11 +36,28 @@ public class EventManager implements Observer {
 	}
 
 	public void handleCustomEvent(IEvent myEvent) {
-		List<Action> myActions = myCustomEvents.get(myEvent.getEventID()[0]); // handle
-																				// both
-		Collection<IEntity> myEntities = myEvent.getEntities();
+		List<Action> myActions = checkPossibleIDs(myEvent.getEventID());
+		if (myActions != null) {
+			Collection<IEntity> myEntities = myEvent.getEntities();
+			myActions.forEach(a -> {
+				for (IEntity entity : myEntities) {
+					if (a.getEntityName().equals(entity.getName())) {
+						entity.applyAction(a, myComponentTagResources);
+					}
+				}
+			});
+		}
 	}
 
+	private List<Action> checkPossibleIDs(String[] ids) {
+		for (String id : ids) {
+			if(myCustomEvents.get(id) != null) {
+				return myCustomEvents.get(id);
+			}
+		}
+		return null;
+	}
+	
 	public void handleAddEntity(IEvent myEvent) { 
 		myEvent.getEntities().forEach(e -> myCurrentLevel.addToEntities(e));
 	}
