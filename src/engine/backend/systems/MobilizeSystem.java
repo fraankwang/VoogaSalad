@@ -15,7 +15,7 @@ import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.map.GameMap;
 
-public class MobilizeSystem implements ISystem {
+public class MobilizeSystem extends GameSystem{
 	
 	public MobilizeSystem() {
 		// TODO Auto-generated constructor stub

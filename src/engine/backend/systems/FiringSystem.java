@@ -19,7 +19,7 @@ import engine.backend.systems.Events.AddEntityEvent;
  *
  */
 
-public class FiringSystem extends Observable implements ISystem{
+public class FiringSystem extends GameSystem{
 
 	@Override 
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {

@@ -27,7 +27,7 @@ import engine.controller.EngineController;
  *
  */
 
-public class RenderingSystem implements ISystem{
+public class RenderingSystem extends GameSystem{
 
 
 	private EngineController engineController;

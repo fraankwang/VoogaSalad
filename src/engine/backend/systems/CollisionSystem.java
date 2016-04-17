@@ -19,7 +19,7 @@ import engine.backend.systems.Events.DeathEvent;
 /**
  * Created by colinduffy on 4/10/16., raghav kedia
  */
-public class CollisionSystem extends Observable implements ISystem {
+public class CollisionSystem extends GameSystem{
  
     @Override
     public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){

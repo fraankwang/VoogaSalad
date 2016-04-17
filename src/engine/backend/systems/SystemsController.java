@@ -17,12 +17,12 @@ import engine.controller.EngineController;
 
 public class SystemsController {
 
-	private ISystem renderingSystem;
-	private ISystem mobilizationSystem;
-	private ISystem healthSystem;
-	private ISystem firingSystem;
-	private ISystem rulesSystem;
-	private ISystem collisionSystem;
+	private GameSystem renderingSystem;
+	private GameSystem mobilizationSystem;
+	private GameSystem healthSystem;
+	private GameSystem firingSystem;
+	private GameSystem rulesSystem;
+	private GameSystem collisionSystem;
 	
 	private List<ISystem> mySystems;
 	private EngineController engineController;
@@ -34,7 +34,7 @@ public class SystemsController {
 	private InGameEntityFactory myEntityFactory;
 
 
-	public SystemsController(EngineController eController) {
+	public SystemsController(EventManager eventManager, EngineController eController) {
 		engineController = eController;
 		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), 
 				eController.getMyGameWorld().getEntityMap());
@@ -46,7 +46,10 @@ public class SystemsController {
 		healthSystem = new HealthSystem();
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
-		rulesSystem = new RulesSystem();
+		
+		healthSystem.addObserver(eventManager);
+		firingSystem.addObserver(eventManager);
+		collisionSystem.addObserver(eventManager);
 		
 		mySystems = new ArrayList<ISystem>();
 		mySystems.add(firingSystem);

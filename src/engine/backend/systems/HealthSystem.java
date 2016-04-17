@@ -20,7 +20,7 @@ import java.util.Observable;
 
 
 
-public class HealthSystem extends Observable implements ISystem{
+public class HealthSystem extends GameSystem{
 
 	@Override
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {

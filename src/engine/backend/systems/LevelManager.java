@@ -1,0 +1,30 @@
+package engine.backend.systems;
+
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+import engine.backend.game_object.Level;
+
+public class LevelManager implements Observer{
+	
+	private List<Level> myLevels;
+	private int levelIndex;
+
+	public LevelManager(List<Level> levels){
+		myLevels = levels;
+		levelIndex = 0;
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public Level getCurrentLevel(){
+		return myLevels.get(levelIndex);
+	}
+	
+	
+}

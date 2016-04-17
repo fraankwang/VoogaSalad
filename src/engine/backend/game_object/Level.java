@@ -22,6 +22,7 @@ public class Level {
 	private int myID;
 	private String myParentModeName;
 	private GameMap map;
+	private double timer;
 	
 	public Level(int myID, GameMap map) {
 		this.myID = myID;
