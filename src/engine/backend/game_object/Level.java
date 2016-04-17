@@ -42,13 +42,17 @@ public class Level {
 	public GameMap getMap(){
 		return map;
 	}
+	
+	public void setMap(GameMap map){
+		this.map = map;
+	}
 
 	@Override
 	public String toString() {
 		return "Level [entities=" + entities + "] ";
 	}
 
-	public void addToEntities(Entity entity) {
+	public void addToEntities(IEntity entity) {
 		entity.setLevelID(myID);
 		entities.add(entity);
 	}
@@ -59,6 +63,20 @@ public class Level {
 	
 	public String getModeID() {
 		return myParentModeName;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Level) {
+			Level temp = (Level) o;
+			if (this.myID == temp.myID) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 	
 }

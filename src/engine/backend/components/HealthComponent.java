@@ -1,11 +1,10 @@
 package engine.backend.components;
 
-import java.util.List;
-
 public class HealthComponent extends Component implements IComponent{
 	
 	private double myHealth;
 	private double myDamage;
+	private double myCriticalHealth;
 	
 	public HealthComponent() {
 	}
@@ -31,6 +30,14 @@ public class HealthComponent extends Component implements IComponent{
 	public void initWithParams(String[] params) {
 		myHealth = Double.parseDouble(params[0]);
 		myDamage = Double.parseDouble(params[1]);
+	}
+
+	public double getCriticalHealth() {
+		return myCriticalHealth;
+	}
+
+	public void setCriticalHealth(double myCriticalHealth) {
+		this.myCriticalHealth = myCriticalHealth;
 	}
 
 }

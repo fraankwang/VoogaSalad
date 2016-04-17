@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -29,10 +30,16 @@ public class SystemsController {
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
+	
+	private InGameEntityFactory myEntityFactory;
 
 
 	public SystemsController(EngineController eController) {
 		engineController = eController;
+		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), 
+				eController.getMyGameWorld().getEntityMap());
+		
+		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 		
 		renderingSystem = new RenderingSystem(engineController);
 		mobilizationSystem = new MobilizeSystem();
@@ -41,6 +48,7 @@ public class SystemsController {
 		collisionSystem = new CollisionSystem();
 		rulesSystem = new RulesSystem();
 		
+		mySystems = new ArrayList<ISystem>();
 		mySystems.add(firingSystem);
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);
@@ -51,15 +59,18 @@ public class SystemsController {
 	}
 
 	public void iterateThroughSystems(GameWorld game) {
-		
+		Mode currMode = game.getModes().get(game.getGameStatistics().getCurrentLevel());
+		List<Level> currLevels = currMode.getLevels();
+		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
 		for (ISystem system : mySystems) {
-			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
-			List<Level> currLevels = currMode.getLevels();
-			//switch this to iterate through the quadrants contained inside of the curr levels map
-			//and that maps quadrants
-			system.update(currLevels.get(game.getGameStats().getCurrentLevel()).getEntities());
+			
+			long startTime = System.currentTimeMillis();
+			system.update(currentLevel, myEntityFactory, myComponentTagResources);
+			long endTime   = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			//System.out.println(system.getClass().getSimpleName() + ":  " + totalTime);
+			
 		}
-		
 	}
 
 }

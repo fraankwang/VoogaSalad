@@ -4,6 +4,7 @@ package engine.backend.map;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.MovementComponent;
@@ -32,21 +33,22 @@ public class Path implements IPath{
 		myCurves = new ArrayList<BezierCurve>();
 	}
 	
-	public void updatePositionOnPath(IEntity entity){
-		PathComponent pathComponent = (PathComponent) entity.getComponent("Path");
-		double currBezTime = pathComponent.getBezierTime();
+	public void updatePositionOnPath(IEntity entity, ResourceBundle myComponentTagResources){
 		
+		PathComponent pathComponent = (PathComponent) entity.getComponent(myComponentTagResources.getString("Path"));
+		double currBezTime = pathComponent.getBezierTime();
+
 		//turn off display component and return
-		if((currBezTime >= myCurves.size() && pathComponent.movesWithTime())
-				||  (currBezTime <= 0 && !pathComponent.movesWithTime())){
-			DisplayComponent dispComponent = (DisplayComponent) entity.getComponent("Display");
+		if((currBezTime >= myCurves.size() - 0.01 && pathComponent.movesWithTime())){
+			
+			DisplayComponent dispComponent = (DisplayComponent) entity.getComponent(myComponentTagResources.getString("Display"));
 			dispComponent.doNotShow();
+			
 			return;
 		}
 		
-		PositionComponent posComponent = (PositionComponent) entity.getComponent("Position");
-		MovementComponent movComponent = (MovementComponent) entity.getComponent("Movement");
-		
+		PositionComponent posComponent = (PositionComponent) entity.getComponent(myComponentTagResources.getString("Position"));
+		MovementComponent movComponent = (MovementComponent) entity.getComponent(myComponentTagResources.getString("Movement"));
 		
 		Vector newPos = new Vector();
 		Vector newVel = new Vector();

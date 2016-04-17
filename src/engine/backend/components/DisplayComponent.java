@@ -7,8 +7,6 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 public class DisplayComponent extends Component implements IComponent{
 	
 	private boolean canBeShown;
@@ -16,6 +14,7 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	public DisplayComponent(String image){
 		this.image = image;
+		canBeShown = true;
 	}
 	
 	public void setImage(String image){

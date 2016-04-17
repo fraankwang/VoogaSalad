@@ -1,8 +1,6 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 /**
  * 
  * @author raghavkedia
@@ -22,6 +20,12 @@ public class PathComponent extends Component implements IComponent{
 	private int curveID;
 
 	public PathComponent(){
+	}
+	
+	public PathComponent(int id, double time){
+		pathID = id;
+		myBezierTime = time;
+		movesWithTime = true;
 	}
 	
 	public int getCurveID(){

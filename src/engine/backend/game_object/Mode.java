@@ -35,5 +35,19 @@ public class Mode {
 	public String toString() {
 		return "Mode [levels=" + levels + "]";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Mode) {
+			Mode temp = (Mode) o;
+			if (this.myName.equals(temp.myName)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 
 }

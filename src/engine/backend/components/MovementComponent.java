@@ -1,7 +1,5 @@
 package engine.backend.components;
 
-import java.util.List;
-
 /**
  * 
  * @author raghavkedia
@@ -26,6 +24,11 @@ public class MovementComponent extends Component implements IComponent{
 	private boolean canRotate;
 	
 	public MovementComponent() {
+	}
+	
+	//for demo purposes
+	public MovementComponent(double xspeed, double yspeed){
+		myCurrentVelocityVector = new Vector(xspeed, yspeed);
 	}
 	
 	@Override

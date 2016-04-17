@@ -20,7 +20,7 @@ public class Entity implements IEntity {
 	private int myParentLevelID;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
 
-	private boolean hasBeenModified = false;
+	private boolean hasBeenModified = true;
 
 	public Entity(int myID, String myName, String myType, double myValue) {
 		this.myName = myName;
@@ -115,6 +115,21 @@ public class Entity implements IEntity {
 	@Override
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Entity) {
+			Entity temp = (Entity) o;
+			if (this.myName.equals(temp.myName)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		
 	}
 
 }

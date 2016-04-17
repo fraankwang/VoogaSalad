@@ -8,7 +8,6 @@
 package engine.backend;
 
 import engine.backend.entities.Entity;
-import engine.backend.entities.EntityFactoryClass;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
@@ -19,12 +18,12 @@ import engine.backend.systems.SystemsController;
 public class FakeGAEBackend {
 
 	private SystemsController systems;
-	private EntityFactoryClass entityFactory;
+	//private EntityFactoryClass entityFactory;
 	private GameWorld trumpGame;
 	private MockGAEData frontMockData;
 
 	public FakeGAEBackend() {
-		entityFactory = new EntityFactoryClass();
+		//entityFactory = new EntityFactoryClass();
 		frontMockData = new MockGAEData();
 		
 	}

@@ -4,8 +4,6 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 public class RotationComponent extends Component implements IComponent{
 	
 	private double myAngle;

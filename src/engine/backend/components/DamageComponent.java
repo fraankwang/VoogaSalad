@@ -1,7 +1,5 @@
 package engine.backend.components;
 
-import java.util.List;
-
 public class DamageComponent extends Component implements IComponent{
 	
 	private double myDamageToHealth;
