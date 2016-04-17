@@ -28,14 +28,14 @@ public class EventManager implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		String eventType = arg.getClass().getSimpleName();
+		handleCustomEvent((IEvent) arg);
 	}
 
 	public void setCustomEvents(Map<String, List<Action>> myCustomEvents) {
 		this.myCustomEvents = myCustomEvents;
 	}
 
-	public void handleCustomEvent(IEvent myEvent) {
+	private void handleCustomEvent(IEvent myEvent) {
 		List<Action> myActions = checkPossibleIDs(myEvent.getEventID());
 		if (myActions != null) {
 			Collection<IEntity> myEntities = myEvent.getEntities();
