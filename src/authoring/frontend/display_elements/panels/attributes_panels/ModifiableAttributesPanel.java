@@ -136,6 +136,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 			myAttributesGridPane.add(text, 0, i);
 			myAttributesGridPane.add(tf, 1, i);
 			myMap.put(key, tf);
+			i++;
 		}
 	}
 

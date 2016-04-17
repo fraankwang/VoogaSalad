@@ -102,7 +102,7 @@ public class GridViewPanel extends Panel {
 		myGridPane.setGridLinesVisible(true);
 		myAddNewButton.setOnAction(e -> {
 			
-			myTabDisplay.openEditorDisplay(new ImageView("DrumpfVader.png"), new HashMap<String, String>());
+			myTabDisplay.openEditorDisplay(new ImageView("question_mark.png"), new HashMap<String, String>());
 		});
 		myScrollPane.setContent(myGridPane);
 		VBox.setVgrow(myGridPane, Priority.ALWAYS);

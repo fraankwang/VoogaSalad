@@ -34,7 +34,7 @@ public class GameEditorGridFactory extends EditorGridFactory {
 	}
 
 	@Override
-	public Panel createModifiableAttributesPanel() {
+	public ModifiableAttributesPanel createModifiableAttributesPanel() {
 		ModifiableAttributesPanel panel = new ModifiableGameAttributesPanel(MAX_SIZE, MAX_SIZE);
 		panel.initialize();
 		return panel;
@@ -44,7 +44,7 @@ public class GameEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		EditorViewPanel editorView = new EditorViewPanel(50, 50);
 		editorView.initialize();
-		editorView.setImage(new Image("DrumpfVader.png")); // set default
+		editorView.setImage(new Image("question_mark.png")); // set default
 															// image as
 															// question
 															// mark or

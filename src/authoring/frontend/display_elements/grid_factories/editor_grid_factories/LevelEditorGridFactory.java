@@ -35,7 +35,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	}
 
 	@Override
-	public Panel createModifiableAttributesPanel() {
+	public ModifiableAttributesPanel createModifiableAttributesPanel() {
 		ModifiableAttributesPanel panel = new ModifiableLevelAttributesPanel(MAX_SIZE, MAX_SIZE);
 		panel.initialize();
 		return panel;
@@ -45,7 +45,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800*0.7, 1200*0.7);
 		editorView.initialize();
-		editorView.setImage(new Image("DrumpfVader.png")); // set default
+		editorView.setImage(new Image("question_mark.png")); // set default
 															// image as
 															// question
 															// mark or
@@ -60,15 +60,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 					editorView.setImage(new Image(imageFile.toURI().toString()));
 				}
 			});
-		editorView.getPanelBar().addButton("Upload Image", e -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg"));
-			File imageFile = fileChooser.showOpenDialog(null);
-			if (imageFile != null) {
-				editorView.setImage(new Image(imageFile.toURI().toString()));
-			}
-		});
+
 		return editorView;
 
 	}

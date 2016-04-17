@@ -4,7 +4,10 @@ import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
+import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
+import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import javafx.scene.image.ImageView;
 
 /**
  * The EditorGrid superclass is a subset of Grid, which is in all the
@@ -19,7 +22,7 @@ import authoring.frontend.display_elements.panels.Panel;
 public abstract class EditorGrid extends Grid {
 
 	protected Panel myRulesPanel;
-	protected Panel myModifiableAttributesPanel;
+	protected ModifiableAttributesPanel myModifiableAttributesPanel;
 
 	public EditorGrid(IAuthoringView controller) {
 		super(controller);
@@ -50,5 +53,14 @@ public abstract class EditorGrid extends Grid {
 	
 	public Panel getAttributesPanel() {
 		return myModifiableAttributesPanel;
+	}
+	
+	public void setAttributesPanel(ImageView image, Map <String, String> info) {
+		myModifiableAttributesPanel.setAttributes(info);
+	}
+
+	public void populateComponents(ImageView image, Map<String, String> info) {
+		((EditorViewPanel) myPrimaryDisplay).setImage(image.getImage());	// should we be allowed to cast this?
+		myModifiableAttributesPanel.setAttributes(info);
 	}
 }

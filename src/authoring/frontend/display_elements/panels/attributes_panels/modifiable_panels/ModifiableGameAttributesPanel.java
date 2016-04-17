@@ -38,7 +38,7 @@ public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 
 		List<String> attributeNames = (List<String>) Arrays.asList("Game Type", "Number of Players",
 				"Number of Starting Lives", "Number of Lives For Defeat", "Game Timer", "Starting Resources");
-		assembleRows(myAttributesGridPane, attributeNames);
+		//assembleRows(myAttributesGridPane, attributeNames);
 	}
 
 	@Override

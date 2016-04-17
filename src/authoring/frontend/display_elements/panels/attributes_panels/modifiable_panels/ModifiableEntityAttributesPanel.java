@@ -29,7 +29,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 				"Movement Speed", "Armor", "Health", "Rotate Speed", "Cost", "Bounty", "Collidable", "Moves On Path",
 				"Path Name", "Random Movement");
 
-		assembleRows(myAttributesGridPane, attributeNames);
+		//assembleRows(myAttributesGridPane, attributeNames);
 
 	}
 

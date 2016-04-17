@@ -43,11 +43,10 @@ public abstract class EditorDisplay implements IEditorDisplay {
 
 	@Override
 	public void edit(ImageView image, Map<String, String> info) {
+		myGrid.populateComponents(image, info);
 		Stage editorStage = new Stage();
 		BorderPane root = new BorderPane();
 		root.setCenter(getNode());
-		((EditorViewPanel) myGrid.getPrimaryDisplay()).setImage(image.getImage());
-		((ModifiableAttributesPanel) myGrid.getAttributesPanel()).setAttributes(info);
 		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
 		editorStage.setScene(editorScene);
 		editorStage.show();

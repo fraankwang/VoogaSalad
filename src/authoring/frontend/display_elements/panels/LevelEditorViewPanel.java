@@ -1,15 +1,10 @@
 package authoring.frontend.display_elements.panels;
 
-import authoring.frontend.display_elements.panels.panel_bars.EditorPanelBar;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class LevelEditorViewPanel extends EditorViewPanel {
 
-	private ImageView myMap;
-	private EditorPanelBar myPanelBar;
 	private CurveBuilder myPathBuilder;
 	
 	public LevelEditorViewPanel(double height, double width) {
@@ -17,31 +12,19 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 	}
 	
 	public void initializeComponents() {
-		myMap = new ImageView("DrumpfVader.png");
-		myPanelBar = new EditorPanelBar(50,50);
-		myPanelBar.initialize();
+		super.initializeComponents();
 		myPathBuilder = new CurveBuilder();
 		myPathBuilder.initialize();
 	}
 	
 	public void assembleComponents() {
-		myMap.setFitHeight(myHeight-30);
-		myMap.setFitWidth(myWidth);
-		Group view = new Group();
 		VBox vbox = new VBox();
-		view.getChildren().addAll(myMap, myPathBuilder.getNode());
-		vbox.getChildren().addAll(myPanelBar.getNode(), view);
+		myGroup.getChildren().addAll(myImageView, myPathBuilder.getNode());
+		myScrollPane.setContent(myGroup);
+		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
 		myPanelBar.addButton("Add Path", e -> myPathBuilder.createNewCurve());
-		myPathBuilder.setSize(myMap.getFitHeight(), myMap.getFitWidth());
+		myPathBuilder.setSize(myImageView.getFitHeight(), myImageView.getFitWidth());
 		myNode = vbox;
-	}
-	
-	public EditorPanelBar getPanelBar() {
-		return myPanelBar;
-	}
-	
-	public void setImage(Image image) {
-		myMap.setImage(image);
 	}
 
 }
