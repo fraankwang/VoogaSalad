@@ -4,15 +4,8 @@ import engine.backend.entities.IEntity;
 
 public class DeathEvent extends Event{
 	
-	private IEntity deadEntity;
-	
 	public DeathEvent(IEntity deadEntity){
-		this.deadEntity = deadEntity;
+		super.setEntity(deadEntity);
 	}
-	
-	public IEntity getDeadEntity(){
-		return deadEntity;
-	}
-	
 	
 }

@@ -12,6 +12,7 @@ import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
+import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.systems.Events.DeathEvent;
 import engine.backend.systems.Events.FireEvent;
 
@@ -21,7 +22,7 @@ import engine.backend.systems.Events.FireEvent;
  *
  */
 
-public class FiringSystem implements ISystem{
+public class FiringSystem extends Observable implements ISystem{
 
 	@Override 
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
@@ -51,7 +52,8 @@ public class FiringSystem implements ISystem{
 							Vector firedVelVector = new Vector(xComp, yComp);
 							firingComponent.setDirectionToFire(firedVelVector);
 							
-							entities.add(initilizeFire(shootingEntity, myEntityFactory, myComponentTagResources));
+							IEntity newEntity = initilizeFire(shootingEntity, myEntityFactory, myComponentTagResources);
+							sendAddEntityEvent(newEntity);
 							firingComponent.resetCurrentTimeStep();
 							//create firing event
 						}
@@ -69,6 +71,11 @@ public class FiringSystem implements ISystem{
 		
 		return shootingPosVector.calculateDistance(targetPosVector) <= range;
 		
+	}
+	
+	private void sendAddEntityEvent(IEntity entity){
+		AddEntityEvent event = new AddEntityEvent(entity);
+		notifyObservers(event);
 	}
 	
 	private IEntity initilizeFire(IEntity firingEntity, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){

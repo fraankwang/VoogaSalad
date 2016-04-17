@@ -1,7 +1,12 @@
 package engine.backend.systems.Events;
 
+import java.util.Collection;
+
+import engine.backend.entities.IEntity;
+
 public interface IEvent {
 	
-	public boolean thisEventMatches(IEvent event);
+	public String[] getEventID();
+	public Collection<IEntity> getEntities();
 	
 }

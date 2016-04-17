@@ -8,10 +8,12 @@ package engine.backend.game_object;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.map.GameMap;
+import engine.backend.rules.Action;
 
 
 public class Level {
@@ -77,6 +79,11 @@ public class Level {
 		} else {
 			return false;
 		}
+	}
+
+	public Map<String, List<Action>> getCustomEvents() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
