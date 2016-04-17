@@ -29,7 +29,6 @@ public class HealthSystem extends Observable implements ISystem{
 		for(IEntity entity : entities){
 			if(entity.hasComponent(myComponentTagResources.getString("Health"))){
 				HealthComponent healthComp = (HealthComponent) entity.getComponent(myComponentTagResources.getString("Health"));
-				healthComp.setHealth(healthComp.getHealth() - healthComp.getDamage());
 				
 				if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
 					sendCritialHealthEvent(entity);
@@ -40,8 +39,6 @@ public class HealthSystem extends Observable implements ISystem{
 					sendDeathEvent(entity);
 					continue;
 				}
-				
-				healthComp.setDamage(0);
 			}
 		}
 	}

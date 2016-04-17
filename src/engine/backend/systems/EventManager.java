@@ -34,9 +34,8 @@ public class EventManager implements Observer {
 	public EventManager(Level currentLevel, ResourceBundle myComponentTagResources) {
 		this.myComponentTagResources = myComponentTagResources;
 		myCustomEvents = currentLevel.getCustomEvents();
-		
 	}
-
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
