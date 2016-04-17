@@ -13,7 +13,5 @@ public class SpawnerComponent extends Component implements IComponent{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
+
 }

@@ -9,8 +9,17 @@ public class HealthComponent extends Component implements IComponent{
 	public HealthComponent() {
 	}
 	
+	public HealthComponent(double myHealth){
+		this.myHealth = myHealth; 
+	}
+	
 	public double getHealth(){
 		return myHealth;
+	}
+	
+	public void setHealth(String deltaHealth){
+		Double delta = Double.parseDouble(deltaHealth);
+		myHealth += delta;
 	}
 	
 	public void setHealth(double newHealth){

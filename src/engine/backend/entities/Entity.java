@@ -1,24 +1,27 @@
 package engine.backend.entities;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
+import engine.backend.rules.Action;
 import engine.backend.rules.Rule;
 
 public class Entity implements IEntity {
 
 	private String myName;
 	private String myType;
-	private double myValue;
 	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
 	private int myParentLevelID;
-	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();;
+	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();
 
 	private boolean hasBeenModified = true;
 
@@ -26,13 +29,13 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		this.myID = myID;
-		this.myValue = myValue;
+		//this.myValue = myValue;
 	}
 	
 	public Entity(String myName, String myType, double myValue) {
 		this.myName = myName;
 		this.myType = myType;
-		this.myValue = myValue;
+		//this.myValue = myValue;
 	}
 
 	public List<Rule> getRules() {
@@ -80,14 +83,6 @@ public class Entity implements IEntity {
 		return myComponents.get(tag) != null;
 	}
 
-	public double getValue() {
-		return myValue;
-	}
-
-	public void setValue(double myValue) {
-		this.myValue = myValue;
-	}
-
 	public boolean hasBeenModified() {
 		return hasBeenModified;
 	}
@@ -132,4 +127,77 @@ public class Entity implements IEntity {
 		
 	}
 
+	@Override
+	public double getValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void applyAction(Action action, ResourceBundle myComponentTagResources) {
+		String component = action.getComponentToModifiy();
+		String instanceVar = action.getValueInComponent();
+		String newVal = action.getNewValue();
+		Method setMethod;
+		
+		String fullName = myComponentTagResources.getString(component);
+		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
+		
+		try {
+			Object componentClassInstance = componentClass.newInstance();
+			componentClassInstance = componentClass.cast(myComponents.get(fullName));
+			//put in resource file!!!
+			String methodName = "set" + instanceVar;
+			
+			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
+			
+			setMethod.invoke(componentClassInstance, newVal);
+			
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

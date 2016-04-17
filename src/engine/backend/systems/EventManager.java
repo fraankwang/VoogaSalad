@@ -14,6 +14,7 @@ import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.rules.Action;
+import engine.backend.systems.Events.CollisionEvent;
 import engine.backend.systems.Events.DeathEvent;
 import engine.backend.systems.Events.Event;
 import engine.backend.systems.Events.FireEvent;
@@ -73,10 +74,12 @@ public class EventManager implements Observer{
 		int deadEntityID = deathEvent.getDeadEntity().getID();
 		//remove Entity by ID
 	}
-	/*
+	
 	private void handleCollisionEvent(CollisionEvent collisionEvent){
 		
+		collisionEvent.g
+		
 	}
-	*/
+	
 
 }
