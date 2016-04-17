@@ -1,5 +1,7 @@
 package engine.backend.components;
 
+import java.util.List;
+
 /**
  * 
  * @author raghavkedia
@@ -13,9 +15,13 @@ public class FiringComponent extends Component implements IComponent{
 	private int myAmmunitionAmount;
 	private double myAmmunitionSpeed;
 	private double myEnemyInSightRange;
-	private double myDirectionToFire;
+	private Vector myDirectionToFire;
+	private List<String> myTargets;
+	private double myFiringRate;
+	private double currentTimeStep;
 	
 	public FiringComponent(){
+	
 	}
 	
 	public String getAmmunition() {
@@ -42,11 +48,11 @@ public class FiringComponent extends Component implements IComponent{
 		this.myEnemyInSightRange = myEnemyInSightRange;
 	}
 	
-	public double getDirectionToFire() {
+	public Vector getDirectionToFire() {
 		return myDirectionToFire;
 	}
 
-	public void setDirectionToFire(double myDirectionToFire) {
+	public void setDirectionToFire(Vector myDirectionToFire) {
 		this.myDirectionToFire = myDirectionToFire;
 	}
 
@@ -65,6 +71,34 @@ public class FiringComponent extends Component implements IComponent{
 		myAmmunitionSpeed = Double.parseDouble(params[2]);
 		myEnemyInSightRange = Double.parseDouble(params[3]);
 		myDirectionToFire = Double.parseDouble(params[4]);
+	}
+
+	public List<String> getTargets() {
+		return myTargets;
+	}
+
+	public void setTargets(List<String> myTargets) {
+		this.myTargets = myTargets;
+	}
+
+	public double getCurrentTimeStep() {
+		return currentTimeStep;
+	}
+
+	public void incrementCurrentTimeStep(){
+		currentTimeStep++;
+	}
+	
+	public void resetCurrentTimeStep(){
+		currentTimeStep = 0;
+	}
+
+	public double getFiringRate() {
+		return myFiringRate;
+	}
+
+	public void setFiringRate(double myFiringRate) {
+		this.myFiringRate = myFiringRate;
 	}
 	
 }

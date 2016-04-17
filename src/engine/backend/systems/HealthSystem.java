@@ -7,6 +7,10 @@ import engine.backend.components.HealthComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
+import engine.backend.systems.Events.CriticalHealthEvent;
+import engine.backend.systems.Events.DeathEvent;
+
+import java.util.Observable;
 
 /**
  * 
@@ -14,7 +18,9 @@ import engine.backend.game_object.Level;
  *
  */
 
-public class HealthSystem implements ISystem{
+
+
+public class HealthSystem extends Observable implements ISystem{
 
 	@Override
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
@@ -24,9 +30,30 @@ public class HealthSystem implements ISystem{
 			if(entity.hasComponent(myComponentTagResources.getString("Health"))){
 				HealthComponent healthComp = (HealthComponent) entity.getComponent(myComponentTagResources.getString("Health"));
 				healthComp.setHealth(healthComp.getHealth() - healthComp.getDamage());
+				
+				if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
+					sendCritialHealthEvent(entity);
+					continue;
+				}
+				
+				if(healthComp.getHealth() <= 0){
+					sendDeathEvent(entity);
+					continue;
+				}
+				
 				healthComp.setDamage(0);
 			}
 		}
+	}
+	
+	private void sendDeathEvent(IEntity deadEntity){
+		DeathEvent deathEvent = new DeathEvent(deadEntity);
+		notifyObservers(deathEvent);
+	}
+	
+	private void sendCritialHealthEvent(IEntity criticalEntity){
+		CriticalHealthEvent criticalHealthEvent = new CriticalHealthEvent(criticalEntity);
+		notifyObservers(criticalHealthEvent);
 	}
 
 
