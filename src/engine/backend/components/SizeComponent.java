@@ -33,6 +33,12 @@ public class SizeComponent extends Component implements IComponent{
 		this.height += delta;
 	}
 	
+	public void increaseSize(String delta){
+		int newVal = Integer.parseInt(delta);
+		this.width += newVal;
+		this.height += newVal;
+	}
+	
 	public double getWidth(){
 		return width;
 	}

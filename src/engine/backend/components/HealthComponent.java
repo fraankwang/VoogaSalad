@@ -48,5 +48,10 @@ public class HealthComponent extends Component implements IComponent{
 	public void setCriticalHealth(double myCriticalHealth) {
 		this.myCriticalHealth = myCriticalHealth;
 	}
+	
+	public void setCriticalHealth(String myCriticalHealth) {
+		double newVal = Double.parseDouble(myCriticalHealth);
+		this.myCriticalHealth = newVal;
+	}
 
 }
