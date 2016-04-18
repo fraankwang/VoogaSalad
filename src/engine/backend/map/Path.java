@@ -25,54 +25,16 @@ public class Path implements IPath{
 	
 	private List<BezierCurve> myCurves;
 	
-	public Path(List<BezierCurve> curves) {
-		this.myCurves = curves;
-	}
-	
 	public Path() {
 		myCurves = new ArrayList<BezierCurve>();
 	}
 	
-	public void updatePositionOnPath(IEntity entity, ResourceBundle myComponentTagResources){
-		
-		PathComponent pathComponent = (PathComponent) entity.getComponent(myComponentTagResources.getString("Path"));
-		double currBezTime = pathComponent.getBezierTime();
-
-		//turn off display component and return
-		if((currBezTime >= myCurves.size() - 0.01 && pathComponent.movesWithTime())){
-			
-			DisplayComponent dispComponent = (DisplayComponent) entity.getComponent(myComponentTagResources.getString("Display"));
-			dispComponent.doNotShow();
-			
-			return;
-		}
-		
-		PositionComponent posComponent = (PositionComponent) entity.getComponent(myComponentTagResources.getString("Position"));
-		MovementComponent movComponent = (MovementComponent) entity.getComponent(myComponentTagResources.getString("Movement"));
-		
-		Vector newPos = new Vector();
-		Vector newVel = new Vector();
-		
-		Vector velVector = movComponent.getCurrentVelocityVector();
-		
-		BezierCurve currCurve = getCurveFromTime(currBezTime);
-		double speed = velVector.calculateMagnitude();
-		double bezTimeStep = ((pathComponent.movesWithTime()) ? 1 : -1 ) * speed / currCurve.getLength();
-		
-		
-		double newBezTime = currBezTime + bezTimeStep;
-		
-		BezierCurve newCurve = getCurveFromTime(newBezTime);
-		newPos = newCurve.calculateNewBezierPoint(newBezTime - Math.floor(newBezTime));
-		newVel = newCurve.calculateNewBezierTangent(newBezTime - Math.floor(newBezTime));
-		newVel = newVel.normalize();
-		newVel = newVel.scale(speed);
-		
-		pathComponent.setCurveID((int) Math.floor(newBezTime));
-		posComponent.setPositionVector(newPos);
-		pathComponent.setBezierTime(newBezTime);
-		movComponent.setCurrentVelocityVector(newVel);
-		
+	public Path(List<BezierCurve> curves) {
+		this.myCurves = curves;
+	}
+	
+	public int numCurves(){
+		return myCurves.size();
 	}
 	
 	public void addCurve(BezierCurve curve){
@@ -80,7 +42,7 @@ public class Path implements IPath{
 	}
 	
 	//return the proper curve based on the bezTime of entity. 
-	private BezierCurve getCurveFromTime(double bezTime){
+	public BezierCurve getCurveFromTime(double bezTime){
 		
 		int numCurves = myCurves.size();
 		int index = (int) Math.floor(bezTime); 

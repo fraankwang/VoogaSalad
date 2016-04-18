@@ -29,6 +29,11 @@ public class LevelManager extends Observable implements Observer{
 	public Level getCurrentLevel(){
 		return myLevels.get(levelIndex);
 	}
+
+	public void setCurrentLevelIndex(int currentLevel) {
+		// TODO Auto-generated method stub
+		levelIndex = currentLevel;
+	}
 	
 	
 }

@@ -21,7 +21,6 @@ public class SystemsController {
 	private GameSystem mobilizationSystem;
 	private GameSystem healthSystem;
 	private GameSystem firingSystem;
-	private GameSystem rulesSystem;
 	private GameSystem collisionSystem;
 	
 	private List<ISystem> mySystems;
@@ -35,6 +34,9 @@ public class SystemsController {
 	private EventManager myEventManager;
 	private LevelManager myLevelManager;
 	private ModeManager myModeManager;
+	
+	private int myLevelIndex;
+	private int myModeIndex; 
 	
 	private GameWorld myGame;
 
@@ -68,19 +70,22 @@ public class SystemsController {
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
-		mySystems.add(rulesSystem);
 		mySystems.add(renderingSystem);
 
 	}
 	
 	public void initializeGame(GameWorld game){
 		myGame = game;
-		myModeManager.initialize(game.getModes());
-		myLevelManager.initialize(myModeManager.getCurrentMode().getLevels());
 	}
-
-	public void updateGame(){
+	
+	public void initializeManagers(int initialMode, int initialLevel){
+		myModeManager.initialize(myGame.getModes());
+		myModeManager.setCurrentModeIndex(currentMode);
 		
+		myLevelManager.initialize(myGame.getModes().get(currentMode).getLevels());
+		myLevelManager.setCurrentLevelIndex(currentLevel);
+		
+		myEventManager.setCurrentLevel(myLevelManager.getCurrentLevel());
 	}
 	
 	public void iterateThroughSystems() {

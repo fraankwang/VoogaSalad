@@ -23,7 +23,7 @@ public class EventManager extends Observable implements Observer {
 		this.myComponentTagResources = myComponentTagResources;
 	}
 	
-	public void initialize(Level level){
+	public void setCurrentLevel(Level level){
 		myCurrentLevel = level;
 		myCustomEvents = level.getCustomEvents();
 	}

@@ -30,4 +30,9 @@ public class ModeManager implements Observer{
 		
 	}
 
+	public void setCurrentModeIndex(int currentMode) {
+		// TODO Auto-generated method stub
+		modeIndex = currentMode;
+	}
+
 }

@@ -10,7 +10,6 @@ import java.util.List;
 
 public class FiringComponent extends Component implements IComponent{
 	
-	//private IEntity myAmmunition;
 	private String myAmmunition;
 	private int myAmmunitionAmount;
 	private double myAmmunitionSpeed;
