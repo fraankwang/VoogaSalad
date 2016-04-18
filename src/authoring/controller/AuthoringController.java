@@ -33,13 +33,15 @@ public class AuthoringController implements IAuthoringController {
 	}
 
 	@Override
-	public void parseInput(Map<String, String> data) {
+	public void parseInput(Map<String, String> input) {
+		Map<String, String> data = processData(input);
 		System.out.println(data);
 		for (String key : data.keySet()) {
-			if (key.equals("Object")) {
+			if (key.equals("Type")) {
 				String type = data.get(key);
 				switch (type) {
 					case "Entity":
+						System.out.println("processed.");
 						data.remove(key);
 						model.updateEntities(data);
 						break;
@@ -55,6 +57,15 @@ public class AuthoringController implements IAuthoringController {
 				break;
 			}
 		}
+	}
+	
+	private Map<String, String> processData(Map<String, String> data) {
+		for (String key : data.keySet()) {
+			if (data.get(key).equals("")) {
+				data.put(key, "0");
+			}
+		}
+		return data;
 	}
 	
 }

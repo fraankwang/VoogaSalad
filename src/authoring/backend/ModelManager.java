@@ -48,7 +48,6 @@ public class ModelManager implements IModel {
 			}
 		}
 		globaldata.getLevels().add(level);
-		
 	}
 
 	public void updateModes(Map<String, String> data) {
@@ -61,5 +60,5 @@ public class ModelManager implements IModel {
 		}
 		globaldata.getModes().add(mode);
 	}
-	
+		
 }

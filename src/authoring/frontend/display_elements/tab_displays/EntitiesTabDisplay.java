@@ -76,6 +76,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println(arg);
 		//List<Map<String, String>> entities = (List<Map<String, String>>) arg;
 		//for (Map<String, String> entity: entities) {
 		//	entity.
