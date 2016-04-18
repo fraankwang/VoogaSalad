@@ -1,5 +1,8 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
+import java.util.List;
+import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.LevelEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
@@ -39,4 +42,8 @@ public class LevelEditorGrid extends EditorGrid {
 
 	}
 
+	@Override
+	public void setAttributesPanel(List<Map<String, String>> info) {
+		
+	}
 }

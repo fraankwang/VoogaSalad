@@ -1,5 +1,8 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
+import java.util.List;
+import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.GameTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
@@ -34,5 +37,10 @@ public class GameTabGrid extends TabGrid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 
+	}
+	
+	@Override
+	public void setAttributesPanel(List<Map<String, String>> info) {
+		
 	}
 }

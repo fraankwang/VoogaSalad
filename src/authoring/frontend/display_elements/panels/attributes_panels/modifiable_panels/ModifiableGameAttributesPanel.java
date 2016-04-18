@@ -29,12 +29,8 @@ public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 
 		List<String> attributeNames = (List<String>) Arrays.asList("Game Type", "Number of Players",
 				"Number of Starting Lives", "Number of Lives For Defeat", "Game Timer", "Starting Resources");
-<<<<<<< HEAD
-		//assembleRows(myAttributesGridPane, attributeNames);
-=======
 		assembleRows(myAttributesGridPane, attributeNames);
 
->>>>>>> authoring_frontend_buttondashboards_fxw
 	}
 
 	@Override

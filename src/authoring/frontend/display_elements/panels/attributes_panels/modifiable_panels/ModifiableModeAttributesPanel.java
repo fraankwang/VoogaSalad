@@ -34,15 +34,9 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		super.assembleComponents();
 
 		List<String> modeNames = (List<String>) Arrays.asList("Easy", "Medium", "Hard");
-<<<<<<< HEAD
-		
-		//assembleRows(myAttributesGridPane, modeNames);
-		
-=======
 
 		assembleRows(myAttributesGridPane, modeNames);
 
->>>>>>> authoring_frontend_buttondashboards_fxw
 	}
 
 	@Override

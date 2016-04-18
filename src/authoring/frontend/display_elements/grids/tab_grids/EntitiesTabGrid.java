@@ -1,5 +1,8 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
+import java.util.List;
+import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.EntitiesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
@@ -37,4 +40,8 @@ public class EntitiesTabGrid extends TabGrid {
 		// data from editorviewpanel and modifiableattributespanel to update globaldata
 	}
 
+	@Override
+	public void setAttributesPanel(List<Map<String, String>> info) {
+		
+	}
 }

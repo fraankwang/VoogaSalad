@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements.grids;
 
+import java.util.List;
 import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
@@ -86,6 +87,7 @@ public abstract class Grid implements IGrid {
 		return myPrimaryDisplay;
 	}
 	
-	public abstract void setAttributesPanel(ImageView image, Map<String, String> info);
-
+	public abstract void setAttributesPanel(List<Map<String, String>> info);
+	
+	
 }
