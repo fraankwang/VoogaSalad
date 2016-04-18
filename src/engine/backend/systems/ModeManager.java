@@ -11,7 +11,11 @@ public class ModeManager implements Observer{
 	private List<Mode> myModes;
 	private int modeIndex;
 	
-	public ModeManager(List<Mode> modes){
+	public ModeManager(){
+
+	}
+	
+	public void initialize(List<Mode> modes){
 		myModes = modes;
 		modeIndex = 0;
 	}

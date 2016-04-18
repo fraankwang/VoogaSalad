@@ -17,17 +17,19 @@ public class EventManager extends Observable implements Observer {
 
 	private Level myCurrentLevel;
 	ResourceBundle myComponentTagResources;
-	private SystemsController mySystemsController;
 	private Map<String, List<Action>> myCustomEvents;
 
 	public EventManager(ResourceBundle myComponentTagResources) {
 		this.myComponentTagResources = myComponentTagResources;
-		mySystemsController = new SystemsController(this)
 	}
 	
-	public void setLevel(Level level) {
+	public void initialize(Level level){
 		myCurrentLevel = level;
 		myCustomEvents = level.getCustomEvents();
+	}
+	
+	public Level getCurrentLevel(){
+		return myCurrentLevel;
 	}
 	
 	@Override

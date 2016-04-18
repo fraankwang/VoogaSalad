@@ -1,6 +1,6 @@
 /**
  * 
- * @author mario_oliver93
+ * @author mario_oliver93, raghav kedia
  * 
  */
 package engine.backend.systems;
@@ -28,14 +28,19 @@ public class SystemsController {
 	private EngineController engineController;
 	
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
 	
 	private InGameEntityFactory myEntityFactory;
+	
+	private EventManager myEventManager;
+	private LevelManager myLevelManager;
+	private ModeManager myModeManager;
+	
+	private GameWorld myGame;
 
-
-	public SystemsController(EventManager eventManager, EngineController eController) {
+	public SystemsController(EngineController eController) {
 		engineController = eController;
+		
 		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), 
 				eController.getMyGameWorld().getEntityMap());
 		
@@ -47,9 +52,16 @@ public class SystemsController {
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
 		
-		healthSystem.addObserver(eventManager);
-		firingSystem.addObserver(eventManager);
-		collisionSystem.addObserver(eventManager);
+		myEventManager = new EventManager(myComponentTagResources);
+		myLevelManager = new LevelManager();
+		myModeManager = new ModeManager();
+		
+		healthSystem.addObserver(myEventManager);
+		firingSystem.addObserver(myEventManager);
+		collisionSystem.addObserver(myEventManager);
+		
+		myEventManager.addObserver(myLevelManager);
+		myLevelManager.addObserver(myModeManager);
 		
 		mySystems = new ArrayList<ISystem>();
 		mySystems.add(firingSystem);
@@ -60,19 +72,24 @@ public class SystemsController {
 		mySystems.add(renderingSystem);
 
 	}
+	
+	public void initializeGame(GameWorld game){
+		myGame = game;
+		myModeManager.initialize(game.getModes());
+		myLevelManager.initialize(myModeManager.getCurrentMode().getLevels());
+	}
 
-	public void iterateThroughSystems(GameWorld game) {
-		Mode currMode = game.getModes().get(game.getGameStatistics().getCurrentLevel());
-		List<Level> currLevels = currMode.getLevels();
-		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
-		for (ISystem system : mySystems) {
-			
+	public void updateGame(){
+		
+	}
+	
+	public void iterateThroughSystems() {
+		for (ISystem system : mySystems) {			
 			long startTime = System.currentTimeMillis();
-			system.update(currentLevel, myEntityFactory, myComponentTagResources);
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myComponentTagResources);
 			long endTime   = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
 			//System.out.println(system.getClass().getSimpleName() + ":  " + totalTime);
-			
 		}
 	}
 

@@ -11,7 +11,11 @@ public class LevelManager extends Observable implements Observer{
 	private List<Level> myLevels;
 	private int levelIndex;
 
-	public LevelManager(List<Level> levels){
+	public LevelManager(){
+		
+	}
+	
+	public void initialize(List<Level> levels){
 		myLevels = levels;
 		levelIndex = 0;
 	}

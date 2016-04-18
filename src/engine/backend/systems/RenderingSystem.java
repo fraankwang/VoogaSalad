@@ -46,18 +46,14 @@ public class RenderingSystem extends GameSystem{
 			double y = Integer.MIN_VALUE;
 			double sizex = 200;
 			double sizey = 200;
-			boolean delete = false;
+			boolean show = true;
 			if(!myEntity.hasBeenModified()){
 				continue;
 			}
 			for(IComponent eachComponent: myEntity.getComponents()){
 				if(eachComponent.getTag().equals(myComponentTagResources.getString("Display"))){
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
-					delete = !((DisplayComponent) eachComponent).shouldBeShown();
-					if(delete){
-						engineController.deleteEntity(myEntity.getID());
-						break;
-					}
+					show = ((DisplayComponent) eachComponent).shouldBeShown();
 				}
 				if(eachComponent.getTag().equals(myComponentTagResources.getString("Position"))){
 					x = ((PositionComponent) eachComponent).getX();
@@ -68,9 +64,9 @@ public class RenderingSystem extends GameSystem{
 					sizey = ((SizeComponent) eachComponent).getHeight();
 				}
 			}
-			if(!delete){
-				engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
-			}
+			
+			engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
+			
 			
 			myEntity.setHasBeenModified(false);
 			
