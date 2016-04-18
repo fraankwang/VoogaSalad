@@ -6,7 +6,7 @@ import java.util.Observer;
 
 import engine.backend.game_object.Level;
 
-public class LevelManager implements Observer{
+public class LevelManager extends Observable implements Observer{
 	
 	private List<Level> myLevels;
 	private int levelIndex;

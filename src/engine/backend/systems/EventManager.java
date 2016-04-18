@@ -13,7 +13,7 @@ import engine.backend.rules.Action;
 import engine.backend.systems.Events.IEvent;
 
 
-public class EventManager implements Observer {
+public class EventManager extends Observable implements Observer {
 
 	private Level myCurrentLevel;
 	ResourceBundle myComponentTagResources;
@@ -65,5 +65,9 @@ public class EventManager implements Observer {
 	
 	public void handleAddEntity(IEvent myEvent) { 
 		myEvent.getEntities().forEach(e -> myCurrentLevel.addToEntities(e));
+	}
+	
+	public void handleEnemyMissed(){
+		//gets events, send event to level manager
 	}
 }
