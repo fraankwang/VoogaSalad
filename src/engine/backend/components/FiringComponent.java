@@ -1,7 +1,5 @@
 package engine.backend.components;
 
-import java.util.List;
-
 /**
  * 
  * @author raghavkedia
@@ -17,12 +15,7 @@ public class FiringComponent extends Component implements IComponent{
 	private double myEnemyInSightRange;
 	private double myDirectionToFire;
 	
-	public FiringComponent(String ammunitionName, int amount, double speed, double range, double direction){
-		myAmmunition = ammunitionName;
-		myAmmunitionAmount = amount;
-		myAmmunitionSpeed = speed;
-		myEnemyInSightRange = range;
-		myDirectionToFire = direction;
+	public FiringComponent(){
 	}
 	
 	public String getAmmunition() {
@@ -48,11 +41,6 @@ public class FiringComponent extends Component implements IComponent{
 	public void setEnemyInSightRange(double myEnemyInSightRange) {
 		this.myEnemyInSightRange = myEnemyInSightRange;
 	}
-
-	@Override
-	public void initWithParams(List params) {
-	
-	}
 	
 	public double getDirectionToFire() {
 		return myDirectionToFire;
@@ -68,6 +56,15 @@ public class FiringComponent extends Component implements IComponent{
 
 	public void setAmmunitionSpeed(double myAmmunitionSpeed) {
 		this.myAmmunitionSpeed = myAmmunitionSpeed;
+	}
+	
+	@Override
+	public void initWithParams(String[] params) {
+		myAmmunition = params[0];
+		myAmmunitionAmount = Integer.parseInt(params[1]);
+		myAmmunitionSpeed = Double.parseDouble(params[2]);
+		myEnemyInSightRange = Double.parseDouble(params[3]);
+		myDirectionToFire = Double.parseDouble(params[4]);
 	}
 	
 }

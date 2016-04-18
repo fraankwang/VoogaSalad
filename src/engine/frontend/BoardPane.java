@@ -6,7 +6,11 @@ import java.util.Map;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 
 public class BoardPane {
 	private EngineView myEngineView;
@@ -19,11 +23,9 @@ public class BoardPane {
 	
 	public Node buildNode(){
 		myPane = new Pane();
-		myPane.setMinWidth(myEngineView.loadUIIntResource("BoardSize"));
-		myPane.setMaxWidth(myEngineView.loadUIIntResource("BoardSize"));
-		myPane.setMinHeight(myEngineView.loadUIIntResource("BoardSize"));
-		myPane.setMaxHeight(myEngineView.loadUIIntResource("BoardSize"));
-		myPane.setOnMouseClicked(e -> attemptTower(e.getSceneX(), e.getSceneY()));
+		myPane.setStyle("-fx-background-color: #C0C0C0;");
+		myPane.setMinSize(myEngineView.loadUIIntResource("BoardWidth")/2, myEngineView.loadUIIntResource("BoardHeight")/2);
+		myPane.setPrefSize(myEngineView.loadUIIntResource("BoardWidth"), myEngineView.loadUIIntResource("BoardHeight"));
 		return myPane;
 	}
 	
@@ -48,7 +50,7 @@ public class BoardPane {
 	 */
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
 		if(myImageMap.containsKey(id)){
-			myImageMap.get(id).updateEntity(xCoord, yCoord, image, width, height);
+			myImageMap.get(id).update(xCoord, yCoord, image, width, height);
 		} else {
 			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
 			myImageMap.put(id, ev);
@@ -57,8 +59,10 @@ public class BoardPane {
 	}
 	
 	public void deleteEntity(int id){
-		myPane.getChildren().remove(myImageMap.get(id).getNode());
-		myImageMap.remove(id);
+		if(myImageMap.containsKey(id)){
+			myPane.getChildren().remove(myImageMap.get(id).getNode());
+			myImageMap.remove(id);
+		}
 	}
 	
 	public void attemptTower(double xLoc, double yLoc){

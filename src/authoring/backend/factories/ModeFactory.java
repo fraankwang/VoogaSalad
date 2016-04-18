@@ -1,5 +1,7 @@
 package authoring.backend.factories;
 
+import java.util.Map;
+
 import engine.backend.game_object.Mode;
 
 public class ModeFactory {
@@ -8,15 +10,18 @@ public class ModeFactory {
 		
 	}
 	
-	public Mode createMode(Object info){
-		int parsedId = 0; //temporary placeholder
-		Mode newMode = new Mode(parsedId);
-		setUpMode(newMode, info);
-		return new Mode(parsedId);
+	public Mode createMode(Map<String, String> data){
+		//setUpMode(newMode, info);
+		String name = null;
+		for (String key : data.keySet()) {
+			if (key.equals("ModeName")) {
+				name = data.get(key);
+			}
+		}
+		return new Mode(name);
 	}
 	
 	private void setUpMode(Mode mode, Object info){
 		//do other shit with string
 	}
-
 }

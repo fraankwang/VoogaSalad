@@ -22,6 +22,11 @@ public class BezierCurve implements IBezierCurve{
 		myLength = calculateBezierLength();
 	}
 	
+	public BezierCurve(double[] points) {
+		this(points[0], points[1], points[2], points[3], points[4],
+				points[5], points[6], points[7]);
+	}
+	
 	public Vector calculateNewBezierPoint(double t){
 		return calculateNewBezierPoint(t, startPointVector, control1Vector, control2Vector, endPointVector);
 	}

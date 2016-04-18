@@ -10,24 +10,28 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import authoring.backend.factories.EntityFactory;
 import engine.backend.components.IComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
+import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
 import engine.backend.rules.Predicate;
 import engine.backend.rules.Rule;
 
-public class RulesSystem extends Systemm {
+public class RulesSystem implements ISystem {
 
 	public RulesSystem() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void update(List<IEntity> entities) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity eachEntity: entities){
 			for(Rule eachRule : ((Entity)eachEntity).getRules()){
 				String componentToChange = eachRule.getMyConditionals().get(0).whichComponentToCheck();
