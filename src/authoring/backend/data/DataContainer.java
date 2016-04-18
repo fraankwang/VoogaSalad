@@ -1,4 +1,4 @@
-package authoring.backend;
+package authoring.backend.data;
 
 import java.util.HashMap;
 import java.util.Map;

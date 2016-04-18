@@ -7,7 +7,7 @@ import engine.backend.game_object.Mode;
 import java.util.HashMap;
 import java.util.Map;
 
-import authoring.backend.GlobalData;
+import authoring.backend.data.GlobalData;
 import engine.backend.entities.Entity;
 
 public class GameFactory {

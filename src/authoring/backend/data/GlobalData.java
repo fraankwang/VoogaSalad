@@ -1,4 +1,4 @@
-package authoring.backend;
+package authoring.backend.data;
 
 /*
  * @author: Jonathan Ma
