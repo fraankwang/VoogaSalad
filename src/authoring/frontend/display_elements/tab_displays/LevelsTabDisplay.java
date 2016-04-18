@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import authoring.backend.data.LevelList;
+import authoring.backend.deprecated.LevelList;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.LevelEditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;

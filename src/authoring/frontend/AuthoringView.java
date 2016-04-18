@@ -1,11 +1,12 @@
 package authoring.frontend;
 
 import java.util.Map;
-import authoring.backend.data.EntityList;
 import authoring.backend.data.GlobalData;
-import authoring.backend.data.LevelList;
-import authoring.backend.data.ModeList;
+import authoring.backend.data.ObservableList;
 import authoring.frontend.interfaces.IViewManager;
+import engine.backend.entities.Entity;
+import engine.backend.game_object.Level;
+import engine.backend.game_object.Mode;
 import javafx.stage.Stage;
 
 
@@ -42,17 +43,17 @@ public class AuthoringView implements IAuthoringView {
 		
 	}
 
-	public EntityList getEntityList() {
+	public ObservableList<Entity> getEntityList() {
 		return myGlobalData.getEntities();
 	}
 
 	@Override
-	public LevelList getLevelList() {
+	public ObservableList<Level> getLevelList() {
 		return myGlobalData.getLevels();
 	}
 
 	@Override
-	public ModeList getModeList() {
+	public ObservableList<Mode> getModeList() {
 		return myGlobalData.getModes();
 	}
 	

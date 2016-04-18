@@ -68,9 +68,9 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
 		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myAttributes = (List<String>) Arrays.asList("Genre", "Name", "Damage Value", "Attack Rate",
-				"Movement Speed", "Armor", "Health", "Rotate Speed", "Cost", "Bounty", "Collidable", "Random Movement");
-
+		myAttributes = (List<String>) Arrays.asList("Genre", "Name", "DamageComponent", "FiringComponent",
+				"MovementComponent", "Armor", "HealthComponent", "RotationComponent", "Cost", "Bounty",
+				"CollisionComponent", "Random Movement");
 		assembleRows();
 
 		return myAttributesGridPane;

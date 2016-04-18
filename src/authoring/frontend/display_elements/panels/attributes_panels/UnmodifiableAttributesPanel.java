@@ -107,6 +107,8 @@ public abstract class UnmodifiableAttributesPanel extends Panel {
 			tf.setEditable(false);
 			myOutputMap.replace(s, tf);
 		}
+		
+		refreshAttributesGrid();
 //		myAttributesMap.remove("image"); //remove image before populating unmodifiablepanel
 	}
 	

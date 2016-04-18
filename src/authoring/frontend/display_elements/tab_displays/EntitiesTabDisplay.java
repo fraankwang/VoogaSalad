@@ -3,7 +3,7 @@ package authoring.frontend.display_elements.tab_displays;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-import authoring.backend.data.EntityList;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
@@ -13,6 +13,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import authoring.backend.data.ObservableList;
+import engine.backend.entities.Entity;
 
 /**
  * 
@@ -24,7 +26,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 	private TabPane myEntitiesTabPane;
 	private Grid myActiveGrid;
-	private EntityList myEntityList;
+	private ObservableList<Entity> myEntityList;
 
 	public EntitiesTabDisplay(int tabIndex, IAuthoringView controller) {
 		super(tabIndex, controller);

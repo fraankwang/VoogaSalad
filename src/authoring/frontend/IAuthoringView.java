@@ -1,10 +1,11 @@
 package authoring.frontend;
 
 import java.util.Map;
+import authoring.backend.data.ObservableList;
+import engine.backend.entities.Entity;
+import engine.backend.game_object.Level;
+import engine.backend.game_object.Mode;
 
-import authoring.backend.data.EntityList;
-import authoring.backend.data.LevelList;
-import authoring.backend.data.ModeList;
 
 /**
  * 
@@ -18,8 +19,8 @@ public interface IAuthoringView {
 
 	public void writeData(Map<String, String> data);
 	
-	public EntityList getEntityList();
-	public LevelList getLevelList();
-	public ModeList getModeList();
+	public ObservableList<Entity> getEntityList();
+	public ObservableList<Level> getLevelList();
+	public ObservableList<Mode> getModeList();
 	
 }
