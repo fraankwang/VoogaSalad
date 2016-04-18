@@ -1,4 +1,4 @@
-package authoring.backend.data;
+package authoring.backend.deprecated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,13 @@ public class ModeList extends Observable {
 	}
 	
 	public void add(Mode mode) {
+		for (Mode m : modes) {
+			if (m.equals(mode)) {
+				m = mode;
+				setChanged();
+				notifyObservers(getInfo());
+			}
+		}
 		modes.add(mode);
 		setChanged();
 		notifyObservers(getInfo());
