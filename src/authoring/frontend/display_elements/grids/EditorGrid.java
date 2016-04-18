@@ -46,8 +46,11 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
-		((ButtonDashboard) myButtonDashboard).getSaveButton()
-				.setOnAction(e -> sendData(((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
+		// ((ButtonDashboard) myButtonDashboard).getSaveButton()
+		// .setOnAction(e -> sendData(((ModifiableAttributesPanel)
+		// myModifiableAttributesPanel).saveAttributes()));
+		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(e -> updateEditorPanels());
+
 		((SimpleButtonDashboard) myButtonDashboard).getResetButton()
 				.setOnAction(e -> ((ModifiableAttributesPanel) myModifiableAttributesPanel).resetAttributes());
 
@@ -57,17 +60,21 @@ public abstract class EditorGrid extends Grid {
 		myController.writeData(map);
 	}
 
+	protected void updateEditorPanels() {
+		((ModifiableAttributesPanel) myModifiableAttributesPanel).updateSomething();
+	}
+
 	public Panel getAttributesPanel() {
 		return myModifiableAttributesPanel;
 	}
 
-	public void setAttributesPanel(List<Map<String, String>> info) {
+	public void setAttributesPanel(Map<String, String> info) {
 		myModifiableAttributesPanel.setAttributes(info);
 	}
 
-	public void populateComponents(List<Map<String, String>> info) {
-//		ImageView iv = new ImageView(info.get("image"));
-//		((EditorViewPanel) myPrimaryDisplay).setImage(iv.getImage()); 
+	public void populateComponents(Map<String, String> info) {
+		// ImageView iv = new ImageView(info.get("image"));
+		// ((EditorViewPanel) myPrimaryDisplay).setImage(iv.getImage());
 		myModifiableAttributesPanel.setAttributes(info);
 	}
 }

@@ -45,7 +45,7 @@ public abstract class TabGrid extends Grid {
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 	}
 	
-	public void setAttributesPanel(List<Map<String, String>> info) {
+	public void setAttributesPanel(Map<String, String> info) {
 		myUnmodifiableAttributesPanel.setAttributes(info);
 	}
 	

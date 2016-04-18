@@ -10,7 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.VBox;
 
 /**
  * 
@@ -48,7 +48,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myGridPane.add(myOpenEditorButton, 0, 0);
 		myGridPane.add(myAttributesGridPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
-		myNode = myWrapper;
+		myNode = new VBox(myOpenEditorButton, myTextBox);
 
 	}
 
@@ -71,7 +71,8 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 	@Override
 	protected void refreshDisplay() {
-//		myAttributesGridPane = new GridPane();
+		System.out.println("refreshed unmodifiable");
+		myAttributesGridPane.getChildren().clear();
 //		myAttributesGridPane = createAttributesGridPane();
 		
 		for (int i = 0; i < myAttributes.size(); i++) {
@@ -79,6 +80,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 			TextField tf = (TextField) myOutputMap.get(currentAttribute);
 			tf.setText(myAttributesMap.get(myAttributes.get(i)));
+			System.out.println("new value: " + tf.getText());
 			tf.setEditable(false);
 			
 			myOutputMap.replace(currentAttribute, tf);
@@ -89,8 +91,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 			}
 		}
 		System.out.println(myAttributesMap);
-		System.out.println("refreshed");
-		myNode = new Rectangle(50,50);
+		myTextBox.setText("hello");
 
 	}
 }

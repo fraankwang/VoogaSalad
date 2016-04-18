@@ -1,14 +1,14 @@
 package authoring.frontend.display_elements.panels.attributes_panels;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 
 public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 
+	protected TextField myTextBox = new TextField();
 	protected ITabDisplay myTabDisplay;
 	protected static final int COLUMN_1_PERCENTAGE = 50;
 	protected static final int COLUMN_2_PERCENTAGE = 50;
@@ -29,6 +30,8 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	protected static final int BUTTON_HEIGHT_PERCENTAGE = 8;
 	protected static final int TITLED_PANE_HEIGHT = 350;
+	
+	protected Rectangle myRect = new Rectangle(50,50);
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
 
 	protected Button myOpenEditorButton;
@@ -56,15 +59,15 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
-			tf.setText("1");
+			tf.setText("234987214");
 			tf.setEditable(false);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
 			myOutputMap.put(currentAttribute, tf);
 			myAttributesGridPane.add(text, 0, i);
-			myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
 
 		}
+		myAttributesGridPane.add(myRect, 1, 0);
 	}
 
 	/**
@@ -76,14 +79,12 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected Button createOpenEditorButton() {
 		Button button = new Button("Open Editor");
 		button.setPrefSize(600, 600);
-		List<Map<String, String>> allData = new ArrayList<Map<String, String>>();
-		allData.add(myAttributesMap);
-		button.setOnAction(e -> myTabDisplay.openEditorDisplay(allData));
+		button.setOnAction(e -> myTabDisplay.openEditorDisplay(myAttributesMap));
 		return button;
 	}
 
-	public void setAttributes(List<Map<String, String>> info) {
-		myAttributesMap = info.get(0); // need to change this later to match ID
+	public void setAttributes(Map<String, String> info) {
+		myAttributesMap = info; // need to change this later to match ID
 		refreshDisplay();
 	}
 

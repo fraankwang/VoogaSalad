@@ -14,8 +14,10 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.layout.VBox;
 
 /**
  * 
@@ -25,6 +27,7 @@ import javafx.scene.text.Text;
 
 public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
+	protected TextField myTextField = new TextField();
 	protected BorderPane myWrapper;
 	protected GridPane myGridPane;
 	protected GridPane myAttributesGridPane;
@@ -69,7 +72,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myGridPane.add(myAttributesGridPane, 0, 0);
 		myGridPane.add(myRulesPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
-		myNode = myWrapper;
+		myNode = new VBox(myAttributesGridPane, myTextField);
 	}
 
 	private GridPane createAttributesGridPane() {
@@ -115,8 +118,8 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		return myAttributesMap;
 	}
 
-	public void setAttributes(List<Map<String, String>> info) {
-		myAttributesMap = info.get(0); // need to change this later to match ID
+	public void setAttributes(Map<String, String> info) {
+		myAttributesMap = info; // need to change this later to match ID
 		refreshAttributesGrid();
 
 	}
@@ -131,6 +134,8 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			}
 
 		}
+		
+		myTextField.setText("hi");
 		//
 		// for (int i = 0; i < myAttributes.size(); i++) {
 		// TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
@@ -164,6 +169,10 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		lv.getItems().add("helloooo");
 
 		return lv;
+	}
+
+	public void updateSomething() {
+		myTextField.setText("hello2");
 	}
 
 }

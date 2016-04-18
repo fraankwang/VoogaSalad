@@ -15,7 +15,7 @@ public class DataContainer extends Observable {
 	public void updateData(Map<String, String> data) {
 		this.data = data;
 		setChanged();
-		notifyObservers();
+		notifyObservers(data);
 	}
 	
 	public Map<String, String> getData() {

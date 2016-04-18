@@ -96,5 +96,11 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		return lv;
 	}
 
+	@Override
+	protected void refreshDisplay() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

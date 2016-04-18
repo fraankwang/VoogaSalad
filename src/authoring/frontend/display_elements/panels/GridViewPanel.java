@@ -101,11 +101,11 @@ public class GridViewPanel extends Panel {
 	protected void assembleComponents() {
 		VBox vbox = new VBox();
 		myGridPane.setGridLinesVisible(true);
-//		myAddNewButton.setOnAction(e -> {
-//			System.out.println(((TabDisplay) myTabDisplay).getAttributesMap());
-//			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getAttributesMap()); //get data
+		myAddNewButton.setOnAction(e -> {
+			System.out.println(((TabDisplay) myTabDisplay).getAttributesMap());
+			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getAttributesMap()); //get data
 //			myTabDisplay.openEditorDisplay(new ImageView("question_mark.png"), new HashMap<String, String>());
-//		});
+		});
 		
 		myScrollPane.setContent(myGridPane);
 		VBox.setVgrow(myGridPane, Priority.ALWAYS);

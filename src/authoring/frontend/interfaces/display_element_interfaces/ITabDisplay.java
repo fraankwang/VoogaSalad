@@ -22,6 +22,6 @@ public interface ITabDisplay extends IDisplayElement, Observer {
 	
 	public int getTabIndex();
 
-	void openEditorDisplay(List<Map<String, String>> info);
+	void openEditorDisplay(Map<String, String> map);
 	
 }

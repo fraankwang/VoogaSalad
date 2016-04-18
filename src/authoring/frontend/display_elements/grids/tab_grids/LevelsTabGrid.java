@@ -40,7 +40,7 @@ public class LevelsTabGrid extends TabGrid {
 	}
 
 	@Override
-	public void setAttributesPanel(List<Map<String, String>> info) {
-		
+	public void setAttributesPanel(Map<String, String> info) {
+		myUnmodifiableAttributesPanel.setAttributes(info);
 	}
 }

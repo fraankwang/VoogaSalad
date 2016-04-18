@@ -40,7 +40,7 @@ public abstract class TabDisplay implements ITabDisplay {
 	}
 
 	@Override
-	public void openEditorDisplay(List<Map<String, String>> info) {
+	public void openEditorDisplay(Map<String, String> info) {
 		myEditorDisplay.edit(info);
 	}
 
@@ -52,7 +52,7 @@ public abstract class TabDisplay implements ITabDisplay {
 	public void update(Observable o, Object arg) {
 		@SuppressWarnings("unchecked")
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
-		myGrid.setAttributesPanel(data);
+		myGrid.setAttributesPanel(data.get(0));
 
 	}
 	

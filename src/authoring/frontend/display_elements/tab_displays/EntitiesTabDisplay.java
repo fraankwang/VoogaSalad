@@ -76,7 +76,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public void update(Observable o, Object arg) {
 		@SuppressWarnings("unchecked")
 		List<Map<String, String>> entities = (List<Map<String, String>>) arg;
-		myActiveGrid.setAttributesPanel(entities);
+		myActiveGrid.setAttributesPanel(entities.get(0));
 
 	}
 
