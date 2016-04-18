@@ -30,7 +30,7 @@ public class ModelManager implements IModel {
 	
 	public void updateEntities(Map<String, String> data) {
 		Entity entity = entityfactory.createEntity(data);
-		for (Entity e : globaldata.getEntities()) {
+		for (Entity e : globaldata.getEntities().getList()) {
 			if (e.equals(entity)) {
 				e = entity;
 				return;
@@ -41,7 +41,7 @@ public class ModelManager implements IModel {
 
 	public void updateLevels(Map<String, String> data) {
 		Level level = levelfactory.createLevel(data);
-		for (Level l : globaldata.getLevels()) {
+		for (Level l : globaldata.getLevels().getList()) {
 			if (l.equals(level)) {
 				l = level;
 				return;
@@ -53,7 +53,7 @@ public class ModelManager implements IModel {
 
 	public void updateModes(Map<String, String> data) {
 		Mode mode = modefactory.createMode(data);
-		for (Mode m : globaldata.getModes()) {
+		for (Mode m : globaldata.getModes().getList()) {
 			if (m.equals(mode)) {
 				m = mode;
 				return;
