@@ -20,6 +20,11 @@ public class RotationComponent extends Component implements IComponent{
 	public void setAngle(double dir){
 		myAngle = dir;
 	}
+	
+	public void setAngle(String dir){
+		double newVal = Double.parseDouble(dir);
+		myAngle = newVal;
+	}
 
 	@Override
 	public void initWithParams(String[] params) {

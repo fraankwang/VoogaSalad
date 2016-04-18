@@ -19,7 +19,7 @@ public class HealthComponent extends Component implements IComponent{
 	
 	public void setHealth(String deltaHealth){
 		Double delta = Double.parseDouble(deltaHealth);
-		myHealth += delta;
+		myHealth = delta;
 	}
 	
 	public void setHealth(double newHealth){
@@ -28,6 +28,11 @@ public class HealthComponent extends Component implements IComponent{
 	
 	public void setDamage(double newDamage){
 		myDamage = newDamage;
+	}
+	
+	public void setDamage(String deltaDamage){
+		Double delta = Double.parseDouble(deltaDamage);
+		myDamage = delta;
 	}
 
 	public double getDamage() {
@@ -47,6 +52,11 @@ public class HealthComponent extends Component implements IComponent{
 
 	public void setCriticalHealth(double myCriticalHealth) {
 		this.myCriticalHealth = myCriticalHealth;
+	}
+	
+	public void setCriticalHealth(String myCriticalHealth) {
+		double newVal = Double.parseDouble(myCriticalHealth);
+		this.myCriticalHealth = newVal;
 	}
 
 }
