@@ -14,8 +14,10 @@ import javafx.scene.shape.Rectangle;
 
 public class BoardPane {
 	private EngineView myEngineView;
+	private Map<Integer, EntityView> myEntityViewMap = new HashMap<Integer, EntityView>();
+	
 	private Pane myPane;
-	private Map<Integer, EntityView> myImageMap = new HashMap<>();
+	private ImageView myBackground;
 	
 	public BoardPane(EngineView ev){
 		myEngineView = ev;
@@ -26,7 +28,18 @@ public class BoardPane {
 		myPane.setStyle("-fx-background-color: #C0C0C0;");
 		myPane.setMinSize(myEngineView.loadUIIntResource("BoardWidth")/2, myEngineView.loadUIIntResource("BoardHeight")/2);
 		myPane.setPrefSize(myEngineView.loadUIIntResource("BoardWidth"), myEngineView.loadUIIntResource("BoardHeight"));
+		
+		myBackground = new ImageView(new Image("Park_Path.png"));
+		myBackground.fitWidthProperty().bind(myPane.widthProperty());
+		myBackground.fitHeightProperty().bind(myPane.heightProperty());
+		
+		myPane.getChildren().add(myBackground);
+		
 		return myPane;
+	}
+	
+	public void setBackground(String imageName){
+		myBackground.setImage(new Image(imageName));
 	}
 	
 	public void createCharacterImage(double xCoord, double yCoord, String image, int id, double width, double height){
@@ -36,7 +49,6 @@ public class BoardPane {
 		myPlayer.setX(xCoord);
 		myPlayer.setY(yCoord);
 		myPane.getChildren().add(myPlayer);
-		
 	}
 	
 	/**
@@ -48,20 +60,24 @@ public class BoardPane {
 	 * @param width
 	 * @param height
 	 */
-	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
-		if(myImageMap.containsKey(id)){
-			myImageMap.get(id).update(xCoord, yCoord, image, width, height);
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
+		if(!show){
+			deleteEntity(id);
+			return;
+		}
+		if(myEntityViewMap.containsKey(id)){
+			myEntityViewMap.get(id).update(xCoord, yCoord, image, width, height);
 		} else {
 			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
-			myImageMap.put(id, ev);
+			myEntityViewMap.put(id, ev);
 			myPane.getChildren().add(ev.getNode());
 		}
 	}
 	
-	public void deleteEntity(int id){
-		if(myImageMap.containsKey(id)){
-			myPane.getChildren().remove(myImageMap.get(id).getNode());
-			myImageMap.remove(id);
+	private void deleteEntity(int id){
+		if(myEntityViewMap.containsKey(id)){
+			myPane.getChildren().remove(myEntityViewMap.get(id).getNode());
+			myEntityViewMap.remove(id);
 		}
 	}
 	

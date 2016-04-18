@@ -15,9 +15,13 @@ public class EngineView{
 
 	/*
 	 * TODO:
-	 * Fix size of overall window
-	 * Add menu bar DONE
-	 * Fix aspect ratio of game player
+	 * Fix size of overall window- DONE
+	 * Add menu bar- DONE
+	 * Fix aspect ratio of game player- DONE
+	 * Background Image- DONE
+	 * Load in shop info
+	 * Load in stat info
+	 * General game state info- mode level etc.
 	 * 
 	 * Future Big Items:
 	 * Dynamic window resizing- make EVERYTHING relative and in terms of ratios
@@ -50,14 +54,15 @@ public class EngineView{
 	 * builds a "body HBox" for the current view
 	 * @return
 	 */
-	public Scene getScene(){
+	public Scene buildScene(){
 		int width = loadUIIntResource("WindowWidth");
 		int height = loadUIIntResource("WindowHeight");
-		
 		BorderPane myBody = new BorderPane();
+		
 		MenuBar menubar = myMenubarManager.buildMenuBar();
 		myBody.setTop(menubar);
-		myBody.setLeft(myBoardPane.buildNode());
+		
+		myBody.setCenter(myBoardPane.buildNode());
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
 		Scene scene = new Scene(myBody, width, height, Color.WHITE);
