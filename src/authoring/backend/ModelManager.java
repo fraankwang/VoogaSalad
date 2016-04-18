@@ -35,23 +35,11 @@ public class ModelManager implements IModel {
 
 	public void updateLevels(Map<String, String> data) {
 		Level level = levelfactory.createLevel(data);
-		for (Level l : globaldata.getLevels().getList()) {
-			if (l.equals(level)) {
-				l = level;
-				return;
-			}
-		}
 		globaldata.getLevels().add(level);
 	}
 
 	public void updateModes(Map<String, String> data) {
 		Mode mode = modefactory.createMode(data);
-		for (Mode m : globaldata.getModes().getList()) {
-			if (m.equals(mode)) {
-				m = mode;
-				return;
-			}
-		}
 		globaldata.getModes().add(mode);
 	}
 		

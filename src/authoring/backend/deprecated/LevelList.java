@@ -1,4 +1,4 @@
-package authoring.backend.data;
+package authoring.backend.deprecated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,13 @@ public class LevelList extends Observable{
 	}
 	
 	public void add(Level level) {
+		for (Level l : levels) {
+			if (l.equals(level)) {
+				l = level;
+				setChanged();
+				notifyObservers(getInfo());
+			}
+		}
 		levels.add(level);
 		setChanged();
 		notifyObservers(getInfo());

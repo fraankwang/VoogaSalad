@@ -47,6 +47,7 @@ public class Entity implements IEntity {
 		entityInfo.put("Type", "Entity");
 		entityInfo.put("Genre", myType);
 		entityInfo.put("Name", myName);
+		entityInfo.put("Cost", myValue + "");
 	}
 
 	public void addRule(Rule myRule) {

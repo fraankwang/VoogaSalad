@@ -6,18 +6,22 @@ package authoring.backend.data;
 
 import java.util.Map;
 
+import engine.backend.entities.Entity;
+import engine.backend.game_object.Level;
+import engine.backend.game_object.Mode;
+
 public class GlobalData {
 	
 	private DataContainer datacontainer;
-	private EntityList entities;
-	private LevelList levels;
-	private ModeList modes;
+	private ObservableList<Entity> entities;
+	private ObservableList<Level> levels;
+	private ObservableList<Mode> modes;
 	
 	public GlobalData() {
 		this.datacontainer = new DataContainer();
-		this.entities = new EntityList();
-		this.levels = new LevelList();
-		this.modes = new ModeList();
+		this.entities = new ObservableList<Entity>();
+		this.levels = new ObservableList<Level>();
+		this.modes = new ObservableList<Mode>();
 	}
 	
 	public void updateData(Map<String, String> data) {
@@ -28,15 +32,15 @@ public class GlobalData {
 		return datacontainer;
 	}
 	
-	public EntityList getEntities() {
+	public ObservableList<Entity> getEntities() {
 		return entities;
 	}
 	
-	public LevelList getLevels() {
+	public ObservableList<Level> getLevels() {
 		return levels;
 	}
 	
-	public ModeList getModes() {
+	public ObservableList<Mode> getModes() {
 		return modes;
 	}
 
