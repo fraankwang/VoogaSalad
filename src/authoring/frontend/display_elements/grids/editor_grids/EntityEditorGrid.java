@@ -8,7 +8,7 @@ import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashbo
 
 /**
  * 
- * @author benchesnut
+ * @author benchesnut, Frank
  *
  */
 
@@ -35,10 +35,21 @@ public class EntityEditorGrid extends EditorGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
+
 		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(e -> {
 			sendData(((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).saveAttributes());
 			
 		});
+
+		// ((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(
+		// e -> sendData(((ModifiableAttributesPanel)
+		// myModifiableAttributesPanel).saveAttributes()));
+		// ((SimpleButtonDashboard)
+		// myButtonDashboard).getResetButton().setOnAction(
+		// e -> ((ModifiableAttributesPanel)
+		// myModifiableAttributesPanel).resetAttributes());
+
+
 	}
 
 }

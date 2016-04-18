@@ -1,8 +1,6 @@
 package authoring.frontend.interfaces.display_element_interfaces;
 
 import java.util.Map;
-
-import authoring.frontend.interfaces.IDisplayEntity;
 import javafx.scene.image.ImageView;
 
 /**
@@ -18,8 +16,7 @@ import javafx.scene.image.ImageView;
 public interface IEditorDisplay extends IDisplayElement {
 
 	/**
-	 * Takes in as a parameter an entity and returns the (possibly) updated
-	 * version of that entity.
+	 * Takes in as a parameter a map of info and an image
 	 * 
 	 * @param oldEntity
 	 * @return newEntity

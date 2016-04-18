@@ -9,7 +9,6 @@ import authoring.frontend.display_elements.panels.attributes_panels.unmodifiable
 import authoring.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class EntitiesTabGridFactory extends TabGridFactory {
@@ -35,7 +34,8 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public UnmodifiableAttributesPanel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		UnmodifiableAttributesPanel attributes = new UnmodifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE, tabDisplay, new ImageView("DrumpfVader.png"));
+		UnmodifiableAttributesPanel attributes = new UnmodifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE, tabDisplay,
+				new ImageView("DrumpfVader.png"));
 		attributes.initialize();
 		return attributes;
 	}

@@ -1,13 +1,8 @@
 package authoring.frontend.display_elements.editor_displays;
 
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grids.EditorGrid;
-import authoring.frontend.display_elements.grids.Grid;
-import authoring.frontend.display_elements.panels.EditorViewPanel;
-import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring.frontend.interfaces.IDisplayEntity;
 import authoring.frontend.interfaces.display_element_interfaces.IEditorDisplay;
 import javafx.scene.Node;
 import javafx.scene.Scene;
