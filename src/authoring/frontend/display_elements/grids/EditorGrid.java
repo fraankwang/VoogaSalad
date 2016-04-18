@@ -1,12 +1,12 @@
 package authoring.frontend.display_elements.grids;
 
+import java.util.List;
 import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
-import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import javafx.scene.image.ImageView;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
 
@@ -61,11 +61,11 @@ public abstract class EditorGrid extends Grid {
 		return myModifiableAttributesPanel;
 	}
 
-	public void setAttributesPanel(Map<String, String> info) {
+	public void setAttributesPanel(List<Map<String, String>> info) {
 		myModifiableAttributesPanel.setAttributes(info);
 	}
 
-	public void populateComponents(Map<String, String> info) {
+	public void populateComponents(List<Map<String, String>> info) {
 //		ImageView iv = new ImageView(info.get("image"));
 //		((EditorViewPanel) myPrimaryDisplay).setImage(iv.getImage()); 
 		myModifiableAttributesPanel.setAttributes(info);

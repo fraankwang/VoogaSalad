@@ -20,14 +20,14 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void initializeComponents() {
 		super.initializeComponents();
+		myAttributes = (List<String>) Arrays.asList("Genre", "Name", "DamageComponent", "FiringComponent",
+				"MovementComponent", "Armor", "HealthComponent", "RotationComponent", "Cost", "Bounty",
+				"CollisionComponent", "Random Movement");
+		assembleRows();
 	}
 
 	@Override
 	protected void assembleComponents() {
-		myAttributes = (List<String>) Arrays.asList("Genre", "Name", "DamageComponent", "FiringComponent",
-				"MovementComponent", "Armor", "HealthComponent", "RotationComponent", "Cost", "Bounty",
-				"CollisionComponent", "Random Movement");
-
 		super.assembleComponents();
 
 	}

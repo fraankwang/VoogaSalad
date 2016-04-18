@@ -81,4 +81,11 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 		return lv;
 	}
 
+
+//	@Override
+//	protected GridPane createAttributesGridPane() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 }

@@ -3,14 +3,15 @@ package authoring.frontend.display_elements.panels.attributes_panels.unmodifiabl
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 
 /**
  * 
@@ -77,4 +78,11 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 	}
 
+	@Override
+	protected void refreshAttributesGrid() {
+		super.refreshAttributesGrid();
+		System.out.println("where are my nodes??");
+		myWrapper.getChildren().removeAll(myGridPane);
+		// why is this not doing anything??
+	}
 }

@@ -1,12 +1,13 @@
 package authoring.frontend.display_elements.editor_displays;
 
+import java.util.List;
 import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.interfaces.display_element_interfaces.IEditorDisplay;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -37,7 +38,7 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	}
 
 	@Override
-	public void edit(Map<String, String> info) {
+	public void edit(List<Map<String, String>> info) {
 		myGrid.populateComponents(info);
 		Stage editorStage = new Stage();
 		BorderPane root = new BorderPane();

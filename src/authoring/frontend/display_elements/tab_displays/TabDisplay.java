@@ -3,6 +3,7 @@ package authoring.frontend.display_elements.tab_displays;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
@@ -39,7 +40,7 @@ public abstract class TabDisplay implements ITabDisplay {
 	}
 
 	@Override
-	public void openEditorDisplay(Map<String, String> info) {
+	public void openEditorDisplay(List<Map<String, String>> info) {
 		myEditorDisplay.edit(info);
 	}
 

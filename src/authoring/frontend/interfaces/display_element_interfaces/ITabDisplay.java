@@ -1,5 +1,6 @@
 package authoring.frontend.interfaces.display_element_interfaces;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 
@@ -16,11 +17,11 @@ import javafx.scene.image.ImageView;
  */
 
 public interface ITabDisplay extends IDisplayElement, Observer {
-	
-	public void openEditorDisplay(Map<String, String> info);
 
 	public String getName();
 	
 	public int getTabIndex();
+
+	void openEditorDisplay(List<Map<String, String>> info);
 	
 }

@@ -1,5 +1,6 @@
 package authoring.frontend.interfaces.display_element_interfaces;
 
+import java.util.List;
 import java.util.Map;
 import javafx.scene.image.ImageView;
 
@@ -21,6 +22,6 @@ public interface IEditorDisplay extends IDisplayElement {
 	 * @param oldEntity
 	 * @return newEntity
 	 */
-	public void edit(Map<String, String> info);
+	public void edit(List<Map<String, String>> info);
 	
 }

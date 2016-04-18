@@ -53,7 +53,7 @@ public class EntityEditorGrid extends EditorGrid {
 
 	@Override
 	public void setAttributesPanel(List<Map<String, String>> info) {
-
+		myModifiableAttributesPanel.setAttributes(info);
 	}
 
 }
