@@ -53,9 +53,9 @@ public class EngineController {
 		BezierCurve tempCurve2 = new BezierCurve(200,200, 50,50, 150,150, 0,300);
 		BezierCurve tempCurve3 = new BezierCurve(0,300, 150, 150, 250, 250, 400,400);
 		
-//		tempPath.addCurve(tempCurve1);
-//		tempPath.addCurve(tempCurve2);
-//		tempPath.addCurve(tempCurve3);
+		tempPath.addCurve(tempCurve1);
+		tempPath.addCurve(tempCurve2);
+		tempPath.addCurve(tempCurve3);
 		
 		GameMap tempMap = new GameMap("", tempPath, 200, 200);
 		
