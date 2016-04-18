@@ -2,6 +2,7 @@ package authoring.frontend.display_elements.grid_factories;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.Panel;
+import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 
 /**
  * The EditorGridFactory superclass is responsible for creating the additional
@@ -26,5 +27,5 @@ public abstract class EditorGridFactory extends GridFactory {
 	/**
 	 * @return instantiated and formatted myModifiableAttributesPanel
 	 */
-	public abstract Panel createModifiableAttributesPanel();
+	public abstract ModifiableAttributesPanel createModifiableAttributesPanel();
 }

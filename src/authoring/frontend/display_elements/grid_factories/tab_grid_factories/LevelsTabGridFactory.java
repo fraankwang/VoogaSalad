@@ -40,7 +40,7 @@ public class LevelsTabGridFactory extends TabGridFactory {
 	}
 
 	@Override
-	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
+	public UnmodifiableAttributesPanel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
 		UnmodifiableAttributesPanel attributes = new UnmodifiableLevelAttributesPanel(MAX_SIZE,
 				MAX_SIZE, tabDisplay, new ImageView("tower_defense_map_1.png"));
 		attributes.initialize();

@@ -27,7 +27,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	protected void assembleComponents() {
 		super.assembleComponents();
 		List<String> attributeNames = (List<String>) Arrays.asList("Waves", "Delay Between Waves", "Timer");
-		assembleRows(myAttributesGridPane, attributeNames);
+		//assembleRows(myAttributesGridPane, attributeNames);
 	}
 
 	@Override

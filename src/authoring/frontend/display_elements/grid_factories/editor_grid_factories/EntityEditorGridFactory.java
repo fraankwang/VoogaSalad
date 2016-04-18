@@ -30,7 +30,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		EditorViewPanel editorView = new EditorViewPanel(800*0.7, 1200*0.7);
 		editorView.initialize();
-		editorView.setImage(new Image("DrumpfVader.png")); // set default
+		editorView.setImage(new Image("question_mark.png")); // set default
 
 		// image as
 		// question
@@ -57,7 +57,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	}
 
 	@Override
-	public Panel createModifiableAttributesPanel() {
+	public ModifiableAttributesPanel createModifiableAttributesPanel() {
 		ModifiableAttributesPanel panel = new ModifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE);
 		panel.initialize();
 		return panel;

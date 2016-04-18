@@ -34,7 +34,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 	}
 
 	@Override
-	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
+	public UnmodifiableAttributesPanel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
 		UnmodifiableAttributesPanel attributes = new UnmodifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE, tabDisplay, new ImageView("DrumpfVader.png"));
 		attributes.initialize();
 		return attributes;

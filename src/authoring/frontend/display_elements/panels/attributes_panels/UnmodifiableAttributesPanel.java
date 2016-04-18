@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring.frontend.display_elements.panels.Panel;
-import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -21,7 +20,7 @@ import javafx.scene.image.ImageView;
 
 public abstract class UnmodifiableAttributesPanel extends Panel {
 
-	protected TabDisplay myTabDisplay;
+	protected ITabDisplay myTabDisplay;
 	protected final int BUTTON_HEIGHT_PERCENTAGE = 8;
 	protected final int TITLED_PANE_HEIGHT = 350;
 	protected final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
@@ -32,7 +31,7 @@ public abstract class UnmodifiableAttributesPanel extends Panel {
 
 	public UnmodifiableAttributesPanel(int height, int width, ITabDisplay tabDisplay, ImageView image) {
 		super(height, width);
-		myTabDisplay = (TabDisplay) tabDisplay;
+		myTabDisplay = (ITabDisplay) tabDisplay;
 		myImage = image;
 		myAttributesMap = new HashMap<String, String>();
 	}
@@ -59,5 +58,10 @@ public abstract class UnmodifiableAttributesPanel extends Panel {
 		tp.setPrefSize(600, 600);
 		return tp;
 
+	}
+	
+	public void setAttributes(ImageView image, Map<String, String> info) {
+		myAttributesMap = info;
+		myImage = image;
 	}
 }

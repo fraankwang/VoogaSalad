@@ -37,7 +37,7 @@ public class ModesTabGridFactory extends TabGridFactory {
 	}
 
 	@Override
-	public Panel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
+	public UnmodifiableAttributesPanel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
 		UnmodifiableAttributesPanel attributes = new UnmodifiableModeAttributesPanel(MAX_SIZE,
 				MAX_SIZE, tabDisplay, null);
 		attributes.initialize();

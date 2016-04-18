@@ -35,7 +35,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		List<String> modeNames = (List<String>) Arrays.asList("Easy", "Medium", "Hard");
 		
-		assembleRows(myAttributesGridPane, modeNames);
+		//assembleRows(myAttributesGridPane, modeNames);
 		
 	}
 	
