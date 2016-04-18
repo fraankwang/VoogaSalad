@@ -21,8 +21,8 @@ import javafx.scene.Node;
 
 public abstract class TabDisplay implements ITabDisplay {
 
-	private static final int EDITOR_SCENE_WIDTH = 1200;
-	private static final int EDITOR_SCENE_HEIGHT = 800;
+//	private static final int EDITOR_SCENE_WIDTH = 1200;
+//	private static final int EDITOR_SCENE_HEIGHT = 800;
 	protected EditorDisplay myEditorDisplay;
 	protected Grid myGrid;
 	protected IAuthoringView myController;

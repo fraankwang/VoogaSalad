@@ -1,8 +1,6 @@
 package authoring.frontend.display_elements.grids;
 
-import java.util.List;
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.Panel;
@@ -46,22 +44,25 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
-		// ((ButtonDashboard) myButtonDashboard).getSaveButton()
-		// .setOnAction(e -> sendData(((ModifiableAttributesPanel)
-		// myModifiableAttributesPanel).saveAttributes()));
-		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(e -> updateEditorPanels());
+		((ButtonDashboard) myButtonDashboard).getSaveButton()
+				.setOnAction(e -> sendData(((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
 
-		((SimpleButtonDashboard) myButtonDashboard).getResetButton()
-				.setOnAction(e -> ((ModifiableAttributesPanel) myModifiableAttributesPanel).resetAttributes());
+		((SimpleButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
 
 	}
 
 	protected void sendData(Map<String, String> map) {
+		System.out.println("EditorGrid: myAttributesMap written to backend: ");
+		System.out.println(map);
 		myController.writeData(map);
+		myController.showPrimaryScene();
 	}
 
-	protected void updateEditorPanels() {
-		((ModifiableAttributesPanel) myModifiableAttributesPanel).updateSomething();
+	protected void resetAttributes() {
+		boolean close = ((ModifiableAttributesPanel) myModifiableAttributesPanel).createResetAlert();
+		if (close) {
+			myController.showPrimaryScene();
+		}
 	}
 
 	public Panel getAttributesPanel() {
@@ -75,6 +76,6 @@ public abstract class EditorGrid extends Grid {
 	public void populateComponents(Map<String, String> info) {
 		// ImageView iv = new ImageView(info.get("image"));
 		// ((EditorViewPanel) myPrimaryDisplay).setImage(iv.getImage());
-		myModifiableAttributesPanel.setAttributes(info);
+		setAttributesPanel(info);
 	}
 }

@@ -2,13 +2,11 @@ package authoring.frontend.display_elements.panels.attributes_panels;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -22,7 +20,6 @@ import javafx.scene.text.Text;
 
 public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 
-	protected TextField myTextBox = new TextField();
 	protected ITabDisplay myTabDisplay;
 	protected static final int COLUMN_1_PERCENTAGE = 50;
 	protected static final int COLUMN_2_PERCENTAGE = 50;
@@ -30,8 +27,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	protected static final int BUTTON_HEIGHT_PERCENTAGE = 8;
 	protected static final int TITLED_PANE_HEIGHT = 350;
-	
-	protected Rectangle myRect = new Rectangle(50,50);
+
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
 
 	protected Button myOpenEditorButton;
@@ -43,7 +39,6 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		super(height, width);
 		myTabDisplay = (ITabDisplay) tabDisplay;
 		myAttributesMap = new HashMap<String, String>();
-
 	}
 
 	protected abstract void initializeComponents();
@@ -65,9 +60,20 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 			myAttributesMap.put(currentAttribute, tf.getText());
 			myOutputMap.put(currentAttribute, tf);
 			myAttributesGridPane.add(text, 0, i);
+			myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
 
 		}
-		myAttributesGridPane.add(myRect, 1, 0);
+	}
+
+	protected void refreshRows() {
+		for (int i = 0; i < myAttributes.size(); i++) {
+			String currentAttribute = myAttributes.get(i);
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			myAttributesGridPane.add(text, 0, i);
+			myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
+
+		}
 	}
 
 	/**
@@ -83,12 +89,13 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		return button;
 	}
 
-	public void setAttributes(Map<String, String> info) {
-		myAttributesMap = info; // need to change this later to match ID
-		refreshDisplay();
+	public void setAttributes(Map<String, String> updatedInfo) {
+		System.out.println("UnmodifiableAttrPanel: back to front");
+		System.out.println(updatedInfo);
+		refreshDisplay(updatedInfo);
 	}
 
-	protected abstract void refreshDisplay();
+	protected abstract void refreshDisplay(Map<String, String> map);
 
 	public Map<String, String> getAttributesMap() {
 		return myAttributesMap;

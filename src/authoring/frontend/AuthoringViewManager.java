@@ -24,12 +24,15 @@ public class AuthoringViewManager implements IViewManager {
 	private static final int SCENE_WIDTH = 1200;
 	private static final int SCENE_HEIGHT = 800;
 
+	private Scene myPrimaryScene;
 	private IMenuBarElement myMenuBar;
 	private ITabBarElement myTabBar;
 	private IAuthoringView myController;
+	
 
 	public AuthoringViewManager(IAuthoringView controller) {
 		myController = controller;
+		
 	}
 
 	@Override
@@ -44,8 +47,10 @@ public class AuthoringViewManager implements IViewManager {
 		borderPane.setTop(myMenuBar.getNode());
 		borderPane.setCenter(myTabBar.getNode());
 
-		Scene scene = new Scene(borderPane, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
-		s.setScene(scene);
+		myPrimaryScene = new Scene(borderPane, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
+		myController.setPrimaryScene(myPrimaryScene);
+		
+		s.setScene(myPrimaryScene);
 		s.show();
 	}
 

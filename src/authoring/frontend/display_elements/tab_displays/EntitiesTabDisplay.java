@@ -1,9 +1,5 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
@@ -73,20 +69,8 @@ public class EntitiesTabDisplay extends TabDisplay {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		@SuppressWarnings("unchecked")
-		List<Map<String, String>> entities = (List<Map<String, String>>) arg;
-		myActiveGrid.setAttributesPanel(entities.get(0));
-
-	}
-
-	@Override
 	public String getName() {
 		return "Entities";
-	}
-	
-	public void changeSomething() {
-		
 	}
 
 }

@@ -1,14 +1,11 @@
 package authoring.frontend.display_elements.grids;
 
-import java.util.List;
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.GridFactory;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.interfaces.display_element_interfaces.IGrid;
 import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -82,12 +79,11 @@ public abstract class Grid implements IGrid {
 	public Node getNode() {
 		return myGrid;
 	}
-	
+
 	public Panel getPrimaryDisplay() {
 		return myPrimaryDisplay;
 	}
-	
+
 	public abstract void setAttributesPanel(Map<String, String> info);
-	
-	
+
 }

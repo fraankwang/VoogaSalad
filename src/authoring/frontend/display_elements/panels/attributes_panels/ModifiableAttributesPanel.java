@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import authoring.frontend.display_elements.panels.Panel;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.layout.VBox;
 
 /**
  * 
@@ -27,7 +29,6 @@ import javafx.scene.layout.VBox;
 
 public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
-	protected TextField myTextField = new TextField();
 	protected BorderPane myWrapper;
 	protected GridPane myGridPane;
 	protected GridPane myAttributesGridPane;
@@ -72,7 +73,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myGridPane.add(myAttributesGridPane, 0, 0);
 		myGridPane.add(myRulesPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
-		myNode = new VBox(myAttributesGridPane, myTextField);
+		myNode = myWrapper;
 	}
 
 	private GridPane createAttributesGridPane() {
@@ -109,17 +110,19 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	}
 
 	public Map<String, String> saveAttributes() {
-
 		for (String s : myInputMap.keySet()) {
 			myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
 
 		}
-
+		System.out.println("myAttributesMap saved: ");
+		System.out.println(myAttributesMap);
 		return myAttributesMap;
 	}
 
 	public void setAttributes(Map<String, String> info) {
-		myAttributesMap = info; // need to change this later to match ID
+		myAttributesMap = info;
+		System.out.println("ModifiableAttrPanel: back to front");
+		System.out.println(myAttributesMap);
 		refreshAttributesGrid();
 
 	}
@@ -134,20 +137,31 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			}
 
 		}
-		
-		myTextField.setText("hi");
-		//
-		// for (int i = 0; i < myAttributes.size(); i++) {
-		// TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
-		// tf.setText(myAttributesMap.get(myAttributes.get(i)));
-		// tf.setEditable(true);
-		// myInputMap.put(myAttributes.get(i), tf);
+	}
 
-		// myAttributesGridPane.add(tf, 1, i);
-		// Text text = new Text(myAttributes.get(i));
-		// text.setFont(new Font(FONT_SIZE));
-		// myAttributesGridPane.add(text, 0, i);
-		// }
+	public boolean createResetAlert() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Reset Confirmation");
+		alert.setHeaderText("Select Option");
+		alert.setContentText(
+				"Are you sure you want to reset? Press Confirm and Continue to resume editing from scratch.");
+		alert.setWidth(700);
+
+		ButtonType confirmQuit = new ButtonType("Yes - Exit");
+		ButtonType confirmContinue = new ButtonType("Restart");
+		ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(confirmQuit, confirmContinue, cancel);
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == confirmQuit) {
+			resetAttributes();
+			return true;
+		} else if (result.get() == confirmContinue) {
+			resetAttributes();
+			return false;
+		}
+		return false;
 	}
 
 	public void resetAttributes() {
@@ -155,7 +169,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			TextField inputArea = (TextField) myInputMap.get(s);
 			inputArea.clear();
 		}
-
 	}
 
 	private ListView<String> createRulesListView() {
@@ -169,10 +182,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		lv.getItems().add("helloooo");
 
 		return lv;
-	}
-
-	public void updateSomething() {
-		myTextField.setText("hello2");
 	}
 
 }

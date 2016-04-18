@@ -102,7 +102,6 @@ public class GridViewPanel extends Panel {
 		VBox vbox = new VBox();
 		myGridPane.setGridLinesVisible(true);
 		myAddNewButton.setOnAction(e -> {
-			System.out.println(((TabDisplay) myTabDisplay).getAttributesMap());
 			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getAttributesMap()); //get data
 //			myTabDisplay.openEditorDisplay(new ImageView("question_mark.png"), new HashMap<String, String>());
 		});

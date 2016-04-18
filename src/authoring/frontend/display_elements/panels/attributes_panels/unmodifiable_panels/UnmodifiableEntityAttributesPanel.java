@@ -3,14 +3,13 @@ package authoring.frontend.display_elements.panels.attributes_panels.unmodifiabl
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 /**
  * 
@@ -48,7 +47,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myGridPane.add(myOpenEditorButton, 0, 0);
 		myGridPane.add(myAttributesGridPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
-		myNode = new VBox(myOpenEditorButton, myTextBox);
+		myNode = myWrapper;
 
 	}
 
@@ -70,28 +69,24 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	}
 
 	@Override
-	protected void refreshDisplay() {
-		System.out.println("refreshed unmodifiable");
+	protected void refreshDisplay(Map<String, String> updatedInfo) {
+		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.getChildren().clear();
-//		myAttributesGridPane = createAttributesGridPane();
+		
+		System.out.println("Unm..EntityAttributesPanel: myAttributesMap after update: ");
+		System.out.println(updatedInfo);
 		
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
 
 			TextField tf = (TextField) myOutputMap.get(currentAttribute);
-			tf.setText(myAttributesMap.get(myAttributes.get(i)));
-			System.out.println("new value: " + tf.getText());
+			tf.setText(updatedInfo.get(myAttributes.get(i)));
 			tf.setEditable(false);
-			
-			myOutputMap.replace(currentAttribute, tf);
-			for (Node node : myAttributesGridPane.getChildren()) {
-				if (node instanceof TextField && GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == i) {
-					node.setVisible(false);
-				}
-			}
-		}
-		System.out.println(myAttributesMap);
-		myTextBox.setText("hello");
 
+			myOutputMap.replace(currentAttribute, tf);
+
+		}
+
+		refreshRows();
 	}
 }

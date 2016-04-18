@@ -4,7 +4,6 @@ import java.io.File;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
-import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.LevelEditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.RulesEditorPanel;
@@ -43,23 +42,23 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800*0.7, 1200*0.7);
+		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
 		editorView.setImage(new Image("question_mark.png")); // set default
-															// image as
-															// question
-															// mark or
-															// something
+																// image as
+																// question
+																// mark or
+																// something
 
 		editorView.getPanelBar().addButton("Upload Map Image", e -> {
-				FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Open Resource File");
-				fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-				File imageFile = fileChooser.showOpenDialog(null);
-				if (imageFile != null) {
-					editorView.setImage(new Image(imageFile.toURI().toString()));
-				}
-			});
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Resource File");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+			File imageFile = fileChooser.showOpenDialog(null);
+			if (imageFile != null) {
+				editorView.setImage(new Image(imageFile.toURI().toString()));
+			}
+		});
 
 		return editorView;
 

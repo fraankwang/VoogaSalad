@@ -1,8 +1,6 @@
 package authoring.frontend.display_elements.grids;
 
-import java.util.List;
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.TabGridFactory;
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
@@ -32,9 +30,10 @@ public abstract class TabGrid extends Grid {
 	@Override
 	protected void initializeGrid() {
 		super.initializeGrid();
-		myUnmodifiableAttributesPanel = ((TabGridFactory) myGridFactory).createUnmodifiableAttributesPanel(myTabDisplay);
+		myUnmodifiableAttributesPanel = ((TabGridFactory) myGridFactory)
+				.createUnmodifiableAttributesPanel(myTabDisplay);
 	}
-	
+
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
@@ -44,11 +43,11 @@ public abstract class TabGrid extends Grid {
 		myGrid.add(myUnmodifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 	}
-	
+
 	public void setAttributesPanel(Map<String, String> info) {
 		myUnmodifiableAttributesPanel.setAttributes(info);
 	}
-	
+
 	public Map<String, String> getAttributesMap() {
 		return myUnmodifiableAttributesPanel.getAttributesMap();
 	}

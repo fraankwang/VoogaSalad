@@ -8,7 +8,6 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -56,7 +55,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		myInputMap.put("Mode", cb);
 	}
 
-	@Override //change to make refresh combo boxes instead
+	@Override // change to make refresh combo boxes instead
 	protected void refreshAttributesGrid() {
 		for (int i = 0; i < myAttributes.size(); i++) {
 			TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
@@ -65,7 +64,6 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		}
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, String> saveAttributes() {

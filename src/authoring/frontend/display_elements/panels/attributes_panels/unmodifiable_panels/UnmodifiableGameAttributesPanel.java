@@ -3,6 +3,7 @@ package authoring.frontend.display_elements.panels.attributes_panels.unmodifiabl
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
@@ -70,26 +71,18 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 	}
 
 	@Override
-	protected void refreshDisplay() {
-		myAttributesGridPane = createAttributesGridPane();
-		
-//		for (int i = 0; i < myAttributes.size(); i++) {
-//			String currentAttribute = myAttributes.get(i);
-//
-//			Text text = new Text(currentAttribute);
-//			text.setFont(new Font(FONT_SIZE));
-//			TextField tf = (TextField) myOutputMap.get(currentAttribute);
-//			tf.setText(myAttributesMap.get(myAttributes.get(i)));
-//			tf.setEditable(false);
-//
-//			myOutputMap.replace(currentAttribute, tf);
-//
-//			// for (Node node : myAttributesGridPane.getChildren()) {
-//			// if (node instanceof TextField && GridPane.getColumnIndex(node) ==
-//			// 1 && GridPane.getRowIndex(node) == i) {
-//			// node.setVisible(false);
-//			// }
-//			// }
-//		}
+	protected void refreshDisplay(Map<String,String> updatedInfo) {
+		for (int i = 0; i < myAttributes.size(); i++) {
+			String currentAttribute = myAttributes.get(i);
+
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			TextField tf = (TextField) myOutputMap.get(currentAttribute);
+			tf.setText(updatedInfo.get(myAttributes.get(i)));
+			tf.setEditable(false);
+
+			myOutputMap.replace(currentAttribute, tf);
+
+		}
 	}
 }

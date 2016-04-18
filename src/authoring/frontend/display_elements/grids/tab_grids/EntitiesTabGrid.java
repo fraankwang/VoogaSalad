@@ -1,13 +1,9 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
-import java.util.List;
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.EntitiesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
-import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
-import authoring.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 
 /**
@@ -39,8 +35,9 @@ public class EntitiesTabGrid extends TabGrid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 		// get save button from buttondashboard -> set on action to both gather
-		// data from editorviewpanel and modifiableattributespanel to update globaldata
-		
+		// data from editorviewpanel and modifiableattributespanel to update
+		// globaldata
+
 	}
 
 	@Override

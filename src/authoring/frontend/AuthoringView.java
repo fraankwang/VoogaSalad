@@ -7,8 +7,8 @@ import authoring.frontend.interfaces.IViewManager;
 import engine.backend.entities.Entity;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 
 /**
  * 
@@ -19,15 +19,16 @@ import javafx.stage.Stage;
 public class AuthoringView implements IAuthoringView {
 
 	private Stage myPrimaryStage;
+	private Scene myPrimaryScene;
 	private IViewManager myAuthoringViewManager;
 	private GlobalData myGlobalData;
-	
+
 	public AuthoringView(Stage s, GlobalData globalData) {
 		myPrimaryStage = s;
 		myGlobalData = globalData;
 		myAuthoringViewManager = new AuthoringViewManager(this);
 	}
-	
+
 	public void start() {
 		myAuthoringViewManager.initialize(myPrimaryStage);
 	}
@@ -35,7 +36,7 @@ public class AuthoringView implements IAuthoringView {
 	@Override
 	public void writeData(Map<String, String> data) {
 		myGlobalData.updateData(data);
-		
+
 	}
 
 	public ObservableList<Entity> getEntityList() {
@@ -51,7 +52,23 @@ public class AuthoringView implements IAuthoringView {
 	public ObservableList<Mode> getModeList() {
 		return myGlobalData.getModes();
 	}
-	
+
+	@Override
+	public void setScene(Scene s) {
+		myPrimaryStage.setScene(s);
+		myPrimaryStage.show();
+	}
+
+	@Override
+	public void setPrimaryScene(Scene scene) {
+		myPrimaryScene = scene;
+	}
+
+	@Override
+	public void showPrimaryScene() {
+		myPrimaryStage.setScene(myPrimaryScene);
+		myPrimaryStage.show();
+		
+	}
 
 }
-
