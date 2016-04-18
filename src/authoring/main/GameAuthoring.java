@@ -1,7 +1,7 @@
 package authoring.main;
 
 import javafx.stage.Stage;
-import authoring.backend.GlobalData;
+import authoring.backend.data.GlobalData;
 import authoring.controller.AuthoringController;
 import authoring.frontend.AuthoringView;
 

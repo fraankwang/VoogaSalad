@@ -2,6 +2,7 @@ package authoring.backend;
 
 import java.util.Map;
 
+import authoring.backend.data.GlobalData;
 import authoring.backend.factories.EntityFactory;
 import authoring.backend.factories.LevelFactory;
 import authoring.backend.factories.ModeFactory;
