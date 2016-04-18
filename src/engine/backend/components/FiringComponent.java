@@ -40,6 +40,10 @@ public class FiringComponent extends Component implements IComponent{
 		int newVal = Integer.parseInt(ammunitionAmount);
 		this.myAmmunitionAmount = newVal;
 	}
+	
+	public void setAmmunitionAmount(int ammunitionAmount) {
+		this.myAmmunitionAmount = ammunitionAmount;
+	}
 
 	public double getEnemyInSightRange() {
 		return myEnemyInSightRange;
@@ -64,6 +68,10 @@ public class FiringComponent extends Component implements IComponent{
 	public void setAmmunitionSpeed(String myAmmunitionSpeed) {
 		double newVal = Double.parseDouble(myAmmunitionSpeed);
 		this.myAmmunitionSpeed = newVal;
+	}
+	
+	public void setAmmunitionSpeed(double speed) {
+		this.myAmmunitionSpeed = speed;
 	}
 	
 	@Override
@@ -102,6 +110,10 @@ public class FiringComponent extends Component implements IComponent{
 	public void setFiringRate(String firingRate) {
 		double newVal = Double.parseDouble(firingRate);
 		this.myFiringRate = newVal;
+	}
+	
+	public void setFiringRate(double firingRate) {
+		this.myFiringRate = firingRate;
 	}
 	
 }
