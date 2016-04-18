@@ -90,6 +90,7 @@ public abstract class UnmodifiableAttributesPanel extends Panel {
 	}
 	
 	protected void refreshAttributesGrid() {
+		System.out.println("refreshing");
 		for (int i = 0; i < myAttributes.size(); i++) {
 			TextField tf = (TextField) myOutputMap.get(myAttributes.get(i));
 			tf.setEditable(false);
@@ -99,8 +100,7 @@ public abstract class UnmodifiableAttributesPanel extends Panel {
 	}
 	
 	public void setAttributes(List<Map<String, String>> info) {
-		System.out.println("to be refreshed: "); 
-		System.out.println(info);
+
 		myAttributesMap = info.get(0);
 		for (String s : myOutputMap.keySet()) {
 			TextField tf = new TextField(myAttributesMap.get(s));

@@ -33,11 +33,6 @@ public class AuthoringView implements IAuthoringView {
 	}
 
 	@Override
-	public Map<String, String> loadData() {
-		return null;
-	}
-
-	@Override
 	public void writeData(Map<String, String> data) {
 		myGlobalData.updateData(data);
 		

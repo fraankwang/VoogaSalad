@@ -26,13 +26,13 @@ public class ObservableList<E> extends Observable {
 			if (e.equals(object)) {
 				e = object;
 				setChanged();
-				notifyObservers();
+				notifyObservers(getInfo());
 				return;
 			}
 		}
 		objects.add(object);
 		setChanged();
-		notifyObservers();
+		notifyObservers(getInfo());
 	}
 	
 	public List<E> getList() {

@@ -15,8 +15,6 @@ import engine.backend.game_object.Mode;
 
 public interface IAuthoringView {
 
-	public Map<String, String> loadData();
-
 	public void writeData(Map<String, String> data);
 	
 	public ObservableList<Entity> getEntityList();
