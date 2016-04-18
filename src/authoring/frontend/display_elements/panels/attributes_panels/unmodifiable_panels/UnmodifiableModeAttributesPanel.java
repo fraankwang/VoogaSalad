@@ -50,7 +50,7 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myOpenEditorButton = createOpenEditorButton();
+		myOpenEditorButton = new Button("hi");
 		myListView = createModeRulesListView();
 		myRulesTitledPane = createTitledPane("Rules", myListView);
 

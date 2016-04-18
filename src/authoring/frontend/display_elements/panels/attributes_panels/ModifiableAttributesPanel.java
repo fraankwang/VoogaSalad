@@ -34,6 +34,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 
 	protected Map<String, Control> myInputMap;
 	protected Map<String, String> myAttributesMap;
+	protected List<String> myAttributes;
 
 	protected final int RULES_HEIGHT_PERCENTAGE = 30;
 	protected final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
@@ -71,6 +72,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		myGridPane.add(myAttributesGridPane, 0, 0);
 		myGridPane.add(myRulesPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
+		assembleRows();
 		myNode = myWrapper;
 	}
 
@@ -99,42 +101,55 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		return lv;
 	}
 
-	protected void assembleRows(GridPane gridPane, List<String> attributes) {
+	protected void assembleRows() {
 		myInputMap = new HashMap<String, Control>();
 
-		for (int i = 0; i < attributes.size(); i++) {
-			Text text = new Text(attributes.get(i));
+		for (int i = 0; i < myAttributes.size(); i++) {
+			Text text = new Text(myAttributes.get(i));
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
+			tf.setText("hi");
 			tf.setEditable(true);
-
-			gridPane.add(text, 0, i);
-			gridPane.add(tf, 1, i);
-			myInputMap.put(attributes.get(i), tf);
+			
+			myInputMap.put(myAttributes.get(i), tf);
+			myAttributesGridPane.add(text, 0, i);
 		}
 
 	}
 
 	public Map<String, String> saveAttributes() {
 		myAttributesMap = new HashMap<String, String>();
-		for (String s : myInputMap.keySet()) {
+		for (String s : myInputMap.keySet()) { 
 			myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
 		}
-		return myAttributesMap;
 
+		return myAttributesMap;
 	}
 
 	public void setAttributes(Map<String, String> info) {
 		myAttributesMap = info;
+
 		for (String s : myInputMap.keySet()) {
 			TextField tf = new TextField(myAttributesMap.get(s));
+			tf.setText(myAttributesMap.get(s));
 			tf.setEditable(true);
-			myInputMap.put(s, tf);
+			myInputMap.replace(s, tf);
 		}
-		
+
+		refreshAttributesGrid();
 	}
 
+	protected void refreshAttributesGrid() {
+		for (int i = 0; i < myAttributes.size(); i++) {
+			TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
+			tf.setEditable(true);
+			myInputMap.put(myAttributes.get(i), tf);
+			myAttributesGridPane.add(tf, 1, i);
+		}
+	}
+	
 	public void resetAttributes() {
+		System.out.println("reset");
 		for (String s : myInputMap.keySet()) {
 			TextField inputArea = (TextField) myInputMap.get(s);
 			inputArea.clear();

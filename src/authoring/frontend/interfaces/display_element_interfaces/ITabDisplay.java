@@ -17,7 +17,7 @@ import javafx.scene.image.ImageView;
 
 public interface ITabDisplay extends IDisplayElement, Observer {
 	
-	public void openEditorDisplay(ImageView image, Map<String, String> info);
+	public void openEditorDisplay(Map<String, String> info);
 
 	public String getName();
 	

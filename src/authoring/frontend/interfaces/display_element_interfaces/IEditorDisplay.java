@@ -21,6 +21,6 @@ public interface IEditorDisplay extends IDisplayElement {
 	 * @param oldEntity
 	 * @return newEntity
 	 */
-	public void edit(ImageView image, Map<String, String> info);
+	public void edit(Map<String, String> info);
 	
 }

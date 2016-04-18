@@ -61,18 +61,13 @@ public abstract class EditorGrid extends Grid {
 		return myModifiableAttributesPanel;
 	}
 
-	public void setAttributesPanel(ImageView image, Map<String, String> info) {
+	public void setAttributesPanel(Map<String, String> info) {
 		myModifiableAttributesPanel.setAttributes(info);
 	}
 
-	public void populateComponents(ImageView image, Map<String, String> info) {
-		((EditorViewPanel) myPrimaryDisplay).setImage(image.getImage()); // should
-																			// we
-																			// be
-																			// allowed
-																			// to
-																			// cast
-																			// this?
+	public void populateComponents(Map<String, String> info) {
+//		ImageView iv = new ImageView(info.get("image"));
+//		((EditorViewPanel) myPrimaryDisplay).setImage(iv.getImage()); 
 		myModifiableAttributesPanel.setAttributes(info);
 	}
 }

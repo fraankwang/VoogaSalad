@@ -1,17 +1,14 @@
 package authoring.frontend.display_elements.tab_displays;
 
+import java.util.List;
 import java.util.Map;
-
+import java.util.Observable;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
+import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 /**
  * The TabDisplay superclass acts as a container for it's Grid and corresponding
@@ -33,6 +30,7 @@ public abstract class TabDisplay implements ITabDisplay {
 	public TabDisplay(int index, IAuthoringView controller) {
 		myTabIndex = index;
 		myController = controller;
+		
 	}
 
 	@Override
@@ -41,11 +39,23 @@ public abstract class TabDisplay implements ITabDisplay {
 	}
 
 	@Override
-	public void openEditorDisplay(ImageView image, Map<String, String> info) {
-		myEditorDisplay.edit(image, info);
+	public void openEditorDisplay(Map<String, String> info) {
+		myEditorDisplay.edit(info);
 	}
 
 	public int getTabIndex() {
 		return myTabIndex;
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		@SuppressWarnings("unchecked")
+		List<Map<String, String>> data = (List<Map<String, String>>) arg;
+		myGrid.setAttributesPanel(data);
+
+	}
+	
+	public Map<String, String> getAttributesMap() {
+		return ((TabGrid) myGrid).getAttributesMap();
 	}
 }

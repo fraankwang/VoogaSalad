@@ -1,7 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.Observable;
-
+import authoring.backend.data.LevelList;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.LevelEditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
@@ -23,6 +22,7 @@ public class LevelsTabDisplay extends TabDisplay {
 
 	private TabPane myLevelsTabPane;
 	private Grid myActiveGrid;
+	private LevelList myLevelList;
 
 	public LevelsTabDisplay(int tabIndex, IAuthoringView controller) {
 		super(tabIndex, controller);
@@ -40,23 +40,17 @@ public class LevelsTabDisplay extends TabDisplay {
 		activeTab.setContent(myActiveGrid.getNode());
 		myLevelsTabPane.getTabs().add(activeTab);
 		myGrid = myActiveGrid;
-		// Testing
+
 	}
 
 	@Override
 	public Node getNode() {
 		return myLevelsTabPane;
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Levels";
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -37,8 +37,8 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	}
 
 	@Override
-	public void edit(ImageView image, Map<String, String> info) {
-		myGrid.populateComponents(image, info);
+	public void edit(Map<String, String> info) {
+		myGrid.populateComponents(info);
 		Stage editorStage = new Stage();
 		BorderPane root = new BorderPane();
 		root.setCenter(getNode());

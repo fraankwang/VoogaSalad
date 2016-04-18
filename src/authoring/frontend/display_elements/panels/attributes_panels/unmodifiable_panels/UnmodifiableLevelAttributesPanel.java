@@ -5,6 +5,7 @@ import java.util.List;
 
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -49,7 +50,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myOpenEditorButton = createOpenEditorButton();
+		myOpenEditorButton = new Button("hi");
 
 		myEntityListView = createModeRulesListView();
 		myEntityTitledPane = createTitledPane("Entities", myEntityListView);

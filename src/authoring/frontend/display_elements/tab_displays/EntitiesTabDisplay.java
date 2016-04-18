@@ -3,7 +3,6 @@ package authoring.frontend.display_elements.tab_displays;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-
 import authoring.backend.data.EntityList;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
@@ -14,7 +13,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -74,16 +72,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		@SuppressWarnings("unchecked")
 		List<Map<String, String>> entities = (List<Map<String, String>>) arg;
 		myActiveGrid.setAttributesPanel(entities);
-		for (Map<String, String> entityInfo : entities) {
-			ImageView iv = new ImageView(entityInfo.get("image"));
-			entityInfo.remove("image");
-		}
 
-		// for each entity:
-		// create an ImageView using
-		// create an UnmodifiableEntityAttributesPanel
 	}
 
 	@Override

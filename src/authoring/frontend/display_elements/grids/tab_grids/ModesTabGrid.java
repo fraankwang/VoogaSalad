@@ -41,7 +41,7 @@ public class ModesTabGrid extends TabGrid {
 	
 	@Override
 	public void setAttributesPanel(List<Map<String, String>> info) {
-		
+//		need to do this for all modes
 	}
 
 }

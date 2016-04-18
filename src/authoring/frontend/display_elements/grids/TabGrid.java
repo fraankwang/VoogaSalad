@@ -1,13 +1,12 @@
 package authoring.frontend.display_elements.grids;
 
+import java.util.List;
 import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.TabGridFactory;
-import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -46,8 +45,12 @@ public abstract class TabGrid extends Grid {
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 	}
 	
-	public void setAttributesPanel(ImageView image, Map<String, String> info) {
-		myUnmodifiableAttributesPanel.setAttributes(image, info);
+	public void setAttributesPanel(List<Map<String, String>> info) {
+		myUnmodifiableAttributesPanel.setAttributes(info);
+	}
+	
+	public Map<String, String> getAttributesMap() {
+		return myUnmodifiableAttributesPanel.getAttributesMap();
 	}
 
 }

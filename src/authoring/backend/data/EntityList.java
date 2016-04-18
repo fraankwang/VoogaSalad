@@ -16,7 +16,7 @@ public class EntityList extends Observable {
 	}
 	
 	public EntityList() {
-		
+		this.entities = new ArrayList<Entity>();
 	}
 	
 	public void add(Entity object) {

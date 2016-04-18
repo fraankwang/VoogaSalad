@@ -16,11 +16,11 @@ public class EntityFactory {
 	}
 
 	public Entity createEntity(Map<String, String> info){
-		Entity newEntity = new Entity(info.get("name"), info.get("type"), Double.parseDouble(info.get("price")));
-		List<Component> entityComponents = createComponents(info);
-		for(Component comp : entityComponents){
-			newEntity.addComponent(comp);
-		}
+		Entity newEntity = new Entity(info.get("Name"), info.get("Genre"), Double.parseDouble(info.get("Cost")));
+//		List<Component> entityComponents = createComponents(info);
+//		for(Component comp : entityComponents){
+//			newEntity.addComponent(comp);
+//		}
 		return newEntity;
 	}
 	

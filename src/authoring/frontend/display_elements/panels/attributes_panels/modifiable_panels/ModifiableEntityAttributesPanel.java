@@ -24,12 +24,11 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
 	@Override
 	protected void assembleComponents() {
-		super.assembleComponents();
-		List<String> attributeNames = (List<String>) Arrays.asList("Genre", "Name", "Damage Value", "Attack Rate",
-				"Movement Speed", "Armor", "Health", "Rotate Speed", "Cost", "Bounty", "Collidable", "Moves On Path",
-				"Path Name", "Random Movement");
+		myAttributes = (List<String>) Arrays.asList("Genre", "Name", "DamageComponent", "FiringComponent",
+				"MovementComponent", "Armor", "HealthComponent", "RotationComponent", "Cost", "Bounty",
+				"CollisionComponent", "Random Movement");
 
-		//assembleRows(myAttributesGridPane, attributeNames);
+		super.assembleComponents();
 
 	}
 

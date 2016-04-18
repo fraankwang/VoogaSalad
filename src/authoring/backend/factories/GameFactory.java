@@ -28,9 +28,9 @@ public class GameFactory {
 	}
 	
 	private void setUpModes(){
-		for (Mode mode : myGlobalData.getModes()){
+		for (Mode mode : myGlobalData.getModes().getList()){
 			for (String levelName : mode.getLevelNames()) {
-				for (Level level : myGlobalData.getLevels()) {
+				for (Level level : myGlobalData.getLevels().getList()) {
 					if (level.getName().equals(levelName)) {
 						mode.addLevel(level);
 					}
@@ -40,9 +40,9 @@ public class GameFactory {
 	}
 	
 	private void setUpLevels(){
-		for (Level level : myGlobalData.getLevels()){
+		for (Level level : myGlobalData.getLevels().getList()){
 			for (String entityName : level.getEntityNames()) {
-				for (Entity entity : myGlobalData.getEntities()) {
+				for (Entity entity : myGlobalData.getEntities().getList()) {
 					if (entity.getName().equals(entityName)) {
 						level.addEntity(entity);
 					}
@@ -53,7 +53,7 @@ public class GameFactory {
 
 	private void setUpEntityMap() {
 		Map<String, Map<String, Entity>> map = new HashMap<String, Map<String, Entity>>();
-		for (Entity entity : myGlobalData.getEntities()) {
+		for (Entity entity : myGlobalData.getEntities().getList()) {
 			Map<String, Entity> existingMap = null;
 			if (map.containsKey(entity.getType())) {
 				existingMap = map.get(entity.getType());

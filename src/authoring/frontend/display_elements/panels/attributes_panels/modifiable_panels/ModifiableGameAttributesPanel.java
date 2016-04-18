@@ -25,11 +25,11 @@ public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 
 	@Override
 	protected void assembleComponents() {
-		super.assembleComponents();
-
-		List<String> attributeNames = (List<String>) Arrays.asList("Game Type", "Number of Players",
+		myAttributes = (List<String>) Arrays.asList("Game Type", "Number of Players",
 				"Number of Starting Lives", "Number of Lives For Defeat", "Game Timer", "Starting Resources");
-		assembleRows(myAttributesGridPane, attributeNames);
+		super.assembleComponents();
+		assembleRows();
+
 
 	}
 
