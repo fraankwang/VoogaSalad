@@ -4,12 +4,7 @@ package authoring.backend.data;
  * @author: Jonathan Ma
  */
 
-import java.util.List;
 import java.util.Map;
-
-import engine.backend.entities.Entity;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
 
 public class GlobalData {
 	
@@ -33,16 +28,16 @@ public class GlobalData {
 		return datacontainer;
 	}
 	
-	public List<Entity> getEntities() {
-		return entities.getList();
+	public EntityList getEntities() {
+		return entities;
 	}
 	
-	public List<Level> getLevels() {
-		return levels.getList();
+	public LevelList getLevels() {
+		return levels;
 	}
 	
-	public List<Mode> getModes() {
-		return modes.getList();
+	public ModeList getModes() {
+		return modes;
 	}
 
 }
