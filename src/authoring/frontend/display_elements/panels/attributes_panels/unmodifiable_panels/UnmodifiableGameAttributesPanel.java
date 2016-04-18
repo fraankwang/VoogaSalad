@@ -1,16 +1,15 @@
 package authoring.frontend.display_elements.panels.attributes_panels.unmodifiable_panels;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
@@ -23,14 +22,9 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 
 	private BorderPane myWrapper;
 	private GridPane myGridPane;
-	private ScrollPane myScrollPane;
-	private GridPane myAttributesGridPane;
-	private final int COLUMN_1_PERCENTAGE = 50;
-	private final int COLUMN_2_PERCENTAGE = 50;
-	private final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
-
-	public UnmodifiableGameAttributesPanel(int height, int width, ITabDisplay tabDisplay, ImageView image) {
-		super(height, width, tabDisplay, image);
+	
+	public UnmodifiableGameAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
+		super(height, width, tabDisplay);
 	}
 
 	@Override
@@ -43,21 +37,16 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myOpenEditorButton = new Button("hi");
 
 		myAttributesGridPane = createAttributesGridPane();
-		myAttributesGridPane.setGridLinesVisible(true);
-		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-
-		myScrollPane = new ScrollPane();
-		myScrollPane.setContent(myAttributesGridPane);
+		myOpenEditorButton = createOpenEditorButton();
 
 	}
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
-		myGridPane.add(myScrollPane, 0, 1);
+		myGridPane.add(myAttributesGridPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
@@ -69,18 +58,38 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 		columnConstraints.add(COLUMN_1_PERCENTAGE);
 		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
-		GridPane gp = createGridWrapper(rowConstraints, columnConstraints);
-		gp.add(new Label("Game Type"), 0, 0);
-		gp.add(new Text("Number of Players"), 1, 0);
-		gp.add(new Label("Number of Starting Lives"), 0, 1);
-		gp.add(new Label("Number of Lives For Defeat"), 0, 2);
-		gp.add(new Label("Game Timer"), 0, 3);
-		gp.add(new Label("Starting Resources"), 0, 4);
-		// add more attributes later
+		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
+		myAttributes = (List<String>) Arrays.asList("Game Type", "Number of Players", "Number of Starting Lives",
+				"Number of Lives for Defeat", "Game Timer", "Starting Resources");
 
-		gp.setPrefSize(MAX_SIZE, DEFAULT_ATTRIBUTES_HEIGHT);
-		return gp;
+		assembleRows();
+		
+		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		return myAttributesGridPane;
 
 	}
 
+	@Override
+	protected void refreshDisplay() {
+		myAttributesGridPane = createAttributesGridPane();
+		
+//		for (int i = 0; i < myAttributes.size(); i++) {
+//			String currentAttribute = myAttributes.get(i);
+//
+//			Text text = new Text(currentAttribute);
+//			text.setFont(new Font(FONT_SIZE));
+//			TextField tf = (TextField) myOutputMap.get(currentAttribute);
+//			tf.setText(myAttributesMap.get(myAttributes.get(i)));
+//			tf.setEditable(false);
+//
+//			myOutputMap.replace(currentAttribute, tf);
+//
+//			// for (Node node : myAttributesGridPane.getChildren()) {
+//			// if (node instanceof TextField && GridPane.getColumnIndex(node) ==
+//			// 1 && GridPane.getRowIndex(node) == i) {
+//			// node.setVisible(false);
+//			// }
+//			// }
+//		}
+	}
 }

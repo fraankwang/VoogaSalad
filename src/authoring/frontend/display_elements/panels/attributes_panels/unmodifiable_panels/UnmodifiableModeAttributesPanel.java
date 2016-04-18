@@ -2,7 +2,6 @@ package authoring.frontend.display_elements.panels.attributes_panels.unmodifiabl
 
 import java.util.ArrayList;
 import java.util.List;
-
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
@@ -11,7 +10,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -29,8 +27,8 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 	private Button myOpenEditorButton;
 	private ListView<String> myListView;
 
-	public UnmodifiableModeAttributesPanel(int height, int width, ITabDisplay tabDisplay, ImageView image) {
-		super(height, width, tabDisplay, image);
+	public UnmodifiableModeAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
+		super(height, width, tabDisplay);
 	}
 
 	
@@ -50,9 +48,9 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myOpenEditorButton = new Button("hi");
 		myListView = createModeRulesListView();
-		myRulesTitledPane = createTitledPane("Rules", myListView);
+		myRulesTitledPane = new TitledPane("Rules", myListView);
+		myOpenEditorButton = createOpenEditorButton();
 
 	}
 
@@ -82,10 +80,8 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 	}
 
 
-//	@Override
-//	protected GridPane createAttributesGridPane() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
+	@Override
+	protected void refreshDisplay() {		
+		
+	}
 }

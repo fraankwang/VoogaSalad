@@ -6,9 +6,8 @@ import java.util.List;
 
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
@@ -23,13 +22,9 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 	private BorderPane myWrapper;
 	private GridPane myGridPane;
-	private ScrollPane myScrollPane;
-	private final int COLUMN_1_PERCENTAGE = 50;
-	private final int COLUMN_2_PERCENTAGE = 50;
-	private final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
 
-	public UnmodifiableEntityAttributesPanel(int height, int width, ITabDisplay tabDisplay, ImageView image) {
-		super(height, width, tabDisplay, image);
+	public UnmodifiableEntityAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
+		super(height, width, tabDisplay);
 	}
 
 	@Override
@@ -42,21 +37,16 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myOpenEditorButton = new Button("hi");
 
 		myAttributesGridPane = createAttributesGridPane();
-		myAttributesGridPane.setGridLinesVisible(true);
-		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-
-		myScrollPane = new ScrollPane();
-		myScrollPane.setContent(myAttributesGridPane);
+		myOpenEditorButton = createOpenEditorButton();
 
 	}
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
-		myGridPane.add(myScrollPane, 0, 1);
+		myGridPane.add(myAttributesGridPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
@@ -74,15 +64,33 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 				"CollisionComponent", "Random Movement");
 		assembleRows();
 
+		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
 		return myAttributesGridPane;
 
 	}
 
 	@Override
-	protected void refreshAttributesGrid() {
-		super.refreshAttributesGrid();
-		System.out.println("where are my nodes??");
-		myWrapper.getChildren().removeAll(myGridPane);
-		// why is this not doing anything??
+	protected void refreshDisplay() {
+//		myAttributesGridPane = new GridPane();
+//		myAttributesGridPane = createAttributesGridPane();
+		
+		for (int i = 0; i < myAttributes.size(); i++) {
+			String currentAttribute = myAttributes.get(i);
+
+			TextField tf = (TextField) myOutputMap.get(currentAttribute);
+			tf.setText(myAttributesMap.get(myAttributes.get(i)));
+			tf.setEditable(false);
+			
+			myOutputMap.replace(currentAttribute, tf);
+			for (Node node : myAttributesGridPane.getChildren()) {
+				if (node instanceof TextField && GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == i) {
+					node.setVisible(false);
+				}
+			}
+		}
+		System.out.println(myAttributesMap);
+		System.out.println("refreshed");
+		myNode = new Rectangle(50,50);
+
 	}
 }

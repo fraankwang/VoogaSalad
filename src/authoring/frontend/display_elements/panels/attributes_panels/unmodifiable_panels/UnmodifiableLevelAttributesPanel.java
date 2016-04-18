@@ -2,7 +2,6 @@ package authoring.frontend.display_elements.panels.attributes_panels.unmodifiabl
 
 import java.util.ArrayList;
 import java.util.List;
-
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
@@ -12,7 +11,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -35,8 +33,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private GridPane titledPanesGridPane;
 	private ScrollPane myScrollPane;
 
-	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay, ImageView image) {
-		super(height, width, tabDisplay, image);
+	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
+		super(height, width, tabDisplay);
 	}
 
 	@Override
@@ -53,13 +51,13 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		myOpenEditorButton = new Button("hi");
 
 		myEntityListView = createModeRulesListView();
-		myEntityTitledPane = createTitledPane("Entities", myEntityListView);
+		myEntityTitledPane = new TitledPane("Entities", myEntityListView);
 		myEntityTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
 		myPiecesListView = createModeRulesListView();
-		myPiecesTitledPane = createTitledPane("Grid Pieces", myPiecesListView);
+		myPiecesTitledPane = new TitledPane("Grid Pieces", myPiecesListView);
 		myPiecesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
 		myRulesListView = createModeRulesListView();
-		myRulesTitledPane = createTitledPane("Rules", myRulesListView);
+		myRulesTitledPane = new TitledPane("Rules", myRulesListView);
 		myRulesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
 
 		titledPanesGridPane = new GridPane();
@@ -98,11 +96,5 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		return lv;
 	}
 
-//	@Override
-//	protected GridPane createAttributesGridPane() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-	
 
 }

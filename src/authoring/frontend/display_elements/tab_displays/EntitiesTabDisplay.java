@@ -84,5 +84,9 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public String getName() {
 		return "Entities";
 	}
+	
+	public void changeSomething() {
+		
+	}
 
 }

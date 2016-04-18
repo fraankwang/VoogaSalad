@@ -41,14 +41,7 @@ public class EntityEditorGrid extends EditorGrid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 
-		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(e -> {
-			sendData(((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).saveAttributes());
-
-		});
-
-		((SimpleButtonDashboard) myButtonDashboard).getResetButton()
-				.setOnAction(e -> ((ModifiableAttributesPanel) myModifiableAttributesPanel).resetAttributes());
-
+		
 	}
 
 	@Override

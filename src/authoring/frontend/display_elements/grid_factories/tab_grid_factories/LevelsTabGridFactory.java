@@ -9,7 +9,6 @@ import authoring.frontend.display_elements.panels.attributes_panels.unmodifiable
 import authoring.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -42,7 +41,7 @@ public class LevelsTabGridFactory extends TabGridFactory {
 	@Override
 	public UnmodifiableAttributesPanel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
 		UnmodifiableAttributesPanel attributes = new UnmodifiableLevelAttributesPanel(MAX_SIZE,
-				MAX_SIZE, tabDisplay, new ImageView("tower_defense_map_1.png"));
+				MAX_SIZE, tabDisplay);
 		attributes.initialize();
 		return attributes;
 	}

@@ -23,9 +23,8 @@ import javafx.scene.text.Text;
  *
  */
 
-public abstract class ModifiableAttributesPanel extends Panel {
+public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
-	protected static final int FONT_SIZE = 14;
 	protected BorderPane myWrapper;
 	protected GridPane myGridPane;
 	protected GridPane myAttributesGridPane;
@@ -33,8 +32,6 @@ public abstract class ModifiableAttributesPanel extends Panel {
 	protected ListView<String> myRulesListView;
 
 	protected Map<String, Control> myInputMap;
-	protected Map<String, String> myAttributesMap;
-	protected List<String> myAttributes;
 
 	protected final int RULES_HEIGHT_PERCENTAGE = 30;
 	protected final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
@@ -64,7 +61,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setGridLinesVisible(true);
 		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-		
+
 	}
 
 	@Override
@@ -74,7 +71,6 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
-
 
 	private GridPane createAttributesGridPane() {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
@@ -93,23 +89,25 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		myInputMap = new HashMap<String, Control>();
 
 		for (int i = 0; i < myAttributes.size(); i++) {
-			Text text = new Text(myAttributes.get(i));
+			String currentAttribute = myAttributes.get(i);
+			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
-			tf.setText("hi");
-			tf.setEditable(true);
-			
+			tf.setText("2");
+			tf.setEditable(false);
+
+			myAttributesMap.put(currentAttribute, tf.getText());
+			myInputMap.put(currentAttribute, tf);
 			myAttributesGridPane.add(text, 0, i);
-			myAttributesMap.put(myAttributes.get(i), tf.getText());
-			myInputMap.put(myAttributes.get(i), tf);
-			myAttributesGridPane.add(myInputMap.get(myAttributes.get(i)), 1, i);
+			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
+
 		}
 
 	}
 
 	public Map<String, String> saveAttributes() {
 
-		for (String s : myInputMap.keySet()) { 
+		for (String s : myInputMap.keySet()) {
 			myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
 
 		}
@@ -118,13 +116,12 @@ public abstract class ModifiableAttributesPanel extends Panel {
 	}
 
 	public void setAttributes(List<Map<String, String>> info) {
-		myAttributesMap = info.get(0); //need to change this later to match ID
+		myAttributesMap = info.get(0); // need to change this later to match ID
 		refreshAttributesGrid();
-		
+
 	}
 
 	protected void refreshAttributesGrid() {
-		
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
 				TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
@@ -132,23 +129,22 @@ public abstract class ModifiableAttributesPanel extends Panel {
 				tf.setEditable(true);
 				myInputMap.replace(myAttributes.get(i), tf);
 			}
-			
+
 		}
-//		
-//		for (int i = 0; i < myAttributes.size(); i++) {
-//			TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
-//			tf.setText(myAttributesMap.get(myAttributes.get(i)));
-//			tf.setEditable(true);
-//			myInputMap.put(myAttributes.get(i), tf);
-			
-			
-//			myAttributesGridPane.add(tf, 1, i);
-//			Text text = new Text(myAttributes.get(i));
-//			text.setFont(new Font(FONT_SIZE));
-//			myAttributesGridPane.add(text, 0, i);
-//		}
+		//
+		// for (int i = 0; i < myAttributes.size(); i++) {
+		// TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
+		// tf.setText(myAttributesMap.get(myAttributes.get(i)));
+		// tf.setEditable(true);
+		// myInputMap.put(myAttributes.get(i), tf);
+
+		// myAttributesGridPane.add(tf, 1, i);
+		// Text text = new Text(myAttributes.get(i));
+		// text.setFont(new Font(FONT_SIZE));
+		// myAttributesGridPane.add(text, 0, i);
+		// }
 	}
-	
+
 	public void resetAttributes() {
 		for (String s : myInputMap.keySet()) {
 			TextField inputArea = (TextField) myInputMap.get(s);
@@ -156,7 +152,7 @@ public abstract class ModifiableAttributesPanel extends Panel {
 		}
 
 	}
-	
+
 	private ListView<String> createRulesListView() {
 		ListView<String> lv = new ListView<String>();
 		lv.setCellFactory(TextFieldListCell.forListView());
