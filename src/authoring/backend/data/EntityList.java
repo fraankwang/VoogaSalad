@@ -20,6 +20,14 @@ public class EntityList extends Observable {
 	}
 	
 	public void add(Entity object) {
+		for (Entity e : entities) {
+			if (e.equals(object)) {
+				e = object;
+				setChanged();
+				notifyObservers(getInfo());
+				return;
+			}
+		}
 		entities.add(object);
 		setChanged();
 		notifyObservers(getInfo());

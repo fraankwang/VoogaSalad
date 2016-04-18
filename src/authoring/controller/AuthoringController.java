@@ -41,7 +41,6 @@ public class AuthoringController implements IAuthoringController {
 				String type = data.get(key);
 				switch (type) {
 					case "Entity":
-						System.out.println("processed.");
 						data.remove(key);
 						model.updateEntities(data);
 						break;
