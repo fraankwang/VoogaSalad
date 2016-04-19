@@ -1,11 +1,8 @@
 package engine.backend.rules;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 import java.util.List;
 
->>>>>>> ef39e159ba5af9a5ac82c491e6ca089fd673d273
 import engine.backend.components.IComponent;
 import engine.backend.components.SizeComponent;
 
@@ -34,7 +31,9 @@ public class Rule {
 
 	public String getMyAction(){
 		if(action == null) System.out.println("throw exception--> action is null");
-		return action.getMethodToCall();
+		System.out.println("rule.java nothing there");
+		return "nothing added";
+//		return action.getMethodToCall();
 	}
 	
 	public List<Predicate> getMyConditionals(){

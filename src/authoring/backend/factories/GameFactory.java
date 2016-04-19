@@ -25,21 +25,21 @@ public class GameFactory {
 		setUpEntityMap();
 		return myGame;
 	}
-	
-	private void setUpLevels(){
-		for (Mode mode: myGlobalData.getModes()){
-			for(Level level: myGlobalData.getLevels()){
-				if(level.getModeID().equals(mode.getName())){
+
+	private void setUpLevels() {
+		for (Mode mode : myGlobalData.getModes()) {
+			for (Level level : myGlobalData.getLevels()) {
+				if (level.getModeID().equals(mode.getName())) {
 					mode.addLevel(level);
 				}
 			}
 		}
 	}
-	
-	private void setUpEntities(){
-		for (Level level : myGlobalData.getLevels()){
-			for (Entity entity : myGlobalData.getEntities()){
-				if (entity.getLevelID() == level.getId()){
+
+	private void setUpEntities() {
+		for (Level level : myGlobalData.getLevels()) {
+			for (Entity entity : myGlobalData.getEntities()) {
+				if (entity.getLevelID() == level.getId()) {
 					level.addToEntities(entity);
 				}
 			}

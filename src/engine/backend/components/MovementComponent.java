@@ -53,6 +53,11 @@ public class MovementComponent extends Component implements IComponent{
 		return myTheta;
 	}
 	
+	public void setSpeed(String deltaSpeed){
+		double delta = Double.parseDouble(deltaSpeed);
+		myCurrentVelocityVector = myCurrentVelocityVector.scale(delta);
+	}
+	
 	public void setTheta(double theta){
 		myTheta = theta;
 	}

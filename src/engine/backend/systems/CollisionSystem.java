@@ -1,6 +1,7 @@
 package engine.backend.systems;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import engine.backend.components.CollisionComponent;
@@ -12,97 +13,47 @@ import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
+import engine.backend.systems.Events.CollisionEvent;
+import engine.backend.systems.Events.DeathEvent;
 
 /**
  * Created by colinduffy on 4/10/16., raghav kedia
  */
-public class CollisionSystem implements ISystem {
+public class CollisionSystem extends GameSystem{
  
-    
-    public void update2(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
+    @Override
+    public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
     	
     	List<IEntity> entities = myLevel.getEntities();
     	
-    	for(IEntity damageEntity : entities){
+    	for(IEntity entity1 : entities){
     		
-    		if(!damageEntity.hasComponent(myComponentTagResources.getString("Damage")) && 
-    				!damageEntity.hasComponent(myComponentTagResources.getString("Collision"))){
+    		if(!entity1.hasComponent(myComponentTagResources.getString("Collision"))){
     			continue;
     		}
     		
-    		for(IEntity targetEntity : entities){
+    		for(IEntity entity2 : entities){
     			
-    			if(!damageEntity.hasComponent(myComponentTagResources.getString("Collision")) || targetEntity.equals(damageEntity)){
+    			if(!entity1.hasComponent(myComponentTagResources.getString("Collision")) || entity2.equals(entity1)){
         			continue;
         		}
     			
-    			if(checkIntersection2(damageEntity, targetEntity, myComponentTagResources)){
-                    updateIsCollided2(damageEntity, targetEntity, myComponentTagResources);
-                }
+    			if(checkIntersection(entity1, entity2, myComponentTagResources)){
+    				sendCollisionEvent(entity1, entity2);
+    			}
     			
     		}
     		
     	}
     	
     }
-    @Override
-    /**
-     * Implemented in O^2 for now.  Will eventually scale down to quadrant checks
-     */
-    public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-    	List<IEntity> entities = myLevel.getEntities();
-    	for(IEntity outEntity : entities){
-            for(IEntity inEntity : entities){
-                //default isCollided  = false.  Only update if there is a collision
-                if(outEntity.hasComponent(myComponentTagResources.getString("Collision")) && inEntity.hasComponent(myComponentTagResources.getString("Collision"))){
-                    if(checkIntersection(outEntity, inEntity, myComponentTagResources)){
-                        updateIsCollided(outEntity,  inEntity,  myComponentTagResources);
-                    }
-                }
-            }
-                    /*
-                    ** May or may not implement this using syntactic sugar.  Java 8 is annoying
-                    entities.stream()
-                    .map((y) -> updateIsCollided((CollisionComponent)outEntity, (CollisionComponent)y)
-                    .filter((x) -> checkIntersection((CollisionComponent)outEntity, (CollisionComponent) x));
-                    */
-        }
-
-
-    }
-
-    private void updateIsCollided2(IEntity damageEntity, IEntity targetEntity, ResourceBundle myComponentTagResources){
-    	//get components for damageEntity
-    	CollisionComponent dCollisionComponent = (CollisionComponent) damageEntity.getComponent(myComponentTagResources.getString("Collision"));
-    	DamageComponent damageComponent = (DamageComponent) damageEntity.getComponent(myComponentTagResources.getString("Damage"));
-    	
-    	//get components for targetEntity
-    	CollisionComponent tCollisionComponent = (CollisionComponent) targetEntity.getComponent(myComponentTagResources.getString("Collision"));
-    	HealthComponent healthComponent = (HealthComponent) targetEntity.getComponent(myComponentTagResources.getString("Health"));
-    	MovementComponent movComponent = (MovementComponent) targetEntity.getComponent(myComponentTagResources.getString("Movement"));
-    	
-    	healthComponent.setDamage(damageComponent.getDamageToHealth());
-    	movComponent.getCurrentVelocityVector().scale(damageComponent.getDamageToVelocity());
-    	
-    	dCollisionComponent.setCollided(true);
-    	tCollisionComponent.setCollided(true);
-    	
-    }
     
-    private void updateIsCollided(CollisionComponent outEntity, CollisionComponent inEntity) {
-        outEntity.setCollided(true);
-        inEntity.setCollided(true);
-    }
-
-    private void updateIsCollided(IEntity outEntity, IEntity inEntity, ResourceBundle myComponentTagResources) {
-        CollisionComponent out = (CollisionComponent)outEntity.getComponent(myComponentTagResources.getString("Collision"));
-        CollisionComponent in = (CollisionComponent)inEntity.getComponent(myComponentTagResources.getString("Collision"));
-        out.setCollided(true);
-        in.setCollided(true);
-
-    }
+	private void sendCollisionEvent(IEntity entity1, IEntity entity2){
+		CollisionEvent collisionEvent = new CollisionEvent(entity1, entity2);
+		notifyObservers(collisionEvent);
+	}
     
-    private boolean checkIntersection2(IEntity entity1, IEntity entity2, ResourceBundle myComponentTagResources){
+    private boolean checkIntersection(IEntity entity1, IEntity entity2, ResourceBundle myComponentTagResources){
     	PositionComponent positionOne = (PositionComponent) entity1.getComponent(myComponentTagResources.getString("Position"));
     	PositionComponent positionTwo = (PositionComponent) entity2.getComponent(myComponentTagResources.getString("Position"));
     	SizeComponent sizeOne = (SizeComponent) entity1.getComponent(myComponentTagResources.getString("Size"));
@@ -112,15 +63,5 @@ public class CollisionSystem implements ISystem {
     			positionOne.getX() + sizeOne.getWidth() > positionTwo.getX() &&
     			positionOne.getY() < positionTwo.getY() + sizeTwo.getHeight() &&
     			positionOne.getY() + sizeOne.getHeight() > positionTwo.getY();
-    }
-
-    private boolean checkIntersection(IEntity outEntity, IEntity inEntity, ResourceBundle myComponentTagResources) {
-        CollisionComponent componentOne = (CollisionComponent)outEntity.getComponent(myComponentTagResources.getString("Collision"));
-        CollisionComponent componentTwo = (CollisionComponent)inEntity.getComponent(myComponentTagResources.getString("Collision"));
-
-        return  componentOne.getMyX() < componentTwo.getMyX() + componentTwo.getMyWidth() &&
-                componentOne.getMyX() + componentOne.getMyWidth() > componentTwo.getMyX() &&
-                componentOne.getMyY() < componentTwo.getMyY() + componentTwo.getMyHeight() &&
-                componentOne.getMyY() + componentOne.getMyHeight() > componentTwo.getMyY();
     }
 }

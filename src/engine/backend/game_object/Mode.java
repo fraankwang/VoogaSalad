@@ -12,6 +12,7 @@ public class Mode {
 
 	private List<Level> levels;
 	private String myName;
+	private ModeStatistics myModeStatistics;
 	
 	public Mode(String name) {
 		levels = new ArrayList<Level>();
@@ -20,6 +21,10 @@ public class Mode {
 
 	public List<Level> getLevels() {
 		return levels;
+	}
+	
+	public ModeStatistics getModeStatistics(){
+		return myModeStatistics;
 	}
 	
 	public String getName(){

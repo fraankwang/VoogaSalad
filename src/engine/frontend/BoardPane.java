@@ -18,6 +18,7 @@ public class BoardPane {
 	
 	public BoardPane(EngineView ev){
 		myEngineView = ev;
+		myPane = new Pane();
 	}
 	
 	public Node buildNode(){
@@ -60,8 +61,10 @@ public class BoardPane {
 	}
 	
 	public void deleteEntity(int id){
-		myPane.getChildren().remove(myImageMap.get(id).getNode());
-		myImageMap.remove(id);
+		if(myImageMap.containsKey(id)){
+			myPane.getChildren().remove(myImageMap.get(id).getNode());
+			myImageMap.remove(id);
+		}
 	}
 	
 	public void attemptTower(double xLoc, double yLoc){

@@ -21,6 +21,10 @@ import java.io.OutputStreamWriter;
 import org.xml.sax.InputSource;
 >>>>>>> ef39e159ba5af9a5ac82c491e6ca089fd673d273
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+
 public abstract class ObjectToXMLWriter {
 	private XStream xstream;
 
