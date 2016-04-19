@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import engine.backend.components.MouseComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_object.Level;
 import engine.controller.EngineController;
 
 /**
@@ -17,8 +18,8 @@ public class MouseSystem implements ISystem {
         this.myFrontEndAccessController = myFrontEndAccessController;
     }
     @Override
-    public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-
+    public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+    		List<IEntity> entities = myLevel.getEntities();
             for(IEntity iEntity : entities){
                 if(iEntity.hasComponent(myComponentTagResources.getString("Mouse"))){
                     if(false) {

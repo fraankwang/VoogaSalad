@@ -16,6 +16,11 @@ public class DamageComponent extends Component implements IComponent{
 	public void setDamageToHealth(double myDamage) {
 		this.myDamageToHealth = myDamage;
 	}
+	
+	public void setDamageToHealth(String myDamage) {
+		double newVal = Double.parseDouble(myDamage);
+		this.myDamageToHealth = newVal;
+	}
 
 	public double getDamageToVelocity() {
 		return myDamageToVelocity;
@@ -23,6 +28,11 @@ public class DamageComponent extends Component implements IComponent{
 
 	public void setDamageToVelocity(double myDamageToVelocity) {
 		this.myDamageToVelocity = myDamageToVelocity;
+	}
+	
+	public void setDamageToVelocity(String myDamageToVelocity) {
+		double newVal = Double.parseDouble(myDamageToVelocity);
+		this.myDamageToVelocity = newVal;
 	}
 
 	@Override

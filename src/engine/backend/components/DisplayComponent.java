@@ -14,6 +14,7 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	public DisplayComponent(String image){
 		this.image = image;
+		canBeShown = true;
 	}
 	
 	public void setImage(String image){
@@ -34,6 +35,11 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	public void doNotShow(){
 		canBeShown = false;
+	}
+	
+	public void setCanBeShown(String bool){
+		boolean value = Boolean.parseBoolean(bool);
+		this.canBeShown = value;
 	}
 	
 	@Override

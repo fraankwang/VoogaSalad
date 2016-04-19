@@ -1,5 +1,7 @@
 package engine.backend.components;
 
+import java.util.List;
+
 /**
  * 
  * @author raghavkedia
@@ -8,14 +10,17 @@ package engine.backend.components;
 
 public class FiringComponent extends Component implements IComponent{
 	
-	//private IEntity myAmmunition;
 	private String myAmmunition;
 	private int myAmmunitionAmount;
 	private double myAmmunitionSpeed;
 	private double myEnemyInSightRange;
-	private double myDirectionToFire;
+	private Vector myDirectionToFire;
+	private List<String> myTargets;
+	private double myFiringRate;
+	private double currentTimeStep;
 	
 	public FiringComponent(){
+	
 	}
 	
 	public String getAmmunition() {
@@ -30,8 +35,13 @@ public class FiringComponent extends Component implements IComponent{
 		return myAmmunitionAmount;
 	}
 
-	public void setAmmunitionAmount(int myAmmunitionAmount) {
-		this.myAmmunitionAmount = myAmmunitionAmount;
+	public void setAmmunitionAmount(String ammunitionAmount) {
+		int newVal = Integer.parseInt(ammunitionAmount);
+		this.myAmmunitionAmount = newVal;
+	}
+	
+	public void setAmmunitionAmount(int ammunitionAmount) {
+		this.myAmmunitionAmount = ammunitionAmount;
 	}
 
 	public double getEnemyInSightRange() {
@@ -42,11 +52,11 @@ public class FiringComponent extends Component implements IComponent{
 		this.myEnemyInSightRange = myEnemyInSightRange;
 	}
 	
-	public double getDirectionToFire() {
+	public Vector getDirectionToFire() {
 		return myDirectionToFire;
 	}
 
-	public void setDirectionToFire(double myDirectionToFire) {
+	public void setDirectionToFire(Vector myDirectionToFire) {
 		this.myDirectionToFire = myDirectionToFire;
 	}
 
@@ -54,8 +64,13 @@ public class FiringComponent extends Component implements IComponent{
 		return myAmmunitionSpeed;
 	}
 
-	public void setAmmunitionSpeed(double myAmmunitionSpeed) {
-		this.myAmmunitionSpeed = myAmmunitionSpeed;
+	public void setAmmunitionSpeed(String myAmmunitionSpeed) {
+		double newVal = Double.parseDouble(myAmmunitionSpeed);
+		this.myAmmunitionSpeed = newVal;
+	}
+	
+	public void setAmmunitionSpeed(double speed) {
+		this.myAmmunitionSpeed = speed;
 	}
 	
 	@Override
@@ -65,6 +80,39 @@ public class FiringComponent extends Component implements IComponent{
 		myAmmunitionSpeed = Double.parseDouble(params[2]);
 		myEnemyInSightRange = Double.parseDouble(params[3]);
 		myDirectionToFire = Double.parseDouble(params[4]);
+	}
+
+	public List<String> getTargets() {
+		return myTargets;
+	}
+
+	public void setTargets(List<String> myTargets) {
+		this.myTargets = myTargets;
+	}
+
+	public double getCurrentTimeStep() {
+		return currentTimeStep;
+	}
+
+	public void incrementCurrentTimeStep(){
+		currentTimeStep++;
+	}
+	
+	public void resetCurrentTimeStep(){
+		currentTimeStep = 0;
+	}
+
+	public double getFiringRate() {
+		return myFiringRate;
+	}
+
+	public void setFiringRate(String firingRate) {
+		double newVal = Double.parseDouble(firingRate);
+		this.myFiringRate = newVal;
+	}
+	
+	public void setFiringRate(double firingRate) {
+		this.myFiringRate = firingRate;
 	}
 	
 	@Override
