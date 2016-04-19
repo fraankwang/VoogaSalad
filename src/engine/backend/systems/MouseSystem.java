@@ -1,10 +1,10 @@
 package engine.backend.systems;
 
-import java.util.List;
-
-import engine.backend.components.MouseComponent;
+import engine.backend.components.UserInputComponent;
 import engine.backend.entities.IEntity;
 import engine.controller.EngineController;
+
+import java.util.List;
 
 /**
  * Created by colinduffy on 4/10/16.
@@ -28,7 +28,7 @@ public class MouseSystem extends Systemm implements ISystem {
     }
 
     private void updateMouseClickedComponent(IEntity iEntity, boolean update){
-        MouseComponent toChange  = (MouseComponent)iEntity.getComponent(getComponentTagResources().getString("Mouse"));
+        UserInputComponent toChange  = (UserInputComponent) iEntity.getComponent(getComponentTagResources().getString("UserInput"));
         toChange.setClicked(update);
     }
 }
