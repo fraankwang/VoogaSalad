@@ -25,7 +25,7 @@ public class BoardPane {
 	
 	public Node buildNode(){
 		myPane = new Pane();
-		myPane.setStyle("-fx-background-color: #C0C0C0;");
+		myPane.setStyle("-fx-background-color: #C0C0C0;"); //delete this later! Just so you can see it
 		myPane.setMinSize(myEngineView.loadUIIntResource("BoardWidth"), myEngineView.loadUIIntResource("BoardHeight"));
 		myPane.setMaxSize(myEngineView.loadUIIntResource("BoardWidth"), myEngineView.loadUIIntResource("BoardHeight"));
 		

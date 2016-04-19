@@ -13,9 +13,10 @@ public class ShopPane {
 	
 	public Node buildNode(){
 		myPane = new Pane();
-		myPane.setStyle("-fx-background-color: #000000;");
-		myPane.setMinSize(myEngineView.loadUIIntResource("ShopWidth")/2, myEngineView.loadUIIntResource("ShopHeight")/2);
+		myPane.setStyle("-fx-background-color: #000000;"); //delete this later! Just so you can see it 
+		myPane.setMinSize(myEngineView.loadUIIntResource("ShopWidth")/2, myEngineView.loadUIIntResource("ShopHeight"));
 		myPane.setPrefSize(myEngineView.loadUIIntResource("ShopWidth"), myEngineView.loadUIIntResource("ShopHeight"));
+		myPane.setMaxSize(myEngineView.loadUIIntResource("ShopWidth"), myEngineView.loadUIIntResource("ShopHeight"));
 		return myPane;
 	}
 }
