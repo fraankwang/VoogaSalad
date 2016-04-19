@@ -5,7 +5,7 @@
  * 
  */
 
-package engine.backend;
+package engine.backend.deprecated;
 
 import engine.backend.entities.Entity;
 import engine.backend.game_object.GameWorld;

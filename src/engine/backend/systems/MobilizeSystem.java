@@ -76,7 +76,8 @@ public class MobilizeSystem extends GameSystem{
 			
 			DisplayComponent dispComponent = (DisplayComponent) entity.getComponent(myComponentTagResources.getString("Display"));
 			dispComponent.doNotShow();
-			
+			pathComponent.setReachedEndOfPath(true);
+			//create end of path event
 			return;
 		}
 		

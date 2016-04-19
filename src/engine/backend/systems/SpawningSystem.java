@@ -38,5 +38,4 @@ public class SpawningSystem extends GameSystem{
 		AddEntityEvent event = new AddEntityEvent(entity);
 		notifyObservers(event);
 	}
-
 }

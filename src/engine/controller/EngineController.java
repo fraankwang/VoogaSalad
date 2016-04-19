@@ -1,12 +1,12 @@
 package engine.controller;
 
-import engine.backend.FakeGAEBackend;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
+import engine.backend.deprecated.FakeGAEBackend;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
