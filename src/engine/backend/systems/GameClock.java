@@ -14,6 +14,11 @@ public class GameClock {
 		return currentLoopIteration/fps;
 	}
 	
+	public void setCurrentLoopIteration(int currentLoopIteration) {
+		this.currentLoopIteration = currentLoopIteration;
+		currentSecond = convertLoopIterationToSeconds();
+	}
+	
 	public void updateLoopIteration() {
 		currentLoopIteration++;
 		currentSecond = convertLoopIterationToSeconds();
