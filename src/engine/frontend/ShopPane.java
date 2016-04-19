@@ -32,6 +32,7 @@ public class ShopPane {
 		ShopView testShopView = new ShopView(myEngineView);
 		myPane.getChildren().add(testShopView.getNode());
 			
+		
 		return myPane;
 	}
 
