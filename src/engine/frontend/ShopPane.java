@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 public class ShopPane {
 	private EngineView myEngineView;
 	private Pane myPane = new Pane();
+
 	
 	public ShopPane(EngineView ev){
 		myEngineView = ev;
@@ -23,14 +24,18 @@ public class ShopPane {
 	
 	public Node buildNode(){
 
-		myPane.setMinSize(myEngineView.loadUIIntResource("TowerWidth"), myEngineView.loadUIIntResource("TowerHeight"));
-		myPane.setMaxSize(myEngineView.loadUIIntResource("TowerWidth"), myEngineView.loadUIIntResource("TowerHeight"));
+		myPane.setMinSize(myEngineView.loadUIIntResource("ShopWidth")/2, myEngineView.loadUIIntResource("ShopHeight"));
+		myPane.setPrefSize(myEngineView.loadUIIntResource("ShopWidth"), myEngineView.loadUIIntResource("ShopHeight"));
+		myPane.setMaxSize(myEngineView.loadUIIntResource("ShopWidth"), myEngineView.loadUIIntResource("ShopHeight"));
 		myPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 		
+		ShopView testShopView = new ShopView(myEngineView);
+		myPane.getChildren().add(testShopView.getNode());
+			
 		return myPane;
 	}
-	
+
 	public void updateShop(List<ShopView> myShopList){
-		
+
 	}
 }

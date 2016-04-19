@@ -3,26 +3,40 @@ package engine.frontend;
 import java.util.ResourceBundle;
 
 import engine.controller.EngineController;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.ToolBar;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.MenuBar;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Main;
 
 
-
 public class EngineView{
 
-	public static final String DEFAULT_UI_RESOURCE = "engine/resources/engine_window";
-	private ResourceBundle myUIResources;
+	/*
+	 * TODO:
+	 * Fix size of overall window- DONE
+	 * Add menu bar- DONE
+	 * Fix aspect ratio of game player- DONE
+	 * Background Image- DONE
+	 * Load in shop info
+	 * Load in stat info
+	 * General game state info- mode level etc.
+	 * 
+	 * Future Big Items:
+	 * Dynamic window resizing- make EVERYTHING relative and in terms of ratios
+	 * Resizing/rearranging Panes
+	 * Fix rendering
+	 * Add game recorder functionality as an add-on
+	 * 
+	 */
+	public static final String DEFAULT_RESOURCE = "engine/resources/engine_window";
+	private ResourceBundle myResources;
 	private Stage myStage;
 	
 	private EngineController myController;
-	private ToolbarManager myToolbarManager;
+	private MenubarManager myMenubarManager;
 	private BoardPane myBoardPane;
 	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
@@ -30,59 +44,40 @@ public class EngineView{
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
 		myController = c;
-		
-		myToolbarManager = new ToolbarManager(this);
+		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
 		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
-		myUIResources = ResourceBundle.getBundle(DEFAULT_UI_RESOURCE);
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
 	
 	/**
 	 * builds a "body HBox" for the current view
 	 * @return
 	 */
-	public Scene getScene(){
-		int padding = loadUIIntResource("OuterPadding");
+	public Scene buildScene(){
 		int width = loadUIIntResource("WindowWidth");
 		int height = loadUIIntResource("WindowHeight");
+		BorderPane myBody = new BorderPane();
 		
-		HBox top = new HBox(padding);
-		HBox bottom = new HBox(padding);
+		MenuBar menubar = myMenubarManager.buildMenuBar();
+		myBody.setTop(menubar);
 		
-		top.setPadding(new Insets(0, padding, 0, padding));
-		bottom.setPadding(new Insets(0, padding, padding, padding));
-		
-		fillTopHBox(top);
-		fillBottomHBox(bottom);
-		
-		VBox myBody = new VBox(padding);
-		ToolBar toolbar = myToolbarManager.buildToolBar();
-		myBody.getChildren().addAll(toolbar, top, bottom);
-		
+		myBody.setLeft(myBoardPane.buildNode());
+		myBody.setRight(myShopPane.buildNode());
+		myBody.setBottom(myStatusPane.buildNode());
 		Scene scene = new Scene(myBody, width, height, Color.WHITE);
+		
+		scene.setOnMouseReleased(e -> handleEndMouseDrag());
+		
 		return scene;
 	}
-	
-	/**
-	 * Fills the top Hbox with the BoardPane and the TowerPane
-	 * @param vbox
-	 */
-	private void fillTopHBox(HBox hbox){
-		Node board = myBoardPane.buildNode();
-		Node tower = myShopPane.buildNode();
-		hbox.getChildren().addAll(board, tower);
+
+	private void handleEndMouseDrag() {
+		// TODO Auto-generated method stub
+		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 	}
-	
-	/**
-	 * Fills the bottom HBox with the statuspane
-	 * @param vbox
-	 */
-	private void fillBottomHBox(HBox hbox){
-		Node status = myStatusPane.buildNode();
-		hbox.getChildren().addAll(status);
-	}
-	
+
 	public Stage getStage(){
 		return myStage;
 	}
@@ -108,11 +103,11 @@ public class EngineView{
 	}
 	
 	protected int loadUIIntResource(String input){
-		return Integer.parseInt(myUIResources.getString(input));
+		return Integer.parseInt(myResources.getString(input));
 	}
 	
 	protected String loadUIStringResource(String input){
-		return myUIResources.getString(input);
+		return myResources.getString(input);
 	}
 	
 }

@@ -4,8 +4,6 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 public class RotationComponent extends Component implements IComponent{
 	
 	private double myAngle;
@@ -13,7 +11,6 @@ public class RotationComponent extends Component implements IComponent{
 	private double myAngularAcceleration;
 	
 	public RotationComponent() {
-		
 	}
 	
 	public double getAngle(){
@@ -25,8 +22,8 @@ public class RotationComponent extends Component implements IComponent{
 	}
 
 	@Override
-	public void initWithParams(List params) {
-		myAngle = (double) params.get(0);
+	public void initWithParams(String[] params) {
+		myAngle = Double.parseDouble(params[0]);
 	}
 
 }

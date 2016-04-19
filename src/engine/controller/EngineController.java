@@ -1,13 +1,6 @@
 package engine.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.sun.xml.internal.stream.Entity;
-
 import engine.backend.FakeGAEBackend;
-import engine.backend.MockGAEData;
 import engine.backend.game_object.GameWorld;
 import engine.backend.systems.SystemsController;
 import engine.frontend.EngineView;
@@ -23,8 +16,8 @@ public class EngineController {
 	private Main myMain;
 	
 	private static final int NUM_FRAMES_PER_SECOND = 60;
+	private boolean playing;
 	
-	private FakeGAEBackend bae;
 	private GameWorld myGameWorld;
 	private SystemsController systems;
 	
@@ -33,19 +26,17 @@ public class EngineController {
 	public EngineController(Stage s, Main m){
 		myStage = s;
 		myMain = m;
-		
-		bae = new FakeGAEBackend(); //temporary for now
-		
-		//this is the major part, where the GameWorld and backend are created
-		myGameWorld = bae.createFakeGameObject(new MockGAEData()); //create fake game object
-		systems = new SystemsController(this);
-		
 		myEngineView = new EngineView(myStage, this); 
-        myStage.setScene(myEngineView.getScene());
+        myStage.setScene(myEngineView.buildScene());
         myStage.show();
 	}
 	
 	public void start(){
+		myGameWorld = new GameWorld();
+		systems = new SystemsController(this);
+		playing = false;
+//		systems.initializeGame(myGameWorld);
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
@@ -54,12 +45,15 @@ public class EngineController {
 	}
 	
 	public void step() {
-		systems.iterateThroughSystems(myGameWorld);
+		if(playing){
+//			systems.iterateThroughSystems();			
+		}
+
 	}
 	
 	//backend endpoint 
-	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
-		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height);
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
+		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
 	
 //	public void newShop(Shop shop){
@@ -68,9 +62,9 @@ public class EngineController {
 //	public void newStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-//	public void shopClicked(String name){
-//		//call backend to say shop object clicked
-//	}
+	public void shopClicked(String name){
+		//call backend to say shop object clicked
+	}
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
 //	}
@@ -81,10 +75,6 @@ public class EngineController {
 
 	public void entityClicked(int myID) {
 		// TODO Auto-generated method stub
-	}
-	
-	public void deleteEntity(int id){
-		myEngineView.getBoardPane().deleteEntity(id);
 	}
 	
 	public Main getMain(){

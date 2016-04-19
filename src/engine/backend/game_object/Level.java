@@ -11,19 +11,24 @@ import java.util.List;
 
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
-import engine.backend.map.MapObject;
+import engine.backend.map.GameMap;
 
 
 public class Level {
 
 	private List<IEntity> entities;
 	private int myID;
-	private int myParentModeID;
-	private MapObject map = new MapObject();
+	private String myParentModeName;
+	private GameMap map;
+	
+	public Level(int myID, GameMap map) {
+		this.myID = myID;
+		this.map = map;
+	}
 
-	public Level(int id) {
-		entities = new ArrayList<IEntity>();
-		this.myID = id;
+	public Level(int myID) {
+		this.entities = new ArrayList<IEntity>();
+		this.myID = myID;
 	}
 	
 	public int getId(){
@@ -34,8 +39,12 @@ public class Level {
 		return entities;
 	}
 	
-	public MapObject getMap(){
+	public GameMap getMap(){
 		return map;
+	}
+	
+	public void setMap(GameMap map){
+		this.map = map;
 	}
 
 	@Override
@@ -43,17 +52,31 @@ public class Level {
 		return "Level [entities=" + entities + "] ";
 	}
 
-	public void addToEntities(Entity entity) {
+	public void addToEntities(IEntity entity) {
 		entity.setLevelID(myID);
 		entities.add(entity);
 	}
 	
-	public void setModeID(int modeID) {
-		this.myParentModeID = modeID;
+	public void setModeName(String modeID) {
+		this.myParentModeName = modeID;
 	}
 	
-	public int getModeID() {
-		return myParentModeID;
+	public String getModeID() {
+		return myParentModeName;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Level) {
+			Level temp = (Level) o;
+			if (this.myID == temp.myID) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 	
 }
