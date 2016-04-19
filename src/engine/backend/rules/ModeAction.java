@@ -1,4 +1,4 @@
-=package engine.backend.rules;
+package engine.backend.rules;
 
 public class ModeAction {
 
