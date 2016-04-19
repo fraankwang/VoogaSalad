@@ -16,6 +16,7 @@ public class EngineController {
 	private Main myMain;
 	
 	private static final int NUM_FRAMES_PER_SECOND = 60;
+	private boolean playing;
 	
 	private GameWorld myGameWorld;
 	private SystemsController systems;
@@ -33,6 +34,8 @@ public class EngineController {
 	public void start(){
 		myGameWorld = new GameWorld();
 		systems = new SystemsController(this);
+		playing = false;
+//		systems.initializeGame(myGameWorld);
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
@@ -42,7 +45,10 @@ public class EngineController {
 	}
 	
 	public void step() {
-//		systems.iterateThroughSystems(myGameWorld);
+		if(playing){
+//			systems.iterateThroughSystems();			
+		}
+
 	}
 	
 	//backend endpoint 

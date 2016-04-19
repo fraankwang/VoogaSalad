@@ -62,7 +62,7 @@ public class EngineView{
 		MenuBar menubar = myMenubarManager.buildMenuBar();
 		myBody.setTop(menubar);
 		
-		myBody.setCenter(myBoardPane.buildNode());
+		myBody.setLeft(myBoardPane.buildNode());
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
 		Scene scene = new Scene(myBody, width, height, Color.WHITE);
