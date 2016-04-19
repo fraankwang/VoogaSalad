@@ -62,9 +62,9 @@ public class EngineController {
 //	public void newStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-//	public void shopClicked(String name){
-//		//call backend to say shop object clicked
-//	}
+	public void shopClicked(String name){
+		//call backend to say shop object clicked
+	}
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
 //	}
