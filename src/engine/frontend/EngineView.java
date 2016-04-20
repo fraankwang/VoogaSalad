@@ -3,9 +3,7 @@ package engine.frontend;
 import java.util.ResourceBundle;
 
 import engine.controller.EngineController;
-import javafx.event.Event;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.MouseEvent;
@@ -82,7 +80,7 @@ public class EngineView{
 			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY());
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
-		e.consume();
+		this.getEngineController().shopUnclicked();
 	}
 
 	public Stage getStage(){

@@ -1,7 +1,5 @@
 package engine.frontend;
 
-import engine.controller.EngineController;
-import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -21,21 +19,9 @@ public class ShopView {
 		myImageView.setY(yLoc);
 		myImageView.setFitWidth(width);
 		myImageView.setFitHeight(height);
-		myImageView.setOnDragDetected(e -> handleClick());
-	}
-
-	public ShopView(EngineView ev){
-		myType = "Drumpf";
-		myEngineView = ev;
-		Image myImage = new Image("DrumpfVader.png");
-		myImageView = new ImageView(myImage);
-		myImageView.setX(0);
-		myImageView.setY(0);
-		myImageView.setFitWidth(80);
-		myImageView.setFitHeight(80);
 		myImageView.setOnMousePressed(e -> handleClick());
 	}
-	
+
 	
 	public void handleClick(){
 		Image myCursorImage = myImageView.getImage();

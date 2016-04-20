@@ -6,18 +6,15 @@ import java.util.Map;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+
 
 
 public class BoardPane {
 	private EngineView myEngineView;
 	private Map<Integer, EntityView> myEntityViewMap = new HashMap<Integer, EntityView>();
-	
 	private Pane myPane;
-	private ImageView myBackground;
+	private ImageView myBackground;	
 	
 	public BoardPane(EngineView ev){
 		myEngineView = ev;
@@ -33,7 +30,6 @@ public class BoardPane {
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
 		myPane.getChildren().add(myBackground);
-		
 		createCharacterImage(100, 100, "DrumpfVader.png", 1, 50, 50);
 		createCharacterImage(400, 400, "DrumpfVader.png", 2, 50, 50);
 		
@@ -56,7 +52,7 @@ public class BoardPane {
 		myPlayer.setY(yCoord);
 		myPane.getChildren().add(myPlayer);
 	}
-	
+
 	/**
 	 * updates entity with id to correct coordinate and size, if size is negative 
 	 * @param xCoord
@@ -88,9 +84,13 @@ public class BoardPane {
 	}
 	
 	public void attemptTower(double mouseXLoc, double mouseYLoc){
+		// need to tell them which type it is too
 		double xLoc = mouseXLoc - myPane.getBoundsInParent().getMinX();
 		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
-		myEngineView.getEngineController().attemptTower(xLoc, yLoc);
+
 		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
+		
+		myEngineView.getEngineController().attemptTower(xLoc,  yLoc);		
+
 	}
 }
