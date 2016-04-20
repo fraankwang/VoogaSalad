@@ -4,7 +4,7 @@
 
 package engine.backend.components;
 
-public class RotationComponent extends Component implements IComponent{
+public class RotationComponent extends Component {
 	
 	private double myAngle;
 	private double myAngularVelocity;
@@ -30,10 +30,11 @@ public class RotationComponent extends Component implements IComponent{
 	public void initWithParams(String[] params) {
 		myAngle = Double.parseDouble(params[0]);
 	}
-	
+
 	@Override
-	public String getValue() {
-		return myAngularVelocity + "";
+	public String getComponentInfo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

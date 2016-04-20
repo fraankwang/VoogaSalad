@@ -7,7 +7,7 @@
 
 package engine.backend.components;
 
-public class DisplayComponent extends Component implements IComponent{
+public class DisplayComponent extends Component {
 	
 	private boolean canBeShown;
 	private String image;
@@ -50,6 +50,11 @@ public class DisplayComponent extends Component implements IComponent{
 	@Override
 	public void initWithParams(String[] params) {
 		this.canBeShown = true; //default
+	}
+
+	@Override
+	public String getComponentInfo() {
+		return "canBeShown: " + canBeShown + " " + "image: " + image;
 	}
 
 }

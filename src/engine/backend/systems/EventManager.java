@@ -66,7 +66,7 @@ public class EventManager extends Observable implements Observer {
 	}
 	
 	public void handleAddEntity(IEvent myEvent) { 
-		myEvent.getEntities().forEach(e -> myCurrentLevel.addToEntities(e));
+		myEvent.getEntities().forEach(e -> myCurrentLevel.addEntity(e));
 	}
 	
 	public void handleEnemyMissed(){

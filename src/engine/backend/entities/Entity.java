@@ -19,22 +19,23 @@ public class Entity implements IEntity {
 	private String myName;
 	private String myType;
 	private Map<String, String> entityInfo;
-	private List<Rule> myRules = new ArrayList<Rule>();;
+	private List<Rule> myRules;
 	private int myID;
-	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();
-	private boolean hasBeenModified = true;
+	private Map<String, IComponent> myComponents;
+	private boolean hasBeenModified;
 
-	public Entity(int myID, String myName, String myType, double myValue) {
+	public Entity(int myID, String myName, String myType) {
 		this.myName = myName;
 		this.myType = myType;
 		this.myID = myID;
 		this.myComponents = new HashMap<String, IComponent>();
 		this.myRules = new ArrayList<Rule>();
 		this.entityInfo = new HashMap<String, String>();
+		this.hasBeenModified = true;
 		initializeInfo();
 	}
 	
-	public Entity(String myName, String myType, double myValue) {
+	public Entity(String myName, String myType) {
 		this.myName = myName;
 		this.myType = myType;
 		this.myComponents = new HashMap<String, IComponent>();

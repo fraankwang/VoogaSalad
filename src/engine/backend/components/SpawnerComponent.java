@@ -3,9 +3,7 @@ package engine.backend.components;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.backend.entities.IEntity;
-
-public class SpawnerComponent extends Component implements IComponent{
+public class SpawnerComponent extends Component {
 
 	private List<Spawn> mySpawns;
 	
@@ -25,6 +23,12 @@ public class SpawnerComponent extends Component implements IComponent{
 	public void initWithParams(String[] params) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getComponentInfo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,6 +1,6 @@
 package engine.backend.components;
 
-public class HealthComponent extends Component implements IComponent{
+public class HealthComponent extends Component {
 	
 	private double myHealth;
 	private double myDamage;
@@ -40,17 +40,6 @@ public class HealthComponent extends Component implements IComponent{
 		return myDamage;
 	}
 
-	@Override
-	public void initWithParams(String[] params) {
-		myHealth = Double.parseDouble(params[0]);
-		myDamage = Double.parseDouble(params[1]);
-	}
-	
-	@Override
-	public String getValue() {
-		return myHealth + "";
-	}
-
 	public double getCriticalHealth() {
 		return myCriticalHealth;
 	}
@@ -62,6 +51,17 @@ public class HealthComponent extends Component implements IComponent{
 	public void setCriticalHealth(String myCriticalHealth) {
 		double newVal = Double.parseDouble(myCriticalHealth);
 		this.myCriticalHealth = newVal;
+	}
+
+	@Override
+	public void initWithParams(String[] params) {
+		myHealth = Double.parseDouble(params[0]);
+		myDamage = Double.parseDouble(params[1]);
+	}
+
+	@Override
+	public String getComponentInfo() {
+		return "myHealth: " + myHealth + " " + "myCriticalHealth: " + myCriticalHealth;
 	}
 
 }

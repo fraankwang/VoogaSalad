@@ -3,12 +3,10 @@ package engine.backend.components;
 import java.util.List;
 
 /**
- * 
  * @author raghavkedia
- *
  */
 
-public class FiringComponent extends Component implements IComponent{
+public class FiringComponent extends Component {
 	
 	private String myAmmunition;
 	private int myAmmunitionAmount;
@@ -79,7 +77,7 @@ public class FiringComponent extends Component implements IComponent{
 		myAmmunitionAmount = Integer.parseInt(params[1]);
 		myAmmunitionSpeed = Double.parseDouble(params[2]);
 		myEnemyInSightRange = Double.parseDouble(params[3]);
-		myDirectionToFire = Double.parseDouble(params[4]);
+//		myDirectionToFire = Double.parseDouble(params[4]);
 	}
 
 	public List<String> getTargets() {
@@ -114,10 +112,29 @@ public class FiringComponent extends Component implements IComponent{
 	public void setFiringRate(double firingRate) {
 		this.myFiringRate = firingRate;
 	}
-	
+
 	@Override
-	public String getValue() {
-		return myAmmunitionSpeed + "";
+	public String getComponentInfo() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("myAmmunition: ");
+		sb.append(myAmmunition);
+		sb.append(" ");
+		sb.append("myAmmunitionSpeed: ");
+		sb.append(myAmmunitionSpeed);
+		sb.append(" ");
+		sb.append("myEnemyInSightRange: ");
+		sb.append(myEnemyInSightRange);
+		sb.append(" ");
+		sb.append("myTargets: ");
+		sb.append(myTargets);
+		sb.append(" ");
+		sb.append("myFiringRate: ");
+		sb.append(myFiringRate);
+		sb.append(" ");
+		
+		
+		return sb.toString();
 	}
 	
 }

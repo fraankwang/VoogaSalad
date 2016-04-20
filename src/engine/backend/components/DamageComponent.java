@@ -41,7 +41,7 @@ public class DamageComponent extends Component implements IComponent{
 	}
 	
 	@Override
-	public String getValue() {
+	public String getComponentInfo() {
 		return myDamageToHealth + "";
 	}
 	

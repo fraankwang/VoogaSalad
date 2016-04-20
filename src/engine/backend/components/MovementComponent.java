@@ -6,7 +6,7 @@ package engine.backend.components;
  *
  */
 
-public class MovementComponent extends Component implements IComponent{
+public class MovementComponent extends Component {
 	
 	private double myVelocity;
 	//private double myAcceleration;
@@ -88,9 +88,9 @@ public class MovementComponent extends Component implements IComponent{
 	public double getVelocity() {
 		return myVelocity;
 	}
-	
+
 	@Override
-	public String getValue() {
-		return myVelocity + "";
+	public String getComponentInfo() {
+		return "myVelocity: " + myVelocity + " " + "canMove: " + canMove + " " + "canRotate: " + canRotate;
 	}
 }

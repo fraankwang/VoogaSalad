@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.map.GameMap;
 import engine.backend.rules.Action;
@@ -71,7 +70,7 @@ public class Level {
 		return levelInfo;
 	}
 
-	public void addEntity(Entity entity) {
+	public void addEntity(IEntity entity) {
 		entities.add(entity);
 	}
 
