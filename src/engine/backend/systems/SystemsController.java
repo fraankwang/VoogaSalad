@@ -36,8 +36,6 @@ public class SystemsController {
 	private int myModeIndex; 
 	
 	private GameClock myGameClock;
-	
-	private GameWorld myGame;
 
 	/*
 	 * the this reference to rendering will get removed, so only the event
@@ -78,9 +76,9 @@ public class SystemsController {
 
 	}
 
-	public void initializeGame(GameWorld game) {
-		myGame = game;
-	}
+//	public void initializeGame(GameWorld game) {
+//		myGame = game;
+//	}
 
 	public void iterateThroughSystems(Level level) {
 		for (ISystem system : mySystems) {
