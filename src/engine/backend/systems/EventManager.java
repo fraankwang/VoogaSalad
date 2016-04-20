@@ -13,8 +13,9 @@ import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
+import engine.controller.IEngineController;
 
-public class EventManager extends Observable implements Observer {
+public class EventManager implements Observer {
 
 	private Level myCurrentLevel;
 	ResourceBundle myComponentTagResources;
@@ -25,6 +26,8 @@ public class EventManager extends Observable implements Observer {
 
 	public EventManager(IEngineController engineController, GameWorld game) {
 		this.myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
+		setCurrentLevel(game.getLevelWithId(0));
+		myEngineController = engineController;
 		myGameWorld = game;
 	}
 
@@ -40,11 +43,12 @@ public class EventManager extends Observable implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
+		System.out.println("HI");
 		handleCustomEvent((IEvent) arg);
 	}
 	
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent){
-		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
+		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(), myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}
 
 	public void setCustomEvents(Map<String, List<Action>> myCustomEvents) {
@@ -86,4 +90,9 @@ public class EventManager extends Observable implements Observer {
 	public void handleEnemyMissed() {
 		// gets events, send event to level manager
 	}
+	
+	public GameWorld getGameWorld(){
+		return myGameWorld;
+	}
 }
+

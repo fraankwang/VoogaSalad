@@ -44,11 +44,9 @@ public class SystemsController {
 	 * 
 	 * @author == mario
 	 */
-	public SystemsController(EngineController eController, int framesPerSecond, EventManager myEventManager) {
-		engineController = eController;
-
-		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(),
-				eController.getMyGameWorld().getEntityMap());
+	public SystemsController(int framesPerSecond, EventManager myEventManager) {
+		myEntityFactory = new InGameEntityFactory(myEventManager.getGameWorld().getGameStatistics(),
+				myEventManager.getGameWorld().getEntityMap());
 
 		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 
@@ -64,6 +62,7 @@ public class SystemsController {
 		healthSystem.addObserver(myEventManager);
 		firingSystem.addObserver(myEventManager);
 		collisionSystem.addObserver(myEventManager);
+		renderingSystem.addObserver(myEventManager);
 
 		mySystems = new ArrayList<ISystem>();
 		mySystems.add(firingSystem);

@@ -6,7 +6,6 @@ import engine.backend.components.MovementComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
-import engine.backend.deprecated.FakeGAEBackend;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
@@ -25,63 +24,71 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 
-public class EngineController {
+public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
-	private EventManager myEventManager;
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-
-	private FakeGAEBackend bae;
+	private boolean playing;
+	
+	private EventManager myEventManager;
 	private GameWorld myGameWorld;
-	private SystemsController systems;
+	private SystemsController mySystems;
 
 	private EngineView myEngineView;
 
 	public EngineController(Stage s, Main m) {
 		myStage = s;
 		myMain = m;
-		initTestGame();
-		myEngineView = new EngineView(myStage, this);
-		myStage.setScene(myEngineView.getScene());
-		myStage.show();
-		System.out.println("START");
+		myEngineView = new EngineView(myStage, this); 
+        myStage.setScene(myEngineView.buildScene());
+        myStage.show();
 	}
-
-	public void start() {
+	
+	public void start(){
+		myGameWorld = new GameWorld();
+		initTestGame();
+		
+		myEventManager = new EventManager(this, myGameWorld);
+		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
+		playing = true;
+		
+		myEngineView = new EngineView(myStage, this);
+		myStage.setScene(myEngineView.buildScene());
+		myStage.show();
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-	
-	
 
 	public void step() {
-		// System.out.println(pos.getX());
-		// systems.iterateThroughSystems(myGameWorld);
-		systems.iterateThroughSystems(myGameWorld.getModes().get(0).getLevels().get(0));
+		if(playing){
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
+		}
+
 	}
-
-	// backend endpoint
-	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height) {
-		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height);
+	
+	//backend endpoint 
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
+		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
-
-	// public void newShop(Shop shop){
-	// myEngineView.getShopPane().updateShop(shop);
-	// }
-	// public void newStatistics(Statistics statistics){
-	// myEngineView.getStatusPane().updateStatistics(statistics);
-	// }
-	// public void shopClicked(String name){
-	// //call backend to say shop object clicked
-	// }
-	// public void statisticsClicked(String name){
-	// //call backend to say stat object clicked
-	// }
-
+	
+//	public void updateShop(Shop shop){
+//		myEngineView.getShopPane().updateShop(shop);
+//	}
+//	public void updateStatistics(Statistics statistics){
+//		myEngineView.getStatusPane().updateStatistics(statistics);
+//	}
+	public void shopClicked(String name){
+		//call backend to say shop object clicked
+	}
+//	public void statisticsClicked(String name){
+//		//call backend to say stat object clicked
+//	}
+	
 	public void attemptTower(double xLoc, double yLoc) {
 		// TODO Auto-generated method stub
 	}
@@ -89,28 +96,21 @@ public class EngineController {
 	public void entityClicked(int myID) {
 		// TODO Auto-generated method stub
 	}
-
-	public void deleteEntity(int id) {
-		myEngineView.getBoardPane().deleteEntity(id);
-	}
-
-	public Main getMain() {
+	
+	public Main getMain(){
 		return myMain;
 	}
 
-	public String getBackgroundFile() {
+	public String getBackgroundFile(){
 		return "test";
-		// return myGameWorld.someGetFileName();
+//		return myGameWorld.someGetFileName();
 	}
 
-	public GameWorld getMyGameWorld() {
+	public GameWorld getMyGameWorld(){
 		return myGameWorld;
 	}
-
 	
 	private void initTestGame(){
-		
-		String tempImage;
 		myGameWorld = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
 		Level tempLevel = new Level(0);
@@ -159,16 +159,9 @@ public class EngineController {
 		
 		tempLevel.addToEntities(tempEntity);
 		tempLevel.addToEntities(tempEntity2);
-		//tempLevel.addToEntities(tempEntity3);
+//		tempLevel.addToEntities(tempEntity3);
 		tempLevel.setMap(tempMap);
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);
-		
-		myEventManager = new EventManager();
-		//the this reference to rendering will get removed, so only the event handler will get passed
-		systems = new SystemsController(this, myEventManager);
-		systems.initializeGame(myGameWorld);
-		
 	}
-	
 }
