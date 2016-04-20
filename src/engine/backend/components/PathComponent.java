@@ -65,9 +65,10 @@ public class PathComponent extends Component implements IComponent{
 	public boolean getReachedEndOfPath(){
 		return reachedEndOfPath;
 	}
-	
-	public void didReachEndOfPath(){
-		reachedEndOfPath = true;
+
+	public void setReachedEndOfPath(boolean bool) {
+		// TODO Auto-generated method stub
+		reachedEndOfPath = bool;
 	}
 	
 }

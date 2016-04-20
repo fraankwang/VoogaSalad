@@ -34,9 +34,6 @@ public class BoardPane {
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
 		myPane.getChildren().add(myBackground);
 		
-		createCharacterImage(100, 100, "DrumpfVader.png", 1, 50, 50);
-		createCharacterImage(400, 400, "DrumpfVader.png", 2, 50, 50);
-		
 		return myPane;
 	}
 	
