@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
+import com.xuggle.xuggler.IRational;
 
 public class GameCapture {
     
@@ -31,31 +32,39 @@ public class GameCapture {
 
         // We tell it we're going to add one video stream, with id 0,
         // at position 0, and that it will have a fixed frame rate of FRAME_RATE.
-        writer.addVideoStream(0, 0, ICodec.ID.CODEC_ID_MPEG4, 
-                   screenBounds.width/2, screenBounds.height/2);
+        writer.addVideoStream(0, 0, ICodec.ID.CODEC_ID_MPEG4, IRational.make(1/FRAME_RATE), screenBounds.width/2, screenBounds.height/2);
 
         long startTime = System.nanoTime();
+        long currentMsForFrame = 100;
+        
+        System.out.println(writer.getDefaultTimebase().toString());
         
         for (int index = 0; index < SECONDS_TO_RUN_FOR * FRAME_RATE; index++) {
+        	System.out.println("Current REAL FPS: " + 1000/currentMsForFrame);
+        	currentMsForFrame = System.currentTimeMillis();
+        	System.out.println("CURRENT INDEX:" + index);
         	
             // take the screen shot
             BufferedImage screen = getDesktopScreenshot();
-
+            
             // convert to the right image type
             BufferedImage bgrScreen = convertToType(screen, 
                    BufferedImage.TYPE_3BYTE_BGR);
-
+            
+            
             // encode the image to stream #0
             writer.encodeVideo(0, bgrScreen, System.nanoTime() - startTime, 
                    TimeUnit.NANOSECONDS);
-
+            
+            
             // sleep for frame rate milliseconds
             try {
-                Thread.sleep((long) (100 / FRAME_RATE));
+                Thread.sleep((long) (1000 / FRAME_RATE));
             } 
             catch (InterruptedException e) {
                 // ignore
             }
+            currentMsForFrame = System.currentTimeMillis() - currentMsForFrame;
             
         }
         
