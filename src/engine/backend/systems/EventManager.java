@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 import engine.backend.entities.IEntity;
+import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
 import engine.backend.systems.Events.IEvent;
@@ -20,9 +21,11 @@ public class EventManager extends Observable implements Observer {
 	private Map<String, List<Action>> myCustomEvents;
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	IEngineController myEngineController;
+	GameWorld myGameWorld;
 
-	public EventManager(IEngineController engineController) {
+	public EventManager(IEngineController engineController, GameWorld game) {
 		this.myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
+		myGameWorld = game;
 	}
 
 	public void setCurrentLevel(Level level) {
