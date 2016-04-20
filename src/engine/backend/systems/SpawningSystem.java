@@ -24,7 +24,7 @@ public class SpawningSystem extends GameSystem{
 				SpawnerComponent spawnerComponent = (SpawnerComponent) entity.getComponent(myComponentTagResources.getString("Spawner"));
 				
 				for(Spawn spawn : spawnerComponent.getSpawns()){
-					//handle spawning
+					//handle spawning, produce entity, set pathID
 					
 				}
 				

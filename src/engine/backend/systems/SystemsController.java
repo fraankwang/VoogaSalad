@@ -38,9 +38,11 @@ public class SystemsController {
 	private int myLevelIndex;
 	private int myModeIndex; 
 	
+	private GameClock myGameClock;
+	
 	private GameWorld myGame;
 
-	public SystemsController(EngineController eController) {
+	public SystemsController(EngineController eController, int framesPerSecond) {
 		engineController = eController;
 		
 		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), 
@@ -55,8 +57,6 @@ public class SystemsController {
 		collisionSystem = new CollisionSystem();
 		
 		myEventManager = new EventManager(myComponentTagResources);
-		myLevelManager = new LevelManager();
-		myModeManager = new ModeManager();
 		
 		healthSystem.addObserver(myEventManager);
 		firingSystem.addObserver(myEventManager);
@@ -71,6 +71,8 @@ public class SystemsController {
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
 		mySystems.add(renderingSystem);
+		
+		myGameClock = new GameClock(framesPerSecond);
 
 	}
 	
@@ -91,11 +93,12 @@ public class SystemsController {
 	public void iterateThroughSystems() {
 		for (ISystem system : mySystems) {			
 			long startTime = System.currentTimeMillis();
-			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myComponentTagResources);
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
 			long endTime   = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
 			//System.out.println(system.getClass().getSimpleName() + ":  " + totalTime);
 		}
+		myGameClock.updateLoopIteration();
 	}
 
 }
