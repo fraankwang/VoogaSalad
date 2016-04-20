@@ -159,7 +159,7 @@ public class EngineController implements IEngineController{
 		
 		tempLevel.addToEntities(tempEntity);
 		tempLevel.addToEntities(tempEntity2);
-//		tempLevel.addToEntities(tempEntity3);
+		tempLevel.addToEntities(tempEntity3);
 		tempLevel.setMap(tempMap);
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);
