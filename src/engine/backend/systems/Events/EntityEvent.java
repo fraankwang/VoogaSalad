@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import engine.backend.entities.IEntity;
 
-public abstract class Event implements IEvent {
+public abstract class EntityEvent implements IEvent {
 
 	private IEntity entity;
 

@@ -1,8 +1,5 @@
 package engine.backend.systems.Events;
 
-import java.util.Collection;
-
-import engine.backend.entities.IEntity;
 import engine.backend.game_object.Level;
 
 public abstract class LevelEvent implements IEvent {
@@ -15,12 +12,7 @@ public abstract class LevelEvent implements IEvent {
 		return eventID;
 	}
 
-	@Override
-	public Collection<IEntity> getEntities() {
-		return null;
-	}
-	
-	public void setmyCurrentLevel(Level myCurrentlevel) {
+	public void setmyCurrentLevel(Level myCurrentLevel) {
 		this.myCurrentLevel = myCurrentLevel;
 	}
 
