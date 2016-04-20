@@ -6,13 +6,17 @@
 
 package engine.backend.rules;
 
+/**
+ * the rule is going to sreot the component that nends to be hcanges, by how
+ * much and which method it needs to execute
+ */
 public class Action {
-	
+
 	private String entityName;
 	private String componentToModifiy;
 	private String valueInComponent;
 	private String newValue;
-	
+
 	public Action(String entityName, String componentToModify, String valueInComponent, String newValue) {
 		this.setEntityName(entityName);
 		this.setComponentToModifiy(componentToModify);
@@ -51,6 +55,5 @@ public class Action {
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
 	}
-	
 
 }

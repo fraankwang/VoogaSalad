@@ -10,9 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -32,7 +34,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private ListView<String> myRulesListView;
 	private ListView<String> myPiecesListView;
 	private ListView<String> myEntityListView;
-	private Accordion myAccordion;
+	private GridPane titledPanesGridPane; 
+	private ScrollPane myScrollPane;
 
 	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
@@ -52,19 +55,30 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		myOpenEditorButton = createOpenEditorButton();
 
 		myEntityListView = createModeRulesListView();
-		myEntityTitledPane = createTitledPane("Rules", myEntityListView);
+		myEntityTitledPane = createTitledPane("Entities", myEntityListView);
+		myEntityTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
 		myPiecesListView = createModeRulesListView();
-		myPiecesTitledPane = createTitledPane("Rules", myPiecesListView);
+		myPiecesTitledPane = createTitledPane("Grid Pieces", myPiecesListView);
+		myPiecesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
 		myRulesListView = createModeRulesListView();
 		myRulesTitledPane = createTitledPane("Rules", myRulesListView);
-		myAccordion = new Accordion();
-		myAccordion.getPanes().addAll(myEntityTitledPane, myPiecesTitledPane, myRulesTitledPane);
+		myRulesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
+		
+		titledPanesGridPane = new GridPane();
+		titledPanesGridPane.add(myEntityTitledPane, 0, 0);
+		titledPanesGridPane.add(myPiecesTitledPane, 0, 1);
+		titledPanesGridPane.add(myRulesTitledPane, 0, 2);
+		titledPanesGridPane.getColumnConstraints().add(new ColumnConstraints(800 * 0.4275));
+		//scene width * 0.4275, hardcoded I know
+
+		myScrollPane = new ScrollPane();
+		myScrollPane.setContent(titledPanesGridPane);
 	}
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
-		myGridPane.add(myAccordion, 0, 1);
+		myGridPane.add(myScrollPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 

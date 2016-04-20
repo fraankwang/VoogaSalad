@@ -29,13 +29,13 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		this.myID = myID;
-		//this.myValue = myValue;
+		// this.myValue = myValue;
 	}
-	
+
 	public Entity(String myName, String myType, double myValue) {
 		this.myName = myName;
 		this.myType = myType;
-		//this.myValue = myValue;
+		// this.myValue = myValue;
 	}
 
 	public List<Rule> getRules() {
@@ -62,12 +62,12 @@ public class Entity implements IEntity {
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
-	
+
 	public void setID(int myID) {
 		this.myID = myID;
 	}
-	
-	public int getID(){
+
+	public int getID() {
 		return myID;
 	}
 
@@ -106,12 +106,12 @@ public class Entity implements IEntity {
 	public void setMyType(String myType) {
 		this.myType = myType;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Entity) {
@@ -124,7 +124,7 @@ public class Entity implements IEntity {
 		} else {
 			return false;
 		}
-		
+
 	}
 
 	@Override
@@ -139,20 +139,20 @@ public class Entity implements IEntity {
 		String instanceVar = action.getValueInComponent();
 		String newVal = action.getNewValue();
 		Method setMethod;
-		
+
 		String fullName = myComponentTagResources.getString(component);
 		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
-		
+
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 			componentClassInstance = componentClass.cast(myComponents.get(fullName));
-			//put in resource file!!!
+			// put in resource file!!!
 			String methodName = "set" + instanceVar;
-			
+
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
-			
+
 			setMethod.invoke(componentClassInstance, newVal);
-			
+
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,7 +166,7 @@ public class Entity implements IEntity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
