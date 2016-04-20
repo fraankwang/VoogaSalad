@@ -43,13 +43,14 @@ public class FiringSystem extends GameSystem{
 						
 						if(targetIsInRange(firingComponent.getEnemyInSightRange(), shootingPosVector, targetPosVector)){
 							
-							if(firingComponent.getTimer() == 0){
+							if(firingComponent.getTimer() == 0 || firingComponent.fireNow()){
 								double xComp = targetPosVector.getX() - shootingPosVector.getX();
 								double yComp = targetPosVector.getY() - shootingPosVector.getY();
 								Vector firedVelVector = new Vector(xComp, yComp);
 								
 								IEntity newEntity = initilizeFire(firingComponent.getEntityName(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
 								sendAddEntityEvent(newEntity);
+								firingComponent.setFireNow(false);
 								firingComponent.resetTimer();
 							}
 							else{

@@ -19,6 +19,7 @@ public class FiringComponent extends Component implements IComponent{
 	private double myFiringRate;
 	private double timer;
 	private double currentSecond;
+	private boolean fireNow;
 	
 	public FiringComponent(){
 		
@@ -86,7 +87,15 @@ public class FiringComponent extends Component implements IComponent{
 	public List<String> getTargets() {
 		return myTargets;
 	}
-
+	
+	public boolean fireNow(){
+		return fireNow;
+	}
+	
+	public void setFireNow(boolean bool){
+		fireNow = bool;
+	}
+	
 	public void setTargets(List<String> myTargets) {
 		this.myTargets = myTargets;
 	}
