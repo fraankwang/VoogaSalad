@@ -16,7 +16,7 @@ import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
-import engine.frontend.EngineView;
+import engine.frontend.overall.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

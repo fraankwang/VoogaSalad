@@ -1,8 +1,9 @@
-package engine.frontend;
+package engine.frontend.shop;
 
 
 import java.util.List;
 
+import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -30,8 +31,7 @@ public class ShopPane {
 		myPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 		
 		ShopView testShopView = new ShopView(myEngineView);
-		myPane.getChildren().add(testShopView.getNode());
-			
+		myPane.getChildren().add(testShopView.getNode());	
 		
 		return myPane;
 	}

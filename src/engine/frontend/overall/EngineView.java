@@ -1,8 +1,12 @@
-package engine.frontend;
+package engine.frontend.overall;
 
 import java.util.ResourceBundle;
 
 import engine.controller.EngineController;
+import engine.frontend.board.BoardPane;
+import engine.frontend.shop.ShopPane;
+import engine.frontend.status.MenubarManager;
+import engine.frontend.status.StatusPane;
 import javafx.event.Event;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -109,7 +113,7 @@ public class EngineView{
 		return myController;
 	}
 	
-	protected int loadUIIntResource(String input){
+	public int loadUIIntResource(String input){
 		return Integer.parseInt(myResources.getString(input));
 	}
 	

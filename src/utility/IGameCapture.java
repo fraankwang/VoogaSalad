@@ -60,7 +60,7 @@ public interface IGameCapture {
      * appended into a video file
      * @param endCaptureEvent
      */
-    void endCaputure(Event endCaptureEvent);
+    void endCapture(Event endCaptureEvent);
 
     /**
      * Prompt from front end allows user to change name for specific file

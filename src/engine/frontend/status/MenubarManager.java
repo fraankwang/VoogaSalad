@@ -1,8 +1,9 @@
-package engine.frontend;
+package engine.frontend.status;
 
 import java.io.File;
 import java.util.ResourceBundle;
 
+import engine.frontend.overall.EngineView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -27,9 +28,9 @@ public class MenubarManager {
 	public MenuBar buildMenuBar(){
 		MenuBar menubar = new MenuBar();
 		Menu filemenu = buildFileMenu();
-		final Menu menu2 = new Menu("Options");
+		Menu capturemenu = buildCaptureMenu();
 		final Menu menu3 = new Menu("Help");
-		menubar.getMenus().addAll(filemenu, menu2, menu3);
+		menubar.getMenus().addAll(filemenu, filemenu, menu3);
 
 		return menubar; 
 	}
@@ -51,6 +52,11 @@ public class MenubarManager {
 		});
 		
 		menu.getItems().addAll(load, save);
+		return menu;
+	}
+	
+	private Menu buildCaptureMenu(){
+		Menu menu = new Menu(myResources.getString("MenuPrompt"));
 		return menu;
 	}
 	

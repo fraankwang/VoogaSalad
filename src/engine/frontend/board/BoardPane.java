@@ -1,15 +1,13 @@
-package engine.frontend;
+package engine.frontend.board;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 
 public class BoardPane {

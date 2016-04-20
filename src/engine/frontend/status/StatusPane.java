@@ -1,5 +1,6 @@
-package engine.frontend;
+package engine.frontend.status;
 
+import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;

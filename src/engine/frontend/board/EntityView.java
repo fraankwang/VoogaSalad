@@ -1,4 +1,4 @@
-package engine.frontend;
+package engine.frontend.board;
 /**
  * @author austinwu
  */
