@@ -7,7 +7,7 @@ import java.awt.*;
  */
 public interface IGameCapture {
 
-        
+
     /**
      * Can be hard-coded in native backend framework for certain situations,
      * or adjusted dynamically from frontend user input.
