@@ -22,7 +22,7 @@ import engine.backend.systems.Events.AddEntityEvent;
 public class FiringSystem extends GameSystem{
 
 	@Override 
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity shootingEntity : entities){
@@ -41,28 +41,33 @@ public class FiringSystem extends GameSystem{
 						Vector shootingPosVector = shootingPosComponent.getPositionVector();
 						Vector targetPosVector = targetPosComponent.getPositionVector();
 						
-						if(targetIsInRange(firingComponent.getEnemyInSightRange(), shootingPosVector, targetPosVector)
-								&& firingComponent.getFiringRate() == firingComponent.getCurrentTimeStep()){
+						if(targetIsInRange(firingComponent.getEnemyInSightRange(), shootingPosVector, targetPosVector)){
+							if(firingComponent.getTimer() == 0){
+								double xComp = targetPosVector.getX() - shootingPosVector.getX();
+								double yComp = targetPosVector.getY() - shootingPosVector.getY();
+								Vector firedVelVector = new Vector(xComp, yComp);
+								firingComponent.setDirectionToFire(firedVelVector);
+								
+								IEntity newEntity = initilizeFire(shootingEntity, myEntityFactory, myComponentTagResources);
+								sendAddEntityEvent(newEntity);
+								firingComponent.resetTimer();
+							}
+							else{
+								firingComponent.setTimer(currentSecond);
+							}
+						}
 							
-							double xComp = targetPosVector.getX() - shootingPosVector.getX();
-							double yComp = targetPosVector.getY() - shootingPosVector.getY();
-							Vector firedVelVector = new Vector(xComp, yComp);
-							firingComponent.setDirectionToFire(firedVelVector);
 							
-							IEntity newEntity = initilizeFire(shootingEntity, myEntityFactory, myComponentTagResources);
-							sendAddEntityEvent(newEntity);
-							firingComponent.resetCurrentTimeStep();
-							//create firing event
+						
 						}
 						
 					}
 					
 				}
-				firingComponent.incrementCurrentTimeStep();
 			}
 			
 		}
-	}
+	
 	
 	private boolean targetIsInRange(double range, Vector shootingPosVector, Vector targetPosVector){
 		

@@ -20,7 +20,7 @@ public class MouseSystem implements ISystem {
 	}
 
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		List<IEntity> entities = myLevel.getEntities();
 		for (IEntity iEntity : entities) {
 			if (iEntity.hasComponent(myComponentTagResources.getString("Mouse"))) {

@@ -22,7 +22,7 @@ import engine.backend.systems.Events.DeathEvent;
 public class CollisionSystem extends GameSystem{
  
     @Override
-    public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
+    public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources){
     	
     	List<IEntity> entities = myLevel.getEntities();
     	

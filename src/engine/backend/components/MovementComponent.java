@@ -28,7 +28,7 @@ public class MovementComponent extends Component implements IComponent{
 	
 	//for demo purposes
 	public MovementComponent(double xspeed, double yspeed){
-		myCurrentVelocityVector = new Vector(xspeed, yspeed);
+		setCurrentVelocityVector(new Vector(xspeed, yspeed));
 	}
 	
 	@Override

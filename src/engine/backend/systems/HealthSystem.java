@@ -23,7 +23,7 @@ import java.util.Observable;
 public class HealthSystem extends GameSystem{
 
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity entity : entities){

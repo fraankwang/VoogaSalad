@@ -17,10 +17,11 @@ public class FiringComponent extends Component implements IComponent{
 	private Vector myDirectionToFire;
 	private List<String> myTargets;
 	private double myFiringRate;
-	private double currentTimeStep;
+	private double timer;
+	private double currentSecond;
 	
 	public FiringComponent(){
-	
+		
 	}
 	
 	public String getAmmunition() {
@@ -90,16 +91,19 @@ public class FiringComponent extends Component implements IComponent{
 		this.myTargets = myTargets;
 	}
 
-	public double getCurrentTimeStep() {
-		return currentTimeStep;
+	public double getTimer() {
+		return timer;
 	}
 
-	public void incrementCurrentTimeStep(){
-		currentTimeStep++;
+	public void setTimer(double currentSecond){
+		if(this.currentSecond != currentSecond){
+			this.currentSecond = currentSecond;
+			timer = timer - 1;
+		}
 	}
 	
-	public void resetCurrentTimeStep(){
-		currentTimeStep = 0;
+	public void resetTimer(){
+		timer = myFiringRate;
 	}
 
 	public double getFiringRate() {

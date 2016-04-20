@@ -26,7 +26,7 @@ public class MobilizeSystem extends GameSystem{
 	}
 	
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity entity : entities){
 			
@@ -45,7 +45,8 @@ public class MobilizeSystem extends GameSystem{
 				//do movement
 				Vector posVector = posComponent.getPositionVector();
 				Vector velVector = movComponent.getCurrentVelocityVector();
-				posVector.add(velVector);
+				Vector newPos = posVector.add(velVector);
+				posComponent.setPositionVector(newPos);
 			}
 			
 			//do rotation
