@@ -42,6 +42,7 @@ public class RulesSystem implements ISystem {
 					Method method = eachRule.getClass().getMethod(methodToInvoke, new Class[] {IComponent.class, Integer.class});
 					try {
 						method.invoke(eachRule, component, delta);
+						//above refleciton call represents this eachRule.increaseSize(component, delta);
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 						e.printStackTrace();
 					}
@@ -52,7 +53,6 @@ public class RulesSystem implements ISystem {
 				}
 				
 						
-				//above refleciton call represents this eachRule.increaseSize(component, delta);
 			}
 		}
 	}

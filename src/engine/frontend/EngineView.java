@@ -3,8 +3,12 @@ package engine.frontend;
 import java.util.ResourceBundle;
 
 import engine.controller.EngineController;
+import javafx.event.Event;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -66,7 +70,19 @@ public class EngineView{
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
 		Scene scene = new Scene(myBody, width, height, Color.WHITE);
+		
+		scene.setOnMouseReleased(e -> handleEndMouseRelease(e));
+		
 		return scene;
+	}
+
+	private void handleEndMouseRelease(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if( myBoardPane.getNode().contains(e.getSceneX(), e.getSceneY())){
+			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY());
+		}
+		this.getStage().getScene().setCursor(Cursor.DEFAULT);
+		e.consume();
 	}
 
 	public Stage getStage(){

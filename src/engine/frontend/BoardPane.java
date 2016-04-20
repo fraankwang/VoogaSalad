@@ -34,12 +34,13 @@ public class BoardPane {
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
 		myPane.getChildren().add(myBackground);
 		
-		createCharacterImage(100, 100, "DrumpfVader.png", 1, 50, 50);
-		createCharacterImage(400, 400, "DrumpfVader.png", 2, 50, 50);
-		
 		return myPane;
 	}
 	
+	public Node getNode(){
+		return myPane;
+	}
+
 	public void setBackground(String imageName){
 		myBackground.setImage(new Image(imageName));
 	}
@@ -83,7 +84,10 @@ public class BoardPane {
 		}
 	}
 	
-	public void attemptTower(double xLoc, double yLoc){
+	public void attemptTower(double mouseXLoc, double mouseYLoc){
+		double xLoc = mouseXLoc - myPane.getBoundsInParent().getMinX();
+		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
 		myEngineView.getEngineController().attemptTower(xLoc, yLoc);
+		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
 	}
 }
