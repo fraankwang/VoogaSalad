@@ -2,9 +2,9 @@ package engine.backend.systems.Events;
 
 import engine.backend.game_object.Level;
 
-public class NoMoreLivesEvent extends LevelEvent{
+public class NoMoreLivesLevelEvent extends LevelEvent{
 	
-	public NoMoreLivesEvent(Level myCurrentLevel) {
+	public NoMoreLivesLevelEvent(Level myCurrentLevel) {
 		super.setmyCurrentLevel(myCurrentLevel);
 	}
 }
