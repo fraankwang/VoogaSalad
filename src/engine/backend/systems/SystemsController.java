@@ -83,7 +83,7 @@ public class SystemsController {
 	public void iterateThroughSystems(Level level) {
 		for (ISystem system : mySystems) {
 			long startTime = System.currentTimeMillis();
-			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myComponentTagResources);
 			long endTime   = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
 			System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
