@@ -36,7 +36,8 @@ public class RenderingSystem extends GameSystem {
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		List<IEntity> entities = myLevel.getEntities();
-		System.out.println("update rendering system " + entities.toString());
+		//System.out.println("update rendering system " + entities.toString());
+		
 		for (IEntity myEntity : entities) {
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
@@ -61,7 +62,8 @@ public class RenderingSystem extends GameSystem {
 					sizey = ((SizeComponent) eachComponent).getHeight();
 				}
 			}
-
+			
+			
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
 
 			myEntity.setHasBeenModified(false);

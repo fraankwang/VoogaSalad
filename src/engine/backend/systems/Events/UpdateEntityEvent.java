@@ -15,6 +15,7 @@ public class UpdateEntityEvent extends Event{
 	public UpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show){
 		this.x = x;
 		this.y = y;
+		this.id = id;
 		this.image = image;
 		this.sizex = sizex;
 		this.sizey = sizey;
