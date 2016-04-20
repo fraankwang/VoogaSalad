@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 
-public class EngineController {
+public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
 	
@@ -19,7 +19,8 @@ public class EngineController {
 	private boolean playing;
 	
 	private GameWorld myGameWorld;
-	private SystemsController systems;
+	private SystemsController mySystems;
+	private EventManager myEventManager;
 	
 	private EngineView myEngineView;
 	
@@ -33,7 +34,8 @@ public class EngineController {
 	
 	public void start(){
 		myGameWorld = new GameWorld();
-		systems = new SystemsController(this);
+		mySystems = new SystemsController(this);
+		myEventManager = new EventManager(this);
 		playing = false;
 //		systems.initializeGame(myGameWorld);
 		
@@ -46,7 +48,7 @@ public class EngineController {
 	
 	public void step() {
 		if(playing){
-//			systems.iterateThroughSystems();			
+			systems.iterateThroughSystems();			
 		}
 
 	}
@@ -56,10 +58,10 @@ public class EngineController {
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
 	
-//	public void newShop(Shop shop){
+//	public void updateShop(Shop shop){
 //		myEngineView.getShopPane().updateShop(shop);
 //	}
-//	public void newStatistics(Statistics statistics){
+//	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
 //	public void shopClicked(String name){
@@ -81,7 +83,6 @@ public class EngineController {
 		return myMain;
 	}
 
-	
 	public String getBackgroundFile(){
 		return "test";
 //		return myGameWorld.someGetFileName();
