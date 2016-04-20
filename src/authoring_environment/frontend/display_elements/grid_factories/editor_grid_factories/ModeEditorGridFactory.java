@@ -5,7 +5,6 @@ import authoring_environment.frontend.display_elements.grid_factories.EditorGrid
 import authoring_environment.frontend.display_elements.panels.Panel;
 import authoring_environment.frontend.display_elements.panels.RulesEditorPanel;
 import authoring_environment.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
-import javafx.scene.Node;
 
 /**
  * 
@@ -41,21 +40,9 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createButtonDashboard() {
-		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE,ARBITRARY_PANEL_SIZE);
+		StandardButtonDashboard buttons = new StandardButtonDashboard(ARBITRARY_PANEL_SIZE, ARBITRARY_PANEL_SIZE);
 		buttons.initialize();
 		return buttons;
-	}
-
-	@Override
-	public Node createLeftSubGrid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Node createRightSubGrid() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -1,6 +1,6 @@
 /**
  * 
- * @author mario_oliver93
+ * @author mario_oliver93, raghav kedia
  * 
  */
 package engine.backend.systems;
@@ -17,54 +17,80 @@ import engine.controller.EngineController;
 
 public class SystemsController {
 
-	private ISystem renderingSystem;
-	private ISystem mobilizationSystem;
-	private ISystem healthSystem;
-	private ISystem firingSystem;
-	private ISystem rulesSystem;
-	private ISystem collisionSystem;
-	
+	private GameSystem renderingSystem;
+	private GameSystem mobilizationSystem;
+	private GameSystem healthSystem;
+	private GameSystem firingSystem;
+	private GameSystem collisionSystem;
+
 	private List<ISystem> mySystems;
 	private EngineController engineController;
-	
+	private EventManager myEventManager;
+
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
-	
+
 	private InGameEntityFactory myEntityFactory;
 
+	private int myLevelIndex;
+	private int myModeIndex; 
+	
+	private GameClock myGameClock;
+	
+	private GameWorld myGame;
 
-	public SystemsController(EngineController eController) {
+	/*
+	 * the this reference to rendering will get removed, so only the event
+	 * handler will get passed fixing rendering system before I remove this
+	 * dependency
+	 * 
+	 * @author == mario
+	 */
+	public SystemsController(int framesPerSecond, EventManager myEventManager) {
 		engineController = eController;
-		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), 
+
+		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(),
 				eController.getMyGameWorld().getEntityMap());
-		
+
 		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
-		
+
 		renderingSystem = new RenderingSystem(engineController);
 		mobilizationSystem = new MobilizeSystem();
 		healthSystem = new HealthSystem();
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
-		rulesSystem = new RulesSystem();
-		
+
+
+		this.myEventManager = myEventManager;
+
+		healthSystem.addObserver(myEventManager);
+		firingSystem.addObserver(myEventManager);
+		collisionSystem.addObserver(myEventManager);
+
 		mySystems = new ArrayList<ISystem>();
 		mySystems.add(firingSystem);
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
-		mySystems.add(rulesSystem);
 		mySystems.add(renderingSystem);
+		
+		myGameClock = new GameClock(framesPerSecond);
 
 	}
 
-	public void iterateThroughSystems(GameWorld game) {
-		Mode currMode = game.getModes().get(game.getGameStatistics().getCurrentLevel());
-		List<Level> currLevels = currMode.getLevels();
-		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
+	public void initializeGame(GameWorld game) {
+		myGame = game;
+	}
+
+	public void iterateThroughSystems(Level level) {
 		for (ISystem system : mySystems) {
-			system.update(currentLevel, myEntityFactory, myComponentTagResources);
+			long startTime = System.currentTimeMillis();
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
+			long endTime   = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
 		}
+		myGameClock.updateLoopIteration();
 	}
 
 }

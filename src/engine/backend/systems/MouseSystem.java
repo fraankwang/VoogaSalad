@@ -13,25 +13,28 @@ import engine.controller.EngineController;
  * Created by colinduffy on 4/10/16.
  */
 public class MouseSystem implements ISystem {
-    private EngineController myFrontEndAccessController;
-    public MouseSystem(EngineController myFrontEndAccessController){
-        this.myFrontEndAccessController = myFrontEndAccessController;
-    }
-    @Override
-    public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-    		List<IEntity> entities = myLevel.getEntities();
-            for(IEntity iEntity : entities){
-                if(iEntity.hasComponent(myComponentTagResources.getString("Mouse"))){
-                    if(false) {
-                        updateMouseClickedComponent(iEntity, true,  myComponentTagResources);
-                    }else updateMouseClickedComponent(iEntity, false,  myComponentTagResources);
-                }
-            }
+	private EngineController myFrontEndAccessController;
 
-    }
+	public MouseSystem(EngineController myFrontEndAccessController) {
+		this.myFrontEndAccessController = myFrontEndAccessController;
+	}
 
-    private void updateMouseClickedComponent(IEntity iEntity, boolean update, ResourceBundle myComponentTagResources){
-        MouseComponent toChange  = (MouseComponent)iEntity.getComponent(myComponentTagResources.getString("Mouse"));
-        toChange.setClicked(update);
-    }
+	@Override
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+		List<IEntity> entities = myLevel.getEntities();
+		for (IEntity iEntity : entities) {
+			if (iEntity.hasComponent(myComponentTagResources.getString("Mouse"))) {
+				if (false) {
+					updateMouseClickedComponent(iEntity, true, myComponentTagResources);
+				} else
+					updateMouseClickedComponent(iEntity, false, myComponentTagResources);
+			}
+		}
+
+	}
+
+	private void updateMouseClickedComponent(IEntity iEntity, boolean update, ResourceBundle myComponentTagResources) {
+		MouseComponent toChange = (MouseComponent) iEntity.getComponent(myComponentTagResources.getString("Mouse"));
+		toChange.setClicked(update);
+	}
 }
