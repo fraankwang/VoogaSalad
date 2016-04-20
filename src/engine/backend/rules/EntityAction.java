@@ -6,14 +6,14 @@
 
 package engine.backend.rules;
 
-public class Action {
+public class EntityAction {
 	
 	private String entityName;
 	private String componentToModifiy;
 	private String valueInComponent;
 	private String newValue;
 	
-	public Action(String entityName, String componentToModify, String valueInComponent, String newValue) {
+	public EntityAction(String entityName, String componentToModify, String valueInComponent, String newValue) {
 		this.setEntityName(entityName);
 		this.setComponentToModifiy(componentToModify);
 		this.setValueInComponent(valueInComponent);
