@@ -45,10 +45,8 @@ public class SystemsController {
 	 * @author == mario
 	 */
 	public SystemsController(int framesPerSecond, EventManager myEventManager) {
-		engineController = eController;
-
-		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(),
-				eController.getMyGameWorld().getEntityMap());
+		myEntityFactory = new InGameEntityFactory(myEventManager.getGameWorld().getGameStatistics(),
+				myEventManager.getGameWorld().getEntityMap());
 
 		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 
@@ -64,6 +62,7 @@ public class SystemsController {
 		healthSystem.addObserver(myEventManager);
 		firingSystem.addObserver(myEventManager);
 		collisionSystem.addObserver(myEventManager);
+		renderingSystem.addObserver(myEventManager);
 
 		mySystems = new ArrayList<ISystem>();
 		mySystems.add(firingSystem);
@@ -83,7 +82,7 @@ public class SystemsController {
 	public void iterateThroughSystems(Level level) {
 		for (ISystem system : mySystems) {
 			long startTime = System.currentTimeMillis();
-			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myComponentTagResources);
 			long endTime   = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
 			System.out.println(system.getClass().getSimpleName() + ": " + totalTime);

@@ -47,11 +47,11 @@ public class EngineController implements IEngineController{
 	
 	public void start(){
 		myGameWorld = new GameWorld();
+		initTestGame();
+		
 		myEventManager = new EventManager(this, myGameWorld);
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-		playing = false;
-		
-		initTestGame();
+		playing = true;
 		
 		myEngineView = new EngineView(myStage, this);
 		myStage.setScene(myEngineView.buildScene());
@@ -111,8 +111,6 @@ public class EngineController implements IEngineController{
 	}
 	
 	private void initTestGame(){
-		
-		String tempImage;
 		myGameWorld = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
 		Level tempLevel = new Level(0);
@@ -161,14 +159,9 @@ public class EngineController implements IEngineController{
 		
 		tempLevel.addToEntities(tempEntity);
 		tempLevel.addToEntities(tempEntity2);
-		//tempLevel.addToEntities(tempEntity3);
+//		tempLevel.addToEntities(tempEntity3);
 		tempLevel.setMap(tempMap);
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);
-		
-		myEventManager = new EventManager(this);
-		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-		mySystems.initializeGame(myGameWorld);
-		
 	}
 }

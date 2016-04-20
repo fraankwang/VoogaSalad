@@ -33,7 +33,6 @@ public class RenderingSystem extends GameSystem {
 		this.engineController = eController;
 	}
 
-	@Override
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		List<IEntity> entities = myLevel.getEntities();
@@ -72,6 +71,7 @@ public class RenderingSystem extends GameSystem {
 	
 	public void sendUpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show){
 		UpdateEntityEvent event = new UpdateEntityEvent(x, y, image, id, sizex, sizey, show);
+		this.setChanged();
 		notifyObservers(event);
 	}
 	
