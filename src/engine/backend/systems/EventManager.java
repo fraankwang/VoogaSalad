@@ -43,7 +43,6 @@ public class EventManager implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		System.out.println("HI");
 		handleCustomEvent((IEvent) arg);
 	}
 	
@@ -59,6 +58,7 @@ public class EventManager implements Observer {
 		
 		if(myEvent instanceof UpdateEntityEvent){
 			sendUpdatedEntity((UpdateEntityEvent) myEvent);
+			return;
 		}
 		
 		List<Action> myActions = checkPossibleIDs(myEvent.getEventID());
