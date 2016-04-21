@@ -37,6 +37,11 @@ public class DisplayComponent extends Component implements IComponent{
 		canBeShown = false;
 	}
 	
+	public void setCanBeShown(String bool){
+		boolean value = Boolean.parseBoolean(bool);
+		this.canBeShown = value;
+	}
+	
 	@Override
 	public String toString() {
 		return this.getTag() + this.image;

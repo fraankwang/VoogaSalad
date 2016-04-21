@@ -6,12 +6,17 @@ import java.util.List;
 import engine.backend.components.IComponent;
 import engine.backend.components.SizeComponent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Rule {
 
 	private List<Predicate> conditionals;
 	private Action action;
-	private String methodToCall;
-	
+	//this string needs to get moved to action
+
+
+
 	public Rule() {
 		conditionals = new ArrayList<Predicate>();
 	}
@@ -23,18 +28,12 @@ public class Rule {
 	public void setMyAction(Action myAction){
 		action = myAction;
 	}
-	
-	public void setMyMethodToCall(String method){
-		this.methodToCall = method;
-	}
-	
-	public String getMethodToCall(){
-		return methodToCall;
-	}
-	
-	public Action getMyAction(){
+
+	public String getMyAction(){
 		if(action == null) System.out.println("throw exception--> action is null");
-		return action;
+		System.out.println("rule.java nothing there");
+		return "nothing added";
+//		return action.getMethodToCall();
 	}
 	
 	public List<Predicate> getMyConditionals(){
