@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
+import engine.backend.game_object.ModeStatistics;
 import engine.backend.rules.Action;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
@@ -23,12 +24,15 @@ public class EventManager implements Observer {
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
+	ModeStatistics currentModeStatistics;
 
 	public EventManager(IEngineController engineController, GameWorld game) {
 		this.myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 		setCurrentLevel(game.getLevelWithId(0));
 		myEngineController = engineController;
 		myGameWorld = game;
+		//pass in right values
+		currentModeStatistics = new ModeStatistics();
 	}
 
 	public void setCurrentLevel(Level level) {
