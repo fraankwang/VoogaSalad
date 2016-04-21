@@ -25,7 +25,7 @@ public abstract class EditorGrid extends Grid {
 	protected Panel myRulesPanel;
 	protected ModifiableAttributesPanel myModifiableAttributesPanel;
 	protected Stage myEditorStage;
-	
+
 	public EditorGrid(IAuthoringView controller, Stage editorStage) {
 		super(controller);
 		myEditorStage = editorStage;
@@ -55,6 +55,11 @@ public abstract class EditorGrid extends Grid {
 
 	}
 
+	/**
+	 * Takes given data and sends it to the backend through the AuthoringView
+	 * 
+	 * @param map
+	 */
 	protected void sendData(Map<String, String> map) {
 		System.out.println("EditorGrid: myAttributesMap written to backend: ");
 		System.out.println(map);
@@ -63,6 +68,11 @@ public abstract class EditorGrid extends Grid {
 
 	}
 
+	/**
+	 * Resets user input or not based on an alert created within the
+	 * ModifiableAttributesPanel. If user wishes to close out, then close the
+	 * editor stage.
+	 */
 	protected void resetAttributes() {
 		boolean close = ((ModifiableAttributesPanel) myModifiableAttributesPanel).createResetAlert();
 		if (close) {

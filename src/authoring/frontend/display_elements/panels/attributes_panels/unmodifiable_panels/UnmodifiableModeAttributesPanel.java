@@ -39,7 +39,6 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 	 * Change UI to show all levels/entities per Mode?
 	 * 
 	 */
-	
 	@Override
 	protected void initializeComponents() {
 		myWrapper = new BorderPane();

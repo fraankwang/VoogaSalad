@@ -41,10 +41,11 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		myAttributesMap = new HashMap<String, String>();
 	}
 
-	protected abstract void initializeComponents();
-
-	protected abstract void assembleComponents();
-
+	/**
+	 * Creates initial display scaffolding for attribute information with
+	 * default Text/TextField objects to be populated by a predefined list of
+	 * attributes.
+	 */
 	protected void assembleRows() {
 		myOutputMap = new HashMap<String, Control>();
 		myAttributesMap = new HashMap<String, String>();
@@ -65,6 +66,9 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		}
 	}
 
+	/**
+	 * Re-populates attribute information given updated maps.
+	 */
 	protected void refreshRows() {
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
@@ -78,7 +82,8 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 
 	/**
 	 * Creates Button that opens myTabDisplay. TabDisplay's openEditorDisplay
-	 * method must take in all data.
+	 * method must take in relevant data for whatever is being displayed in the
+	 * editor.
 	 * 
 	 * @return
 	 */
@@ -89,12 +94,22 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		return button;
 	}
 
+	/**
+	 * Publicly accessible method which calls an internally abstracted refresh method.  
+	 * @param updatedInfo
+	 */
 	public void setAttributes(Map<String, String> updatedInfo) {
 		System.out.println("UnmodifiableAttrPanel: back to front");
 		System.out.println(updatedInfo);
 		refreshDisplay(updatedInfo);
 	}
 
+	/**
+	 * Different displays show attributes in different ways, so this refresh
+	 * method is abstracted down to its subclasses.
+	 * 
+	 * @param map
+	 */
 	protected abstract void refreshDisplay(Map<String, String> map);
 
 	public Map<String, String> getAttributesMap() {

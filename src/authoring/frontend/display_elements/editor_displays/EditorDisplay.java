@@ -44,6 +44,9 @@ public abstract class EditorDisplay implements IEditorDisplay {
 		
 	}
 
+	/**
+	 * Internal method used to create a new scene which is displayed in the editor stage.
+	 */
 	private void openEditorStage() {
 		BorderPane root = new BorderPane();
 		root.setCenter(getNode());

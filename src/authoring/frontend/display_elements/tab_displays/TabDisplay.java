@@ -13,7 +13,7 @@ import javafx.scene.Node;
 
 /**
  * The TabDisplay superclass acts as a container for it's Grid and corresponding
- * editor.
+ * editor. TabDisplays implement the Observer interface, thus each TabDisplay contains an update method.
  * 
  * @author Frank
  *
