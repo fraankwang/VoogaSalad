@@ -1,6 +1,7 @@
 package engine.backend.rules;
 
 public class LevelAction {
+	
 	private String resourceToModify;
 	private String changeInValue;
 
