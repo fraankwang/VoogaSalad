@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import engine.backend.entities.IEntity;
 
-public class CollisionEvent extends Event {
+public class CollisionEvent extends EntityEvent {
 
 	private IEntity entity1;
 	private IEntity entity2;
