@@ -14,13 +14,14 @@ import engine.controller.EngineController;
  * Created by colinduffy on 4/10/16.
  */
 public class MouseSystem implements ISystem {
-<<<<<<< HEAD
+
 	private EngineController myFrontEndAccessController;
-=======
     private EngineController myFrontEndAccessController;
+    
     public MouseSystem(EngineController myFrontEndAccessController){
         this.myFrontEndAccessController = myFrontEndAccessController;
     }
+    
     @Override
     public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
     		Collection<IEntity> entities = myLevel.getEntities().values();
@@ -31,26 +32,7 @@ public class MouseSystem implements ISystem {
                     }else updateMouseClickedComponent(iEntity, false,  myComponentTagResources);
                 }
             }
->>>>>>> 35dbd3c5ed3862a6809fe0b7fe7c8fdfcc44d7e1
-
-	public MouseSystem(EngineController myFrontEndAccessController) {
-		this.myFrontEndAccessController = myFrontEndAccessController;
-	}
-
-	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
-		List<IEntity> entities = myLevel.getEntities();
-		for (IEntity iEntity : entities) {
-			if (iEntity.hasComponent(myComponentTagResources.getString("Mouse"))) {
-				if (false) {
-					updateMouseClickedComponent(iEntity, true, myComponentTagResources);
-				} else
-					updateMouseClickedComponent(iEntity, false, myComponentTagResources);
-			}
-		}
-
-	}
-
+	
 	private void updateMouseClickedComponent(IEntity iEntity, boolean update, ResourceBundle myComponentTagResources) {
 		MouseComponent toChange = (MouseComponent) iEntity.getComponent(myComponentTagResources.getString("Mouse"));
 		toChange.setClicked(update);

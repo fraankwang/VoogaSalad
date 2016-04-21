@@ -51,7 +51,7 @@ public class EventManager implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		handleCustomEntityEvent((IEvent) arg);
+		handleCustomEvent((IEvent) arg);
 	}
 	
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent){
