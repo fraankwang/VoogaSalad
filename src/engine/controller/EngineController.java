@@ -54,8 +54,7 @@ public class EngineController implements IEngineController{
 		playing = true;
 		
 		myEngineView = new EngineView(myStage, this);
-		myStage.setScene(myEngineView.buildScene());
-		myStage.show();
+		setupStage();
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
@@ -64,6 +63,15 @@ public class EngineController implements IEngineController{
 		animation.play();
 	}
 
+	private void setupStage(){
+		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
+		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
+		myStage.setX(0);
+		myStage.setY(0);
+		myStage.setScene(myEngineView.buildScene());
+		myStage.show();
+	}
+	
 	public void step() {
 		if(playing){
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			

@@ -1,17 +1,22 @@
 package utility;
 
 import java.awt.Event;
+import java.util.ResourceBundle;
 
 import com.xuggle.xuggler.ICodec;
 
 public class GameCapture implements IGameCapture {
-
-	private String fileHeaderName;
+	
+	public static final String DEFAULT_RESOURCE = "utility/gamecapture";
+	private ResourceBundle myResources;
+	
+	private String fileName;
 	private ICodec.ID videoFormat;
 	private int framesPerSecond;
 	
-	public GameCapture(String f){
-		fileHeaderName = f;
+	public GameCapture(){
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
+		fileName = myResources.getString("DefaultName");
 	}
 	
 	@Override
@@ -39,11 +44,6 @@ public class GameCapture implements IGameCapture {
 	}
 	
 	@Override
-	public void setFileHeaderName(String f) {
-		fileHeaderName = f;
-	}
-
-	@Override
 	public void setImageFileType(String imageFileType) throws Exception {
 		// TODO Auto-generated method stub
 
@@ -56,22 +56,25 @@ public class GameCapture implements IGameCapture {
 	}
 
 	@Override
-	public void setNumFramesPerSecond(int numFramesPerSecond) {
+	public void setFramesPerSecond(int numFramesPerSecond) {
 		framesPerSecond = numFramesPerSecond;
 
 	}
 
-
 	@Override
-	public void setSpecificFileName(Event userInputFinished, String specificFileName) {
-		// TODO Auto-generated method stub
-
+	public void setFileName(String f) {
+		fileName = f;
 	}
-
+	
+	@Override
+	public void setSaveLocation(){
+		
+	}
+	
 	@Override
 	public void setDestination(String destination) {
 		
-
 	}
+	
 
 }

@@ -7,9 +7,8 @@ import engine.frontend.board.BoardPane;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
-import javafx.event.Event;
+import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Main;
+import utility.GameCapture;
 
 
 public class EngineView{
@@ -41,9 +41,14 @@ public class EngineView{
 	public static final String DEFAULT_RESOURCE = "engine/resources/engine_window";
 	private ResourceBundle myResources;
 	private Stage myStage;
+	private Scene myScene;
 	
 	private EngineController myController;
+	private GameCapture myGameCapture;
+	
 	private MenubarManager myMenubarManager;
+	
+	private MenuBar myMenuBar;
 	private BoardPane myBoardPane;
 	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
@@ -51,6 +56,8 @@ public class EngineView{
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
 		myController = c;
+		myGameCapture = new GameCapture();
+		
 		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
 		myShopPane = new ShopPane(this);
@@ -63,21 +70,19 @@ public class EngineView{
 	 * @return
 	 */
 	public Scene buildScene(){
-		int width = loadUIIntResource("WindowWidth");
-		int height = loadUIIntResource("WindowHeight");
+		
 		BorderPane myBody = new BorderPane();
+		myScene = new Scene(myBody, Color.WHITE);
 		
-		MenuBar menubar = myMenubarManager.buildMenuBar();
-		myBody.setTop(menubar);
-		
+		myMenuBar = myMenubarManager.buildMenuBar();
+		myBody.setTop(myMenuBar);
 		myBody.setLeft(myBoardPane.buildNode());
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
-		Scene scene = new Scene(myBody, width, height, Color.WHITE);
 		
-		scene.setOnMouseReleased(e -> handleEndMouseRelease(e));
+		myScene.setOnMouseReleased(e -> handleEndMouseRelease(e));
 		
-		return scene;
+		return myScene;
 	}
 
 	private void handleEndMouseRelease(MouseEvent e) {
@@ -87,6 +92,14 @@ public class EngineView{
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		e.consume();
+	}
+	
+	public DoubleBinding getUsableWidth(double porportion){
+		return myScene.widthProperty().multiply(porportion);
+	}
+	
+	public DoubleBinding getUsableHeight(double porportion){
+		return myScene.heightProperty().subtract(myMenuBar.heightProperty()).multiply(porportion);
 	}
 
 	public Stage getStage(){
@@ -113,8 +126,16 @@ public class EngineView{
 		return myController;
 	}
 	
-	public int loadUIIntResource(String input){
+	public GameCapture getMyGameCapture(){
+		return myGameCapture;
+	}
+	
+	public int loadIntResource(String input){
 		return Integer.parseInt(myResources.getString(input));
+	}
+	
+	public double loadDoubleResource(String input){
+		return Double.parseDouble(myResources.getString(input));
 	}
 	
 	protected String loadUIStringResource(String input){

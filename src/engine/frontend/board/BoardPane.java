@@ -23,9 +23,10 @@ public class BoardPane {
 	
 	public Node buildNode(){
 		myPane = new Pane();
-		myPane.setStyle("-fx-background-color: #C0C0C0;"); //delete this later! Just so you can see it
-		myPane.setMinSize(myEngineView.loadUIIntResource("BoardWidth"), myEngineView.loadUIIntResource("BoardHeight"));
-		myPane.setMaxSize(myEngineView.loadUIIntResource("BoardWidth"), myEngineView.loadUIIntResource("BoardHeight"));
+		myPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("BoardWidth")));
+		myPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("BoardHeight")));
+		myPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("BoardWidth")));
+		myPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("BoardHeight")));
 		
 		myBackground = new ImageView(new Image("Park_Path.png"));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());

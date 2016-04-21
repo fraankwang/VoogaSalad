@@ -30,7 +30,7 @@ public class MenubarManager {
 		Menu filemenu = buildFileMenu();
 		Menu capturemenu = buildCaptureMenu();
 		final Menu menu3 = new Menu("Help");
-		menubar.getMenus().addAll(filemenu, filemenu, menu3);
+		menubar.getMenus().addAll(filemenu, capturemenu, menu3);
 
 		return menubar; 
 	}
@@ -57,6 +57,33 @@ public class MenubarManager {
 	
 	private Menu buildCaptureMenu(){
 		Menu menu = new Menu(myResources.getString("MenuPrompt"));
+		
+		MenuItem setImageFileType = new MenuItem(myResources.getString("ImageFileTypePrompt"));
+		setImageFileType.setOnAction(e -> {
+			
+		});
+		
+		MenuItem setVideoFileType = new MenuItem(myResources.getString("VideoFileTypePrompt"));
+		setVideoFileType.setOnAction(e -> {
+			
+		});
+		
+		MenuItem setNumFramesPerSecond = new MenuItem(myResources.getString("NumFramesPerSecondPrompt"));
+		setNumFramesPerSecond.setOnAction(e -> {
+			
+		});
+		
+		MenuItem setSaveLocation = new MenuItem(myResources.getString("FileSaveLocationPrompt"));
+		setSaveLocation.setOnAction(e -> {
+			
+		});
+		
+		MenuItem setFileName = new MenuItem(myResources.getString("FileNamePrompt"));
+		setFileName.setOnAction(e -> {
+			
+		});
+		
+		menu.getItems().addAll(setImageFileType, setVideoFileType, setNumFramesPerSecond, setSaveLocation, setFileName);
 		return menu;
 	}
 	
