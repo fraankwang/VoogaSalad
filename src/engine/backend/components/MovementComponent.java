@@ -31,15 +31,6 @@ public class MovementComponent extends Component {
 		myCurrentVelocityVector = new Vector(xspeed, yspeed);
 	}
 	
-	@Override
-	public void initWithParams(String[] params) {
-		//0 is velocity, 1 is theta, 2 is omega
-		myCurrentVelocityVector = new Vector(Double.parseDouble(params[0]), 0);
-		myDefaultVelocityVector = new Vector(Double.parseDouble(params[0]), 0);
-		myTheta = Double.parseDouble(params[1]);
-		myCurrentOmega = Double.parseDouble(params[2]);
-	}
-	
 	public Vector getCurrentVelocityVector(){
 		return myCurrentVelocityVector;
 	}

@@ -60,15 +60,6 @@ public class PathComponent extends Component {
 	public void didReachEndOfPath(){
 		reachedEndOfPath = true;
 	}
-
-	@Override
-	public void initWithParams(String[] params) {
-		pathID = Integer.parseInt(params[0]);
-		curveID = Integer.parseInt(params[1]);
-		movesWithTime = Boolean.parseBoolean(params[2]);
-		myBezierTime = Double.parseDouble(params[3]);
-		reachedEndOfPath = false;
-	}
 	
 	@Override
 	public String getComponentInfo() {

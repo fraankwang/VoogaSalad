@@ -34,11 +34,6 @@ public class DamageComponent extends Component implements IComponent{
 		double newVal = Double.parseDouble(myDamageToVelocity);
 		this.myDamageToVelocity = newVal;
 	}
-
-	@Override
-	public void initWithParams(String[] params) {
-		setDamageToHealth(Double.parseDouble(params[0]));
-	}
 	
 	@Override
 	public String getComponentInfo() {

@@ -34,11 +34,6 @@ public class MouseComponent extends Component {
     }
 
 	@Override
-	public void initWithParams(String[] params) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public String getComponentInfo() {
 		// TODO Auto-generated method stub
 		return null;

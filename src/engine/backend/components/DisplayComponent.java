@@ -48,11 +48,6 @@ public class DisplayComponent extends Component {
 	}
 
 	@Override
-	public void initWithParams(String[] params) {
-		this.canBeShown = true; //default
-	}
-
-	@Override
 	public String getComponentInfo() {
 		return "canBeShown: " + canBeShown + " " + "image: " + image;
 	}

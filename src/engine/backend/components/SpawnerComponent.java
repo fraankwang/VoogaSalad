@@ -18,12 +18,6 @@ public class SpawnerComponent extends Component {
 	public List<Spawn> getSpawns(){
 		return mySpawns;
 	}
-	
-	@Override
-	public void initWithParams(String[] params) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public String getComponentInfo() {

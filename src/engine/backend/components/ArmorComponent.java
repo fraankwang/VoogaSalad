@@ -14,12 +14,6 @@ public class ArmorComponent extends Component {
 	}
 
 	@Override
-	public void initWithParams(String[] params) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public String getComponentInfo() {
 		return "resistanceToDamage: " + resistanceToDamage;
 	}

@@ -54,12 +54,6 @@ public class HealthComponent extends Component {
 	}
 
 	@Override
-	public void initWithParams(String[] params) {
-		myHealth = Double.parseDouble(params[0]);
-		myDamage = Double.parseDouble(params[1]);
-	}
-
-	@Override
 	public String getComponentInfo() {
 		return "myHealth: " + myHealth + " " + "myCriticalHealth: " + myCriticalHealth;
 	}

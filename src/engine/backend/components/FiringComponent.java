@@ -70,15 +70,6 @@ public class FiringComponent extends Component {
 	public void setAmmunitionSpeed(double speed) {
 		this.myAmmunitionSpeed = speed;
 	}
-	
-	@Override
-	public void initWithParams(String[] params) {
-		myAmmunition = params[0];
-		myAmmunitionAmount = Integer.parseInt(params[1]);
-		myAmmunitionSpeed = Double.parseDouble(params[2]);
-		myEnemyInSightRange = Double.parseDouble(params[3]);
-//		myDirectionToFire = Double.parseDouble(params[4]);
-	}
 
 	public List<String> getTargets() {
 		return myTargets;

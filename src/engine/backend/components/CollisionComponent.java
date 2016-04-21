@@ -25,12 +25,6 @@ public class CollisionComponent extends Component {
     }
 
 	@Override
-	public void initWithParams(String[] params) {
-        //default
-        isCollided = false;
-	}
-
-	@Override
 	public String getComponentInfo() {
 		return "isCollided: " + isCollided;
 	}

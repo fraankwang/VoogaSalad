@@ -27,11 +27,6 @@ public class RotationComponent extends Component {
 	}
 
 	@Override
-	public void initWithParams(String[] params) {
-		myAngle = Double.parseDouble(params[0]);
-	}
-
-	@Override
 	public String getComponentInfo() {
 		// TODO Auto-generated method stub
 		return null;
