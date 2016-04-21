@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
-import engine.backend.rules.Action;
+import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
 
 public class Entity implements IEntity {
@@ -134,7 +134,7 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public void applyAction(Action action, ResourceBundle myComponentTagResources) {
+	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources) {
 		String component = action.getComponentToModifiy();
 		String instanceVar = action.getValueInComponent();
 		String newVal = action.getNewValue();

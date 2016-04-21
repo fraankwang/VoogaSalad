@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -24,7 +25,7 @@ public class CollisionSystem extends GameSystem{
     @Override
     public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources){
     	
-    	List<IEntity> entities = myLevel.getEntities();
+    	Collection<IEntity> entities = myLevel.getEntities().values();
     	
     	for(IEntity entity1 : entities){
     		
@@ -39,7 +40,7 @@ public class CollisionSystem extends GameSystem{
         		}
     			
     			if(checkIntersection(entity1, entity2, myComponentTagResources)){
-    				sendCollisionEvent(entity1, entity2);
+    				sendCollisionEvent(entity1.getID(), entity2.getID());
     			}
     			
     		}
@@ -48,8 +49,8 @@ public class CollisionSystem extends GameSystem{
     	
     }
     
-	private void sendCollisionEvent(IEntity entity1, IEntity entity2){
-		CollisionEvent collisionEvent = new CollisionEvent(entity1, entity2);
+	private void sendCollisionEvent(int entityID1, int entityID2){
+		CollisionEvent collisionEvent = new CollisionEvent(entityID1, entityID2);
 		notifyObservers(collisionEvent);
 	}
     

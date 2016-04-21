@@ -4,8 +4,8 @@ import engine.backend.entities.IEntity;
 
 public class EndOfPathEvent extends EntityEvent{
 	
-	public EndOfPathEvent(IEntity entity){
-		super.setEntity(entity);
+	public EndOfPathEvent(int entityID){
+		super.setEntityID(entityID);
 	}
 	
 }

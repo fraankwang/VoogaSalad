@@ -1,5 +1,8 @@
 package engine.backend.systems.Events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import engine.backend.game_object.Mode;
 
 public class ModeEvent implements IEvent {
@@ -10,9 +13,10 @@ public class ModeEvent implements IEvent {
 	}
 
 	@Override
-	public String[] getEventID() {
-		String[] eventID = { "Mode" + myCurrentMode.getName() + this.getClass().getSimpleName() };
-		return eventID;
+	public List<String> getEventID(List<String> identifiers) {
+		List<String> eventIDs = new ArrayList<String>();
+		eventIDs.add("Mode" + myCurrentMode.getName() + this.getClass().getSimpleName());
+		return eventIDs;
 	}
 
 }
