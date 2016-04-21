@@ -1,11 +1,8 @@
 package engine.frontend.status;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
