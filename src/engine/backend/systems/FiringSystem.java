@@ -50,7 +50,7 @@ public class FiringSystem extends GameSystem{
 								Vector firedVelVector = new Vector(xComp, yComp);
 								
 								IEntity newEntity = initilizeFire(firingComponent.getEntityName(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
-								sendAddEntityEvent(newEntity);
+								sendAddEntityEvent(newEntity.getID());
 								firingComponent.setFireNow(false);
 								firingComponent.resetTimer();
 							}
