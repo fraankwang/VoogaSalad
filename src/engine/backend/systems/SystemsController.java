@@ -85,7 +85,7 @@ public class SystemsController {
 			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myComponentTagResources);
 			long endTime   = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
-			System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
+//			System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
 		}
 		myGameClock.updateLoopIteration();
 	}
