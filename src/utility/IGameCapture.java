@@ -2,6 +2,8 @@ package utility;
 
 import java.awt.*;
 
+import javafx.event.ActionEvent;
+
 /**
  * Created by colinduffy on 4/19/16.
  */
@@ -47,7 +49,7 @@ public interface IGameCapture {
      * data structure.
      * @param startCaptureEvent
      */
-    void startCapture(Event startCaptureEvent);
+    void startCapture();
 
     /**
      * Pauses image capture, but does not create exportable file.
@@ -60,7 +62,7 @@ public interface IGameCapture {
      * appended into a video file
      * @param endCaptureEvent
      */
-    void endCapture(Event endCaptureEvent);
+    void endCapture();
 
 
     /**
@@ -81,6 +83,5 @@ public interface IGameCapture {
      * Sets the save location for the file
      */
     void setSaveLocation();
-    
     
 }

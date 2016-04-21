@@ -32,22 +32,26 @@ public class StatusPane {
 	private VBox buildRecordControl(){
 		VBox myVBox = new VBox();
 		
-		Button button = new Button("Record");
-		Button button1 = new Button("End");
+		Button record = new Button("Record");
+		Button stop = new Button("Stop");
 		
-		button.setMaxHeight(Double.MAX_VALUE);
-		button.setMaxWidth(Double.MAX_VALUE);
-		VBox.setVgrow(button, Priority.ALWAYS);
+		record.setMaxHeight(Double.MAX_VALUE);
+		record.setMaxWidth(Double.MAX_VALUE);
+		VBox.setVgrow(record, Priority.ALWAYS);
 		
-		button1.setMaxHeight(Double.MAX_VALUE);
-		button1.setMaxWidth(Double.MAX_VALUE);
-		VBox.setVgrow(button1, Priority.ALWAYS);
+		record.setOnAction(e -> myEngineView.getMyGameCapture().startCapture());
+		
+		stop.setMaxHeight(Double.MAX_VALUE);
+		stop.setMaxWidth(Double.MAX_VALUE);
+		VBox.setVgrow(stop, Priority.ALWAYS);
+		
+		stop.setOnAction(e -> myEngineView.getMyGameCapture().endCapture());
 		
 		myVBox.minWidthProperty().bind(myPane.widthProperty().divide(4));
 		myVBox.minHeightProperty().bind(myPane.heightProperty());
 		myVBox.maxHeightProperty().bind(myPane.heightProperty());
 		
-		myVBox.getChildren().addAll(button, button1);
+		myVBox.getChildren().addAll(record, stop);
 		return myVBox;
 	}
 	

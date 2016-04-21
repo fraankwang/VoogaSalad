@@ -1,5 +1,6 @@
 package engine.frontend.overall;
 
+import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
 
 import engine.controller.EngineController;
@@ -8,9 +9,12 @@ import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
 import javafx.beans.binding.DoubleBinding;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -48,6 +52,7 @@ public class EngineView{
 	
 	private MenubarManager myMenubarManager;
 	
+	private BorderPane myBody;
 	private MenuBar myMenuBar;
 	private BoardPane myBoardPane;
 	private ShopPane myShopPane;
@@ -56,7 +61,7 @@ public class EngineView{
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
 		myController = c;
-		myGameCapture = new GameCapture();
+		myGameCapture = new GameCapture(this);
 		
 		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
@@ -71,7 +76,7 @@ public class EngineView{
 	 */
 	public Scene buildScene(){
 		
-		BorderPane myBody = new BorderPane();
+		myBody = new BorderPane();
 		myScene = new Scene(myBody, Color.WHITE);
 		
 		myMenuBar = myMenubarManager.buildMenuBar();
@@ -93,6 +98,15 @@ public class EngineView{
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		e.consume();
 	}
+	
+	public BufferedImage getStageShot(){
+		WritableImage image = myBody.snapshot(new SnapshotParameters(), null);
+		return SwingFXUtils.fromFXImage(image, null);
+	}
+	
+//	public BufferedImage getScreenShot(){
+//		
+//	}
 	
 	public DoubleBinding getUsableWidth(double porportion){
 		return myScene.widthProperty().multiply(porportion);
@@ -141,5 +155,4 @@ public class EngineView{
 	protected String loadUIStringResource(String input){
 		return myResources.getString(input);
 	}
-	
 }
