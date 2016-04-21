@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -19,7 +20,7 @@ public class MouseSystem implements ISystem {
     }
     @Override
     public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-    		List<IEntity> entities = myLevel.getEntities();
+    		Collection<IEntity> entities = myLevel.getEntities().values();
             for(IEntity iEntity : entities){
                 if(iEntity.hasComponent(myComponentTagResources.getString("Mouse"))){
                     if(false) {

@@ -7,46 +7,46 @@
 package engine.backend.game_object;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.map.GameMap;
-import engine.backend.rules.Action;
-
+import engine.backend.rules.EntityAction;
 
 public class Level {
 
-	private List<IEntity> entities;
+	private Map<Integer, IEntity> entities;
 	private int myID;
 	private String myParentModeName;
 	private GameMap map;
 	private double timer;
-	
+
 	public Level(int myID, GameMap map) {
 		this.myID = myID;
 		this.map = map;
 	}
 
 	public Level(int myID) {
-		this.entities = new ArrayList<IEntity>();
+		this.entities = new HashMap<Integer, IEntity>();
 		this.myID = myID;
 	}
-	
-	public int getId(){
+
+	public int getId() {
 		return myID;
 	}
 
-	public List<IEntity> getEntities() {
+	public Map<Integer, IEntity> getEntities() {
 		return entities;
 	}
-	
-	public GameMap getMap(){
+
+	public GameMap getMap() {
 		return map;
 	}
-	
-	public void setMap(GameMap map){
+
+	public void setMap(GameMap map) {
 		this.map = map;
 	}
 
@@ -57,17 +57,17 @@ public class Level {
 
 	public void addToEntities(IEntity entity) {
 		entity.setLevelID(myID);
-		entities.add(entity);
+		entities.put(entity.getID(), entity);
 	}
-	
+
 	public void setModeName(String modeID) {
 		this.myParentModeName = modeID;
 	}
-	
+
 	public String getModeID() {
 		return myParentModeName;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Level) {
@@ -82,9 +82,9 @@ public class Level {
 		}
 	}
 
-	public Map<String, List<Action>> getCustomEvents() {
+	public Map<String, List<EntityAction>> getCustomEvents() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

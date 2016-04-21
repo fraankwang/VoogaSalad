@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -24,7 +25,7 @@ public class FiringSystem extends GameSystem{
 	@Override 
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
-		List<IEntity> entities = myLevel.getEntities();
+		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity shootingEntity : entities){
 			
 			if(shootingEntity.hasComponent(myComponentTagResources.getString("Firing"))){
@@ -50,7 +51,7 @@ public class FiringSystem extends GameSystem{
 							firingComponent.setDirectionToFire(firedVelVector);
 							
 							IEntity newEntity = initilizeFire(shootingEntity, myEntityFactory, myComponentTagResources);
-							sendAddEntityEvent(newEntity);
+							sendAddEntityEvent(newEntity.getID());
 							firingComponent.resetCurrentTimeStep();
 							//create firing event
 						}
@@ -70,8 +71,8 @@ public class FiringSystem extends GameSystem{
 		
 	}
 	
-	private void sendAddEntityEvent(IEntity entity){
-		AddEntityEvent event = new AddEntityEvent(entity);
+	private void sendAddEntityEvent(int entityID){
+		AddEntityEvent event = new AddEntityEvent(entityID);
 		notifyObservers(event);
 	}
 	

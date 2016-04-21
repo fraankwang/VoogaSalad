@@ -1,19 +1,16 @@
 package engine.backend.systems.Events;
 
-import engine.backend.game_object.Level;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class LevelEvent implements IEvent {
 	private static final String LEVEL = "Level";
-	private Level myCurrentLevel;
 
 	@Override
-	public String[] getEventID() {
-		String[] eventID = { LEVEL + myCurrentLevel.getId() + this.getClass().getSimpleName() };
-		return eventID;
-	}
-
-	public void setmyCurrentLevel(Level myCurrentLevel) {
-		this.myCurrentLevel = myCurrentLevel;
+	public List<String> getEventID(List<String> identifiers) {
+		List<String> eventIDs = new ArrayList<String>();
+		eventIDs.add(LEVEL + identifiers.get(0) + this.getClass().getSimpleName());
+		return eventIDs;
 	}
 
 }

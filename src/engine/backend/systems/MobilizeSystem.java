@@ -1,5 +1,7 @@
 package engine.backend.systems;
 
+import java.util.Collection;
+
 /**
  * author raghavkedia
  */
@@ -24,7 +26,7 @@ public class MobilizeSystem extends GameSystem{
 	
 	@Override
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-		List<IEntity> entities = myLevel.getEntities();
+		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
 			
 			if(!entity.hasComponent(myComponentTagResources.getString("Movement"))){

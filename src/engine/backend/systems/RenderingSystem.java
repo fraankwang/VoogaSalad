@@ -7,6 +7,7 @@
 
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -39,7 +40,7 @@ public class RenderingSystem extends GameSystem{
 	@Override
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
-		List<IEntity> entities = myLevel.getEntities();
+		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity myEntity : entities){
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
