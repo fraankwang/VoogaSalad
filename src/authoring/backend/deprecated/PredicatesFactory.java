@@ -1,4 +1,4 @@
-package authoring.backend.factories;
+package authoring.backend.deprecated;
 
 import engine.backend.rules.Predicate;
 
