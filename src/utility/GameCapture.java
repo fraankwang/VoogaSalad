@@ -10,10 +10,6 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
 
 import engine.frontend.overall.EngineView;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 
 public class GameCapture implements IGameCapture {
 
@@ -29,8 +25,10 @@ public class GameCapture implements IGameCapture {
 	private IMediaWriter fileWriter;
 
 	private boolean capture;
-	private Timeline myTimeline;
-
+	private long startTime;
+	private long timeSinceLastFrame;
+	private long lastAttemptTime;
+	
 	public GameCapture(EngineView ev) {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myEngineView = ev;
@@ -46,22 +44,24 @@ public class GameCapture implements IGameCapture {
 		fileWriter = ToolFactory.makeWriter(fileName + System.currentTimeMillis() + ".mp4");
 		fileWriter.addVideoStream(0, 0, videoFormat, 
 				(int) myEngineView.getStage().getWidth(), (int) myEngineView.getStage().getHeight());
-		record();
-
+		capture = true;
+		startTime = System.currentTimeMillis();
+		lastAttemptTime = System.currentTimeMillis();
+		timeSinceLastFrame = 0;
 	}
 
-	private void record() {
-		long startTime = System.nanoTime();
-		
-		myTimeline = new Timeline(new KeyFrame(
-		        Duration.millis(1000/fps),
-		        ae -> takeAFrame(startTime)));
-		myTimeline.setCycleCount(Animation.INDEFINITE);
-		myTimeline.play();
+	
+	public void record() {
+		long thisAttemptTime = System.currentTimeMillis();
+		timeSinceLastFrame += thisAttemptTime - lastAttemptTime;
+		if(capture && timeSinceLastFrame > 1000/fps){
+			takeAFrame();
+			timeSinceLastFrame = 0;
+		}
+		lastAttemptTime = thisAttemptTime;
 	}
 	
-	private void takeAFrame(long startTime){
-		System.out.println("Taking a frame");
+	private void takeAFrame(){
 		// take the screen shot
 		BufferedImage screen = myEngineView.getStageShot();
 
@@ -69,8 +69,7 @@ public class GameCapture implements IGameCapture {
 		BufferedImage bgrScreen = convertToType(screen, BufferedImage.TYPE_3BYTE_BGR);
 
 		// encode the image to stream #0
-		fileWriter.encodeVideo(0, bgrScreen, System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
-		capture = true;
+		fileWriter.encodeVideo(0, bgrScreen, System.currentTimeMillis() - startTime, TimeUnit.MILLISECONDS);
 	}
 
 	@Override
@@ -80,7 +79,7 @@ public class GameCapture implements IGameCapture {
 
 	@Override
 	public void endCapture() {
-		myTimeline.stop();
+		capture = false;
 		fileWriter.close();
 	}
 

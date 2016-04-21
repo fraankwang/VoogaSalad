@@ -74,9 +74,9 @@ public class EngineController implements IEngineController{
 	
 	public void step() {
 		if(playing){
-			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());
+			myEngineView.getMyGameCapture().record();
 		}
-
 	}
 	
 	//backend endpoint 
