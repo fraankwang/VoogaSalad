@@ -13,9 +13,7 @@ import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.rules.EntityAction;
-import engine.backend.systems.Events.EntityEvent;
-import engine.backend.systems.Events.IEvent;
-import engine.backend.systems.Events.UpdateEntityEvent;
+import engine.backend.systems.Events.*;
 import engine.controller.IEngineController;
 
 public class EventManager implements Observer {
@@ -69,6 +67,10 @@ public class EventManager implements Observer {
 			return;
 		}
 		
+		if(myEvent instanceof AddEntityEvent){
+			handleAddEntityEvent(myEvent);
+		}
+		
 		if (myEvent instanceof EntityEvent) {
 			EntityEvent myEntityEvent = (EntityEvent) myEvent;
 			List<String> identifiers = myEntityEvent.getEntities().stream()
@@ -101,8 +103,9 @@ public class EventManager implements Observer {
 		return null;
 	}
 
-	public void handleAddEntity(IEvent myEvent) {
-		myEvent.getEntities().forEach(e -> myCurrentLevel.addToEntities(e));
+	public void handleAddEntityEvent(IEvent myEvent) {
+		AddEntityEvent event = (AddEntityEvent) myEvent;
+		myCurrentLevel.addToEntities(event.getNewEntity());
 		//we have a problem :/
 //		EntityEvent myEntityEvent = (EntityEvent) myEvent;
 //		myEntityEvent.getEntities().stream()

@@ -75,8 +75,8 @@ public class FiringSystem extends GameSystem{
 		
 	}
 	
-	private void sendAddEntityEvent(int entityID){
-		AddEntityEvent event = new AddEntityEvent(entityID);
+	private void sendAddEntityEvent(IEntity newEntity){
+		AddEntityEvent event = new AddEntityEvent(newEntity);
 		notifyObservers(event);
 	}
 	

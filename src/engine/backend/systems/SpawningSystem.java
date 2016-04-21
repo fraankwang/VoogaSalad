@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,7 +19,7 @@ public class SpawningSystem extends GameSystem{
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		
-		List<IEntity> entities = myLevel.getEntities();
+		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
 			
 			if(entity.hasComponent(myComponentTagResources.getString("Spawner"))){
