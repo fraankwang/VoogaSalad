@@ -44,5 +44,11 @@ public class DamageComponent extends Component implements IComponent{
 	public String getComponentInfo() {
 		return myDamageToHealth + "";
 	}
+
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

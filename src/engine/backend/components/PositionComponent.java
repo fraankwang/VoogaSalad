@@ -51,4 +51,21 @@ public class PositionComponent extends Component {
 		return "X-coordinate: " + myPositionVector.getX() + " " + "Y-coordinate: " + myPositionVector.getY();
 	}
 
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+		
+		case "X-Coordinate":
+			double x = Double.parseDouble(data);
+			double y = myPositionVector.getY();
+			this.myPositionVector = new Vector(x, y);
+			return;
+		case "Y-Coordinate":
+			double y2 = Double.parseDouble(data);
+			double x2 = myPositionVector.getX();
+			this.myPositionVector = new Vector(x2, y2);
+			return;
+		}
+	}
+
 }

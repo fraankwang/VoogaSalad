@@ -35,4 +35,15 @@ public class CollisionComponent extends Component {
 		return "isCollided: " + isCollided;
 	}
 
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("IsCollided")) {
+			if (data.equals("True")) {
+				isCollided = true;
+			} else {
+				isCollided = false;
+			}
+		}
+	}
+
 }

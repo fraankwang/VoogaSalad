@@ -56,4 +56,16 @@ public class SizeComponent extends Component {
 		return "width: " + width + " " + "height: " + height;
 	}
 
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("Width")) {
+			this.width = Double.parseDouble(data);
+			return;
+		}
+		if (dataName.equals("Height")) {
+			this.height = Double.parseDouble(data);
+			return;
+		}
+	}
+
 }

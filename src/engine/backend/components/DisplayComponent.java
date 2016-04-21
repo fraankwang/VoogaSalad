@@ -57,4 +57,12 @@ public class DisplayComponent extends Component {
 		return "canBeShown: " + canBeShown + " " + "image: " + image;
 	}
 
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("Image")) {
+			this.image = data;
+			this.canBeShown = true;
+		}
+	}
+
 }

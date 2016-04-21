@@ -74,5 +74,12 @@ public class PathComponent extends Component {
 	public String getComponentInfo() {
 		return "pathID: " + pathID;
 	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("PathID")) {
+			this.pathID = Integer.parseInt(data);
+		}
+	}
 	
 }

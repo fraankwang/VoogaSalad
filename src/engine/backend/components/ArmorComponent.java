@@ -23,4 +23,11 @@ public class ArmorComponent extends Component {
 	public String getComponentInfo() {
 		return "resistanceToDamage: " + resistanceToDamage;
 	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("ResistanceToDamage")) {
+			this.resistanceToDamage = Double.parseDouble(data);
+		}
+	}
 }

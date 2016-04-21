@@ -18,4 +18,10 @@ public class PurchaseComponent extends Component implements IComponent{
 		return myValue + "";
 	}
 
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

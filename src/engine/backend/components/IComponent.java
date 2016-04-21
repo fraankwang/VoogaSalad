@@ -12,4 +12,6 @@ public interface IComponent {
 	
 	public String getComponentInfo();
 	
+	public void update(String dataName, String data);
+	
 }

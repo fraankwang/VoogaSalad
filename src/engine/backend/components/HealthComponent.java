@@ -64,4 +64,18 @@ public class HealthComponent extends Component {
 		return "myHealth: " + myHealth + " " + "myCriticalHealth: " + myCriticalHealth;
 	}
 
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+		
+		case "MyHealth":
+			this.myHealth = Double.parseDouble(data);
+			return;
+		case "MyCriticalHealth":
+			this.myCriticalHealth = Double.parseDouble(data);
+			return;
+			
+		}
+	}
+
 }

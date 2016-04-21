@@ -2,10 +2,11 @@
 package authoring.backend.factories;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import engine.backend.components.Component;
+import engine.backend.components.IComponent;
 import engine.backend.entities.Entity;
 
 public class EntityFactory {
@@ -17,21 +18,32 @@ public class EntityFactory {
 
 	public Entity createEntity(Map<String, String> info){
 		Entity newEntity = new Entity(info.get("Name"), info.get("Genre"));
-		List<Component> entityComponents = createComponents(info);
-		for(Component comp : entityComponents){
+		List<IComponent> entityComponents = createComponents(info);
+		for(IComponent comp : entityComponents){
 			newEntity.addComponent(comp);
 		}
 		return newEntity;
 	}
 	
-	private List<Component> createComponents(Map<String, String> info){
-		List<Component> components = new ArrayList<Component>();
-		for (String key : info.keySet()){
-			if(key.contains("Component")){
-				components.add(myComponentFactory.createComponent(key, info.get(key)));
+	private List<IComponent> createComponents(Map<String, String> info){
+		Map<String, IComponent> componentMap = new HashMap<String, IComponent>();
+		for (String key : info.keySet()) {
+			if (key.contains("Component")) {
+				String[] componentInfo = key.split("_");
+				String componentType = componentInfo[0];
+				String componentData = componentInfo[1];
+				String data = info.get(key);
+				if (componentMap.containsKey(componentType)) {
+					IComponent comp = componentMap.get(componentType);
+					IComponent newComp = myComponentFactory.update(comp, componentData, data);
+					componentMap.put(componentType, newComp);
+				}
+				
+				myComponentFactory.create(componentType, componentData, data);
 			}
 		}
-		return components;
+		
+		return null;
 	}
 	
 	

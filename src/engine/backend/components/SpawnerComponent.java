@@ -31,4 +31,10 @@ public class SpawnerComponent extends Component {
 		return null;
 	}
 
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

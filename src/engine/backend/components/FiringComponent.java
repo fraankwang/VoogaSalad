@@ -136,5 +136,25 @@ public class FiringComponent extends Component {
 		
 		return sb.toString();
 	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+		
+		case "MyAmmunition":
+			this.myAmmunition = data;
+			return;
+		case "MyAmmunitionSpeed":
+			this.myAmmunitionSpeed = Double.parseDouble(data);
+			return;
+		case "MyEnemyInSightRange":
+			this.myEnemyInSightRange = Double.parseDouble(data);
+			return;
+		case "MyFiringRate":
+			this.myFiringRate = Double.parseDouble(data);
+			return;
+			
+		}
+	}
 	
 }

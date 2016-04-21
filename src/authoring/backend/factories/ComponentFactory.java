@@ -1,6 +1,6 @@
 package authoring.backend.factories;
 
-import engine.backend.components.Component;
+import engine.backend.components.IComponent;
 
 public class ComponentFactory {
 
@@ -8,10 +8,10 @@ public class ComponentFactory {
 		
 	}
 	
-	public Component createComponent(String componentType, String data){
-		Component component = null;
+	public IComponent create(String componentType, String dataName, String data){
+		IComponent component = null;
 		try {
-			component = (Component) Class.forName("engine.backend.components."+componentType).newInstance();
+			component = (IComponent) Class.forName("engine.backend.components."+componentType).newInstance();
 			
 		} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -20,6 +20,9 @@ public class ComponentFactory {
 		return component;
 	}
 	
-	
+	public IComponent update(IComponent component, String dataName, String data) {
+		component.update(dataName, data);
+		return component;
+	}
 
 }
