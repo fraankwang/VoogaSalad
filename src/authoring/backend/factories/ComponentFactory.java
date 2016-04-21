@@ -16,7 +16,7 @@ public class ComponentFactory {
 		} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		component.initWithParams(data.split("//s+"));
+		component.update(dataName, data);
 		return component;
 	}
 	

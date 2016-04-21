@@ -1,7 +1,7 @@
 //Kushal Byatnal
 package authoring.backend.factories;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,14 +38,13 @@ public class EntityFactory {
 					IComponent newComp = myComponentFactory.update(comp, componentData, data);
 					componentMap.put(componentType, newComp);
 				}
-				
-				myComponentFactory.create(componentType, componentData, data);
+				IComponent component = myComponentFactory.create(componentType, componentData, data);
+				componentMap.put(componentType, component);
 			}
 		}
-		
-		return null;
+		Collection<IComponent> temp = componentMap.values();
+		List<IComponent> components = (List<IComponent>) temp;
+		return components;
 	}
 	
-	
-
 }
