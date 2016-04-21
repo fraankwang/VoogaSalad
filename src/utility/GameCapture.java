@@ -32,6 +32,7 @@ public class GameCapture implements IGameCapture {
         fileWriter.addVideoStream(0, 0, IMAGE,
                 IRational.make(1/FRAME_RATE), getScreenBounds().width/2, getScreenBounds().height/2);
         record();
+        fileWriter.
 
     }
 		
