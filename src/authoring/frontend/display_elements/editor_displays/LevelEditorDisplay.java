@@ -17,7 +17,7 @@ public class LevelEditorDisplay extends EditorDisplay {
 
 	@Override
 	public void initialize() {
-		myGrid = new LevelEditorGrid(myController);
+		myGrid = new LevelEditorGrid(myController, myEditorStage);
 		myGrid.initialize();
 	}
 

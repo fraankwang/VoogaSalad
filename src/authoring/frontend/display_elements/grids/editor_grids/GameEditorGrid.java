@@ -3,6 +3,7 @@ package authoring.frontend.display_elements.grids.editor_grids;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.GameEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -12,8 +13,8 @@ import authoring.frontend.display_elements.grids.EditorGrid;
 
 public class GameEditorGrid extends EditorGrid {
 
-	public GameEditorGrid(IAuthoringView controller) {
-		super(controller);
+	public GameEditorGrid(IAuthoringView controller, Stage stage) {
+		super(controller, stage);
 	}
 
 	@Override

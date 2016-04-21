@@ -70,7 +70,7 @@ public class TabBarElement implements ITabBarElement {
 	private Tab createTab(String name, Node content) {
 		Tab t = new Tab(name, content);
 		t.setClosable(false);
-		t.setStyle("-fx-font-size: 24px;" + "-fx-font: Courier New;" + "-fx-font-weight: bold;");
+		t.setStyle("-fx-font-size: 24px;" + "-fx-font-weight: bold;");
 
 		// set listeners to change tab stuff?
 		return t;
@@ -78,7 +78,6 @@ public class TabBarElement implements ITabBarElement {
 
 	private void removeTab(ITabDisplay tabDisplay) {
 		myTabPane.getTabs().remove(tabDisplay.getTabIndex());
-
 	}
 
 	private void addTab(ITabDisplay tabDisplay) {

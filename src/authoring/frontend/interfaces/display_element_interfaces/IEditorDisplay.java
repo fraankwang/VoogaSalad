@@ -1,8 +1,6 @@
 package authoring.frontend.interfaces.display_element_interfaces;
 
-import java.util.List;
 import java.util.Map;
-import javafx.scene.image.ImageView;
 
 /**
  * This interface handles the editing of various entities and their components.

@@ -1,12 +1,14 @@
 package authoring.frontend.display_elements.grids;
 
 import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
+import javafx.stage.Stage;
 
 /**
  * The EditorGrid superclass is a subset of Grid, which is in all the
@@ -22,9 +24,11 @@ public abstract class EditorGrid extends Grid {
 
 	protected Panel myRulesPanel;
 	protected ModifiableAttributesPanel myModifiableAttributesPanel;
-
-	public EditorGrid(IAuthoringView controller) {
+	protected Stage myEditorStage;
+	
+	public EditorGrid(IAuthoringView controller, Stage editorStage) {
 		super(controller);
+		myEditorStage = editorStage;
 	}
 
 	@Override
@@ -55,13 +59,14 @@ public abstract class EditorGrid extends Grid {
 		System.out.println("EditorGrid: myAttributesMap written to backend: ");
 		System.out.println(map);
 		myController.writeData(map);
-		myController.showPrimaryScene();
+		myEditorStage.close();
+
 	}
 
 	protected void resetAttributes() {
 		boolean close = ((ModifiableAttributesPanel) myModifiableAttributesPanel).createResetAlert();
 		if (close) {
-			myController.showPrimaryScene();
+			myEditorStage.close();
 		}
 	}
 

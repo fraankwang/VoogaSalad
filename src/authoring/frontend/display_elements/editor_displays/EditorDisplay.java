@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * The EditorDisplay superclass is the Editor in charge of each game aspect's
@@ -23,9 +24,11 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	private static final int EDITOR_SCENE_HEIGHT = 800;
 	protected EditorGrid myGrid;
 	protected IAuthoringView myController;
+	protected Stage myEditorStage;
 
 	public EditorDisplay(IAuthoringView controller) {
 		myController = controller;
+		myEditorStage = new Stage();
 	}
 
 	@Override
@@ -37,12 +40,15 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	@Override
 	public void edit(Map<String, String> info) {
 		myGrid.populateComponents(info);
+		openEditorStage();
+		
+	}
 
+	private void openEditorStage() {
 		BorderPane root = new BorderPane();
 		root.setCenter(getNode());
 		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
-		myController.setScene(editorScene);
-
+		myEditorStage.setScene(editorScene);
+		myEditorStage.show();
 	}
-
 }
