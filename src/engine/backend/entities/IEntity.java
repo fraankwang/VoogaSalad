@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
-import engine.backend.rules.Action;
+import engine.backend.rules.EntityAction;
 
 /**
  * 
@@ -37,6 +37,13 @@ public interface IEntity {
 	public String getType();
 	
 	public int getID();
+<<<<<<< HEAD
 		
 	public void applyAction(Action action, ResourceBundle myComponentTagResources);
+=======
+	
+	public void setLevelID(int levelID);
+	
+	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources);
+>>>>>>> origin/engine_backend_systems_rk145
 }

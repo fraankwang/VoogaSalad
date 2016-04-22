@@ -1,6 +1,5 @@
 package engine.controller;
 
-import engine.backend.FakeGAEBackend;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
@@ -15,6 +14,7 @@ import engine.backend.game_object.Mode;
 import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
+import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.frontend.EngineView;
 import javafx.animation.Animation;
@@ -24,57 +24,67 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 
-public class EngineController {
+public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
-	
+
 	private static final int NUM_FRAMES_PER_SECOND = 60;
+	private boolean playing;
 	
-	private FakeGAEBackend bae;
+	private EventManager myEventManager;
 	private GameWorld myGameWorld;
-	private SystemsController systems;
-	
+	private SystemsController mySystems;
+
 	private EngineView myEngineView;
-	
-	public EngineController(Stage s, Main m){
+
+	public EngineController(Stage s, Main m) {
 		myStage = s;
 		myMain = m;
-		
 		myEngineView = new EngineView(myStage, this); 
-        myStage.setScene(myEngineView.getScene());
+        myStage.setScene(myEngineView.buildScene());
         myStage.show();
-        System.out.println("START");
 	}
 	
 	public void start(){
+		myGameWorld = new GameWorld();
+		initTestGame();
+		
+		myEventManager = new EventManager(this, myGameWorld);
+		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
+		playing = true;
+		
+		myEngineView = new EngineView(myStage, this);
+		myStage.setScene(myEngineView.buildScene());
+		myStage.show();
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-	
+
 	public void step() {
-		PositionComponent pos = (PositionComponent) myGameWorld.getModes().get(0).getLevels().get(0).getEntities().get(0).getComponent("PositionComponent");
-		//System.out.println(pos.getX());
-		systems.iterateThroughSystems(myGameWorld);
-		
+		if(playing){
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
+		}
+
 	}
 	
 	//backend endpoint 
-	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
-		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height);
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
+		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
 	
-//	public void newShop(Shop shop){
+//	public void updateShop(Shop shop){
 //		myEngineView.getShopPane().updateShop(shop);
 //	}
-//	public void newStatistics(Statistics statistics){
+//	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-//	public void shopClicked(String name){
-//		//call backend to say shop object clicked
-//	}
+	public void shopClicked(String name){
+		//call backend to say shop object clicked
+	}
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
 //	}
@@ -87,15 +97,10 @@ public class EngineController {
 		// TODO Auto-generated method stub
 	}
 	
-	public void deleteEntity(int id){
-		myEngineView.getBoardPane().deleteEntity(id);
-	}
-	
 	public Main getMain(){
 		return myMain;
 	}
 
-	
 	public String getBackgroundFile(){
 		return "test";
 //		return myGameWorld.someGetFileName();
@@ -105,8 +110,7 @@ public class EngineController {
 		return myGameWorld;
 	}
 	
-	/*
-	 * String tempImage;
+	private void initTestGame(){
 		myGameWorld = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
 		Level tempLevel = new Level(0);
@@ -124,14 +128,14 @@ public class EngineController {
 		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
 		IComponent tempPosition = new PositionComponent(0, 0);
 		IComponent tempMovement = new MovementComponent(2, 0);
-		IComponent pathComp = new PathComponent(0, 0);
+		//IComponent pathComp = new PathComponent(0, 0);
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
 		tempEntity.addComponent(tempDisplay);
 		tempEntity.addComponent(tempSize);
 		tempEntity.addComponent(tempPosition);
 		tempEntity.addComponent(tempMovement);
-		tempEntity.addComponent(pathComp);
+		//tempEntity.addComponent(pathComp);
 		
 		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2", 20);
 		IComponent tempPosition2 = new PositionComponent(0, 0);
@@ -155,13 +159,9 @@ public class EngineController {
 		
 		tempLevel.addToEntities(tempEntity);
 		tempLevel.addToEntities(tempEntity2);
-		//tempLevel.addToEntities(tempEntity3);
+		tempLevel.addToEntities(tempEntity3);
 		tempLevel.setMap(tempMap);
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);
-		
-		systems = new SystemsController(this);
-	 * 
-	 */
-
+	}
 }

@@ -26,6 +26,7 @@ public class GameFactory {
 		setUpEntityMap();
 		return myGame;
 	}
+<<<<<<< HEAD
 	
 	private void setUpModes(){
 		for (Mode mode : myGlobalData.getModes().getList()){
@@ -34,10 +35,19 @@ public class GameFactory {
 					if (level.getName().equals(levelName)) {
 						mode.addLevel(level);
 					}
+=======
+
+	private void setUpLevels() {
+		for (Mode mode : myGlobalData.getModes()) {
+			for (Level level : myGlobalData.getLevels()) {
+				if (level.getModeID().equals(mode.getName())) {
+					mode.addLevel(level);
+>>>>>>> origin/engine_backend_systems_rk145
 				}
 			}
 		}
 	}
+<<<<<<< HEAD
 	
 	private void setUpLevels(){
 		for (Level level : myGlobalData.getLevels().getList()){
@@ -46,6 +56,14 @@ public class GameFactory {
 					if (entity.getName().equals(entityName)) {
 						level.addEntity(entity);
 					}
+=======
+
+	private void setUpEntities() {
+		for (Level level : myGlobalData.getLevels()) {
+			for (Entity entity : myGlobalData.getEntities()) {
+				if (entity.getLevelID() == level.getId()) {
+					level.addToEntities(entity);
+>>>>>>> origin/engine_backend_systems_rk145
 				}
 			}
 		}

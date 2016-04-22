@@ -34,6 +34,7 @@ public class MouseComponent extends Component {
     }
 
 	@Override
+<<<<<<< HEAD
 	public String getComponentInfo() {
 		// TODO Auto-generated method stub
 		return null;
@@ -42,5 +43,9 @@ public class MouseComponent extends Component {
 	@Override
 	public void update(String dataName, String data) {
 		
+=======
+	public void initWithParams(String[] params) {
+		// TODO Auto-generated method stub
+>>>>>>> origin/engine_backend_systems_rk145
 	}
 }

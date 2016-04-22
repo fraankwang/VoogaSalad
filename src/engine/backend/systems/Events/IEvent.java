@@ -1,12 +1,9 @@
 package engine.backend.systems.Events;
 
-import java.util.Collection;
-
-import engine.backend.entities.IEntity;
+import java.util.List;
 
 public interface IEvent {
 	
-	public String[] getEventID();
-	public Collection<IEntity> getEntities();
+	public List<String> getEventID(List<String> identifiers);
 	
 }

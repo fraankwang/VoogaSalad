@@ -65,11 +65,14 @@ public class CollisionComponent extends Component {
         isCollided = collided;
     }
 
+<<<<<<< HEAD
     @Override
     public String getTag(){
         return TAG;
     }
 
+=======
+>>>>>>> origin/engine_backend_systems_rk145
 	@Override
 	public String getComponentInfo() {
 		return "IsCollided:" + isCollided;

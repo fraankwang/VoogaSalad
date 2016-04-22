@@ -1,11 +1,17 @@
 package engine.backend.rules;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.util.ArrayList;
 import java.util.List;
 
 >>>>>>> origin/authoring_backend
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+>>>>>>> origin/engine_backend_systems_rk145
 import engine.backend.components.IComponent;
 import engine.backend.components.SizeComponent;
 
@@ -36,7 +42,13 @@ public class Rule {
 
 	public Action getMyAction(){
 		if(action == null) System.out.println("throw exception--> action is null");
+<<<<<<< HEAD
 		return action;
+=======
+		System.out.println("rule.java nothing there");
+		return "nothing added";
+//		return action.getMethodToCall();
+>>>>>>> origin/engine_backend_systems_rk145
 	}
 	
 	public List<Predicate> getMyConditionals(){

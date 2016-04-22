@@ -6,6 +6,7 @@ import java.util.List;
 public class SpawnerComponent extends Component {
 
 	private List<Spawn> mySpawns;
+	private int pathID;
 	
 	public SpawnerComponent(){
 		mySpawns = new ArrayList<Spawn>();
@@ -29,6 +30,10 @@ public class SpawnerComponent extends Component {
 	public void update(String dataName, String data) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public int getPathID(){
+		return pathID;
 	}
 
 }
