@@ -1,4 +1,4 @@
-package authoring.frontend.display_elements.panels;
+package authoring.frontend.editor_features;
 
 import java.util.ArrayList;
 import java.util.List;

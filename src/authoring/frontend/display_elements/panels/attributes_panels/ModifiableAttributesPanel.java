@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
@@ -116,9 +117,15 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		GridPane.setColumnSpan(addComponentButton, 2);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Map<String, String> saveAttributes() {
 		for (String s : myInputMap.keySet()) {
-			myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
+			if (myInputMap.get(s) instanceof TextField) {
+				myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
+			}
+			else if (myInputMap.get(s) instanceof ComboBox<?>) {
+				myAttributesMap.replace(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
+			}
 
 		}
 		System.out.println("*****3. ModifiableAttrPanel: myAttributesMap saved by user:");

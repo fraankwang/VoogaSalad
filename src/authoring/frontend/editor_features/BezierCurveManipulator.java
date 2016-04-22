@@ -1,4 +1,4 @@
-package authoring.frontend.display_elements.panels;
+package authoring.frontend.editor_features;
 
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.beans.property.DoubleProperty;
