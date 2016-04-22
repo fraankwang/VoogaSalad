@@ -36,12 +36,22 @@ public class StatusPane {
 		record.setMaxHeight(Double.MAX_VALUE);
 		record.setMaxWidth(Double.MAX_VALUE);
 		VBox.setVgrow(record, Priority.ALWAYS);
-		record.setOnAction(e -> myEngineView.getGameCapture().startCapture());
+		record.setDisable(false);
+		record.setOnAction(e -> {
+			myEngineView.getGameCapture().startCapture();
+			record.setDisable(true);
+			stop.setDisable(false);
+		});
 		
 		stop.setMaxHeight(Double.MAX_VALUE);
 		stop.setMaxWidth(Double.MAX_VALUE);
 		VBox.setVgrow(stop, Priority.ALWAYS);
-		stop.setOnAction(e -> myEngineView.getGameCapture().endCapture());
+		stop.setDisable(true);
+		stop.setOnAction(e -> {
+			myEngineView.getGameCapture().endCapture();
+			record.setDisable(false);
+			stop.setDisable(true);
+		});
 		
 		picture.setMaxHeight(Double.MAX_VALUE);
 		picture.setMaxWidth(Double.MAX_VALUE);

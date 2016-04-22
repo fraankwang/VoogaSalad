@@ -29,14 +29,6 @@ public interface IGameCapture {
     void setImageFileType(String imageFileType);
 
     /**
-     * Sets Image file type for export.
-     * Can be hard-coded in native backend framework for certain situations,
-     * or adjusted dynamically from frontend user input.
-     * @param videoFileType sets file type for exported images
-     */
-    void setVideoFileType(ICodec.ID videoFileType);
-
-    /**
      * Sets number of screenshots captured per second during recording
      * @param numFramesPerSecond
      */
@@ -49,8 +41,6 @@ public interface IGameCapture {
      */
     void startCapture();
 
-
-
     /**
      * Ends image capture, data structure containing images
      * appended into a video file
@@ -58,20 +48,12 @@ public interface IGameCapture {
      */
     void endCapture();
 
-
-    /**
-     * User sets destination for either local machine, or elsewhere
-     * Consulting with Social Media Export and DropBox Export Utilities
-     * so that their file destinations are supported as well
-     * @param destination
-     */
-    void setDestination(String destination);
-
     /**
      * Exports file to set destination upon front end event
      *
      */
     File exportFile();
+
     
     /**
      * Sets the save location for the file

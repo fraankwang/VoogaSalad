@@ -1,4 +1,5 @@
 package utility;
+
 /**
  * @author austinwu
  * Based on some code from https://www.javacodegeeks.com/2011/02/xuggler-tutorial-frames-capture-video.html
@@ -33,14 +34,16 @@ public class GameCapture implements IGameCapture {
 
 	private EngineView myEngineView;
 	private IMediaWriter fileWriter;
-	
+
 	private boolean capture;
 	private long startTime;
-	
+
 	private String fileName;
 	private File saveLocation;
 	private String imageFormat;
 	private ICodec.ID videoFormat;
+
+	private File lastSavedFile;
 	private int fps;
 
 	public GameCapture(EngineView ev) {
@@ -59,9 +62,9 @@ public class GameCapture implements IGameCapture {
 			public void run() {
 				Dimension bounds = Toolkit.getDefaultToolkit().getScreenSize();
 				Rectangle captureSize = new Rectangle(bounds);
-				
-				fileWriter = ToolFactory.makeWriter(
-						saveLocation + "/" + fileName + System.currentTimeMillis() + myResources.getString("DefaultVideoExtension"));
+				lastSavedFile = new File(saveLocation + "/" + fileName + System.currentTimeMillis()
+						+ myResources.getString("DefaultVideoExtension"));
+				fileWriter = ToolFactory.makeWriter(lastSavedFile.toString());
 				fileWriter.addVideoStream(0, 0, videoFormat, bounds.width / 2, (int) bounds.height / 2);
 				capture = true;
 				try {
@@ -105,11 +108,16 @@ public class GameCapture implements IGameCapture {
 		capture = false;
 	}
 
-	public void takeScreenshot() {
-		String outputFileName = fileName + System.currentTimeMillis() + "." + imageFormat;
+
+    public void takeScreenshot() {
+		String outputFileName = saveLocation + "/" + fileName + System.currentTimeMillis() + "." + imageFormat;
 		WritableImage image = myEngineView.getBody().snapshot(new SnapshotParameters(), null);
-		try {
-			ImageIO.write(SwingFXUtils.fromFXImage(image, null), imageFormat, new File(outputFileName));
+		BufferedImage bi = SwingFXUtils.fromFXImage(image, null);
+		BufferedImage convertedImg = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
+	    convertedImg.getGraphics().drawImage(bi, 0, 0, null);
+		
+	    try {
+			ImageIO.write(convertedImg, imageFormat, new File(outputFileName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -117,24 +125,19 @@ public class GameCapture implements IGameCapture {
 
 	@Override
 	public File exportFile() {
-		// TODO not sure how to export yet
+		return lastSavedFile;
 	}
 
 	@Override
-	public void setImageFileType(String imageFileType){
+	public void setImageFileType(String imageFileType) {
 		imageFormat = imageFileType;
 	}
-	
-	public String getImageFileType(){
-		return imageFormat; 
+
+	public String getImageFileType() {
+		return imageFormat;
 	}
 
-	@Override
-	public void setVideoFileType(ICodec.ID videoFileType){
-		videoFormat = videoFileType;
-	}
-
-	public ICodec.ID getVideoFileType(){
+	public ICodec.ID getVideoFileType() {
 		return videoFormat;
 	}
 
@@ -152,7 +155,7 @@ public class GameCapture implements IGameCapture {
 		saveLocation = f;
 	}
 
-	public File getSaveLocation(){
+	public File getSaveLocation() {
 		return saveLocation;
 	}
 
@@ -163,11 +166,6 @@ public class GameCapture implements IGameCapture {
 
 	public String getFileName() {
 		return fileName;
-	}
-
-	@Override
-	public void setDestination(String destination) {
-		
 	}
 
 	private BufferedImage convertToType(BufferedImage sourceImage, int targetType) {
