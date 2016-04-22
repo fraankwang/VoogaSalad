@@ -24,7 +24,13 @@ public class testingClass {
 	}
 	
 	public GameWorld initTestGame(){
-		myGameWorld = new GameWorld();
+		
+		
+		return myGameWorld;
+	}
+	
+	private GameWorld testCollision() {
+		GameWorld collisionTest = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
 		Level tempLevel = new Level(0);
 		Path tempPath = new Path();
@@ -80,8 +86,7 @@ public class testingClass {
 		tempLevel.setMap(tempMap);
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);
-		
-		return myGameWorld;
+		return collisionTest;
 	}
 	
 }

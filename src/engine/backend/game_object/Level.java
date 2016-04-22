@@ -7,6 +7,7 @@
 package engine.backend.game_object;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,19 @@ public class Level {
 
 	public Map<Integer, IEntity> getEntities() {
 		return entities;
+	}
+	
+	public void addEntityToMap(IEntity entity) {
+		entities.put(entity.getID(), entity);
+	}
+	
+	public void addEntityToMap(Collection<IEntity> entities) {
+		entities.stream()
+				.forEach(e -> addEntityToMap(e));
+	}
+	
+	public IEntity getEntityWithID(int entityID) {
+		return entities.get(entityID);
 	}
 
 	public GameMap getMap() {
@@ -86,5 +100,7 @@ public class Level {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public 
 
 }
