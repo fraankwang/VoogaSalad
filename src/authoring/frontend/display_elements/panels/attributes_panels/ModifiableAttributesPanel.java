@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
@@ -15,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
@@ -101,7 +103,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
-			tf.setText("2");
+			//tf.setText("2");
 			tf.setEditable(false);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
@@ -110,12 +112,20 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
 
 		}
-
+		Button addComponentButton = new Button("Add Component");
+		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
+		GridPane.setColumnSpan(addComponentButton, 2);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Map<String, String> saveAttributes() {
 		for (String s : myInputMap.keySet()) {
-			myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
+			if (myInputMap.get(s) instanceof TextField) {
+				myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
+			}
+			else if (myInputMap.get(s) instanceof ComboBox<?>) {
+				myAttributesMap.replace(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
+			}
 
 		}
 		System.out.println("*****3. ModifiableAttrPanel: myAttributesMap saved by user:");
