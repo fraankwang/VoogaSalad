@@ -43,23 +43,12 @@ public interface IGameCapture {
      */
     void startCapture();
 
-
-
     /**
      * Ends image capture, data structure containing images
      * appended into a video file
      *
      */
     void endCapture();
-
-
-    /**
-     * User sets destination for either local machine, or elsewhere
-     * Consulting with Social Media Export and DropBox Export Utilities
-     * so that their file destinations are supported as well
-     * @param destination
-     */
-    void setDestination(String destination);
 
     /**
      * Exports file to set destination upon front end event

@@ -167,11 +167,6 @@ public class GameCapture implements IGameCapture {
 		return fileName;
 	}
 
-	@Override
-	public void setDestination(String destination) {
-
-	}
-
 	private BufferedImage convertToType(BufferedImage sourceImage, int targetType) {
 
 		BufferedImage image;
