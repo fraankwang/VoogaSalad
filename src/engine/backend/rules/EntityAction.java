@@ -10,11 +10,7 @@ package engine.backend.rules;
  * the rule is going to sreot the component that nends to be hcanges, by how
  * much and which method it needs to execute
  */
-<<<<<<< HEAD:src/engine/backend/rules/Action.java
-public class Action {
-<<<<<<< HEAD
-=======
->>>>>>> origin/engine_backend_systems_rk145:src/engine/backend/rules/EntityAction.java
+
 
 public class EntityAction {
 
@@ -22,14 +18,9 @@ public class EntityAction {
 	private String componentToModifiy;
 	private String valueInComponent;
 	private String newValue;
-<<<<<<< HEAD:src/engine/backend/rules/Action.java
->>>>>>> origin/authoring_backend
-	
-	public Action(String entityName, String componentToModify, String valueInComponent, String newValue) {
-=======
+
 
 	public EntityAction(String entityName, String componentToModify, String valueInComponent, String newValue) {
->>>>>>> origin/engine_backend_systems_rk145:src/engine/backend/rules/EntityAction.java
 		this.setEntityName(entityName);
 		this.setComponentToModifiy(componentToModify);
 		this.setValueInComponent(valueInComponent);
@@ -40,19 +31,7 @@ public class EntityAction {
 		return newValue;
 	}
 
-<<<<<<< HEAD:src/engine/backend/rules/Action.java
-<<<<<<< HEAD
-	public String getMethodToCall(){
-		return methodToCall;
-	}
 
-	public void setMyMethodToCall(String method){
-		this.methodToCall = method;
-	}
-
-=======
-=======
->>>>>>> origin/engine_backend_systems_rk145:src/engine/backend/rules/EntityAction.java
 	public void setNewValue(String newValue) {
 		this.newValue = newValue;
 	}
@@ -80,10 +59,6 @@ public class EntityAction {
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
 	}
-<<<<<<< HEAD:src/engine/backend/rules/Action.java
-	
->>>>>>> origin/authoring_backend
-=======
->>>>>>> origin/engine_backend_systems_rk145:src/engine/backend/rules/EntityAction.java
+
 
 }

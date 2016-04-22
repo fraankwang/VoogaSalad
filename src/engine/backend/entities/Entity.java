@@ -1,18 +1,12 @@
 package engine.backend.entities;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
-
 import engine.backend.components.IComponent;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class Entity implements IEntity {
 
@@ -28,22 +22,7 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		this.myID = myID;
-<<<<<<< HEAD
-		this.myComponents = new HashMap<String, IComponent>();
-		this.myRules = new ArrayList<Rule>();
-		this.entityInfo = new HashMap<String, String>();
-		this.hasBeenModified = true;
-		initializeInfo();
-	}
-	
-	public Entity(String myName, String myType) {
-		this.myName = myName;
-		this.myType = myType;
-		this.myComponents = new HashMap<String, IComponent>();
-		this.myRules = new ArrayList<Rule>();
-		this.entityInfo = new HashMap<String, String>();		
-		initializeInfo();
-=======
+
 		// this.myValue = myValue;
 	}
 
@@ -51,7 +30,6 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		// this.myValue = myValue;
->>>>>>> origin/engine_backend_systems_rk145
 	}
 	
 	private void initializeInfo() {
@@ -86,19 +64,14 @@ public class Entity implements IEntity {
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
-<<<<<<< HEAD
-	
-	public List<Rule> getRules() {
-		return myRules;
-=======
-
-	public void setID(int myID) {
-		this.myID = myID;
->>>>>>> origin/engine_backend_systems_rk145
-	}
 
 	public int getID() {
 		return myID;
+	}
+
+	@Override
+	public void setLevelID(int levelID) {
+		myID = levelID;
 	}
 
 	public String getName() {
@@ -154,17 +127,9 @@ public class Entity implements IEntity {
 		} else {
 			return false;
 		}
-<<<<<<< HEAD
-=======
-
 	}
 
-	@Override
-	public double getValue() {
-		// TODO Auto-generated method stub
-		return 0;
->>>>>>> origin/engine_backend_systems_rk145
-	}
+
 
 	@Override
 	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources) {

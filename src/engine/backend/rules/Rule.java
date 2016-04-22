@@ -1,27 +1,18 @@
 package engine.backend.rules;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import java.util.ArrayList;
-import java.util.List;
 
->>>>>>> origin/authoring_backend
-=======
-import java.util.ArrayList;
-import java.util.List;
-
->>>>>>> origin/engine_backend_systems_rk145
 import engine.backend.components.IComponent;
 import engine.backend.components.SizeComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Rule {
 
 	private List<Predicate> conditionals;
-	private Action action;
+	private EntityAction action;
 	//this string needs to get moved to action
 
     /**
@@ -36,20 +27,11 @@ public class Rule {
 		conditionals.add(myPredicate);
 	}
 	
-	public void setMyAction(Action myAction){
+	public void setMyAction(EntityAction myAction){
 		action = myAction;
 	}
 
-	public Action getMyAction(){
-		if(action == null) System.out.println("throw exception--> action is null");
-<<<<<<< HEAD
-		return action;
-=======
-		System.out.println("rule.java nothing there");
-		return "nothing added";
-//		return action.getMethodToCall();
->>>>>>> origin/engine_backend_systems_rk145
-	}
+
 	
 	public List<Predicate> getMyConditionals(){
 		return conditionals;
