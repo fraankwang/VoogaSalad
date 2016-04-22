@@ -1,5 +1,11 @@
 package engine.backend.rules;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+>>>>>>> origin/authoring_backend
 import engine.backend.components.IComponent;
 import engine.backend.components.SizeComponent;
 

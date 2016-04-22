@@ -1,0 +1,24 @@
+package authoring.frontend.display_elements.editor_displays;
+
+import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.grids.editor_grids.LevelEditorGrid;
+
+/**
+ * 
+ * @author Frank, benchesnut
+ *
+ */
+
+public class LevelEditorDisplay extends EditorDisplay {
+
+	public LevelEditorDisplay(IAuthoringView controller) {
+		super(controller);
+	}
+
+	@Override
+	public void initialize() {
+		myGrid = new LevelEditorGrid(myController, myEditorStage);
+		myGrid.initialize();
+	}
+
+}

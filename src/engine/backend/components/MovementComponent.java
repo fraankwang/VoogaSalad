@@ -1,21 +1,18 @@
 package engine.backend.components;
 
-import java.util.List;
-
 /**
  * 
  * @author raghavkedia
  *
  */
 
-public class MovementComponent extends Component implements IComponent{
+public class MovementComponent extends Component {
 	
-	//private double myVelocity;
+	private double myVelocity;
 	//private double myAcceleration;
 	private Vector myCurrentVelocityVector;
 	private Vector myDefaultVelocityVector;
 	private double myTheta;
-	
 	
 	//figure out direction of velocity;
 	
@@ -26,14 +23,12 @@ public class MovementComponent extends Component implements IComponent{
 	private boolean canMove;
 	private boolean canRotate;
 	
-	public MovementComponent(double velocity, double theta, double omega) {
-		// TODO Auto-generated constructor stub
-		myCurrentVelocityVector = new Vector(velocity, 0);
-		myDefaultVelocityVector = new Vector(velocity, 0);
-		myTheta = theta;
-		myCurrentOmega = omega;
-		//myVelocity = velocity;
-		//myAcceleration = acceleration;
+	public MovementComponent() {
+	}
+	
+	//for demo purposes
+	public MovementComponent(double xspeed, double yspeed){
+		myCurrentVelocityVector = new Vector(xspeed, yspeed);
 	}
 	
 	public Vector getCurrentVelocityVector(){
@@ -47,6 +42,11 @@ public class MovementComponent extends Component implements IComponent{
 	}
 	public double getTheta(){
 		return myTheta;
+	}
+	
+	public void setSpeed(String deltaSpeed){
+		double delta = Double.parseDouble(deltaSpeed);
+		myCurrentVelocityVector = myCurrentVelocityVector.scale(delta);
 	}
 	
 	public void setTheta(double theta){
@@ -75,10 +75,39 @@ public class MovementComponent extends Component implements IComponent{
 	public void setCanRotate(boolean bool){
 		canRotate = bool;
 	}
+	
+	public double getVelocity() {
+		return myVelocity;
+	}
 
 	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
+	public String getComponentInfo() {
+		return "Velocity:" + myVelocity + "," + "CanMove:" + canMove + "," + "CanRotate:" + canRotate;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
 		
+		case "Velocity":
+			this.myVelocity = Double.parseDouble(data);
+			return;
+		case "CanMove":
+			if (data.equals("True")) {
+				this.canMove = true;
+				return;
+			} else {
+				this.canMove = false;
+				return;
+			}
+		case "CanRotate":
+			if (data.equals("True")) {
+				this.canRotate = true;
+				return;
+			} else {
+				this.canRotate = false;
+				return;
+			}
+		}
 	}
 }

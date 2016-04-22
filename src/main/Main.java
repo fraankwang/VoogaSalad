@@ -1,14 +1,8 @@
 package main;
-/**
- * @author Austin Wu
- * The AuthoringMain file that starts the simulation
- */
 
 import java.util.Optional;
 
-import authoring_environment.controller.AuthoringController;
 import engine.controller.EngineController;
-import engine.frontend.EngineView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,6 +10,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import authoring.frontend.AuthoringView;
+import authoring.main.GameAuthoring;
+
+/**
+ * @author Austin Wu
+ * The Main file that starts the simulation
+ */
 
 public class Main extends Application {
     
@@ -45,8 +46,7 @@ public class Main extends Application {
     }
     
     public void createAuthor(Stage stage){
-    	AuthoringController controller = new AuthoringController(stage);
-	    controller.start();
+    	GameAuthoring authoring = new GameAuthoring(stage);
     }
     
     public void createPlayer(Stage stage){

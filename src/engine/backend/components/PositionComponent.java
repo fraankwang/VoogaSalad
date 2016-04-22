@@ -4,19 +4,15 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
-public class PositionComponent extends Component implements IComponent{
+public class PositionComponent extends Component {
 	
 	private Vector myPositionVector;
+	private Vector myCriticalPosition;
 	
-	public PositionComponent(){
-		myPositionVector = new Vector();
+	public PositionComponent() {
 	}
 	
-	public PositionComponent(double x, double y) {
-		// TODO Auto-generated constructor stub
-//		setPositionVector(new Vector(x, y));
+	public PositionComponent(double x, double y){
 		myPositionVector = new Vector(x, y);
 	}
 
@@ -36,10 +32,40 @@ public class PositionComponent extends Component implements IComponent{
 		return myPositionVector.getY();
 	}
 
+	public Vector getCriticalPosition() {
+		return myCriticalPosition;
+	}
+
+	public void setCriticalPosition(Vector myCriticalPosition) {
+		this.myCriticalPosition = myCriticalPosition;
+	}
+
 	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
+	public String getComponentInfo() {
+		return "XCoordinate:" + myPositionVector.getX() + "," + "YCoordinate:" + myPositionVector.getY();
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
 		
+		case "XCoordinate":
+			double x = Double.parseDouble(data);
+			double y = 0;
+			if (myPositionVector != null){
+				y = myPositionVector.getY();
+			}
+			this.myPositionVector = new Vector(x, y);
+			return;
+		case "YCoordinate":
+			double y2 = Double.parseDouble(data);
+			double x2 = 0;
+			if (myPositionVector != null) {
+				x2 = myPositionVector.getX();
+			}
+			this.myPositionVector = new Vector(x2, y2);
+			return;
+		}
 	}
 
 }

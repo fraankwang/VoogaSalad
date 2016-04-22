@@ -4,12 +4,13 @@ import java.util.Map;
 import java.util.Observable;
 
 import authoring.backend.ModelManager;
+import authoring.backend.data.GlobalData;
 
 /*
  * @author: Jonathan Ma
  */
 
-public class AuthoringController implements ControllerInterface {
+public class AuthoringController implements IAuthoringController {
 	
 	private final GlobalData globaldata;
 	private final ModelManager model;
@@ -21,18 +22,19 @@ public class AuthoringController implements ControllerInterface {
 	}
 	
 	private void setListener() {
-		this.globaldata.getInput().addObserver(this);
+		this.globaldata.getData().addObserver(this);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o == globaldata.getInput()) {
-			parseInput(globaldata.getInput().getData());
+		if (o == globaldata.getData()) {
+			parseInput(globaldata.getData().getData());
 		}
 	}
 
 	@Override
-	public void parseInput(Map<String, String> data) {
+	public void parseInput(Map<String, String> input) {
+		Map<String, String> data = processData(input);
 		for (String key : data.keySet()) {
 			if (key.equals("Type")) {
 				String type = data.get(key);
@@ -53,6 +55,15 @@ public class AuthoringController implements ControllerInterface {
 				break;
 			}
 		}
+	}
+	
+	private Map<String, String> processData(Map<String, String> data) {
+		for (String key : data.keySet()) {
+			if (data.get(key).equals("")) {
+				data.put(key, "0");
+			}
+		}
+		return data;
 	}
 	
 }

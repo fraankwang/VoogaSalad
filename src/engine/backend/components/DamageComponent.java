@@ -1,16 +1,12 @@
 package engine.backend.components;
 
-import java.util.List;
-
 public class DamageComponent extends Component implements IComponent{
 	
 	private double myDamageToHealth;
 	private double myDamageToVelocity;
 	//private Vector myDamageToPosition;
 	
-	
-	public DamageComponent(double damage){
-		setDamageToHealth(damage);
+	public DamageComponent(){
 	}
 
 	public double getDamageToHealth() {
@@ -20,6 +16,11 @@ public class DamageComponent extends Component implements IComponent{
 	public void setDamageToHealth(double myDamage) {
 		this.myDamageToHealth = myDamage;
 	}
+	
+	public void setDamageToHealth(String myDamage) {
+		double newVal = Double.parseDouble(myDamage);
+		this.myDamageToHealth = newVal;
+	}
 
 	public double getDamageToVelocity() {
 		return myDamageToVelocity;
@@ -28,9 +29,19 @@ public class DamageComponent extends Component implements IComponent{
 	public void setDamageToVelocity(double myDamageToVelocity) {
 		this.myDamageToVelocity = myDamageToVelocity;
 	}
+	
+	public void setDamageToVelocity(String myDamageToVelocity) {
+		double newVal = Double.parseDouble(myDamageToVelocity);
+		this.myDamageToVelocity = newVal;
+	}
+	
+	@Override
+	public String getComponentInfo() {
+		return myDamageToHealth + "";
+	}
 
 	@Override
-	public void initWithParams(List params) {
+	public void update(String dataName, String data) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -4,16 +4,13 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
-public class RotationComponent extends Component implements IComponent{
+public class RotationComponent extends Component {
 	
 	private double myAngle;
 	private double myAngularVelocity;
 	private double myAngularAcceleration;
 	
 	public RotationComponent() {
-		
 	}
 	
 	public double getAngle(){
@@ -23,10 +20,22 @@ public class RotationComponent extends Component implements IComponent{
 	public void setAngle(double dir){
 		myAngle = dir;
 	}
+	
+	public void setAngle(String dir){
+		double newVal = Double.parseDouble(dir);
+		myAngle = newVal;
+	}
 
 	@Override
-	public void initWithParams(List params) {
-		myAngle = (double) params.get(0);
+	public String getComponentInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

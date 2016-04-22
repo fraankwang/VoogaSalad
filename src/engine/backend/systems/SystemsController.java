@@ -1,6 +1,6 @@
 /**
  * 
- * @author mario_oliver93
+ * @author mario_oliver93, raghav kedia
  * 
  */
 package engine.backend.systems;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -16,45 +17,84 @@ import engine.controller.EngineController;
 
 public class SystemsController {
 
-	private RenderingSystem render;
-	private MobilizeSystem mobilize;
-	private RulesSystem rulesSystem;
-	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
-	private EngineController frontendController;
-//	private ResourceLoader myResourceLoader;
+	private GameSystem renderingSystem;
+	private GameSystem mobilizationSystem;
+	private GameSystem healthSystem;
+	private GameSystem firingSystem;
+	private GameSystem collisionSystem;
+	
+	private List<ISystem> mySystems;
+	private EngineController engineController;
 	
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
+	
+	private InGameEntityFactory myEntityFactory;
+	
+	private EventManager myEventManager;
+	private LevelManager myLevelManager;
+	private ModeManager myModeManager;
+	
+	private int myLevelIndex;
+	private int myModeIndex; 
+	
+	private GameWorld myGame;
 
+	public SystemsController(EngineController eController) {
+		engineController = eController;
+		
+		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), 
+				eController.getMyGameWorld().getEntityMap());
+		
+		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
+		
+		renderingSystem = new RenderingSystem(engineController);
+		mobilizationSystem = new MobilizeSystem();
+		healthSystem = new HealthSystem();
+		firingSystem = new FiringSystem();
+		collisionSystem = new CollisionSystem();
+		
+		myEventManager = new EventManager(myComponentTagResources);
+		myLevelManager = new LevelManager();
+		myModeManager = new ModeManager();
+		
+		healthSystem.addObserver(myEventManager);
+		firingSystem.addObserver(myEventManager);
+		collisionSystem.addObserver(myEventManager);
+		
+		myEventManager.addObserver(myLevelManager);
+		myLevelManager.addObserver(myModeManager);
+		
+		mySystems = new ArrayList<ISystem>();
+		mySystems.add(firingSystem);
+		mySystems.add(mobilizationSystem);
+		mySystems.add(collisionSystem);
+		mySystems.add(healthSystem);
+		mySystems.add(renderingSystem);
 
-	public SystemsController(EngineController frontendController) {
-		this.frontendController = frontendController;
-//		myResourceLoader = new ResourceLoader();
-		render = new RenderingSystem(frontendController);
-
-		rulesSystem = new RulesSystem();
-
-
-		addToBagOfSystems(new CollisionSystem());
-
-//		mobilize = new MobilizeSystem();
-		addToBagOfSystems(render);
-//		addToBagOfSystems(rulesSystem);
-//		addToBagOfSystems(mobilize);
 	}
-
-	public void addToBagOfSystems(Systemm system) {
-		bagOfSystems.add(system);
+	
+	public void initializeGame(GameWorld game){
+		myGame = game;
 	}
-
-	public void iterateThroughSystems(GameWorld game) {
-		for (Systemm myCurrSystem : bagOfSystems) {
-			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
-			List<Level> currLevels = game.getLevelsForMode(currMode);
-			//switch this to iterate through the quadrants contained inside of the curr levels map
-			//and that maps quadrants
-			myCurrSystem.update(currLevels.get(game.getGameStats().getCurrentLevel()).getEntities());
+	
+	public void initializeManagers(int initialMode, int initialLevel){
+		myModeManager.initialize(myGame.getModes());
+		myModeManager.setCurrentModeIndex(currentMode);
+		
+		myLevelManager.initialize(myGame.getModes().get(currentMode).getLevels());
+		myLevelManager.setCurrentLevelIndex(currentLevel);
+		
+		myEventManager.setCurrentLevel(myLevelManager.getCurrentLevel());
+	}
+	
+	public void iterateThroughSystems() {
+		for (ISystem system : mySystems) {			
+			long startTime = System.currentTimeMillis();
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myComponentTagResources);
+			long endTime   = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			//System.out.println(system.getClass().getSimpleName() + ":  " + totalTime);
 		}
 	}
 

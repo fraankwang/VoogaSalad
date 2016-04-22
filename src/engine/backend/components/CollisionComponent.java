@@ -3,11 +3,10 @@
  */
 package engine.backend.components;
 
-import java.util.List;
-
-public class CollisionComponent extends Component implements IComponent{
+public class CollisionComponent extends Component {
     
 	private boolean isCollided;
+<<<<<<< HEAD
     private double myX, myY, myWidth, myHeight;
     private static final String TAG = "Collision";
 
@@ -50,6 +49,13 @@ public class CollisionComponent extends Component implements IComponent{
         return myWidth;
     }
 
+=======
+
+    public CollisionComponent(){
+       isCollided = false;
+    }
+
+>>>>>>> origin/authoring_backend
     public boolean isCollided() {
         return isCollided;
     }
@@ -59,31 +65,25 @@ public class CollisionComponent extends Component implements IComponent{
         isCollided = collided;
     }
 
-    public void setMyX(double myX) {
-        this.myX = myX;
-    }
-
-    public void setMyY(double myY) {
-        this.myY = myY;
-    }
-
-    public void setMyHeight(double myHeight) {
-        this.myHeight = myHeight;
-    }
-
-    public void setMyWidth(double myWidth) {
-        this.myWidth = myWidth;
-    }
-
     @Override
     public String getTag(){
         return TAG;
     }
 
 	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
-		
+	public String getComponentInfo() {
+		return "IsCollided:" + isCollided;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("IsCollided")) {
+			if (data.equals("True") || data.equals("true") || data.equals("1") || data.equals("Yes") || data.equals("yes")) {
+				isCollided = true;
+			} else {
+				isCollided = false;
+			}
+		}
 	}
 
 }

@@ -5,25 +5,18 @@
  */
 package engine.backend.components;
 
-import java.util.List;
-
-public class SizeComponent extends Component implements IComponent{
+public class SizeComponent extends Component {
 
 	private double width;
 	private double height;
 	
-	private static final int DEFAULT_HEIGHT = 200;
-	private static final int DEFAULT_WIDTH = 200;
+	private static final int DEFAULT_HEIGHT = 50;
+	private static final int DEFAULT_WIDTH = 50;
 	
 	//default component
 	public SizeComponent() {
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
-	}
-	
-	public SizeComponent(double width, double height){
-		this.width = width;
-		this.height = height;
 	}
 	
 	@Override
@@ -40,14 +33,31 @@ public class SizeComponent extends Component implements IComponent{
 		this.height += delta;
 	}
 	
+	public void increaseSize(String delta){
+		int newVal = Integer.parseInt(delta);
+		this.width += newVal;
+		this.height += newVal;
+	}
+	
 	public double getWidth(){
 		return width;
 	}
 
 	@Override
-	public void initWithParams(List params) {
-		this.width = (double) params.get(0);
-		this.height = (double) params.get(1);
+	public String getComponentInfo() {
+		return "Width:" + width + "," + "Height:" + height;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("Width")) {
+			this.width = Double.parseDouble(data);
+			return;
+		}
+		if (dataName.equals("Height")) {
+			this.height = Double.parseDouble(data);
+			return;
+		}
 	}
 
 }

@@ -8,31 +8,22 @@
 package engine.backend;
 
 import engine.backend.entities.Entity;
-import engine.backend.entities.EntityFactoryClass;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
 import engine.backend.rules.Predicate;
 import engine.backend.rules.Rule;
 import engine.backend.systems.SystemsController;
-import exception.DrumpfTowerException;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class FakeGAEBackend {
 
 	private SystemsController systems;
-	private EntityFactoryClass entityFactory;
+	//private EntityFactoryClass entityFactory;
 	private GameWorld trumpGame;
 	private MockGAEData frontMockData;
 
 	public FakeGAEBackend() {
-		entityFactory = new EntityFactoryClass();
+		//entityFactory = new EntityFactoryClass();
 		frontMockData = new MockGAEData();
 		
 	}
