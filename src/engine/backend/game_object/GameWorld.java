@@ -5,12 +5,12 @@
  */
 package engine.backend.game_object;
 
+import engine.backend.entities.Entity;
+import engine.backend.entities.IEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import engine.backend.entities.Entity;
-import engine.backend.entities.IEntity;
 
 public class GameWorld {
 
@@ -41,16 +41,7 @@ public class GameWorld {
 		return null;
 	}
 
-	public Level getLevelWithName(String name){
-		for (Mode mode: modes){
-			for (Level level : mode.getLevels()){
-				if (level.getName().equals(name)){
-					return level;
-				}
-			}
-		}
-		return null;
-	}
+
 
 	public IEntity getEntityWithId(int id){
 		for (Mode mode : modes){
