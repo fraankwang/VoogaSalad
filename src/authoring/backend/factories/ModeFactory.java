@@ -17,10 +17,10 @@ public class ModeFactory {
 		String name = null;
 		Set<String> levelNames = new HashSet<String>();
 		for (String key : data.keySet()) {
-			if (key.equals("ModeName")) {
+			if (key.equals("Name")) {
 				name = data.get(key);
 			}
-			if (key.equals("Levels")) {
+			if (key.equals("LevelNames")) {
 				levelNames = getLevelNames(data.get(key));
 			}
 		}

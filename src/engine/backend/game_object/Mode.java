@@ -30,10 +30,20 @@ public class Mode {
 	public void initializeInfo() {
 		modeInfo.put("Type", "Mode");
 		modeInfo.put("Difficulty", myName);
+		modeInfo.put("LevelNames", stringLevelNames());
 	}
 
 	public List<Level> getLevels() {
 		return levels;
+	}
+	
+	private String stringLevelNames() {
+		StringBuilder sb = new StringBuilder();
+		for (String level : levelNames) {
+			sb.append(level);
+			sb.append(", ");
+		}
+		return sb.toString();
 	}
 	
 	public Set<String> getLevelNames() {

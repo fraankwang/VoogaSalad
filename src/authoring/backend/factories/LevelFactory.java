@@ -23,13 +23,15 @@ public class LevelFactory {
 	public Level createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
 		Set<String> entityNames = new HashSet<String>();
-		String name = null;
+		String name = "";
+		double levelTimer = 0;
+		double waveDelayTimer = 0;
 		for (String key : data.keySet()) {
 			switch (key) {
 
 			case "Path":
 				map.setPath(getPath(data.get(key)));
-			case "LevelImage":
+			case "Image":
 				map.setMapImage(data.get(key));
 			case "MapWidth":
 				double width = Double.parseDouble(data.get(key));
@@ -39,12 +41,21 @@ public class LevelFactory {
 				map.setMapHeight(height);
 			case "Name":
 				name = data.get(key);
+			case "LevelTimer":
+				levelTimer = Double.parseDouble(data.get(key));
+			case "WaveDelayTimer":
+				waveDelayTimer = Double.parseDouble(data.get(key));
 			case "Entities":
 				String entities = data.get(key);
 				entityNames = getEntityNames(entities);
 			}
 		}
-		return new Level(name, map, entityNames);
+		Level level = new Level(name, map);
+		level.setLevelTimer(levelTimer);
+		level.setWaveDelayTimer(waveDelayTimer);
+		level.setEntityNames(entityNames);
+		
+		return level;
 	}
 	
 	private Set<String> getEntityNames(String str) {
@@ -79,7 +90,6 @@ public class LevelFactory {
 			curves[j] = new BezierCurve(temp);
 		}
 		return curves;
-
 	}
 
 	private double[] getDouble(String str) {

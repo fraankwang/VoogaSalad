@@ -18,12 +18,14 @@ public class Path implements IPath{
 	private List<BezierCurve> myCurves;
 	private int myID;
 	
-	public Path() {
+	public Path(int ID) {
 		this.myCurves = new ArrayList<BezierCurve>();
+		this.myID = ID;
 	}
 	
 	public Path(List<BezierCurve> curves, int ID) {
 		this.myCurves = curves;
+		this.myID = ID;
 	}
 	
 	public int getID() {

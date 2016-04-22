@@ -28,20 +28,18 @@ public class Level {
 	private double waveDelayTimer;
 	private double timer;
 	
-	public Level(String myName, GameMap map, Set<String> entityNames) {
+	public Level(String myName, GameMap map) {
 		this.myName = myName;
 		this.map = map;
 		this.entities = new ArrayList<IEntity>();
 		this.levelInfo = new HashMap<String, String>();
-		this.entityNames = entityNames;
 		initializeInfo();
 	}
 	
 	private void initializeInfo() {
 		levelInfo.put("Type", "Level");
+		levelInfo.put("Name", myName);
 		levelInfo.put("MapBackgroundImage", map.getMapImage());
-		levelInfo.put("LevelTimer", levelTimer + "");
-		levelInfo.put("WaveDelayTimer", waveDelayTimer + "");
 	}
 
 	public Level(String myName) {
@@ -59,6 +57,20 @@ public class Level {
 	
 	public Set<String> getEntityNames() {
 		return entityNames;
+	}
+	
+	private String stringEntityNames() {
+		StringBuilder sb = new StringBuilder();
+		for (String entity : entityNames) {
+			sb.append(entity);
+			sb.append(", ");
+		}
+		return sb.toString();
+	}
+	
+	public void setEntityNames(Set<String> entityNames) {
+		this.entityNames = entityNames;
+		this.levelInfo.put("EntityNames", stringEntityNames());
 	}
 	
 	public GameMap getMap(){
@@ -79,6 +91,16 @@ public class Level {
 	
 	public void addEntityName(String name) {
 		entityNames.add(name);
+	}
+	
+	public void setWaveDelayTimer(double timer) {
+		this.waveDelayTimer = timer;
+		this.levelInfo.put("WaveDelayTimer", waveDelayTimer + "");
+	}
+	
+	public void setLevelTimer(double timer) {
+		this.levelTimer = timer;
+		this.levelInfo.put("LevelTimer", levelTimer + "");
 	}
 
 	@Override
