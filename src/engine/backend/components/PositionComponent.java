@@ -8,8 +8,13 @@ public class PositionComponent extends Component implements IComponent{
 	
 	private Vector myPositionVector;
 	private Vector myCriticalPosition;
+	public static final int DEFAULTPOSITION = 50;
 	
 	public PositionComponent() {
+		double posX = DEFAULTPOSITION;
+		double posY = DEFAULTPOSITION;
+		
+		myPositionVector = new Vector(posX, posY);
 	}
 	
 	public PositionComponent(PositionComponent posComp){

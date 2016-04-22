@@ -24,6 +24,7 @@ public class SystemsController {
 	private GameSystem healthSystem;
 	private GameSystem firingSystem;
 	private GameSystem collisionSystem;
+	private GameSystem spawningSystem;
 
 	private List<ISystem> mySystems;
 	private EngineController engineController;
@@ -57,6 +58,7 @@ public class SystemsController {
 		healthSystem = new HealthSystem();
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
+		spawningSystem = new SpawningSystem();
 
 		this.myEventManager = myEventManager;
 
@@ -71,6 +73,7 @@ public class SystemsController {
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
 		mySystems.add(renderingSystem);
+		mySystems.add(spawningSystem);
 
 		myGameClock = new GameClock(framesPerSecond);
 	}

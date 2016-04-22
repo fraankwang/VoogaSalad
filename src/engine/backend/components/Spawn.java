@@ -8,14 +8,14 @@ public class Spawn {
 	private double spawningEndTime;
 	private double timer;
 	private double currentSecond;
-
+		
 	public Spawn(String name, double rate, double start, double end) {
 		setSpawningEntityName(name);
 		setSpawningRate(rate);
 		setSpawningStartTime(start);
 		setSpawningEndTime(end);
 	}
-
+	
 	public double getSpawningRate() {
 		return spawningRate;
 	}
