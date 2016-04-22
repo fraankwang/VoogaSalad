@@ -5,11 +5,9 @@ package utility;
  * Based on some code from https://www.javacodegeeks.com/2011/02/xuggler-tutorial-frames-capture-video.html
  */
 import java.awt.AWTException;
-import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Rectangle;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,52 +30,44 @@ public class GameCapture implements IGameCapture {
 
 	public static final String DEFAULT_RESOURCE = "utility/gamecapture";
 	private ResourceBundle myResources;
-
-	private EngineView myEngineView;
 	private IMediaWriter fileWriter;
 
-	private boolean capture;
-	private long startTime;
 
 	private String fileName;
 	private File saveLocation;
 	private String imageFormat;
 	private ICodec.ID videoFormat;
-
+	
+	private boolean capture;
+	private long startTime;
+	private Rectangle captureRegion;
 	private File lastSavedFile;
 	private int fps;
 
-	/*
-	 * Todos:
-	 * Get dimensions to match the game and not the whole screen
-	 * Write explanation for the "export file"
-	 */
 	
-	public GameCapture(EngineView ev) {
+	public GameCapture(EngineView ev, int height, int width, int posx, int posy) {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
-		myEngineView = ev;
 		fileName = myResources.getString("DefaultName");
 		saveLocation = new File(myResources.getString("DefaultSaveLocation"));
 		imageFormat = myResources.getString("DefaultImageFormat");
 		videoFormat = ICodec.ID.valueOf(myResources.getString("DefaultVideoFormat"));
 		fps = Integer.parseInt(myResources.getString("DefaultFrameRate"));
+		captureRegion = new Rectangle(height, width, posx, posy);
 	}
 
 	@Override
 	public void startCapture() {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				Dimension bounds = Toolkit.getDefaultToolkit().getScreenSize();
-				Rectangle captureSize = new Rectangle(bounds);
 				lastSavedFile = new File(saveLocation + File.separator + fileName + System.currentTimeMillis()
 						+ myResources.getString("DefaultVideoExtension"));
 				fileWriter = ToolFactory.makeWriter(lastSavedFile.toString());
-				fileWriter.addVideoStream(0, 0, videoFormat, bounds.width / 2, (int) bounds.height / 2);
+				fileWriter.addVideoStream(0, 0, videoFormat, captureRegion.width / 2, captureRegion.height / 2);
 				capture = true;
 				try {
 					Robot robot = new Robot();
 					while (capture) {
-						takeAFrame(robot, captureSize);
+						takeAFrame(robot, captureRegion);
 					}
 					fileWriter.close();
 				} catch (AWTException e1) {
@@ -184,4 +174,13 @@ public class GameCapture implements IGameCapture {
 		return image;
 	}
 
+	@Override
+	public void setCaptureX(int x) {
+		captureRegion.setBounds(x, captureRegion.y, captureRegion.width, captureRegion.height);
+	}
+
+	@Override
+	public void setCaptureY(int y) {
+		captureRegion.setBounds(captureRegion.x, y, captureRegion.width, captureRegion.height);
+	}
 }

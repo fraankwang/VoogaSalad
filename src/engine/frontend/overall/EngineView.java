@@ -3,7 +3,6 @@ package engine.frontend.overall;
 import java.util.ResourceBundle;
 
 import engine.controller.EngineController;
-
 import engine.frontend.board.BoardPane;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
@@ -11,9 +10,7 @@ import engine.frontend.status.StatusPane;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -46,7 +43,6 @@ public class EngineView{
 	private Scene myScene;
 	
 	private EngineController myController;
-	private GameCapture myGameCapture;
 	
 	private MenubarManager myMenubarManager;
 	
@@ -60,8 +56,6 @@ public class EngineView{
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
 		myController = c;
-		//myGameCapture = new GameCapture(this);
-		// game capture not working due to .classpath and jar libraries not quite set up
 		
 		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
@@ -130,9 +124,9 @@ public class EngineView{
 	public EngineController getEngineController(){
 		return myController;
 	}
-	
+
 	public GameCapture getGameCapture(){
-		return myGameCapture;
+		return myController.getGameCapture();
 	}
 	
 	public BorderPane getBody(){

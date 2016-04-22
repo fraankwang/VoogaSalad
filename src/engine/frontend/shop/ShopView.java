@@ -1,9 +1,7 @@
 package engine.frontend.shop;
 
 
-import engine.controller.EngineController;
 import engine.frontend.overall.EngineView;
-import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;

@@ -20,9 +20,12 @@ import engine.frontend.overall.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
+import utility.GameCapture;
 
 public class EngineController implements IEngineController{
 	private Stage myStage;
@@ -36,6 +39,7 @@ public class EngineController implements IEngineController{
 	private SystemsController mySystems;
 
 	private EngineView myEngineView;
+	private GameCapture myGameCapture;
 
 	public EngineController(Stage s, Main m) {
 		myStage = s;
@@ -66,10 +70,29 @@ public class EngineController implements IEngineController{
 	private void setupStage(){
 		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
 		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
-		myStage.setX(0);
-		myStage.setY(0);
+		myStage.setX(myEngineView.loadIntResource("StartX"));
+		myStage.setY(myEngineView.loadIntResource("StartY"));
 		myStage.setScene(myEngineView.buildScene());
 		myStage.show();
+		myGameCapture = new GameCapture(myEngineView, 
+				myEngineView.loadIntResource("StartX"), 
+				myEngineView.loadIntResource("StartY"),
+				myEngineView.loadIntResource("WindowWidth"),
+				myEngineView.loadIntResource("WindowHeight"));
+		
+		myStage.xProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureX(newValue.intValue());
+			}
+		});
+		
+		myStage.yProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureY(newValue.intValue());
+			}
+		});
 	}
 	
 	public void step() {
@@ -176,4 +199,8 @@ public class EngineController implements IEngineController{
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);
 	}
+	public GameCapture getGameCapture(){
+		return myGameCapture;
+	}
+	
 }
