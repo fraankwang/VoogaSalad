@@ -15,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
@@ -101,7 +102,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
-			tf.setText("2");
+			//tf.setText("2");
 			tf.setEditable(false);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
@@ -110,7 +111,9 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
 
 		}
-
+		Button addComponentButton = new Button("Add Component");
+		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
+		GridPane.setColumnSpan(addComponentButton, 2);
 	}
 
 	public Map<String, String> saveAttributes() {
