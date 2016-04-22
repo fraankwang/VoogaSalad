@@ -35,7 +35,6 @@ public class AuthoringController implements IAuthoringController {
 	@Override
 	public void parseInput(Map<String, String> input) {
 		Map<String, String> data = processData(input);
-		System.out.println(data);
 		for (String key : data.keySet()) {
 			if (key.equals("Type")) {
 				String type = data.get(key);

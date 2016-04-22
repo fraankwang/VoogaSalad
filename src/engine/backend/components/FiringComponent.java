@@ -108,22 +108,20 @@ public class FiringComponent extends Component {
 	public String getComponentInfo() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("myAmmunition: ");
+		sb.append("MyAmmunition:");
 		sb.append(myAmmunition);
-		sb.append(" ");
-		sb.append("myAmmunitionSpeed: ");
+		sb.append(",");
+		sb.append("MyAmmunitionSpeed:");
 		sb.append(myAmmunitionSpeed);
-		sb.append(" ");
-		sb.append("myEnemyInSightRange: ");
+		sb.append(",");
+		sb.append("MyEnemyInSightRange:");
 		sb.append(myEnemyInSightRange);
-		sb.append(" ");
-		sb.append("myTargets: ");
+		sb.append(",");
+		sb.append("MyTargets:");
 		sb.append(myTargets);
-		sb.append(" ");
-		sb.append("myFiringRate: ");
+		sb.append(",");
+		sb.append("MyFiringRate:");
 		sb.append(myFiringRate);
-		sb.append(" ");
-		
 		
 		return sb.toString();
 	}

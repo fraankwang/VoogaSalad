@@ -82,7 +82,7 @@ public class MovementComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "myVelocity: " + myVelocity + " " + "canMove: " + canMove + " " + "canRotate: " + canRotate;
+		return "MyVelocity:" + myVelocity + "," + "CanMove:" + canMove + "," + "CanRotate:" + canRotate;
 	}
 
 	@Override
