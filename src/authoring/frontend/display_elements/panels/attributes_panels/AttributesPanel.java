@@ -14,7 +14,9 @@ import authoring.frontend.display_elements.panels.Panel;
 
 public abstract class AttributesPanel extends Panel {
 
-	protected static final int FONT_SIZE = 14;
+	protected static final int FONT_SIZE = 13;
+	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4;
+	
 	protected List<String> myAttributes;
 	protected Map<String, String> myAttributesMap;
 

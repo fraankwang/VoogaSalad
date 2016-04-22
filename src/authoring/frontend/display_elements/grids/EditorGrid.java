@@ -89,8 +89,8 @@ public abstract class EditorGrid extends Grid {
 	}
 
 	public void populateComponents(Map<String, String> info) {
-		// ImageView iv = new ImageView(info.get("image"));
-		// ((EditorViewPanel) myPrimaryDisplay).setImage(iv.getImage());
+		//ImageView iv = new ImageView(info.get("image"));
+		//((EditorViewPanel) myPrimaryDisplay).setImage(iv.getImage());
 		setAttributesPanel(info);
 	}
 }

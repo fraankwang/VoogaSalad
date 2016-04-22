@@ -55,8 +55,8 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
-			tf.setText("234987214");
-			tf.setEditable(false);
+			//tf.setText("234987214");
+			//tf.setEditable(false);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
 			myOutputMap.put(currentAttribute, tf);

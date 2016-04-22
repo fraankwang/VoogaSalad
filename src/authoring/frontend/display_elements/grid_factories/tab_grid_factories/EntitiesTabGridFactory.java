@@ -21,7 +21,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 	public Panel createPrimaryDisplay() {
 		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay);
 		gridView.initialize();
-		gridView.addImage(new ImageView("DrumpfVader.png"));
+		//gridView.addImage(new ImageView("DrumpfVader.png"));
 		return gridView;
 	}
 

@@ -11,6 +11,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Alert.AlertType;
@@ -32,17 +33,18 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected BorderPane myWrapper;
 	protected GridPane myGridPane;
 	protected GridPane myAttributesGridPane;
+	protected ScrollPane myScrollPane;
 	protected TitledPane myRulesPane;
 	protected ListView<String> myRulesListView;
 
 	protected Map<String, Control> myInputMap;
 
-	protected final int RULES_HEIGHT_PERCENTAGE = 30;
-	protected final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
+	protected static final int RULES_HEIGHT_PERCENTAGE = 30;
+	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
-	private final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
-	private final int COLUMN_1_PERCENTAGE = 50;
-	private final int COLUMN_2_PERCENTAGE = 50;
+	private static final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
+	private static final int COLUMN_1_PERCENTAGE = 50;
+	private static final int COLUMN_2_PERCENTAGE = 50;
 
 	public ModifiableAttributesPanel(int height, int width) {
 		super(height, width);
@@ -63,14 +65,16 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myRulesPane = new TitledPane("Rules", myRulesListView);
 
 		myAttributesGridPane = createAttributesGridPane();
-		myAttributesGridPane.setGridLinesVisible(true);
-		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
+
+		myScrollPane = new ScrollPane();
+		myScrollPane.setContent(myAttributesGridPane);
 
 	}
 
 	@Override
 	protected void assembleComponents() {
-		myGridPane.add(myAttributesGridPane, 0, 0);
+		myGridPane.add(myScrollPane, 0, 0);
 		myGridPane.add(myRulesPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;

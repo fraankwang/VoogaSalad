@@ -1,6 +1,7 @@
 //Kushal Byatnal
 package authoring.backend.factories;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ public class EntityFactory {
 	private List<IComponent> createComponents(Map<String, String> info){
 		Map<String, IComponent> componentMap = new HashMap<String, IComponent>();
 		for (String key : info.keySet()) {
-			if (key.contains("Component")) {
+			if (key.contains("_")) {
 				String[] componentInfo = key.split("_");
 				String componentType = componentInfo[0];
 				String componentData = componentInfo[1];
@@ -43,7 +44,7 @@ public class EntityFactory {
 			}
 		}
 		Collection<IComponent> temp = componentMap.values();
-		List<IComponent> components = (List<IComponent>) temp;
+		List<IComponent> components = new ArrayList<IComponent>(temp);
 		return components;
 	}
 	

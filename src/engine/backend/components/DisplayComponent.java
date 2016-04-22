@@ -12,6 +12,10 @@ public class DisplayComponent extends Component {
 	private boolean canBeShown;
 	private String image;
 	
+	public DisplayComponent() {
+		
+	}
+	
 	public DisplayComponent(String image){
 		this.image = image;
 		canBeShown = true;
