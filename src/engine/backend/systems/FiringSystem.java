@@ -1,8 +1,8 @@
 package engine.backend.systems;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import engine.backend.components.FiringComponent;
@@ -26,6 +26,7 @@ public class FiringSystem extends GameSystem{
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
+		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		for(IEntity shootingEntity : entities){
 			
 			if(shootingEntity.hasComponent(myComponentTagResources.getString("Firing"))){
@@ -50,7 +51,7 @@ public class FiringSystem extends GameSystem{
 								Vector firedVelVector = new Vector(xComp, yComp);
 								
 								IEntity newEntity = initilizeFire(firingComponent.getEntityName(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
-								sendAddEntityEvent(newEntity);
+								newEntities.add(newEntity);
 								firingComponent.setFireNow(false);
 								firingComponent.resetTimer();
 							}
@@ -65,6 +66,8 @@ public class FiringSystem extends GameSystem{
 					
 				}
 			}
+		
+		sendAddEntityEvent(newEntities);
 			
 		}
 	
@@ -75,8 +78,8 @@ public class FiringSystem extends GameSystem{
 		
 	}
 	
-	private void sendAddEntityEvent(IEntity newEntity){
-		AddEntityEvent event = new AddEntityEvent(newEntity);
+	private void sendAddEntityEvent(Collection<IEntity> newEntities){
+		AddEntityEvent event = new AddEntityEvent(newEntities);
 		notifyObservers(event);
 	}
 	
