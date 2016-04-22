@@ -55,6 +55,7 @@ public class EngineView{
 	private BoardPane myBoardPane;
 	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
+	private DummyCursor myDummyCursor;
 	
 	
 	public EngineView(Stage s, EngineController c){
@@ -68,6 +69,9 @@ public class EngineView{
 		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
+		myDummyCursor = new DummyCursor(loadDoubleResource("CursorWidth"), loadDoubleResource("CursorHeight"));
+		
+		
 	}
 	
 	/**
@@ -78,7 +82,6 @@ public class EngineView{
 		
 		myBody = new BorderPane();
 		myScene = new Scene(myBody, Color.WHITE);
-		
 		myMenuBar = myMenubarManager.buildMenuBar();
 		myBody.setTop(myMenuBar);
 		myBody.setLeft(myBoardPane.buildNode());
@@ -86,17 +89,28 @@ public class EngineView{
 		myBody.setBottom(myStatusPane.buildNode());
 		
 		myScene.setOnMouseReleased(e -> handleEndMouseRelease(e));
+		myBody.getChildren().add(myDummyCursor.getNode());
+		myScene.setOnMouseDragged(e -> handleDummyCursor(e));
 		
 		return myScene;
 	}
 
+	private void handleDummyCursor(MouseEvent e){
+		myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+	}
+	
 	private void handleEndMouseRelease(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if( myBody.getLeft().contains(e.getSceneX(), e.getSceneY())){
 			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY());
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
+		myDummyCursor.changePic(null);
 		this.getEngineController().shopUnclicked();
+	}
+	
+	public DummyCursor getDummyCursor(){
+		return myDummyCursor;
 	}
 	
 	public DoubleBinding getUsableWidth(double porportion){
