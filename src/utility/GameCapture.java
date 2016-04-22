@@ -13,9 +13,12 @@ import java.util.concurrent.TimeUnit;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
-import com.xuggle.xuggler.IRational;
 
 import engine.frontend.overall.EngineView;
+import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
 
 public class GameCapture implements IGameCapture {
 
@@ -54,7 +57,10 @@ public class GameCapture implements IGameCapture {
 >>>>>>> 4cc06276989b6231a6f209d09f3c1dc9757e8001
 
 	private boolean capture;
-
+	private long startTime;
+	private long timeSinceLastFrame;
+	private long lastAttemptTime;
+	
 	public GameCapture(EngineView ev) {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myEngineView = ev;
@@ -62,53 +68,64 @@ public class GameCapture implements IGameCapture {
 		fileName = myResources.getString("DefaultName");
 		imageFormat = ICodec.ID.CODEC_ID_PNG;
 		videoFormat = ICodec.ID.CODEC_ID_MPEG4;
-		fps = 10;
+		fps = 30;
 	}
 
 	@Override
 	public void startCapture() {
-		fileWriter = ToolFactory.makeWriter(fileName + System.currentTimeMillis() + ".mp4");
-		fileWriter.addVideoStream(0, 0, videoFormat, IRational.make(1 / fps),
-				(int) myEngineView.getStage().getWidth() / 2, (int) myEngineView.getStage().getHeight() / 2);
-		capture = true;
-		record();
-
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+            	Dimension bounds = Toolkit.getDefaultToolkit().getScreenSize();
+	            Rectangle captureSize = new Rectangle(bounds);
+				
+            	fileWriter = ToolFactory.makeWriter(fileName + System.currentTimeMillis() + ".mp4");
+				fileWriter.addVideoStream(0, 0, videoFormat, bounds.width/2, (int) bounds.height/2);
+				capture = true;
+				try {
+					Robot robot = new Robot();
+					while(capture){
+						takeAFrame(robot, captureSize);
+					}
+					fileWriter.close();
+				} catch (AWTException e1) {
+					e1.printStackTrace();
+				}
+            }
+        });
+        thread.start();        
 	}
 
-	private void record() {
-		long startTime = System.nanoTime();
-		while (capture) {
-			System.out.println("Taking a frame");
-			// take the screen shot
-			BufferedImage screen = myEngineView.getStageShot();
-//			BufferedImage screen = getDesktopScreenshot();
+	private void takeAFrame(Robot robot, Rectangle captureSize){
+		long oldtime = System.currentTimeMillis();
+		// take the screen shot
+		BufferedImage screen = robot.createScreenCapture(captureSize);		
+		
+		// convert to the right image type
+		BufferedImage bgrScreen = convertToType(screen, BufferedImage.TYPE_3BYTE_BGR);
 
-			// convert to the right image type
-			BufferedImage bgrScreen = convertToType(screen, BufferedImage.TYPE_3BYTE_BGR);
-
-			// encode the image to stream #0
-			fileWriter.encodeVideo(0, bgrScreen, System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
-
-			// sleep for frame rate milliseconds
-			try {
-				Thread.sleep((long) (1000 / fps));
-			} catch (InterruptedException e) {
-				// ignore
-			}
-
-		}
+		// encode the image to stream #0
+		fileWriter.encodeVideo(0, bgrScreen, System.currentTimeMillis() - startTime, TimeUnit.MILLISECONDS);
+		
+		long newtime = System.currentTimeMillis();
+		long seconds = newtime - oldtime;
+		System.out.println("took a screenshot and wrote it in: " + seconds);
+//
+//		try {
+//			Thread.sleep(1000/fps);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
 	public void pauseCapture(Event pauseCaptureEvent) {
 		// TODO need to add way to re-begin screen capture
-		setCapture(false);
 	}
 
 	@Override
 	public void endCapture() {
-		setCapture(false);
-		fileWriter.close();
+		capture = false;
 	}
 
 	@Override
@@ -147,10 +164,6 @@ public class GameCapture implements IGameCapture {
 		fileName = f;
 	}
 
-	private void setCapture(boolean updated) {
-		capture = updated;
-	}
-
 	private BufferedImage convertToType(BufferedImage sourceImage, int targetType) {
 
 		BufferedImage image;
@@ -168,18 +181,5 @@ public class GameCapture implements IGameCapture {
 		}
 
 		return image;
-	}
-
-	private static BufferedImage getDesktopScreenshot() {
-		Dimension screenBounds = Toolkit.getDefaultToolkit().getScreenSize();
-		try {
-			Robot robot = new Robot();
-			Rectangle captureSize = new Rectangle(screenBounds);
-			return robot.createScreenCapture(captureSize);
-		} catch (AWTException e) {
-			e.printStackTrace();
-			return null;
-		}
-
 	}
 }

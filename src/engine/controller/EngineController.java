@@ -28,7 +28,7 @@ public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
 
-	private static final int NUM_FRAMES_PER_SECOND = 60;
+	private static final int NUM_FRAMES_PER_SECOND = 50;
 	private boolean playing;
 	
 	private EventManager myEventManager;
@@ -74,9 +74,8 @@ public class EngineController implements IEngineController{
 	
 	public void step() {
 		if(playing){
-			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());
 		}
-
 	}
 	
 	//backend endpoint 

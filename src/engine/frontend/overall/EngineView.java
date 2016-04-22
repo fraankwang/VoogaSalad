@@ -52,11 +52,12 @@ public class EngineView{
 	
 	private MenubarManager myMenubarManager;
 	
-	private BorderPane myBody;
+	public BorderPane myBody;
 	private MenuBar myMenuBar;
 	private BoardPane myBoardPane;
 	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
+	
 	
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
