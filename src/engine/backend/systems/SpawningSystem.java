@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +21,7 @@ public class SpawningSystem extends GameSystem{
 		// TODO Auto-generated method stub
 		
 		Collection<IEntity> entities = myLevel.getEntities().values();
+		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		for(IEntity entity : entities){
 			
 			if(entity.hasComponent(myComponentTagResources.getString("Spawner"))){
@@ -39,7 +41,7 @@ public class SpawningSystem extends GameSystem{
 								pathComp.setPathID(spawnerComponent.getPathID());
 							}
 							
-							sendAddEntityEvent(newEntity);
+							newEntities.add(newEntity);
 							
 							spawn.resetTimer();
 						}
@@ -54,10 +56,12 @@ public class SpawningSystem extends GameSystem{
 			
 		}
 		
+		sendAddEntityEvent(newEntities);
+		
 	}
 	
-	private void sendAddEntityEvent(IEntity entity){
-		AddEntityEvent event = new AddEntityEvent(entity);
+	private void sendAddEntityEvent(Collection<IEntity> newEntities){
+		AddEntityEvent event = new AddEntityEvent(newEntities);
 		notifyObservers(event);
 	}
 }

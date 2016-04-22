@@ -1,8 +1,8 @@
 package engine.backend.systems;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import engine.backend.components.FiringComponent;
@@ -27,22 +27,19 @@ public class FiringSystem extends GameSystem {
 			ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
-		for (IEntity shootingEntity : entities) {
-
-			if (shootingEntity.hasComponent(myComponentTagResources.getString("Firing"))) {
-				FiringComponent firingComponent = (FiringComponent) shootingEntity
-						.getComponent(myComponentTagResources.getString("Firing"));
-
-				for (IEntity targetEntity : entities) {
-
-					// needs to check if it's something it can fire at
-					if (firingComponent.getTargets().contains(targetEntity.getName())) {
-
-						PositionComponent shootingPosComponent = (PositionComponent) shootingEntity
-								.getComponent(myComponentTagResources.getString("Position"));
-						PositionComponent targetPosComponent = (PositionComponent) targetEntity
-								.getComponent(myComponentTagResources.getString("Position"));
-
+		Collection<IEntity> newEntities = new ArrayList<IEntity>();
+		for(IEntity shootingEntity : entities){
+			
+			if(shootingEntity.hasComponent(myComponentTagResources.getString("Firing"))){
+				FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(myComponentTagResources.getString("Firing"));
+				
+				for(IEntity targetEntity : entities){
+					
+					//needs to check if it's something it can fire at
+					if(firingComponent.getTargets().contains(targetEntity.getName())){
+						
+						PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(myComponentTagResources.getString("Position"));
+						PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(myComponentTagResources.getString("Position"));
 						Vector shootingPosVector = shootingPosComponent.getPositionVector();
 						Vector targetPosVector = targetPosComponent.getPositionVector();
 
@@ -53,11 +50,8 @@ public class FiringSystem extends GameSystem {
 								double xComp = targetPosVector.getX() - shootingPosVector.getX();
 								double yComp = targetPosVector.getY() - shootingPosVector.getY();
 								Vector firedVelVector = new Vector(xComp, yComp);
-
-								IEntity newEntity = initilizeFire(firingComponent.getEntityName(), shootingPosVector,
-										firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory,
-										myComponentTagResources);
-								sendAddEntityEvent(newEntity);
+								IEntity newEntity = initilizeFire(firingComponent.getEntityName(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
+								newEntities.add(newEntity);
 								firingComponent.setFireNow(false);
 								firingComponent.resetTimer();
 							} else {
@@ -70,6 +64,8 @@ public class FiringSystem extends GameSystem {
 				}
 
 			}
+		
+		sendAddEntityEvent(newEntities);
 		}
 
 	}
@@ -80,8 +76,8 @@ public class FiringSystem extends GameSystem {
 
 	}
 
-	private void sendAddEntityEvent(IEntity newEntity) {
-		AddEntityEvent event = new AddEntityEvent(newEntity);
+	private void sendAddEntityEvent(Collection<IEntity> newEntities) {
+		AddEntityEvent event = new AddEntityEvent(newEntities);
 		notifyObservers(event);
 	}
 
