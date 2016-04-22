@@ -37,16 +37,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 
-		List<String> entityAttributes = (List<String>) Arrays.asList(
-
-				"Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image", "DamageComponent",
-				"FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed", "FiringComponent_EnemyInSightRange",
-				"FiringComponent_Targets", "FiringComponent_FiringRate", "SizeComponent_Width", "SizeComponent_Height",
-				"ArmorComponent_ResistanceToDamage", "HealthComponent_Health", "HealthComponent_CriticalHealth",
-				"RotationComponent", "Cost", "Bounty", "PathComponent_PathID", "PositionComponent_XCoordinate",
-				"PositionComponent_YCoordinate", "CollisionComponent_IsCollided", "MovementComponent_Velocity",
-				"MovementComponent_CanMove", "MovementComponent_CanRotate");
-
+		List<String> entityAttributes = (List<String>) Arrays.asList("Genre", "Name");
 		myAttributesGridPane = createAttributesGridPane(entityAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 
@@ -70,14 +61,22 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		System.out.println("*****6. UnmodifiableEntityAttributesPanel: display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
-		for (int i = 0; i < myAttributes.size(); i++) {
-			String currentAttribute = myAttributes.get(i);
-
-			TextField tf = (TextField) myOutputMap.get(currentAttribute);
-			tf.setText(myAttributesMap.get(myAttributes.get(i)));
-			tf.setEditable(false);
-
-			myOutputMap.replace(currentAttribute, tf);
+		for (String currentAttribute : myAttributesMap.keySet()) {
+			
+			if (myOutputMap.keySet().contains(currentAttribute)) {
+				TextField tf = (TextField) myOutputMap.get(currentAttribute);
+				tf.setText(myAttributesMap.get(currentAttribute));
+				tf.setEditable(false);
+				myOutputMap.replace(currentAttribute, tf);
+				
+			}
+			
+			else {
+				TextField tf = new TextField();
+				tf.setText(myAttributesMap.get(currentAttribute));
+				tf.setEditable(false);
+				myOutputMap.put(currentAttribute, tf);
+			}
 
 		}
 

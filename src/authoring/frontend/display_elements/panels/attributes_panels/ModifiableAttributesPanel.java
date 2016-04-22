@@ -106,26 +106,24 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
-			//tf.setText("2");
 			tf.setEditable(false);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
-			myInputMap.put(currentAttribute, tf);
 			myAttributesGridPane.add(text, 0, i);
-			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
 
 		}
 		
 		Button addComponentButton = new Button("Add Component");
 		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
 		GridPane.setColumnSpan(addComponentButton, 2);
+		addComponentButton.setPrefSize(800, 800);
+		
 		addComponentButton.setOnAction(e -> {
 			ComponentSelector selector = new ComponentSelector();
 			selector.initialize();
-			Map<String, Control> newComponents = selector.openSelector();
+			Map<String, Control> newComponents = selector.openSelector(myInputMap);
+			myAttributes = selector.getSelectedAttributes();
 			for (String key: newComponents.keySet()) {
-				myAttributes.add(key);
-				System.out.println(key);
 				myAttributesMap.put(key, null);
 				myInputMap.put(key, newComponents.get(key));
 				refreshInputRows();
@@ -145,12 +143,14 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		}
 		
 		Button addComponentButton = new Button("Add Component");
+		addComponentButton.setFont(new Font(20));
 		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
 		GridPane.setColumnSpan(addComponentButton, 2);
+		
 		addComponentButton.setOnAction(e -> {
 			ComponentSelector selector = new ComponentSelector();
 			selector.initialize();
-			Map<String, Control> newComponents = selector.openSelector();
+			Map<String, Control> newComponents = selector.openSelector(myInputMap);
 			for (String key: newComponents.keySet()) {
 				myAttributes.add(key);
 				myAttributesMap.put(key, null);
