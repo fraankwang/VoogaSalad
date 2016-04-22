@@ -1,24 +1,14 @@
 package utility;
 
-import java.awt.AWTException;
-import java.awt.Dimension;
-import java.awt.Event;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
-
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
-
 import engine.frontend.overall.EngineView;
-import javafx.concurrent.Task;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.image.WritableImage;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class GameCapture implements IGameCapture {
 
@@ -30,45 +20,23 @@ public class GameCapture implements IGameCapture {
 	private String fileName;
 	private ICodec.ID imageFormat;
 	private ICodec.ID videoFormat;
-<<<<<<< HEAD
-	private int framesPerSecond;
-    //TODO fix this
-    private String outputFileName = "TO_BE_CHANGED";
     private IMediaWriter fileWriter;
     private static final ICodec.ID IMAGE = ICodec.ID.CODEC_ID_PNG;
     private static final ICodec.ID VIDEO = ICodec.ID.CODEC_ID_MP4ALS;
-    private static final int FRAME_RATE = 60;
-    private boolean capture;
-	
-	public GameCapture(String f){
-		fileHeaderName = f;
-	}
-	
-	@Override
-	public void startCapture(Event startCaptureEvent) {
-        fileWriter = ToolFactory.makeWriter(fileHeaderName+outputFileName+System.currentTimeMillis());
-        fileWriter.addVideoStream(0, 0, IMAGE,
-                IRational.make(1/FRAME_RATE), getScreenBounds().width/2, getScreenBounds().height/2);
-        record();
-        fileWriter.
-=======
-	private int fps;
-	private IMediaWriter fileWriter;
->>>>>>> 4cc06276989b6231a6f209d09f3c1dc9757e8001
-
+    private static final int FRAME_RATE = 30;
 	private boolean capture;
 	private long startTime;
-	private long timeSinceLastFrame;
-	private long lastAttemptTime;
+    private long timeSinceLastFrame;
+    private long lastAttemptTime;
+    private int fps;
 	
 	public GameCapture(EngineView ev) {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myEngineView = ev;
-
 		fileName = myResources.getString("DefaultName");
-		imageFormat = ICodec.ID.CODEC_ID_PNG;
-		videoFormat = ICodec.ID.CODEC_ID_MPEG4;
-		fps = 30;
+		imageFormat = IMAGE;
+		videoFormat = VIDEO;
+		fps = FRAME_RATE;
 	}
 
 	@Override
@@ -96,7 +64,7 @@ public class GameCapture implements IGameCapture {
 	}
 
 	private void takeAFrame(Robot robot, Rectangle captureSize){
-		long oldtime = System.currentTimeMillis();
+		long oldTime = System.currentTimeMillis();
 		// take the screen shot
 		BufferedImage screen = robot.createScreenCapture(captureSize);		
 		
@@ -106,8 +74,8 @@ public class GameCapture implements IGameCapture {
 		// encode the image to stream #0
 		fileWriter.encodeVideo(0, bgrScreen, System.currentTimeMillis() - startTime, TimeUnit.MILLISECONDS);
 		
-		long newtime = System.currentTimeMillis();
-		long seconds = newtime - oldtime;
+		long newTime = System.currentTimeMillis();
+		long seconds = newTime - oldTime;
 		System.out.println("took a screenshot and wrote it in: " + seconds);
 //
 //		try {
@@ -118,10 +86,6 @@ public class GameCapture implements IGameCapture {
 //		}
 	}
 
-	@Override
-	public void pauseCapture(Event pauseCaptureEvent) {
-		// TODO need to add way to re-begin screen capture
-	}
 
 	@Override
 	public void endCapture() {

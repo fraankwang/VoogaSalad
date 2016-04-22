@@ -2,8 +2,6 @@ package utility;
 
 import java.awt.*;
 
-import javafx.event.ActionEvent;
-
 /**
  * Created by colinduffy on 4/19/16.
  */
@@ -47,20 +45,16 @@ public interface IGameCapture {
     /**
      * Begins timer and will place images captured from Java Robot into
      * data structure.
-     * @param startCaptureEvent
+     *
      */
     void startCapture();
 
-    /**
-     * Pauses image capture, but does not create exportable file.
-     * @param pauseCaptureEvent
-     */
-    void pauseCapture(Event pauseCaptureEvent);
+
 
     /**
      * Ends image capture, data structure containing images
      * appended into a video file
-     * @param endCaptureEvent
+     *
      */
     void endCapture();
 
