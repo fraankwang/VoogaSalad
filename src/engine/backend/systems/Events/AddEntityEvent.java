@@ -1,16 +1,18 @@
 package engine.backend.systems.Events;
 
+import java.util.Collection;
+
 import engine.backend.entities.IEntity;
 
 public class AddEntityEvent extends EntityEvent{
 	
-	private IEntity newEntity;
+	private Collection<IEntity> newEntities;
 	
-	public AddEntityEvent(IEntity newEntity){
-		this.newEntity = newEntity;
+	public AddEntityEvent(Collection<IEntity> newEntities){
+		this.newEntities = newEntities;
 	}
 	
-	public IEntity getNewEntity(){
-		return newEntity;
+	public Collection<IEntity> getNewEntity(){
+		return newEntities;
 	}
 }

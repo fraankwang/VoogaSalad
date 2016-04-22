@@ -124,6 +124,7 @@ public class CollisionSystem extends GameSystem{
 =======
     
 	private void sendCollisionEvent(int entityID1, int entityID2){
+		System.out.println("Collision Detected!");
 		CollisionEvent collisionEvent = new CollisionEvent(entityID1, entityID2);
 		notifyObservers(collisionEvent);
 	}

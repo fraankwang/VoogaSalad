@@ -34,7 +34,7 @@ public class EventManager implements Observer {
 		myEngineController = engineController;
 		myGameWorld = game;
 		//pass in right values
-		currentModeStatistics = new ModeStatistics();
+		//currentModeStatistics = new ModeStatistics();
 	}
 
 	public void setLevel(Level level) {
