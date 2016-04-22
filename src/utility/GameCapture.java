@@ -183,4 +183,5 @@ public class GameCapture implements IGameCapture {
 
 		return image;
 	}
+
 }

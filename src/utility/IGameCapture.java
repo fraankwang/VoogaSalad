@@ -1,10 +1,7 @@
 package utility;
 
-import java.awt.*;
+import java.awt.Event;
 import java.io.File;
-
-import com.xuggle.xuggler.ICodec;
-import com.xuggle.xuggler.ICodec.ID;
 
 import javafx.scene.Node;
 
@@ -65,6 +62,7 @@ public interface IGameCapture {
      * @return string representation of image format
      */
     String getImageFileType();
+
     
     /**
      * Sets number of screenshots captured per second during recording
