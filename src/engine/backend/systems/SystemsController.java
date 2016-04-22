@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.text.html.parser.Entity;
+
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
@@ -33,8 +35,8 @@ public class SystemsController {
 	private InGameEntityFactory myEntityFactory;
 
 	private int myLevelIndex;
-	private int myModeIndex; 
-	
+	private int myModeIndex;
+
 	private GameClock myGameClock;
 
 	/*
@@ -56,7 +58,6 @@ public class SystemsController {
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
 
-
 		this.myEventManager = myEventManager;
 
 		healthSystem.addObserver(myEventManager);
@@ -70,23 +71,20 @@ public class SystemsController {
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
 		mySystems.add(renderingSystem);
-		
+
 		myGameClock = new GameClock(framesPerSecond);
-
 	}
-
-//	public void initializeGame(GameWorld game) {
-//		myGame = game;
-//	}
 
 	public void iterateThroughSystems(Level level) {
 		for (ISystem system : mySystems) {
 			long startTime = System.currentTimeMillis();
-			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
-			long endTime   = System.currentTimeMillis();
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(),
+					myComponentTagResources);
+			long endTime = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
-			//System.out.println(myGameClock.getCurrentSecond());
-			//System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
+			// System.out.println(myGameClock.getCurrentSecond());
+			// System.out.println(system.getClass().getSimpleName() + ": " +
+			// totalTime);
 		}
 		myGameClock.updateLoopIteration();
 	}

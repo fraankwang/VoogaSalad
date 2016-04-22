@@ -14,54 +14,55 @@ import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
 
-public class SpawningSystem extends GameSystem{
+public class SpawningSystem extends GameSystem {
 
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond,
+			ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
-		
+
 		Collection<IEntity> entities = myLevel.getEntities().values();
-		Collection<IEntity> newEntities = new ArrayList<IEntity>();
-		for(IEntity entity : entities){
-			
-			if(entity.hasComponent(myComponentTagResources.getString("Spawner"))){
-				SpawnerComponent spawnerComponent = (SpawnerComponent) entity.getComponent(myComponentTagResources.getString("Spawner"));
-				
-				for(Spawn spawn : spawnerComponent.getSpawns()){
-					//handle spawning, produce entity, set pathID
-					if(currentSecond >= spawn.getSpawningStartTime() && currentSecond <= spawn.getSpawningEndTime()){
-						
-						if(spawn.getTimer() == 0){
-							//spawn
+
+		for (IEntity entity : entities) {
+
+			if (entity.hasComponent(myComponentTagResources.getString("Spawner"))) {
+				SpawnerComponent spawnerComponent = (SpawnerComponent) entity
+						.getComponent(myComponentTagResources.getString("Spawner"));
+
+				for (Spawn spawn : spawnerComponent.getSpawns()) {
+					// handle spawning, produce entity, set pathID
+					if (currentSecond >= spawn.getSpawningStartTime() && currentSecond <= spawn.getSpawningEndTime()) {
+
+						if (spawn.getTimer() == 0) {
+							// spawn
 							IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
-							PositionComponent newPos = new PositionComponent((PositionComponent) entity.getComponent(myComponentTagResources.getString("Position")));
+							PositionComponent newPos = new PositionComponent((PositionComponent) entity
+									.getComponent(myComponentTagResources.getString("Position")));
 							newEntity.addComponent(newPos);
-							if(newEntity.hasComponent(myComponentTagResources.getString("Path"))){
-								PathComponent pathComp = (PathComponent) newEntity.getComponent(myComponentTagResources.getString("Path"));
+							if (newEntity.hasComponent(myComponentTagResources.getString("Path"))) {
+								PathComponent pathComp = (PathComponent) newEntity
+										.getComponent(myComponentTagResources.getString("Path"));
 								pathComp.setPathID(spawnerComponent.getPathID());
 							}
-							
-							newEntities.add(newEntity);
-							
+
+
+							sendAddEntityEvent(newEntity);
+
 							spawn.resetTimer();
-						}
-						else{
+						} else {
 							spawn.setTimer(currentSecond);
 						}
-						
+
 					}
 				}
-				
+
 			}
-			
+
 		}
-		
-		sendAddEntityEvent(newEntities);
-		
-	}
-	
-	private void sendAddEntityEvent(Collection<IEntity> newEntities){
-		AddEntityEvent event = new AddEntityEvent(newEntities);
+
+
+	private void sendAddEntityEvent(IEntity entity) {
+		AddEntityEvent event = new AddEntityEvent(entity);
 		notifyObservers(event);
 	}
 }

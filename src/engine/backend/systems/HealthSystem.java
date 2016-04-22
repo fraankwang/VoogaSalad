@@ -19,40 +19,39 @@ import java.util.Observable;
  *
  */
 
-
-
-public class HealthSystem extends GameSystem{
+public class HealthSystem extends GameSystem {
 
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond,
+			ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
-		for(IEntity entity : entities){
-			if(entity.hasComponent(myComponentTagResources.getString("Health"))){
-				HealthComponent healthComp = (HealthComponent) entity.getComponent(myComponentTagResources.getString("Health"));
-				
-				if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
+		for (IEntity entity : entities) {
+			if (entity.hasComponent(myComponentTagResources.getString("Health"))) {
+				HealthComponent healthComp = (HealthComponent) entity
+						.getComponent(myComponentTagResources.getString("Health"));
+
+				if (healthComp.getHealth() <= healthComp.getCriticalHealth()) {
 					sendCritialHealthEvent(entity.getID());
 					continue;
 				}
-				
-				if(healthComp.getHealth() <= 0){
+
+				if (healthComp.getHealth() <= 0) {
 					sendDeathEvent(entity.getID());
 					continue;
 				}
 			}
 		}
 	}
-	
-	private void sendDeathEvent(int entityID){
+
+	private void sendDeathEvent(int entityID) {
 		DeathEvent deathEvent = new DeathEvent(entityID);
 		notifyObservers(deathEvent);
 	}
-	
-	private void sendCritialHealthEvent(int entityID){
+
+	private void sendCritialHealthEvent(int entityID) {
 		CriticalHealthEvent criticalHealthEvent = new CriticalHealthEvent(entityID);
 		notifyObservers(criticalHealthEvent);
 	}
-
 
 }

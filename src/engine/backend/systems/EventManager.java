@@ -34,7 +34,8 @@ public class EventManager implements Observer {
 		myEngineController = engineController;
 		myGameWorld = game;
 		//pass in right values
-		//currentModeStatistics = new ModeStatistics();
+
+//		currentModeStatistics = new ModeStatistics();
 	}
 
 	public void setLevel(Level level) {
@@ -102,11 +103,7 @@ public class EventManager implements Observer {
 		}
 		return null;
 	}
-<<<<<<< HEAD
-	
-	public void handleAddEntity(IEvent myEvent) { 
-		myEvent.getEntities().forEach(e -> myCurrentLevel.addEntity(e));
-=======
+
 
 	public void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
@@ -120,7 +117,6 @@ public class EventManager implements Observer {
 	public void handleEnemyMissed() {
 		// gets events, send event to level manager
 
->>>>>>> origin/engine_backend_systems_rk145
 	}
 	
 	public GameWorld getGameWorld(){
