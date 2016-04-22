@@ -3,7 +3,7 @@ package engine.backend.components;
 /**
  * Created by colinduffy on 4/10/16.
  */
-public class MouseComponent extends Component implements IComponent {
+public class MouseComponent extends Component {
 
     private boolean clicked, cursorOver;
 
@@ -34,7 +34,13 @@ public class MouseComponent extends Component implements IComponent {
     }
 
 	@Override
-	public void initWithParams(String[] params) {
+	public String getComponentInfo() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		
 	}
 }

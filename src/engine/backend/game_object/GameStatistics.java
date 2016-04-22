@@ -5,11 +5,15 @@
  */
 package engine.backend.game_object;
 
-public class GameStatistics {
+import java.util.Observable;
+
+public class GameStatistics extends Observable{
 
 	private double myMoney;
 	private double myScore;
 	private double myHealth;
+	private int myLives;
+	private double myResources;
 	
 	private int currentMode = 0;
 	private int currentLevel = 0;

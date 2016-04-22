@@ -3,7 +3,7 @@
  */
 package engine.backend.components;
 
-public class CollisionComponent extends Component implements IComponent{
+public class CollisionComponent extends Component {
     
 	private boolean isCollided;
 
@@ -25,14 +25,19 @@ public class CollisionComponent extends Component implements IComponent{
     }
 
 	@Override
-	public void initWithParams(String[] params) {
-        //default
-        isCollided = false;
+	public String getComponentInfo() {
+		return "isCollided: " + isCollided;
 	}
-	
+
 	@Override
-	public String getValue() {
-		return isCollided + "";
+	public void update(String dataName, String data) {
+		if (dataName.equals("IsCollided")) {
+			if (data.equals("True")) {
+				isCollided = true;
+			} else {
+				isCollided = false;
+			}
+		}
 	}
 
 }

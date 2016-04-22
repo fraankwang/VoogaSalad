@@ -12,11 +12,11 @@ import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 
 public class LevelFactory {
-	
+
 	private static final int POINTS_PER_CURVE = 8;
-	
+
 	public LevelFactory() {
-		
+
 	}
 	
 	public Level createLevel(Map<String, String> data) {
@@ -25,7 +25,7 @@ public class LevelFactory {
 		String name = null;
 		for (String key : data.keySet()) {
 			switch (key) {
-				
+
 			case "Path":
 				map.setPath(getPath(data.get(key)));
 			case "LevelImage":
@@ -54,7 +54,7 @@ public class LevelFactory {
 		}
 		return entityNames;
 	}
-	
+
 	private Path getPath(String str) {
 		List<BezierCurve> curves = new ArrayList<BezierCurve>();
 		BezierCurve[] temp = getCurves(str);
@@ -63,8 +63,7 @@ public class LevelFactory {
 		}
 		return new Path(curves);
 	}
-	
-	
+
 	private BezierCurve[] getCurves(String str) {
 		double[] points = getDouble(str);
 		int numCurves = points.length / POINTS_PER_CURVE;
@@ -79,9 +78,9 @@ public class LevelFactory {
 			curves[j] = new BezierCurve(temp);
 		}
 		return curves;
-		
+
 	}
-	
+
 	private double[] getDouble(String str) {
 		String[] rawPoints = str.split(" ");
 		double[] points = new double[rawPoints.length];
@@ -90,5 +89,5 @@ public class LevelFactory {
 		}
 		return points;
 	}
-		
+
 }

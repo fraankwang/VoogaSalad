@@ -1,42 +1,43 @@
 package engine.backend.entities;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
+import engine.backend.rules.Action;
 import engine.backend.rules.Rule;
 
 public class Entity implements IEntity {
 
 	private String myName;
 	private String myType;
-	private double myValue;
-	private double bounty;
-	private int myID;
-	private List<Rule> myRules;
-	private Map<String, IComponent> myComponents;
 	private Map<String, String> entityInfo;
-	private boolean hasBeenModified = false;
+	private List<Rule> myRules;
+	private int myID;
+	private Map<String, IComponent> myComponents;
+	private boolean hasBeenModified;
 
-	public Entity(int myID, String myName, String myType, double myValue) {
+	public Entity(int myID, String myName, String myType) {
 		this.myName = myName;
 		this.myType = myType;
 		this.myID = myID;
-		this.myValue = myValue;
 		this.myComponents = new HashMap<String, IComponent>();
 		this.myRules = new ArrayList<Rule>();
 		this.entityInfo = new HashMap<String, String>();
+		this.hasBeenModified = true;
 		initializeInfo();
 	}
 	
-	public Entity(String myName, String myType, double myValue) {
+	public Entity(String myName, String myType) {
 		this.myName = myName;
 		this.myType = myType;
-		this.myValue = myValue;
 		this.myComponents = new HashMap<String, IComponent>();
 		this.myRules = new ArrayList<Rule>();
 		this.entityInfo = new HashMap<String, String>();		
@@ -47,7 +48,6 @@ public class Entity implements IEntity {
 		entityInfo.put("Type", "Entity");
 		entityInfo.put("Genre", myType);
 		entityInfo.put("Name", myName);
-		entityInfo.put("Cost", myValue + "");
 	}
 
 	public void addRule(Rule myRule) {
@@ -57,7 +57,7 @@ public class Entity implements IEntity {
 	public void addComponent(IComponent component) {
 		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
-		entityInfo.put(component.getTag(), component.getValue());
+		entityInfo.put(component.getTag(), component.getComponentInfo());
 	}
 
 	public IComponent getComponent(String tag) {
@@ -72,10 +72,6 @@ public class Entity implements IEntity {
 		return myComponents.values();
 	}
 	
-	public double getBounty() {
-		return bounty;
-	}
-	
 	public List<Rule> getRules() {
 		return myRules;
 	}
@@ -86,10 +82,6 @@ public class Entity implements IEntity {
 
 	public String getName() {
 		return myName;
-	}
-
-	public double getValue() {
-		return myValue;
 	}
 
 	public String getType() {
@@ -112,10 +104,6 @@ public class Entity implements IEntity {
 		return myComponents.get(tag) != null;
 	}
 
-	public void setValue(double myValue) {
-		this.myValue = myValue;
-	}
-
 	public boolean hasBeenModified() {
 		return hasBeenModified;
 	}
@@ -126,10 +114,6 @@ public class Entity implements IEntity {
 
 	public void setMyType(String myType) {
 		this.myType = myType;
-	}
-	
-	public void setBounty(double bounty) {
-		this.bounty = bounty;
 	}
 	
 	@Override
@@ -149,6 +133,42 @@ public class Entity implements IEntity {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void applyAction(Action action, ResourceBundle myComponentTagResources) {
+		String component = action.getComponentToModifiy();
+		String instanceVar = action.getValueInComponent();
+		String newVal = action.getNewValue();
+		Method setMethod;
+		
+		String fullName = myComponentTagResources.getString(component);
+		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
+		
+		try {
+			Object componentClassInstance = componentClass.newInstance();
+			componentClassInstance = componentClass.cast(myComponents.get(fullName));
+			//put in resource file!!!
+			String methodName = "set" + instanceVar;
+			
+			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
+			
+			setMethod.invoke(componentClassInstance, newVal);
+			
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

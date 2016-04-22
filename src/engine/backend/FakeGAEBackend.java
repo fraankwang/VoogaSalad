@@ -18,12 +18,12 @@ import engine.backend.systems.SystemsController;
 public class FakeGAEBackend {
 
 	private SystemsController systems;
-	private EntityFactoryClass entityFactory;
+	//private EntityFactoryClass entityFactory;
 	private GameWorld trumpGame;
 	private MockGAEData frontMockData;
 
 	public FakeGAEBackend() {
-		entityFactory = new EntityFactoryClass();
+		//entityFactory = new EntityFactoryClass();
 		frontMockData = new MockGAEData();
 		
 	}
