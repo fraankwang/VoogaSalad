@@ -163,6 +163,8 @@ public class EngineController implements IEngineController{
 		//////add wave //////////
 		/////////////////////////
 		IEntity wave = new Entity(3, "wave", "object4", 20);
+		IComponent display2 = new DisplayComponent(false);
+		wave.addComponent(display2);
 		IComponent spawner = new SpawnerComponent();
 		Spawn spawn1 = new Spawn("tower", NUM_FRAMES_PER_SECOND, 5, 10);
 		((SpawnerComponent) spawner).addSpawn(spawn1);

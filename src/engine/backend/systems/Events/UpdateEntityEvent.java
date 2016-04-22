@@ -2,8 +2,8 @@ package engine.backend.systems.Events;
 
 import engine.backend.entities.IEntity;
 
-public class UpdateEntityEvent extends EntityEvent{
-	
+public class UpdateEntityEvent extends EntityEvent {
+
 	double x;
 	double y;
 	String image;
@@ -11,8 +11,8 @@ public class UpdateEntityEvent extends EntityEvent{
 	double sizex;
 	double sizey;
 	boolean show;
-	
-	public UpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show){
+
+	public UpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
@@ -21,27 +21,33 @@ public class UpdateEntityEvent extends EntityEvent{
 		this.sizey = sizey;
 		this.show = show;
 	}
-	
-	public double getX(){
+
+	public double getX() {
 		return x;
 	}
-	public double getY(){
+
+	public double getY() {
 		return y;
 	}
-	public String getImage(){
+
+	public String getImage() {
 		return image;
 	}
-	public int getID(){
+
+	public int getID() {
 		return id;
 	}
-	public double getSizeX(){
+
+	public double getSizeX() {
 		return sizex;
 	}
-	public double getsizeY(){
+
+	public double getsizeY() {
 		return sizey;
 	}
-	public boolean getShow(){
+
+	public boolean getShow() {
 		return show;
 	}
-	
+
 }
