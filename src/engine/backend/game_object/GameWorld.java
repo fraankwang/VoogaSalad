@@ -55,10 +55,8 @@ public class GameWorld {
 	public IEntity getEntityWithId(int id){
 		for (Mode mode : modes){
 			for(Level level : mode.getLevels()){
-				for (IEntity entity : level.getEntities()){
-					if(((Entity)entity).getID() == id){
-						return entity;
-					}
+				if (level.getEntities().containsKey(id)) {
+					return level.getEntities().get(id);
 				}
 			}
 		}

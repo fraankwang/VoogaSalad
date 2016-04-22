@@ -6,34 +6,40 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
-import engine.backend.rules.Action;
-import engine.backend.systems.Events.IEvent;
-import engine.backend.systems.Events.UpdateEntityEvent;
+import engine.backend.game_object.ModeStatistics;
+import engine.backend.rules.EntityAction;
+import engine.backend.systems.Events.*;
 import engine.controller.IEngineController;
 
 public class EventManager implements Observer {
 
 	private Level myCurrentLevel;
 	ResourceBundle myComponentTagResources;
-	private Map<String, List<Action>> myCustomEvents;
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
+	ModeStatistics currentModeStatistics;
+
+	private SystemsController mySystemsController;
+	private Map<String, List<EntityAction>> myCustomEntityEvents;
 
 	public EventManager(IEngineController engineController, GameWorld game) {
 		this.myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
-		setCurrentLevel(game.getLevelWithId(0));
+		setLevel(game.getLevelWithId(0));
 		myEngineController = engineController;
 		myGameWorld = game;
+		//pass in right values
+		currentModeStatistics = new ModeStatistics(0, 0);
 	}
 
-	public void setCurrentLevel(Level level) {
+	public void setLevel(Level level) {
 		myCurrentLevel = level;
-		myCustomEvents = level.getCustomEvents();
+		myCustomEntityEvents = level.getCustomEvents();
 	}
 
 	public Level getCurrentLevel() {
@@ -50,8 +56,8 @@ public class EventManager implements Observer {
 		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(), myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}
 
-	public void setCustomEvents(Map<String, List<Action>> myCustomEvents) {
-		this.myCustomEvents = myCustomEvents;
+	public void setCustomEvents(Map<String, List<EntityAction>> myCustomEntityEvents) {
+		this.myCustomEntityEvents = myCustomEntityEvents;
 	}
 
 	private void handleCustomEvent(IEvent myEvent) {
@@ -61,38 +67,59 @@ public class EventManager implements Observer {
 			return;
 		}
 		
-		List<Action> myActions = checkPossibleIDs(myEvent.getEventID());
-		if (myActions != null) {
-			Collection<IEntity> myEntities = myEvent.getEntities();
-			myActions.forEach(a -> {
-				for (IEntity entity : myEntities) {
-					if (a.getEntityName().equals(entity.getName())) {
-						entity.applyAction(a, myComponentTagResources);
+		if(myEvent instanceof AddEntityEvent){
+			handleAddEntityEvent(myEvent);
+		}
+		
+		if (myEvent instanceof EntityEvent) {
+			EntityEvent myEntityEvent = (EntityEvent) myEvent;
+			List<String> identifiers = myEntityEvent.getEntities().stream()
+													.map(e -> myCurrentLevel.getEntities().get(e).getName())
+													.collect(Collectors.toList());
+			List<EntityAction> myActions = checkPossibleIDs(myEvent.getEventID(identifiers));
+			if (myActions != null) {
+				Collection<Integer> myEntitiesIDs = myEntityEvent.getEntities();
+				Collection<IEntity> myEntities = myEntitiesIDs.stream()
+															  .map(e -> myCurrentLevel.getEntities().get(e);))
+															  .collect(Collectors.toCollection()));
+				myActions.forEach(a -> {
+					for (IEntity entity : myEntities) {
+						if (a.getEntityName().equals(entity.getName())) {
+							entity.applyAction(a, myComponentTagResources);
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 	}
 
-	private List<Action> checkPossibleIDs(String[] ids) {
+	private List<EntityAction> checkPossibleIDs(List<String> ids) {
 		for (String id : ids) {
-			if (myCustomEvents.get(id) != null) {
-				return myCustomEvents.get(id);
+
+			if (myCustomEntityEvents.get(id) != null) {
+				return myCustomEntityEvents.get(id);
 			}
 		}
 		return null;
 	}
 
-	public void handleAddEntity(IEvent myEvent) {
-		myEvent.getEntities().forEach(e -> myCurrentLevel.addToEntities(e));
+	public void handleAddEntityEvent(IEvent myEvent) {
+		AddEntityEvent event = (AddEntityEvent) myEvent;
+		myCurrentLevel.addToEntities(event.getNewEntity());
+		//we have a problem :/
+//		EntityEvent myEntityEvent = (EntityEvent) myEvent;
+//		myEntityEvent.getEntities().stream()
+//			forEach(e -> myCurrentLevel.addToEntities(e));
 	}
 
 	public void handleEnemyMissed() {
 		// gets events, send event to level manager
+
 	}
 	
 	public GameWorld getGameWorld(){
 		return myGameWorld;
+
 	}
 }
 

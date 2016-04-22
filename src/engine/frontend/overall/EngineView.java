@@ -62,7 +62,8 @@ public class EngineView{
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
 		myController = c;
-		myGameCapture = new GameCapture(this);
+		//myGameCapture = new GameCapture(this);
+		// game capture not working due to .classpath and jar libraries not quite set up
 		
 		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
@@ -93,7 +94,7 @@ public class EngineView{
 
 	private void handleEndMouseRelease(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if( myBoardPane.getNode().contains(e.getSceneX(), e.getSceneY())){
+		if( myBody.getLeft().contains(e.getSceneX(), e.getSceneY())){
 			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY());
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);

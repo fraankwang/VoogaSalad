@@ -15,18 +15,15 @@ public class ShopView {
 	String myType;
 	private ImageView myImageView;
 	
-	public ShopView(EngineView ev, double xLoc, double yLoc, String image, String type, double width, double height){
+	public ShopView(EngineView ev, String image, String type, double width, double height){
 		myEngineView = ev;
 		myType = type;
 		myImageView = new ImageView(new Image(image));
-		myImageView.setX(xLoc);
-		myImageView.setY(yLoc);
 		myImageView.setFitWidth(width);
 		myImageView.setFitHeight(height);
 		myImageView.setOnMousePressed(e -> handleClick());
 	}
-
-	
+		
 	public void handleClick(){
 		Image myCursorImage = myImageView.getImage();
 		myEngineView.getEngineController().shopClicked(myType);

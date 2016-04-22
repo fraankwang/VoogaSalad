@@ -29,7 +29,7 @@ public class SpawnerComponent extends Component implements IComponent{
 	}
 	
 	public int getPathID(){
-		return PathID;
+		return pathID;
 	}
 
 }

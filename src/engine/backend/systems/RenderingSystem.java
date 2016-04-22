@@ -6,6 +6,7 @@
 
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,12 +34,11 @@ public class RenderingSystem extends GameSystem {
 		this.engineController = eController;
 	}
 
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
-		List<IEntity> entities = myLevel.getEntities();
-		//System.out.println("update rendering system " + entities.toString());
-		
-		for (IEntity myEntity : entities) {
+
+		Collection<IEntity> entities = myLevel.getEntities().values();
+		for(IEntity myEntity : entities){
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
@@ -76,17 +76,5 @@ public class RenderingSystem extends GameSystem {
 		this.setChanged();
 		notifyObservers(event);
 	}
-	
-	//
-	// //@Override
-	// public void execute(List<Level> list) {
-	// // TODO Auto-generated method stub
-	// for(Level each: list){
-	// System.out.println(each.toString());
-	// //frontEndController.createCharacterImage(x, y, imageToDisplay, sizex,
-	// sizey);
-	//
-	// }
-	// }
 
 }

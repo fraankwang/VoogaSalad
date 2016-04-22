@@ -1,5 +1,7 @@
 package engine.backend.systems;
 
+import java.util.Collection;
+
 /**
  * author raghavkedia
  */
@@ -26,8 +28,9 @@ public class MobilizeSystem extends GameSystem{
 	}
 	
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-		List<IEntity> entities = myLevel.getEntities();
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+
+		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
 			
 			if(!entity.hasComponent(myComponentTagResources.getString("Movement"))){
@@ -45,7 +48,8 @@ public class MobilizeSystem extends GameSystem{
 				//do movement
 				Vector posVector = posComponent.getPositionVector();
 				Vector velVector = movComponent.getCurrentVelocityVector();
-				posVector.add(velVector);
+				Vector newPos = posVector.add(velVector);
+				posComponent.setPositionVector(newPos);
 			}
 			
 			//do rotation

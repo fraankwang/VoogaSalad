@@ -3,6 +3,7 @@ package engine.frontend.shop;
 
 import java.util.List;
 
+import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -22,20 +23,19 @@ public class ShopPane {
 	public Node buildNode(){
 
 		myPane.setStyle("-fx-border-color: black;");
-		myPane.setMinSize(myEngineView.loadDoubleResource("ShopWidth")/2, myEngineView.loadDoubleResource("ShopHeight"));
-		myPane.setPrefSize(myEngineView.loadDoubleResource("ShopWidth"), myEngineView.loadDoubleResource("ShopHeight"));
-		myPane.setMaxSize(myEngineView.loadDoubleResource("ShopWidth"), myEngineView.loadDoubleResource("ShopHeight"));
+		//we can make this a superclass
+		myPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
+		myPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
+		myPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
+		myPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
 		
 		myVBox.minWidthProperty().bind(myPane.widthProperty());
 		myVBox.minHeightProperty().bind(myPane.heightProperty());
 		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
 		
-		createShop(0,0,"DrumpfVader.png", "Drumpf", 20, 20);
-		createShop(0,0,"DrumpfVader.png", "Drumpf", 20, 20);
-		createShop(0,0,"DrumpfVader.png", "Drumpf", 20, 20);
-
-		//ShopView testShopView = new ShopView(myEngineView);
-		//myPane.getChildren().add(testShopView.getNode());	
+		ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
+		
+		addShopObject(tester);
 		
 		myPane.getChildren().add(myVBox);
 		return myPane;
@@ -43,11 +43,18 @@ public class ShopPane {
 	
 	public void createShop(double xCoord, double yCoord, String image, String type, double width, double height){
 		
-		ShopView myTower = new ShopView(myEngineView, xCoord, yCoord, image, type, width, height);
+		ShopView myTower = new ShopView(myEngineView, image, type, width, height);
 		myVBox.getChildren().add(myTower.getNode());	
 	}
 
-	public void updateShop(List<ShopView> myShopList){
+	public void addShopObject(ShopItem myShopItem){
+		double DEFAULT_W = 40;
+		double DEFAULT_H = 40;
+		ShopView myTower = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), DEFAULT_W, DEFAULT_H);
+		myVBox.getChildren().add(myTower.getNode());
+	}
+	
+	public void updateShop(List<ShopItem> myShopList){
 
 	}
 }
