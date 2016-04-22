@@ -72,22 +72,11 @@ public class MenubarManager {
 			List<String> choices = Arrays.asList(ImageIO.getWriterFormatNames());
 			ChoiceDialog<String> dialog = new ChoiceDialog<>(myEngineView.getGameCapture().getImageFileType(), choices);
 			dialog.setTitle(myResources.getString("ImageDialogTitle"));
-			dialog.setHeaderText(myResources.getString("VideoDialogHeader"));
+			dialog.setHeaderText(myResources.getString("ImageDialogHeader"));
 			dialog.setContentText(myResources.getString("ImageDialogContent"));
 
 			Optional<String> result = dialog.showAndWait();
 			result.ifPresent(choice -> myEngineView.getGameCapture().setImageFileType(choice));
-		});
-		
-		MenuItem setVideoFileType = new MenuItem(myResources.getString("VideoFileTypePrompt"));
-		setVideoFileType.setOnAction(e -> {
-			List<ICodec.ID> choices = Arrays.asList(ICodec.ID.values());
-			ChoiceDialog<ICodec.ID> dialog = new ChoiceDialog<>(myEngineView.getGameCapture().getVideoFileType(), choices);
-			dialog.setTitle(myResources.getString("VideoDialogTitle"));
-			dialog.setHeaderText(myResources.getString("VideoDialogHeader"));
-			dialog.setContentText(myResources.getString("VideoDialogContent"));
-			Optional<ICodec.ID> result = dialog.showAndWait();
-			result.ifPresent(choice -> myEngineView.getGameCapture().setVideoFileType(choice));
 		});
 		
 		MenuItem setNumFramesPerSecond = new MenuItem(myResources.getString("NumFramesPerSecondPrompt"));
@@ -123,7 +112,7 @@ public class MenubarManager {
 			result.ifPresent(name -> myEngineView.getGameCapture().setFileName(name));
 		});
 		
-		menu.getItems().addAll(setImageFileType, setVideoFileType, setNumFramesPerSecond, setSaveLocation, setFileName);
+		menu.getItems().addAll(setImageFileType, setNumFramesPerSecond, setSaveLocation, setFileName);
 		return menu;
 	}
 	

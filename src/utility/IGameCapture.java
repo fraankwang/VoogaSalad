@@ -31,14 +31,6 @@ public interface IGameCapture {
     void setImageFileType(String imageFileType);
 
     /**
-     * Sets Image file type for export.
-     * Can be hard-coded in native backend framework for certain situations,
-     * or adjusted dynamically from frontend user input.
-     * @param videoFileType sets file type for exported images
-     */
-    void setVideoFileType(ICodec.ID videoFileType);
-
-    /**
      * Sets number of screenshots captured per second during recording
      * @param numFramesPerSecond
      */
@@ -73,7 +65,7 @@ public interface IGameCapture {
      * Exports file to set destination upon front end event
      * @param exportEvent
      */
-    void exportFile(Event exportEvent);
+    File exportFile(Event exportEvent);
     
     /**
      * Sets the save location for the file
