@@ -6,6 +6,7 @@
 
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,7 +17,7 @@ import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
-import engine.backend.systems.Events.UpdatedDisplayEvent;
+import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.controller.EngineController;
 
 /**
@@ -33,12 +34,11 @@ public class RenderingSystem extends GameSystem {
 		this.engineController = eController;
 	}
 
-	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
-		List<IEntity> entities = myLevel.getEntities();
-		System.out.println("update rendering system " + entities.toString());
-		for (IEntity myEntity : entities) {
+
+		Collection<IEntity> entities = myLevel.getEntities().values();
+		for(IEntity myEntity : entities){
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
@@ -62,16 +62,19 @@ public class RenderingSystem extends GameSystem {
 					sizey = ((SizeComponent) eachComponent).getHeight();
 				}
 			}
+			
+			
+			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
 
-			sendDisplayEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
+			myEntity.setHasBeenModified(false);
 
 		}
 	}
-
-	private void sendDisplayEvent(double x, double y, String imageToDisplay, int id, double sizex, double sizey) {
-		myEventManager.updateEntity(x, y, imageToDisplay, id, sizex, sizey);
-		UpdatedDisplayEvent displayEvent = new UpdatedDisplayEvent();
-		notifyObservers(displayEvent);
+	
+	public void sendUpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show){
+		UpdateEntityEvent event = new UpdateEntityEvent(x, y, image, id, sizex, sizey, show);
+		this.setChanged();
+		notifyObservers(event);
 	}
 
 }

@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,40 +19,39 @@ import java.util.Observable;
  *
  */
 
-
-
-public class HealthSystem extends GameSystem{
+public class HealthSystem extends GameSystem {
 
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond,
+			ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
-		List<IEntity> entities = myLevel.getEntities();
-		for(IEntity entity : entities){
-			if(entity.hasComponent(myComponentTagResources.getString("Health"))){
-				HealthComponent healthComp = (HealthComponent) entity.getComponent(myComponentTagResources.getString("Health"));
-				
-				if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
-					sendCritialHealthEvent(entity);
+		Collection<IEntity> entities = myLevel.getEntities().values();
+		for (IEntity entity : entities) {
+			if (entity.hasComponent(myComponentTagResources.getString("Health"))) {
+				HealthComponent healthComp = (HealthComponent) entity
+						.getComponent(myComponentTagResources.getString("Health"));
+
+				if (healthComp.getHealth() <= healthComp.getCriticalHealth()) {
+					sendCritialHealthEvent(entity.getID());
 					continue;
 				}
-				
-				if(healthComp.getHealth() <= 0){
-					sendDeathEvent(entity);
+
+				if (healthComp.getHealth() <= 0) {
+					sendDeathEvent(entity.getID());
 					continue;
 				}
 			}
 		}
 	}
-	
-	private void sendDeathEvent(IEntity deadEntity){
-		DeathEvent deathEvent = new DeathEvent(deadEntity);
+
+	private void sendDeathEvent(int entityID) {
+		DeathEvent deathEvent = new DeathEvent(entityID);
 		notifyObservers(deathEvent);
 	}
-	
-	private void sendCritialHealthEvent(IEntity criticalEntity){
-		CriticalHealthEvent criticalHealthEvent = new CriticalHealthEvent(criticalEntity);
+
+	private void sendCritialHealthEvent(int entityID) {
+		CriticalHealthEvent criticalHealthEvent = new CriticalHealthEvent(entityID);
 		notifyObservers(criticalHealthEvent);
 	}
-
 
 }

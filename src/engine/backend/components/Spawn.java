@@ -6,6 +6,8 @@ public class Spawn {
 	private double spawningRate;
 	private double spawningStartTime;
 	private double spawningEndTime;
+	private double timer;
+	private double currentSecond;
 	
 	public Spawn(String name, double rate, double start, double end){
 		setSpawningEntityName(name);
@@ -43,7 +45,21 @@ public class Spawn {
 		return spawningEntityName;
 	}
 
-
+	public double getTimer(){
+		return timer;
+	}
+	
+	public void resetTimer(){
+		timer = spawningRate;
+	}
+	
+	public void setTimer(double currentSecond){
+		if(this.currentSecond != currentSecond){
+			this.currentSecond = currentSecond;
+			timer = timer - 1;
+		}
+	}
+	
 	public void setSpawningEntityName(String spawningEntityName) {
 		this.spawningEntityName = spawningEntityName;
 	}

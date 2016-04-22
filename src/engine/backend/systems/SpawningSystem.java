@@ -1,9 +1,11 @@
 package engine.backend.systems;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import engine.backend.components.FiringComponent;
+import engine.backend.components.PathComponent;
+import engine.backend.components.PositionComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.entities.IEntity;
@@ -14,18 +16,38 @@ import engine.backend.systems.Events.AddEntityEvent;
 public class SpawningSystem extends GameSystem{
 
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		
-		List<IEntity> entities = myLevel.getEntities();
+		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
 			
 			if(entity.hasComponent(myComponentTagResources.getString("Spawner"))){
 				SpawnerComponent spawnerComponent = (SpawnerComponent) entity.getComponent(myComponentTagResources.getString("Spawner"));
 				
 				for(Spawn spawn : spawnerComponent.getSpawns()){
-					//handle spawning
-					
+					//handle spawning, produce entity, set pathID
+					if(currentSecond >= spawn.getSpawningStartTime() && currentSecond <= spawn.getSpawningEndTime()){
+						
+						if(spawn.getTimer() == 0){
+							//spawn
+							IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
+							PositionComponent newPos = new PositionComponent((PositionComponent) entity.getComponent(myComponentTagResources.getString("Position")));
+							newEntity.addComponent(newPos);
+							if(newEntity.hasComponent(myComponentTagResources.getString("Path"))){
+								PathComponent pathComp = (PathComponent) newEntity.getComponent(myComponentTagResources.getString("Path"));
+								pathComp.setPathID(spawnerComponent.getPathID());
+							}
+							
+							sendAddEntityEvent(newEntity);
+							
+							spawn.resetTimer();
+						}
+						else{
+							spawn.setTimer(currentSecond);
+						}
+						
+					}
 				}
 				
 			}
@@ -38,5 +60,4 @@ public class SpawningSystem extends GameSystem{
 		AddEntityEvent event = new AddEntityEvent(entity);
 		notifyObservers(event);
 	}
-
 }

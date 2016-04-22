@@ -12,6 +12,13 @@ public class PositionComponent extends Component implements IComponent{
 	public PositionComponent() {
 	}
 	
+	public PositionComponent(PositionComponent posComp){
+		double posX = posComp.getX();
+		double posY = posComp.getY();
+		
+		myPositionVector = new Vector(posX, posY);
+	}
+	
 	public PositionComponent(double x, double y){
 		myPositionVector = new Vector(x, y);
 	}

@@ -8,6 +8,7 @@ import engine.backend.entities.IEntity;
 public class SpawnerComponent extends Component implements IComponent{
 
 	private List<Spawn> mySpawns;
+	private int pathID;
 	
 	public SpawnerComponent(){
 		mySpawns = new ArrayList<Spawn>();
@@ -25,6 +26,10 @@ public class SpawnerComponent extends Component implements IComponent{
 	public void initWithParams(String[] params) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public int getPathID(){
+		return pathID;
 	}
 
 }

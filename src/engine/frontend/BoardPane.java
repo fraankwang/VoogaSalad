@@ -8,27 +8,41 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
 public class BoardPane {
 	private EngineView myEngineView;
+	private Map<Integer, EntityView> myEntityViewMap = new HashMap<Integer, EntityView>();
+	
 	private Pane myPane;
-	private Map<Integer, EntityView> myImageMap = new HashMap<>();
+	private ImageView myBackground;
 	
 	public BoardPane(EngineView ev){
 		myEngineView = ev;
-		myPane = new Pane();
 	}
 	
 	public Node buildNode(){
 		myPane = new Pane();
-		myPane.setMinWidth(myEngineView.loadUIIntResource("BoardSize"));
-		myPane.setMaxWidth(myEngineView.loadUIIntResource("BoardSize"));
-		myPane.setMinHeight(myEngineView.loadUIIntResource("BoardSize"));
-		myPane.setMaxHeight(myEngineView.loadUIIntResource("BoardSize"));
-		myPane.setOnMouseClicked(e -> attemptTower(e.getSceneX(), e.getSceneY()));
+		myPane.setStyle("-fx-background-color: #C0C0C0;"); //delete this later! Just so you can see it
+		myPane.setMinSize(myEngineView.loadUIIntResource("BoardWidth"), myEngineView.loadUIIntResource("BoardHeight"));
+		myPane.setMaxSize(myEngineView.loadUIIntResource("BoardWidth"), myEngineView.loadUIIntResource("BoardHeight"));
+		
+		myBackground = new ImageView(new Image("Park_Path.png"));
+		myBackground.fitWidthProperty().bind(myPane.widthProperty());
+		myBackground.fitHeightProperty().bind(myPane.heightProperty());
+		myPane.getChildren().add(myBackground);
+		
 		return myPane;
+	}
+	
+	public Node getNode(){
+		return myPane;
+	}
+
+	public void setBackground(String imageName){
+		myBackground.setImage(new Image(imageName));
 	}
 	
 	public void createCharacterImage(double xCoord, double yCoord, String image, int id, double width, double height){
@@ -38,7 +52,6 @@ public class BoardPane {
 		myPlayer.setX(xCoord);
 		myPlayer.setY(yCoord);
 		myPane.getChildren().add(myPlayer);
-		
 	}
 	
 	/**
@@ -50,24 +63,31 @@ public class BoardPane {
 	 * @param width
 	 * @param height
 	 */
-	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height){
-		if(myImageMap.containsKey(id)){
-			myImageMap.get(id).updateEntity(xCoord, yCoord, image, width, height);
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
+		if(!show){
+			deleteEntity(id);
+			return;
+		}
+		if(myEntityViewMap.containsKey(id)){
+			myEntityViewMap.get(id).update(xCoord, yCoord, image, width, height);
 		} else {
 			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
-			myImageMap.put(id, ev);
+			myEntityViewMap.put(id, ev);
 			myPane.getChildren().add(ev.getNode());
 		}
 	}
 	
-	public void deleteEntity(int id){
-		if(myImageMap.containsKey(id)){
-			myPane.getChildren().remove(myImageMap.get(id).getNode());
-			myImageMap.remove(id);
+	private void deleteEntity(int id){
+		if(myEntityViewMap.containsKey(id)){
+			myPane.getChildren().remove(myEntityViewMap.get(id).getNode());
+			myEntityViewMap.remove(id);
 		}
 	}
 	
-	public void attemptTower(double xLoc, double yLoc){
+	public void attemptTower(double mouseXLoc, double mouseYLoc){
+		double xLoc = mouseXLoc - myPane.getBoundsInParent().getMinX();
+		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
 		myEngineView.getEngineController().attemptTower(xLoc, yLoc);
+		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
 	}
 }

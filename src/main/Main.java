@@ -1,8 +1,8 @@
-package main;
 /**
  * @author Austin Wu
  * The AuthoringMain file that starts the simulation
  */
+package main;
 
 import java.util.Optional;
 

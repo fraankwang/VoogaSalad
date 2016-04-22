@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.text.html.parser.Entity;
+
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
@@ -35,7 +37,7 @@ public class SystemsController {
 	private int myLevelIndex;
 	private int myModeIndex;
 
-	private GameWorld myGame;
+	private GameClock myGameClock;
 
 	/*
 	 * the this reference to rendering will get removed, so only the event
@@ -44,11 +46,9 @@ public class SystemsController {
 	 * 
 	 * @author == mario
 	 */
-	public SystemsController(EngineController eController, EventManager myEventManager) {
-		engineController = eController;
-
-		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(),
-				eController.getMyGameWorld().getEntityMap());
+	public SystemsController(int framesPerSecond, EventManager myEventManager) {
+		myEntityFactory = new InGameEntityFactory(myEventManager.getGameWorld().getGameStatistics(),
+				myEventManager.getGameWorld().getEntityMap());
 
 		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 
@@ -63,6 +63,7 @@ public class SystemsController {
 		healthSystem.addObserver(myEventManager);
 		firingSystem.addObserver(myEventManager);
 		collisionSystem.addObserver(myEventManager);
+		renderingSystem.addObserver(myEventManager);
 
 		mySystems = new ArrayList<ISystem>();
 		mySystems.add(firingSystem);
@@ -71,19 +72,26 @@ public class SystemsController {
 		mySystems.add(healthSystem);
 		mySystems.add(renderingSystem);
 
-	}
-
-	public void initializeGame(GameWorld game) {
-		myGame = game;
+		myGameClock = new GameClock(framesPerSecond);
 	}
 
 	public void iterateThroughSystems(Level level) {
 		for (ISystem system : mySystems) {
 			long startTime = System.currentTimeMillis();
-			system.update(level, myEntityFactory, myComponentTagResources);
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(),
+					myComponentTagResources);
 			long endTime = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
-			System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
+			// System.out.println(myGameClock.getCurrentSecond());
+			// System.out.println(system.getClass().getSimpleName() + ": " +
+			// totalTime);
+		}
+		myGameClock.updateLoopIteration();
+	}
+
+	public void testSpawn(Level currLevel){
+		if(myGameClock.getCurrentSecond() == 4){
+			Entity entity = new Entity(name, type, data)
 		}
 	}
 
