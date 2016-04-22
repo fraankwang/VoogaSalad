@@ -1,7 +1,6 @@
 package engine.backend.systems;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
@@ -50,7 +49,7 @@ public class FiringSystem extends GameSystem{
 								double yComp = targetPosVector.getY() - shootingPosVector.getY();
 								Vector firedVelVector = new Vector(xComp, yComp);
 								
-								IEntity newEntity = initilizeFire(firingComponent.getEntityName(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
+								IEntity newEntity = initializeFire(firingComponent.getEntityName(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
 								newEntities.add(newEntity);
 								firingComponent.setFireNow(false);
 								firingComponent.resetTimer();
@@ -83,7 +82,7 @@ public class FiringSystem extends GameSystem{
 		notifyObservers(event);
 	}
 	
-	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
+	private IEntity initializeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
 		
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
 		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(myComponentTagResources.getString("Position"));
