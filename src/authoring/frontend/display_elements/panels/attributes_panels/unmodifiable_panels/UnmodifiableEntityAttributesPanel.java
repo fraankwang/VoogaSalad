@@ -7,6 +7,7 @@ import java.util.Map;
 
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -21,6 +22,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 	private BorderPane myWrapper;
 	private GridPane myGridPane;
+	private ScrollPane myScrollPane;
 
 	public UnmodifiableEntityAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
@@ -40,12 +42,14 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myAttributesGridPane = createAttributesGridPane();
 		myOpenEditorButton = createOpenEditorButton();
 
+		myScrollPane = new ScrollPane();
+		myScrollPane.setContent(myAttributesGridPane);
 	}
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
-		myGridPane.add(myAttributesGridPane, 0, 1);
+		myGridPane.add(myScrollPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
@@ -58,9 +62,16 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
 		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myAttributes = (List<String>) Arrays.asList("Genre", "Name", "DamageComponent", "FiringComponent",
-				"MovementComponent", "Armor", "HealthComponent", "RotationComponent", "Cost", "Bounty",
-				"CollisionComponent", "Random Movement");
+		myAttributes = (List<String>) Arrays.asList(
+
+				"Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image", "DamageComponent",
+				"FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed", "FiringComponent_EnemyInSightRange",
+				"FiringComponent_Targets", "FiringComponent_FiringRate", "SizeComponent_Width", "SizeComponent_Height",
+				"MovementComponent", "ArmorComponent_ResistanceToDamage", "HealthComponent_Health",
+				"HealthComponent_CriticalHealth", "RotationComponent", "Cost", "Bounty", "PathComponent_PathID",
+				"PositionComponent_XCoordinate", "PositionComponent_YCoordinate", "CollisionComponent_IsCollided",
+				"MovementComponent_Velocity", "MovementComponent_CanMove", "MovementComponent_CanRotate");
+
 		assembleRows();
 
 		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
@@ -72,10 +83,10 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	protected void refreshDisplay(Map<String, String> updatedInfo) {
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.getChildren().clear();
-		
+
 		System.out.println("Unm..EntityAttributesPanel: myAttributesMap after update: ");
 		System.out.println(updatedInfo);
-		
+
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
 
