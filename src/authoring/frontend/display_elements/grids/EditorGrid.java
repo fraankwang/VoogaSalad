@@ -61,7 +61,7 @@ public abstract class EditorGrid extends Grid {
 	 * @param map
 	 */
 	protected void sendData(Map<String, String> map) {
-		System.out.println("*****6. EditorGrid: saved myAttributesMap written to backend:");
+		System.out.println("*****4. EditorGrid: saved myAttributesMap written to backend:");
 		System.out.println(map);
 		myController.writeData(map);
 		myEditorStage.close();

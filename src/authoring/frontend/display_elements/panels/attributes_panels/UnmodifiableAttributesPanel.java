@@ -101,7 +101,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	 * @param updatedInfo
 	 */
 	public void setAttributes(Map<String, String> updatedInfo) {
-		System.out.println("*****7: UnmodifiableAttrPanel: updated output info from updated backend");
+		System.out.println("*****5: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
 		refreshDisplay();

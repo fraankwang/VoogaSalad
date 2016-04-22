@@ -29,13 +29,11 @@ public class EntitiesTabGrid extends TabGrid {
 	@Override
 	protected void initializeGridFactory() {
 		myGridFactory = new EntitiesTabGridFactory(myController, myTabDisplay);
-		System.out.println("*****1. EntitiesTabGrid: created factory");
 	}
 
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		System.out.println("*****2. EntitiesTabGrid: created unmodifiable panel");
 	}
 
 	@Override

@@ -67,7 +67,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	protected void refreshDisplay() {
 		myAttributesGridPane.getChildren().clear();
 
-		System.out.println("*****8. UnmodifiableEntityAttributesPanel: display refreshed with updated myAttributesMap");
+		System.out.println("*****6. UnmodifiableEntityAttributesPanel: display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
 		for (int i = 0; i < myAttributes.size(); i++) {

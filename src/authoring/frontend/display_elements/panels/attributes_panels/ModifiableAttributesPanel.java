@@ -118,14 +118,14 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
 
 		}
-		System.out.println("*****5. ModifiableAttrPanel: myAttributesMap saved by user:");
+		System.out.println("*****3. ModifiableAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 		return myAttributesMap;
 	}
 
 	public void setAttributes(Map<String, String> info) {
 		myAttributesMap = info;
-		System.out.println("*****4. ModifiableAttrPanel: myAttributesMap set with given unmodifiableattributespanel outputs:");
+		System.out.println("*****2. ModifiableAttrPanel: myAttributesMap set with given unmodifiableattributespanel outputs:");
 		System.out.println(myAttributesMap);
 		refreshAttributes();
 
