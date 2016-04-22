@@ -42,7 +42,7 @@ public class PositionComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "X-coordinate: " + myPositionVector.getX() + " " + "Y-coordinate: " + myPositionVector.getY();
+		return "XCoordinate:" + myPositionVector.getX() + "," + "YCoordinate:" + myPositionVector.getY();
 	}
 
 	@Override

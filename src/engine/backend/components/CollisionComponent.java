@@ -26,7 +26,7 @@ public class CollisionComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "isCollided: " + isCollided;
+		return "IsCollided:" + isCollided;
 	}
 
 	@Override

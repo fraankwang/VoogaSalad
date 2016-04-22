@@ -56,7 +56,13 @@ public class Entity implements IEntity {
 
 	public void addComponent(IComponent component) {
 		myComponents.put(component.getTag(), component);
-		entityInfo.put(component.getTag(), component.getComponentInfo());
+		String[] componentInfo = component.getComponentInfo().split(",");
+		for (String s : componentInfo) {
+			String[] info = s.split(":");
+			String tag = component.getTag() + "_" + info[0];
+			String value = info[1];
+			entityInfo.put(tag, value);
+		}
 	}
 
 	public IComponent getComponent(String tag) {

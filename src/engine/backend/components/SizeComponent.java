@@ -45,7 +45,7 @@ public class SizeComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "width: " + width + " " + "height: " + height;
+		return "Width:" + width + "," + "Height:" + height;
 	}
 
 	@Override

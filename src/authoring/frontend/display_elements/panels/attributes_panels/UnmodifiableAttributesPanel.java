@@ -57,7 +57,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
-			tf.setEditable(false);
+			tf.setEditable(true);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
 			myOutputMap.put(currentAttribute, tf);
@@ -71,13 +71,17 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	 * Re-populates attribute information given updated maps.
 	 */
 	protected void refreshRows() {
-		for (int i = 0; i < myAttributes.size(); i++) {
-			String currentAttribute = myAttributes.get(i);
+		int i = 0;
+		for (String currentAttribute : myAttributesMap.keySet()) {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			myAttributesGridPane.add(text, 0, i);
+			if (currentAttribute.equals("Genre") || currentAttribute.equals("Name")) {
+				TextField tf = (TextField) myOutputMap.get(currentAttribute);
+				tf.setEditable(true);
+			}
 			myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
-
+			i++;
 		}
 	}
 

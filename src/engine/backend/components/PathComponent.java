@@ -63,7 +63,7 @@ public class PathComponent extends Component {
 	
 	@Override
 	public String getComponentInfo() {
-		return "pathID: " + pathID;
+		return "PathID:" + pathID;
 	}
 
 	@Override

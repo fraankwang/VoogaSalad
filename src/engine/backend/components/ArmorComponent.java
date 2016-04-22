@@ -15,7 +15,7 @@ public class ArmorComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "resistanceToDamage: " + resistanceToDamage;
+		return "ResistanceToDamage:" + resistanceToDamage;
 	}
 
 	@Override

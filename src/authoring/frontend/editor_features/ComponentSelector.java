@@ -1,130 +1,209 @@
 package authoring.frontend.editor_features;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ComponentSelector {
 
 	public static final String COMPONENT_RESOURCES = "backend/resources/component_tags";
-	
-	private ResourceBundle myComponentTagsResource;
+
+	private ResourceBundle myTags;
 	private VBox myVBox;
 	private Stage myStage;
 	private Scene myScene;
-	private String mySelectedComponent;
-	
+	private List<String> mySelectedComponents;
+
 	public ComponentSelector() {
-		
+
 	}
-	
+
 	public void initialize() {
-		myComponentTagsResource = ResourceBundle.getBundle(COMPONENT_RESOURCES);
+		myTags = ResourceBundle.getBundle(COMPONENT_RESOURCES);
+
 		myVBox = new VBox();
 		myStage = new Stage();
-		myScene = new Scene(myVBox, 200, 800);
+		myScene = new Scene(myVBox, 400, 800);
 	}
-	
-	public Map<String, Control> openSelector() {
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Control> openSelector(Map<String, Control> inputMap) {
+		mySelectedComponents = new ArrayList<String>();
 		myStage.setScene(myScene);
-		Enumeration<String> componentTags = myComponentTagsResource.getKeys();
+		
+		for (String component : inputMap.keySet()) {
+			mySelectedComponents.add(component);
+		}
+
+		Enumeration<String> componentTags = myTags.getKeys();
 		while (componentTags.hasMoreElements()) {
-			createButton(myComponentTagsResource.getString(componentTags.nextElement()));
+			CheckBox cb = createCheckBox(myTags.getString(componentTags.nextElement()));
+			myVBox.getChildren().add(cb);
 		}
+
 		myStage.showAndWait();
-		return addComponent(mySelectedComponent);
-		
-	}
-	
-//	"Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image", "DamageComponent",
-//	"FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed", "FiringComponent_EnemyInSightRange",
-//	"FiringComponent_Targets", "FiringComponent_FiringRate", "SizeComponent_Width", "SizeComponent_Height",
-//	"ArmorComponent_ResistanceToDamage", "HealthComponent_Health", "HealthComponent_CriticalHealth",
-//	"RotationComponent", "Cost", "Bounty", "PathComponent_PathID", "PositionComponent_XCoordinate",
-//	"PositionComponent_YCoordinate", "CollisionComponent_IsCollided", "MovementComponent_Velocity",
-//	"MovementComponent_CanMove", "MovementComponent_CanRotate"
-	
-	public Map<String, Control> addComponent(String component) {
-		Map<String, Control> newComponents = new HashMap<String, Control>();
-		switch (component) {
-		case "DisplayComponent":
-			ComboBox<String> canBeShown = new ComboBox<String>();
-			canBeShown.getItems().addAll("true", "false");
-			TextField image = new TextField();
-			newComponents.put("DisplayComponent_CanBeShown", canBeShown);
-			newComponents.put("DisplayComponent_Image", image);
-			break;
- 
-		case "FiringComponent":
-			//add combobox for ammunition
-			//add textfield for ammunition speed
-			//add textfield for enemy in sight range
-			//add check combo box for targets
-			//add textfield for firing rate
-			break;
- 
-		case "SizeComponent":
-			TextField width = new TextField();
-			TextField height = new TextField();
-			newComponents.put("SizeComponent_Width", width);
-			newComponents.put("SizeComponent_Height", height);
-			break;
+		return addComponent(inputMap, mySelectedComponents);
 
-		case "ArmorComponent":
-			System.out.println("1st Web 2.0 Company.");
-			break;
- 
-		case "HealthComponent":
-			break;
-			
-		case "RotationComponent":
-			break;
-			
-		case "CostComponent":
-			break;
-			
-		case "BountyComponent":
-			break;
-		
-		case "PathComponent":
-			break;
-			
-		case "PositionComponent":
-			break;
-			
-		case "CollisionComponent":
-			break;
-			
-		case "MovementComponent":
-			break;
-			
-		case "Cancel":
-			break;
-			
-		default:
-			break;
+	}
+
+	// "Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image",
+	// "DamageComponent",
+	// "FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed",
+	// "FiringComponent_EnemyInSightRange",
+	// "FiringComponent_Targets", "FiringComponent_FiringRate",
+	// "SizeComponent_Width", "SizeComponent_Height",
+	// "ArmorComponent_ResistanceToDamage", "HealthComponent_Health",
+	// "HealthComponent_CriticalHealth",
+	// "RotationComponent", "Cost", "Bounty", "PathComponent_PathID",
+	// "PositionComponent_XCoordinate",
+	// "PositionComponent_YCoordinate", "CollisionComponent_IsCollided",
+	// "MovementComponent_Velocity",
+	// "MovementComponent_CanMove", "MovementComponent_CanRotate"
+
+	public Map<String, Control> addComponent(Map<String, Control> inputMap, List<String> components) {
+		List<String> booleanComboBox = (List<String>) Arrays.asList("true", "false");
+
+		for (String component : components) {
+			if (inputMap.containsKey(component)) {
+				System.out.println(component);
+				System.out.println("whee");
+				continue;
+			}
+
+			switch (component) {
+			case "DisplayComponent":
+				ComboBox<String> canBeShown = createComboBox(booleanComboBox);
+				TextField image = new TextField();
+				inputMap.put("DisplayComponent_CanBeShown", canBeShown);
+				inputMap.put("DisplayComponent_Image", image);
+				break;
+
+			case "FiringComponent":
+				ComboBox<String> ammo = createComboBox(booleanComboBox);
+				TextField speed = new TextField();
+				TextField sightRange = new TextField();
+				// check combo box for targets
+				TextField firingRate = new TextField();
+				inputMap.put("FiringComponent_Ammunition", ammo);
+				inputMap.put("FiringComponent_AmmunitionSpeed", speed);
+				inputMap.put("FiringComponent_EnemyInSightRange", sightRange);
+				inputMap.put("FiringComponent_FiringRate", firingRate);
+				break;
+
+			case "SizeComponent":
+				TextField width = new TextField();
+				TextField height = new TextField();
+				inputMap.put("SizeComponent_Width", width);
+				inputMap.put("SizeComponent_Height", height);
+				break;
+
+			case "ArmorComponent":
+				TextField armor = new TextField();
+				inputMap.put("ArmorComponent_ResistanceToDamage", armor);
+				break;
+
+			case "HealthComponent":
+				TextField health = new TextField();
+				TextField crit = new TextField();
+				inputMap.put("HealthComponent_Health", health);
+				inputMap.put("HealthComponent_CriticalHealth", crit);
+				break;
+
+			case "RotationComponent":
+				ComboBox<String> rotate = createComboBox(booleanComboBox);
+				inputMap.put("RotationComponent", rotate);
+				break;
+
+			case "CostComponent":
+				TextField cost = new TextField();
+				inputMap.put("Cost", cost);
+				break;
+
+			case "BountyComponent":
+				TextField bounty = new TextField();
+				inputMap.put("Bounty", bounty);
+				break;
+
+			case "PathComponent":
+				TextField pathID = new TextField();
+				inputMap.put("PathComponent_PathID", pathID);
+				break;
+
+			case "PositionComponent":
+				TextField x = new TextField();
+				TextField y = new TextField();
+				inputMap.put("PositionComponent_XCoordinate", x);
+				inputMap.put("PositionComponent_YCoordinate", y);
+				break;
+
+			case "CollisionComponent":
+				ComboBox<String> collided = createComboBox(booleanComboBox);
+				inputMap.put("CollisionComponent_IsCollided", collided);
+				break;
+
+			case "MovementComponent":
+				TextField velocity = new TextField();
+				ComboBox<String> canMove = createComboBox(booleanComboBox);
+				ComboBox<String> canRotate = createComboBox(booleanComboBox);
+				inputMap.put("MovementComponent_Velocity", velocity);
+				inputMap.put("MovementComponent_CanMove", canMove);
+				inputMap.put("MovementComponent_CanRotate", canRotate);
+				break;
+
+			case "Cancel":
+				break;
+
+			default:
+				break;
+			}
+
 		}
-		return newComponents;
+
+		return inputMap;
 	}
-	
-	private void createButton(String component) {
-		Button button = new Button(component);
-		button.setOnAction(e -> {
-			mySelectedComponent = component;
-			myStage.close();
+
+	private ComboBox<String> createComboBox(List<String> options) {
+		ComboBox<String> cb = new ComboBox<String>();
+		for (String option : options) {
+			cb.getItems().add(option);
+		}
+		return cb;
+	}
+
+	private CheckBox createCheckBox(String component) {
+		CheckBox cb = new CheckBox(component);
+		cb.setIndeterminate(false);
+		cb.setFont(new Font(20));
+		cb.setPrefSize(500, 500);
+
+		cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (newValue) {
+					mySelectedComponents.add(component);
+				}
+			}
+
 		});
-		myVBox.getChildren().add(button);
+		
+		return cb;
+		
 	}
-			
 
-
+	public List<String> getSelectedAttributes() {
+		return mySelectedComponents;
+	}
 }
