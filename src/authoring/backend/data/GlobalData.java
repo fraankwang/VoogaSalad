@@ -16,13 +16,14 @@ public class GlobalData {
 	private ObservableList<Entity> entities;
 	private ObservableList<Level> levels;
 	private ObservableList<Mode> modes;
-
+	private GameData game;
 	
 	public GlobalData() {
 		this.datacontainer = new DataContainer();
 		this.entities = new ObservableList<Entity>();
 		this.levels = new ObservableList<Level>();
 		this.modes = new ObservableList<Mode>();
+		this.game = new GameData();
 	}
 	
 	public void updateData(Map<String, String> data) {
@@ -43,6 +44,10 @@ public class GlobalData {
 	
 	public ObservableList<Mode> getModes() {
 		return modes;
+	}
+	
+	public GameData getGame() {
+		return game;
 	}
 
 }

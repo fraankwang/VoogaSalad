@@ -51,6 +51,10 @@ public class AuthoringController implements IAuthoringController {
 						data.remove(key);
 						model.updateModes(data);
 						break;
+					case "Game":
+						data.remove(key);
+						model.updateGame(data);
+						break;
 				}
 				break;
 			}

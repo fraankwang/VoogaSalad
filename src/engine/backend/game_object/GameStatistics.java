@@ -13,6 +13,8 @@ public class GameStatistics extends Observable{
 	private double myScore;
 	private double myHealth;
 	private int myLives;
+	private int myLivesForDefeat;
+	private double gameTimer;
 	private double myResources;
 	
 	private int currentMode = 0;
@@ -21,9 +23,24 @@ public class GameStatistics extends Observable{
 	private int numOfModes = 0;
 	private int nextAvailableID = 0;
 	private int nextAvailableEntityID = 0;
-
+	
 	public GameStatistics() {
-		
+	}
+	
+	public void setStartMoney(double d) {
+		this.myMoney = d;
+	}
+	
+	public void setStartLives(int lives) {
+		this.myLives = lives;
+	}
+	
+	public void setGameTimer(double gameTimer) {
+		this.gameTimer = gameTimer;
+	}
+	
+	public void setNumLivesDefeat(int numLivesDefeat) {
+		this.myLivesForDefeat = numLivesDefeat;
 	}
 
 	public void nextLevel() {
