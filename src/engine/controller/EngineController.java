@@ -91,7 +91,12 @@ public class EngineController implements IEngineController{
 //	}
 	public void shopClicked(String name){
 		//call backend to say shop object clicked
+		//if null is passed in, don't 
 	}
+	public void shopUnclicked(){
+		//TODO
+	}
+	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
 //	}
@@ -135,14 +140,14 @@ public class EngineController implements IEngineController{
 		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
 		IComponent tempPosition = new PositionComponent(0, 0);
 		IComponent tempMovement = new MovementComponent(2, 0);
-		IComponent pathComp = new PathComponent(0, 0);
+		//IComponent pathComp = new PathComponent(0, 0);
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
 		tempEntity.addComponent(tempDisplay);
 		tempEntity.addComponent(tempSize);
 		tempEntity.addComponent(tempPosition);
 		tempEntity.addComponent(tempMovement);
-		tempEntity.addComponent(pathComp);
+		//tempEntity.addComponent(pathComp);
 		
 		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2", 20);
 		IComponent tempPosition2 = new PositionComponent(0, 0);

@@ -2,10 +2,10 @@ package engine.backend.systems.Events;
 
 import engine.backend.entities.IEntity;
 
-public class EndOfPathEvent extends Event{
+public class EndOfPathEvent extends EntityEvent{
 	
-	public EndOfPathEvent(IEntity entity){
-		super.setEntity(entity);
+	public EndOfPathEvent(int entityID){
+		super.setEntityID(entityID);
 	}
 	
 }

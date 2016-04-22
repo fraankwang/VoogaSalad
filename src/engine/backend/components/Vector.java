@@ -20,6 +20,11 @@ public class Vector {
 		return new Vector(myXComponent + v.getX(), myYComponent + v.getY());
 	}
 	
+	public Vector(Vector v){
+		myXComponent = v.getX();
+		myYComponent = v.getY();
+	}
+	
 	public Vector scale(double s){
 		return new Vector(myXComponent * s, myYComponent * s);
 	}
