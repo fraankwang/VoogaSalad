@@ -7,6 +7,7 @@ import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -110,12 +111,16 @@ public class EntitiesTabDisplay extends TabDisplay {
 	
 	private String promptGenreName() {
 		Stage promptStage = new Stage();
+		genreName = "";
 		VBox promptBox = new VBox();
-		Label prompt = new Label("Name your new genre:");
+		promptBox.setAlignment(Pos.CENTER);
+		Label prompt = new Label("Enter new genre name:");
 		TextField textBox = new TextField();
+		textBox.setMaxWidth(200);
 		promptBox.getChildren().add(prompt);
 		promptBox.getChildren().add(textBox);
 		HBox buttonBox = new HBox();
+		buttonBox.setAlignment(Pos.CENTER);
 		Button cancelButton = new Button("Cancel");
 		Button saveButton = new Button("Save");
 		cancelButton.setOnAction(e -> promptStage.close());
@@ -130,7 +135,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 		});
 		buttonBox.getChildren().addAll(cancelButton, saveButton);
 		promptBox.getChildren().add(buttonBox);
-		Scene promptScene = new Scene(promptBox, 400, 300);
+		Scene promptScene = new Scene(promptBox, 300, 200);
 		promptStage.setScene(promptScene);
 		promptStage.showAndWait();
 		return genreName;
