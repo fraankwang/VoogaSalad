@@ -1,5 +1,8 @@
 package engine.controller;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import engine.backend.components.CollisionComponent;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.FiringComponent;
@@ -7,6 +10,7 @@ import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
+import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
@@ -110,7 +114,12 @@ public class testingClass {
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
-		IComponent simpleFire = new FiringComponent();
+		Vector myBulletVector = new Vector(-1,0);
+		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
+				10, myBulletVector);
+		ArrayList<String> myTargets = new ArrayList<String>();
+		myTargets.add("tempEntity");
+		simpleFire.setTargets(myTargets);
 		tempEntity2.addComponent(tempDisplay2);
 		tempEntity2.addComponent(tempSize2);
 		tempEntity2.addComponent(tempPosition2);

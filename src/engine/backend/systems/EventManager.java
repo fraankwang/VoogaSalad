@@ -101,10 +101,6 @@ public class EventManager implements Observer {
 	public void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
 		myCurrentLevel.addEntityToMap(event.getNewEntities());
-		//we have a problem :/
-//		EntityEvent myEntityEvent = (EntityEvent) myEvent;
-//		myEntityEvent.getEntities().stream()
-//			forEach(e -> myCurrentLevel.addToEntities(e));
 	}
 
 	public void handleEnemyMissed() {
