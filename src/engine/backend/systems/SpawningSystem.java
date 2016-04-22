@@ -18,14 +18,14 @@ import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
 
 public class SpawningSystem extends GameSystem {
-	
-	public static final String TESTNAME = "tower"; 
+
+	public static final String TESTNAME = "tower";
 	public static final int TESTID = 1000;
 
 	@Override
 	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond,
 			ResourceBundle myComponentTagResources) {
-		
+
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		for (IEntity entity : entities) {
 
@@ -39,11 +39,11 @@ public class SpawningSystem extends GameSystem {
 						if (spawn.getTimer() == 0) {
 
 							//////////////////////////
-							//////test code //////////
+							////// test code //////////
 							// ingame factory fails //
 							//////////////////////////
 							System.out.println("hello");
-							if(spawn.getSpawningEntityName().equals(TESTNAME)){
+							if (spawn.getSpawningEntityName().equals(TESTNAME)) {
 								IEntity newentity = new Entity(TESTID, TESTNAME, TESTNAME, 20);
 								IComponent display = new DisplayComponent(true);
 								IComponent size = new SizeComponent();
@@ -54,9 +54,9 @@ public class SpawningSystem extends GameSystem {
 								sendAddEntityEvent(newentity);
 								spawn.resetTimer();
 								continue;
-							} 
+							}
 							////// end test code ///////
-							
+
 							// spawn
 							IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 							PositionComponent newPos = new PositionComponent((PositionComponent) entity
