@@ -38,13 +38,17 @@ public class EntityFactory {
 					IComponent comp = componentMap.get(componentType);
 					IComponent newComp = myComponentFactory.update(comp, componentData, data);
 					componentMap.put(componentType, newComp);
+				} else {
+					IComponent component = myComponentFactory.create(componentType, componentData, data);
+					componentMap.put(componentType, component);
 				}
-				IComponent component = myComponentFactory.create(componentType, componentData, data);
-				componentMap.put(componentType, component);
 			}
 		}
+
 		Collection<IComponent> temp = componentMap.values();
+
 		List<IComponent> components = new ArrayList<IComponent>(temp);
+
 		return components;
 	}
 	
