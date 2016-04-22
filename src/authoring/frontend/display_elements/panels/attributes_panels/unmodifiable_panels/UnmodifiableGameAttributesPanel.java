@@ -63,7 +63,7 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 		myAttributes = (List<String>) Arrays.asList("Game Type", "Number of Players", "Number of Starting Lives",
 				"Number of Lives for Defeat", "Game Timer", "Starting Resources");
 
-		assembleRows();
+		assembleEmptyOutputRows();
 		
 		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
 		return myAttributesGridPane;

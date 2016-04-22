@@ -29,7 +29,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 				"HealthComponent_CriticalHealth", "RotationComponent", "Cost", "Bounty", "PathComponent_PathID",
 				"PositionComponent_XCoordinate", "PositionComponent_YCoordinate", "CollisionComponent_IsCollided",
 				"MovementComponent_Velocity", "MovementComponent_CanMove", "MovementComponent_CanRotate");
-		assembleRows();
+		assembleInputRows();
 	}
 
 	@Override

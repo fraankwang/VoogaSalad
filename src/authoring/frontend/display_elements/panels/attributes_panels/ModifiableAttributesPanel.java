@@ -80,7 +80,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myNode = myWrapper;
 	}
 
-	private GridPane createAttributesGridPane() {
+	protected GridPane createAttributesGridPane() {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 		columnConstraints.add(COLUMN_1_PERCENTAGE);
@@ -92,7 +92,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	}
 
-	protected void assembleRows() {
+	protected void assembleInputRows() {
 		myAttributesMap = new HashMap<String, String>();
 		myInputMap = new HashMap<String, Control>();
 
@@ -127,11 +127,11 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myAttributesMap = info;
 		System.out.println("ModifiableAttrPanel: back to front");
 		System.out.println(myAttributesMap);
-		refreshAttributesGrid();
+		refreshAttributes();
 
 	}
 
-	protected void refreshAttributesGrid() {
+	protected void refreshAttributes() {
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
 				TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
@@ -175,7 +175,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		}
 	}
 
-	private ListView<String> createRulesListView() {
+	protected ListView<String> createRulesListView() {
 		ListView<String> lv = new ListView<String>();
 		lv.setCellFactory(TextFieldListCell.forListView());
 		ContextMenu cm = new ContextMenu();
