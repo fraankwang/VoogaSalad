@@ -2,7 +2,6 @@ package authoring.frontend.display_elements.tab_displays;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
-import authoring.frontend.display_elements.grids.Grid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -65,7 +64,6 @@ public class EntitiesTabDisplay extends TabDisplay {
 		Tab addNewTypeTab = new Tab("Add New...", null);
 		
 		myEntitiesTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab selectedTab) {
 				if (selectedTab == addNewTypeTab) {

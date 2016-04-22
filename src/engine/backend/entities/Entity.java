@@ -55,7 +55,6 @@ public class Entity implements IEntity {
 	}
 
 	public void addComponent(IComponent component) {
-		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
 		entityInfo.put(component.getTag(), component.getComponentInfo());
 	}

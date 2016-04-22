@@ -3,10 +3,6 @@ package engine.backend.components;
 public interface IComponent {
 	
 	public String getTag();
-		
-	public void setEntityName(String entityName);
-	
-	public String getEntityName();
 	
 	public String getComponentInfo();
 	

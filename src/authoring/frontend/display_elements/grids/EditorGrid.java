@@ -48,8 +48,8 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
-		Map<String, String> savedInfo = ((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes();
-		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(e -> sendData(savedInfo));
+		((ButtonDashboard) myButtonDashboard).getSaveButton()
+				.setOnAction(e -> sendData(((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
 
 		((SimpleButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
 
@@ -61,7 +61,7 @@ public abstract class EditorGrid extends Grid {
 	 * @param map
 	 */
 	protected void sendData(Map<String, String> map) {
-		System.out.println("EditorGrid: myAttributesMap written to backend: ");
+		System.out.println("*****4. EditorGrid: saved myAttributesMap written to backend:");
 		System.out.println(map);
 		myController.writeData(map);
 		myEditorStage.close();

@@ -100,7 +100,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	 * @param updatedInfo
 	 */
 	public void setAttributes(Map<String, String> updatedInfo) {
-		System.out.println("UnmodifiableAttrPanel: back to front");
+		System.out.println("*****5: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
 		refreshDisplay();
@@ -115,6 +115,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected abstract void refreshDisplay();
 
 	public Map<String, String> getAttributesMap() {
+		System.out.println("UnmodifiableAttrPanel: got attributes used to populate editor");
 		return myAttributesMap;
 	}
 	

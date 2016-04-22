@@ -34,10 +34,6 @@ public class EntitiesTabGrid extends TabGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		// get save button from buttondashboard -> set on action to both gather
-		// data from editorviewpanel and modifiableattributespanel to update
-		// globaldata
-
 	}
 
 	@Override

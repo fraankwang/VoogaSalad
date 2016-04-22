@@ -25,10 +25,10 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 				"Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image", "DamageComponent",
 				"FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed", "FiringComponent_EnemyInSightRange",
 				"FiringComponent_Targets", "FiringComponent_FiringRate", "SizeComponent_Width", "SizeComponent_Height",
-				"MovementComponent", "ArmorComponent_ResistanceToDamage", "HealthComponent_Health",
-				"HealthComponent_CriticalHealth", "RotationComponent", "Cost", "Bounty", "PathComponent_PathID",
-				"PositionComponent_XCoordinate", "PositionComponent_YCoordinate", "CollisionComponent_IsCollided",
-				"MovementComponent_Velocity", "MovementComponent_CanMove", "MovementComponent_CanRotate");
+				"ArmorComponent_ResistanceToDamage", "HealthComponent_Health", "HealthComponent_CriticalHealth",
+				"RotationComponent", "Cost", "Bounty", "PathComponent_PathID", "PositionComponent_XCoordinate",
+				"PositionComponent_YCoordinate", "CollisionComponent_IsCollided", "MovementComponent_Velocity",
+				"MovementComponent_CanMove", "MovementComponent_CanRotate");
 		assembleInputRows();
 	}
 

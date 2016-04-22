@@ -41,6 +41,8 @@ public abstract class TabDisplay implements ITabDisplay {
 
 	@Override
 	public void openEditorDisplay(Map<String, String> info) {
+		System.out.println("*****1. TabDisplay: Editor opened with empty attribute data:");
+		System.out.println(info);
 		myEditorDisplay.edit(info);
 	}
 
