@@ -89,10 +89,4 @@ public class SystemsController {
 		myGameClock.updateLoopIteration();
 	}
 
-	public void testSpawn(Level currLevel){
-		if(myGameClock.getCurrentSecond() == 4){
-			Entity entity = new Entity(name, type, data)
-		}
-	}
-
 }

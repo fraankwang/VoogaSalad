@@ -6,6 +6,8 @@ import engine.backend.components.MovementComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
+import engine.backend.components.Spawn;
+import engine.backend.components.SpawnerComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
@@ -156,6 +158,16 @@ public class EngineController implements IEngineController{
 		tempEntity3.addComponent(tempDisplay3);
 		tempEntity3.addComponent(tempSize3);
 		tempEntity3.addComponent(tempPosition3);
+		
+		/////////////////////////
+		//////add wave //////////
+		/////////////////////////
+		IEntity wave = new Entity(3, "wave", "object4", 20);
+		IComponent spawner = new SpawnerComponent();
+		Spawn spawn1 = new Spawn("tower", NUM_FRAMES_PER_SECOND, 5, 10);
+		((SpawnerComponent) spawner).addSpawn(spawn1);
+		wave.addComponent(spawner);
+		tempLevel.addToEntities(wave);
 		
 		tempLevel.addToEntities(tempEntity);
 		tempLevel.addToEntities(tempEntity2);
