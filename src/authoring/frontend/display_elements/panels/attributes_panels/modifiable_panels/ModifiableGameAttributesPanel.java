@@ -19,10 +19,11 @@ public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 
 	@Override
 	protected void initializeComponents() {
-		myAttributes = (List<String>) Arrays.asList("Game Type", "Number of Players",
-				"Number of Starting Lives", "Number of Lives For Defeat", "Game Timer", "Starting Resources");
 		super.initializeComponents();
-
+		myAttributes = (List<String>) Arrays.asList("Game Type", "Number of Players", "Number of Starting Lives",
+				"Number of Lives For Defeat", "Game Timer", "Starting Resources");
+		assembleInputRows();
+		
 	}
 
 	@Override

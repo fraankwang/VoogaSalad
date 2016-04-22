@@ -20,12 +20,13 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void initializeComponents() {
 		super.initializeComponents();
+		myAttributes = (List<String>) Arrays.asList("Waves", "Delay Between Waves", "Timer");
+		assembleInputRows();
 
 	}
 
 	@Override
 	protected void assembleComponents() {
-		myAttributes = (List<String>) Arrays.asList("Waves", "Delay Between Waves", "Timer");
 		super.assembleComponents();
 
 	}

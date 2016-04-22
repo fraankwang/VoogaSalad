@@ -39,7 +39,7 @@ public abstract class EditorDisplay implements IEditorDisplay {
 
 	@Override
 	public void edit(Map<String, String> info) {
-		myGrid.populateComponents(info);
+		myGrid.setAttributesPanel(info);
 		openEditorStage();
 		
 	}

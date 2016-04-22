@@ -49,14 +49,20 @@ public class PositionComponent extends Component {
 	public void update(String dataName, String data) {
 		switch (dataName) {
 		
-		case "X-Coordinate":
+		case "XCoordinate":
 			double x = Double.parseDouble(data);
-			double y = myPositionVector.getY();
+			double y = 0;
+			if (myPositionVector != null){
+				y = myPositionVector.getY();
+			}
 			this.myPositionVector = new Vector(x, y);
 			return;
-		case "Y-Coordinate":
+		case "YCoordinate":
 			double y2 = Double.parseDouble(data);
-			double x2 = myPositionVector.getX();
+			double x2 = 0;
+			if (myPositionVector != null) {
+				x2 = myPositionVector.getX();
+			}
 			this.myPositionVector = new Vector(x2, y2);
 			return;
 		}

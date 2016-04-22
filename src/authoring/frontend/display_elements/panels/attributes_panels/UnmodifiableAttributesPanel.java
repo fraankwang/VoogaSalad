@@ -1,6 +1,8 @@
 package authoring.frontend.display_elements.panels.attributes_panels;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
@@ -46,7 +48,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	 * default Text/TextField objects to be populated by a predefined list of
 	 * attributes.
 	 */
-	protected void assembleRows() {
+	protected void assembleEmptyOutputRows() {
 		myOutputMap = new HashMap<String, Control>();
 		myAttributesMap = new HashMap<String, String>();
 
@@ -116,5 +118,21 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	public Map<String, String> getAttributesMap() {
 		return myAttributesMap;
 	}
+	
+	protected GridPane createAttributesGridPane(List<String> attributes) {
+		List<Integer> rowConstraints = new ArrayList<Integer>();
+		List<Integer> columnConstraints = new ArrayList<Integer>();
+		columnConstraints.add(COLUMN_1_PERCENTAGE);
+		columnConstraints.add(COLUMN_2_PERCENTAGE);
+
+		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
+		myAttributes = attributes;
+		assembleEmptyOutputRows();
+
+		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		return myAttributesGridPane;
+
+	}
+
 
 }

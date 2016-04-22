@@ -48,8 +48,8 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
-		((ButtonDashboard) myButtonDashboard).getSaveButton()
-				.setOnAction(e -> sendData(((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
+		Map<String, String> savedInfo = ((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes();
+		((ButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(e -> sendData(savedInfo));
 
 		((SimpleButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
 
@@ -88,9 +88,4 @@ public abstract class EditorGrid extends Grid {
 		myModifiableAttributesPanel.setAttributes(info);
 	}
 
-	public void populateComponents(Map<String, String> info) {
-		//ImageView iv = new ImageView(info.get("image"));
-		//((EditorViewPanel) myPrimaryDisplay).setImage(iv.getImage());
-		setAttributesPanel(info);
-	}
 }
