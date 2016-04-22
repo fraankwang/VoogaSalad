@@ -5,13 +5,13 @@
  */
 package engine.backend.components;
 
-public class SizeComponent extends Component implements IComponent{
+public class SizeComponent extends Component {
 
 	private double width;
 	private double height;
 	
-	private static final int DEFAULT_HEIGHT = 200;
-	private static final int DEFAULT_WIDTH = 200;
+	private static final int DEFAULT_HEIGHT = 50;
+	private static final int DEFAULT_WIDTH = 50;
 	
 	//default component
 	public SizeComponent() {
@@ -33,15 +33,30 @@ public class SizeComponent extends Component implements IComponent{
 		this.height += delta;
 	}
 	
+	public void increaseSize(String delta){
+		int newVal = Integer.parseInt(delta);
+		this.width += newVal;
+		this.height += newVal;
+	}
+	
 	public double getWidth(){
 		return width;
 	}
 
 	@Override
-	public void initWithParams(String[] params) {
-		if(params.length > 0){
-		this.width = Double.parseDouble(params[0]);
-		this.height = Double.parseDouble(params[1]);
+	public String getComponentInfo() {
+		return "width: " + width + " " + "height: " + height;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("Width")) {
+			this.width = Double.parseDouble(data);
+			return;
+		}
+		if (dataName.equals("Height")) {
+			this.height = Double.parseDouble(data);
+			return;
 		}
 	}
 

@@ -23,8 +23,4 @@ public abstract class Component implements IComponent{
 		return myParentEntityName;
 	}
 	
-	public String getValue() {
-		return null;
-	}
-	
 }

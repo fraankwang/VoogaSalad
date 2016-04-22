@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.map.GameMap;
+import engine.backend.rules.Action;
 
 
 public class Level {
@@ -26,6 +26,7 @@ public class Level {
 	private Map<String, String> levelInfo;
 	private double levelTimer;
 	private double waveDelayTimer;
+	private double timer;
 	
 	public Level(String myName, GameMap map, Set<String> entityNames) {
 		this.myName = myName;
@@ -64,12 +65,17 @@ public class Level {
 		return map;
 	}
 	
+
 	public Map<String, String> getInfo() {
 		return levelInfo;
 	}
 
-	public void addEntity(Entity entity) {
+	public void addEntity(IEntity entity) {
 		entities.add(entity);
+	}
+
+	public void setMap(GameMap map){
+		this.map = map;
 	}
 	
 	public void addEntityName(String name) {
@@ -88,6 +94,11 @@ public class Level {
 		} else {
 			return false;
 		}
+	}
+
+	public Map<String, List<Action>> getCustomEvents() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	@Override

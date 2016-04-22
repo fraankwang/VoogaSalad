@@ -1,21 +1,24 @@
 package engine.backend.components;
 
+import java.util.List;
+
 /**
- * 
  * @author raghavkedia
- *
  */
 
-public class FiringComponent extends Component implements IComponent{
+public class FiringComponent extends Component {
 	
-	//private IEntity myAmmunition;
 	private String myAmmunition;
 	private int myAmmunitionAmount;
 	private double myAmmunitionSpeed;
 	private double myEnemyInSightRange;
-	private double myDirectionToFire;
+	private Vector myDirectionToFire;
+	private List<String> myTargets;
+	private double myFiringRate;
+	private double currentTimeStep;
 	
 	public FiringComponent(){
+	
 	}
 	
 	public String getAmmunition() {
@@ -30,8 +33,13 @@ public class FiringComponent extends Component implements IComponent{
 		return myAmmunitionAmount;
 	}
 
-	public void setAmmunitionAmount(int myAmmunitionAmount) {
-		this.myAmmunitionAmount = myAmmunitionAmount;
+	public void setAmmunitionAmount(String ammunitionAmount) {
+		int newVal = Integer.parseInt(ammunitionAmount);
+		this.myAmmunitionAmount = newVal;
+	}
+	
+	public void setAmmunitionAmount(int ammunitionAmount) {
+		this.myAmmunitionAmount = ammunitionAmount;
 	}
 
 	public double getEnemyInSightRange() {
@@ -42,11 +50,11 @@ public class FiringComponent extends Component implements IComponent{
 		this.myEnemyInSightRange = myEnemyInSightRange;
 	}
 	
-	public double getDirectionToFire() {
+	public Vector getDirectionToFire() {
 		return myDirectionToFire;
 	}
 
-	public void setDirectionToFire(double myDirectionToFire) {
+	public void setDirectionToFire(Vector myDirectionToFire) {
 		this.myDirectionToFire = myDirectionToFire;
 	}
 
@@ -54,22 +62,90 @@ public class FiringComponent extends Component implements IComponent{
 		return myAmmunitionSpeed;
 	}
 
-	public void setAmmunitionSpeed(double myAmmunitionSpeed) {
-		this.myAmmunitionSpeed = myAmmunitionSpeed;
+	public void setAmmunitionSpeed(String myAmmunitionSpeed) {
+		double newVal = Double.parseDouble(myAmmunitionSpeed);
+		this.myAmmunitionSpeed = newVal;
 	}
 	
-	@Override
-	public void initWithParams(String[] params) {
-		myAmmunition = params[0];
-		myAmmunitionAmount = Integer.parseInt(params[1]);
-		myAmmunitionSpeed = Double.parseDouble(params[2]);
-		myEnemyInSightRange = Double.parseDouble(params[3]);
-		myDirectionToFire = Double.parseDouble(params[4]);
+	public void setAmmunitionSpeed(double speed) {
+		this.myAmmunitionSpeed = speed;
+	}
+
+	public List<String> getTargets() {
+		return myTargets;
+	}
+
+	public void setTargets(List<String> myTargets) {
+		this.myTargets = myTargets;
+	}
+
+	public double getCurrentTimeStep() {
+		return currentTimeStep;
+	}
+
+	public void incrementCurrentTimeStep(){
+		currentTimeStep++;
 	}
 	
+	public void resetCurrentTimeStep(){
+		currentTimeStep = 0;
+	}
+
+	public double getFiringRate() {
+		return myFiringRate;
+	}
+
+	public void setFiringRate(String firingRate) {
+		double newVal = Double.parseDouble(firingRate);
+		this.myFiringRate = newVal;
+	}
+	
+	public void setFiringRate(double firingRate) {
+		this.myFiringRate = firingRate;
+	}
+
 	@Override
-	public String getValue() {
-		return myAmmunitionSpeed + "";
+	public String getComponentInfo() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("myAmmunition: ");
+		sb.append(myAmmunition);
+		sb.append(" ");
+		sb.append("myAmmunitionSpeed: ");
+		sb.append(myAmmunitionSpeed);
+		sb.append(" ");
+		sb.append("myEnemyInSightRange: ");
+		sb.append(myEnemyInSightRange);
+		sb.append(" ");
+		sb.append("myTargets: ");
+		sb.append(myTargets);
+		sb.append(" ");
+		sb.append("myFiringRate: ");
+		sb.append(myFiringRate);
+		sb.append(" ");
+		
+		
+		return sb.toString();
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+		
+		case "MyAmmunition":
+			this.myAmmunition = data;
+			return;
+		case "MyAmmunitionSpeed":
+			this.myAmmunitionSpeed = Double.parseDouble(data);
+			return;
+		case "MyEnemyInSightRange":
+			this.myEnemyInSightRange = Double.parseDouble(data);
+			return;
+		case "MyFiringRate":
+			this.myFiringRate = Double.parseDouble(data);
+			return;
+			
+		}
 	}
 	
 }

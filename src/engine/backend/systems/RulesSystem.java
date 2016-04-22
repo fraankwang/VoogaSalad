@@ -18,6 +18,7 @@ import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
+import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
 import engine.backend.rules.Predicate;
 import engine.backend.rules.Rule;
@@ -29,7 +30,8 @@ public class RulesSystem implements ISystem {
 	}
 
 	@Override
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+		List<IEntity> entities = myLevel.getEntities();
 		for(IEntity eachEntity: entities){
 			for(Rule eachRule : ((Entity)eachEntity).getRules()){
 				String componentToChange = eachRule.getMyConditionals().get(0).whichComponentToCheck();
