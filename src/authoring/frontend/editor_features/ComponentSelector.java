@@ -38,7 +38,7 @@ public class ComponentSelector {
 		myStage.setScene(myScene);
 		Enumeration<String> componentTags = myComponentTagsResource.getKeys();
 		while (componentTags.hasMoreElements()) {
-			createButton(componentTags.nextElement());
+			createButton(myComponentTagsResource.getString(componentTags.nextElement()));
 		}
 		myStage.showAndWait();
 		return addComponent(mySelectedComponent);
@@ -65,29 +65,47 @@ public class ComponentSelector {
 			break;
  
 		case "FiringComponent":
-			System.out.println("Simplest way to manage Money.");
+			//add combobox for ammunition
+			//add textfield for ammunition speed
+			//add textfield for enemy in sight range
+			//add check combo box for targets
+			//add textfield for firing rate
 			break;
  
 		case "SizeComponent":
+			TextField width = new TextField();
+			TextField height = new TextField();
+			newComponents.put("SizeComponent_Width", width);
+			newComponents.put("SizeComponent_Height", height);
+			break;
+
 		case "ArmorComponent":
 			System.out.println("1st Web 2.0 Company.");
 			break;
  
 		case "HealthComponent":
+			break;
 			
 		case "RotationComponent":
+			break;
 			
 		case "CostComponent":
+			break;
 			
 		case "BountyComponent":
+			break;
 		
 		case "PathComponent":
+			break;
 			
 		case "PositionComponent":
+			break;
 			
 		case "CollisionComponent":
+			break;
 			
 		case "MovementComponent":
+			break;
 			
 		case "Cancel":
 			break;

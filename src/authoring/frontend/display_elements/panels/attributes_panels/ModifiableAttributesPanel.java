@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import authoring.frontend.editor_features.ComponentSelector;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -71,6 +73,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(myAttributesGridPane);
+		myAttributes = new ArrayList<String>();
 
 	}
 
@@ -112,9 +115,49 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
 
 		}
+		
 		Button addComponentButton = new Button("Add Component");
 		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
 		GridPane.setColumnSpan(addComponentButton, 2);
+		addComponentButton.setOnAction(e -> {
+			ComponentSelector selector = new ComponentSelector();
+			selector.initialize();
+			Map<String, Control> newComponents = selector.openSelector();
+			for (String key: newComponents.keySet()) {
+				myAttributes.add(key);
+				System.out.println(key);
+				myAttributesMap.put(key, null);
+				myInputMap.put(key, newComponents.get(key));
+				refreshInputRows();
+			}
+		});
+	}
+	
+	protected void refreshInputRows() {
+		myAttributesGridPane.getChildren().clear();
+		for (int i = 0; i < myAttributes.size(); i++) {
+			String currentAttribute = myAttributes.get(i);
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+
+			myAttributesGridPane.add(text, 0, i);
+			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
+		}
+		
+		Button addComponentButton = new Button("Add Component");
+		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
+		GridPane.setColumnSpan(addComponentButton, 2);
+		addComponentButton.setOnAction(e -> {
+			ComponentSelector selector = new ComponentSelector();
+			selector.initialize();
+			Map<String, Control> newComponents = selector.openSelector();
+			for (String key: newComponents.keySet()) {
+				myAttributes.add(key);
+				myAttributesMap.put(key, null);
+				myInputMap.put(key, newComponents.get(key));
+				refreshInputRows();
+			}
+		});
 	}
 
 	@SuppressWarnings("unchecked")
@@ -144,13 +187,24 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected void refreshAttributes() {
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
-				TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
-				tf.setText(myAttributesMap.get(myAttributes.get(i)));
-				tf.setEditable(true);
-				myInputMap.replace(myAttributes.get(i), tf);
+				if (myInputMap.get(myAttributes.get(i)) instanceof TextField) {
+					TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
+					tf.setText(myAttributesMap.get(myAttributes.get(i)));
+					tf.setEditable(true);
+					myInputMap.replace(myAttributes.get(i), tf);
+				}
+				else if (myInputMap.get(myAttributes.get(i)) instanceof ComboBox<?>) {
+					@SuppressWarnings("unchecked")
+					ComboBox<String> cb = (ComboBox<String>) myInputMap.get(myAttributes.get(i));
+					cb.setValue(myAttributesMap.get(myAttributes.get(i)));
+					cb.setEditable(true);
+					myInputMap.replace(myAttributes.get(i), cb);
+				}
+				
 			}
 
 		}
+		refreshInputRows();
 	}
 
 	public boolean createResetAlert() {
