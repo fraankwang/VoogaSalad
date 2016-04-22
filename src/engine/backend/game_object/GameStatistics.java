@@ -15,7 +15,6 @@ public class GameStatistics extends Observable{
 	private int myLives;
 	private int myLivesForDefeat;
 	private double gameTimer;
-	private double myResources;
 	
 	private int currentMode = 0;
 	private int currentLevel = 0;
@@ -25,6 +24,30 @@ public class GameStatistics extends Observable{
 	private int nextAvailableEntityID = 0;
 	
 	public GameStatistics() {
+	}
+	
+	public double getGameTimer() {
+		return gameTimer;
+	}
+	
+	public double getMyMoney() {
+		return myMoney;
+	}
+	
+	public double getMyScore() {
+		return myScore;
+	}
+	
+	public double getMyHealth() {
+		return myHealth;
+	}
+	
+	public int getmyLives() {
+		return myLives;
+	}
+	
+	public int getMyLivesForDefeat() {
+		return myLivesForDefeat;
 	}
 	
 	public void setStartMoney(double d) {
