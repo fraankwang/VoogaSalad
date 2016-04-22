@@ -2,18 +2,12 @@ package authoring.frontend.display_elements.tab_displays;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
-import authoring.frontend.display_elements.grids.Grid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-
 import authoring.backend.data.ObservableList;
 import engine.backend.entities.Entity;
 
@@ -41,7 +35,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEditorDisplay.initialize();
 
 		createNewTab("Unknown Type");
-		
+
 		Tab addNewTypeTab = new Tab("Add New...", null);
 		myEntitiesTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 

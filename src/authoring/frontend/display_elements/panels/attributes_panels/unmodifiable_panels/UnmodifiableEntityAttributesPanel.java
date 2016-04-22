@@ -42,10 +42,10 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 				"Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image", "DamageComponent",
 				"FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed", "FiringComponent_EnemyInSightRange",
 				"FiringComponent_Targets", "FiringComponent_FiringRate", "SizeComponent_Width", "SizeComponent_Height",
-				"MovementComponent", "ArmorComponent_ResistanceToDamage", "HealthComponent_Health",
-				"HealthComponent_CriticalHealth", "RotationComponent", "Cost", "Bounty", "PathComponent_PathID",
-				"PositionComponent_XCoordinate", "PositionComponent_YCoordinate", "CollisionComponent_IsCollided",
-				"MovementComponent_Velocity", "MovementComponent_CanMove", "MovementComponent_CanRotate");
+				"ArmorComponent_ResistanceToDamage", "HealthComponent_Health", "HealthComponent_CriticalHealth",
+				"RotationComponent", "Cost", "Bounty", "PathComponent_PathID", "PositionComponent_XCoordinate",
+				"PositionComponent_YCoordinate", "CollisionComponent_IsCollided", "MovementComponent_Velocity",
+				"MovementComponent_CanMove", "MovementComponent_CanRotate");
 
 		myAttributesGridPane = createAttributesGridPane(entityAttributes);
 		myOpenEditorButton = createOpenEditorButton();
@@ -67,7 +67,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	protected void refreshDisplay() {
 		myAttributesGridPane.getChildren().clear();
 
-		System.out.println("Unm..EntityAttributesPanel: myAttributesMap after update: ");
+		System.out.println("*****8. UnmodifiableEntityAttributesPanel: display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
 		for (int i = 0; i < myAttributes.size(); i++) {
