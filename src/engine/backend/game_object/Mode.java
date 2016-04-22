@@ -17,6 +17,7 @@ public class Mode {
 	private Set<String> levelNames;
 	private List<Level> levels;
 	private Map<String, String> modeInfo;
+	private ModeStatistics myModeStatistics;
 	
 	public Mode(String name, Set<String> levelNames) {
 		this.levels = new ArrayList<Level>();
@@ -40,6 +41,10 @@ public class Mode {
 	
 	public Map<String, String> getInfo() {
 		return modeInfo;
+	}
+
+	public ModeStatistics getModeStatistics(){
+		return myModeStatistics;
 	}
 	
 	public String getName(){

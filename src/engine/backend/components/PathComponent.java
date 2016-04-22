@@ -7,7 +7,7 @@ package engine.backend.components;
  *
  */
 
-public class PathComponent extends Component implements IComponent{
+public class PathComponent extends Component {
 	
 	//stores which path you're on
 	private int pathID;
@@ -22,6 +22,12 @@ public class PathComponent extends Component implements IComponent{
 	public PathComponent(){
 	}
 	
+	public PathComponent(int id, double time){
+		pathID = id;
+		myBezierTime = time;
+		movesWithTime = true;
+	}
+	
 	public int getCurveID(){
 		return curveID;
 	}
@@ -33,15 +39,6 @@ public class PathComponent extends Component implements IComponent{
 	}
 	public void setPathID(int newID){
 		pathID = newID;
-	}
-
-	@Override
-	public void initWithParams(String[] params) {
-		pathID = Integer.parseInt(params[0]);
-		curveID = Integer.parseInt(params[1]);
-		movesWithTime = Boolean.parseBoolean(params[2]);
-		myBezierTime = Double.parseDouble(params[3]);
-		reachedEndOfPath = false;
 	}
 	
 	public double getBezierTime() {
@@ -65,8 +62,15 @@ public class PathComponent extends Component implements IComponent{
 	}
 	
 	@Override
-	public String getValue() {
-		return pathID + "";
+	public String getComponentInfo() {
+		return "pathID: " + pathID;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("PathID")) {
+			this.pathID = Integer.parseInt(data);
+		}
 	}
 	
 }

@@ -16,6 +16,11 @@ public class DamageComponent extends Component implements IComponent{
 	public void setDamageToHealth(double myDamage) {
 		this.myDamageToHealth = myDamage;
 	}
+	
+	public void setDamageToHealth(String myDamage) {
+		double newVal = Double.parseDouble(myDamage);
+		this.myDamageToHealth = newVal;
+	}
 
 	public double getDamageToVelocity() {
 		return myDamageToVelocity;
@@ -24,15 +29,21 @@ public class DamageComponent extends Component implements IComponent{
 	public void setDamageToVelocity(double myDamageToVelocity) {
 		this.myDamageToVelocity = myDamageToVelocity;
 	}
-
-	@Override
-	public void initWithParams(String[] params) {
-		setDamageToHealth(Double.parseDouble(params[0]));
+	
+	public void setDamageToVelocity(String myDamageToVelocity) {
+		double newVal = Double.parseDouble(myDamageToVelocity);
+		this.myDamageToVelocity = newVal;
 	}
 	
 	@Override
-	public String getValue() {
+	public String getComponentInfo() {
 		return myDamageToHealth + "";
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -34,7 +34,6 @@ public class AuthoringController implements IAuthoringController {
 
 	@Override
 	public void parseInput(Map<String, String> input) {
-		
 		Map<String, String> data = processData(input);
 		for (String key : data.keySet()) {
 			if (key.equals("Type")) {
@@ -59,7 +58,6 @@ public class AuthoringController implements IAuthoringController {
 	}
 	
 	private Map<String, String> processData(Map<String, String> data) {
-		System.out.println(data);
 		for (String key : data.keySet()) {
 			if (data.get(key).equals("")) {
 				data.put(key, "0");
