@@ -29,7 +29,7 @@ public class Mode {
 	
 	public void initializeInfo() {
 		modeInfo.put("Type", "Mode");
-		modeInfo.put("Difficulty", myName);
+		modeInfo.put("Name", myName);
 		modeInfo.put("LevelNames", stringLevelNames());
 	}
 

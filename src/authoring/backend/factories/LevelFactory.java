@@ -31,7 +31,7 @@ public class LevelFactory {
 
 			case "Path":
 				map.setPath(getPath(data.get(key)));
-			case "Image":
+			case "MapImage":
 				map.setMapImage(data.get(key));
 			case "MapWidth":
 				double width = Double.parseDouble(data.get(key));

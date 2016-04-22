@@ -39,7 +39,10 @@ public class Level {
 	private void initializeInfo() {
 		levelInfo.put("Type", "Level");
 		levelInfo.put("Name", myName);
-		levelInfo.put("MapBackgroundImage", map.getMapImage());
+		levelInfo.put("MapImage", map.getMapImage());
+		levelInfo.put("MapWidth", map.getMapWidth() + "");
+		levelInfo.put("MapHeight", map.getMapHeight() + "");
+		levelInfo.put("Path", map.getPath().getID() + "");
 	}
 
 	public Level(String myName) {
