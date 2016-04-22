@@ -3,8 +3,6 @@ package authoring.frontend.display_elements.panels.attributes_panels.unmodifiabl
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.ScrollPane;
@@ -39,7 +37,17 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 
-		myAttributesGridPane = createAttributesGridPane();
+		List<String> entityAttributes = (List<String>) Arrays.asList(
+
+				"Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image", "DamageComponent",
+				"FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed", "FiringComponent_EnemyInSightRange",
+				"FiringComponent_Targets", "FiringComponent_FiringRate", "SizeComponent_Width", "SizeComponent_Height",
+				"MovementComponent", "ArmorComponent_ResistanceToDamage", "HealthComponent_Health",
+				"HealthComponent_CriticalHealth", "RotationComponent", "Cost", "Bounty", "PathComponent_PathID",
+				"PositionComponent_XCoordinate", "PositionComponent_YCoordinate", "CollisionComponent_IsCollided",
+				"MovementComponent_Velocity", "MovementComponent_CanMove", "MovementComponent_CanRotate");
+
+		myAttributesGridPane = createAttributesGridPane(entityAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 
 		myScrollPane = new ScrollPane();
@@ -55,37 +63,13 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 
 	}
 
-	private GridPane createAttributesGridPane() {
-		List<Integer> rowConstraints = new ArrayList<Integer>();
-		List<Integer> columnConstraints = new ArrayList<Integer>();
-		columnConstraints.add(COLUMN_1_PERCENTAGE);
-		columnConstraints.add(COLUMN_2_PERCENTAGE);
-
-		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myAttributes = (List<String>) Arrays.asList(
-
-				"Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image", "DamageComponent",
-				"FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed", "FiringComponent_EnemyInSightRange",
-				"FiringComponent_Targets", "FiringComponent_FiringRate", "SizeComponent_Width", "SizeComponent_Height",
-				"MovementComponent", "ArmorComponent_ResistanceToDamage", "HealthComponent_Health",
-				"HealthComponent_CriticalHealth", "RotationComponent", "Cost", "Bounty", "PathComponent_PathID",
-				"PositionComponent_XCoordinate", "PositionComponent_YCoordinate", "CollisionComponent_IsCollided",
-				"MovementComponent_Velocity", "MovementComponent_CanMove", "MovementComponent_CanRotate");
-
-		assembleRows();
-
-		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-		return myAttributesGridPane;
-
-	}
-
 	@Override
 	protected void refreshDisplay() {
 		myAttributesGridPane.getChildren().clear();
 
 		System.out.println("Unm..EntityAttributesPanel: myAttributesMap after update: ");
 		System.out.println(myAttributesMap);
-		
+
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
 
