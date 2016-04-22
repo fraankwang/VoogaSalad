@@ -59,8 +59,10 @@ public class DisplayComponent extends Component {
 	@Override
 	public void update(String dataName, String data) {
 		if (dataName.equals("Image")) {
-			this.image = data;
-			this.canBeShown = true;
+			if (!data.equals("0")) {
+				this.image = data;
+				this.canBeShown = true;
+			}
 		}
 	}
 
