@@ -18,7 +18,7 @@ import engine.backend.map.GameMap;
 import engine.backend.rules.EntityAction;
 
 public class Level {
-
+	private List<IEntity> authoredEntities;
 	private Map<Integer, IEntity> entities;
 	private int myID;
 	private String myParentModeName;
@@ -31,6 +31,7 @@ public class Level {
 	}
 
 	public Level(int myID) {
+		this.authoredEntities = new ArrayList<IEntity>();
 		this.entities = new HashMap<Integer, IEntity>();
 		this.myID = myID;
 	}
@@ -71,7 +72,7 @@ public class Level {
 
 	public void addToEntities(IEntity entity) {
 		entity.setLevelID(myID);
-		entities.put(entity.getID(), entity);
+		authoredEntities.add(entity);
 	}
 
 	public void setModeName(String modeID) {
@@ -100,7 +101,5 @@ public class Level {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public 
 
 }

@@ -100,7 +100,7 @@ public class EventManager implements Observer {
 
 	public void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
-		myCurrentLevel.addToEntities(event.getNewEntity());
+		myCurrentLevel.addEntityToMap(event.getNewEntities());
 		//we have a problem :/
 //		EntityEvent myEntityEvent = (EntityEvent) myEvent;
 //		myEntityEvent.getEntities().stream()

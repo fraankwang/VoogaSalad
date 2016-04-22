@@ -21,9 +21,16 @@ public class FiringComponent extends Component implements IComponent{
 	private double currentSecond;
 	private boolean fireNow;
 	
-	public FiringComponent(){
-		
+	public FiringComponent(String myAmmunition, int myAmmunitionAmount, double myAmmunitionSpeed, 
+			double myEnemyInSightRange, Vector myDirectionToFire){
+		this.myAmmunition = myAmmunition;
+		this.myAmmunitionAmount = myAmmunitionAmount;
+		this.myAmmunitionSpeed = myAmmunitionSpeed;
+		this.myEnemyInSightRange = myEnemyInSightRange;
+		this.myDirectionToFire = myDirectionToFire;
 	}
+	
+	public FiringComponent()
 	
 	public String getAmmunition() {
 		return myAmmunition;

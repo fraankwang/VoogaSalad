@@ -38,8 +38,8 @@ public class EngineController implements IEngineController{
 	
 	public void start(){
 		myGameWorld = new GameWorld();
-		myTestingClass = new testingClass(myGameWorld);
-		myGameWorld = myTestingClass.initTestGame();
+		myTestingClass = new testingClass();
+		myGameWorld = myTestingClass.testFiring();
 		//initTestGame();
 		
 		myEventManager = new EventManager(this, myGameWorld);

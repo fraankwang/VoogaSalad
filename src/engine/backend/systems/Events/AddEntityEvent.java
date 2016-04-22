@@ -12,7 +12,9 @@ public class AddEntityEvent extends EntityEvent{
 		this.newEntities = newEntities;
 	}
 	
-	public Collection<IEntity> getNewEntity(){
+	public Collection<IEntity> getNewEntities(){
 		return newEntities;
 	}
+	
+
 }
