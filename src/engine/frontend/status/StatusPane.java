@@ -1,5 +1,7 @@
 package engine.frontend.status;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -19,39 +21,37 @@ public class StatusPane {
 	public Node buildNode(){
 		myPane = new Pane();
 		myPane.setStyle("-fx-background-color: #ffffff;");
-		myPane.setMinSize(myEngineView.loadUIIntResource("StatusWidth"), myEngineView.loadUIIntResource("StatusHeight")/2);
-		myPane.setPrefSize(myEngineView.loadUIIntResource("StatusWidth"), myEngineView.loadUIIntResource("StatusHeight"));
-		myPane.setMaxSize(myEngineView.loadUIIntResource("StatusWidth"), myEngineView.loadUIIntResource("StatusHeight"));
-		
-		HBox myStatComponents = new HBox();
-		myStatComponents.minWidthProperty().bind(myPane.widthProperty());
-		myStatComponents.minHeightProperty().bind(myPane.heightProperty());
-		myPane.getChildren().add(myStatComponents);
-		
-		myStatComponents.getChildren().addAll(buildControl("test1"), buildControl("test1"), buildControl("test1"), buildControl("test1"));
-		
+		myPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("StatusWidth")));
+		myPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("StatusHeight")));
+		myPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("StatusWidth")));
+		myPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("StatusHeight")));
+		myPane.getChildren().add(buildRecordControl());
 		return myPane;
 	}
 	
-	private Node buildControl(String name){
-
+	private VBox buildRecordControl(){
 		VBox myVBox = new VBox();
 		
-		Button button = new Button(name);
-		Button button1 = new Button(name);
+		Button record = new Button("Record");
+		Button stop = new Button("Stop");
 		
-		button.setMaxHeight(Double.MAX_VALUE);
-		button.setMaxWidth(Double.MAX_VALUE);
-		HBox.setHgrow(button, Priority.ALWAYS);
-		VBox.setVgrow(button, Priority.ALWAYS);
+		record.setMaxHeight(Double.MAX_VALUE);
+		record.setMaxWidth(Double.MAX_VALUE);
+		VBox.setVgrow(record, Priority.ALWAYS);
 		
-		button1.setMaxHeight(Double.MAX_VALUE);
-		button1.setMaxWidth(Double.MAX_VALUE);
-		HBox.setHgrow(button1, Priority.ALWAYS);
-		VBox.setVgrow(button1, Priority.ALWAYS);
-		HBox.setHgrow(myVBox, Priority.ALWAYS);
+		record.setOnAction(e -> myEngineView.getMyGameCapture().startCapture());
 		
-		myVBox.getChildren().addAll(button, button1);
+		stop.setMaxHeight(Double.MAX_VALUE);
+		stop.setMaxWidth(Double.MAX_VALUE);
+		VBox.setVgrow(stop, Priority.ALWAYS);
+		
+		stop.setOnAction(e -> myEngineView.getMyGameCapture().endCapture());
+		
+		myVBox.minWidthProperty().bind(myPane.widthProperty().divide(4));
+		myVBox.minHeightProperty().bind(myPane.heightProperty());
+		myVBox.maxHeightProperty().bind(myPane.heightProperty());
+		
+		myVBox.getChildren().addAll(record, stop);
 		return myVBox;
 	}
 	

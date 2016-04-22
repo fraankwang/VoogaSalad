@@ -2,6 +2,8 @@ package utility;
 
 import java.awt.*;
 
+import javafx.event.ActionEvent;
+
 /**
  * Created by colinduffy on 4/19/16.
  */
@@ -15,7 +17,7 @@ public interface IGameCapture {
      * header will have date and time appended for each instance of file saved
      * @param fileHeaderName sets header to preface files
      */
-    void setFileHeaderName(String fileHeaderName);
+    void setFileName(String fileHeaderName);
 
     /**
      * Sets Image file type for export.
@@ -40,14 +42,14 @@ public interface IGameCapture {
      * Sets number of screenshots captured per second during recording
      * @param numFramesPerSecond
      */
-    void setNumFramesPerSecond(int numFramesPerSecond);
+    void setFramesPerSecond(int numFramesPerSecond);
 
     /**
      * Begins timer and will place images captured from Java Robot into
      * data structure.
      * @param startCaptureEvent
      */
-    void startCapture(Event startCaptureEvent);
+    void startCapture();
 
     /**
      * Pauses image capture, but does not create exportable file.
@@ -60,15 +62,8 @@ public interface IGameCapture {
      * appended into a video file
      * @param endCaptureEvent
      */
-    void endCapture(Event endCaptureEvent);
+    void endCapture();
 
-    /**
-     * Prompt from front end allows user to change name for specific file
-     * once capture has finished.  Default file header does not change
-     * @param specificFileName
-     * @param userInputFinished
-     */
-    void setSpecificFileName(Event userInputFinished, String specificFileName);
 
     /**
      * User sets destination for either local machine, or elsewhere
@@ -83,5 +78,10 @@ public interface IGameCapture {
      * @param exportEvent
      */
     void exportFile(Event exportEvent);
-
+    
+    /**
+     * Sets the save location for the file
+     */
+    void setSaveLocation();
+    
 }

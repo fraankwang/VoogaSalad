@@ -25,9 +25,10 @@ public class ShopPane {
 	
 	public Node buildNode(){
 
-		myPane.setMinSize(myEngineView.loadUIIntResource("ShopWidth")/2, myEngineView.loadUIIntResource("ShopHeight"));
-		myPane.setPrefSize(myEngineView.loadUIIntResource("ShopWidth"), myEngineView.loadUIIntResource("ShopHeight"));
-		myPane.setMaxSize(myEngineView.loadUIIntResource("ShopWidth"), myEngineView.loadUIIntResource("ShopHeight"));
+		myPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
+		myPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
+		myPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
+		myPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
 		myPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 		
 		ShopView testShopView = new ShopView(myEngineView);
