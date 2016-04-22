@@ -116,7 +116,7 @@ public class GameCapture implements IGameCapture {
 	}
 
 	@Override
-	public void exportFile(Event exportEvent) {
+	public File exportFile() {
 		// TODO not sure how to export yet
 	}
 

@@ -1,10 +1,8 @@
 package utility;
 
-import java.awt.*;
-import java.io.File;
-
 import com.xuggle.xuggler.ICodec;
-import com.xuggle.xuggler.ICodec.ID;
+
+import java.io.File;
 
 /**
  * Created by colinduffy on 4/19/16.
@@ -71,9 +69,9 @@ public interface IGameCapture {
 
     /**
      * Exports file to set destination upon front end event
-     * @param exportEvent
+     *
      */
-    void exportFile(Event exportEvent);
+    File exportFile();
     
     /**
      * Sets the save location for the file
