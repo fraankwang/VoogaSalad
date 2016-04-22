@@ -24,6 +24,7 @@ import com.xuggle.xuggler.ICodec;
 
 import engine.frontend.overall.EngineView;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 
@@ -46,6 +47,12 @@ public class GameCapture implements IGameCapture {
 	private File lastSavedFile;
 	private int fps;
 
+	/*
+	 * Todos:
+	 * Get dimensions to match the game and not the whole screen
+	 * Write explanation for the "export file"
+	 */
+	
 	public GameCapture(EngineView ev) {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myEngineView = ev;
@@ -62,7 +69,7 @@ public class GameCapture implements IGameCapture {
 			public void run() {
 				Dimension bounds = Toolkit.getDefaultToolkit().getScreenSize();
 				Rectangle captureSize = new Rectangle(bounds);
-				lastSavedFile = new File(saveLocation + "/" + fileName + System.currentTimeMillis()
+				lastSavedFile = new File(saveLocation + File.separator + fileName + System.currentTimeMillis()
 						+ myResources.getString("DefaultVideoExtension"));
 				fileWriter = ToolFactory.makeWriter(lastSavedFile.toString());
 				fileWriter.addVideoStream(0, 0, videoFormat, bounds.width / 2, (int) bounds.height / 2);
@@ -82,20 +89,10 @@ public class GameCapture implements IGameCapture {
 	}
 
 	private void takeAFrame(Robot robot, Rectangle captureSize) {
-		long oldTime = System.currentTimeMillis();
-		// take the screen shot
 		BufferedImage screen = robot.createScreenCapture(captureSize);
-
-		// convert to the right image type
 		BufferedImage bgrScreen = convertToType(screen, BufferedImage.TYPE_3BYTE_BGR);
-
-		// encode the image to stream #0
 		fileWriter.encodeVideo(0, bgrScreen, System.currentTimeMillis() - startTime, TimeUnit.MILLISECONDS);
-
-		long newTime = System.currentTimeMillis();
-		long seconds = newTime - oldTime;
-		System.out.println("took a screenshot and wrote it in: " + seconds);
-
+		
 		try {
 			Thread.sleep(1000 / fps);
 		} catch (InterruptedException e) {
@@ -108,9 +105,10 @@ public class GameCapture implements IGameCapture {
 		capture = false;
 	}
 
-	public void takeScreenshot() {
-		String outputFileName = saveLocation + "/" + fileName + System.currentTimeMillis() + "." + imageFormat;
-		WritableImage image = myEngineView.getBody().snapshot(new SnapshotParameters(), null);
+	@Override
+	public void takeScreenshot(Node n) {
+		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "." + imageFormat;
+		WritableImage image = n.snapshot(new SnapshotParameters(), null);
 		BufferedImage bi = SwingFXUtils.fromFXImage(image, null);
 		BufferedImage convertedImg = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
 	    convertedImg.getGraphics().drawImage(bi, 0, 0, null);
@@ -132,19 +130,17 @@ public class GameCapture implements IGameCapture {
 		imageFormat = imageFileType;
 	}
 
+	@Override
 	public String getImageFileType() {
 		return imageFormat;
-	}
-
-	public ICodec.ID getVideoFileType() {
-		return videoFormat;
 	}
 
 	@Override
 	public void setFramesPerSecond(int numFramesPerSecond) {
 		fps = numFramesPerSecond;
 	}
-
+	
+	@Override
 	public int getFramesPerSecond() {
 		return fps;
 	}
@@ -154,6 +150,7 @@ public class GameCapture implements IGameCapture {
 		saveLocation = f;
 	}
 
+	@Override
 	public File getSaveLocation() {
 		return saveLocation;
 	}
@@ -163,6 +160,7 @@ public class GameCapture implements IGameCapture {
 		fileName = f;
 	}
 
+	@Override
 	public String getFileName() {
 		return fileName;
 	}

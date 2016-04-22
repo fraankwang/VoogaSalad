@@ -56,7 +56,7 @@ public class StatusPane {
 		picture.setMaxHeight(Double.MAX_VALUE);
 		picture.setMaxWidth(Double.MAX_VALUE);
 		VBox.setVgrow(picture, Priority.ALWAYS);
-		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot());
+		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot(myEngineView.getBody()));
 		
 		myVBox.minWidthProperty().bind(myPane.widthProperty().divide(4));
 		myVBox.minHeightProperty().bind(myPane.heightProperty());
