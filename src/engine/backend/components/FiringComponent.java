@@ -130,16 +130,16 @@ public class FiringComponent extends Component {
 	public void update(String dataName, String data) {
 		switch (dataName) {
 		
-		case "MyAmmunition":
+		case "Ammunition":
 			this.myAmmunition = data;
 			return;
-		case "MyAmmunitionSpeed":
+		case "AmmunitionSpeed":
 			this.myAmmunitionSpeed = Double.parseDouble(data);
 			return;
-		case "MyEnemyInSightRange":
+		case "EnemyInSightRange":
 			this.myEnemyInSightRange = Double.parseDouble(data);
 			return;
-		case "MyFiringRate":
+		case "FiringRate":
 			this.myFiringRate = Double.parseDouble(data);
 			return;
 			

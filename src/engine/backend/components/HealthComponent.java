@@ -55,7 +55,7 @@ public class HealthComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "MyHealth:" + myHealth + "," + "MyCriticalHealth:" + myCriticalHealth;
+		return "Health:" + myHealth + "," + "CriticalHealth:" + myCriticalHealth;
 	}
 
 	@Override
