@@ -32,7 +32,7 @@ public class CollisionComponent extends Component {
 	@Override
 	public void update(String dataName, String data) {
 		if (dataName.equals("IsCollided")) {
-			if (data.equals("True")) {
+			if (data.equals("True") || data.equals("true") || data.equals("1") || data.equals("Yes") || data.equals("yes")) {
 				isCollided = true;
 			} else {
 				isCollided = false;

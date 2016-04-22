@@ -24,6 +24,7 @@ public class Mode {
 		this.levelNames = levelNames;
 		this.myName = name;
 		this.modeInfo = new HashMap<String, String>();
+		initializeInfo();
 	}
 	
 	public void initializeInfo() {

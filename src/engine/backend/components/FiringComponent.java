@@ -108,19 +108,19 @@ public class FiringComponent extends Component {
 	public String getComponentInfo() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("MyAmmunition:");
+		sb.append("Ammunition:");
 		sb.append(myAmmunition);
 		sb.append(",");
-		sb.append("MyAmmunitionSpeed:");
+		sb.append("AmmunitionSpeed:");
 		sb.append(myAmmunitionSpeed);
 		sb.append(",");
-		sb.append("MyEnemyInSightRange:");
+		sb.append("EnemyInSightRange:");
 		sb.append(myEnemyInSightRange);
 		sb.append(",");
-		sb.append("MyTargets:");
+		sb.append("Targets:");
 		sb.append(myTargets);
 		sb.append(",");
-		sb.append("MyFiringRate:");
+		sb.append("FiringRate:");
 		sb.append(myFiringRate);
 		
 		return sb.toString();
@@ -130,16 +130,16 @@ public class FiringComponent extends Component {
 	public void update(String dataName, String data) {
 		switch (dataName) {
 		
-		case "MyAmmunition":
+		case "Ammunition":
 			this.myAmmunition = data;
 			return;
-		case "MyAmmunitionSpeed":
+		case "AmmunitionSpeed":
 			this.myAmmunitionSpeed = Double.parseDouble(data);
 			return;
-		case "MyEnemyInSightRange":
+		case "EnemyInSightRange":
 			this.myEnemyInSightRange = Double.parseDouble(data);
 			return;
-		case "MyFiringRate":
+		case "FiringRate":
 			this.myFiringRate = Double.parseDouble(data);
 			return;
 			

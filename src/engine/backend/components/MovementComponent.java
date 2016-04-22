@@ -82,14 +82,14 @@ public class MovementComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "MyVelocity:" + myVelocity + "," + "CanMove:" + canMove + "," + "CanRotate:" + canRotate;
+		return "Velocity:" + myVelocity + "," + "CanMove:" + canMove + "," + "CanRotate:" + canRotate;
 	}
 
 	@Override
 	public void update(String dataName, String data) {
 		switch (dataName) {
 		
-		case "MyVelocity":
+		case "Velocity":
 			this.myVelocity = Double.parseDouble(data);
 			return;
 		case "CanMove":

@@ -16,6 +16,7 @@ public class GlobalData {
 	private ObservableList<Entity> entities;
 	private ObservableList<Level> levels;
 	private ObservableList<Mode> modes;
+
 	
 	public GlobalData() {
 		this.datacontainer = new DataContainer();

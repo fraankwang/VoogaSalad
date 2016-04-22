@@ -55,17 +55,17 @@ public class HealthComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "MyHealth:" + myHealth + "," + "MyCriticalHealth:" + myCriticalHealth;
+		return "Health:" + myHealth + "," + "CriticalHealth:" + myCriticalHealth;
 	}
 
 	@Override
 	public void update(String dataName, String data) {
 		switch (dataName) {
 		
-		case "MyHealth":
+		case "Health":
 			this.myHealth = Double.parseDouble(data);
 			return;
-		case "MyCriticalHealth":
+		case "CriticalHealth":
 			this.myCriticalHealth = Double.parseDouble(data);
 			return;
 			
