@@ -1,11 +1,8 @@
 package engine.frontend.status;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -34,24 +31,38 @@ public class StatusPane {
 		
 		Button record = new Button("Record");
 		Button stop = new Button("Stop");
+		Button picture = new Button("Picture");
 		
 		record.setMaxHeight(Double.MAX_VALUE);
 		record.setMaxWidth(Double.MAX_VALUE);
 		VBox.setVgrow(record, Priority.ALWAYS);
-		
-		record.setOnAction(e -> myEngineView.getMyGameCapture().startCapture());
+		record.setDisable(false);
+		record.setOnAction(e -> {
+			myEngineView.getGameCapture().startCapture();
+			record.setDisable(true);
+			stop.setDisable(false);
+		});
 		
 		stop.setMaxHeight(Double.MAX_VALUE);
 		stop.setMaxWidth(Double.MAX_VALUE);
 		VBox.setVgrow(stop, Priority.ALWAYS);
+		stop.setDisable(true);
+		stop.setOnAction(e -> {
+			myEngineView.getGameCapture().endCapture();
+			record.setDisable(false);
+			stop.setDisable(true);
+		});
 		
-		stop.setOnAction(e -> myEngineView.getMyGameCapture().endCapture());
+		picture.setMaxHeight(Double.MAX_VALUE);
+		picture.setMaxWidth(Double.MAX_VALUE);
+		VBox.setVgrow(picture, Priority.ALWAYS);
+		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot(myEngineView.getBody()));
 		
 		myVBox.minWidthProperty().bind(myPane.widthProperty().divide(4));
 		myVBox.minHeightProperty().bind(myPane.heightProperty());
 		myVBox.maxHeightProperty().bind(myPane.heightProperty());
 		
-		myVBox.getChildren().addAll(record, stop);
+		myVBox.getChildren().addAll(record, stop, picture);
 		return myVBox;
 	}
 	
