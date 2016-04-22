@@ -1,5 +1,8 @@
 package utility;
-
+/**
+ * @author austinwu
+ * Based on some code from https://www.javacodegeeks.com/2011/02/xuggler-tutorial-frames-capture-video.html
+ */
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Event;
@@ -29,18 +32,22 @@ public class GameCapture implements IGameCapture {
 	private ResourceBundle myResources;
 
 	private EngineView myEngineView;
-	private String fileName;
-	private String imageFormat;
-	private ICodec.ID videoFormat;
 	private IMediaWriter fileWriter;
+	
 	private boolean capture;
 	private long startTime;
+	
+	private String fileName;
+	private File saveLocation;
+	private String imageFormat;
+	private ICodec.ID videoFormat;
 	private int fps;
 
 	public GameCapture(EngineView ev) {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myEngineView = ev;
 		fileName = myResources.getString("DefaultName");
+		saveLocation = new File(myResources.getString("DefaultSaveLocation"));
 		imageFormat = myResources.getString("DefaultImageFormat");
 		videoFormat = ICodec.ID.valueOf(myResources.getString("DefaultVideoFormat"));
 		fps = Integer.parseInt(myResources.getString("DefaultFrameRate"));
@@ -52,9 +59,9 @@ public class GameCapture implements IGameCapture {
 			public void run() {
 				Dimension bounds = Toolkit.getDefaultToolkit().getScreenSize();
 				Rectangle captureSize = new Rectangle(bounds);
-
+				
 				fileWriter = ToolFactory.makeWriter(
-						fileName + System.currentTimeMillis() + myResources.getString("DefaultVideoExtension"));
+						saveLocation + "/" + fileName + System.currentTimeMillis() + myResources.getString("DefaultVideoExtension"));
 				fileWriter.addVideoStream(0, 0, videoFormat, bounds.width / 2, (int) bounds.height / 2);
 				capture = true;
 				try {
@@ -114,13 +121,21 @@ public class GameCapture implements IGameCapture {
 	}
 
 	@Override
-	public void setImageFileType(String imageFileType) throws Exception {
+	public void setImageFileType(String imageFileType){
 		imageFormat = imageFileType;
+	}
+	
+	public String getImageFileType(){
+		return imageFormat; 
 	}
 
 	@Override
-	public void setVideoFileType(String videoFileType) throws Exception {
-		videoFormat = ICodec.ID.valueOf(videoFileType);
+	public void setVideoFileType(ICodec.ID videoFileType){
+		videoFormat = videoFileType;
+	}
+
+	public ICodec.ID getVideoFileType(){
+		return videoFormat;
 	}
 
 	@Override
@@ -128,19 +143,31 @@ public class GameCapture implements IGameCapture {
 		fps = numFramesPerSecond;
 	}
 
-	@Override
-	public void setSaveLocation() {
-
+	public int getFramesPerSecond() {
+		return fps;
 	}
 
 	@Override
-	public void setDestination(String destination) {
+	public void setSaveLocation(File f) {
+		saveLocation = f;
+	}
 
+	public File getSaveLocation(){
+		return saveLocation;
 	}
 
 	@Override
 	public void setFileName(String f) {
 		fileName = f;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	@Override
+	public void setDestination(String destination) {
+		
 	}
 
 	private BufferedImage convertToType(BufferedImage sourceImage, int targetType) {

@@ -36,7 +36,6 @@ public class EngineView{
 	 * Future Big Items:
 	 * Dynamic window resizing- make EVERYTHING relative and in terms of ratios
 	 * Resizing/rearranging Panes
-	 * Fix rendering
 	 * Add game recorder functionality as an add-on
 	 * 
 	 */
@@ -50,7 +49,7 @@ public class EngineView{
 	
 	private MenubarManager myMenubarManager;
 	
-	public BorderPane myBody;
+	private BorderPane myBody;
 	private MenuBar myMenuBar;
 	private BoardPane myBoardPane;
 	private ShopPane myShopPane;
@@ -130,7 +129,7 @@ public class EngineView{
 		return myController;
 	}
 	
-	public GameCapture getMyGameCapture(){
+	public GameCapture getGameCapture(){
 		return myGameCapture;
 	}
 	

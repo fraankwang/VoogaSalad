@@ -1,6 +1,10 @@
 package utility;
 
 import java.awt.*;
+import java.io.File;
+
+import com.xuggle.xuggler.ICodec;
+import com.xuggle.xuggler.ICodec.ID;
 
 /**
  * Created by colinduffy on 4/19/16.
@@ -23,18 +27,16 @@ public interface IGameCapture {
      * or adjusted dynamically from frontend user input.
      *
      * @param imageFileType sets file type for exported images
-     * @throws Exception e for unsupported file type.
      */
-    void setImageFileType(String imageFileType) throws Exception;
+    void setImageFileType(String imageFileType);
 
     /**
      * Sets Image file type for export.
      * Can be hard-coded in native backend framework for certain situations,
      * or adjusted dynamically from frontend user input.
      * @param videoFileType sets file type for exported images
-     * @throws Exception for unsupported file type
      */
-    void setVideoFileType(String videoFileType) throws Exception;
+    void setVideoFileType(ICodec.ID videoFileType);
 
     /**
      * Sets number of screenshots captured per second during recording
@@ -76,6 +78,5 @@ public interface IGameCapture {
     /**
      * Sets the save location for the file
      */
-    void setSaveLocation();
-    
+    void setSaveLocation(File f);
 }
