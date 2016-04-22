@@ -46,19 +46,19 @@ public class ScreenRecordingExample {
         	System.out.println("Current REAL FPS: " + 1000/currentMsForFrame);
         	currentMsForFrame = System.currentTimeMillis();
         	System.out.println("CURRENT INDEX:" + index);
-        	
+        	System.out.println(System.currentTimeMillis());
             // take the screen shot
             BufferedImage screen = getDesktopScreenshot();
-            
+            System.out.println(System.currentTimeMillis());
             // convert to the right image type
             BufferedImage bgrScreen = convertToType(screen, 
                    BufferedImage.TYPE_3BYTE_BGR);
             
-            
+            System.out.println(System.currentTimeMillis());
             // encode the image to stream #0
             writer.encodeVideo(0, bgrScreen, System.nanoTime() - startTime, 
                    TimeUnit.NANOSECONDS);
-            
+            System.out.println(System.currentTimeMillis());
             
             // sleep for frame rate milliseconds
             try {

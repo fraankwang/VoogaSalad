@@ -1,8 +1,9 @@
 package utility;
 
-import java.awt.*;
+import java.awt.Event;
+import java.io.File;
 
-import javafx.event.ActionEvent;
+import javafx.scene.Node;
 
 /**
  * Created by colinduffy on 4/19/16.
@@ -11,77 +12,79 @@ public interface IGameCapture {
 
 
     /**
-     * Can be hard-coded in native backend framework for certain situations,
-     * or adjusted dynamically from frontend user input.
+     * Begins timer and will place images captured from Java Robot into
+     * data structure.
      *
-     * header will have date and time appended for each instance of file saved
-     * @param fileHeaderName sets header to preface files
      */
-    void setFileName(String fileHeaderName);
+    void startCapture();
+
+    /**
+     * Ends image capture, data structure containing images
+     * appended into a video file
+     *
+     */
+    void endCapture();
+
+    /**
+     * Takes a screenshot of the current specified image type and writes
+     * it to the current specified image save location of specified Javafx Node
+     */
+    void takeScreenshot(Node n);
+    
+    /**
+     * Exports the last generated file to set destination upon front end event
+     * @param exportEvent
+     */
+    File exportFile(Event exportEvent);
+
+    /**
+     * Sets the name of the file based on filename
+     * @param fileName
+     */
+    void setFileName(String fileName);
+    
+    /**
+     * Gets the filename
+     * @return returns the current name of the file
+     */
+    String getFileName();
 
     /**
      * Sets Image file type for export.
-     * Can be hard-coded in native backend framework for certain situations,
-     * or adjusted dynamically from frontend user input.
-     *
+     * Can be adjusted from frontend, fileTypes should
+     * be strings that are in ImageIO.getWriterFormatNames()
      * @param imageFileType sets file type for exported images
-     * @throws Exception e for unsupported file type.
      */
-    void setImageFileType(String imageFileType) throws Exception;
+    void setImageFileType(String imageFileType);
 
     /**
-     * Sets Image file type for export.
-     * Can be hard-coded in native backend framework for certain situations,
-     * or adjusted dynamically from frontend user input.
-     * @param videoFileType sets file type for exported images
-     * @throws Exception for unsupported file type
+     * Gets the image filetype
+     * @return string representation of image format
      */
-    void setVideoFileType(String videoFileType) throws Exception;
+    String getImageFileType();
 
+    
     /**
      * Sets number of screenshots captured per second during recording
      * @param numFramesPerSecond
      */
     void setFramesPerSecond(int numFramesPerSecond);
-
-    /**
-     * Begins timer and will place images captured from Java Robot into
-     * data structure.
-     * @param startCaptureEvent
-     */
-    void startCapture();
-
-    /**
-     * Pauses image capture, but does not create exportable file.
-     * @param pauseCaptureEvent
-     */
-    void pauseCapture(Event pauseCaptureEvent);
-
-    /**
-     * Ends image capture, data structure containing images
-     * appended into a video file
-     * @param endCaptureEvent
-     */
-    void endCapture();
-
-
-    /**
-     * User sets destination for either local machine, or elsewhere
-     * Consulting with Social Media Export and DropBox Export Utilities
-     * so that their file destinations are supported as well
-     * @param destination
-     */
-    void setDestination(String destination);
-
-    /**
-     * Exports file to set destination upon front end event
-     * @param exportEvent
-     */
-    void exportFile(Event exportEvent);
     
     /**
-     * Sets the save location for the file
+     * Get the current frames per second
+     * @return int frames per second of video capture
      */
-    void setSaveLocation();
+	int getFramesPerSecond();
     
+    /**
+     * Sets the save location for the file to the directory specified by f
+     */
+    void setSaveLocation(File f);
+
+    /**
+     * returns the current save location
+     * @return String representation of save location
+     */
+	File getSaveLocation();
+
 }

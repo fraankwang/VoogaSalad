@@ -1,19 +1,32 @@
 package utility;
 
+/**
+ * @author austinwu
+ * Based on some code from https://www.javacodegeeks.com/2011/02/xuggler-tutorial-frames-capture-video.html
+ */
+import java.awt.AWTException;
+import java.awt.Dimension;
 import java.awt.Event;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
 
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
 
 import engine.frontend.overall.EngineView;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
 
 public class GameCapture implements IGameCapture {
 
@@ -21,103 +34,135 @@ public class GameCapture implements IGameCapture {
 	private ResourceBundle myResources;
 
 	private EngineView myEngineView;
-
-	private String fileName;
-	private ICodec.ID imageFormat;
-	private ICodec.ID videoFormat;
-	private int fps;
 	private IMediaWriter fileWriter;
 
 	private boolean capture;
-	private Timeline myTimeline;
+	private long startTime;
 
+	private String fileName;
+	private File saveLocation;
+	private String imageFormat;
+	private ICodec.ID videoFormat;
+
+	private File lastSavedFile;
+	private int fps;
+
+	/*
+	 * Todos:
+	 * Get dimensions to match the game and not the whole screen
+	 * Write explanation for the "export file"
+	 */
+	
 	public GameCapture(EngineView ev) {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myEngineView = ev;
-
 		fileName = myResources.getString("DefaultName");
-		imageFormat = ICodec.ID.CODEC_ID_PNG;
-		videoFormat = ICodec.ID.CODEC_ID_MPEG4;
-		fps = 5;
+		saveLocation = new File(myResources.getString("DefaultSaveLocation"));
+		imageFormat = myResources.getString("DefaultImageFormat");
+		videoFormat = ICodec.ID.valueOf(myResources.getString("DefaultVideoFormat"));
+		fps = Integer.parseInt(myResources.getString("DefaultFrameRate"));
 	}
 
 	@Override
 	public void startCapture() {
-		fileWriter = ToolFactory.makeWriter(fileName + System.currentTimeMillis() + ".mp4");
-		fileWriter.addVideoStream(0, 0, videoFormat, 
-				(int) myEngineView.getStage().getWidth(), (int) myEngineView.getStage().getHeight());
-		record();
-
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				Dimension bounds = Toolkit.getDefaultToolkit().getScreenSize();
+				Rectangle captureSize = new Rectangle(bounds);
+				lastSavedFile = new File(saveLocation + File.separator + fileName + System.currentTimeMillis()
+						+ myResources.getString("DefaultVideoExtension"));
+				fileWriter = ToolFactory.makeWriter(lastSavedFile.toString());
+				fileWriter.addVideoStream(0, 0, videoFormat, bounds.width / 2, (int) bounds.height / 2);
+				capture = true;
+				try {
+					Robot robot = new Robot();
+					while (capture) {
+						takeAFrame(robot, captureSize);
+					}
+					fileWriter.close();
+				} catch (AWTException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		thread.start();
 	}
 
-	private void record() {
-		long startTime = System.nanoTime();
-		
-		myTimeline = new Timeline(new KeyFrame(
-		        Duration.millis(1000/fps),
-		        ae -> takeAFrame(startTime)));
-		myTimeline.setCycleCount(Animation.INDEFINITE);
-		myTimeline.play();
-	}
-	
-	private void takeAFrame(long startTime){
-		System.out.println("Taking a frame");
-		// take the screen shot
-		BufferedImage screen = myEngineView.getStageShot();
-
-		// convert to the right image type
+	private void takeAFrame(Robot robot, Rectangle captureSize) {
+		BufferedImage screen = robot.createScreenCapture(captureSize);
 		BufferedImage bgrScreen = convertToType(screen, BufferedImage.TYPE_3BYTE_BGR);
-
-		// encode the image to stream #0
-		fileWriter.encodeVideo(0, bgrScreen, System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
-		capture = true;
-	}
-
-	@Override
-	public void pauseCapture(Event pauseCaptureEvent) {
-		// TODO need to add way to re-begin screen capture
+		fileWriter.encodeVideo(0, bgrScreen, System.currentTimeMillis() - startTime, TimeUnit.MILLISECONDS);
+		
+		try {
+			Thread.sleep(1000 / fps);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void endCapture() {
-		myTimeline.stop();
-		fileWriter.close();
+		capture = false;
 	}
 
 	@Override
-	public void exportFile(Event exportEvent) {
-		// TODO not sure how to export yet
+	public void takeScreenshot(Node n) {
+		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "." + imageFormat;
+		WritableImage image = n.snapshot(new SnapshotParameters(), null);
+		BufferedImage bi = SwingFXUtils.fromFXImage(image, null);
+		BufferedImage convertedImg = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
+	    convertedImg.getGraphics().drawImage(bi, 0, 0, null);
+		
+	    try {
+			ImageIO.write(convertedImg, imageFormat, new File(outputFileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void setImageFileType(String imageFileType) throws Exception {
-		imageFormat = ICodec.ID.valueOf(imageFileType);
-
+	public File exportFile(Event exportEvent) {
+		return lastSavedFile;
 	}
 
 	@Override
-	public void setVideoFileType(String videoFileType) throws Exception {
-		videoFormat = ICodec.ID.valueOf(videoFileType);
+	public void setImageFileType(String imageFileType) {
+		imageFormat = imageFileType;
+	}
+
+	@Override
+	public String getImageFileType() {
+		return imageFormat;
 	}
 
 	@Override
 	public void setFramesPerSecond(int numFramesPerSecond) {
 		fps = numFramesPerSecond;
 	}
-
+	
 	@Override
-	public void setSaveLocation() {
-
+	public int getFramesPerSecond() {
+		return fps;
 	}
 
 	@Override
-	public void setDestination(String destination) {
+	public void setSaveLocation(File f) {
+		saveLocation = f;
+	}
 
+	@Override
+	public File getSaveLocation() {
+		return saveLocation;
 	}
 
 	@Override
 	public void setFileName(String f) {
 		fileName = f;
+	}
+
+	@Override
+	public String getFileName() {
+		return fileName;
 	}
 
 	private BufferedImage convertToType(BufferedImage sourceImage, int targetType) {
@@ -138,4 +183,5 @@ public class GameCapture implements IGameCapture {
 
 		return image;
 	}
+
 }

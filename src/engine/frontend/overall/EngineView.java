@@ -1,6 +1,5 @@
 package engine.frontend.overall;
 
-import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
 
 import engine.controller.EngineController;
@@ -9,7 +8,6 @@ import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
 import javafx.beans.binding.DoubleBinding;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
@@ -38,7 +36,6 @@ public class EngineView{
 	 * Future Big Items:
 	 * Dynamic window resizing- make EVERYTHING relative and in terms of ratios
 	 * Resizing/rearranging Panes
-	 * Fix rendering
 	 * Add game recorder functionality as an add-on
 	 * 
 	 */
@@ -57,6 +54,7 @@ public class EngineView{
 	private BoardPane myBoardPane;
 	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
+	
 	
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
@@ -99,15 +97,6 @@ public class EngineView{
 		e.consume();
 	}
 	
-	public BufferedImage getStageShot(){
-		WritableImage image = myBody.snapshot(new SnapshotParameters(), null);
-		return SwingFXUtils.fromFXImage(image, null);
-	}
-	
-//	public BufferedImage getScreenShot(){
-//		
-//	}
-	
 	public DoubleBinding getUsableWidth(double porportion){
 		return myScene.widthProperty().multiply(porportion);
 	}
@@ -140,8 +129,12 @@ public class EngineView{
 		return myController;
 	}
 	
-	public GameCapture getMyGameCapture(){
+	public GameCapture getGameCapture(){
 		return myGameCapture;
+	}
+	
+	public BorderPane getBody(){
+		return myBody;
 	}
 	
 	public int loadIntResource(String input){
