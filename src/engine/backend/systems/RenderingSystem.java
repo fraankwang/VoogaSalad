@@ -16,6 +16,7 @@ import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
+import engine.backend.systems.Events.UpdatedDisplayEvent;
 import engine.controller.EngineController;
 
 /**
@@ -62,23 +63,15 @@ public class RenderingSystem extends GameSystem {
 				}
 			}
 
-			engineController.updateEntity(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
-
-			myEntity.setHasBeenModified(false);
+			sendDisplayEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey);
 
 		}
 	}
 
-	//
-	// //@Override
-	// public void execute(List<Level> list) {
-	// // TODO Auto-generated method stub
-	// for(Level each: list){
-	// System.out.println(each.toString());
-	// //frontEndController.createCharacterImage(x, y, imageToDisplay, sizex,
-	// sizey);
-	//
-	// }
-	// }
+	private void sendDisplayEvent(double x, double y, String imageToDisplay, int id, double sizex, double sizey) {
+		myEventManager.updateEntity(x, y, imageToDisplay, id, sizex, sizey);
+		UpdatedDisplayEvent displayEvent = new UpdatedDisplayEvent();
+		notifyObservers(displayEvent);
+	}
 
 }

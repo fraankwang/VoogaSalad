@@ -11,15 +11,18 @@ import engine.backend.entities.IEntity;
 import engine.backend.game_object.Level;
 import engine.backend.rules.Action;
 import engine.backend.systems.Events.IEvent;
+import engine.controller.EngineController;
 
 public class EventManager extends Observable implements Observer {
 
 	private Level myCurrentLevel;
 	ResourceBundle myComponentTagResources;
 	private Map<String, List<Action>> myCustomEvents;
+	private EngineController engineController;
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 
-	public EventManager() {
+	public EventManager(EngineController engineController) {
+		this.engineController = engineController;
 		this.myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 	}
 
@@ -32,6 +35,13 @@ public class EventManager extends Observable implements Observer {
 		return myCurrentLevel;
 	}
 
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height) {
+		engineController.updateEntity(xCoord, yCoord, image, id, width, height);
+	}
+
+	
+	
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
@@ -43,12 +53,14 @@ public class EventManager extends Observable implements Observer {
 	}
 
 	private void handleCustomEvent(IEvent myEvent) {
+		System.out.println(myEvent.toString());
 		List<Action> myActions = checkPossibleIDs(myEvent.getEventID());
 		if (myActions != null) {
 			Collection<IEntity> myEntities = myEvent.getEntities();
 			myActions.forEach(a -> {
 				for (IEntity entity : myEntities) {
 					if (a.getEntityName().equals(entity.getName())) {
+						System.out.println(a.getEntityName());
 						entity.applyAction(a, myComponentTagResources);
 					}
 				}

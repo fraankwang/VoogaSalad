@@ -164,7 +164,7 @@ public class EngineController {
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);
 		
-		myEventManager = new EventManager();
+		myEventManager = new EventManager(this);
 		//the this reference to rendering will get removed, so only the event handler will get passed
 		systems = new SystemsController(this, myEventManager);
 		systems.initializeGame(myGameWorld);
