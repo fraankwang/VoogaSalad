@@ -82,7 +82,7 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 
 
 	@Override
-	protected void refreshDisplay(Map<String,String> updatedInfo) {		
+	protected void refreshDisplay() {		
 		
 	}
 }

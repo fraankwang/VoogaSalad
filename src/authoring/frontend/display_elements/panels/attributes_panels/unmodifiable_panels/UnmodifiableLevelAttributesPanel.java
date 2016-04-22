@@ -99,7 +99,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	}
 
 	@Override
-	protected void refreshDisplay(Map<String,String> updatedInfo) {
+	protected void refreshDisplay() {
 		// TODO Auto-generated method stub
 		
 	}

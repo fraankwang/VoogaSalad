@@ -71,14 +71,14 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 	}
 
 	@Override
-	protected void refreshDisplay(Map<String,String> updatedInfo) {
+	protected void refreshDisplay() {
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
 
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = (TextField) myOutputMap.get(currentAttribute);
-			tf.setText(updatedInfo.get(myAttributes.get(i)));
+			tf.setText(myAttributesMap.get(myAttributes.get(i)));
 			tf.setEditable(false);
 
 			myOutputMap.replace(currentAttribute, tf);

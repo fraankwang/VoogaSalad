@@ -101,7 +101,8 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	public void setAttributes(Map<String, String> updatedInfo) {
 		System.out.println("UnmodifiableAttrPanel: back to front");
 		System.out.println(updatedInfo);
-		refreshDisplay(updatedInfo);
+		myAttributesMap = updatedInfo;
+		refreshDisplay();
 	}
 
 	/**
@@ -110,7 +111,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	 * 
 	 * @param map
 	 */
-	protected abstract void refreshDisplay(Map<String, String> map);
+	protected abstract void refreshDisplay();
 
 	public Map<String, String> getAttributesMap() {
 		return myAttributesMap;

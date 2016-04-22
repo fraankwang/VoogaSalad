@@ -69,18 +69,17 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	}
 
 	@Override
-	protected void refreshDisplay(Map<String, String> updatedInfo) {
-		myAttributesGridPane = createAttributesGridPane();
+	protected void refreshDisplay() {
 		myAttributesGridPane.getChildren().clear();
 		
 		System.out.println("Unm..EntityAttributesPanel: myAttributesMap after update: ");
-		System.out.println(updatedInfo);
+		System.out.println(myAttributesMap);
 		
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
 
 			TextField tf = (TextField) myOutputMap.get(currentAttribute);
-			tf.setText(updatedInfo.get(myAttributes.get(i)));
+			tf.setText(myAttributesMap.get(myAttributes.get(i)));
 			tf.setEditable(false);
 
 			myOutputMap.replace(currentAttribute, tf);
@@ -88,5 +87,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		}
 
 		refreshRows();
+		myGridPane.getChildren().clear();
+		assembleComponents();
 	}
 }

@@ -9,6 +9,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+
 import authoring.backend.data.ObservableList;
 import engine.backend.entities.Entity;
 
@@ -21,7 +26,6 @@ import engine.backend.entities.Entity;
 public class EntitiesTabDisplay extends TabDisplay {
 
 	private TabPane myEntitiesTabPane;
-	private Grid myActiveGrid;
 	private ObservableList<Entity> myEntityList;
 
 	public EntitiesTabDisplay(int tabIndex, IAuthoringView controller) {
@@ -35,11 +39,9 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEntitiesTabPane = new TabPane(); // tab of entity types
 		myEditorDisplay = new EntityEditorDisplay(myController);
 		myEditorDisplay.initialize();
-		myActiveGrid = new EntitiesTabGrid(myController, this);
-		myActiveGrid.initialize();
-		myGrid = myActiveGrid;
 
 		createNewTab("Unknown Type");
+		
 		Tab addNewTypeTab = new Tab("Add New...", null);
 		myEntitiesTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 
@@ -64,6 +66,11 @@ public class EntitiesTabDisplay extends TabDisplay {
 		EntitiesTabGrid grid = new EntitiesTabGrid(myController, this);
 		grid.initialize();
 		Tab newTab = new Tab(name, grid.getNode());
+		newTab.setOnSelectionChanged(e -> {
+			if (newTab.isSelected()) {
+				myGrid = grid;
+			}
+		});
 		myEntitiesTabPane.getTabs().add(newTab);
 		myEntitiesTabPane.getSelectionModel().select(newTab);
 	}
