@@ -167,8 +167,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		map.put("Genre", null);
+		map.put("DisplayComponent_Image", null);
 		map.put("Name", null);
+		map.put("Genre", null);
+
 		return map;
 	}
 }

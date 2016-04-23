@@ -145,6 +145,11 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		System.out.println(myAttributesMap);
 		return myAttributesMap;
 	}
+	
+	public void updateImageComponent(String image) {
+		myAttributesMap.replace("DisplayComponent_Image", image);
+		refreshAttributes();
+	}
 
 	public void setAttributes(Map<String, String> info) {
 		myAttributesMap = info;
