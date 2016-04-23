@@ -21,7 +21,16 @@ public class FiringComponent extends Component implements IComponent{
 	private double currentSecond;
 	private boolean fireNow;
 	
-	public FiringComponent(){
+	public FiringComponent(String myAmmunition, int myAmmunitionAmount, double myAmmunitionSpeed, 
+			double myEnemyInSightRange, Vector myDirectionToFire){
+		this.myAmmunition = myAmmunition;
+		this.myAmmunitionAmount = myAmmunitionAmount;
+		this.myAmmunitionSpeed = myAmmunitionSpeed;
+		this.myEnemyInSightRange = myEnemyInSightRange;
+		this.myDirectionToFire = myDirectionToFire;
+	}
+	
+	public FiringComponent() {
 		
 	}
 	
@@ -81,9 +90,13 @@ public class FiringComponent extends Component implements IComponent{
 		myAmmunitionAmount = Integer.parseInt(params[1]);
 		myAmmunitionSpeed = Double.parseDouble(params[2]);
 		myEnemyInSightRange = Double.parseDouble(params[3]);
-		myDirectionToFire = Double.parseDouble(params[4]);
+		//myDirectionToFire = Double.parseDouble(params[4]);
 	}
-
+	
+	/*
+	 * Returns a list of strings representing the entities that can be targets of the entity with this
+	 * firing component. 
+	 */
 	public List<String> getTargets() {
 		return myTargets;
 	}

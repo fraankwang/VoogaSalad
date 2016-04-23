@@ -1,5 +1,8 @@
 package engine.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
@@ -36,7 +39,7 @@ public class EngineController implements IEngineController{
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
-
+	
 	private EngineView myEngineView;
 
 	public EngineController(Stage s, Main m) {
@@ -45,6 +48,7 @@ public class EngineController implements IEngineController{
 		myEngineView = new EngineView(myStage, this); 
         myStage.setScene(myEngineView.buildScene());
         myStage.show();
+        
 	}
 	
 	public void start(){
@@ -170,10 +174,11 @@ public class EngineController implements IEngineController{
 		((SpawnerComponent) spawner).addSpawn(spawn1);
 		wave.addComponent(spawner);
 		tempLevel.addToEntities(wave);
-		
-		tempLevel.addToEntities(tempEntity);
-		tempLevel.addToEntities(tempEntity2);
-		tempLevel.addToEntities(tempEntity3);
+		Collection<IEntity> entities = new ArrayList<IEntity>();
+		entities.add(tempEntity);
+		entities.add(tempEntity2);
+		entities.add(tempEntity3);
+		tempLevel.addEntityToMap(entities);
 		tempLevel.setMap(tempMap);
 		tempMode.addLevel(tempLevel);
 		myGameWorld.addMode(tempMode);

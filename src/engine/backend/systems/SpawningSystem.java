@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,6 +28,7 @@ public class SpawningSystem extends GameSystem {
 			ResourceBundle myComponentTagResources) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
+		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		for (IEntity entity : entities) {
 
 			if (entity.hasComponent(myComponentTagResources.getString("Spawner"))) {
@@ -45,13 +47,15 @@ public class SpawningSystem extends GameSystem {
 							System.out.println("hello");
 							if (spawn.getSpawningEntityName().equals(TESTNAME)) {
 								IEntity newentity = new Entity(TESTID, TESTNAME, TESTNAME, 20);
-								IComponent display = new DisplayComponent(true);
+								IComponent display = new DisplayComponent("DrumpfVader.png");
 								IComponent size = new SizeComponent();
 								IComponent position = new PositionComponent();
 								newentity.addComponent(display);
 								newentity.addComponent(size);
 								newentity.addComponent(position);
-								sendAddEntityEvent(newentity);
+								Collection<IEntity> list = new ArrayList<IEntity>();
+								list.add(newentity);
+								sendAddEntityEvent(list);
 								spawn.resetTimer();
 								continue;
 							}
@@ -67,8 +71,7 @@ public class SpawningSystem extends GameSystem {
 										.getComponent(myComponentTagResources.getString("Path"));
 								pathComp.setPathID(spawnerComponent.getPathID());
 							}
-
-							sendAddEntityEvent(newEntity);
+							newEntities.add(newEntity);
 
 							spawn.resetTimer();
 						} else {
@@ -82,10 +85,12 @@ public class SpawningSystem extends GameSystem {
 
 		}
 
+		// sendAddEntityEvent(newEntities);
+
 	}
 
-	private void sendAddEntityEvent(IEntity entity) {
-		AddEntityEvent event = new AddEntityEvent(entity);
+	private void sendAddEntityEvent(Collection<IEntity> newEntities) {
+		AddEntityEvent event = new AddEntityEvent(newEntities);
 		notifyObservers(event);
 	}
 }

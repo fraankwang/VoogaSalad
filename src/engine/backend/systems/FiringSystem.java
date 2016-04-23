@@ -1,8 +1,8 @@
 package engine.backend.systems;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import engine.backend.components.FiringComponent;
@@ -20,12 +20,14 @@ import engine.backend.systems.Events.AddEntityEvent;
  *
  */
 
-public class FiringSystem extends GameSystem{
+public class FiringSystem extends GameSystem {
 
-	@Override 
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	@Override
+	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond,
+			ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
+		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		for(IEntity shootingEntity : entities){
 			
 			if(shootingEntity.hasComponent(myComponentTagResources.getString("Firing"))){
@@ -38,66 +40,68 @@ public class FiringSystem extends GameSystem{
 						
 						PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(myComponentTagResources.getString("Position"));
 						PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(myComponentTagResources.getString("Position"));
-						
 						Vector shootingPosVector = shootingPosComponent.getPositionVector();
 						Vector targetPosVector = targetPosComponent.getPositionVector();
-						
-						if(targetIsInRange(firingComponent.getEnemyInSightRange(), shootingPosVector, targetPosVector)){
-							
-							if(firingComponent.getTimer() == 0 || firingComponent.fireNow()){
+
+						if (targetIsInRange(firingComponent.getEnemyInSightRange(), shootingPosVector,
+								targetPosVector)) {
+
+							if (firingComponent.getTimer() == 0 || firingComponent.fireNow()) {
 								double xComp = targetPosVector.getX() - shootingPosVector.getX();
 								double yComp = targetPosVector.getY() - shootingPosVector.getY();
 								Vector firedVelVector = new Vector(xComp, yComp);
-								
 								IEntity newEntity = initilizeFire(firingComponent.getEntityName(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
-								sendAddEntityEvent(newEntity);
+								newEntities.add(newEntity);
 								firingComponent.setFireNow(false);
 								firingComponent.resetTimer();
-							}
-							else{
+							} else {
 								firingComponent.setTimer(currentSecond);
 							}
 						}
-							
-						}
-						
+
 					}
-					
+
 				}
+
 			}
-			
+		
+		sendAddEntityEvent(newEntities);
 		}
-	
-	
-	private boolean targetIsInRange(double range, Vector shootingPosVector, Vector targetPosVector){
-		
-		return shootingPosVector.calculateDistance(targetPosVector) <= range;
-		
+
 	}
-	
-	private void sendAddEntityEvent(IEntity newEntity){
-		AddEntityEvent event = new AddEntityEvent(newEntity);
+
+	private boolean targetIsInRange(double range, Vector shootingPosVector, Vector targetPosVector) {
+
+		return shootingPosVector.calculateDistance(targetPosVector) <= range;
+
+	}
+
+	private void sendAddEntityEvent(Collection<IEntity> newEntities) {
+		AddEntityEvent event = new AddEntityEvent(newEntities);
 		notifyObservers(event);
 	}
-	
-	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){
-		
+
+	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed,
+			InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
+
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
-		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(myComponentTagResources.getString("Position"));
-		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(myComponentTagResources.getString("Movement"));
-		
+		PositionComponent firedPosComponent = (PositionComponent) ammoEntity
+				.getComponent(myComponentTagResources.getString("Position"));
+		MovementComponent firedMovComponent = (MovementComponent) ammoEntity
+				.getComponent(myComponentTagResources.getString("Movement"));
+
 		firedPosComponent.setPositionVector(new Vector(positionVector));
-		
+
 		Vector velVector = new Vector(directionToFire);
 
 		velVector = velVector.normalize();
 		velVector.scale(speed);
 		firedMovComponent.setCurrentVelocityVector(velVector);
 		firedMovComponent.setDefaultVelocityVector(velVector);
-		
+
 		return ammoEntity;
-		//add ammoEntity to list of Entites in level;
-		
+		// add ammoEntity to list of Entites in level;
+
 	}
 
 }

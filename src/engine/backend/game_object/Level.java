@@ -7,6 +7,7 @@
 package engine.backend.game_object;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import engine.backend.map.GameMap;
 import engine.backend.rules.EntityAction;
 
 public class Level {
-
+	private List<IEntity> authoredEntities;
 	private Map<Integer, IEntity> entities;
 	private int myID;
 	private String myParentModeName;
@@ -30,6 +31,7 @@ public class Level {
 	}
 
 	public Level(int myID) {
+		this.authoredEntities = new ArrayList<IEntity>();
 		this.entities = new HashMap<Integer, IEntity>();
 		this.myID = myID;
 	}
@@ -40,6 +42,19 @@ public class Level {
 
 	public Map<Integer, IEntity> getEntities() {
 		return entities;
+	}
+	
+	public void addEntityToMap(IEntity entity) {
+		entities.put(entity.getID(), entity);
+	}
+	
+	public void addEntityToMap(Collection<IEntity> entities) {
+		entities.stream()
+				.forEach(e -> addEntityToMap(e));
+	}
+	
+	public IEntity getEntityWithID(int entityID) {
+		return entities.get(entityID);
 	}
 
 	public GameMap getMap() {
@@ -57,7 +72,7 @@ public class Level {
 
 	public void addToEntities(IEntity entity) {
 		entity.setLevelID(myID);
-		entities.put(entity.getID(), entity);
+		authoredEntities.add(entity);
 	}
 
 	public void setModeName(String modeID) {

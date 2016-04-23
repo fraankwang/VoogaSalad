@@ -17,6 +17,11 @@ public class InGameEntityFactory {
 		this.myEntityMap = map;
 	}
 	
+	/**
+	 * 
+	 * @param entityName
+	 * @return A entity with the entity name given.
+	 */
 	public IEntity createEntity(String entityName){
 		IEntity templateEntity = findInMap(entityName);
 		IEntity newEntity = new Entity(myStats.nextEntityID(), templateEntity.getName(), templateEntity.getType(), templateEntity.getValue());

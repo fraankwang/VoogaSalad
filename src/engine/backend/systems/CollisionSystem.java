@@ -20,37 +20,37 @@ import engine.backend.systems.Events.DeathEvent;
 /**
  * Created by colinduffy on 4/10/16., raghav kedia
  */
-public class CollisionSystem extends GameSystem {
-
-	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond,
-			ResourceBundle myComponentTagResources) {
-
-		Collection<IEntity> entities = myLevel.getEntities().values();
-
-		for (IEntity entity1 : entities) {
-
-			if (!entity1.hasComponent(myComponentTagResources.getString("Collision"))) {
-				continue;
-			}
-
-			for (IEntity entity2 : entities) {
-
-				if (!entity1.hasComponent(myComponentTagResources.getString("Collision")) || entity2.equals(entity1)) {
-					continue;
-				}
-
-				if (checkIntersection(entity1, entity2, myComponentTagResources)) {
-					sendCollisionEvent(entity1.getID(), entity2.getID());
-				}
-
-			}
-
-		}
-
-	}
-
-	private void sendCollisionEvent(int entityID1, int entityID2) {
+public class CollisionSystem extends GameSystem{
+ 
+    @Override
+    public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources){
+    	
+    	Collection<IEntity> entities = myLevel.getEntities().values();
+    	
+    	for(IEntity entity1 : entities){
+    		
+    		if(!entity1.hasComponent(myComponentTagResources.getString("Collision"))){
+    			continue;
+    		}
+    		
+    		for(IEntity entity2 : entities){
+    			
+    			if(!entity1.hasComponent(myComponentTagResources.getString("Collision")) || entity2.equals(entity1)){
+        			continue;
+        		}
+    			
+    			if(checkIntersection(entity1, entity2, myComponentTagResources)){
+    				sendCollisionEvent(entity1.getID(), entity2.getID());
+    			}
+    			
+    		}
+    		
+    	}
+    	
+    }
+    
+	private void sendCollisionEvent(int entityID1, int entityID2){
+		System.out.println("Collision Detected!");
 		CollisionEvent collisionEvent = new CollisionEvent(entityID1, entityID2);
 		notifyObservers(collisionEvent);
 	}

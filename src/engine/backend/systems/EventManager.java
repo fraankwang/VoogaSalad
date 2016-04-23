@@ -33,8 +33,6 @@ public class EventManager implements Observer {
 		setLevel(game.getLevelWithId(0));
 		myEngineController = engineController;
 		myGameWorld = game;
-		//pass in right values
-//		currentModeStatistics = new ModeStatistics();
 	}
 
 	public void setLevel(Level level) {
@@ -48,7 +46,6 @@ public class EventManager implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		handleCustomEvent((IEvent) arg);
 	}
 	
@@ -61,7 +58,6 @@ public class EventManager implements Observer {
 	}
 
 	private void handleCustomEvent(IEvent myEvent) {
-		
 		if(myEvent instanceof UpdateEntityEvent){
 			sendUpdatedEntity((UpdateEntityEvent) myEvent);
 			return;
@@ -74,7 +70,7 @@ public class EventManager implements Observer {
 		if (myEvent instanceof EntityEvent) {
 			EntityEvent myEntityEvent = (EntityEvent) myEvent;
 			List<String> identifiers = myEntityEvent.getEntities().stream()
-													.map(e -> myCurrentLevel.getEntities().get(e).getName())
+													.map(id -> myCurrentLevel.getEntities().get(id).getName())
 													.collect(Collectors.toList());
 			List<EntityAction> myActions = checkPossibleIDs(myEvent.getEventID(identifiers));
 			if (myActions != null) {
@@ -83,11 +79,9 @@ public class EventManager implements Observer {
 															  .map(e -> myCurrentLevel.getEntities().get(e);))
 															  .collect(Collectors.toCollection()));
 				myActions.forEach(a -> {
-					for (IEntity entity : myEntities) {
-						if (a.getEntityName().equals(entity.getName())) {
-							entity.applyAction(a, myComponentTagResources);
-						}
-					}
+					myEntities.stream()
+							  .filter(e -> a.getEntityName().equals(e.getName()))
+							  .forEach(e -> e.applyAction(a, myComponentTagResources));
 				});
 			}
 		}
@@ -95,7 +89,6 @@ public class EventManager implements Observer {
 
 	private List<EntityAction> checkPossibleIDs(List<String> ids) {
 		for (String id : ids) {
-
 			if (myCustomEntityEvents.get(id) != null) {
 				return myCustomEntityEvents.get(id);
 			}
@@ -105,11 +98,7 @@ public class EventManager implements Observer {
 
 	public void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
-		myCurrentLevel.addToEntities(event.getNewEntity());
-		//we have a problem :/
-//		EntityEvent myEntityEvent = (EntityEvent) myEvent;
-//		myEntityEvent.getEntities().stream()
-//			forEach(e -> myCurrentLevel.addToEntities(e));
+		myCurrentLevel.addEntityToMap(event.getNewEntities());
 	}
 
 	public void handleEnemyMissed() {
