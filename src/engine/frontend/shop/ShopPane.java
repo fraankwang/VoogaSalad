@@ -1,8 +1,10 @@
 package engine.frontend.shop;
 
 
+/**
+ * @author HaydenBader
+ */
 import java.util.List;
-
 import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
@@ -15,6 +17,7 @@ public class ShopPane {
 	private EngineView myEngineView;
 	private Pane myPane = new Pane();
 	private VBox myVBox = new VBox();
+	//private ListView<Map<String, String>> myListView = new ListView<Map<String, String>>()
 	
 	public ShopPane(EngineView ev){
 		myEngineView = ev;
@@ -33,28 +36,27 @@ public class ShopPane {
 		myVBox.minHeightProperty().bind(myPane.heightProperty());
 		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
 		
-		ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
+	    
+	    ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
 		
-		addShopObject(tester);
-		
+		addShopObject(tester);	
 		myPane.getChildren().add(myVBox);
+		
 		return myPane;
 	}
+
 	
-	public void createShop(double xCoord, double yCoord, String image, String type, double width, double height){
-		
-		ShopView myTower = new ShopView(myEngineView, image, type, width, height);
-		myVBox.getChildren().add(myTower.getNode());	
+	public void createShop(String image, String type, double cost){
+
 	}
 
 	public void addShopObject(ShopItem myShopItem){
-		double DEFAULT_W = 40;
-		double DEFAULT_H = 40;
-		ShopView myTower = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), DEFAULT_W, DEFAULT_H);
-		myVBox.getChildren().add(myTower.getNode());
+		ShopView myShopView = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), 40, 40);	
+		myVBox.getChildren().add(myShopView.getNode());
 	}
-	
-	public void updateShop(List<ShopItem> myShopList){
 
+
+	public void updateShop(List<ShopItem> myShopList){
+		
 	}
 }
