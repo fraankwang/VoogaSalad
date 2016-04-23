@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ComponentSelector {
+public class EntityComponentSelector {
 
 	public static final String COMPONENT_RESOURCES = "backend/resources/component_tags";
 
@@ -28,7 +28,7 @@ public class ComponentSelector {
 	private Scene myScene;
 	private List<String> mySelectedComponents;
 
-	public ComponentSelector() {
+	public EntityComponentSelector() {
 
 	}
 
@@ -38,7 +38,7 @@ public class ComponentSelector {
 		myVBox = new VBox();
 		myStage = new Stage();
 		myScene = new Scene(myVBox, 400, 800);
-		
+
 		mySelectedComponents = new ArrayList<String>();
 		myStage.setScene(myScene);
 
@@ -52,8 +52,14 @@ public class ComponentSelector {
 		myVBox.getChildren().add(saveButton);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Map<String, Control> openSelector(Map<String, Control> inputMap) {
+	/**
+	 * Prompt user to select selected components. Upon closing the stage, a populated Map
+	 * <String,Control> is returned with the components that the user selects.
+	 * 
+	 * @param inputMap
+	 * @return
+	 */
+	public Map<String, Control> selectComponents(Map<String, Control> inputMap) {
 		myStage.showAndWait();
 		return addComponent(inputMap, mySelectedComponents);
 
@@ -77,24 +83,19 @@ public class ComponentSelector {
 		List<String> booleanComboBox = (List<String>) Arrays.asList("true", "false");
 
 		for (String component : components) {
-			if (inputMap.containsKey(component)) {
-				System.out.println(component);
-				System.out.println("whee");
-				continue;
-			}
 
 			switch (component) {
-			
+
 			case "Genre":
 				TextField genre = new TextField();
 				inputMap.put("Genre", genre);
 				break;
-				
+
 			case "Name":
 				TextField name = new TextField();
 				inputMap.put("Name", name);
 				break;
-				
+
 			case "DisplayComponent":
 				ComboBox<String> canBeShown = createComboBox(booleanComboBox);
 				TextField image = new TextField();
@@ -174,6 +175,11 @@ public class ComponentSelector {
 				inputMap.put("MovementComponent_CanRotate", canRotate);
 				break;
 
+			case "DamageComponent":
+				TextField damage = new TextField();
+				inputMap.put("DamageComponent", damage);
+				break;
+
 			case "Cancel":
 				break;
 
@@ -185,10 +191,17 @@ public class ComponentSelector {
 
 		return inputMap;
 	}
-	
+
+	/**
+	 * Sets mySelectedComponents based on parsed attributes.
+	 * 
+	 * @param info
+	 * @param attributes
+	 * @return
+	 */
 	public Map<String, Control> setComponents(Map<String, Control> info, List<String> attributes) {
 		mySelectedComponents.clear();
-		for (String attribute: attributes) {
+		for (String attribute : attributes) {
 			String component = attribute.split("_")[0];
 			if (!mySelectedComponents.contains(component)) {
 				mySelectedComponents.add(component);
@@ -197,6 +210,12 @@ public class ComponentSelector {
 		return addComponent(info, mySelectedComponents);
 	}
 
+	/**
+	 * Creates a String ComboBox that populates given List of options.
+	 * 
+	 * @param options
+	 * @return
+	 */
 	private ComboBox<String> createComboBox(List<String> options) {
 		ComboBox<String> cb = new ComboBox<String>();
 		for (String option : options) {
@@ -205,6 +224,12 @@ public class ComponentSelector {
 		return cb;
 	}
 
+	/**
+	 * Creates check box that adds item to mySelectedComponents if checked.
+	 * 
+	 * @param component
+	 * @return
+	 */
 	private CheckBox createCheckBox(String component) {
 		CheckBox cb = new CheckBox(component);
 		cb.setIndeterminate(false);
@@ -216,16 +241,15 @@ public class ComponentSelector {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (newValue) {
 					mySelectedComponents.add(component);
-				}
-				else {
+				} else {
 					mySelectedComponents.remove(component);
 				}
 			}
 
 		});
-		
+
 		return cb;
-		
+
 	}
 
 	public List<String> getSelectedAttributes() {
