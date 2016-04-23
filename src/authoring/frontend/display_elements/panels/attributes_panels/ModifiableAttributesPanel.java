@@ -170,11 +170,10 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 					myInputMap.replace(myAttributes.get(i), tf);
 				}
 				else if (myInputMap.get(myAttributes.get(i)) instanceof ComboBox<?>) {
-					System.out.println("FUCK");
 					@SuppressWarnings("unchecked")
 					ComboBox<String> cb = (ComboBox<String>) myInputMap.get(myAttributes.get(i));
 					cb.setValue(myAttributesMap.get(myAttributes.get(i)));
-					cb.setEditable(true);
+					cb.setEditable(false);
 					myInputMap.replace(myAttributes.get(i), cb);
 				}
 				
