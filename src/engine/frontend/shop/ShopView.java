@@ -39,7 +39,7 @@ public class ShopView {
 	}
 		
 	public void handleClick(MouseEvent e){
-		myEngineView.getEngineController().shopClicked(myType);
+		myEngineView.getBoardPane().setTowerToBePlaced(myType);
 		myEngineView.getStage().getScene().setCursor(Cursor.NONE);
 		myEngineView.getDummyCursor().updateLocation(e.getSceneX(), e.getSceneY());
 		myEngineView.getDummyCursor().changePic(myImageView.getImage());		

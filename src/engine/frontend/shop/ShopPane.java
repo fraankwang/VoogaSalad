@@ -8,14 +8,16 @@ import java.util.List;
 import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.EngineView;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 
 
 
 public class ShopPane {
 	private EngineView myEngineView;
-	private Pane myPane = new Pane();
+	private ScrollPane myScrollPane = new ScrollPane();
 	private VBox myVBox = new VBox();
 	//private ListView<Map<String, String>> myListView = new ListView<Map<String, String>>()
 	
@@ -24,25 +26,26 @@ public class ShopPane {
 	}
 	
 	public Node buildNode(){
-
-		myPane.setStyle("-fx-border-color: black;");
+		myScrollPane.setStyle("-fx-border-color: black;");
 		//we can make this a superclass
-		myPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
-		myPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
-		myPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
-		myPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
+		myScrollPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
+		myScrollPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
+		myScrollPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
+		myScrollPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
 		
-		myVBox.minWidthProperty().bind(myPane.widthProperty());
-		myVBox.minHeightProperty().bind(myPane.heightProperty());
+		myVBox.minWidthProperty().bind(myScrollPane.widthProperty());
+		myVBox.minHeightProperty().bind(myScrollPane.heightProperty());
 		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
 		
-	    
+		myScrollPane.setContent(myVBox);
+		
+		//VBox.setVgrow(myVBox, Priority.ALWAYS);
+		VBox.setVgrow(myScrollPane, Priority.ALWAYS);
+		
 	    ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
 		
-		addShopObject(tester);	
-		myPane.getChildren().add(myVBox);
-		
-		return myPane;
+		addShopObject(tester);
+		return myScrollPane;
 	}
 
 	
@@ -51,7 +54,7 @@ public class ShopPane {
 	}
 
 	public void addShopObject(ShopItem myShopItem){
-		ShopView myShopView = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getValue(), 40, 40);	
+		ShopView myShopView = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40, 40);			
 		myVBox.getChildren().add(myShopView.getNode());
 	}
 
@@ -59,4 +62,5 @@ public class ShopPane {
 	public void updateShop(List<ShopItem> myShopList){
 		
 	}
+
 }

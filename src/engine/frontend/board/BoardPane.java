@@ -16,6 +16,7 @@ public class BoardPane {
 	private Map<Integer, EntityView> myEntityViewMap = new HashMap<Integer, EntityView>();
 	private Pane myPane;
 	private ImageView myBackground;	
+	private String placingTower = null;
 	
 	public BoardPane(EngineView ev){
 		myEngineView = ev;
@@ -82,14 +83,19 @@ public class BoardPane {
 		}
 	}
 	
+	public void setTowerToBePlaced(String type){
+		placingTower = type;
+	}
+	
 	public void attemptTower(double mouseXLoc, double mouseYLoc){
 		// need to tell them which type it is too
 		double xLoc = mouseXLoc - myPane.getBoundsInParent().getMinX();
 		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
 
 		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
-		
-		myEngineView.getEngineController().attemptTower(xLoc,  yLoc);		
-
+		if(placingTower != null){
+			myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
+		}
+		placingTower = null;
 	}
 }

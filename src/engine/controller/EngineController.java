@@ -89,19 +89,12 @@ public class EngineController implements IEngineController{
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-	public void shopClicked(String name){
-		//call backend to say shop object clicked
-		//if null is passed in, don't 
-	}
-	public void shopUnclicked(){
-		//TODO
-	}
 	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
 //	}
 	
-	public void attemptTower(double xLoc, double yLoc) {
+	public void attemptTower(double xLoc, double yLoc, String type) {
 		// TODO Auto-generated method stub
 	}
 

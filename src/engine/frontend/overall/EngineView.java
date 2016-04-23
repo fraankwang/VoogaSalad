@@ -104,7 +104,6 @@ public class EngineView{
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-		this.getEngineController().shopUnclicked();
 	}
 	
 	private boolean isInBoardPane(double x, double y){
