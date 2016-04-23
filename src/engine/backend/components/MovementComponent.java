@@ -23,7 +23,14 @@ public class MovementComponent extends Component implements IComponent{
 	private boolean canMove;
 	private boolean canRotate;
 	
-	public MovementComponent() {
+	public MovementComponent(MovementComponent component) {
+		this.myCurrentVelocityVector = component.getCurrentVelocityVector();
+		this.myDefaultVelocityVector = component.getCurrentVelocityVector();
+		this.myTheta = component.getTheta();
+		this.myCurrentOmega = component.getCurrentOmega();
+		this.myInitialOmega = component.getInitialOmega();
+		this.canMove = component.canMove();
+		this.canRotate = component.canRotate();
 	}
 	
 	//for demo purposes
@@ -64,6 +71,10 @@ public class MovementComponent extends Component implements IComponent{
 	
 	public double getCurrentOmega() {
 		return myCurrentOmega;
+	}
+	
+	public double getInitialOmega() {
+		return myInitialOmega;
 	}
 
 	public void setOmega(double omega) {

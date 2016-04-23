@@ -10,11 +10,22 @@ public class RotationComponent extends Component implements IComponent{
 	private double myAngularVelocity;
 	private double myAngularAcceleration;
 	
-	public RotationComponent() {
+	public RotationComponent(RotationComponent component) {
+		this.myAngle = component.getAngle();
+		this.myAngularVelocity = component.getMyAngularVelocity();
+		this.myAngularAcceleration = component.getMyAngularAcceleration();
 	}
 	
 	public double getAngle(){
 		return myAngle;
+	}
+	
+	public double getMyAngularVelocity() {
+		return myAngularVelocity;
+	}
+	
+	public double getMyAngularAcceleration() {
+		return myAngularAcceleration;
 	}
 	
 	public void setAngle(double dir){

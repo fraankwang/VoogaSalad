@@ -14,6 +14,11 @@ public class SpawnerComponent extends Component implements IComponent{
 		mySpawns = new ArrayList<Spawn>();
 	}
 	
+	public SpawnerComponent(SpawnerComponent component) {
+		this.mySpawns = component.getSpawns();
+		this.pathID = component.getPathID();
+	}
+	
 	public void addSpawn(Spawn spawn){
 		mySpawns.add(spawn);
 	}

@@ -19,7 +19,12 @@ public class PathComponent extends Component implements IComponent{
 	//stores which curve in the path you're on
 	private int curveID;
 
-	public PathComponent(){
+	public PathComponent(PathComponent component){
+		this.pathID = component.getPathID();
+		this.myBezierTime = component.getBezierTime();
+		this.reachedEndOfPath = component.getReachedEndOfPath();
+		this.movesWithTime = component.movesWithTime();
+		this.curveID = component.getCurveID();
 	}
 	
 	public PathComponent(int id, double time){
