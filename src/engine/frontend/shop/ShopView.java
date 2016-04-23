@@ -1,6 +1,8 @@
 package engine.frontend.shop;
 
-
+/**
+ * @author HaydenBader
+ */
 import engine.controller.EngineController;
 import engine.frontend.overall.EngineView;
 import javafx.scene.Cursor;
@@ -11,20 +13,29 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 public class ShopView {
 	
 	private EngineView myEngineView;
 	String myType;
+	private HBox myHBox; 
 	private ImageView myImageView;
 	
-	public ShopView(EngineView ev, String image, String type, double width, double height){
+	public ShopView(EngineView ev, String image, String type, double cost, double width, double height){
+		myHBox = new HBox();
+		
+		Text name = new Text(type);		
 		myEngineView = ev;
 		myType = type;
 		myImageView = new ImageView(new Image(image));
 		myImageView.setFitWidth(width);
 		myImageView.setFitHeight(height);
-		myImageView.setOnMousePressed(e -> handleClick(e));
+		
+		myHBox.getChildren().addAll(name, myImageView);
+		
+		myHBox.setOnMousePressed(e -> handleClick(e));
 	}
 		
 	public void handleClick(MouseEvent e){
@@ -35,6 +46,6 @@ public class ShopView {
 	}
 	
 	public Node getNode(){
-		return myImageView;
+		return myHBox;
 	}
 }

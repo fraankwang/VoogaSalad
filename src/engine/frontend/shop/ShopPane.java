@@ -51,7 +51,7 @@ public class ShopPane {
 	}
 
 	public void addShopObject(ShopItem myShopItem){
-		ShopView myShopView = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), 40, 40);	
+		ShopView myShopView = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getValue(), 40, 40);	
 		myVBox.getChildren().add(myShopView.getNode());
 	}
 
