@@ -3,6 +3,11 @@ package engine.backend.game_object;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author 
+ *
+ */
 public class ModeStatistics {
 
 	private int initialNumLives;

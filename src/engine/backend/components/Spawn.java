@@ -1,5 +1,11 @@
 package engine.backend.components;
 
+/**
+ * Creates a spawn, a object that holds the name of the entity being spawned, the spawn rate, start, end
+ * and duration of the entity being spawned.
+ * @author 
+ *
+ */
 public class Spawn {
 	
 	private String spawningEntityName;

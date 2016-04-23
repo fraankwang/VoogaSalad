@@ -17,6 +17,11 @@ import engine.backend.entities.IEntity;
 import engine.backend.map.GameMap;
 import engine.backend.rules.EntityAction;
 
+/**
+ * 
+ * @author 
+ *
+ */
 public class Level {
 	private List<IEntity> authoredEntities;
 	private Map<Integer, IEntity> entities;

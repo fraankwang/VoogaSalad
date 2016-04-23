@@ -6,23 +6,28 @@ package engine.backend.components;
  *
  */
 
-public class MovementComponent extends Component implements IComponent{
-	
-	//private double myVelocity;
-	//private double myAcceleration;
+public class MovementComponent extends Component implements IComponent {
+
+	// private double myVelocity;
+	// private double myAcceleration;
 	private Vector myCurrentVelocityVector;
 	private Vector myDefaultVelocityVector;
 	private double myTheta;
-	
-	//figure out direction of velocity;
-	
-	//this is the angle to rotate myTheta by
+
+	// figure out direction of velocity;
+
+	// this is the angle to rotate myTheta by
 	private double myCurrentOmega;
 	private double myInitialOmega;
-	
+
 	private boolean canMove;
 	private boolean canRotate;
-	
+
+	/**
+	 * Initializes a movement component from an existing movement component.
+	 * 
+	 * @param component
+	 */
 	public MovementComponent(MovementComponent component) {
 		this.myCurrentVelocityVector = component.getCurrentVelocityVector();
 		this.myDefaultVelocityVector = component.getCurrentVelocityVector();
@@ -32,67 +37,130 @@ public class MovementComponent extends Component implements IComponent{
 		this.canMove = component.canMove();
 		this.canRotate = component.canRotate();
 	}
-	
-	//for demo purposes
-	public MovementComponent(double xspeed, double yspeed){
+
+	// for demo purposes
+	/**
+	 * Initializes a movement component.
+	 * 
+	 * @param xspeed
+	 * @param yspeed
+	 */
+	public MovementComponent(double xspeed, double yspeed) {
 		setCurrentVelocityVector(new Vector(xspeed, yspeed));
 	}
-	
+
 	@Override
 	public void initWithParams(String[] params) {
-		//0 is velocity, 1 is theta, 2 is omega
+		// 0 is velocity, 1 is theta, 2 is omega
 		myCurrentVelocityVector = new Vector(Double.parseDouble(params[0]), 0);
 		myDefaultVelocityVector = new Vector(Double.parseDouble(params[0]), 0);
 		myTheta = Double.parseDouble(params[1]);
 		myCurrentOmega = Double.parseDouble(params[2]);
 	}
-	
-	public Vector getCurrentVelocityVector(){
+
+	/**
+	 * 
+	 * @return The vector with the current velocity of the entity with this
+	 *         component.
+	 */
+	public Vector getCurrentVelocityVector() {
 		return myCurrentVelocityVector;
 	}
-	public void setCurrentVelocityVector(Vector vel){
+
+	/**
+	 * Sets the current velocity of the entity with this component.
+	 * @param vel
+	 */
+	public void setCurrentVelocityVector(Vector vel) {
 		myCurrentVelocityVector = vel;
 	}
-	public void setDefaultVelocityVector(Vector vel){
+
+	/**
+	 * Sets a default velocity for an entity with this component.
+	 * @param vel
+	 */
+	public void setDefaultVelocityVector(Vector vel) {
 		myDefaultVelocityVector = vel;
 	}
-	public double getTheta(){
+
+	/**
+	 * 
+	 * @return
+	 */
+	public double getTheta() {
 		return myTheta;
 	}
-	
-	public void setSpeed(String deltaSpeed){
+
+	/**
+	 * Sets the speed of movement for the entity with this component.
+	 * @param deltaSpeed
+	 */
+	public void setSpeed(String deltaSpeed) {
 		double delta = Double.parseDouble(deltaSpeed);
 		myCurrentVelocityVector = myCurrentVelocityVector.scale(delta);
 	}
-	
-	public void setTheta(double theta){
+
+	/**
+	 * 
+	 * @param theta
+	 */
+	public void setTheta(double theta) {
 		myTheta = theta;
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
 	public double getCurrentOmega() {
 		return myCurrentOmega;
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
 	public double getInitialOmega() {
 		return myInitialOmega;
 	}
 
+	/**
+	 * 
+	 * @param omega
+	 */
 	public void setOmega(double omega) {
 		this.myCurrentOmega = omega;
 	}
-	
-	public boolean canMove(){
+
+	/**
+	 * 
+	 * @return A boolean that tells whether or not this entity with this component can currently move.
+	 */
+	public boolean canMove() {
 		return canMove;
 	}
-	
-	public boolean canRotate(){
+
+	/**
+	 * 
+	 * @return Whether or not an entity with this component can currecntly rotate.
+	 */
+	public boolean canRotate() {
 		return canRotate;
 	}
-	
-	public void setCanMove(boolean bool){
+
+	/**
+	 * Sets whether or not the entity with this component can move.
+	 * @param bool
+	 */
+	public void setCanMove(boolean bool) {
 		canMove = bool;
 	}
-	public void setCanRotate(boolean bool){
+
+	/**
+	 * Sets whether or not the entity with this component can rotate.
+	 * @param bool
+	 */
+	public void setCanRotate(boolean bool) {
 		canRotate = bool;
 	}
 }
