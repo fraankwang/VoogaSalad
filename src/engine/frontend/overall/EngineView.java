@@ -10,6 +10,7 @@ import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
@@ -70,8 +71,6 @@ public class EngineView{
 		myStatusPane = new StatusPane(this);
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myDummyCursor = new DummyCursor(loadDoubleResource("CursorWidth"), loadDoubleResource("CursorHeight"));
-		
-		
 	}
 	
 	/**
@@ -87,9 +86,9 @@ public class EngineView{
 		myBody.setLeft(myBoardPane.buildNode());
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
-		
 		myScene.setOnMouseReleased(e -> handleEndMouseRelease(e));
 		myBody.getChildren().add(myDummyCursor.getNode());
+		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnMouseDragged(e -> handleDummyCursor(e));
 		
 		return myScene;
@@ -100,13 +99,19 @@ public class EngineView{
 	}
 	
 	private void handleEndMouseRelease(MouseEvent e) {
-		// TODO Auto-generated method stub
-		if( myBody.getLeft().contains(e.getSceneX(), e.getSceneY())){
+		if( isInBoardPane( e.getSceneX(), e.getSceneY() ) && this.getStage().getScene().getCursor() != Cursor.DEFAULT ){
 			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY());
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
 		this.getEngineController().shopUnclicked();
+	}
+	
+	private boolean isInBoardPane(double x, double y){
+		// board pane's node seems to be scaling as entities move outside the previous bounds
+		boolean xInPane = x > myScene.getX() && x < getUsableWidth(loadDoubleResource("BoardWidth")).doubleValue();
+		boolean yInPane = y > myMenuBar.heightProperty().doubleValue() && y < getUsableHeight(loadDoubleResource("BoardHeight")).doubleValue();
+		return (xInPane && yInPane);
 	}
 	
 	public DummyCursor getDummyCursor(){

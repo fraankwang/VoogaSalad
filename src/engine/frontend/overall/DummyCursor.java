@@ -24,8 +24,8 @@ public class DummyCursor {
 	}
 	
 	public void updateLocation(double x, double y){
-		myImage.setX(x);
-		myImage.setY(y);
+		myImage.setX(x - myImage.getFitWidth()/2);
+		myImage.setY(y - myImage.getFitHeight()/2);
 	}
 	
 	
