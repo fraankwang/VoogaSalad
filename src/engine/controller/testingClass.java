@@ -2,6 +2,8 @@ package engine.controller;
 
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import engine.backend.components.CollisionComponent;
 import engine.backend.components.DisplayComponent;
@@ -116,7 +118,14 @@ public class testingClass {
 		IComponent tempSize2 = new SizeComponent();
 		Vector myBulletVector = new Vector(-1,0);
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-				10, myBulletVector);
+				100, myBulletVector);
+		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
+		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
+		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
+		createdAmmunition.put("SimpleBullet", mySimpleBullet);
+		myCreatableEntityMap.put("Ammunition", createdAmmunition);
+		firingTest.setEntityMap(myCreatableEntityMap);
+		mySimpleBullet.addComponent(tempDisplay);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);

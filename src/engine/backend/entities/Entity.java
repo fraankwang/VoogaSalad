@@ -47,6 +47,7 @@ public class Entity implements IEntity {
 	}
 
 	public void addComponent(IComponent component) {
+		if (component == null) System.out.println("this component is null");
 		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
 	}

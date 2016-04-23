@@ -51,24 +51,27 @@ public class Level {
 	public Map<Integer, IEntity> getEntities() {
 		return entities;
 	}
-	
+
 	/**
-	 * Adds an entity created to the map that stores the entities on the game screen.
+	 * Adds an entity created to the map that stores the entities on the game
+	 * screen.
+	 * 
 	 * @param entity
 	 */
 	public void addEntityToMap(IEntity entity) {
 		entities.put(entity.getID(), entity);
 	}
-	
+
 	/**
-	 * Adds a collection of entities to the map that stores the entities on the game screen.
+	 * Adds a collection of entities to the map that stores the entities on the
+	 * game screen.
+	 * 
 	 * @param entities
 	 */
 	public void addEntityToMap(Collection<IEntity> entities) {
-		entities.stream()
-				.forEach(e -> addEntityToMap(e));
+		entities.stream().forEach(e -> addEntityToMap(e));
 	}
-	
+
 	/**
 	 * 
 	 * @param entityID
@@ -88,6 +91,7 @@ public class Level {
 
 	/**
 	 * Setting the map for the game.
+	 * 
 	 * @param map
 	 */
 	public void setMap(GameMap map) {
@@ -100,7 +104,9 @@ public class Level {
 	}
 
 	/**
-	 * Authoring environment adds entities that can be created during the entity.
+	 * Authoring environment adds entities that can be created during the
+	 * entity.
+	 * 
 	 * @param entity
 	 */
 	public void addToEntities(IEntity entity) {
@@ -110,6 +116,7 @@ public class Level {
 
 	/**
 	 * Setting the name of the mode containing this level.
+	 * 
 	 * @param modeID
 	 */
 	public void setParentModeName(String modeID) {
