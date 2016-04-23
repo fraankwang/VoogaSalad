@@ -50,7 +50,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myOpenEditorButton = new Button("hi");
+		myOpenEditorButton = createOpenEditorButton();
 
 		myEntityListView = createModeRulesListView();
 		myEntityTitledPane = new TitledPane("Entities", myEntityListView);
@@ -91,8 +91,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		lv.getItems().add("Waves");
 		lv.getItems().add("Timer");
 		myAttributesMap.put("Waves", "");
+		myAttributesMap.put("Delay Between Waves", "");
 		myAttributesMap.put("Timer", "");
-
 
 
 		return lv;

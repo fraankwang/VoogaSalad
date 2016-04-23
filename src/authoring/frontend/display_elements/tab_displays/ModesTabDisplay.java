@@ -1,6 +1,9 @@
 package authoring.frontend.display_elements.tab_displays;
 
+import java.util.Map;
 import java.util.Observable;
+import java.util.TreeMap;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
 import authoring.frontend.display_elements.grids.tab_grids.ModesTabGrid;
@@ -35,6 +38,13 @@ public class ModesTabDisplay extends TabDisplay {
 	
 	public String getName() {
 		return "Modes";
+	}
+
+	@Override
+	public Map<String, String> getDefaultAttributesMap() {
+		Map<String, String> map = new TreeMap<String, String>();
+		map.put("Mode", null);
+		return map;
 	}
 
 }

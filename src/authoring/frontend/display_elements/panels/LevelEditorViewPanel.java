@@ -1,8 +1,13 @@
 package authoring.frontend.display_elements.panels;
 
 import authoring.frontend.editor_features.CurveBuilder;
-import javafx.scene.Group;
 import javafx.scene.layout.VBox;
+
+/**
+ * 
+ * @author Frank, benchesnut
+ *
+ */
 
 public class LevelEditorViewPanel extends EditorViewPanel {
 

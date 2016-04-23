@@ -40,8 +40,7 @@ public class LevelsTabGridFactory extends TabGridFactory {
 
 	@Override
 	public UnmodifiableAttributesPanel createUnmodifiableAttributesPanel(TabDisplay tabDisplay) {
-		UnmodifiableAttributesPanel attributes = new UnmodifiableLevelAttributesPanel(MAX_SIZE,
-				MAX_SIZE, tabDisplay);
+		UnmodifiableAttributesPanel attributes = new UnmodifiableLevelAttributesPanel(MAX_SIZE, MAX_SIZE, tabDisplay);
 		attributes.initialize();
 		return attributes;
 	}

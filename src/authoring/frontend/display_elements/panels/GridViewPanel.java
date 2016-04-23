@@ -1,10 +1,7 @@
 package authoring.frontend.display_elements.panels;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -14,7 +11,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -26,7 +22,7 @@ import javafx.scene.layout.VBox;
  * GridView contains a scrollable GridPane that shows all the existing game
  * sprites (or levels/modes) created. The PanelBar allows
  * 
- * @author Frank
+ * @author Ben
  *
  */
 
@@ -102,10 +98,10 @@ public class GridViewPanel extends Panel {
 		VBox vbox = new VBox();
 		myGridPane.setGridLinesVisible(true);
 		myAddNewButton.setOnAction(e -> {
-			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getDefaultAttributesMap()); //get data
-//			myTabDisplay.openEditorDisplay(new ImageView("question_mark.png"), new HashMap<String, String>());
+			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getDefaultAttributesMap()); // get
+																									// data
 		});
-		
+
 		myScrollPane.setContent(myGridPane);
 		VBox.setVgrow(myGridPane, Priority.ALWAYS);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
@@ -126,17 +122,16 @@ public class GridViewPanel extends Panel {
 					return;
 				}
 				iv.setOpacity(0.5);
-				//update the UnmodifiableAttributesPanel
 			}
 		});
 		myImages.add(iv);
 		resetGrid();
 	}
-	
+
 	public ImageView getCurrentImage() {
 		return myCurrImage;
 	}
-	
+
 	public void clearImages() {
 		myImages.clear();
 	}

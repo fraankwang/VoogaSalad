@@ -16,7 +16,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * 
- * @author benchesnut
+ * @author benchesnut, Frank
  *
  */
 
@@ -31,11 +31,6 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 		EditorViewPanel editorView = new EditorViewPanel(800*0.7, 1200*0.7);
 		editorView.initialize();
 		editorView.setImage(new Image("question_mark.png")); // set default
-
-		// image as
-		// question
-		// mark or
-		// something
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {
 			FileChooser fileChooser = new FileChooser();

@@ -1,13 +1,9 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
-import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
 
@@ -50,15 +46,5 @@ public abstract class TabDisplay implements ITabDisplay {
 		return myTabIndex;
 	}
 	
-	@Override
-	public void update(Observable o, Object arg) {
-		@SuppressWarnings("unchecked")
-		List<Map<String, String>> data = (List<Map<String, String>>) arg;
-		myGrid.setAttributesPanel(data.get(0));
-
-	}
-	
-	public Map<String, String> getDefaultAttributesMap() {
-		return ((TabGrid) myGrid).getAttributesMap();
-	}
+	public abstract Map<String, String> getDefaultAttributesMap();
 }

@@ -2,9 +2,7 @@ package authoring.frontend.display_elements.tab_displays;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
-import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
-import authoring.frontend.display_elements.panels.GridViewPanel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -21,18 +19,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.TreeMap;
-
 import authoring.backend.data.ObservableList;
 import engine.backend.entities.Entity;
 
 /**
  * 
- * @author benchesnut
+ * @author benchesnut, Frank
  *
  */
 

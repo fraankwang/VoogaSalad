@@ -1,6 +1,5 @@
 package authoring.frontend.display_elements.grids;
 
-import java.util.List;
 import java.util.Map;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.GridFactory;
@@ -86,10 +85,5 @@ public abstract class Grid implements IGrid {
 	}
 
 	public abstract void setAttributesPanel(Map<String, String> info);
-
-	public void update(List<Map<String, String>> data) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
