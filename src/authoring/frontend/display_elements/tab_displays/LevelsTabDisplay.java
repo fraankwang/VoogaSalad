@@ -56,10 +56,15 @@ public class LevelsTabDisplay extends TabDisplay {
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		map.put("Path", null);
-		map.put("MapBackgroundImage", null);
+		map.put("Name", null);
+		map.put("MapImage", null);
 		map.put("LevelTimer", null);
-		map.put("WaveDelayInterval", null);
+		map.put("WaveDelayTimer", null);
+		map.put("MapWidth", null);
+		map.put("MapHeight", null);
+		System.out.println("*****1. LevelsTabDisplay: got default Levels attributes");
+		System.out.println(map);
+
 		return map;
 	}
 

@@ -37,7 +37,7 @@ public abstract class TabDisplay implements ITabDisplay {
 
 	@Override
 	public void openEditorDisplay(Map<String, String> info) {
-		System.out.println("*****1. TabDisplay: Editor opened with empty attribute data:");
+		System.out.println("*****2. TabDisplay: Editor opened with default attribute data:");
 		System.out.println(info);
 		myEditorDisplay.edit(info);
 	}
@@ -46,5 +46,9 @@ public abstract class TabDisplay implements ITabDisplay {
 		return myTabIndex;
 	}
 	
+	/**
+	 * Default attributes are defined by each TabDisplay.
+	 * @return
+	 */
 	public abstract Map<String, String> getDefaultAttributesMap();
 }
