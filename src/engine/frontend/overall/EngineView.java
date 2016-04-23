@@ -110,7 +110,7 @@ public class EngineView{
 	private boolean isInBoardPane(double x, double y){
 		// board pane's node seems to be scaling as entities move outside the previous bounds
 		boolean xInPane = x > myScene.getX() && x < getUsableWidth(loadDoubleResource("BoardWidth")).doubleValue();
-		boolean yInPane = y > myMenuBar.heightProperty().doubleValue() && y < getUsableHeight(loadDoubleResource("BoardHeight")).doubleValue();
+		boolean yInPane = y > myMenuBar.heightProperty().doubleValue() && y < getUsableHeight(loadDoubleResource("BoardHeight")).doubleValue()+myMenuBar.heightProperty().doubleValue();
 		return (xInPane && yInPane);
 	}
 	
