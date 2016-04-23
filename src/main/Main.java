@@ -1,14 +1,13 @@
-package main;
 /**
  * @author Austin Wu
  * The AuthoringMain file that starts the simulation
  */
+package main;
 
 import java.util.Optional;
 
 import authoring_environment.controller.AuthoringController;
 import engine.controller.EngineController;
-import engine.frontend.EngineView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;

@@ -1,6 +1,6 @@
 /**
  * 
- * @author mario_oliver93
+ * @author mario_oliver93, raghav kedia
  * 
  */
 package engine.backend.systems;
@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.text.html.parser.Entity;
+
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -16,46 +19,77 @@ import engine.controller.EngineController;
 
 public class SystemsController {
 
-	private RenderingSystem render;
-	private MobilizeSystem mobilize;
-	private RulesSystem rulesSystem;
-	private List<Systemm> bagOfSystems = new ArrayList<Systemm>();
-	private EngineController frontendController;
-//	private ResourceLoader myResourceLoader;
-	
+	private GameSystem renderingSystem;
+	private GameSystem mobilizationSystem;
+	private GameSystem healthSystem;
+	private GameSystem firingSystem;
+	private GameSystem collisionSystem;
+	private GameSystem spawningSystem;
+
+	private List<ISystem> mySystems;
+	private EngineController engineController;
+	private EventManager myEventManager;
+
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	private ResourceBundle myActionRequirementsResources;
 	private ResourceBundle myComponentTagResources;
 
+	private InGameEntityFactory myEntityFactory;
 
-	public SystemsController(EngineController frontendController) {
-		this.frontendController = frontendController;
-//		myResourceLoader = new ResourceLoader();
-		render = new RenderingSystem(frontendController);
+	private int myLevelIndex;
+	private int myModeIndex;
 
-		rulesSystem = new RulesSystem();
+	private GameClock myGameClock;
 
+	/*
+	 * the this reference to rendering will get removed, so only the event
+	 * handler will get passed fixing rendering system before I remove this
+	 * dependency
+	 * 
+	 * @author == mario
+	 */
+	public SystemsController(int framesPerSecond, EventManager myEventManager) {
+		myEntityFactory = new InGameEntityFactory(myEventManager.getGameWorld().getGameStatistics(),
+				myEventManager.getGameWorld().getEntityMap());
 
-		addToBagOfSystems(new CollisionSystem());
+		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 
-//		mobilize = new MobilizeSystem();
-		addToBagOfSystems(render);
-//		addToBagOfSystems(rulesSystem);
-//		addToBagOfSystems(mobilize);
+		renderingSystem = new RenderingSystem(engineController);
+		mobilizationSystem = new MobilizeSystem();
+		healthSystem = new HealthSystem();
+		firingSystem = new FiringSystem();
+		collisionSystem = new CollisionSystem();
+		spawningSystem = new SpawningSystem();
+
+		this.myEventManager = myEventManager;
+
+		healthSystem.addObserver(myEventManager);
+		firingSystem.addObserver(myEventManager);
+		collisionSystem.addObserver(myEventManager);
+		renderingSystem.addObserver(myEventManager);
+
+		mySystems = new ArrayList<ISystem>();
+		mySystems.add(firingSystem);
+		mySystems.add(mobilizationSystem);
+		mySystems.add(collisionSystem);
+		mySystems.add(healthSystem);
+		mySystems.add(renderingSystem);
+		mySystems.add(spawningSystem);
+
+		myGameClock = new GameClock(framesPerSecond);
 	}
 
-	public void addToBagOfSystems(Systemm system) {
-		bagOfSystems.add(system);
-	}
-
-	public void iterateThroughSystems(GameWorld game) {
-		for (Systemm myCurrSystem : bagOfSystems) {
-			Mode currMode = game.getModes().get(game.getGameStats().getCurrentLevel());
-			List<Level> currLevels = game.getLevelsForMode(currMode);
-			//switch this to iterate through the quadrants contained inside of the curr levels map
-			//and that maps quadrants
-			myCurrSystem.update(currLevels.get(game.getGameStats().getCurrentLevel()).getEntities());
+	public void iterateThroughSystems(Level level) {
+		for (ISystem system : mySystems) {
+			long startTime = System.currentTimeMillis();
+			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(),
+					myComponentTagResources);
+			long endTime = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			// System.out.println(myGameClock.getCurrentSecond());
+			// System.out.println(system.getClass().getSimpleName() + ": " +
+			// totalTime);
 		}
+		myGameClock.updateLoopIteration();
 	}
 
 }

@@ -5,19 +5,24 @@
  */
 package engine.backend.game_object;
 
-public class GameStatisticsObject {
+import java.util.Observable;
+
+public class GameStatistics extends Observable{
 
 	private double myMoney;
 	private double myScore;
 	private double myHealth;
+	private int myLives;
+	private double myResources;
 	
 	private int currentMode = 0;
 	private int currentLevel = 0;
 	private int numOfLevels = 0;
 	private int numOfModes = 0;
 	private int nextAvailableID = 0;
+	private int nextAvailableEntityID = 0;
 
-	public GameStatisticsObject() {
+	public GameStatistics() {
 		
 	}
 
@@ -43,6 +48,10 @@ public class GameStatisticsObject {
 
 	public int nextAvailableID() {
 		return nextAvailableID++;
+	}
+	
+	public int nextEntityID(){
+		return nextAvailableEntityID++;
 	}
 
 }

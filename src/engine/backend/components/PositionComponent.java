@@ -4,19 +4,27 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 public class PositionComponent extends Component implements IComponent{
 	
 	private Vector myPositionVector;
+	private Vector myCriticalPosition;
+	public static final int DEFAULTPOSITION = 50;
 	
-	public PositionComponent(){
-		myPositionVector = new Vector();
+	public PositionComponent() {
+		double posX = DEFAULTPOSITION;
+		double posY = DEFAULTPOSITION;
+		
+		myPositionVector = new Vector(posX, posY);
 	}
 	
-	public PositionComponent(double x, double y) {
-		// TODO Auto-generated constructor stub
-//		setPositionVector(new Vector(x, y));
+	public PositionComponent(PositionComponent posComp){
+		double posX = posComp.getX();
+		double posY = posComp.getY();
+		
+		myPositionVector = new Vector(posX, posY);
+	}
+	
+	public PositionComponent(double x, double y){
 		myPositionVector = new Vector(x, y);
 	}
 
@@ -37,9 +45,17 @@ public class PositionComponent extends Component implements IComponent{
 	}
 
 	@Override
-	public void initWithParams(List params) {
-		// TODO Auto-generated method stub
-		
+	public void initWithParams(String[] params) {
+		//x is 1, y is 2
+		myPositionVector = new Vector(Double.parseDouble(params[0]), Double.parseDouble(params[1]));
+	}
+
+	public Vector getCriticalPosition() {
+		return myCriticalPosition;
+	}
+
+	public void setCriticalPosition(Vector myCriticalPosition) {
+		this.myCriticalPosition = myCriticalPosition;
 	}
 
 }

@@ -1,23 +1,31 @@
 package engine.backend.game_features;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
-
 
 public class GameShop {
 	
-	private Map<String , IEntity> myItems;
+	private List<ShopItem> myItems;
 	
 	public GameShop(){
-		myItems = new HashMap<String, IEntity>();
+		myItems = new ArrayList<ShopItem>();
 	}
 	
-	public void addItem(IEntity entity){
-		myItems.put(((Entity)entity).getLabel(), entity);
+	public void updateShop(double currentResources){
+		for(ShopItem item : myItems){
+			if(item.getItemValue() <= currentResources){
+				item.setCanBuy(true);
+			}
+		}
+	}
+		
+	public void addItem(String itemName, String itemImage, double itemValue){
+		ShopItem newItem = new ShopItem(itemName, itemImage, itemValue);
+		myItems.add(newItem);
 	}
 	
-//	public IE
 }

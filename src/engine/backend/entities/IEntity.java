@@ -1,10 +1,11 @@
 package engine.backend.entities;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
+import engine.backend.rules.EntityAction;
 
 /**
  * 
@@ -32,4 +33,14 @@ public interface IEntity {
 	public boolean hasBeenModified();
 	
 	public void setHasBeenModified(boolean bool);
+
+	public double getValue();
+
+	public String getType();
+	
+	public int getID();
+	
+	public void setLevelID(int levelID);
+	
+	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources);
 }
