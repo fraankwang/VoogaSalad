@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import authoring.frontend.editor_features.ComponentSelector;
 import javafx.scene.control.Alert;
@@ -74,7 +75,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(myAttributesGridPane);
 		myAttributes = new ArrayList<String>();
-
 	}
 
 	@Override
@@ -98,8 +98,8 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	}
 
 	protected void assembleInputRows() {
-		myAttributesMap = new HashMap<String, String>();
-		myInputMap = new HashMap<String, Control>();
+		myAttributesMap = new TreeMap<String, String>();
+		myInputMap = new TreeMap<String, Control>();
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
@@ -113,22 +113,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		}
 		
-		Button addComponentButton = new Button("Add Component");
-		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
-		GridPane.setColumnSpan(addComponentButton, 2);
-		addComponentButton.setPrefSize(800, 800);
-		
-		addComponentButton.setOnAction(e -> {
-			ComponentSelector selector = new ComponentSelector();
-			selector.initialize();
-			Map<String, Control> newComponents = selector.openSelector(myInputMap);
-			myAttributes = selector.getSelectedAttributes();
-			for (String key: newComponents.keySet()) {
-				myAttributesMap.put(key, null);
-				myInputMap.put(key, newComponents.get(key));
-				refreshInputRows();
-			}
-		});
+		createAddComponentButton();
 	}
 	
 	protected void refreshInputRows() {
@@ -142,22 +127,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
 		}
 		
-		Button addComponentButton = new Button("Add Component");
-		addComponentButton.setFont(new Font(20));
-		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
-		GridPane.setColumnSpan(addComponentButton, 2);
-		
-		addComponentButton.setOnAction(e -> {
-			ComponentSelector selector = new ComponentSelector();
-			selector.initialize();
-			Map<String, Control> newComponents = selector.openSelector(myInputMap);
-			for (String key: newComponents.keySet()) {
-				myAttributes.add(key);
-				myAttributesMap.put(key, null);
-				myInputMap.put(key, newComponents.get(key));
-				refreshInputRows();
-			}
-		});
+		createAddComponentButton();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -178,6 +148,12 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	public void setAttributes(Map<String, String> info) {
 		myAttributesMap = info;
+		myAttributes.clear();
+		myAttributes.addAll(myAttributesMap.keySet());
+		myInputMap.clear();
+		ComponentSelector selector = new ComponentSelector();
+		selector.initialize();
+		myInputMap = selector.setComponents(myInputMap, myAttributes);
 		System.out.println("*****2. ModifiableAttrPanel: myAttributesMap set with given unmodifiableattributespanel outputs:");
 		System.out.println(myAttributesMap);
 		refreshAttributes();
@@ -194,6 +170,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 					myInputMap.replace(myAttributes.get(i), tf);
 				}
 				else if (myInputMap.get(myAttributes.get(i)) instanceof ComboBox<?>) {
+					System.out.println("FUCK");
 					@SuppressWarnings("unchecked")
 					ComboBox<String> cb = (ComboBox<String>) myInputMap.get(myAttributes.get(i));
 					cb.setValue(myAttributesMap.get(myAttributes.get(i)));
@@ -205,6 +182,27 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		}
 		refreshInputRows();
+	}
+	
+	public void createAddComponentButton() {
+		Button addComponentButton = new Button("Add Component");
+		addComponentButton.setFont(new Font(20));
+		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
+		GridPane.setColumnSpan(addComponentButton, 2);
+		
+		addComponentButton.setOnAction(e -> {
+			ComponentSelector selector = new ComponentSelector();
+			selector.initialize();
+			Map<String, Control> newComponents = selector.openSelector(myInputMap);
+			for (String key: newComponents.keySet()) {
+				if (!myAttributes.contains(key)) {
+					myAttributes.add(key);
+					myAttributesMap.put(key, null);
+					myInputMap.put(key, newComponents.get(key));
+					refreshInputRows();
+				}
+			}
+		});
 	}
 
 	public boolean createResetAlert() {

@@ -14,9 +14,10 @@ import engine.backend.map.Path;
 public class LevelFactory {
 
 	private static final int POINTS_PER_CURVE = 8;
+	private int nextPathID;
 
 	public LevelFactory() {
-
+		this.nextPathID = 0;
 	}
 	
 	public Level createLevel(Map<String, String> data) {
@@ -36,7 +37,7 @@ public class LevelFactory {
 			case "MapHeight":
 				double height = Double.parseDouble(data.get(key));
 				map.setMapHeight(height);
-			case "LevelNumber":
+			case "Name":
 				name = data.get(key);
 			case "Entities":
 				String entities = data.get(key);
@@ -61,7 +62,7 @@ public class LevelFactory {
 		for (int i = 0; i < temp.length; i++) {
 			curves.add(temp[i]);
 		}
-		return new Path(curves);
+		return new Path(curves, nextPathID++);
 	}
 
 	private BezierCurve[] getCurves(String str) {

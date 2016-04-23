@@ -58,7 +58,7 @@ public abstract class TabDisplay implements ITabDisplay {
 
 	}
 	
-	public Map<String, String> getAttributesMap() {
+	public Map<String, String> getDefaultAttributesMap() {
 		return ((TabGrid) myGrid).getAttributesMap();
 	}
 }

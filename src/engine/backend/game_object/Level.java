@@ -64,7 +64,6 @@ public class Level {
 	public GameMap getMap(){
 		return map;
 	}
-	
 
 	public Map<String, String> getInfo() {
 		return levelInfo;

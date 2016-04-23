@@ -59,7 +59,7 @@ public class GridViewPanel extends Panel {
 		myAddNewButton = new Button("Add New...");
 	}
 
-	private void resetGrid() {
+	public void resetGrid() {
 		myGridPane.getChildren().clear();
 		myGridPane.getColumnConstraints().clear();
 		double gridCellSize = (myScrollPane.getViewportBounds().getWidth() - 20) / numColumns;
@@ -102,7 +102,7 @@ public class GridViewPanel extends Panel {
 		VBox vbox = new VBox();
 		myGridPane.setGridLinesVisible(true);
 		myAddNewButton.setOnAction(e -> {
-			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getAttributesMap()); //get data
+			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getDefaultAttributesMap()); //get data
 //			myTabDisplay.openEditorDisplay(new ImageView("question_mark.png"), new HashMap<String, String>());
 		});
 		
@@ -133,8 +133,12 @@ public class GridViewPanel extends Panel {
 		resetGrid();
 	}
 	
-	public ImageView getImage() {
+	public ImageView getCurrentImage() {
 		return myCurrImage;
+	}
+	
+	public void clearImages() {
+		myImages.clear();
 	}
 
 }
