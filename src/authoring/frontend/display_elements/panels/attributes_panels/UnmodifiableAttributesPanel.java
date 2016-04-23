@@ -82,7 +82,9 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	}
 
 	/**
-	 * Publicly accessible method which calls an internally abstracted refresh method.  
+	 * Publicly accessible method which calls an internally abstracted refresh
+	 * method.
+	 * 
 	 * @param updatedInfo
 	 */
 	public void setAttributes(Map<String, String> updatedInfo) {
@@ -104,7 +106,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		System.out.println("UnmodifiableAttrPanel: got attributes used to populate editor");
 		return myAttributesMap;
 	}
-	
+
 	protected GridPane createAttributesGridPane(List<String> attributes) {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		List<Integer> columnConstraints = new ArrayList<Integer>();
@@ -123,16 +125,22 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	/**
 	 * Creates Button that opens myTabDisplay. TabDisplay's openEditorDisplay
 	 * method must take in relevant data for whatever is being displayed in the
-	 * editor.
+	 * editor. The button will not work unless the attributes given are
+	 * populated and not empty.
 	 * 
 	 * @return
 	 */
 	protected Button createOpenEditorButton() {
 		Button button = new Button("Open Editor");
 		button.setPrefSize(600, 600);
-		button.setOnAction(e -> myTabDisplay.openEditorDisplay(myAttributesMap));
+		button.setOnAction(e -> {
+			if (!myAttributesMap.get("Name").equals("")) {
+				myTabDisplay.openEditorDisplay(myAttributesMap);
+
+			}
+		});
+
 		return button;
 	}
-
 
 }
