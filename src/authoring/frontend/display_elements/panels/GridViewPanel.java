@@ -18,6 +18,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 /**
  * The GridViewPanel is the primary display within many of the TabDisplays. The
@@ -54,7 +55,11 @@ public class GridViewPanel extends Panel {
 		myPanelBar = new GridPanelBar(50, 50, this);
 		myPanelBar.initialize();
 		myImages = new ArrayList<ImageView>();
-		myAddNewButton = new Button("Add New...");
+		myAddNewButton = new Button("Add New");
+		myAddNewButton.setStyle(
+				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#000000,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
+		
+		myAddNewButton.setPrefSize(300, 300);
 	}
 
 	public void resetGrid() {
@@ -101,7 +106,7 @@ public class GridViewPanel extends Panel {
 		myGridPane.setGridLinesVisible(true);
 		myAddNewButton.setOnAction(e -> {
 			Map<String, String> defaultAttributesMap = ((TabDisplay) myTabDisplay).getDefaultAttributesMap();
-			myTabDisplay.openEditorDisplay(defaultAttributesMap); 
+			myTabDisplay.openEditorDisplay(defaultAttributesMap);
 		});
 
 		myScrollPane.setContent(myGridPane);
