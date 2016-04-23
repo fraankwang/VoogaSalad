@@ -7,14 +7,15 @@
 
 package engine.backend.components;
 
+/**
+ * 
+ * @author 
+ *
+ */
 public class DisplayComponent extends Component implements IComponent{
 	
 	private boolean canBeShown;
 	private String image;
-	
-	public DisplayComponent() {
-		
-	}
 	
 	public DisplayComponent(String image){
 		this.image = image;
