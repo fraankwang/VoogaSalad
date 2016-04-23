@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -162,6 +163,13 @@ public class EntitiesTabDisplay extends TabDisplay {
 		}
 		//myGrid.setAttributesPanel(data.get(0));
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
+	}
+	
+	public List<String> getGenres() {
+		List<String> genres = new ArrayList<String>();
+		myEntitiesTabPane.getTabs().forEach(t -> genres.add(t.getText()));
+		genres.remove("Add New...");
+		return genres;
 	}
 
 	@Override

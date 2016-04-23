@@ -3,6 +3,8 @@ package authoring.frontend.display_elements.panels.attributes_panels.modifiable_
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 
 /**
@@ -13,8 +15,8 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 
 public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 
-	public ModifiableGameAttributesPanel(int height, int width) {
-		super(height, width);
+	public ModifiableGameAttributesPanel(int height, int width, IAuthoringView controller) {
+		super(height, width, controller);
 	}
 
 	@Override

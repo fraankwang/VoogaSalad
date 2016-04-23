@@ -1,6 +1,8 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
 import java.util.Map;
+
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 
 /**
@@ -11,8 +13,8 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 
 public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
-	public ModifiableEntityAttributesPanel(int height, int width) {
-		super(height, width);
+	public ModifiableEntityAttributesPanel(int height, int width, IAuthoringView controller) {
+		super(height, width, controller);
 	}
 
 	@Override

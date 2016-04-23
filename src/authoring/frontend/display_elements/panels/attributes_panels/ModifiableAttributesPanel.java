@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.editor_features.ComponentSelector;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -41,6 +42,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected ScrollPane myScrollPane;
 	protected TitledPane myRulesPane;
 	protected ListView<String> myRulesListView;
+	protected IAuthoringView myController;
 
 	protected Map<String, Control> myInputMap;
 
@@ -51,8 +53,9 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	private static final int COLUMN_1_PERCENTAGE = 50;
 	private static final int COLUMN_2_PERCENTAGE = 50;
 
-	public ModifiableAttributesPanel(int height, int width) {
+	public ModifiableAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width);
+		myController = controller;
 	}
 
 	@Override
@@ -148,7 +151,11 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	
 	public void updateImageComponent(String image) {
 		myAttributesMap.replace("DisplayComponent_Image", image);
-		refreshAttributes();
+		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
+		tf.setText(image);
+		tf.setEditable(false);
+		myInputMap.replace("DisplayComponent_Image", tf);
+		refreshInputRows();
 	}
 
 	public void setAttributes(Map<String, String> info) {
@@ -156,7 +163,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myAttributes.clear();
 		myAttributes.addAll(myAttributesMap.keySet());
 		myInputMap.clear();
-		ComponentSelector selector = new ComponentSelector();
+		ComponentSelector selector = new ComponentSelector(myController);
 		selector.initialize();
 		myInputMap = selector.setComponents(myInputMap, myAttributes);
 		System.out.println("*****2. ModifiableAttrPanel: myAttributesMap set with given unmodifiableattributespanel outputs:");
@@ -195,7 +202,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		GridPane.setColumnSpan(addComponentButton, 2);
 		
 		addComponentButton.setOnAction(e -> {
-			ComponentSelector selector = new ComponentSelector();
+			ComponentSelector selector = new ComponentSelector(myController);
 			selector.initialize();
 			Map<String, Control> newComponents = selector.openSelector(myInputMap);
 			for (String key: newComponents.keySet()) {

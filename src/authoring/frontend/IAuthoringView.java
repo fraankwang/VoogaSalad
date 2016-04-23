@@ -2,6 +2,7 @@ package authoring.frontend;
 
 import java.util.Map;
 import authoring.backend.data.ObservableList;
+import authoring.frontend.interfaces.IViewManager;
 import engine.backend.entities.Entity;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -43,5 +44,7 @@ public interface IAuthoringView {
 	 * Displays primary scene.
 	 */
 	public void showPrimaryScene();
+	
+	public IViewManager getAuthoringViewManager();
 
 }

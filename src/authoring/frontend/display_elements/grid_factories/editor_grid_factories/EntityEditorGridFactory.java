@@ -64,7 +64,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public ModifiableAttributesPanel createModifiableAttributesPanel() {
-		ModifiableAttributesPanel panel = new ModifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE);
+		ModifiableAttributesPanel panel = new ModifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE, myController);
 		panel.initialize();
 		return panel;
 	}

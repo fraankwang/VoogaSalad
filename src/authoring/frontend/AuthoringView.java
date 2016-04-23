@@ -74,4 +74,9 @@ public class AuthoringView implements IAuthoringView {
 
 	}
 
+	@Override
+	public IViewManager getAuthoringViewManager() {
+		return myAuthoringViewManager;
+	}
+
 }

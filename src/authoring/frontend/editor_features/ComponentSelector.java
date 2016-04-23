@@ -6,6 +6,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
@@ -27,9 +30,10 @@ public class ComponentSelector {
 	private Stage myStage;
 	private Scene myScene;
 	private List<String> mySelectedComponents;
+	private IAuthoringView myController;
 
-	public ComponentSelector() {
-
+	public ComponentSelector(IAuthoringView controller) {
+		myController = controller;
 	}
 
 	public void initialize() {
@@ -86,8 +90,9 @@ public class ComponentSelector {
 			switch (component) {
 			
 			case "Genre":
-				TextField genre = new TextField();
-				inputMap.put("Genre", genre);
+				ComboBox genres = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
+						.getTabBarElement().getEntitiesTabDisplay()).getGenres());
+				inputMap.put("Genre", genres);
 				break;
 				
 			case "Name":

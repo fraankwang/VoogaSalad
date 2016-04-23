@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -22,8 +24,8 @@ import javafx.scene.text.Text;
 public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 	private static final int MODE_DESCRIPTION_HEIGHT = 15;
-	public ModifiableModeAttributesPanel(int height, int width) {
-		super(height, width);
+	public ModifiableModeAttributesPanel(int height, int width, IAuthoringView controller) {
+		super(height, width, controller);
 	}
 
 	@Override

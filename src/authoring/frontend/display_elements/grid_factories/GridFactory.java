@@ -15,7 +15,7 @@ import authoring.frontend.display_elements.panels.Panel;
 
 public abstract class GridFactory {
 
-	private IAuthoringView myController;
+	protected IAuthoringView myController;
 	protected final int MAX_SIZE = Integer.MAX_VALUE;
 
 	public GridFactory(IAuthoringView controller) {
