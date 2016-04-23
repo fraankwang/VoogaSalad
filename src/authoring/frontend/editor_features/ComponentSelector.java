@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -37,23 +38,22 @@ public class ComponentSelector {
 		myVBox = new VBox();
 		myStage = new Stage();
 		myScene = new Scene(myVBox, 400, 800);
-	}
-
-	@SuppressWarnings("unchecked")
-	public Map<String, Control> openSelector(Map<String, Control> inputMap) {
+		
 		mySelectedComponents = new ArrayList<String>();
 		myStage.setScene(myScene);
-		
-		for (String component : inputMap.keySet()) {
-			mySelectedComponents.add(component);
-		}
 
 		Enumeration<String> componentTags = myTags.getKeys();
 		while (componentTags.hasMoreElements()) {
 			CheckBox cb = createCheckBox(myTags.getString(componentTags.nextElement()));
 			myVBox.getChildren().add(cb);
 		}
+		Button saveButton = new Button("Save");
+		saveButton.setOnAction(e -> myStage.close());
+		myVBox.getChildren().add(saveButton);
+	}
 
+	@SuppressWarnings("unchecked")
+	public Map<String, Control> openSelector(Map<String, Control> inputMap) {
 		myStage.showAndWait();
 		return addComponent(inputMap, mySelectedComponents);
 
@@ -84,6 +84,17 @@ public class ComponentSelector {
 			}
 
 			switch (component) {
+			
+			case "Genre":
+				TextField genre = new TextField();
+				inputMap.put("Genre", genre);
+				break;
+				
+			case "Name":
+				TextField name = new TextField();
+				inputMap.put("Name", name);
+				break;
+				
 			case "DisplayComponent":
 				ComboBox<String> canBeShown = createComboBox(booleanComboBox);
 				TextField image = new TextField();
@@ -174,6 +185,17 @@ public class ComponentSelector {
 
 		return inputMap;
 	}
+	
+	public Map<String, Control> setComponents(Map<String, Control> info, List<String> attributes) {
+		mySelectedComponents.clear();
+		for (String attribute: attributes) {
+			String component = attribute.split("_")[0];
+			if (!mySelectedComponents.contains(component)) {
+				mySelectedComponents.add(component);
+			}
+		}
+		return addComponent(info, mySelectedComponents);
+	}
 
 	private ComboBox<String> createComboBox(List<String> options) {
 		ComboBox<String> cb = new ComboBox<String>();
@@ -194,6 +216,9 @@ public class ComponentSelector {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (newValue) {
 					mySelectedComponents.add(component);
+				}
+				else {
+					mySelectedComponents.remove(component);
 				}
 			}
 

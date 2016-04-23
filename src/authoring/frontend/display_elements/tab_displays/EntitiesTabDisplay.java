@@ -2,7 +2,9 @@ package authoring.frontend.display_elements.tab_displays;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
+import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
+import authoring.frontend.display_elements.panels.GridViewPanel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -23,6 +25,7 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.TreeMap;
 
 import authoring.backend.data.ObservableList;
 import engine.backend.entities.Entity;
@@ -143,5 +146,29 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public String getName() {
 		return "Entities";
 	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String, String>> data = (List<Map<String, String>>) arg;
+		
+		for (Tab t: myEntitiesTabPane.getTabs()) {
+			if (!t.getText().equals("Add New...")) {
+				myEntitiesTabPane.getSelectionModel().select(t);
+				((EntitiesTabGrid) myGrid).update(data, t.getText());
+			}
+		}
+		//myGrid.setAttributesPanel(data.get(0));
+		myEntitiesTabPane.getSelectionModel().select(tempTab);
+	}
 
+	@Override
+	public Map<String, String> getDefaultAttributesMap() {
+		Map<String, String> map = new TreeMap<String, String>();
+		map.put("Genre", null);
+		map.put("Name", null);
+		return map;
+	}
 }
