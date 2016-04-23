@@ -36,31 +36,60 @@ public class Level {
 		this.myID = myID;
 	}
 
+	/**
+	 * 
+	 * @return The unique identifier for the level.
+	 */
 	public int getId() {
 		return myID;
 	}
 
+	/**
+	 * 
+	 * @return The entities currently on the game screen.
+	 */
 	public Map<Integer, IEntity> getEntities() {
 		return entities;
 	}
 	
+	/**
+	 * Adds an entity created to the map that stores the entities on the game screen.
+	 * @param entity
+	 */
 	public void addEntityToMap(IEntity entity) {
 		entities.put(entity.getID(), entity);
 	}
 	
+	/**
+	 * Adds a collection of entities to the map that stores the entities on the game screen.
+	 * @param entities
+	 */
 	public void addEntityToMap(Collection<IEntity> entities) {
 		entities.stream()
 				.forEach(e -> addEntityToMap(e));
 	}
 	
+	/**
+	 * 
+	 * @param entityID
+	 * @return The entity with this id that is on the game screen.
+	 */
 	public IEntity getEntityWithID(int entityID) {
 		return entities.get(entityID);
 	}
 
+	/**
+	 * 
+	 * @return The instance of GameMap for the level.
+	 */
 	public GameMap getMap() {
 		return map;
 	}
 
+	/**
+	 * Setting the map for the game.
+	 * @param map
+	 */
 	public void setMap(GameMap map) {
 		this.map = map;
 	}
@@ -70,15 +99,27 @@ public class Level {
 		return "Level [entities=" + entities + "] ";
 	}
 
+	/**
+	 * Authoring environment adds entities that can be created during the entity.
+	 * @param entity
+	 */
 	public void addToEntities(IEntity entity) {
 		entity.setLevelID(myID);
 		authoredEntities.add(entity);
 	}
 
-	public void setModeName(String modeID) {
+	/**
+	 * Setting the name of the mode containing this level.
+	 * @param modeID
+	 */
+	public void setParentModeName(String modeID) {
 		this.myParentModeName = modeID;
 	}
 
+	/**
+	 * 
+	 * @return A String with the identifier of the mode with this level.
+	 */
 	public String getModeID() {
 		return myParentModeName;
 	}
@@ -97,6 +138,10 @@ public class Level {
 		}
 	}
 
+	/**
+	 * 
+	 * @return A map containing the events that can occur during this level.
+	 */
 	public Map<String, List<EntityAction>> getCustomEvents() {
 		// TODO Auto-generated method stub
 		return null;

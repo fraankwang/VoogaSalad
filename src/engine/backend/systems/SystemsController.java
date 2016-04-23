@@ -88,6 +88,7 @@ public class SystemsController {
 			//System.out.println(myGameClock.getCurrentSecond());
 			//System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
 		}
+		
 		myGameClock.updateLoopIteration();
 	}
 
