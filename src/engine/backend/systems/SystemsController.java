@@ -89,6 +89,7 @@ public class SystemsController {
 			//System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
 		}
 		
+		System.out.println(myEventManager.getCurrentLevel().getEntities().size());
 		myGameClock.updateLoopIteration();
 	}
 

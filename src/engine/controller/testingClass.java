@@ -117,15 +117,18 @@ public class testingClass {
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
 		Vector myBulletVector = new Vector(-1,0);
+		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-				100, myBulletVector);
+				500, myBulletVector);
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
+		mySimpleBullet.addComponent(tempPosition);
+		mySimpleBullet.addComponent(new MovementComponent(-5, 0));
+		mySimpleBullet.addComponent(tempDisplay3);
 		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
 		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
 		createdAmmunition.put("SimpleBullet", mySimpleBullet);
 		myCreatableEntityMap.put("Ammunition", createdAmmunition);
 		firingTest.setEntityMap(myCreatableEntityMap);
-		mySimpleBullet.addComponent(tempDisplay);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);

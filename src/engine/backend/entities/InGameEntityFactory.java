@@ -44,15 +44,8 @@ public class InGameEntityFactory {
 
 	private void copyComponents(IEntity newEntity, IEntity templateEntity) {
 		Collection<IComponent> templateComponents = templateEntity.getComponents();
-		if (templateComponents.size() == 0) {
-			System.out.println("This list is empty");
-		} else {
-			System.out.println(templateComponents.size());
-		}
 		for (IComponent component : templateComponents) {
 			IComponent copyComponent = cloneComponent(component);
-			System.out.println(component.getClass().getName());
-			System.out.println(copyComponent);
 			newEntity.addComponent(copyComponent);
 		}
 	}
@@ -64,7 +57,7 @@ public class InGameEntityFactory {
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace()
+			e.printStackTrace();
 			return null;
 		} catch (NoSuchMethodException e1) {
 			// TODO Auto-generated catch block

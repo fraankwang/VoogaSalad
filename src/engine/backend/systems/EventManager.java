@@ -48,6 +48,7 @@ public class EventManager implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println(arg.getClass().getName()); 
 		handleCustomEvent((IEvent) arg);
 	}
 	
@@ -60,6 +61,7 @@ public class EventManager implements Observer {
 	}
 
 	private void handleCustomEvent(IEvent myEvent) {
+		System.out.println(myEvent.getClass().getName());
 		if(myEvent instanceof UpdateEntityEvent){
 			sendUpdatedEntity((UpdateEntityEvent) myEvent);
 			return;
