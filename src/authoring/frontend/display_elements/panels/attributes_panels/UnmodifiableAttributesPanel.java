@@ -76,10 +76,6 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			myAttributesGridPane.add(text, 0, i);
-			if (currentAttribute.equals("Genre") || currentAttribute.equals("Name")) {
-				TextField tf = (TextField) myOutputMap.get(currentAttribute);
-				tf.setEditable(true);
-			}
 			myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
 			i++;
 		}
