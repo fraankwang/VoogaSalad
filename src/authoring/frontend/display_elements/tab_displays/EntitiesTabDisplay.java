@@ -163,8 +163,15 @@ public class EntitiesTabDisplay extends TabDisplay {
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		map.put("Genre", null);
+		
+		String currentGenre = myEntitiesTabPane.getSelectionModel().getSelectedItem().getText();
+		map.put("Genre", currentGenre);
 		map.put("Name", null);
+		map.put("DisplayComponent_Image", null);
+		map.put("DisplayComponent_CanBeShown", null);
+		
+		System.out.println("*****1. EntitiesTabDisplay: got default entities attributes");
+		System.out.println(map);
 		return map;
 	}
 }
