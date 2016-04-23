@@ -30,8 +30,12 @@ public class FiringComponent extends Component implements IComponent{
 		this.myDirectionToFire = myDirectionToFire;
 	}
 	
-	public FiringComponent() {
-		
+	public FiringComponent(FiringComponent component) {
+		this.myAmmunition = component.getAmmunition();
+		this.myAmmunitionAmount = component.getAmmunitionAmount();
+		this.myAmmunitionSpeed = component.getAmmunitionSpeed();
+		this.myEnemyInSightRange = component.getEnemyInSightRange();
+		this.myDirectionToFire = component.getDirectionToFire();
 	}
 	
 	public String getAmmunition() {

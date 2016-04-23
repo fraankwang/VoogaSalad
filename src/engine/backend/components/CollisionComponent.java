@@ -10,7 +10,11 @@ public class CollisionComponent extends Component implements IComponent{
     public CollisionComponent(){
        isCollided = false;
     }
-
+    
+    public CollisionComponent(CollisionComponent component) {
+    	this.isCollided = component.isCollided;
+    }
+    
     public boolean isCollided() {
         return isCollided;
     }
