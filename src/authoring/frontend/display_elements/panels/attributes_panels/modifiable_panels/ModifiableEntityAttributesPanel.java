@@ -1,6 +1,8 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
 import java.util.Map;
+
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.editor_features.EntityComponentSelector;
 import javafx.scene.control.Button;
@@ -18,8 +20,8 @@ import javafx.scene.text.Font;
 
 public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
-	public ModifiableEntityAttributesPanel(int height, int width) {
-		super(height, width);
+	public ModifiableEntityAttributesPanel(int height, int width, IAuthoringView controller) {
+		super(height, width, controller);
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		GridPane.setColumnSpan(addComponentButton, 2);
 
 		addComponentButton.setOnAction(e -> {
-			EntityComponentSelector selector = new EntityComponentSelector();
+			EntityComponentSelector selector = new EntityComponentSelector(myController);
 			selector.initialize();
 			Map<String, Control> newComponents = selector.selectComponents(myInputMap);
 			for (String key : newComponents.keySet()) {
@@ -58,8 +60,10 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	public void setAttributes(Map<String, String> info) {
 		super.setAttributes(info);
-		EntityComponentSelector selector = new EntityComponentSelector();
+		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
+		System.out.println(myInputMap);
+		System.out.println(myAttributes);
 		myInputMap = selector.setComponents(myInputMap, myAttributes);
 		refreshAttributes();
 

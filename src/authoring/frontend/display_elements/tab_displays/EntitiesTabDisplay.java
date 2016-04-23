@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -159,17 +160,23 @@ public class EntitiesTabDisplay extends TabDisplay {
 		//myGrid.setAttributesPanel(data.get(0));
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 	}
+	
+	public List<String> getGenres() {
+		List<String> genres = new ArrayList<String>();
+		myEntitiesTabPane.getTabs().forEach(t -> genres.add(t.getText()));
+		genres.remove("Add New...");
+		return genres;
+	}
 
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		
-		String currentGenre = myEntitiesTabPane.getSelectionModel().getSelectedItem().getText();
-		map.put("Genre", currentGenre);
-		map.put("Name", null);
+
 		map.put("DisplayComponent_Image", null);
 		map.put("DisplayComponent_CanBeShown", null);
-		
+		map.put("Name", null);
+		map.put("Genre", null);
+
 		System.out.println("*****1. EntitiesTabDisplay: got default entities attributes");
 		System.out.println(map);
 		return map;

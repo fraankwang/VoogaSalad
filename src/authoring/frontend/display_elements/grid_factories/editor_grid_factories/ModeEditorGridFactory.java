@@ -36,7 +36,7 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public ModifiableAttributesPanel createModifiableAttributesPanel() {
-		ModifiableAttributesPanel panel = new ModifiableModeAttributesPanel(MAX_SIZE, MAX_SIZE);
+		ModifiableAttributesPanel panel = new ModifiableModeAttributesPanel(MAX_SIZE, MAX_SIZE, myController);
 		panel.initialize();
 		return panel;
 	}

@@ -35,7 +35,7 @@ public class GameEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public ModifiableAttributesPanel createModifiableAttributesPanel() {
-		ModifiableAttributesPanel panel = new ModifiableGameAttributesPanel(MAX_SIZE, MAX_SIZE);
+		ModifiableAttributesPanel panel = new ModifiableGameAttributesPanel(MAX_SIZE, MAX_SIZE, myController);
 		panel.initialize();
 		return panel;
 	}

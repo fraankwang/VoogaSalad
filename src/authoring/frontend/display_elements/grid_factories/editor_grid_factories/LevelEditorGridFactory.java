@@ -35,7 +35,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public ModifiableAttributesPanel createModifiableAttributesPanel() {
-		ModifiableAttributesPanel panel = new ModifiableLevelAttributesPanel(MAX_SIZE, MAX_SIZE);
+		ModifiableAttributesPanel panel = new ModifiableLevelAttributesPanel(MAX_SIZE, MAX_SIZE, myController);
 		panel.initialize();
 		return panel;
 	}

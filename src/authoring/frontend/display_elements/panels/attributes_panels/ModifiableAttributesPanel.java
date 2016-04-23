@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+
+import authoring.frontend.IAuthoringView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -37,7 +39,8 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected ScrollPane myScrollPane;
 	protected TitledPane myRulesPane;
 	protected ListView<String> myRulesListView;
-
+	protected IAuthoringView myController;
+	
 	protected Map<String, Control> myInputMap;
 
 	protected static final int RULES_HEIGHT_PERCENTAGE = 30;
@@ -47,8 +50,9 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	private static final int COLUMN_1_PERCENTAGE = 50;
 	private static final int COLUMN_2_PERCENTAGE = 50;
 
-	public ModifiableAttributesPanel(int height, int width) {
+	public ModifiableAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width);
+		myController = controller;
 	}
 
 	@Override
@@ -147,6 +151,15 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	}
 
+	public void updateImageComponent(String image) {
+		myAttributesMap.replace("DisplayComponent_Image", image);
+		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
+		tf.setText(image);
+		tf.setEditable(false);
+		myInputMap.replace("DisplayComponent_Image", tf);
+		refreshInputRows();
+	}
+	
 	/**
 	 * Creates confirmation before allowing user to reset all input values.
 	 * 

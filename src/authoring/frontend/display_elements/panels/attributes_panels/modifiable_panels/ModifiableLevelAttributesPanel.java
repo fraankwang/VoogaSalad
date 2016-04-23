@@ -2,9 +2,8 @@ package authoring.frontend.display_elements.panels.attributes_panels.modifiable_
 
 import java.util.Map;
 import java.util.TreeMap;
-
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring.frontend.editor_features.EntityComponentSelector;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -20,8 +19,8 @@ import javafx.scene.text.Font;
 
 public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
-	public ModifiableLevelAttributesPanel(int height, int width) {
-		super(height, width);
+	public ModifiableLevelAttributesPanel(int height, int width, IAuthoringView controller) {
+		super(height, width, controller);
 	}
 
 	@Override
@@ -51,27 +50,27 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	// change to adding spawn/waves
-	@Override
-	public void createAddComponentButton() {
-		Button addComponentButton = new Button("Add Component");
-		addComponentButton.setFont(new Font(20));
-		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
-		GridPane.setColumnSpan(addComponentButton, 2);
-
-		addComponentButton.setOnAction(e -> {
-			EntityComponentSelector selector = new EntityComponentSelector();
-			selector.initialize();
-			Map<String, Control> newComponents = selector.selectComponents(myInputMap);
-			for (String key : newComponents.keySet()) {
-				if (!myAttributes.contains(key)) {
-					myAttributes.add(key);
-					myAttributesMap.put(key, null);
-					myInputMap.put(key, newComponents.get(key));
-					refreshInputRows();
-				}
-			}
-		});
-	}
+//	@Override
+//	public void createAddComponentButton() {
+//		Button addComponentButton = new Button("Add Component");
+//		addComponentButton.setFont(new Font(20));
+//		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
+//		GridPane.setColumnSpan(addComponentButton, 2);
+//
+//		addComponentButton.setOnAction(e -> {
+//			EntityComponentSelector selector = new EntityComponentSelector();
+//			selector.initialize();
+//			Map<String, Control> newComponents = selector.selectComponents(myInputMap);
+//			for (String key : newComponents.keySet()) {
+//				if (!myAttributes.contains(key)) {
+//					myAttributes.add(key);
+//					myAttributesMap.put(key, null);
+//					myInputMap.put(key, newComponents.get(key));
+//					refreshInputRows();
+//				}
+//			}
+//		});
+//	}
 
 	@SuppressWarnings("unchecked")
 	public Map<String, String> saveAttributes() {

@@ -27,7 +27,7 @@ public class EntityEditorGrid extends EditorGrid {
 
 	@Override
 	protected void initializeGridFactory() {
-		myGridFactory = new EntityEditorGridFactory(myController);
+		myGridFactory = new EntityEditorGridFactory(myController, this);
 
 	}
 
