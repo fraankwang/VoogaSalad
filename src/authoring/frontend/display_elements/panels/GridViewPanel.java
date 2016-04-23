@@ -2,6 +2,8 @@ package authoring.frontend.display_elements.panels;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -98,8 +100,8 @@ public class GridViewPanel extends Panel {
 		VBox vbox = new VBox();
 		myGridPane.setGridLinesVisible(true);
 		myAddNewButton.setOnAction(e -> {
-			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getDefaultAttributesMap()); // get
-																									// data
+			Map<String, String> defaultAttributesMap = ((TabDisplay) myTabDisplay).getDefaultAttributesMap();
+			myTabDisplay.openEditorDisplay(defaultAttributesMap); 
 		});
 
 		myScrollPane.setContent(myGridPane);
@@ -121,7 +123,7 @@ public class GridViewPanel extends Panel {
 					myCurrImage = iv;
 					return;
 				}
-				iv.setOpacity(0.5);
+				iv.setOpacity(0.2);
 			}
 		});
 		myImages.add(iv);

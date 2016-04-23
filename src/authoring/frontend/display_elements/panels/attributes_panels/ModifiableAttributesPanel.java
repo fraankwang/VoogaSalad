@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-
-import authoring.frontend.editor_features.ComponentSelector;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -65,25 +62,31 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-		myRulesListView = createRulesListView();
-		myRulesPane = new TitledPane("Rules", myRulesListView);
 
+		// myRulesListView = createRulesListView();
+		// myRulesPane = new TitledPane("Rules", myRulesListView);
+
+		myAttributes = new ArrayList<String>();
+		myAttributesMap = new TreeMap<String, String>();
+		myInputMap = new TreeMap<String, Control>();
 		myAttributesGridPane = createAttributesGridPane();
-		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(myAttributesGridPane);
-		myAttributes = new ArrayList<String>();
+
+		assembleEmptyInputRows();
+
 	}
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myScrollPane, 0, 0);
-		myGridPane.add(myRulesPane, 0, 1);
+		// myGridPane.add(myRulesPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
 
+	
 	protected GridPane createAttributesGridPane() {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		List<Integer> columnConstraints = new ArrayList<Integer>();
@@ -91,15 +94,16 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
 		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myAttributesGridPane.setPrefSize(MAX_SIZE, DEFAULT_ATTRIBUTES_HEIGHT);
+		myAttributesGridPane.setPrefSize(ATTRIBUTES_PANEL_WIDTH, DEFAULT_ATTRIBUTES_HEIGHT);
 		return myAttributesGridPane;
 
 	}
 
-	protected void assembleInputRows() {
-		myAttributesMap = new TreeMap<String, String>();
-		myInputMap = new TreeMap<String, Control>();
-
+	
+	/**
+	 * Populates myAttributesMap and myInputMap using given myAttributes.
+	 */
+	protected void assembleEmptyInputRows() {
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
 			Text text = new Text(currentAttribute);
@@ -111,16 +115,27 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			myAttributesGridPane.add(text, 0, i);
 
 		}
-
-		createAddComponentButton();
 	}
 
+	
+	/**
+	 * Assumes myAttributesMap is correctly populated. Iterates through
+	 * myInputMap to replace the input areas for each component (in
+	 * myAttributes) with the existing value in myAttributesMap. After
+	 * myInputMap is updated, this method calls refreshInputRows.
+	 */
+	protected abstract void refreshAttributes();
+
+	
+	/**
+	 * Assumes myAttributes and myInputMap are up to date with all necessary
+	 * components. Clears myAttributesGridPane and re-populates it using
+	 * myAttributes and the mapped Control in myInputMap.
+	 */
 	protected void refreshInputRows() {
-		System.out.println("ModAtrPan: inputMap: " + myInputMap);
-		System.out.println("attr: " + myAttributes);
-		
+
 		myAttributesGridPane.getChildren().clear();
-		
+
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
 			Text text = new Text(currentAttribute);
@@ -130,75 +145,13 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
 		}
 
-		createAddComponentButton();
 	}
 
-	@SuppressWarnings("unchecked")
-	public Map<String, String> saveAttributes() {
-		for (String s : myInputMap.keySet()) {
-			if (myInputMap.get(s) instanceof TextField) {
-				myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
-			} else if (myInputMap.get(s) instanceof ComboBox<?>) {
-				myAttributesMap.replace(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
-			}
-
-		}
-		System.out.println("*****3. ModifiableAttrPanel: myAttributesMap saved by user:");
-		System.out.println(myAttributesMap);
-		return myAttributesMap;
-	}
-
-	public void setAttributes(Map<String, String> info) {
-		myAttributesMap = info;
-		myAttributes.addAll(myAttributesMap.keySet());
-		myInputMap.clear();
-		
-
-	}
-
-	protected void refreshAttributes() {
-		if (myInputMap != null) {
-			for (int i = 0; i < myAttributes.size(); i++) {
-				if (myInputMap.get(myAttributes.get(i)) instanceof TextField) {
-					TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
-					tf.setText(myAttributesMap.get(myAttributes.get(i)));
-					tf.setEditable(true);
-					myInputMap.replace(myAttributes.get(i), tf);
-				} else if (myInputMap.get(myAttributes.get(i)) instanceof ComboBox<?>) {
-					@SuppressWarnings("unchecked")
-					ComboBox<String> cb = (ComboBox<String>) myInputMap.get(myAttributes.get(i));
-					cb.setValue(myAttributesMap.get(myAttributes.get(i)));
-					cb.setEditable(false);
-					myInputMap.replace(myAttributes.get(i), cb);
-				}
-
-			}
-
-		}
-		refreshInputRows();
-	}
-
-	public void createAddComponentButton() {
-		Button addComponentButton = new Button("Add Component");
-		addComponentButton.setFont(new Font(20));
-		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
-		GridPane.setColumnSpan(addComponentButton, 2);
-
-		addComponentButton.setOnAction(e -> {
-			ComponentSelector selector = new ComponentSelector();
-			selector.initialize();
-			Map<String, Control> newComponents = selector.openSelector(myInputMap);
-			for (String key : newComponents.keySet()) {
-				if (!myAttributes.contains(key)) {
-					myAttributes.add(key);
-					myAttributesMap.put(key, null);
-					myInputMap.put(key, newComponents.get(key));
-					refreshInputRows();
-				}
-			}
-		});
-	}
-
+	/**
+	 * Creates confirmation before allowing user to reset all input values.
+	 * 
+	 * @return
+	 */
 	public boolean createResetAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Reset Confirmation");
@@ -219,19 +172,53 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		return false;
 	}
 
+	/**
+	 * Iterates through and parses every input Control in myInputMap to clear
+	 * the input area.
+	 */
 	public void resetAttributes() {
 		for (String s : myInputMap.keySet()) {
 			Control input = myInputMap.get(s);
 			if (input instanceof TextField) {
-				TextField inputArea = (TextField) myInputMap.get(s);
-				inputArea.clear();
+				TextField tf = (TextField) input;
+				tf.clear();
 			}
+
 			if (input instanceof ComboBox<?>) {
 				@SuppressWarnings("unchecked")
-				ComboBox<String> inputArea = (ComboBox<String>) myInputMap.get(s);
-				inputArea.getSelectionModel().clearSelection();
+				ComboBox<String> cb = (ComboBox<String>) input;
+				cb.getSelectionModel().clearSelection();
 			}
 		}
+	}
+
+	/**
+	 * Iterates through everything in myInputMap to parse the type of Control
+	 * and to replace the corresponding attribute value in myAttributesMap with
+	 * the user input. Type is specified by subclasses and placed in
+	 * myAttributesMap as well.
+	 * 
+	 * @return Map of fully populated attributes entered by user, along with
+	 *         Type.
+	 */
+	public abstract Map<String, String> saveAttributes();
+
+	/**
+	 * Populates myAttributesMap and myAttributes from updated backend in @param
+	 * info. myInputMap is cleared and repopulated in the subclasses' extensions
+	 * of this method.
+	 * 
+	 * @param info
+	 */
+	public void setAttributes(Map<String, String> info) {
+		myAttributesMap = info;
+		myAttributes.clear();
+		myAttributes.addAll(myAttributesMap.keySet());
+		System.out.println(
+				"*****3. ModifiableAttrPanel: myAttributesMap set with given unmodifiableattributespanel outputs:");
+		System.out.println(myAttributesMap);
+		myInputMap.clear();
+
 	}
 
 	protected ListView<String> createRulesListView() {

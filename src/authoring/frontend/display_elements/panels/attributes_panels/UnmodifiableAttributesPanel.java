@@ -82,25 +82,11 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	}
 
 	/**
-	 * Creates Button that opens myTabDisplay. TabDisplay's openEditorDisplay
-	 * method must take in relevant data for whatever is being displayed in the
-	 * editor.
-	 * 
-	 * @return
-	 */
-	protected Button createOpenEditorButton() {
-		Button button = new Button("Open Editor");
-		button.setPrefSize(600, 600);
-		button.setOnAction(e -> myTabDisplay.openEditorDisplay(myAttributesMap));
-		return button;
-	}
-
-	/**
 	 * Publicly accessible method which calls an internally abstracted refresh method.  
 	 * @param updatedInfo
 	 */
 	public void setAttributes(Map<String, String> updatedInfo) {
-		System.out.println("*****5: UnmodifiableAttrPanel: updated output info from updated backend");
+		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
 		refreshDisplay();
@@ -132,6 +118,20 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
 		return myAttributesGridPane;
 
+	}
+
+	/**
+	 * Creates Button that opens myTabDisplay. TabDisplay's openEditorDisplay
+	 * method must take in relevant data for whatever is being displayed in the
+	 * editor.
+	 * 
+	 * @return
+	 */
+	protected Button createOpenEditorButton() {
+		Button button = new Button("Open Editor");
+		button.setPrefSize(600, 600);
+		button.setOnAction(e -> myTabDisplay.openEditorDisplay(myAttributesMap));
+		return button;
 	}
 
 

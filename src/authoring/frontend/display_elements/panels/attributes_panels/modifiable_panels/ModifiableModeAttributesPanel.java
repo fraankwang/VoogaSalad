@@ -44,7 +44,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 
 		myAttributes = (List<String>) Arrays.asList("Easy", "Medium", "Hard", "Invincible");
-		assembleInputRows();
+		assembleEmptyInputRows();
 
 	}
 
@@ -57,7 +57,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	protected void assembleInputRows() {
+	protected void assembleEmptyInputRows() {
 		myInputMap = new HashMap<String, Control>();
 		myAttributesMap = new HashMap<String, String>();
 
