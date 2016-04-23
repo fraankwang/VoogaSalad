@@ -54,7 +54,7 @@ public class EntityView {
 			myY = yLoc;
 			myImageView.setY(myY);
 		}
-		if(!myImageName.equals(image)){
+		if(!myImageName.equals(image) ){
 			myImageName = image;
 			myImageView.setImage(new Image(image));
 		}
