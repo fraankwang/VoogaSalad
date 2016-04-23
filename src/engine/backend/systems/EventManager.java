@@ -84,17 +84,32 @@ public class EventManager implements Observer {
 	
 			List<EntityAction> myActions = checkPossibleIDs(myEvent.getEventID(idents));
 			if (myActions != null) {
-				System.out.println("hit");
+				System.out.println("HIT KICK RAGHAV");
 				Collection<Integer> myEntitiesIDs = myEntityEvent.getEntities();
-				Collection<IEntity> myEntities = myEntitiesIDs.stream()
-															  .map(e -> myCurrentLevel.getEntities().get(e);))
-															  .collect(Collectors.toCollection()));
-				myActions.forEach(a -> {
-					myEntities.stream()
-							  .filter(e -> a.getEntityName().equals(e.getName()))
-							  .forEach(e -> e.applyAction(a, myComponentTagResources));
-				});
+				Collection<IEntity> myEntities = new ArrayList<IEntity>();
+				for (Integer i : myEntitiesIDs) {
+					myEntities.add(myCurrentLevel.getEntityWithID(i));
+				}
+				for (EntityAction a : myActions) {
+					for (IEntity e: myEntities) {
+						if (a.getEntityName().equals(e.getName())) {
+							e.applyAction(a, myComponentTagResources);
+						}
+					}
+				}
 			}
+//			if (myActions != null) {
+//				System.out.println("hit");
+//				Collection<Integer> myEntitiesIDs = myEntityEvent.getEntities();
+//				Collection<IEntity> myEntities = myEntitiesIDs.stream()
+//															  .map(e -> myCurrentLevel.getEntities().get(e);))
+//															  .collect(Collectors.toCollection()));
+//				myActions.forEach(a -> {
+//					myEntities.stream()
+//							  .filter(e -> a.getEntityName().equals(e.getName()))
+//							  .forEach(e -> e.applyAction(a, myComponentTagResources));
+//				});
+//			}
 		}
 	}
 

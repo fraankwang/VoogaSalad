@@ -143,7 +143,7 @@ public class Entity implements IEntity {
 
 		String fullName = myComponentTagResources.getString(component);
 		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
-
+		System.out.println(componentClass.getName());
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 			componentClassInstance = componentClass.cast(myComponents.get(fullName));

@@ -93,8 +93,8 @@ public class testingClass {
 		GameWorld firingTest = new GameWorld();
 		Mode mode = new Mode("test firing");
 		Level level = new Level(0);
-		EntityAction action = new EntityAction("tempEntity", "Display", "canBeShown", "false");
-		EntityAction action2 = new EntityAction("tempEntity", "Display", "canBeShown", "false");
+		EntityAction action = new EntityAction("tempEntity", "Display", "CanBeShown", "false");
+		EntityAction action2 = new EntityAction("tempEntity", "Display", "CanBeShown", "false");
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action); 
 		myActions.add(action2);
