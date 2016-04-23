@@ -1,7 +1,8 @@
 package engine.controller;
 
-import java.awt.List;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import engine.backend.game_object.Mode;
 import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
+import engine.backend.rules.EntityAction;
 
 public class testingClass {
 	
@@ -91,6 +93,12 @@ public class testingClass {
 		GameWorld firingTest = new GameWorld();
 		Mode mode = new Mode("test firing");
 		Level level = new Level(0);
+		EntityAction action = new EntityAction("tempEntity", "Display", "canBeShown", "false");
+		EntityAction action2 = new EntityAction("tempEntity", "Display", "canBeShown", "false");
+		List<EntityAction> myActions = new ArrayList<EntityAction>();
+		myActions.add(action); 
+		myActions.add(action2);
+		level.addActionToEventMap("SimpleBullettempEntityCollisionEvent", myActions);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
 		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
@@ -102,7 +110,7 @@ public class testingClass {
 		GameMap tempMap = new GameMap("", tempPath, 200, 200);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
-		IComponent tempPosition = new PositionComponent(0, 60);
+		IComponent tempPosition = new PositionComponent(0, 100);
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
@@ -116,14 +124,18 @@ public class testingClass {
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
-		Vector myBulletVector = new Vector(-1,0);
-		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
-		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector);
+		IComponent tempCollision2 = new CollisionComponent();
+		Vector myBulletVector = new Vector(0,1222);
+		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
+		IComponent tempSize3 = new SizeComponent();
+		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 15, 
+				500, myBulletVector, 1);
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
+		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
-		mySimpleBullet.addComponent(new MovementComponent(-5, 0));
+		mySimpleBullet.addComponent(new MovementComponent(10, 0));
 		mySimpleBullet.addComponent(tempDisplay3);
+		mySimpleBullet.addComponent(tempSize3);
 		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
 		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
 		createdAmmunition.put("SimpleBullet", mySimpleBullet);

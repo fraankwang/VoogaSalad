@@ -22,12 +22,13 @@ public class FiringComponent extends Component implements IComponent{
 	private boolean fireNow;
 	
 	public FiringComponent(String myAmmunition, int myAmmunitionAmount, double myAmmunitionSpeed, 
-			double myEnemyInSightRange, Vector myDirectionToFire){
+			double myEnemyInSightRange, Vector myDirectionToFire, double myFiringRate){
 		this.myAmmunition = myAmmunition;
 		this.myAmmunitionAmount = myAmmunitionAmount;
 		this.myAmmunitionSpeed = myAmmunitionSpeed;
 		this.myEnemyInSightRange = myEnemyInSightRange;
 		this.myDirectionToFire = myDirectionToFire;
+		this.myFiringRate = myFiringRate;
 	}
 	
 	public FiringComponent(FiringComponent component) {
@@ -36,6 +37,8 @@ public class FiringComponent extends Component implements IComponent{
 		this.myAmmunitionSpeed = component.getAmmunitionSpeed();
 		this.myEnemyInSightRange = component.getEnemyInSightRange();
 		this.myDirectionToFire = component.getDirectionToFire();
+		this.myFiringRate = component.getFiringRate();
+		this.timer = component.getTimer();
 	}
 	
 	public String getAmmunition() {

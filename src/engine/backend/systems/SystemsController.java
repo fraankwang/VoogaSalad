@@ -83,13 +83,13 @@ public class SystemsController {
 		for (ISystem system : mySystems) {
 			long startTime = System.currentTimeMillis();
 			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
+			//System.out.println("hi" + system.getClass().getName());
 			long endTime   = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
 			//System.out.println(myGameClock.getCurrentSecond());
 			//System.out.println(system.getClass().getSimpleName() + ": " + totalTime);
 		}
-		
-		System.out.println(myEventManager.getCurrentLevel().getEntities().size());
+		//System.out.println(myEventManager.getCurrentLevel().getEntities().size());
 		myGameClock.updateLoopIteration();
 	}
 

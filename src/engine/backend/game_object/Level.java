@@ -20,6 +20,7 @@ import engine.backend.rules.EntityAction;
 public class Level {
 	private List<IEntity> authoredEntities;
 	private Map<Integer, IEntity> entities;
+	private Map<String, List<EntityAction>> myEventMap;
 	private int myID;
 	private String myParentModeName;
 	private GameMap map;
@@ -34,6 +35,7 @@ public class Level {
 		this.authoredEntities = new ArrayList<IEntity>();
 		this.entities = new HashMap<Integer, IEntity>();
 		this.myID = myID;
+		this.myEventMap = new HashMap<String, List<EntityAction>>();
 	}
 
 	/**
@@ -42,6 +44,10 @@ public class Level {
 	 */
 	public int getId() {
 		return myID;
+	}
+	
+	public void addActionToEventMap(String eventID, List<EntityAction> actions) {
+		myEventMap.put(eventID, actions);
 	}
 
 	/**
@@ -150,8 +156,7 @@ public class Level {
 	 * @return A map containing the events that can occur during this level.
 	 */
 	public Map<String, List<EntityAction>> getCustomEvents() {
-		// TODO Auto-generated method stub
-		return null;
+		return myEventMap;
 	}
 
 }

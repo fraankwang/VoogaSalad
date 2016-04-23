@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class EventManager implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(arg.getClass().getName()); 
+		//System.out.println(arg.getClass().getName()); 
 		handleCustomEvent((IEvent) arg);
 	}
 	
@@ -61,7 +62,6 @@ public class EventManager implements Observer {
 	}
 
 	private void handleCustomEvent(IEvent myEvent) {
-		System.out.println(myEvent.getClass().getName());
 		if(myEvent instanceof UpdateEntityEvent){
 			sendUpdatedEntity((UpdateEntityEvent) myEvent);
 			return;
@@ -73,11 +73,18 @@ public class EventManager implements Observer {
 		
 		if (myEvent instanceof EntityEvent) {
 			EntityEvent myEntityEvent = (EntityEvent) myEvent;
-			List<String> identifiers = myEntityEvent.getEntities().stream()
-													.map(id -> myCurrentLevel.getEntities().get(id).getName())
-													.collect(Collectors.toList());
-			List<EntityAction> myActions = checkPossibleIDs(myEvent.getEventID(identifiers));
+			List<String> idents = new ArrayList<String>();
+			for (Integer i : myEntityEvent.getEntities()) {
+				idents.add(myCurrentLevel.getEntities().get(i.intValue()).getName());
+			}
+			System.out.println(myEntityEvent.getEventID(idents));
+//			List<String> identifiers = (myEntityEvent.getEntities()).stream()
+//													.map(id -> myCurrentLevel.getEntities().get(id).getName())
+//													.collect(Collectors.toList());
+	
+			List<EntityAction> myActions = checkPossibleIDs(myEvent.getEventID(idents));
 			if (myActions != null) {
+				System.out.println("hit");
 				Collection<Integer> myEntitiesIDs = myEntityEvent.getEntities();
 				Collection<IEntity> myEntities = myEntitiesIDs.stream()
 															  .map(e -> myCurrentLevel.getEntities().get(e);))
@@ -92,9 +99,10 @@ public class EventManager implements Observer {
 	}
 
 	private List<EntityAction> checkPossibleIDs(List<String> ids) {
+		System.out.println(myCurrentLevel.getId());
 		for (String id : ids) {
-			if (myCustomEntityEvents.get(id) != null) {
-				return myCustomEntityEvents.get(id);
+			if (myCurrentLevel.getCustomEvents().get(id)!= null) {
+				return myCurrentLevel.getCustomEvents().get(id);
 			}
 		}
 		return null;

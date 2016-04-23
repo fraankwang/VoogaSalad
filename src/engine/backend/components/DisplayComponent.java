@@ -19,6 +19,7 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	public DisplayComponent(DisplayComponent component) {
 		this.canBeShown = component.shouldBeShown();
+		this.image = component.getImage();
 	}
 	
 	/**

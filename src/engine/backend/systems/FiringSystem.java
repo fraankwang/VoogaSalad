@@ -54,6 +54,7 @@ public class FiringSystem extends GameSystem {
 								double xComp = targetPosVector.getX() - shootingPosVector.getX();
 								double yComp = targetPosVector.getY() - shootingPosVector.getY();
 								Vector firedVelVector = new Vector(xComp, yComp);
+								System.out.println("added here.");
 								IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), shootingPosVector,
 										firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory,
 										myComponentTagResources);
@@ -72,9 +73,8 @@ public class FiringSystem extends GameSystem {
 				}
 
 			}
-			sendAddEntityEvent(newEntities);
 		}
-
+		sendAddEntityEvent(newEntities);
 	}
 
 	private boolean targetIsInRange(double range, Vector shootingPosVector, Vector targetPosVector) {
@@ -91,7 +91,7 @@ public class FiringSystem extends GameSystem {
 
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed,
 			InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources) {
-
+		System.out.println("hi.....................");
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
 		PositionComponent firedPosComponent = (PositionComponent) ammoEntity
 				.getComponent(myComponentTagResources.getString("Position"));
@@ -103,7 +103,9 @@ public class FiringSystem extends GameSystem {
 		Vector velVector = new Vector(directionToFire);
 
 		velVector = velVector.normalize();
-		velVector.scale(speed);
+		velVector = velVector.scale(speed);
+		System.out.println(speed);
+		System.out.println(velVector.getX() + "  " + velVector.getY());
 		firedMovComponent.setCurrentVelocityVector(velVector);
 		firedMovComponent.setDefaultVelocityVector(velVector);
 
