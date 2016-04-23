@@ -1,7 +1,5 @@
 package engine.backend.components;
 
-import java.util.List;
-
 /**
  * Created by colinduffy on 4/12/16.
  */
@@ -51,12 +49,12 @@ public class UserInputComponent extends Component implements IComponent {
 
 
     @Override
-    public void initWithParams(List params) {
-
+    public String getTag(){
+        return "UserInput";
     }
 
     @Override
-    public String getTag(){
-        return "UserInput";
+    public void initWithParams(String[] params) {
+
     }
 }
