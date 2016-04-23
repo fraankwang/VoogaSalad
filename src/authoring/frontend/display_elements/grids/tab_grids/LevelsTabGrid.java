@@ -2,7 +2,6 @@ package authoring.frontend.display_elements.grids.tab_grids;
 
 import java.util.List;
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.LevelsTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
@@ -47,17 +46,18 @@ public class LevelsTabGrid extends TabGrid {
 	public void setAttributesPanel(Map<String, String> info) {
 		myUnmodifiableAttributesPanel.setAttributes(info);
 	}
-	
+
 	public void update(List<Map<String, String>> data) {
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
-		
+
 		for (Map<String, String> info : data) {
 			ImageView iv = new ImageView("tower_defense_map_1.png");
-			//ImageView iv = new ImageView(info.get("map image name"));
+			// ImageView iv = new ImageView(info.get("map image name"));
 			info.remove("Type");
 			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
-				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+						Boolean newValue) {
 					if (newValue) {
 						setAttributesPanel(info);
 					}

@@ -5,6 +5,7 @@ import java.util.Map;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.editor_features.EntityComponentSelector;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -38,7 +39,9 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	 */
 	private void createAddComponentButton() {
 		Button addComponentButton = new Button("Add Component");
+		addComponentButton.setPrefWidth(MAX_SIZE);
 		addComponentButton.setFont(new Font(20));
+		addComponentButton.setAlignment(Pos.BASELINE_LEFT);
 		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
 		GridPane.setColumnSpan(addComponentButton, 2);
 

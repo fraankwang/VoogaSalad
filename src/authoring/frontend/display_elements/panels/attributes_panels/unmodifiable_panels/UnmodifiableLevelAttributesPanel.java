@@ -2,11 +2,8 @@ package authoring.frontend.display_elements.panels.attributes_panels.unmodifiabl
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -94,15 +91,13 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		myAttributesMap.put("Delay Between Waves", "");
 		myAttributesMap.put("Timer", "");
 
-
 		return lv;
 	}
 
 	@Override
 	protected void refreshDisplay() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }

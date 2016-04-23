@@ -31,10 +31,4 @@ public class EntityEditorGrid extends EditorGrid {
 
 	}
 
-	@Override
-	protected void assembleGridComponents() {
-		super.assembleGridComponents();
-
-	}
-
 }

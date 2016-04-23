@@ -1,7 +1,7 @@
 package authoring.frontend.display_elements.grid_factories;
 
 import authoring.frontend.IAuthoringView;
-import authoring.frontend.display_elements.panels.Panel;
+import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 
 /**
@@ -22,7 +22,7 @@ public abstract class EditorGridFactory extends GridFactory {
 	/**
 	 * @return instantiated and formatted myRulesPanel
 	 */
-	public abstract Panel createRulesPanel();
+	public abstract RulesEditorPanel createRulesPanel();
 
 	/**
 	 * @return instantiated and formatted myModifiableAttributesPanel

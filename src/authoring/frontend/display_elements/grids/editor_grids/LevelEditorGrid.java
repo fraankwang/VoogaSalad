@@ -31,10 +31,4 @@ public class LevelEditorGrid extends EditorGrid {
 
 	}
 
-	@Override
-	protected void assembleGridComponents() {
-		super.assembleGridComponents();
-
-	}
-
 }

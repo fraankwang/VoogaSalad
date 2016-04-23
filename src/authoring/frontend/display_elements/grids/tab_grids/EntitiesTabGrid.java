@@ -3,12 +3,11 @@ package authoring.frontend.display_elements.grids.tab_grids;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.EntitiesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
-import authoring.frontend.display_elements.panels.button_dashboards.StandardButtonDashboard;
+import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,7 +31,7 @@ public class EntitiesTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
-	
+
 	public EntitiesTabGrid(IAuthoringView controller, TabDisplay tab) {
 		super(controller, tab);
 	}
@@ -53,25 +52,22 @@ public class EntitiesTabGrid extends TabGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-		
 
-		((StandardButtonDashboard) myButtonDashboard).getDuplicateButton()
-		.setOnAction(e -> duplicate(currentInfo));
-		
-		((StandardButtonDashboard) myButtonDashboard).getDeleteButton()
-		.setOnAction(e -> delete(currentInfo));
+		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
+
+		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo));
 	}
 
 	@Override
 	public void setAttributesPanel(Map<String, String> info) {
 		myUnmodifiableAttributesPanel.setAttributes(info);
 	}
-	
+
 	public void update(List<Map<String, String>> data, String genre) {
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
-		
-		for (Map<String, String> info: data) {
+
+		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
 				info.remove("Type");
 				ImageView iv = new ImageView(info.get("DisplayComponent_Image"));
@@ -88,18 +84,18 @@ public class EntitiesTabGrid extends TabGrid {
 			}
 		}
 	}
-	
+
 	private void duplicate(Map<String, String> info) {
 		Map<String, String> duplicateEntity = new TreeMap<String, String>();
 		for (String s : info.keySet()) {
 			duplicateEntity.put(s, info.get(s));
 		}
-		
+
 		String newName = promptNewName();
 		duplicateEntity.replace("Name", newName);
 		myTabDisplay.openEditorDisplay(duplicateEntity);
 	}
-	
+
 	private String promptNewName() {
 		Stage promptStage = new Stage();
 		VBox promptBox = new VBox();
@@ -118,7 +114,7 @@ public class EntitiesTabGrid extends TabGrid {
 			newName = textBox.getText();
 			promptStage.close();
 		});
-		
+
 		saveButton.setOnAction(e -> {
 			newName = textBox.getText();
 			promptStage.close();
@@ -130,11 +126,11 @@ public class EntitiesTabGrid extends TabGrid {
 		promptStage.showAndWait();
 		return newName;
 	}
-	
+
 	private void delete(Map<String, String> info) {
-		//TODO
+		// TODO
 		System.out.println("deleted " + info.get("Name"));
 		return;
 	}
-	
+
 }

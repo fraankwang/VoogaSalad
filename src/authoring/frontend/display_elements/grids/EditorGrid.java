@@ -1,14 +1,13 @@
 package authoring.frontend.display_elements.grids;
 
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
+import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
-import authoring.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
+import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -24,7 +23,7 @@ import javafx.stage.Stage;
 
 public abstract class EditorGrid extends Grid {
 
-	protected Panel myRulesPanel;
+	protected RulesEditorPanel myRulesPanel;
 	protected ModifiableAttributesPanel myModifiableAttributesPanel;
 	protected Stage myEditorStage;
 
@@ -50,10 +49,10 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
-		((ButtonDashboard) myButtonDashboard).getSaveButton()
+		((EditorButtonDashboard) myButtonDashboard).getSaveButton()
 				.setOnAction(e -> sendData(((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
 
-		((SimpleButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
+		((EditorButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
 
 	}
 
@@ -87,11 +86,10 @@ public abstract class EditorGrid extends Grid {
 	}
 
 	public void setAttributesPanel(Map<String, String> info) {
-		myModifiableAttributesPanel.setAttributes(info);
+		((ModifiableAttributesPanel) myModifiableAttributesPanel).setAttributes(info);
 		if (info.get("DisplayComponent_Image") == null) {
 			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("question_mark.png"));
-		}
-		else {
+		} else {
 			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
 		}
 	}

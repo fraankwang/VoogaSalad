@@ -77,6 +77,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(myAttributesGridPane);
+		myScrollPane.setFitToWidth(false);
 
 		assembleEmptyInputRows();
 
@@ -225,7 +226,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	 */
 	public void setAttributes(Map<String, String> info) {
 		myAttributesMap = info;
-		myAttributes.clear();
+		myAttributes = new ArrayList<String>();
 		myAttributes.addAll(myAttributesMap.keySet());
 		System.out.println(
 				"*****3. ModifiableAttrPanel: myAttributesMap set with given unmodifiableattributespanel outputs:");
