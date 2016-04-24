@@ -3,13 +3,11 @@ package authoring.frontend.display_elements.grids;
 import java.util.Map;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
-import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -91,11 +89,7 @@ public abstract class EditorGrid extends Grid {
 
 	public void setAttributesPanel(Map<String, String> info) {
 		((ModifiableAttributesPanel) myModifiableAttributesPanel).setAttributes(info);
-		if (info.get("DisplayComponent_Image") == null) {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("question_mark.png"));
-		} else {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
-		}
+
 	}
 
 	@Override

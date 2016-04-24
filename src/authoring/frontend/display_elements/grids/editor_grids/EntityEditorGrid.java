@@ -1,14 +1,18 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
+import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.EntityEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
+import authoring.frontend.display_elements.panels.EditorViewPanel;
+import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
 
 /**
  * 
@@ -36,6 +40,16 @@ public class EntityEditorGrid extends EditorGrid {
 
 	}
 
+	@Override
+	public void setAttributesPanel(Map<String, String> info) {
+		super.setAttributesPanel(info);
+		if (info.get("DisplayComponent_Image") == null) {
+			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("question_mark.png"));
+		} else {
+			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
+		}
+	}
+	
 	@Override
 	public void initializeHotKeys() {
 		super.initializeHotKeys();
