@@ -27,7 +27,7 @@ public class LevelEditorGrid extends EditorGrid {
 
 	@Override
 	protected void initializeGridFactory() {
-		myGridFactory = new LevelEditorGridFactory(myController);
+		myGridFactory = new LevelEditorGridFactory(myController, this);
 
 	}
 
