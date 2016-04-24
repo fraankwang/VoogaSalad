@@ -45,4 +45,9 @@ public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void updateImageComponent(String image) {
+		//update
+	}
 }

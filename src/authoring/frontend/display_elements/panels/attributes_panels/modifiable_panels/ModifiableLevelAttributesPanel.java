@@ -1,15 +1,17 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import javafx.scene.control.Button;
+//import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
+//import javafx.scene.layout.GridPane;
+//import javafx.scene.text.Font;
 
 /**
  * 
@@ -24,28 +26,27 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	protected void initializeComponents() {
-		super.initializeComponents();
-		assembleEmptyInputRows();
-
-	}
-
-	@Override
-	protected void assembleComponents() {
-		super.assembleComponents();
-
+	public void updateImageComponent(String image)  {
+		myAttributesMap.replace("MapBackgroundImage", image);
+		TextField tf = (TextField) myInputMap.get("MapBackgroundImage");
+		tf.setText(image);
+		tf.setEditable(false);
+		myInputMap.replace("MapBackgroundImage", tf);
+		refreshInputRows();
 	}
 
 	@Override
 	public void setAttributes(Map<String, String> info) {
 		super.setAttributes(info);
 		myInputMap = new TreeMap<String, Control>();
-		TextField tf = new TextField();
-		myInputMap.put("Waves", tf);
-		TextField tf2 = new TextField();
-		myInputMap.put("Delay Between Waves", tf2);
-		TextField tf3 = new TextField();
-		myInputMap.put("Timer", tf3);
+		List<String> levelAttributes = (List<String>) Arrays.asList("LevelTimer", "MapHeight", "MapBackgroundImage", "MapWidth", "Name", "WaveDelayTimer");
+
+		for (String attribute : levelAttributes) {
+			TextField tf = new TextField();
+			myInputMap.put(attribute, tf);
+			
+		}
+
 		refreshAttributes();
 	}
 
@@ -87,10 +88,6 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
-
-		if (!myAttributesMap.containsKey("DisplayComponent_Image") && !myAttributesMap.containsKey("Genre")) {
-			System.out.println("Missing required components");
-		}
 
 		return myAttributesMap;
 	}

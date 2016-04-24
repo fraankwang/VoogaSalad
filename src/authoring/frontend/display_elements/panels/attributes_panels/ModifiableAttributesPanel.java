@@ -114,7 +114,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			Text text = new Text(currentAttribute);
 			text.setFont(new Font(FONT_SIZE));
 			TextField tf = new TextField();
-			tf.setEditable(false);
+			tf.setEditable(true);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
 			myAttributesGridPane.add(text, 0, i);
@@ -152,14 +152,13 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	}
 
-	public void updateImageComponent(String image) {
-		myAttributesMap.replace("DisplayComponent_Image", image);
-		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
-		tf.setText(image);
-		tf.setEditable(false);
-		myInputMap.replace("DisplayComponent_Image", tf);
-		refreshInputRows();
-	}
+	
+	/**
+	 * Update image display based on attribute image name.
+	 * @param image
+	 */
+	public abstract void updateImageComponent(String image);
+	
 	
 	/**
 	 * Creates confirmation before allowing user to reset all input values.

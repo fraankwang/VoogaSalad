@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
@@ -75,7 +77,8 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 	}
 
 	@Override
-	protected void assembleEmptyOutputRows() {
+
+	protected void initializeMaps() {
 		myOutputMap = new HashMap<String, Control>();
 		myAttributesMap = new HashMap<String, String>();
 
@@ -84,11 +87,24 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 		TextField tf = new TextField();
 		tf.setEditable(false);
 
-		myAttributesMap.put("Mode", tf.getText());
 		myOutputMap.put("Mode", tf);
+		myAttributesMap.put("Mode", tf.getText());
 		
-		myAttributesGridPane.add(text, 0, 0);
-		myAttributesGridPane.add(myOutputMap.get("Mode"), 1, 0);
+	}
+
+	@Override
+	protected GridPane assembleEmptyOutputRows(GridPane gridPane, List<String> attributes,
+			Map<String, Control> outputMap) {
+		myOutputMap = new HashMap<String, Control>();
+		myAttributesMap = new HashMap<String, String>();
+
+		Text text = new Text("Mode");
+		text.setFont(new Font(FONT_SIZE));
+		
+		gridPane.add(text, 0, 0);
+		gridPane.add(outputMap.get("Mode"), 1, 0);
+		
+		return gridPane;
 
 	}
 
@@ -118,14 +134,14 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 		TextField tf = (TextField) myOutputMap.get("Mode");
 		tf.setText(myAttributesMap.get("Mode"));
 		tf.setEditable(false);
-		
+
 		myOutputMap.replace("Mode", tf);
-		
+
 		refreshRows();
 		myGridPane.getChildren().clear();
 		assembleComponents();
 	}
-	
+
 	@Override
 	protected void refreshRows() {
 		Text text = new Text("Mode");

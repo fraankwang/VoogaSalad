@@ -5,11 +5,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
@@ -24,6 +27,7 @@ import javafx.scene.text.Text;
 public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 	private static final int MODE_DESCRIPTION_HEIGHT = 15;
+
 	public ModifiableModeAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
 	}
@@ -69,20 +73,27 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			cb.getItems().add(myAttributes.get(i));
-			// TODO: set on action to autofill some rules based on which mode they pick
+			// TODO: set on action to autofill some rules based on which mode
+			// they pick
 		}
 		cb.getItems().add("Custom");
-			//Custom option does not autofill any rules
 		
 		Text text = new Text("Mode");
 		text.setFont(new Font(FONT_SIZE));
 
-		myAttributesMap.put("Mode", "null");
+		myAttributesMap.put("Mode", "");
 		myInputMap.put("Mode", cb);
+		
 		myAttributesGridPane.add(text, 0, 0);
-		myAttributesGridPane.add(cb, 1, 0);
+		myAttributesGridPane.add(myInputMap.get("Mode"), 1, 0);
 	}
 
+	@Override
+	public void setAttributes(Map<String, String> info) {
+		myAttributesMap = info;
+		refreshAttributes();
+	}
+	
 	@Override // change to make refresh combo boxes instead
 	@SuppressWarnings("unchecked")
 	protected void refreshAttributes() {
@@ -90,18 +101,33 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 			String selectedMode = myAttributesMap.get("Mode");
 			ComboBox<String> cb = (ComboBox<String>) myInputMap.get("Mode");
 			cb.getSelectionModel().select(selectedMode);
+			myInputMap.replace("Mode", cb);
 		}
 
+			refreshInputRows();
 	}
 
+	@Override
+	protected void refreshInputRows() {
+		myAttributesGridPane.getChildren().clear();
+		
+		Text text = new Text("Mode");
+		text.setFont(new Font(FONT_SIZE));
+		
+		myAttributesGridPane.add(text, 0, 0);
+		myAttributesGridPane.add(myInputMap.get("Mode"), 1, 0);
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, String> saveAttributes() {
-		myAttributesMap = new HashMap<String, String>();
-		myAttributesMap.put("Mode", ((ComboBox<String>) myInputMap.get("Mode")).getSelectionModel().getSelectedItem());
 		myAttributesMap.put("Type", "Mode");
-		System.out.println("myAttributesMap saved: ");
+		myAttributesMap.replace("Mode", ((ComboBox<String>) myInputMap.get("Mode")).getSelectionModel().getSelectedItem());
+
+		System.out.println("*****4. ModifiableModeAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
+		
 		return myAttributesMap;
 	}
 
@@ -113,6 +139,11 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 			inputArea.getSelectionModel().clearSelection();
 		}
 
+	}
+
+	@Override
+	public void updateImageComponent(String image) {
+		// null because no image component?
 	}
 
 }

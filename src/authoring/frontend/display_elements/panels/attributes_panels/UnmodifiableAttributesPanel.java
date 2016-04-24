@@ -44,11 +44,48 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	}
 
 	/**
+	 * This abstract method differs by Unmodifiable attribute display set up and
+	 * the exact attributes displayed.
+	 */
+	protected abstract void initializeComponents();
+
+	/**
+	 * This abstract method differs by which components are necessary to be
+	 * shown, as higher level game aspects may not have as much customisability.
+	 */
+	protected abstract void assembleComponents();
+
+	/**
+	 * Creates new GridPane based on column constraints and populates the cells
+	 * with the attribute name in the left column and a blank TextField in the
+	 * right. The TextFields are mapped to the attributes in myOutputMap, while
+	 * the attributes' values are set to blank in myAttributesMap.
+	 * 
+	 * @param attributes
+	 * @return
+	 */
+	protected GridPane createAttributesGridPane(List<String> attributes) {
+		List<Integer> rowConstraints = new ArrayList<Integer>();
+		List<Integer> columnConstraints = new ArrayList<Integer>();
+		columnConstraints.add(COLUMN_1_PERCENTAGE);
+		columnConstraints.add(COLUMN_2_PERCENTAGE);
+
+		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
+		myAttributes = attributes;
+		initializeMaps();
+		myAttributesGridPane = assembleEmptyOutputRows(myAttributesGridPane, myAttributes, myOutputMap);
+
+		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		return myAttributesGridPane;
+
+	}
+
+	/**
 	 * Creates initial display scaffolding for attribute information with
 	 * default Text/TextField objects to be populated by a predefined list of
 	 * attributes.
 	 */
-	protected void assembleEmptyOutputRows() {
+	protected void initializeMaps() {
 		myOutputMap = new HashMap<String, Control>();
 		myAttributesMap = new HashMap<String, String>();
 
@@ -59,12 +96,24 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 			TextField tf = new TextField();
 			tf.setEditable(false);
 
-			myAttributesMap.put(currentAttribute, tf.getText());
 			myOutputMap.put(currentAttribute, tf);
-			myAttributesGridPane.add(text, 0, i);
-			myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
+			myAttributesMap.put(currentAttribute, tf.getText());
 
 		}
+
+	}
+
+	protected GridPane assembleEmptyOutputRows(GridPane gridPane, List<String> attributes,
+			Map<String, Control> outputMap) {
+		for (int i = 0; i < attributes.size(); i++) {
+			String currentAttribute = attributes.get(i);
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			gridPane.add(text, 0, i);
+			gridPane.add(outputMap.get(currentAttribute), 1, i);
+		}
+
+		return gridPane;
 	}
 
 	/**
@@ -105,21 +154,6 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	public Map<String, String> getAttributesMap() {
 		System.out.println("UnmodifiableAttrPanel: got attributes used to populate editor");
 		return myAttributesMap;
-	}
-
-	protected GridPane createAttributesGridPane(List<String> attributes) {
-		List<Integer> rowConstraints = new ArrayList<Integer>();
-		List<Integer> columnConstraints = new ArrayList<Integer>();
-		columnConstraints.add(COLUMN_1_PERCENTAGE);
-		columnConstraints.add(COLUMN_2_PERCENTAGE);
-
-		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myAttributes = attributes;
-		assembleEmptyOutputRows();
-
-		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-		return myAttributesGridPane;
-
 	}
 
 	/**

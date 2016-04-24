@@ -62,13 +62,22 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
+	public void updateImageComponent(String image)  {
+		myAttributesMap.replace("DisplayComponent_Image", image);
+		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
+		tf.setText(image);
+		tf.setEditable(false);
+		myInputMap.replace("DisplayComponent_Image", tf);
+		refreshInputRows();
+	}
+
+	
+	@Override
 	public void setAttributes(Map<String, String> info) {
 		super.setAttributes(info);
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
-		System.out.println(myInputMap);
-		System.out.println(myAttributes);
-		myInputMap = selector.setComponents(myInputMap, myAttributes);
+		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
 		refreshAttributes();
 
 	}
@@ -89,9 +98,6 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
-		if (!myAttributesMap.containsKey("DisplayComponent_Image") && !myAttributesMap.containsKey("Genre")) {
-			System.out.println("Missing required components");
-		}
 		return myAttributesMap;
 	}
 

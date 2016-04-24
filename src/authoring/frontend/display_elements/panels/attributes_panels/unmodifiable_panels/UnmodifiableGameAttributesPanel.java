@@ -37,7 +37,9 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 
-		myAttributesGridPane = createAttributesGridPane();
+		List<String> gameAttributes = (List<String>) Arrays.asList("Game Type", "Number of Players", "Number of Starting Lives",
+				"Number of Lives for Defeat", "Game Timer", "Starting Resources");
+		myAttributesGridPane = createAttributesGridPane(gameAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 
 	}
@@ -51,22 +53,6 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 
 	}
 
-	private GridPane createAttributesGridPane() {
-		List<Integer> rowConstraints = new ArrayList<Integer>();
-		List<Integer> columnConstraints = new ArrayList<Integer>();
-		columnConstraints.add(COLUMN_1_PERCENTAGE);
-		columnConstraints.add(COLUMN_2_PERCENTAGE);
-
-		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myAttributes = (List<String>) Arrays.asList("Game Type", "Number of Players", "Number of Starting Lives",
-				"Number of Lives for Defeat", "Game Timer", "Starting Resources");
-
-		assembleEmptyOutputRows();
-		
-		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-		return myAttributesGridPane;
-
-	}
 
 	@Override
 	protected void refreshDisplay() {
