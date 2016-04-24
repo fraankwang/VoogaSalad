@@ -66,8 +66,9 @@ public class EntityComponentSelector {
 	}
 
 	/**
-	 * Prompt user to select selected components. Upon closing the stage, a populated Map
-	 * <String,Control> is returned with the components that the user selects.
+	 * Prompt user to select selected components. Upon closing the stage, a
+	 * populated Map <String,Control> is returned with the components that the
+	 * user selects.
 	 * 
 	 * @param inputMap
 	 * @return
