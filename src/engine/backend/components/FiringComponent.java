@@ -45,9 +45,13 @@ public class FiringComponent extends Component implements IComponent{
 		this.timer = component.getTimer();
 	}
 	
+	public FiringComponent() {
+		
+	}
+	
 	/**
 	 * 
-	 * @return he string representing the name of the ammunition.
+	 * @return The string representing the name of the ammunition.
 	 */
 	public String getAmmunition() {
 		return myAmmunition;

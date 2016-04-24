@@ -11,6 +11,10 @@ public class HealthComponent extends Component implements IComponent{
 	private double myDamage;
 	private double myCriticalHealth;
 	
+	public HealthComponent() {
+		
+	}
+	
 	public HealthComponent(HealthComponent component) {
 		this.myHealth = component.getHealth();
 		this.myDamage = component.getDamage();
