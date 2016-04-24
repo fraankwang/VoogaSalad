@@ -54,9 +54,7 @@ public class EntitiesTabGrid extends TabGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-
 		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
-
 		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo));
 	
 	}
@@ -137,6 +135,7 @@ public class EntitiesTabGrid extends TabGrid {
 		System.out.println("deleted " + info.get("Name"));
 		return;
 	}
+	
 	
 	public List<String> getEntities() {
 		return myEntities;
