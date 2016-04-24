@@ -74,7 +74,7 @@ public class EntityComponentSelector {
 	 */
 	public Map<String, Control> selectComponents(Map<String, Control> inputMap) {
 		myStage.showAndWait();
-		return addComponent(inputMap, mySelectedComponents);
+		return parseComponents(inputMap, mySelectedComponents);
 
 	}
 
@@ -92,7 +92,7 @@ public class EntityComponentSelector {
 	// "MovementComponent_Velocity",
 	// "MovementComponent_CanMove", "MovementComponent_CanRotate"
 
-	public Map<String, Control> addComponent(Map<String, Control> inputMap, List<String> components) {
+	public Map<String, Control> parseComponents(Map<String, Control> inputMap, List<String> components) {
 		List<String> booleanComboBox = (List<String>) Arrays.asList("true", "false");
 
 		for (String component : components) {
@@ -216,7 +216,7 @@ public class EntityComponentSelector {
 	 * @param attributes
 	 * @return
 	 */
-	public Map<String, Control> setComponents(Map<String, Control> info, List<String> attributes) {
+	public Map<String, Control> getParsedInputMap(Map<String, Control> info, List<String> attributes) {
 		mySelectedComponents.clear();
 		for (String attribute : attributes) {
 			String component = attribute.split("_")[0];
@@ -224,7 +224,7 @@ public class EntityComponentSelector {
 				mySelectedComponents.add(component);
 			}
 		}
-		return addComponent(info, mySelectedComponents);
+		return parseComponents(info, mySelectedComponents);
 	}
 
 	/**
