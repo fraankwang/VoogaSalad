@@ -20,8 +20,6 @@ import engine.controller.IEngineController;
 public class EventManager implements Observer, ISystem{
 
 	private Level myCurrentLevel;
-	ResourceBundle myComponentTagResources;
-	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
 	ModeStatistics currentModeStatistics;
@@ -30,7 +28,6 @@ public class EventManager implements Observer, ISystem{
 	private Map<String, List<EntityAction>> myCustomEntityEvents;
 
 	public EventManager(IEngineController engineController, GameWorld game) {
-		this.myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 		setLevel(game.getLevelWithId(0));
 		myEngineController = engineController;
 		myGameWorld = game;

@@ -9,6 +9,6 @@ import engine.backend.systems.Events.IEvent;
 
 public interface ISystem{
 	
-	public void update(Level myLevel, List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources);
+	public void update(Level myLevel, List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond);
 	
 }

@@ -25,7 +25,7 @@ import engine.backend.systems.Events.IEvent;
 public class CollisionSystem extends GameSystem{
  
     @Override
-    public void update(Level myLevel, List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources){
+    public void update(Level myLevel, List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond){
     	
     	Collection<IEntity> entities = myLevel.getEntities().values();
     	
@@ -41,7 +41,7 @@ public class CollisionSystem extends GameSystem{
         			continue;
         		}
     			
-    			if(checkIntersection(entity1, entity2, myComponentTagResources)){
+    			if(checkIntersection(entity1, entity2)){
     				myEventList.add(getCollisionEvent(entity1.getID(), entity2.getID()));
     			}
     			
@@ -57,7 +57,7 @@ public class CollisionSystem extends GameSystem{
 		return collisionEvent;
 	}
     
-    private boolean checkIntersection(IEntity entity1, IEntity entity2, ResourceBundle myComponentTagResources){
+    private boolean checkIntersection(IEntity entity1, IEntity entity2){
     	PositionComponent positionOne = (PositionComponent) entity1.getComponent(myComponentTagResources.getString("Position"));
     	PositionComponent positionTwo = (PositionComponent) entity2.getComponent(myComponentTagResources.getString("Position"));
     	SizeComponent sizeOne = (SizeComponent) entity1.getComponent(myComponentTagResources.getString("Size"));

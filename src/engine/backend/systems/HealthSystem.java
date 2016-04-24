@@ -26,7 +26,7 @@ import java.util.Observable;
 public class HealthSystem extends GameSystem{
 
 	@Override
-	public void update(Level myLevel,  List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel,  List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond) {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){

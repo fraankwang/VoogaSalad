@@ -36,7 +36,7 @@ public class RenderingSystem extends GameSystem {
 		this.engineController = eController;
 	}
 
-	public void update(Level myLevel,  Map<Integer, IEvent> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel,  Map<Integer, IEvent> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 		// TODO Auto-generated method stub
 
 		Collection<IEntity> entities = myLevel.getEntities().values();

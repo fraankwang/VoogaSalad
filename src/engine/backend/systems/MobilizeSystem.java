@@ -124,6 +124,13 @@ public class MobilizeSystem extends GameSystem{
 		return event;
 	}
 	
+	/**
+	 * 
+	 * This method updates the position of entites that move ON A PATH
+	 * It gets the current bezier curve for an object, and based on it's velocity it gets the new bezier time, 
+	 * and adds the new time to the current time to updates it's position along the curve
+	 * If the entity reaches the end of the curve (bezier time is max), it will generate an EndOfPathEvent
+	 */
 	private IEvent updatePositionOnPath(int entityID, PositionComponent posComponent, MovementComponent movComponent, PathComponent pathComponent, Path path, ResourceBundle myComponentTagResources){
 		
 		double currBezTime = pathComponent.getBezierTime();
