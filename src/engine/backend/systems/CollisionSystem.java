@@ -2,6 +2,7 @@ package engine.backend.systems;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
@@ -16,6 +17,7 @@ import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.CollisionEvent;
 import engine.backend.systems.Events.DeathEvent;
+import engine.backend.systems.Events.IEvent;
 
 /**
  * Created by colinduffy on 4/10/16., raghav kedia
@@ -23,7 +25,7 @@ import engine.backend.systems.Events.DeathEvent;
 public class CollisionSystem extends GameSystem{
  
     @Override
-    public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources){
+    public void update(Level myLevel, List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources){
     	
     	Collection<IEntity> entities = myLevel.getEntities().values();
     	
@@ -40,7 +42,7 @@ public class CollisionSystem extends GameSystem{
         		}
     			
     			if(checkIntersection(entity1, entity2, myComponentTagResources)){
-    				sendCollisionEvent(entity1.getID(), entity2.getID());
+    				myEventList.add(getCollisionEvent(entity1.getID(), entity2.getID()));
     			}
     			
     		}
@@ -49,10 +51,10 @@ public class CollisionSystem extends GameSystem{
     	
     }
     
-	private void sendCollisionEvent(int entityID1, int entityID2){
+	private IEvent getCollisionEvent(int entityID1, int entityID2){
 		System.out.println("Collision Detected!");
 		CollisionEvent collisionEvent = new CollisionEvent(entityID1, entityID2);
-		notifyObservers(collisionEvent);
+		return collisionEvent;
 	}
     
     private boolean checkIntersection(IEntity entity1, IEntity entity2, ResourceBundle myComponentTagResources){

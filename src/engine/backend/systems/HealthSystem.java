@@ -2,6 +2,7 @@ package engine.backend.systems;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import engine.backend.components.HealthComponent;
@@ -10,6 +11,7 @@ import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.CriticalHealthEvent;
 import engine.backend.systems.Events.DeathEvent;
+import engine.backend.systems.Events.IEvent;
 
 import java.util.Observable;
 
@@ -24,7 +26,7 @@ import java.util.Observable;
 public class HealthSystem extends GameSystem{
 
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel,  List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
@@ -32,26 +34,26 @@ public class HealthSystem extends GameSystem{
 				HealthComponent healthComp = (HealthComponent) entity.getComponent(myComponentTagResources.getString("Health"));
 				
 				if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
-					sendCritialHealthEvent(entity.getID());
+					myEventList.add(getCritialHealthEvent(entity.getID()));
 					continue;
 				}
 				
 				if(healthComp.getHealth() <= 0){
-					sendDeathEvent(entity.getID());
+					myEventList.add(getDeathEvent(entity.getID()));
 					continue;
 				}
 			}
 		}
 	}
 	
-	private void sendDeathEvent(int entityID){
+	private IEvent getDeathEvent(int entityID){
 		DeathEvent deathEvent = new DeathEvent(entityID);
-		notifyObservers(deathEvent);
+		return deathEvent;
 	}
 	
-	private void sendCritialHealthEvent(int entityID){
+	private IEvent getCritialHealthEvent(int entityID){
 		CriticalHealthEvent criticalHealthEvent = new CriticalHealthEvent(entityID);
-		notifyObservers(criticalHealthEvent);
+		return criticalHealthEvent;
 	}
 
 

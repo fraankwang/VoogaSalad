@@ -8,6 +8,7 @@ package engine.backend.systems;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import engine.backend.components.DisplayComponent;
@@ -17,6 +18,7 @@ import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
+import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.controller.EngineController;
 
@@ -34,7 +36,7 @@ public class RenderingSystem extends GameSystem {
 		this.engineController = eController;
 	}
 
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel,  Map<Integer, IEvent> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 
 		Collection<IEntity> entities = myLevel.getEntities().values();

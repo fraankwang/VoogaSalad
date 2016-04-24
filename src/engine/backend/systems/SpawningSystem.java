@@ -3,6 +3,7 @@ package engine.backend.systems;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import engine.backend.components.PathComponent;
@@ -13,11 +14,12 @@ import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
+import engine.backend.systems.Events.IEvent;
 
 public class SpawningSystem extends GameSystem{
 
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel,  Map<Integer, IEvent> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		
 		Collection<IEntity> entities = myLevel.getEntities().values();

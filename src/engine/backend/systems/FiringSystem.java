@@ -3,6 +3,8 @@ package engine.backend.systems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import engine.backend.components.FiringComponent;
@@ -13,6 +15,8 @@ import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
+import engine.backend.systems.Events.EntityEvent;
+import engine.backend.systems.Events.IEvent;
 
 /**
  * 
@@ -23,7 +27,7 @@ import engine.backend.systems.Events.AddEntityEvent;
 public class FiringSystem extends GameSystem{
 
 	@Override 
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel,  List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
@@ -50,7 +54,7 @@ public class FiringSystem extends GameSystem{
 								double yComp = targetPosVector.getY() - shootingPosVector.getY();
 								Vector firedVelVector = new Vector(xComp, yComp);
 								
-								IEntity newEntity = initilizeFire(firingComponent.getEntityName(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
+								IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), shootingPosVector, firedVelVector, firingComponent.getAmmunitionSpeed(), myEntityFactory, myComponentTagResources);
 								newEntities.add(newEntity);
 								firingComponent.setFireNow(false);
 								firingComponent.resetTimer();
@@ -67,9 +71,9 @@ public class FiringSystem extends GameSystem{
 				}
 			}
 		
-		sendAddEntityEvent(newEntities);
+		myEventList.add(getAddEntityEvent(newEntities));
 			
-		}
+	}
 	
 	
 	private boolean targetIsInRange(double range, Vector shootingPosVector, Vector targetPosVector){
@@ -78,9 +82,9 @@ public class FiringSystem extends GameSystem{
 		
 	}
 	
-	private void sendAddEntityEvent(Collection<IEntity> newEntities){
+	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
 		AddEntityEvent event = new AddEntityEvent(newEntities);
-		notifyObservers(event);
+		return event;
 	}
 	
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources){

@@ -7,6 +7,7 @@ import java.util.Collection;
  */
 
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import engine.backend.components.DisplayComponent;
@@ -20,6 +21,7 @@ import engine.backend.game_object.Level;
 import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
+import engine.backend.systems.Events.IEvent;
 
 public class MobilizeSystem extends GameSystem{
 	
@@ -28,7 +30,7 @@ public class MobilizeSystem extends GameSystem{
 	}
 	
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, Map<Integer, IEvent> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
@@ -62,6 +64,8 @@ public class MobilizeSystem extends GameSystem{
 		}
 
 	}
+	
+	//need to do end of path event
 	
 	private void updatePathMovement(IEntity entity, GameMap map, ResourceBundle myComponentTagResources){
 		//needs access to path

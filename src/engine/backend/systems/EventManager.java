@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.ModeStatistics;
@@ -16,7 +17,7 @@ import engine.backend.rules.EntityAction;
 import engine.backend.systems.Events.*;
 import engine.controller.IEngineController;
 
-public class EventManager implements Observer {
+public class EventManager implements Observer, ISystem{
 
 	private Level myCurrentLevel;
 	ResourceBundle myComponentTagResources;
@@ -92,6 +93,11 @@ public class EventManager implements Observer {
 			}
 		}
 	}
+	
+	//supposed to handle list of events generated in each loop iteration
+	public void handleGeneratedEvents(List<IEvent> events){
+		
+	}
 
 	private List<EntityAction> checkPossibleIDs(List<String> ids) {
 		for (String id : ids) {
@@ -120,6 +126,13 @@ public class EventManager implements Observer {
 	public GameWorld getGameWorld(){
 		return myGameWorld;
 
+	}
+
+	@Override
+	public void update(Level myLevel, List<IEvent> myEventList, InGameEntityFactory myEntityFactory,
+			double currentSecond, ResourceBundle myComponentTagResources) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
