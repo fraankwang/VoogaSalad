@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
-import engine.backend.rules.Action;
+import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
 
 public class Entity implements IEntity {
@@ -28,6 +28,7 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		this.myID = myID;
+<<<<<<< HEAD
 		this.myComponents = new HashMap<String, IComponent>();
 		this.myRules = new ArrayList<Rule>();
 		this.entityInfo = new HashMap<String, String>();
@@ -42,6 +43,15 @@ public class Entity implements IEntity {
 		this.myRules = new ArrayList<Rule>();
 		this.entityInfo = new HashMap<String, String>();		
 		initializeInfo();
+=======
+		// this.myValue = myValue;
+	}
+
+	public Entity(String myName, String myType, double myValue) {
+		this.myName = myName;
+		this.myType = myType;
+		// this.myValue = myValue;
+>>>>>>> origin
 	}
 	
 	private void initializeInfo() {
@@ -76,12 +86,18 @@ public class Entity implements IEntity {
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
+<<<<<<< HEAD
 	
 	public List<Rule> getRules() {
 		return myRules;
+=======
+
+	public void setID(int myID) {
+		this.myID = myID;
+>>>>>>> origin
 	}
-	
-	public int getID(){
+
+	public int getID() {
 		return myID;
 	}
 
@@ -120,12 +136,12 @@ public class Entity implements IEntity {
 	public void setMyType(String myType) {
 		this.myType = myType;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Entity) {
@@ -138,28 +154,38 @@ public class Entity implements IEntity {
 		} else {
 			return false;
 		}
+<<<<<<< HEAD
+=======
+
 	}
 
 	@Override
-	public void applyAction(Action action, ResourceBundle myComponentTagResources) {
+	public double getValue() {
+		// TODO Auto-generated method stub
+		return 0;
+>>>>>>> origin
+	}
+
+	@Override
+	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources) {
 		String component = action.getComponentToModifiy();
 		String instanceVar = action.getValueInComponent();
 		String newVal = action.getNewValue();
 		Method setMethod;
-		
+
 		String fullName = myComponentTagResources.getString(component);
 		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
-		
+
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 			componentClassInstance = componentClass.cast(myComponents.get(fullName));
-			//put in resource file!!!
+			// put in resource file!!!
 			String methodName = "set" + instanceVar;
-			
+
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
-			
+
 			setMethod.invoke(componentClassInstance, newVal);
-			
+
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,7 +199,7 @@ public class Entity implements IEntity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

@@ -19,11 +19,6 @@ public class CollisionComponent extends Component {
         isCollided = collided;
     }
 
-    @Override
-    public String getTag(){
-        return "Collision";
-    }
-
 	@Override
 	public String getComponentInfo() {
 		return "IsCollided:" + isCollided;
