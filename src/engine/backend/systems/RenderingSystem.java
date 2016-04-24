@@ -51,15 +51,15 @@ public class RenderingSystem extends GameSystem {
 				continue;
 			}
 			for (IComponent eachComponent : myEntity.getComponents()) {
-				if (eachComponent.getTag().equals(myComponentTagResources.getString("Display"))) {
+				if (eachComponent.getTag().equals(displayComponentTag)) {
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
 					show = ((DisplayComponent) eachComponent).shouldBeShown();
 				}
-				if (eachComponent.getTag().equals(myComponentTagResources.getString("Position"))) {
+				if (eachComponent.getTag().equals(positionComponentTag)) {
 					x = ((PositionComponent) eachComponent).getX();
 					y = ((PositionComponent) eachComponent).getY();
 				}
-				if (eachComponent.getTag().equals(myComponentTagResources.getString("Size"))) {
+				if (eachComponent.getTag().equals(sizeComponentTag)) {
 					sizex = ((SizeComponent) eachComponent).getWidth();
 					sizey = ((SizeComponent) eachComponent).getHeight();
 				}

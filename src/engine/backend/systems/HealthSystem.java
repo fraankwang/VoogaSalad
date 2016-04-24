@@ -30,8 +30,8 @@ public class HealthSystem extends GameSystem{
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
-			if(entity.hasComponent(myComponentTagResources.getString("Health"))){
-				HealthComponent healthComp = (HealthComponent) entity.getComponent(myComponentTagResources.getString("Health"));
+			if(entity.hasComponent(healthComponentTag)){
+				HealthComponent healthComp = (HealthComponent) entity.getComponent(healthComponentTag);
 				
 				if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
 					myEventList.add(getCritialHealthEvent(entity.getID()));

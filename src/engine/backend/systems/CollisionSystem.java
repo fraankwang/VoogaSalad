@@ -31,13 +31,13 @@ public class CollisionSystem extends GameSystem{
     	
     	for(IEntity entity1 : entities){
     		
-    		if(!entity1.hasComponent(myComponentTagResources.getString("Collision"))){
+    		if(!entity1.hasComponent(collisionComponentTag)){
     			continue;
     		}
     		
     		for(IEntity entity2 : entities){
     			
-    			if(!entity1.hasComponent(myComponentTagResources.getString("Collision")) || entity2.equals(entity1)){
+    			if(!entity1.hasComponent(collisionComponentTag) || entity2.equals(entity1)){
         			continue;
         		}
     			
@@ -58,10 +58,10 @@ public class CollisionSystem extends GameSystem{
 	}
     
     private boolean checkIntersection(IEntity entity1, IEntity entity2){
-    	PositionComponent positionOne = (PositionComponent) entity1.getComponent(myComponentTagResources.getString("Position"));
-    	PositionComponent positionTwo = (PositionComponent) entity2.getComponent(myComponentTagResources.getString("Position"));
-    	SizeComponent sizeOne = (SizeComponent) entity1.getComponent(myComponentTagResources.getString("Size"));
-    	SizeComponent sizeTwo = (SizeComponent) entity2.getComponent(myComponentTagResources.getString("Size"));
+    	PositionComponent positionOne = (PositionComponent) entity1.getComponent(positionComponentTag);
+    	PositionComponent positionTwo = (PositionComponent) entity2.getComponent(positionComponentTag);
+    	SizeComponent sizeOne = (SizeComponent) entity1.getComponent(sizeComponentTag);
+    	SizeComponent sizeTwo = (SizeComponent) entity2.getComponent(sizeComponentTag);
     	
     	return  positionOne.getX() < positionTwo.getX() + sizeTwo.getWidth() &&
     			positionOne.getX() + sizeOne.getWidth() > positionTwo.getX() &&
