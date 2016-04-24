@@ -58,6 +58,7 @@ public class EntitiesTabGrid extends TabGrid {
 		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
 
 		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo));
+	
 	}
 
 	@Override

@@ -1,11 +1,17 @@
 package authoring.frontend.display_elements.tab_displays;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.TreeMap;
+import authoring.backend.data.ObservableList;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
+import engine.backend.entities.Entity;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,18 +22,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.TreeMap;
-import authoring.backend.data.ObservableList;
-import engine.backend.entities.Entity;
+import authoring.frontend.display_elements.grids.TabGrid;
 
 /**
  * 
@@ -61,10 +59,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public Node getNode() {
 		return myEntitiesTabPane;
 	}
-	
+
 	private void setTabPaneActions() {
 		Tab addNewTypeTab = new Tab("Add New...", null);
-		
+
 		myEntitiesTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab selectedTab) {
@@ -74,31 +72,30 @@ public class EntitiesTabDisplay extends TabDisplay {
 						myEntitiesTabPane.getTabs().remove(addNewTypeTab);
 						createNewTab(newGenre);
 						myEntitiesTabPane.getTabs().add(addNewTypeTab);
-					}
-					else {
+					} else {
 						myEntitiesTabPane.getSelectionModel().select(oldTab);
 					}
 				}
 			}
 		});
-		
+
 		ContextMenu tabContextMenu = new ContextMenu();
 		MenuItem tabMenu = new MenuItem("Change Genre name...");
 		tabMenu.setOnAction(e -> myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName()));
 		tabContextMenu.getItems().add(tabMenu);
 		myEntitiesTabPane.setContextMenu(tabContextMenu);
-		
-//		myEntitiesTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//		    @Override
-//		    public void handle(MouseEvent mouseEvent) {
-//		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-//		            if(mouseEvent.getClickCount() == 2){
-//		                myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName());
-//		            }
-//		        }
-//		    }
-//		});
-		
+
+		// myEntitiesTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		// @Override
+		// public void handle(MouseEvent mouseEvent) {
+		// if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		// if(mouseEvent.getClickCount() == 2){
+		// myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName());
+		// }
+		// }
+		// }
+		// });
+
 		myEntitiesTabPane.getTabs().add(addNewTypeTab);
 	}
 
@@ -114,7 +111,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEntitiesTabPane.getTabs().add(newTab);
 		myEntitiesTabPane.getSelectionModel().select(newTab);
 	}
-	
+
 	private String promptGenreName() {
 		Stage promptStage = new Stage();
 		genreName = "";
@@ -134,7 +131,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 			genreName = textBox.getText();
 			promptStage.close();
 		});
-		
+
 		saveButton.setOnAction(e -> {
 			genreName = textBox.getText();
 			promptStage.close();
@@ -151,36 +148,36 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public String getName() {
 		return "Entities";
 	}
-	
+
 	@Override
 	public void update(Observable o, Object arg) {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
-		
+
 		@SuppressWarnings("unchecked")
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
-		
-		for (Tab t: myEntitiesTabPane.getTabs()) {
+
+		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
 				((EntitiesTabGrid) myGrid).update(data, t.getText());
 			}
 		}
-		//myGrid.setAttributesPanel(data.get(0));
+		// myGrid.setAttributesPanel(data.get(0));
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 	}
-	
+
 	public List<String> getGenres() {
 		List<String> genres = new ArrayList<String>();
 		myEntitiesTabPane.getTabs().forEach(t -> genres.add(t.getText()));
 		genres.remove("Add New...");
 		return genres;
 	}
-	
+
 	public List<String> getEntities() {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
-		
+
 		List<String> entities = new ArrayList<String>();
-		for (Tab t: myEntitiesTabPane.getTabs()) {
+		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
 				entities.addAll(((EntitiesTabGrid) myGrid).getEntities());
@@ -202,5 +199,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 		System.out.println("*****1. EntitiesTabDisplay: got default entities attributes");
 		System.out.println(map);
 		return map;
+	}
+
+	public void initializeHotKeys() {
+		((TabGrid) myGrid).initializeHotKeys();
+	
 	}
 }

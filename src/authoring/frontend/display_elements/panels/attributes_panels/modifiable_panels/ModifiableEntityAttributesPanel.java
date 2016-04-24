@@ -21,6 +21,7 @@ import javafx.scene.text.Font;
 
 public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
+	private Button myAddComponentButton;
 	public ModifiableEntityAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
 	}
@@ -38,14 +39,14 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	 * is updated to match.
 	 */
 	private void createAddComponentButton() {
-		Button addComponentButton = new Button("Add Component");
-		addComponentButton.setPrefWidth(MAX_SIZE);
-		addComponentButton.setFont(new Font(20));
-		addComponentButton.setAlignment(Pos.BASELINE_LEFT);
-		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
-		GridPane.setColumnSpan(addComponentButton, 2);
+		myAddComponentButton = new Button("Add Component");
+		myAddComponentButton.setPrefWidth(MAX_SIZE);
+		myAddComponentButton.setFont(new Font(20));
+		myAddComponentButton.setAlignment(Pos.BASELINE_LEFT);
+		myAttributesGridPane.add(myAddComponentButton, 0, myAttributes.size());
+		GridPane.setColumnSpan(myAddComponentButton, 2);
 
-		addComponentButton.setOnAction(e -> {
+		myAddComponentButton.setOnAction(e -> {
 			EntityComponentSelector selector = new EntityComponentSelector(myController);
 			selector.initialize();
 			Map<String, Control> newComponents = selector.selectComponents(myInputMap);
@@ -123,6 +124,10 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	protected void refreshInputRows() {
 		super.refreshInputRows();
 		createAddComponentButton();
+	}
+
+	public Button getAddComponentButton() {
+		return myAddComponentButton;
 	}
 
 }

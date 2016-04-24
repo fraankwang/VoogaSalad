@@ -48,10 +48,13 @@ public class AuthoringViewManager implements IViewManager {
 		borderPane.setCenter(myTabBar.getNode());
 
 		myPrimaryScene = new Scene(borderPane, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
+		
 		myController.setPrimaryScene(myPrimaryScene);
 		
 		s.setScene(myPrimaryScene);
 		s.show();
+		
+		myTabBar.initializeHotKeys();
 	}
 
 	@Override

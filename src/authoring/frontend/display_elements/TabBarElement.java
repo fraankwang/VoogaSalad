@@ -12,6 +12,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -110,7 +113,7 @@ public class TabBarElement implements ITabBarElement {
 		Stage s = new Stage();
 		s.setTitle(display.getName());
 		s.setOnCloseRequest(e -> addTab(display));
-		
+
 		BorderPane bp = new BorderPane();
 		bp.setCenter(display.getNode());
 		Scene scene = new Scene(bp, 1200, 800);
@@ -119,5 +122,21 @@ public class TabBarElement implements ITabBarElement {
 
 		removeTab(display);
 	}
-	
+
+	public void initializeHotKeys() {
+		myEntitiesTabDisplay.initializeHotKeys();
+		myEntitiesTabDisplay.getNode().getScene().getAccelerators()
+				.put(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN), new Runnable() {
+					@Override
+					public void run() {
+						myTabPane.getSelectionModel().select(ENTITIES_TAB_INDEX);
+					}
+				});
+		
+		// myLevelsTabDisplay.initializeHotKeys();
+		// myModesTabDisplay.initializeHotKeys();
+		// myGameTabDisplay.initializeHotKeys();
+
+	}
+
 }

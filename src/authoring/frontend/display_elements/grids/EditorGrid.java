@@ -8,7 +8,11 @@ import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**
@@ -92,6 +96,29 @@ public abstract class EditorGrid extends Grid {
 		} else {
 			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
 		}
+	}
+
+	@Override
+	public void initializeHotKeys() {
+		Button saveButton = ((EditorButtonDashboard) myButtonDashboard).getSaveButton();
+		Button resetButton = ((EditorButtonDashboard) myButtonDashboard).getResetButton();
+
+		saveButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN),
+				new Runnable() {
+					@Override
+					public void run() {
+						saveButton.fire();
+					}
+				});
+
+		resetButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN),
+				new Runnable() {
+					@Override
+					public void run() {
+						resetButton.fire();
+					}
+				});
+		
 	}
 
 }

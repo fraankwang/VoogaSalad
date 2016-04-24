@@ -85,6 +85,18 @@ public abstract class Grid implements IGrid {
 		return myPrimaryDisplay;
 	}
 
+	/**
+	 * Sets the Editor attribute panel information with information from the
+	 * selected item just opened, or updates Unmodifiable attributes information
+	 * with updated backend information.
+	 * 
+	 * @param info
+	 */
 	public abstract void setAttributesPanel(Map<String, String> info);
+
+	/**
+	 * Pulls various buttons from the grids and assigns hotkeys.
+	 */
+	public abstract void initializeHotKeys();
 
 }

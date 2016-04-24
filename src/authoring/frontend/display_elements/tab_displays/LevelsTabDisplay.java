@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import authoring.backend.data.ObservableList;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.LevelEditorDisplay;
+import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.LevelsTabGrid;
 import engine.backend.game_object.Level;
 
@@ -66,6 +67,10 @@ public class LevelsTabDisplay extends TabDisplay {
 		System.out.println(map);
 
 		return map;
+	}
+	
+	public void initializeHotKeys() {
+		((TabGrid) myGrid).initializeHotKeys();
 	}
 
 }

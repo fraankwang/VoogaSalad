@@ -36,7 +36,7 @@ public class EditorButtonDashboard extends ButtonDashboard {
 		VBox myButtons = new VBox(myResetButton, mySaveButton);
 		myNode = myButtons;
 	}
-	
+
 	public Button getResetButton() {
 		return myResetButton;
 	}

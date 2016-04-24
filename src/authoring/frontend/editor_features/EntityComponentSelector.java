@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import javafx.beans.value.ChangeListener;
@@ -16,6 +17,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -51,8 +54,15 @@ public class EntityComponentSelector {
 			myVBox.getChildren().add(cb);
 		}
 		Button saveButton = new Button("Save");
-		saveButton.setOnAction(e -> myStage.close());
 		myVBox.getChildren().add(saveButton);
+
+		saveButton.setOnAction(e -> myStage.close());
+		saveButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.ENTER), new Runnable() {
+			@Override
+			public void run() {
+				saveButton.fire();
+			}
+		});
 	}
 
 	/**

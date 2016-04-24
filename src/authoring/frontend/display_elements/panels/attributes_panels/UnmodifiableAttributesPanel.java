@@ -143,4 +143,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		return button;
 	}
 
+	public Button getEditorButton() {
+		return myOpenEditorButton;
+	}
 }

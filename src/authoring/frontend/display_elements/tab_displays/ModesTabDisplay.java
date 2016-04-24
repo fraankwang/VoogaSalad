@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
+import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.ModesTabGrid;
 
 /**
@@ -47,4 +48,7 @@ public class ModesTabDisplay extends TabDisplay {
 		return map;
 	}
 
+	public void initializeHotKeys() {
+		((TabGrid) myGrid).initializeHotKeys();
+	}
 }

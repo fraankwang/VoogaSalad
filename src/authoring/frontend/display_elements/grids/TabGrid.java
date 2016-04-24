@@ -1,10 +1,16 @@
 package authoring.frontend.display_elements.grids;
 
-import java.util.Map;
+import java.util.*;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.TabGridFactory;
+import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
+import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -52,4 +58,43 @@ public abstract class TabGrid extends Grid {
 		return myUnmodifiableAttributesPanel.getAttributesMap();
 	}
 
+	@Override
+	public void initializeHotKeys() {
+		Button editorButton = myUnmodifiableAttributesPanel.getEditorButton();
+		Button duplicateButton = ((MainButtonDashboard) myButtonDashboard).getDuplicateButton();
+		Button deleteButton = ((MainButtonDashboard) myButtonDashboard).getDeleteButton();
+		Button addNewButton = ((GridViewPanel) myPrimaryDisplay).getMyAddNewButton();
+		
+		editorButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN),
+				new Runnable() {
+					@Override
+					public void run() {
+						editorButton.fire();
+					}
+				});
+
+		duplicateButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN),
+				new Runnable() {
+					@Override
+					public void run() {
+						duplicateButton.fire();
+					}
+				});
+
+		deleteButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN),
+				new Runnable() {
+					@Override
+					public void run() {
+						deleteButton.fire();
+					}
+				});
+		
+		addNewButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN),
+				new Runnable() {
+					@Override
+					public void run() {
+						addNewButton.fire();
+					}
+				});
+	}
 }

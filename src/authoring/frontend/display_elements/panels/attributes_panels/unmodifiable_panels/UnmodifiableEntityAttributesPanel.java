@@ -51,7 +51,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myGridPane.add(myScrollPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
-
+		
 	}
 
 	@Override

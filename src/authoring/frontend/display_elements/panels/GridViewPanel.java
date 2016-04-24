@@ -141,4 +141,7 @@ public class GridViewPanel extends Panel {
 		myImages.clear();
 	}
 
+	public Button getMyAddNewButton() {
+		return myAddNewButton;
+	}
 }

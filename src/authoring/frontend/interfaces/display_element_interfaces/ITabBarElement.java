@@ -22,4 +22,10 @@ public interface ITabBarElement extends IDisplayElement {
 	public TabDisplay getLevelsTabDisplay();
 
 	public TabDisplay getEntitiesTabDisplay();
+
+	/**
+	 * After the stage is displayed, this method traces back to each aspect of
+	 * the displays to set hotkeys.
+	 */
+	public void initializeHotKeys();
 }
