@@ -1,4 +1,4 @@
-\package engine.backend.components;
+package engine.backend.components;
 
 import java.util.List;
 
