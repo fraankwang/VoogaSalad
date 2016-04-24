@@ -8,7 +8,6 @@ import authoring.frontend.display_elements.panels.attributes_panels.unmodifiable
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.image.ImageView;
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 
@@ -28,7 +27,6 @@ public class LevelsTabGridFactory extends TabGridFactory {
 	public Panel createPrimaryDisplay() {
 		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay);
 		gridView.initialize();
-		gridView.addImage(new ImageView("tower_defense_map_1.png"));
 		return gridView;
 	}
 
