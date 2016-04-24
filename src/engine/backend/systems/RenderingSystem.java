@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
@@ -20,6 +21,7 @@ import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
+import engine.backend.utilities.ComponentTagResources;
 import engine.controller.EngineController;
 
 /**
@@ -36,7 +38,7 @@ public class RenderingSystem extends GameSystem {
 		this.engineController = eController;
 	}
 
-	public void update(Level myLevel,  Map<Integer, IEvent> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 		// TODO Auto-generated method stub
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
@@ -51,15 +53,15 @@ public class RenderingSystem extends GameSystem {
 				continue;
 			}
 			for (IComponent eachComponent : myEntity.getComponents()) {
-				if (eachComponent.getTag().equals(displayComponentTag)) {
+				if (eachComponent.getTag().equals(ComponentTagResources.displayComponentTag)) {
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
 					show = ((DisplayComponent) eachComponent).shouldBeShown();
 				}
-				if (eachComponent.getTag().equals(positionComponentTag)) {
+				if (eachComponent.getTag().equals(ComponentTagResources.positionComponentTag)) {
 					x = ((PositionComponent) eachComponent).getX();
 					y = ((PositionComponent) eachComponent).getY();
 				}
-				if (eachComponent.getTag().equals(sizeComponentTag)) {
+				if (eachComponent.getTag().equals(ComponentTagResources.sizeComponentTag)) {
 					sizex = ((SizeComponent) eachComponent).getWidth();
 					sizey = ((SizeComponent) eachComponent).getHeight();
 				}

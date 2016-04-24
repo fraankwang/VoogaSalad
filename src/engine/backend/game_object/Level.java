@@ -87,4 +87,9 @@ public class Level {
 		return null;
 	}
 
+	public IEntity getEntityWithID(int entityID) {
+		// TODO Auto-generated method stub
+		return entities.get(entityID);
+	}
+
 }

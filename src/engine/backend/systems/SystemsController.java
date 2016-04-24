@@ -82,10 +82,10 @@ public class SystemsController {
 //	}
 
 	public void iterateThroughSystems(Level level) {
-		List<IEvent> myEventList = new ArrayList<IEvent>(); 
+		Map<String, List<Integer>> myEventMap;
 		//go through systems, update stuff and gather events
 		for (ISystem system : mySystems) {
-			system.update(myEventManager.getCurrentLevel(), myEventList, myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
+			system.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
 		}
 		//handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventList);

@@ -13,8 +13,10 @@ import java.util.Set;
 import engine.backend.components.IComponent;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
+import engine.backend.utilities.ComponentTagResources;
+import engine.backend.utilities.IComponentTagResources;
 
-public class Entity implements IEntity {
+public class Entity implements IEntity, IComponentTagResources {
 
 	private String myName;
 	private String myType;
@@ -134,13 +136,13 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources) {
+	public void applyAction(EntityAction action) {
 		String component = action.getComponentToModifiy();
 		String instanceVar = action.getValueInComponent();
 		String newVal = action.getNewValue();
 		Method setMethod;
 
-		String fullName = myComponentTagResources.getString(component);
+		String fullName = ComponentTagResources.getComponentTag(component);
 		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
 
 		try {

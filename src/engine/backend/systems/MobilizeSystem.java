@@ -3,6 +3,7 @@ package engine.backend.systems;
 import java.util.Collection;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.MovementComponent;
@@ -18,6 +19,7 @@ import engine.backend.map.Path;
 import engine.backend.systems.Events.EndOfPathEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.OutOfMapEvent;
+import engine.backend.utilities.ComponentTagResources;
 
 public class MobilizeSystem extends GameSystem{
 	
@@ -26,23 +28,23 @@ public class MobilizeSystem extends GameSystem{
 	}
 	
 	@Override
-	public void update(Level myLevel, Map<Integer, IEvent> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
 			
-			if(!entity.hasComponent(myComponentTagResources.getString("Movement"))){
+			if(!entity.hasComponent(ComponentTagResources.movementComponentTag)){
 				continue;
 			}
 			
-			MovementComponent movComponent = (MovementComponent) entity.getComponent(myComponentTagResources.getString("Movement"));
-			PositionComponent posComponent = (PositionComponent) entity.getComponent(myComponentTagResources.getString("Position"));
+			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
+			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 			
-			if(entity.hasComponent(myComponentTagResources.getString("Path"))){
+			if(entity.hasComponent(ComponentTagResources.pathComponentTag)){
 				
-				PathComponent pathComponent = (PathComponent) entity.getComponent(myComponentTagResources.getString("Path"));
+				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
 				//if on path
-				IEvent event = updatePositionOnPath(entity.getID(), posComponent, movComponent, pathComponent, myLevel.getMap().getPath(), myComponentTagResources);
+				IEvent event = updatePositionOnPath(entity.getID(), posComponent, movComponent, pathComponent, myLevel.getMap().getPath());
 				
 				if(event != null){
 					//add to event map
@@ -51,7 +53,7 @@ public class MobilizeSystem extends GameSystem{
 			}
 			else{
 				
-				IEvent event = updatePosition(entity.getID(), posComponent, movComponent, myLevel.getMap(), myComponentTagResources);
+				IEvent event = updatePosition(entity.getID(), posComponent, movComponent, myLevel.getMap());
 				
 				if(event != null){
 					//add to event map;
@@ -85,7 +87,7 @@ public class MobilizeSystem extends GameSystem{
 	 *It takes it's current position vector, and adds it's velocity vector to it, updating it's position
 	 *If it's new position is outside of the Map, it will generate an OutOfMap event
 	 */
-	private IEvent updatePosition(int entityID, PositionComponent posComponent, MovementComponent movComponent, GameMap map, ResourceBundle myComponentTagResources){
+	private IEvent updatePosition(int entityID, PositionComponent posComponent, MovementComponent movComponent, GameMap map){
 		
 		//do movement
 		Vector posVector = posComponent.getPositionVector();
@@ -131,7 +133,7 @@ public class MobilizeSystem extends GameSystem{
 	 * and adds the new time to the current time to updates it's position along the curve
 	 * If the entity reaches the end of the curve (bezier time is max), it will generate an EndOfPathEvent
 	 */
-	private IEvent updatePositionOnPath(int entityID, PositionComponent posComponent, MovementComponent movComponent, PathComponent pathComponent, Path path, ResourceBundle myComponentTagResources){
+	private IEvent updatePositionOnPath(int entityID, PositionComponent posComponent, MovementComponent movComponent, PathComponent pathComponent, Path path){
 		
 		double currBezTime = pathComponent.getBezierTime();
 

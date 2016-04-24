@@ -1,14 +1,13 @@
 package engine.backend.systems;
 
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Map;
+import java.util.Set;
 
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
-import engine.backend.systems.Events.IEvent;
 
 public interface ISystem{
 	
-	public void update(Level myLevel, List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond);
+	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond);
 	
 }

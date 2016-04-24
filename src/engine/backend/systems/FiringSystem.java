@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import engine.backend.components.FiringComponent;
 import engine.backend.components.MovementComponent;
@@ -17,6 +18,7 @@ import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.systems.Events.EntityEvent;
 import engine.backend.systems.Events.IEvent;
+import engine.backend.utilities.ComponentTagResources;
 
 /**
  * 
@@ -27,13 +29,13 @@ import engine.backend.systems.Events.IEvent;
 public class FiringSystem extends GameSystem{
 
 	@Override 
-	public void update(Level myLevel,  List<IEvent> myEventList, InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		for(IEntity shootingEntity : entities){
 
-			if(!shootingEntity.hasComponent(movementComponentTag)){
+			if(!shootingEntity.hasComponent(ComponentTagResources.movementComponentTag)){
 				continue;
 			}
 
@@ -50,16 +52,21 @@ public class FiringSystem extends GameSystem{
 			}
 
 		}
+		
+		List<Integer> ids = new ArrayList<Integer>();
+		for(IEntity entity : newEntities){
+			ids.add(entity.getID());
+		}
 
-		myEventList.add(getAddEntityEvent(newEntities));
+		addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
 
 	} 
 	
 	private void updateFiring(IEntity shootingEntity, IEntity targetEntity, Collection<IEntity> newEntities, 
 			double currentSecond, InGameEntityFactory myEntityFactory){
-		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(firingComponentTag);
-		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(positionComponentTag);
-		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(positionComponentTag);
+		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(ComponentTagResources.firingComponentTag);
+		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(ComponentTagResources.positionComponentTag);
+		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(ComponentTagResources.positionComponentTag);
 
 		Vector shootingPosVector = shootingPosComponent.getPositionVector();
 		Vector targetPosVector = targetPosComponent.getPositionVector();
@@ -81,15 +88,15 @@ public class FiringSystem extends GameSystem{
 	}
 
 	private boolean isTarget(IEntity shootingEntity, IEntity targetEntity){
-		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(firingComponentTag);
+		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(ComponentTagResources.firingComponentTag);
 		List<String> targets = firingComponent.getTargets();
 		return targets.contains(targetEntity.getName());
 	}
 
 	private boolean targetIsInRange(IEntity shootingEntity, IEntity targetEntity){
-		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(firingComponentTag);
-		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(positionComponentTag);
-		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(positionComponentTag);
+		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(ComponentTagResources.firingComponentTag);
+		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(ComponentTagResources.positionComponentTag);
+		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(ComponentTagResources.positionComponentTag);
 
 		Vector shootingPosVector = shootingPosComponent.getPositionVector();
 		Vector targetPosVector = targetPosComponent.getPositionVector();
@@ -107,8 +114,8 @@ public class FiringSystem extends GameSystem{
 
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
 
-		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(positionComponentTag);
-		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(movementComponentTag);
+		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(ComponentTagResources.positionComponentTag);
+		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(ComponentTagResources.movementComponentTag);
 
 		firedPosComponent.setPositionVector(new Vector(positionVector));
 
