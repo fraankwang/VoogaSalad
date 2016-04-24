@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.TreeMap;
-
 import authoring.backend.data.ObservableList;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.LevelEditorDisplay;
@@ -49,28 +48,33 @@ public class LevelsTabDisplay extends TabDisplay {
 		((LevelsTabGrid) myGrid).update(data);
 	}
 
-	@Override
-	public String getName() {
-		return "Levels";
-	}
 
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
 		map.put("Name", null);
-		map.put("MapImage", null);
+		map.put("MapBackgroundImage", null);
 		map.put("LevelTimer", null);
 		map.put("WaveDelayTimer", null);
 		map.put("MapWidth", null);
 		map.put("MapHeight", null);
+
 		System.out.println("*****1. LevelsTabDisplay: got default Levels attributes");
 		System.out.println(map);
 
 		return map;
 	}
-	
+
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
 
+	@Override
+	public String getName() {
+		return "Levels";
+	}
+	
+	public List<String> getLevels() {
+		return ((LevelsTabGrid) myGrid).getLevels();
+	}
 }
