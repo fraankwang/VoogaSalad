@@ -51,7 +51,9 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEditorDisplay = new EntityEditorDisplay(myController);
 		myEditorDisplay.initialize();
 
-		createNewTab("Type1");
+		createNewTab("Ammo");
+		createNewTab("Enemy");
+		createNewTab("Tower");
 		setTabPaneActions();
 	}
 
@@ -80,22 +82,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 		});
 
 		ContextMenu tabContextMenu = new ContextMenu();
-		MenuItem tabMenu = new MenuItem("Change Genre name...");
+		MenuItem tabMenu = new MenuItem("Change Genre name");
 		tabMenu.setOnAction(e -> myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName()));
 		tabContextMenu.getItems().add(tabMenu);
 		myEntitiesTabPane.setContextMenu(tabContextMenu);
-
-		// myEntitiesTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		// @Override
-		// public void handle(MouseEvent mouseEvent) {
-		// if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-		// if(mouseEvent.getClickCount() == 2){
-		// myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName());
-		// }
-		// }
-		// }
-		// });
-
 		myEntitiesTabPane.getTabs().add(addNewTypeTab);
 	}
 
@@ -145,11 +135,6 @@ public class EntitiesTabDisplay extends TabDisplay {
 	}
 
 	@Override
-	public String getName() {
-		return "Entities";
-	}
-
-	@Override
 	public void update(Observable o, Object arg) {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
@@ -164,6 +149,30 @@ public class EntitiesTabDisplay extends TabDisplay {
 		}
 		// myGrid.setAttributesPanel(data.get(0));
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
+	}
+
+	@Override
+	public Map<String, String> getDefaultAttributesMap() {
+		Map<String, String> map = new TreeMap<String, String>();
+
+		map.put("DisplayComponent_Image", null);
+		map.put("DisplayComponent_CanBeShown", null);
+		map.put("Name", null);
+		map.put("Genre", null);
+
+		System.out.println("*****1. EntitiesTabDisplay: got default entities attributes");
+		System.out.println(map);
+		return map;
+	}
+
+	public void initializeHotKeys() {
+		((TabGrid) myGrid).initializeHotKeys();
+
+	}
+
+	@Override
+	public String getName() {
+		return "Entities";
 	}
 
 	public List<String> getGenres() {
@@ -187,22 +196,4 @@ public class EntitiesTabDisplay extends TabDisplay {
 		return entities;
 	}
 
-	@Override
-	public Map<String, String> getDefaultAttributesMap() {
-		Map<String, String> map = new TreeMap<String, String>();
-
-		map.put("DisplayComponent_Image", null);
-		map.put("DisplayComponent_CanBeShown", null);
-		map.put("Name", null);
-		map.put("Genre", null);
-
-		System.out.println("*****1. EntitiesTabDisplay: got default entities attributes");
-		System.out.println(map);
-		return map;
-	}
-
-	public void initializeHotKeys() {
-		((TabGrid) myGrid).initializeHotKeys();
-	
-	}
 }
