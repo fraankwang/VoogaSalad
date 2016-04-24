@@ -58,14 +58,14 @@ public abstract class TabGrid extends Grid {
 		return myUnmodifiableAttributesPanel.getAttributesMap();
 	}
 
-	@Override
+
 	public void initializeHotKeys() {
 		Button editorButton = myUnmodifiableAttributesPanel.getEditorButton();
 		Button duplicateButton = ((MainButtonDashboard) myButtonDashboard).getDuplicateButton();
 		Button deleteButton = ((MainButtonDashboard) myButtonDashboard).getDeleteButton();
 		Button addNewButton = ((GridViewPanel) myPrimaryDisplay).getMyAddNewButton();
 		
-		editorButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN),
+		editorButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {
@@ -73,7 +73,7 @@ public abstract class TabGrid extends Grid {
 					}
 				});
 
-		duplicateButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN),
+		duplicateButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.D, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {
@@ -81,7 +81,7 @@ public abstract class TabGrid extends Grid {
 					}
 				});
 
-		deleteButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN),
+		deleteButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.DELETE, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {
@@ -89,7 +89,7 @@ public abstract class TabGrid extends Grid {
 					}
 				});
 		
-		addNewButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN),
+		addNewButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {
@@ -97,4 +97,5 @@ public abstract class TabGrid extends Grid {
 					}
 				});
 	}
+	
 }

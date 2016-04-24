@@ -97,7 +97,7 @@ public abstract class EditorGrid extends Grid {
 		Button saveButton = ((EditorButtonDashboard) myButtonDashboard).getSaveButton();
 		Button resetButton = ((EditorButtonDashboard) myButtonDashboard).getResetButton();
 
-		saveButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN),
+		saveButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {
@@ -105,7 +105,7 @@ public abstract class EditorGrid extends Grid {
 					}
 				});
 
-		resetButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN),
+		resetButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {
