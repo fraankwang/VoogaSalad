@@ -2,6 +2,7 @@ package authoring.frontend.editor_features;
 
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -9,6 +10,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -30,12 +32,11 @@ public class BezierCurveManipulator implements IDisplayElement {
 	private Anchor start, control1, control2, end;
 	private Line controlLine1, controlLine2;
 	private double myWidth, myHeight;
-	private CurveBuilder myContainer;
+	private PathBuilder myContainer;
 	private Integer myNum;
 	
-	public BezierCurveManipulator(double height, double width, CurveBuilder builder, int curveNum) {
-		myWidth = width;
-		myHeight = height;
+	public BezierCurveManipulator(double width, double height, PathBuilder builder, int curveNum) {
+		setSize(width, height);
 		myContainer = builder;
 		myNum = curveNum;
 	}
@@ -43,6 +44,11 @@ public class BezierCurveManipulator implements IDisplayElement {
 	@Override
 	public Node getNode() {
 		return myNode;
+	}
+	
+	public void setSize(double width, double height) {
+		myWidth = width;
+		myHeight = height;
 	}
 
 
