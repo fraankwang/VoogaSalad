@@ -28,22 +28,20 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		this.myID = myID;
-<<<<<<< HEAD
 		this.myComponents = new HashMap<String, IComponent>();
 		this.myRules = new ArrayList<Rule>();
 		this.entityInfo = new HashMap<String, String>();
 		this.hasBeenModified = true;
 		initializeInfo();
 	}
-	
+
 	public Entity(String myName, String myType) {
 		this.myName = myName;
 		this.myType = myType;
 		this.myComponents = new HashMap<String, IComponent>();
 		this.myRules = new ArrayList<Rule>();
-		this.entityInfo = new HashMap<String, String>();		
+		this.entityInfo = new HashMap<String, String>();
 		initializeInfo();
-=======
 		// this.myValue = myValue;
 	}
 
@@ -51,9 +49,8 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		// this.myValue = myValue;
->>>>>>> origin
 	}
-	
+
 	private void initializeInfo() {
 		entityInfo.put("Type", "Entity");
 		entityInfo.put("Genre", myType);
@@ -86,15 +83,13 @@ public class Entity implements IEntity {
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
-<<<<<<< HEAD
-	
+
 	public List<Rule> getRules() {
 		return myRules;
-=======
+	}
 
 	public void setID(int myID) {
 		this.myID = myID;
->>>>>>> origin
 	}
 
 	public int getID() {
@@ -108,13 +103,9 @@ public class Entity implements IEntity {
 	public String getType() {
 		return myType;
 	}
-	
+
 	public Map<String, String> getInfo() {
 		return entityInfo;
-	}
-	
-	public void setID(int myID) {
-		this.myID = myID;
 	}
 
 	public void setMane(String name) {
@@ -154,8 +145,6 @@ public class Entity implements IEntity {
 		} else {
 			return false;
 		}
-<<<<<<< HEAD
-=======
 
 	}
 
@@ -163,7 +152,6 @@ public class Entity implements IEntity {
 	public double getValue() {
 		// TODO Auto-generated method stub
 		return 0;
->>>>>>> origin
 	}
 
 	@Override

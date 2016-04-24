@@ -5,11 +5,7 @@
  */
 package engine.backend.components;
 
-<<<<<<< HEAD
-public class SizeComponent extends Component {
-=======
 public class SizeComponent extends Component implements IComponent {
->>>>>>> origin
 
 	private double width;
 	private double height;
@@ -48,7 +44,6 @@ public class SizeComponent extends Component implements IComponent {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public String getComponentInfo() {
 		return "Width:" + width + "," + "Height:" + height;
 	}
@@ -62,12 +57,13 @@ public class SizeComponent extends Component implements IComponent {
 		if (dataName.equals("Height")) {
 			this.height = Double.parseDouble(data);
 			return;
-=======
+		}
+	}
+
 	public void initWithParams(String[] params) {
 		if (params.length > 0) {
 			this.width = Double.parseDouble(params[0]);
 			this.height = Double.parseDouble(params[1]);
->>>>>>> origin
 		}
 	}
 
