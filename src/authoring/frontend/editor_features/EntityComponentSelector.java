@@ -108,12 +108,15 @@ public class EntityComponentSelector {
 				break;
 
 			case "FiringComponent":
-				ComboBox<String> ammo = createComboBox(booleanComboBox);
+				ComboBox<String> ammo = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
+						.getTabBarElement().getEntitiesTabDisplay()).getEntities());
+				ComboBox<String> targets = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
+						.getTabBarElement().getEntitiesTabDisplay()).getEntities());
 				TextField speed = new TextField();
 				TextField sightRange = new TextField();
-				// check combo box for targets
 				TextField firingRate = new TextField();
 				inputMap.put("FiringComponent_Ammunition", ammo);
+				inputMap.put("FiringComponent_Targets", targets);
 				inputMap.put("FiringComponent_AmmunitionSpeed", speed);
 				inputMap.put("FiringComponent_EnemyInSightRange", sightRange);
 				inputMap.put("FiringComponent_FiringRate", firingRate);

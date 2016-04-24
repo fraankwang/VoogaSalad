@@ -10,7 +10,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -80,16 +82,22 @@ public class EntitiesTabDisplay extends TabDisplay {
 			}
 		});
 		
-		myEntitiesTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		    @Override
-		    public void handle(MouseEvent mouseEvent) {
-		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-		            if(mouseEvent.getClickCount() == 2){
-		                myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName());
-		            }
-		        }
-		    }
-		});
+		ContextMenu tabContextMenu = new ContextMenu();
+		MenuItem tabMenu = new MenuItem("Change Genre name...");
+		tabMenu.setOnAction(e -> myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName()));
+		tabContextMenu.getItems().add(tabMenu);
+		myEntitiesTabPane.setContextMenu(tabContextMenu);
+		
+//		myEntitiesTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//		    @Override
+//		    public void handle(MouseEvent mouseEvent) {
+//		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+//		            if(mouseEvent.getClickCount() == 2){
+//		                myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName());
+//		            }
+//		        }
+//		    }
+//		});
 		
 		myEntitiesTabPane.getTabs().add(addNewTypeTab);
 	}
@@ -166,6 +174,20 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEntitiesTabPane.getTabs().forEach(t -> genres.add(t.getText()));
 		genres.remove("Add New...");
 		return genres;
+	}
+	
+	public List<String> getEntities() {
+		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
+		
+		List<String> entities = new ArrayList<String>();
+		for (Tab t: myEntitiesTabPane.getTabs()) {
+			if (!t.getText().equals("Add New...")) {
+				myEntitiesTabPane.getSelectionModel().select(t);
+				entities.addAll(((EntitiesTabGrid) myGrid).getEntities());
+			}
+		}
+		myEntitiesTabPane.getSelectionModel().select(tempTab);
+		return entities;
 	}
 
 	@Override

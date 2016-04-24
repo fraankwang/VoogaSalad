@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,6 +32,7 @@ public class EntitiesTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
+	private List<String> myEntities;
 
 	public EntitiesTabGrid(IAuthoringView controller, TabDisplay tab) {
 		super(controller, tab);
@@ -41,7 +43,7 @@ public class EntitiesTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
-
+		myEntities = new ArrayList<String>();
 	}
 
 	@Override
@@ -66,9 +68,11 @@ public class EntitiesTabGrid extends TabGrid {
 	public void update(List<Map<String, String>> data, String genre) {
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
+		myEntities.clear();
 
 		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
+				myEntities.add(info.get("Name"));
 				info.remove("Type");
 				ImageView iv = new ImageView(info.get("DisplayComponent_Image"));
 				iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -131,6 +135,10 @@ public class EntitiesTabGrid extends TabGrid {
 		// TODO
 		System.out.println("deleted " + info.get("Name"));
 		return;
+	}
+	
+	public List<String> getEntities() {
+		return myEntities;
 	}
 
 }
