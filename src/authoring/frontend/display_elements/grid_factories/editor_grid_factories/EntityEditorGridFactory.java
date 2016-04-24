@@ -39,7 +39,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 		editorView.getPanelBar().addButton("Upload Image", e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
 			File imageFile = fileChooser.showOpenDialog(null);
 			if (imageFile != null) {
 				editorView.setImage(new Image(imageFile.toURI().toString()));

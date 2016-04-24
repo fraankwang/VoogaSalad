@@ -5,15 +5,15 @@ import java.util.List;
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 
-public class CurveBuilder implements IDisplayElement {
+public class PathBuilder implements IDisplayElement {
 
 	private List<BezierCurveManipulator> myBezierCurves;
 	private Group myNode;
 	private double myWidth, myHeight;
 	
-	public CurveBuilder() {
-		
+	public PathBuilder() {
 	}
 	
 	public void initialize() {
@@ -22,7 +22,7 @@ public class CurveBuilder implements IDisplayElement {
 	}
 	
 	public void createNewCurve() {
-		BezierCurveManipulator newCurve = new BezierCurveManipulator(myHeight, myWidth, this, myBezierCurves.size());
+		BezierCurveManipulator newCurve = new BezierCurveManipulator(myWidth, myHeight, this, myBezierCurves.size());
 		newCurve.initialize();
 		myBezierCurves.add(newCurve);
 		myNode.getChildren().add(newCurve.getNode());
@@ -33,9 +33,10 @@ public class CurveBuilder implements IDisplayElement {
 		myNode.getChildren().remove(curve.getNode());
 	}
 	
-	public void setSize(double height, double width) {
+	public void setSize(double width, double height) {
 		myWidth = width;
 		myHeight = height;
+		myBezierCurves.forEach(bc -> bc.setSize(width, height));
 	}
 
 	@Override
