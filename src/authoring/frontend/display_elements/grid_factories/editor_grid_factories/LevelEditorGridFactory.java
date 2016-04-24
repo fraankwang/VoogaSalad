@@ -4,6 +4,7 @@ import java.io.File;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
+import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.panels.LevelEditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.RulesEditorPanel;
@@ -23,8 +24,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class LevelEditorGridFactory extends EditorGridFactory {
 
-	public LevelEditorGridFactory(IAuthoringView controller) {
+	private EditorGrid myEditorGrid;
+
+	public LevelEditorGridFactory(IAuthoringView controller, EditorGrid grid) {
 		super(controller);
+		myEditorGrid = grid;
 	}
 
 	@Override
@@ -51,6 +55,8 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 			File imageFile = fileChooser.showOpenDialog(null);
 			if (imageFile != null) {
 				editorView.setImage(new Image(imageFile.toURI().toString()));
+				((ModifiableAttributesPanel) myEditorGrid.getAttributesPanel())
+				.updateImageComponent(imageFile.getName());
 			}
 		});
 
