@@ -42,5 +42,9 @@ public class ModelManager implements IModel {
 		Mode mode = modefactory.createMode(data);
 		globaldata.getModes().add(mode);
 	}
+	
+	public void updateGame(Map<String, String> data) {
+		globaldata.getGame().update(data);
+	}
 		
 }

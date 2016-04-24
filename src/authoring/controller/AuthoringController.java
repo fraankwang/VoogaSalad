@@ -51,6 +51,10 @@ public class AuthoringController implements IAuthoringController {
 						data.remove(key);
 						model.updateModes(data);
 						break;
+					case "Game":
+						data.remove(key);
+						model.updateGame(data);
+						break;
 				}
 				break;
 			}
@@ -59,7 +63,7 @@ public class AuthoringController implements IAuthoringController {
 	
 	private Map<String, String> processData(Map<String, String> data) {
 		for (String key : data.keySet()) {
-			if (data.get(key).equals("")) {
+			if (data.get(key).equals("") || data.get(key) == null) {
 				data.put(key, "0");
 			}
 		}

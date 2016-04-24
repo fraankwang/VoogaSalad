@@ -1,5 +1,6 @@
 package authoring.backend.factories;
 
+import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -7,6 +8,7 @@ import engine.backend.game_object.Mode;
 import java.util.HashMap;
 import java.util.Map;
 
+import authoring.backend.data.GameData;
 import authoring.backend.data.GlobalData;
 import engine.backend.entities.Entity;
 
@@ -21,12 +23,26 @@ public class GameFactory {
 	}
 
 	public GameWorld createGame() {
+		setUpGame();
 		setUpLevels();
 		setUpModes();
 		setUpEntityMap();
 		return myGame;
 	}
 <<<<<<< HEAD
+	
+	private void setUpGame() {
+		GameStatistics gameStatistics = new GameStatistics();
+		GameData gameData = myGlobalData.getGame();
+		gameStatistics.setGameTimer(gameData.getGameTimer());
+		gameStatistics.setStartMoney(gameData.getStartResources());
+		gameStatistics.setNumLivesDefeat(gameData.getNumLivesDefeat());
+		gameStatistics.setStartLives(gameData.getStartLives());
+		
+		myGame.setGameStatistics(gameStatistics);
+		myGame.setGameType(gameData.getGameType());
+		myGame.setNumPlayers(gameData.getNumPlayers());		
+	}
 	
 	private void setUpModes(){
 		for (Mode mode : myGlobalData.getModes().getList()){

@@ -51,6 +51,9 @@ public class ObservableList<E> extends Observable {
 			} else if (object instanceof Mode) {
 				Mode mode = (Mode) object;
 				info.add(mode.getInfo());
+			} else if (object instanceof GameData) {
+				GameData game = (GameData) object;
+				info.add(game.getInfo());
 			}
 		}
 		return info;
