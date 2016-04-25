@@ -16,6 +16,7 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	private boolean canBeShown;
 	private String image;
+	private boolean delete;
 	
 	public DisplayComponent() {
 		
@@ -24,6 +25,7 @@ public class DisplayComponent extends Component implements IComponent{
 	public DisplayComponent(String image){
 		this.image = image;
 		canBeShown = true;
+		setDelete(false);
 	}
 	
 	public DisplayComponent(DisplayComponent component) {
@@ -41,6 +43,7 @@ public class DisplayComponent extends Component implements IComponent{
 	
 	public DisplayComponent(boolean shown) {
 		this.canBeShown = shown;
+		setDelete(false);
 	}
 	
 	/**
@@ -83,6 +86,19 @@ public class DisplayComponent extends Component implements IComponent{
 	@Override
 	public void initWithParams(String[] params) {
 		this.canBeShown = true; //default
+	}
+
+	public boolean getDelete() {
+		return delete;
+	}
+
+	public void setDelete(String delete) {
+		boolean value = Boolean.parseBoolean(delete);
+		this.delete = value;
+	}
+	
+	public void setDelete(boolean delete){
+		this.delete = delete;
 	}
 
 }

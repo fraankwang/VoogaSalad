@@ -179,9 +179,9 @@ public class Entity implements IEntity {
 		Method setMethod;
 
 		String fullName = ComponentTagResources.getComponentTag(component);
-		System.out.println(getName() + "   " + fullName);
+		//System.out.println(getName() + "   " + fullName);
 		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
-		System.out.println(componentClass.getName());
+		//System.out.println(componentClass.getName());
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 			

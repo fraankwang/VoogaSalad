@@ -159,6 +159,12 @@ public class Level {
 			return false;
 		}
 	}
+	
+	public void removeEntites(Collection<IEntity> entitiesToRemove){
+		for(IEntity entity : entitiesToRemove){
+			entities.remove(entity.getID());
+		}
+	}
 
 	/**
 	 * 

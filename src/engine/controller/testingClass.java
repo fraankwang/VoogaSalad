@@ -47,7 +47,7 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 
-		GameMap tempMap = new GameMap("", tempPath, 200, 200);
+		GameMap tempMap = new GameMap("", tempPath, 800, 600);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
 		IComponent tempPosition = new PositionComponent(0, 60);
@@ -98,21 +98,27 @@ public class testingClass {
 		GameWorld firingTest = new GameWorld();
 		Mode mode = new Mode("test firing");
 		Level level = new Level(0);
-		EntityAction action = new EntityAction("tempEntity", "Display", "CanBeShown", "false");
+		EntityAction action = new EntityAction("tempEntity", "Display", "Delete", "true");
+		EntityAction action4 = new EntityAction("tempEntity", "Display", "CanBeShown", "false");
 		EntityAction action2 = new EntityAction("tempEntity", "Health", "Health", "0");
 		EntityAction action3 = new EntityAction("SimpleBullet", "Display", "CanBeShown", "false");
+		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
+		
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action); 
-		//myActions.add(action2);
 		List<String> myEvents = new ArrayList<String>();
 		myEvents.add("SimpleBullettempEntityCollisionEvent");
 		myEvents.add("tempEntityDeathEvent");
+		
 		Rule rule1 = new Rule();
-		rule1.addActions(Arrays.asList(action2, action3));
+		rule1.addActions(Arrays.asList(action2, action3, action5));
 		rule1.addEvents(Arrays.asList("SimpleBullettempEntityCollisionEvent"));
+		
+		
 		Rule rule2 = new Rule();
-		rule2.addActions(action);
+		rule2.addActions(Arrays.asList(action, action4));
 		rule2.addEvents(Arrays.asList("tempEntityDeathEvent"));
+		
 		level.setRuleAgenda(Arrays.asList(rule1, rule2));
 		//level.addActionToEventMap(Arrays.asList("SimpleBullettempEntityCollisionEvent"), myActions);
 		Path tempPath = new Path();
@@ -125,11 +131,11 @@ public class testingClass {
 		tempPath.addCurve(tempCurve3);
 		GameMap tempMap = new GameMap("", tempPath, 200, 200);
 		
-		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 40);
+		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 20);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
 		IComponent tempPosition4 = new PositionComponent(0, 100);
-		IComponent tempDisplay4 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
 		tempSpawn.addComponent(tempSize4);
 		tempSpawn.addComponent(tempSpawner);
@@ -155,47 +161,47 @@ public class testingClass {
 		tempEntity.addComponent(pathComp);
 		
 		
-//		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2", 20);
-//		IComponent tempPosition2 = new PositionComponent(700, 60);
-//		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
-//		IComponent tempSize2 = new SizeComponent();
-//		IComponent tempCollision2 = new CollisionComponent();
-//		Vector myBulletVector = new Vector(0,1222);
-//		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
-//		IComponent tempSize3 = new SizeComponent();
-//		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-//				500, myBulletVector, 1);
-//		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
-//		mySimpleBullet.addComponent(tempCollision2);
-//		mySimpleBullet.addComponent(tempPosition);
-//		mySimpleBullet.addComponent(new MovementComponent(10, 0));
-//		mySimpleBullet.addComponent(tempDisplay3);
-//		mySimpleBullet.addComponent(tempSize3);
+		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2", 20);
+		IComponent tempPosition2 = new PositionComponent(700, 60);
+		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempSize2 = new SizeComponent();
+		IComponent tempCollision2 = new CollisionComponent();
+		Vector myBulletVector = new Vector(0,1222);
+		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
+		IComponent tempSize3 = new SizeComponent();
+		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
+				500, myBulletVector, 1);
+		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
+		mySimpleBullet.addComponent(tempCollision2);
+		mySimpleBullet.addComponent(tempPosition);
+		mySimpleBullet.addComponent(new MovementComponent(10, 0));
+		mySimpleBullet.addComponent(tempDisplay3);
+		mySimpleBullet.addComponent(tempSize3);
 		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
 		
 		Map<String, IEntity> createdSpawns = new HashMap<String, IEntity>();
 		createdSpawns.put("tempEntity", tempEntity);
 		
-//		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
-//		createdAmmunition.put("SimpleBullet", mySimpleBullet);
+		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
+		createdAmmunition.put("SimpleBullet", mySimpleBullet);
 		
-//		myCreatableEntityMap.put("Ammunition", createdAmmunition);
+		myCreatableEntityMap.put("Ammunition", createdAmmunition);
 		myCreatableEntityMap.put("Spawns", createdSpawns);
 		
 		firingTest.setEntityMap(myCreatableEntityMap);
-//		ArrayList<String> myTargets = new ArrayList<String>();
-//		myTargets.add("tempEntity");
-//		simpleFire.setTargets(myTargets);
-//		tempEntity2.addComponent(tempDisplay2);
-//		tempEntity2.addComponent(tempSize2);
-//		tempEntity2.addComponent(tempPosition2);
-//		tempEntity2.addComponent(simpleFire);
+		ArrayList<String> myTargets = new ArrayList<String>();
+		myTargets.add("tempEntity");
+		simpleFire.setTargets(myTargets);
+		tempEntity2.addComponent(tempDisplay2);
+		tempEntity2.addComponent(tempSize2);
+		tempEntity2.addComponent(tempPosition2);
+		tempEntity2.addComponent(simpleFire);
 
 		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
 		//level.addToEntities(tempEntity2);
 		//level.addEntityToMap(tempEntity);
-		//level.addEntityToMap(tempEntity2);
+		level.addEntityToMap(tempEntity2);
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
 		mode.addLevel(level);
