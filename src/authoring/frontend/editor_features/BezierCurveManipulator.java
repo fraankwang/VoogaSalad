@@ -69,9 +69,16 @@ public class BezierCurveManipulator implements IDisplayElement {
 			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
 				if (newValue) {
 					myCurve.setStroke(Color.BLUE);
+					start.setOpacity(1);
+					control1.setOpacity(1);
+					control2.setOpacity(1);
+					end.setOpacity(1);
 					return;
 				}
-				myCurve.setStroke(Color.BLACK);
+				start.setOpacity(0.5);
+				control1.setOpacity(0.5);
+				control2.setOpacity(0.5);
+				end.setOpacity(0.5);
 			}
 		});
 		
@@ -94,6 +101,15 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    end      = new Anchor(Color.TOMATO,    myCurve.endXProperty(),      myCurve.endYProperty());
 
 	    myNode.getChildren().addAll(myCurve, start, control1, control2, end, controlLine1, controlLine2);
+	    
+	    start.setOpacity(0.9);
+	    start.setOpacity(1);
+	    control1.setOpacity(0.9);
+	    control1.setOpacity(1);
+	    control2.setOpacity(0.9);
+	    control2.setOpacity(1);
+	    end.setOpacity(0.9);
+	    end.setOpacity(1);
 	}
 	
 	private CubicCurve createInitialCurve() {
@@ -138,21 +154,30 @@ public class BezierCurveManipulator implements IDisplayElement {
 	class Anchor extends Circle { 
 	    Anchor(Color color, DoubleProperty x, DoubleProperty y) {
 	      super(x.get(), y.get(), 10);
-	      setFill(color.deriveColor(1, 1, 1, 0.5));
+	      setFill(color.deriveColor(1, 1, 1, 0.9));
 	      setStroke(color);
 	      setStrokeWidth(2);
 	      setStrokeType(StrokeType.OUTSIDE);
 
 	      x.bind(centerXProperty());
 	      y.bind(centerYProperty());
-	      enableDrag();
 	      
-	      setOnMousePressed(e -> myCurve.requestFocus());
 	      Label numLabel = new Label(myNum.toString());
 	      numLabel.textProperty().bind(myNum.asString());
 	      numLabel.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
 	      numLabel.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
 	      myNode.getChildren().add(numLabel);
+	      numLabel.toFront();
+	      
+	      enableDrag();
+	      
+	      this.opacityProperty().addListener(new ChangeListener<Number>() {
+				@Override
+				public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+					numLabel.toFront();
+				} 
+		      });
+
 	    }
 	    
 	    // lock in place with other anchors
@@ -177,6 +202,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	          dragDelta.x = getCenterX() - mouseEvent.getX();
 	          dragDelta.y = getCenterY() - mouseEvent.getY();
 	          getScene().setCursor(Cursor.MOVE);
+	          myCurve.requestFocus();
 	        }
 	      });
 	      setOnMouseReleased(new EventHandler<MouseEvent>() {
@@ -186,6 +212,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	      });
 	      setOnMouseDragged(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
+	          myCurve.requestFocus();
 	          double newX = mouseEvent.getX() + dragDelta.x;
 	          if (newX > 0 && newX < myWidth) {
 	            setCenterX(newX);

@@ -3,6 +3,7 @@ package authoring.frontend.editor_features;
 import java.util.ArrayList;
 import java.util.List;
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -11,7 +12,6 @@ import javafx.scene.shape.Circle;
 public class PathBuilder implements IDisplayElement {
 
 	private List<BezierCurveManipulator> myBezierCurves;
-	private List<Circle> myAnchors;
 	private Group myNode;
 	private double myWidth, myHeight;
 	
@@ -20,8 +20,8 @@ public class PathBuilder implements IDisplayElement {
 	
 	public void initialize() {
 		myBezierCurves = new ArrayList<BezierCurveManipulator>();
-		myAnchors = new ArrayList<Circle>();
 		myNode = new Group();
+		SimpleBooleanProperty isSelected = new SimpleBooleanProperty();
 	}
 	
 	public void createNewCurve() {
