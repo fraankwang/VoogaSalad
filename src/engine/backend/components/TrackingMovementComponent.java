@@ -6,6 +6,7 @@ import engine.backend.utilities.ComponentTagResources;
 public class TrackingMovementComponent extends MovementComponent{
 	
 	private IEntity myEntityToTrack;
+	private double mySpeed;
 
 	public TrackingMovementComponent() {
 		// TODO Auto-generated constructor stub
@@ -23,21 +24,24 @@ public class TrackingMovementComponent extends MovementComponent{
 	public void setEntityToTrack(IEntity myEntityToTrack) {
 		this.myEntityToTrack = myEntityToTrack;
 	}
+	 
+	public void setSpeed(double speed){
+		 mySpeed = speed;
+	 }
 	
 	@Override
 	public Vector getCurrentVelocityVector(){
-		if(myEntityToTrack != null){
+		if(myEntityToTrack != null){ //check if entity has been removed from map
 			updateCurrentVelocityVector();
 		}
 		return super.getCurrentVelocityVector();
 	}
 	
 	private void updateCurrentVelocityVector(){
-		Vector currentDirection = super.getCurrentVelocityVector();
 		Vector targetPosVector = ((PositionComponent) myEntityToTrack.getComponent(ComponentTagResources.positionComponentTag)).getPositionVector();
-		double xComp = targetPosVector.getX() - currentDirection.getX();
-		double yComp = targetPosVector.getY() - currentDirection.getY();
-		Vector updatedDirection = new Vector(xComp, yComp);
+		Vector updatedDirection = new Vector( targetPosVector.getX(),  targetPosVector.getX());
+		updatedDirection = updatedDirection.normalize();
+		updatedDirection = updatedDirection.scale(mySpeed);
 		super.setCurrentVelocityVector(updatedDirection);
 	}
 

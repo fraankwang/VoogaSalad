@@ -123,6 +123,7 @@ public class FiringSystem extends GameSystem{
 		
 		if(firedMovComponent instanceof TrackingMovementComponent){
 			((TrackingMovementComponent) firedMovComponent).setEntityToTrack(targetEntity);
+			((TrackingMovementComponent) firedMovComponent).setSpeed(speed);
 		}
 		
 		Vector velVector = new Vector(directionToFire);
