@@ -2,12 +2,8 @@ package engine.backend.game_object;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
-
-import engine.backend.components.IComponent;
-import engine.backend.rules.EntityAction;
-import engine.backend.utilities.ComponentTagResources;
+import engine.backend.rules.LevelAction;
 
 /**
  * 
@@ -22,14 +18,15 @@ public class ModeStatistics {
 	private double currentResources;
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
+	private int currentLevelIndex;
 
 	public ModeStatistics(int numLives, double resources) {
 		setInitialNumLives(numLives);
 		setCurrentNumLives(numLives);
 		setInitialResources(resources);
 		setCurrentResources(resources);
-		endOfLevelLives = new ArrayList<Integer>();
-		endOfLevelResources = new ArrayList<Double>();
+//		endOfLevelLives = new ArrayList<Integer>();
+//		endOfLevelResources = new ArrayList<Double>();
 	}
 
 	public void addEndOfLevelLives(int numLives) {
@@ -55,6 +52,10 @@ public class ModeStatistics {
 	public void setCurrentNumLives(int currentNumLives) {
 		this.currentNumLives = currentNumLives;
 	}
+	
+	public void setCurrentNumLives(String deltaNumLives){
+		this.currentNumLives += Integer.parseInt(deltaNumLives);
+	}
 
 	public double getInitialResources() {
 		return initialResources;
@@ -72,44 +73,59 @@ public class ModeStatistics {
 		this.currentResources = currentResources;
 	}
 	
-	@Override
-	public void applyAction(LevelAction action) {
-		String resourceToModify = action.getResourceToModifiy();
-		String instanceVar = action.getValueInComponent();
-		String newVal = action.getNewValue();
-		Method setMethod;
 
-		String fullName = ComponentTagResources.getComponentTag(component);
-		//System.out.println(getName() + "   " + fullName);
-		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
-		//System.out.println(componentClass.getName());
-		try {
-			Object componentClassInstance = componentClass.newInstance();
-			
-			componentClassInstance = componentClass.cast(myComponents.get(fullName));
-			// put in resource file!!!
-			String methodName = "set" + instanceVar;
+	public void setCurrentResources(String delta){
+		this.currentNumLives += Double.parseDouble(delta);
+	}
 
-			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
+	public int getCurrentLevelIndex() {
+		checkEndOfGame();
+		return currentLevelIndex;
+	}
 
-			setMethod.invoke(componentClassInstance, newVal);
 
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public void setCurrentLevelIndex(int currentLevelIndex) {
+		this.currentLevelIndex = currentLevelIndex;
 	}
 	
+	public void setCurrentLevelIndex(String delta){
+		this.currentLevelIndex = Integer.parseInt(delta);
+	}
 	
+	private void checkEndOfGame(){
+		if(currentNumLives == 0){
+			setCurrentLevelIndex(-1);
+		}
+	}
 
+	
+	public void applyAction(LevelAction action) {
+		String instanceVar = action.getVariableToModify();
+		String deltaVal = action.getDeltaValue();
+		Method setMethod;
+
+		try {
+			String methodName = "set" + instanceVar;
+			System.out.println(methodName);
+			
+			setMethod = this.getClass().getMethod(methodName, String.class);
+			setMethod.invoke(this, deltaVal);
+
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 }
+
+
+

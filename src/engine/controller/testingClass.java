@@ -27,6 +27,7 @@ import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 import engine.backend.rules.EntityAction;
+import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 
 public class testingClass {
@@ -104,6 +105,8 @@ public class testingClass {
 		EntityAction action3 = new EntityAction("SimpleBullet", "Display", "CanBeShown", "false");
 		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
 		
+		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
+		
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action); 
 		List<String> myEvents = new ArrayList<String>();
@@ -116,7 +119,7 @@ public class testingClass {
 		
 		
 		Rule rule2 = new Rule();
-		rule2.addActions(Arrays.asList(action, action4));
+		rule2.addActions(Arrays.asList(action, action4, levelAction));
 		rule2.addEvents(Arrays.asList("tempEntityDeathEvent"));
 		
 		level.setRuleAgenda(Arrays.asList(rule1, rule2));

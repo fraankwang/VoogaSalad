@@ -83,10 +83,6 @@ public class RenderingSystem extends GameSystem {
 		
 		}
 		
-		for(IEntity entity : entitiesToRemove){
-			System.out.println("REMOVING: " + entity.getName() + "   " + entity.getID());
-		}
-		
 		myLevel.removeEntites(entitiesToRemove);
 		//entities.removeAll(entitiesToRemove);
 		

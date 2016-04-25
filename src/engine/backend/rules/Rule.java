@@ -7,11 +7,11 @@ import engine.backend.systems.Events.IEvent;
 public class Rule {
 
 	private Collection<String> myEvents;
-	private Collection<EntityAction> myActions;
+	private Collection<IAction> myActions;
 
 	public Rule() {
 		myEvents = new ArrayList<String>();
-		myActions = new ArrayList<EntityAction>();
+		myActions = new ArrayList<IAction>();
 	}
 
 	public void addEvents(Collection<String> events) {
@@ -24,11 +24,11 @@ public class Rule {
 		myEvents.add(event);
 	}
 
-	public void addActions(Collection<EntityAction> actions) {
+	public void addActions(Collection<IAction> actions) {
 		actions.forEach(a -> myActions.add(a));
 	}
 
-	public void addActions(EntityAction action) {
+	public void addActions(IAction action) {
 		myActions.add(action);
 	}
 
@@ -36,7 +36,7 @@ public class Rule {
 		return myEvents;
 	}
 
-	public Collection<EntityAction> getActions() {
+	public Collection<IAction> getActions() {
 		return myActions;
 	}
 
