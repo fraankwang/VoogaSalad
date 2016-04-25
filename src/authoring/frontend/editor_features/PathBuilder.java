@@ -3,11 +3,8 @@ package authoring.frontend.editor_features;
 import java.util.ArrayList;
 import java.util.List;
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 
 public class PathBuilder implements IDisplayElement {
 
@@ -47,7 +44,7 @@ public class PathBuilder implements IDisplayElement {
 		myBezierCurves.forEach(bc -> bc.setSize(width, height));
 	}
 	
-	public List<BezierCurveManipulator> getCurves() {
+	public List<BezierCurveManipulator> getMyBezierCurves() {
 		return myBezierCurves;
 	}
 	

@@ -2,11 +2,9 @@ package authoring.frontend.editor_features;
 
 import java.util.Arrays;
 import java.util.List;
-
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,7 +13,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -69,7 +66,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
 				if (newValue) {
 					myContainer.setSelect();
-					for (BezierCurveManipulator bc: myContainer.getCurves()) {
+					for (BezierCurveManipulator bc: myContainer.getMyBezierCurves()) {
 						bc.getCurve().setStroke(Color.BLUE);
 					}
 					myCurve.setStroke(Color.RED);
@@ -84,7 +81,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 					myCurve.setStroke(Color.BLUE);
 				}
 				else {
-					for (BezierCurveManipulator bc: myContainer.getCurves()) {
+					for (BezierCurveManipulator bc: myContainer.getMyBezierCurves()) {
 						bc.getCurve().setStroke(Color.BLACK);
 					}
 				}
@@ -193,9 +190,10 @@ public class BezierCurveManipulator implements IDisplayElement {
 
 	    }
 	    
+	    
 	    // lock in place with other anchors
 	    private void lockToAnchors() {
-	    	for (BezierCurveManipulator bc: myContainer.getCurves()) {
+	    	for (BezierCurveManipulator bc: myContainer.getMyBezierCurves()) {
 		    	List<Circle> anchors = bc.getAnchors();
 		    	for (Circle a: anchors) {
 		    		if (intersect(this, a).getBoundsInLocal().getWidth() > 0) {
@@ -255,6 +253,11 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    
 	    private class Delta { double x, y; }
 	    
+	}
+	
+	public String getCoordinatesString() {
+		// format: "startX-startY,control1X-control1Y,control2X-control2Y,endX-endY"
+		return "0-0,1-1,2-2,3-3";
 	}
 
 }

@@ -68,14 +68,12 @@ public class LevelsTabGrid extends TabGrid {
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
 
+
 		for (Map<String, String> info : data) {
-			System.out.println(info);
-//			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
-			ImageView iv = new ImageView("test.png");
-			info.put("MapHeight", "5");
-			info.put("MapWidth", "5");
-			info.put("MapBackgroundImage", "test.png");
-			info.put("Name", "hello");
+			info.remove("EntityNames");
+			info.remove("Path");
+			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
+
 			info.remove("Type");
 			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
