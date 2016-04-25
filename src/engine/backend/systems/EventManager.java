@@ -12,37 +12,37 @@ import java.util.Set;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
-import engine.backend.game_object.ModeStatistics;
 import engine.backend.rules.EntityAction;
+import engine.backend.rules.IAction;
+import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.controller.IEngineController;
+import engine.backend.game_object.ModeStatistics;
 
 public class EventManager implements Observer{
 
-	private Level myCurrentLevel;
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
 	ModeStatistics currentModeStatistics;
 	private List<Rule> myRuleAgenda;
 
-	public EventManager(IEngineController engineController, GameWorld game) {
+	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats) {
 		setLevel(game.getLevelWithId(0));
 		myEngineController = engineController;
 		myGameWorld = game;
 		//pass in right values
-		//currentModeStatistics = new ModeStatistics();
+		currentModeStatistics = stats;
 	}
 
 	public void setLevel(Level level) {
-		myCurrentLevel = level;
 		setCustomRules(level.getRuleAgenda());
 	}
 
 	public Level getCurrentLevel() {
-		return myCurrentLevel;
+		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentLevelIndex());
 	}
 
 	@Override
@@ -71,17 +71,22 @@ public class EventManager implements Observer{
 		}
 
 }
-	private void applyActions(Set<Integer> entityIDs, Collection<EntityAction> actions){
+	private void applyActions(Set<Integer> entityIDs, Collection<IAction> actions){
 
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		for (Integer i : entityIDs) {
-			myEntities.add(myCurrentLevel.getEntityWithID(i));
+			myEntities.add(getCurrentLevel().getEntityWithID(i));
 		}
-		for (EntityAction a : actions) {
-			for (IEntity e: myEntities) {
-				if (a.getEntityName().equals(e.getName())) {
-					e.applyAction(a);
+		for (IAction a : actions) {
+			if(a instanceof EntityAction){
+				for (IEntity e: myEntities) {
+					if (((EntityAction) a).getEntityName().equals(e.getName())) {
+						e.applyAction((EntityAction) a);
+					}
 				}
+			}
+			else if(a instanceof LevelAction){
+				currentModeStatistics.applyAction((LevelAction) a);
 			}
 		}
 
@@ -123,7 +128,7 @@ public class EventManager implements Observer{
 
 	public void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
-		myCurrentLevel.addEntityToMap(event.getNewEntities());
+		getCurrentLevel().addEntityToMap(event.getNewEntities());
 	}
 
 	public void handleEnemyMissed() {
@@ -134,6 +139,11 @@ public class EventManager implements Observer{
 	public GameWorld getGameWorld(){
 		return myGameWorld;
 
+	}
+
+	public ModeStatistics getModeStatistics() {
+		// TODO Auto-generated method stub
+		return currentModeStatistics;
 	}
 
 }

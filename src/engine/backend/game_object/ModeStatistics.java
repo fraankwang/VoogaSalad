@@ -1,7 +1,14 @@
 package engine.backend.game_object;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import engine.backend.components.IComponent;
+import engine.backend.rules.EntityAction;
+import engine.backend.rules.LevelAction;
+import engine.backend.utilities.ComponentTagResources;
 
 /**
  * 
@@ -16,14 +23,15 @@ public class ModeStatistics {
 	private double currentResources;
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
+	private int currentLevelIndex;
 
 	public ModeStatistics(int numLives, double resources) {
 		setInitialNumLives(numLives);
 		setCurrentNumLives(numLives);
 		setInitialResources(resources);
 		setCurrentResources(resources);
-		endOfLevelLives = new ArrayList<Integer>();
-		endOfLevelResources = new ArrayList<Double>();
+//		endOfLevelLives = new ArrayList<Integer>();
+//		endOfLevelResources = new ArrayList<Double>();
 	}
 
 	public void addEndOfLevelLives(int numLives) {
@@ -49,6 +57,10 @@ public class ModeStatistics {
 	public void setCurrentNumLives(int currentNumLives) {
 		this.currentNumLives = currentNumLives;
 	}
+	
+	public void setCurrentNumLives(String deltaNumLives){
+		this.currentNumLives += Integer.parseInt(deltaNumLives);
+	}
 
 	public double getInitialResources() {
 		return initialResources;
@@ -65,5 +77,56 @@ public class ModeStatistics {
 	public void setCurrentResources(double currentResources) {
 		this.currentResources = currentResources;
 	}
+	
+	public void setCurrentResources(String delta){
+		this.currentNumLives += Double.parseDouble(delta);
+	}
 
+	public int getCurrentLevelIndex() {
+		checkEndOfGame();
+		return currentLevelIndex;
+	}
+
+	public void setCurrentLevelIndex(int currentLevelIndex) {
+		this.currentLevelIndex = currentLevelIndex;
+	}
+	
+	public void setCurrentLevelIndex(String delta){
+		this.currentLevelIndex = Integer.parseInt(delta);
+	}
+	
+	private void checkEndOfGame(){
+		if(currentNumLives == 0){
+			setCurrentLevelIndex(-1);
+		}
+	}
+
+	
+	public void applyAction(LevelAction action) {
+		String instanceVar = action.getVariableToModify();
+		String deltaVal = action.getDeltaValue();
+		Method setMethod;
+
+		try {
+			String methodName = "set" + instanceVar;
+			setMethod = this.getClass().getMethod(methodName, String.class);
+			setMethod.invoke(this.getClass(), deltaVal);
+
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 }
+
+
+

@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
+import engine.backend.game_object.ModeStatistics;
 
 public class EngineController implements IEngineController{
 	private Stage myStage;
@@ -42,7 +43,8 @@ public class EngineController implements IEngineController{
 		myGameWorld = myTestingClass.testFiring();
 		//initTestGame();
 		
-		myEventManager = new EventManager(this, myGameWorld);
+		ModeStatistics stats = new ModeStatistics(10, 10);
+		myEventManager = new EventManager(this, myGameWorld, stats);
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		playing = true;
 		
