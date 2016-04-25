@@ -1,7 +1,5 @@
 package authoring.backend.factories;
 
-import engine.backend.rules.Action;
-
 public class ActionsFactory {
 
 	public ActionsFactory() {

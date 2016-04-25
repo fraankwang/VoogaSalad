@@ -18,13 +18,7 @@ import engine.backend.rules.EntityAction;
 
 public class Level {
 
-<<<<<<< HEAD
 	private final String myName;
-=======
-	private Map<Integer, IEntity> entities;
-	private int myID;
-	private String myParentModeName;
->>>>>>> origin
 	private GameMap map;
 	private List<IEntity> entities;
 	private Set<String> entityNames;
@@ -32,15 +26,9 @@ public class Level {
 	private double levelTimer;
 	private double waveDelayTimer;
 	private double timer;
-<<<<<<< HEAD
 	
 	public Level(String myName, GameMap map) {
 		this.myName = myName;
-=======
-
-	public Level(int myID, GameMap map) {
-		this.myID = myID;
->>>>>>> origin
 		this.map = map;
 		this.entities = new ArrayList<IEntity>();
 		this.levelInfo = new HashMap<String, String>();
@@ -50,13 +38,12 @@ public class Level {
 	private void initializeInfo() {
 		levelInfo.put("Type", "Level");
 		levelInfo.put("Name", myName);
-		levelInfo.put("MapImage", map.getMapImage());
+		levelInfo.put("MapBackgroundImage", map.getMapImage());
 		levelInfo.put("MapWidth", map.getMapWidth() + "");
 		levelInfo.put("MapHeight", map.getMapHeight() + "");
 		levelInfo.put("Path", map.getPath().getID() + "");
 	}
 
-<<<<<<< HEAD
 	public Level(String myName) {
 		this.entities = new ArrayList<IEntity>();
 		this.myName = myName;
@@ -90,34 +77,12 @@ public class Level {
 	
 	public GameMap getMap(){
 		return map;
-=======
-	public Level(int myID) {
-		this.entities = new HashMap<Integer, IEntity>();
-		this.myID = myID;
-	}
-
-	public int getId() {
-		return myID;
-	}
-
-	public Map<Integer, IEntity> getEntities() {
-		return entities;
-	}
-
-	public GameMap getMap() {
-		return map;
-	}
-
-	public void setMap(GameMap map) {
-		this.map = map;
->>>>>>> origin
 	}
 
 	public Map<String, String> getInfo() {
 		return levelInfo;
 	}
 
-<<<<<<< HEAD
 	public void addEntity(IEntity entity) {
 		entities.add(entity);
 	}
@@ -128,19 +93,6 @@ public class Level {
 	
 	public void addEntityName(String name) {
 		entityNames.add(name);
-=======
-	public void addToEntities(IEntity entity) {
-		entity.setLevelID(myID);
-		entities.put(entity.getID(), entity);
-	}
-
-	public void setModeName(String modeID) {
-		this.myParentModeName = modeID;
-	}
-
-	public String getModeID() {
-		return myParentModeName;
->>>>>>> origin
 	}
 	
 	public void setWaveDelayTimer(double timer) {
@@ -171,14 +123,10 @@ public class Level {
 		// TODO Auto-generated method stub
 		return null;
 	}
-<<<<<<< HEAD
 	
 	@Override
 	public String toString() {
 		return "Level [entities=" + entities + "] ";
 	}
 	
-=======
-
->>>>>>> origin
 }

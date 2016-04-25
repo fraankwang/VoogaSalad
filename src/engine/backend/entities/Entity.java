@@ -149,12 +149,6 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public double getValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources) {
 		String component = action.getComponentToModifiy();
 		String instanceVar = action.getValueInComponent();
@@ -188,6 +182,18 @@ public class Entity implements IEntity {
 			e.printStackTrace();
 		}
 
+	}
+
+//	@Override
+//	public void applyAction(Action action, ResourceBundle myComponentTagResources) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+
+	@Override
+	public void setLevelID(int levelID) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -47,14 +47,20 @@ public class UserInputComponent extends Component implements IComponent {
         this.keyValue = keyValue;
     }
 
-
     @Override
     public String getTag(){
         return "UserInput";
     }
 
-    @Override
-    public void initWithParams(String[] params) {
+	@Override
+	public String getComponentInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    }
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
+	}
 }

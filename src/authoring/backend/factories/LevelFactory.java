@@ -31,23 +31,32 @@ public class LevelFactory {
 
 			case "Path":
 				map.setPath(getPath(data.get(key)));
-			case "MapImage":
+				break;
+			case "MapBackgroundImage":
 				map.setMapImage(data.get(key));
+				break;
 			case "MapWidth":
 				double width = Double.parseDouble(data.get(key));
 				map.setMapWidth(width);
+				break;
 			case "MapHeight":
 				double height = Double.parseDouble(data.get(key));
 				map.setMapHeight(height);
+				break;
 			case "Name":
 				name = data.get(key);
+				System.out.println(name);
+				break;
 			case "LevelTimer":
 				levelTimer = Double.parseDouble(data.get(key));
+				break;
 			case "WaveDelayTimer":
 				waveDelayTimer = Double.parseDouble(data.get(key));
+				break;
 			case "Entities":
 				String entities = data.get(key);
 				entityNames = getEntityNames(entities);
+				break;
 			}
 		}
 		Level level = new Level(name, map);

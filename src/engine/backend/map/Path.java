@@ -28,6 +28,9 @@ public class Path implements IPath{
 		this.myID = ID;
 	}
 	
+	public Path() {
+	}
+	
 	public int getID() {
 		return myID;
 	}
