@@ -22,6 +22,8 @@ public interface IAuthoringView {
 	 */
 	public void writeData(Map<String, String> data);
 
+	void deleteData(Map<String, String> data);
+	
 	public ObservableList<Entity> getEntityList();
 
 	public ObservableList<Level> getLevelList();
@@ -46,5 +48,6 @@ public interface IAuthoringView {
 	public void showPrimaryScene();
 	
 	public IViewManager getAuthoringViewManager();
+
 
 }

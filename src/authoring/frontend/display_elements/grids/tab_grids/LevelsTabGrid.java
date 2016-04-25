@@ -34,7 +34,7 @@ public class LevelsTabGrid extends TabGrid {
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
 	private List<String> myLevels;
-	
+
 	public LevelsTabGrid(IAuthoringView controller, TabDisplay tabDisplay) {
 		super(controller, tabDisplay);
 	}
@@ -56,6 +56,7 @@ public class LevelsTabGrid extends TabGrid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
+		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo));
 
 	}
 
@@ -68,13 +69,15 @@ public class LevelsTabGrid extends TabGrid {
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
 
+		if (data.isEmpty()) {
+			gridView.resetGrid();
+		}
 
 		for (Map<String, String> info : data) {
 			info.remove("EntityNames");
 			info.remove("Path");
-			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
 
-			info.remove("Type");
+			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
 			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 						Boolean newValue) {
@@ -86,8 +89,9 @@ public class LevelsTabGrid extends TabGrid {
 			});
 			gridView.addImage(iv);
 		}
+
 	}
-	
+
 	private void duplicate(Map<String, String> info) {
 		Map<String, String> duplicateEntity = new TreeMap<String, String>();
 		for (String s : info.keySet()) {
@@ -98,7 +102,11 @@ public class LevelsTabGrid extends TabGrid {
 		duplicateEntity.replace("Name", newName);
 		myTabDisplay.openEditorDisplay(duplicateEntity);
 	}
-	
+
+	private void delete(Map<String, String> info) {
+		myController.deleteData(info);
+	}
+
 	private String promptNewName() {
 		Stage promptStage = new Stage();
 		VBox promptBox = new VBox();
@@ -129,7 +137,7 @@ public class LevelsTabGrid extends TabGrid {
 		promptStage.showAndWait();
 		return newName;
 	}
-	
+
 	public List<String> getLevels() {
 		return myLevels;
 	}

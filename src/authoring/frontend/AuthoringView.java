@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * This class contains the link to the backend through GlobalData, the link to
  * the frontend through myAuthoringViewManager, and acts as a universal
- * referencing point to the primary stage and scene. 
+ * referencing point to the primary stage and scene.
  * 
  * @author Frank, benchesnut
  *
@@ -39,7 +39,11 @@ public class AuthoringView implements IAuthoringView {
 	@Override
 	public void writeData(Map<String, String> data) {
 		myGlobalData.updateData(data);
+	}
 
+	@Override
+	public void deleteData(Map<String, String> data) {
+		myGlobalData.deleteData(data);
 	}
 
 	public ObservableList<Entity> getEntityList() {

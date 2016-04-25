@@ -3,6 +3,8 @@ package authoring.frontend.display_elements.panels.attributes_panels.unmodifiabl
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 //import javafx.scene.control.ListView;
@@ -66,7 +68,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		myAttributesGridPane.getChildren().clear();
 
 		System.out.println(
-				"*****7. UnmodifiableLevelAttributesPanel: Entities display refreshed with updated myAttributesMap");
+				"*****7. UnmodifiableLevelAttributesPanel: Levels display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
 		for (String currentAttribute : myAttributesMap.keySet()) {
@@ -92,6 +94,15 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		refreshRows();
 		myGridPane.getChildren().clear();
 		assembleComponents();
+	}
+	
+	@Override
+	public void setAttributes(Map<String, String> updatedInfo) {
+		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
+		System.out.println(updatedInfo);
+		myAttributesMap.put("Type", "Level");
+		myAttributesMap = updatedInfo;
+		refreshDisplay();
 	}
 
 }

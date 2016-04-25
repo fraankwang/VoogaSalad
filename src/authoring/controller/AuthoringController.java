@@ -37,23 +37,25 @@ public class AuthoringController implements IAuthoringController {
 		Map<String, String> data = processData(input);
 		String type = data.get("Type");
 		String command = data.get("Command");
+		data.remove("Command");
+		data.remove("Type");
 		if (type.equals("Entity")) {
-			data.remove("Type");
+//			data.remove("Type");
 			model.updateEntities(command, data);
 			return;
 		}
 		if (type.equals("Level")) {
-			data.remove("Type");
+//			data.remove("Type");
 			model.updateLevels(command, data);
 			return;
 		}
 		if (type.equals("Mode")) {
-			data.remove("Type");
+//			data.remove("Type");
 			model.updateModes(command, data);
 			return;
 		}
 		if (type.equals("Game")) {
-			data.remove("Type");
+//			data.remove("Type");
 			model.updateGame(command, data);
 			return;
 		}

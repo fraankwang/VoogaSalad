@@ -5,14 +5,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
@@ -77,13 +73,13 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 			// they pick
 		}
 		cb.getItems().add("Custom");
-		
+
 		Text text = new Text("Mode");
 		text.setFont(new Font(FONT_SIZE));
 
 		myAttributesMap.put("Mode", "");
 		myInputMap.put("Mode", cb);
-		
+
 		myAttributesGridPane.add(text, 0, 0);
 		myAttributesGridPane.add(myInputMap.get("Mode"), 1, 0);
 	}
@@ -93,7 +89,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		myAttributesMap = info;
 		refreshAttributes();
 	}
-	
+
 	@Override // change to make refresh combo boxes instead
 	@SuppressWarnings("unchecked")
 	protected void refreshAttributes() {
@@ -104,30 +100,30 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 			myInputMap.replace("Mode", cb);
 		}
 
-			refreshInputRows();
+		refreshInputRows();
 	}
 
 	@Override
 	protected void refreshInputRows() {
 		myAttributesGridPane.getChildren().clear();
-		
+
 		Text text = new Text("Mode");
 		text.setFont(new Font(FONT_SIZE));
-		
+
 		myAttributesGridPane.add(text, 0, 0);
 		myAttributesGridPane.add(myInputMap.get("Mode"), 1, 0);
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, String> saveAttributes() {
 		myAttributesMap.put("Type", "Mode");
-		myAttributesMap.replace("Mode", ((ComboBox<String>) myInputMap.get("Mode")).getSelectionModel().getSelectedItem());
+		myAttributesMap.replace("Mode",
+				((ComboBox<String>) myInputMap.get("Mode")).getSelectionModel().getSelectedItem());
 
 		System.out.println("*****4. ModifiableModeAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
-		
+
 		return myAttributesMap;
 	}
 

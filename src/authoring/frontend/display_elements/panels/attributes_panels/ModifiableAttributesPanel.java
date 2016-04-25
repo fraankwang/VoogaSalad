@@ -143,11 +143,15 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
-			Text text = new Text(currentAttribute);
-			text.setFont(new Font(FONT_SIZE));
-
-			myAttributesGridPane.add(text, 0, i);
-			myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
+			if (!currentAttribute.equals("Type")){
+				Text text = new Text(currentAttribute);
+				text.setFont(new Font(FONT_SIZE));
+				
+				myAttributesGridPane.add(text, 0, i);
+				System.out.println(currentAttribute);
+				myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
+				
+			}
 		}
 
 	}

@@ -56,7 +56,7 @@ public class EntitiesTabGrid extends TabGrid {
 		super.assembleGridComponents();
 		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
 		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo));
-	
+
 	}
 
 	@Override
@@ -69,10 +69,14 @@ public class EntitiesTabGrid extends TabGrid {
 		gridView.clearImages();
 		myEntities.clear();
 
+		if (data.isEmpty()) {
+			gridView.resetGrid();
+		}
+
 		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
 				myEntities.add(info.get("Name"));
-				info.remove("Type");
+
 				ImageView iv = new ImageView(info.get("DisplayComponent_Image"));
 				iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 					public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
@@ -95,8 +99,14 @@ public class EntitiesTabGrid extends TabGrid {
 		}
 
 		String newName = promptNewName();
-		duplicateEntity.replace("Name", newName);
-		myTabDisplay.openEditorDisplay(duplicateEntity);
+		if (!newName.equals("")) {
+			duplicateEntity.replace("Name", newName);
+			myTabDisplay.openEditorDisplay(duplicateEntity);
+		}
+	}
+
+	private void delete(Map<String, String> info) {
+		myController.deleteData(info);
 	}
 
 	private String promptNewName() {
@@ -112,7 +122,10 @@ public class EntitiesTabGrid extends TabGrid {
 		buttonBox.setAlignment(Pos.CENTER);
 		Button cancelButton = new Button("Cancel");
 		Button saveButton = new Button("Save");
-		cancelButton.setOnAction(e -> promptStage.close());
+		cancelButton.setOnAction(e -> {
+			promptStage.close();
+			newName = "cancel";
+		});
 		textBox.setOnAction(e -> {
 			newName = textBox.getText();
 			promptStage.close();
@@ -130,13 +143,6 @@ public class EntitiesTabGrid extends TabGrid {
 		return newName;
 	}
 
-	private void delete(Map<String, String> info) {
-		// TODO
-		System.out.println("deleted " + info.get("Name"));
-		return;
-	}
-	
-	
 	public List<String> getEntities() {
 		return myEntities;
 	}
