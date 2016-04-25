@@ -1,7 +1,13 @@
 package engine.backend.game_object;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import engine.backend.components.IComponent;
+import engine.backend.rules.EntityAction;
+import engine.backend.utilities.ComponentTagResources;
 
 /**
  * 
@@ -65,5 +71,45 @@ public class ModeStatistics {
 	public void setCurrentResources(double currentResources) {
 		this.currentResources = currentResources;
 	}
+	
+	@Override
+	public void applyAction(LevelAction action) {
+		String resourceToModify = action.getResourceToModifiy();
+		String instanceVar = action.getValueInComponent();
+		String newVal = action.getNewValue();
+		Method setMethod;
+
+		String fullName = ComponentTagResources.getComponentTag(component);
+		//System.out.println(getName() + "   " + fullName);
+		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
+		//System.out.println(componentClass.getName());
+		try {
+			Object componentClassInstance = componentClass.newInstance();
+			
+			componentClassInstance = componentClass.cast(myComponents.get(fullName));
+			// put in resource file!!!
+			String methodName = "set" + instanceVar;
+
+			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
+
+			setMethod.invoke(componentClassInstance, newVal);
+
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	
 
 }
