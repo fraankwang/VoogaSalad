@@ -28,22 +28,43 @@ public class ModelManager implements IModel {
 		this.modefactory = new ModeFactory();
 	}
 	
-	public void updateEntities(Map<String, String> data) {
+	public void updateEntities(String command, Map<String, String> data) {
 		Entity entity = entityfactory.createEntity(data);
-		globaldata.getEntities().add(entity);
+		if (command.equals("Update")) {
+			globaldata.getEntities().add(entity);
+			return;
+		}
+		if (command.equals("Delete")) {
+			globaldata.getEntities().remove(entity);
+			return;
+		}
 	}
 
-	public void updateLevels(Map<String, String> data) {
+	public void updateLevels(String command, Map<String, String> data) {
 		Level level = levelfactory.createLevel(data);
-		globaldata.getLevels().add(level);
+		if (command.equals("Update")) {
+			globaldata.getLevels().add(level);
+			return;
+		}
+		if (command.equals("Delete")) {
+			globaldata.getLevels().remove(level);
+			return;
+		}
 	}
 
-	public void updateModes(Map<String, String> data) {
+	public void updateModes(String command, Map<String, String> data) {
 		Mode mode = modefactory.createMode(data);
-		globaldata.getModes().add(mode);
+		if (command.equals("Update")) {
+			globaldata.getModes().add(mode);
+			return;
+		}
+		if (command.equals("Delete")) {
+			globaldata.getModes().remove(mode);
+			return;
+		}
 	}
-	
-	public void updateGame(Map<String, String> data) {
+
+	public void updateGame(String command, Map<String, String> data) {
 		globaldata.getGame().update(data);
 	}
 		
