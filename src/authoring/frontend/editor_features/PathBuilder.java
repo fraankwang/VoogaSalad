@@ -14,6 +14,7 @@ public class PathBuilder implements IDisplayElement {
 	private List<BezierCurveManipulator> myBezierCurves;
 	private Group myNode;
 	private double myWidth, myHeight;
+	private boolean selected;
 	
 	public PathBuilder() {
 	}
@@ -21,7 +22,6 @@ public class PathBuilder implements IDisplayElement {
 	public void initialize() {
 		myBezierCurves = new ArrayList<BezierCurveManipulator>();
 		myNode = new Group();
-		SimpleBooleanProperty isSelected = new SimpleBooleanProperty();
 	}
 	
 	public void createNewCurve() {
@@ -29,6 +29,7 @@ public class PathBuilder implements IDisplayElement {
 		newCurve.initialize();
 		myBezierCurves.add(newCurve);
 		myNode.getChildren().add(newCurve.getNode());
+		newCurve.getCurve().requestFocus();
 	}
 	
 	protected void removeCurve(BezierCurveManipulator curve) {
@@ -48,6 +49,24 @@ public class PathBuilder implements IDisplayElement {
 	
 	public List<BezierCurveManipulator> getCurves() {
 		return myBezierCurves;
+	}
+	
+	public void setSelect() {
+		int i = 0;
+		for (BezierCurveManipulator bc: myBezierCurves) {
+			if (bc.getCurve().isFocused()) {
+				i += 1;
+			}
+		}
+		if (i > 0) {
+			selected = true;
+			return;
+		}
+		selected = false;
+	}
+	
+	public boolean isSelected() {
+		return selected;
 	}
 
 	@Override

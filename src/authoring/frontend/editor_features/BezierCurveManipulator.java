@@ -68,12 +68,25 @@ public class BezierCurveManipulator implements IDisplayElement {
 		myCurve.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
 				if (newValue) {
-					myCurve.setStroke(Color.BLUE);
+					myContainer.setSelect();
+					for (BezierCurveManipulator bc: myContainer.getCurves()) {
+						bc.getCurve().setStroke(Color.BLUE);
+					}
+					myCurve.setStroke(Color.RED);
 					start.setOpacity(1);
 					control1.setOpacity(1);
 					control2.setOpacity(1);
 					end.setOpacity(1);
 					return;
+				}
+				myContainer.setSelect();
+				if (myContainer.isSelected()) {
+					myCurve.setStroke(Color.BLUE);
+				}
+				else {
+					for (BezierCurveManipulator bc: myContainer.getCurves()) {
+						bc.getCurve().setStroke(Color.BLACK);
+					}
 				}
 				start.setOpacity(0.5);
 				control1.setOpacity(0.5);
@@ -122,7 +135,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    curve.setControlY2(150);
 	    curve.setEndX(300);
 	    curve.setEndY(100);
-	    curve.setStroke(Color.BLUE);
+	    curve.setStroke(Color.RED);
 	    curve.setStrokeWidth(4);
 	    curve.setStrokeLineCap(StrokeLineCap.ROUND);
 	    curve.setFill(null);
