@@ -10,7 +10,9 @@ import java.util.Set;
 
 import engine.backend.components.FiringComponent;
 import engine.backend.components.MovementComponent;
+import engine.backend.components.MultiDirectionalFiringComponent;
 import engine.backend.components.PositionComponent;
+import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
@@ -61,27 +63,46 @@ public class FiringSystem extends GameSystem {
 	
 	private void updateFiring(IEntity shootingEntity, IEntity targetEntity, Collection<IEntity> newEntities, 
 			double currentSecond, InGameEntityFactory myEntityFactory){
+		
 		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(ComponentTagResources.firingComponentTag);
-		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(ComponentTagResources.positionComponentTag);
-		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(ComponentTagResources.positionComponentTag);
-
-		Vector shootingPosVector = shootingPosComponent.getPositionVector();
-		Vector targetPosVector = targetPosComponent.getPositionVector();
 		
 		if(firingComponent.getTimer() == 0 || firingComponent.fireNow()){
-			double xComp = targetPosVector.getX() - shootingPosVector.getX();
-			double yComp = targetPosVector.getY() - shootingPosVector.getY();
-			Vector firedVelVector = new Vector(xComp, yComp);
-
-			IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), shootingPosVector, firedVelVector, 
-					firingComponent.getAmmunitionSpeed(), myEntityFactory);
-			newEntities.add(newEntity);
+			
+			for (int i = 0; i < firingComponent.getNumDirections(); i++) {
+				Vector firedVelVector = null;
+				
+				if(firingComponent instanceof MultiDirectionalFiringComponent){
+					firedVelVector = ((MultiDirectionalFiringComponent) firingComponent).getDirectionAtIndex(i);
+				}
+				else{
+					firedVelVector = calculateVelocityVector(shootingEntity, targetEntity);
+				}
+				
+				IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), getEntityPositionVector(shootingEntity), firedVelVector,
+						firingComponent.getAmmunitionSpeed(), targetEntity, myEntityFactory);
+				newEntities.add(newEntity);
+			}
+			
 			firingComponent.setFireNow(false);
 			firingComponent.resetTimer();
 		}
+		
 		else{
 			firingComponent.setTimer(currentSecond);
 		}
+	}
+	
+	private Vector calculateVelocityVector(IEntity shootingEntity, IEntity targetEntity){
+		Vector shootingPosVector = getEntityPositionVector(shootingEntity);
+		Vector targetPosVector = getEntityPositionVector(targetEntity);
+		double xComp = targetPosVector.getX() - shootingPosVector.getX();
+		double yComp = targetPosVector.getY() - shootingPosVector.getY();
+		return new Vector(xComp, yComp);
+	}
+	
+	private Vector getEntityPositionVector(IEntity entity){
+		PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
+		return posComponent.getPositionVector();
 	}
 
 	private boolean isTarget(IEntity shootingEntity, IEntity targetEntity){
@@ -102,7 +123,12 @@ public class FiringSystem extends GameSystem {
 
 	}
 
-	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, InGameEntityFactory myEntityFactory){
+	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
+		AddEntityEvent event = new AddEntityEvent(newEntities);
+		return event;
+	}
+
+	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, IEntity targetEntity, InGameEntityFactory myEntityFactory){
 
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
 
@@ -110,15 +136,19 @@ public class FiringSystem extends GameSystem {
 		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(ComponentTagResources.movementComponentTag);
 		
 		firedPosComponent.setPositionVector(new Vector(positionVector));
-
+		
+		if(firedMovComponent instanceof TrackingMovementComponent){
+			((TrackingMovementComponent) firedMovComponent).setEntityToTrack(targetEntity);
+			((TrackingMovementComponent) firedMovComponent).setSpeed(speed);
+		}
+		
 		Vector velVector = new Vector(directionToFire);
-
 		velVector = velVector.normalize();
 		velVector = velVector.scale(speed);
 
 		firedMovComponent.setCurrentVelocityVector(velVector);
 		firedMovComponent.setDefaultVelocityVector(velVector);
-		return ammoEntity;
+		return ammoEntity;		
 	}
 	
 	private void sendAddEntityEvent(Collection<IEntity> newEntities){
@@ -126,5 +156,4 @@ public class FiringSystem extends GameSystem {
 		setChanged();
 		notifyObservers(event);
 	}
-
 }
