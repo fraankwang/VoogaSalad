@@ -38,14 +38,13 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		myPanelBar.addButton("Create New Path", e -> {
 			PathBuilder newPath = new PathBuilder(pathIndexNumber);
 			newPath.initialize();
-			pathIndexNumber++;
 			newPath.setSize(myImageView.getImage().getWidth(), myImageView.getImage().getHeight());
 			myPathBuilders.add(newPath);
 			myPanelBar.addButton("Add to Path " + myPathBuilders.size(), f -> {
-				pathIndexNumber++;
 				newPath.createNewCurve();
 			});
 			myGroup.getChildren().add(newPath.getNode());
+			pathIndexNumber++;
 		});
 		myNode = vbox;
 	}
@@ -69,5 +68,9 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		}
 		
 		return result.substring(0,result.length()-1);
+	}
+	
+	public int getNumberOfPaths() {
+		return pathIndexNumber;
 	}
 }
