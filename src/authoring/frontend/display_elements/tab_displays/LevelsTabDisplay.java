@@ -9,6 +9,7 @@ import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.LevelEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.LevelsTabGrid;
+import authoring.frontend.display_elements.panels.GridViewPanel;
 import engine.backend.game_object.Level;
 
 /**
@@ -37,6 +38,7 @@ public class LevelsTabDisplay extends TabDisplay {
 		myEditorDisplay.initialize();
 		myGrid = new LevelsTabGrid(myController, this);
 		myGrid.initialize();
+		((GridViewPanel) myGrid.getPrimaryDisplay()).setPanelBarDescription("Levels");
 
 	}
 

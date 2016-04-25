@@ -30,7 +30,7 @@ public class GridPanelBar extends PanelBar {
 
 	@Override
 	protected void initializeComponents() {
-		myDescription = new Label("Entities are objects that can interact with each other");
+		myDescription = new Label();
 		myIncreaseColumnsButton = new Button("+");
 		myDecreaseColumnsButton = new Button("-");
 	}
@@ -46,8 +46,14 @@ public class GridPanelBar extends PanelBar {
 		HBox.setHgrow(myDecreaseColumnsButton, Priority.ALWAYS);
 		HBox.setHgrow(numColumns, Priority.ALWAYS);
 		HBox.setHgrow(myIncreaseColumnsButton, Priority.ALWAYS);
-		myGridBar.getChildren().addAll(myDescription, myDecreaseColumnsButton, numColumns, myIncreaseColumnsButton);
+		HBox columnSelector = new HBox(myDecreaseColumnsButton, numColumns, myIncreaseColumnsButton);
+		myGridBar.getChildren().addAll(myDescription, columnSelector);
+		columnSelector.setAlignment(Pos.CENTER_RIGHT);
 		myNode = myGridBar;
+	}
+	
+	public void setDescription(String description) {
+		myDescription.setText("You are currently viewing your " + description);
 	}
 
 }

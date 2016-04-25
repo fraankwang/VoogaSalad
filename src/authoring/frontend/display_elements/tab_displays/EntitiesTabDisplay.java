@@ -5,16 +5,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.TreeMap;
+
 import authoring.backend.data.ObservableList;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
+import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
+import authoring.frontend.display_elements.panels.GridViewPanel;
 import engine.backend.entities.Entity;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -25,7 +30,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import authoring.frontend.display_elements.grids.TabGrid;
 
 /**
  * 
@@ -51,10 +55,11 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEditorDisplay = new EntityEditorDisplay(myController);
 		myEditorDisplay.initialize();
 
-		createNewTab("Ammo");
-		createNewTab("Enemy");
-		createNewTab("Tower");
+		createNewTab("Tower", false);
+		createNewTab("Enemy", false);
+		createNewTab("Ammo", false);
 		setTabPaneActions();
+		myEntitiesTabPane.getSelectionModel().select(0);
 	}
 
 	@Override
@@ -72,7 +77,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 					String newGenre = promptGenreName();
 					if (newGenre != "") {
 						myEntitiesTabPane.getTabs().remove(addNewTypeTab);
-						createNewTab(newGenre);
+						createNewTab(newGenre, true);
 						myEntitiesTabPane.getTabs().add(addNewTypeTab);
 					} else {
 						myEntitiesTabPane.getSelectionModel().select(oldTab);
@@ -89,14 +94,27 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEntitiesTabPane.getTabs().add(addNewTypeTab);
 	}
 
-	private void createNewTab(String name) {
+	private void createNewTab(String name, boolean closeable) {
 		EntitiesTabGrid grid = new EntitiesTabGrid(myController, this);
 		grid.initialize();
+
+		((GridViewPanel) grid.getPrimaryDisplay()).setPanelBarDescription(name + " Entities");
 		Tab newTab = new Tab(name, grid.getNode());
+		newTab.setClosable(closeable);
 		newTab.setOnSelectionChanged(e -> {
 			if (newTab.isSelected()) {
 				myGrid = grid;
 			}
+
+			newTab.setOnClosed(f -> {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Alert Deletion Warning");
+				alert.setHeaderText(
+						"Deleting this genre will not delete the entities you have created within the genre.");
+				alert.setContentText("To revisit these entities, Add New genre with the same name.");
+				alert.show();
+			});
+
 		});
 		myEntitiesTabPane.getTabs().add(newTab);
 		myEntitiesTabPane.getSelectionModel().select(newTab);
@@ -134,6 +152,11 @@ public class EntitiesTabDisplay extends TabDisplay {
 		return genreName;
 	}
 
+	/**
+	 * For Entities, because there are multiple genres, it sends all the data to
+	 * each of the different genre tabs with the genre name and only selects the
+	 * entities whose genres match.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
@@ -147,7 +170,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 				((EntitiesTabGrid) myGrid).update(data, t.getText());
 			}
 		}
-		// myGrid.setAttributesPanel(data.get(0));
+
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 	}
 
