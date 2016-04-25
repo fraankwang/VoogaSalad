@@ -82,16 +82,23 @@ public class EntitiesTabDisplay extends TabDisplay {
 					} else {
 						myEntitiesTabPane.getSelectionModel().select(oldTab);
 					}
+
 				}
+				
 			}
 		});
 
+		myEntitiesTabPane.getTabs().add(addNewTypeTab);
+
 		ContextMenu tabContextMenu = new ContextMenu();
 		MenuItem tabMenu = new MenuItem("Change Genre name");
-		tabMenu.setOnAction(e -> myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(promptGenreName()));
+		tabMenu.setOnAction(e -> {
+			String name = promptGenreName();
+			((GridViewPanel) myGrid.getPrimaryDisplay()).setPanelBarDescription(name + " Entities");
+			myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(name);
+		});
 		tabContextMenu.getItems().add(tabMenu);
 		myEntitiesTabPane.setContextMenu(tabContextMenu);
-		myEntitiesTabPane.getTabs().add(addNewTypeTab);
 	}
 
 	private void createNewTab(String name, boolean closeable) {

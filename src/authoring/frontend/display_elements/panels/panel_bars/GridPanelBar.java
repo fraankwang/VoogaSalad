@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.text.Font;
 
 /**
  * The GridPanelBar contains a description as well as controls to change the
@@ -31,6 +32,7 @@ public class GridPanelBar extends PanelBar {
 	@Override
 	protected void initializeComponents() {
 		myDescription = new Label();
+		myDescription.setFont(new Font(25));
 		myIncreaseColumnsButton = new Button("+");
 		myDecreaseColumnsButton = new Button("-");
 	}
@@ -41,6 +43,7 @@ public class GridPanelBar extends PanelBar {
 		myGridBar.setAlignment(Pos.CENTER_LEFT);
 		myGridBar.setSpacing(10);
 		Label numColumns = new Label("# of columns");
+		numColumns.setFont(new Font(25));
 		myDecreaseColumnsButton.setOnAction(e -> myGridView.decreaseGridSize());
 		myIncreaseColumnsButton.setOnAction(e -> myGridView.increaseGridSize());
 		HBox.setHgrow(myDecreaseColumnsButton, Priority.ALWAYS);
