@@ -35,6 +35,17 @@ public class ObservableList<E> extends Observable {
 		notifyObservers(getInfo());
 	}
 	
+	public void remove(E object) {
+		for (E e : objects) {
+			if (e.equals(object)) {
+				objects.remove(e);
+				setChanged();
+				notifyObservers(getInfo());
+				return;
+			}
+		}
+	}
+	
 	public List<E> getList() {
 		return objects;
 	}

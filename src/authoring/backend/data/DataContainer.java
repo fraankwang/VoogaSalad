@@ -14,6 +14,14 @@ public class DataContainer extends Observable {
 	
 	public void updateData(Map<String, String> data) {
 		this.data = data;
+		this.data.put("Command", "Update");
+		setChanged();
+		notifyObservers(data);
+	}
+	
+	public void deleteData(Map<String, String> data) {
+		this.data = data;
+		this.data.put("Command", "Delete");
 		setChanged();
 		notifyObservers(data);
 	}
