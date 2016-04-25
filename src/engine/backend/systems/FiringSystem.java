@@ -20,13 +20,14 @@ import engine.backend.systems.Events.EntityEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.utilities.ComponentTagResources;
 
+
 /**
  * 
  * @author raghavkedia
  *
  */
 
-public class FiringSystem extends GameSystem{
+public class FiringSystem extends GameSystem {
 
 	@Override 
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
@@ -53,7 +54,8 @@ public class FiringSystem extends GameSystem{
 
 		}
 
-		addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
+		//addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
+		sendAddEntityEvent(newEntities);
 
 	} 
 	
@@ -100,28 +102,23 @@ public class FiringSystem extends GameSystem{
 
 	}
 
-	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
-		AddEntityEvent event = new AddEntityEvent(newEntities);
-		return event;
-	}
-
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, InGameEntityFactory myEntityFactory){
 
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
 
 		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(ComponentTagResources.positionComponentTag);
 		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(ComponentTagResources.movementComponentTag);
-
+		
 		firedPosComponent.setPositionVector(new Vector(positionVector));
 
 		Vector velVector = new Vector(directionToFire);
 
 		velVector = velVector.normalize();
-		velVector.scale(speed);
+		velVector = velVector.scale(speed);
+
 		firedMovComponent.setCurrentVelocityVector(velVector);
 		firedMovComponent.setDefaultVelocityVector(velVector);
-
-		return ammoEntity;		
+		return ammoEntity;
 	}
 	
 	private void sendAddEntityEvent(Collection<IEntity> newEntities){

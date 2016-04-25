@@ -16,10 +16,11 @@ public class AddEntityEvent extends EntityEvent{
 	public Collection<IEntity> getNewEntities(){
 		return newEntities;
 	}
-
+	
 	@Override
 	public String getEventID() {
 		// TODO Auto-generated method stub
 		return this.getClass().getSimpleName();
 	}
+
 }

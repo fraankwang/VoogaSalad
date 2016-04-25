@@ -5,6 +5,11 @@ import java.util.List;
 
 import engine.backend.entities.IEntity;
 
+/**
+ * A component that gives the ability to an entity to spawn more entities.
+ * @author 
+ *
+ */
 public class SpawnerComponent extends Component implements IComponent{
 
 	private List<Spawn> mySpawns;
@@ -12,6 +17,11 @@ public class SpawnerComponent extends Component implements IComponent{
 	
 	public SpawnerComponent(){
 		mySpawns = new ArrayList<Spawn>();
+	}
+	
+	public SpawnerComponent(SpawnerComponent component) {
+		this.mySpawns = component.getSpawns();
+		this.pathID = component.getPathID();
 	}
 	
 	public void addSpawn(Spawn spawn){

@@ -1,20 +1,6 @@
 package engine.controller;
 
-import engine.backend.components.CollisionComponent;
-import engine.backend.components.DisplayComponent;
-import engine.backend.components.IComponent;
-import engine.backend.components.MovementComponent;
-import engine.backend.components.PathComponent;
-import engine.backend.components.PositionComponent;
-import engine.backend.components.SizeComponent;
-import engine.backend.entities.Entity;
-import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
-import engine.backend.map.BezierCurve;
-import engine.backend.map.GameMap;
-import engine.backend.map.Path;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.frontend.EngineView;
@@ -52,8 +38,8 @@ public class EngineController implements IEngineController{
 	
 	public void start(){
 		myGameWorld = new GameWorld();
-		myTestingClass = new testingClass(myGameWorld);
-		myGameWorld = myTestingClass.initTestGame();
+		myTestingClass = new testingClass();
+		myGameWorld = myTestingClass.testFiring();
 		//initTestGame();
 		
 		myEventManager = new EventManager(this, myGameWorld);

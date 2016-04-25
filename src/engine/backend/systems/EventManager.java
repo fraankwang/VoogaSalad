@@ -7,18 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.entities.IEntity;
-import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
-import engine.backend.systems.Events.EntityEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.controller.IEngineController;
@@ -29,8 +26,6 @@ public class EventManager implements Observer{
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
 	ModeStatistics currentModeStatistics;
-
-	private SystemsController mySystemsController;
 	private List<Rule> myRuleAgenda;
 
 	public EventManager(IEngineController engineController, GameWorld game) {
@@ -43,7 +38,7 @@ public class EventManager implements Observer{
 
 	public void setLevel(Level level) {
 		myCurrentLevel = level;
-		myCustomEntityEvents = level.getCustomEvents();
+		setCustomRules(level.getRuleAgenda());
 	}
 
 	public Level getCurrentLevel() {
@@ -52,7 +47,7 @@ public class EventManager implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		//System.out.println(arg.getClass().getName()); 
 		handleCustomEvent((IEvent) arg);
 	}
 
@@ -60,8 +55,8 @@ public class EventManager implements Observer{
 		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(), myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}
 
-	public void setCustomEvents(Map<String, List<EntityAction>> myCustomEntityEvents) {
-		this.myCustomEntityEvents = myCustomEntityEvents;
+	public void setCustomRules(List<Rule> rules) {
+		this.myRuleAgenda = rules;
 	}
 
 	private void handleCustomEvent(IEvent myEvent) {
@@ -75,28 +70,7 @@ public class EventManager implements Observer{
 			handleAddEntityEvent(myEvent);
 		}
 
-		if (myEvent instanceof EntityEvent) {
-			EntityEvent myEntityEvent = (EntityEvent) myEvent;
-			List<String> identifiers = myEntityEvent.getEntities().stream()
-					.map(e -> myCurrentLevel.getEntities().get(e).getName())
-					.collect(Collectors.toList());
-			List<EntityAction> myActions = checkPossibleIDs(myEvent.getEventID(identifiers));
-			if (myActions != null) {
-				Collection<Integer> myEntitiesIDs = myEntityEvent.getEntities();
-				Collection<IEntity> myEntities = myEntitiesIDs.stream()
-						.map(e -> myCurrentLevel.getEntities().get(e);))
-.collect(Collectors.toCollection()));
-myActions.forEach(a -> {
-	for (IEntity entity : myEntities) {
-		if (a.getEntityName().equals(entity.getName())) {
-			entity.applyAction(a, myComponentTagResources);
-		}
-	}
-});
-			}
-		}
-	}
-
+}
 	private void applyActions(Set<Integer> entityIDs, Collection<EntityAction> actions){
 
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
@@ -144,17 +118,7 @@ myActions.forEach(a -> {
 				
 			}
 
-		}
-
-	}
-
-	private List<EntityAction> checkPossibleIDs(List<String> ids) {
-		for (String id : ids) {
-			if (myCustomEntityEvents.get(id) != null) {
-				return myCustomEntityEvents.get(id);
-			}
-		}
-		return null;
+		}		
 	}
 
 	public void handleAddEntityEvent(IEvent myEvent) {
