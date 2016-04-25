@@ -1,8 +1,11 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
+import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.LevelEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
+import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +32,11 @@ public class LevelEditorGrid extends EditorGrid {
 	protected void initializeGridFactory() {
 		myGridFactory = new LevelEditorGridFactory(myController, this);
 
+	}
+	
+	@Override
+	public void setAttributesPanel(Map<String, String> info) {
+		super.setAttributesPanel(info);
 	}
 
 }
