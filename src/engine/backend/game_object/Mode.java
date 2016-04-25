@@ -32,7 +32,7 @@ public class Mode {
 	}
 
 	public void addLevel(Level level) {
-		level.setModeName(myName);
+		level.setParentModeName(myName);
 		levels.add(level);
 	}
 

@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
-import engine.backend.systems.Events.IEvent;
 import engine.controller.EngineController;
 
 public class SystemsController {
@@ -82,15 +82,15 @@ public class SystemsController {
 //	}
 
 	public void iterateThroughSystems(Level level) {
-		Map<String, List<Integer>> myEventMap;
+		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
 		//go through systems, update stuff and gather events
 		for (ISystem system : mySystems) {
-			system.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
+			system.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory, myGameClock.getCurrentSecond());
 		}
 		//handle all the generate events
-		myEventManager.handleGeneratedEvents(myEventList);
+		myEventManager.handleGeneratedEvents(myEventMap);
 		//final system, do all the rendering
-		renderingSystem.update(myEventManager.getCurrentLevel(), myEventList, myEntityFactory, myGameClock.getCurrentSecond(), myComponentTagResources);
+		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory, myGameClock.getCurrentSecond());
 		myGameClock.updateLoopIteration();
 	}
 

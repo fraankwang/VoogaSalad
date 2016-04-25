@@ -21,13 +21,14 @@ import engine.backend.systems.Events.EntityEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.utilities.ComponentTagResources;
 
+
 /**
  * 
  * @author raghavkedia
  *
  */
 
-public class FiringSystem extends GameSystem{
+public class FiringSystem extends GameSystem {
 
 	@Override 
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
@@ -53,13 +54,9 @@ public class FiringSystem extends GameSystem{
 			}
 
 		}
-		
-		List<Integer> ids = new ArrayList<Integer>();
-		for(IEntity entity : newEntities){
-			ids.add(entity.getID());
-		}
 
-		addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
+		//addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
+		sendAddEntityEvent(newEntities);
 
 	} 
 	
@@ -118,7 +115,7 @@ public class FiringSystem extends GameSystem{
 
 		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(ComponentTagResources.positionComponentTag);
 		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(ComponentTagResources.movementComponentTag);
-
+		
 		firedPosComponent.setPositionVector(new Vector(positionVector));
 		
 		if(firedMovComponent instanceof TrackingMovementComponent){
@@ -128,12 +125,17 @@ public class FiringSystem extends GameSystem{
 		
 		Vector velVector = new Vector(directionToFire);
 		velVector = velVector.normalize();
-		velVector.scale(speed);
+		velVector = velVector.scale(speed);
+
 		firedMovComponent.setCurrentVelocityVector(velVector);
 		firedMovComponent.setDefaultVelocityVector(velVector);
-		
-
 		return ammoEntity;		
+	}
+	
+	private void sendAddEntityEvent(Collection<IEntity> newEntities){
+		AddEntityEvent event = new AddEntityEvent(newEntities);
+		setChanged();
+		notifyObservers(event);
 	}
 	
 	

@@ -13,13 +13,14 @@ public class AddEntityEvent extends EntityEvent{
 		this.newEntities = newEntities;
 	}
 	
-	public Collection<IEntity> getNewEntity(){
+	public Collection<IEntity> getNewEntities(){
 		return newEntities;
 	}
-
+	
 	@Override
-	public String getEventID(List<String> identifiers) {
+	public String getEventID() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getClass().getSimpleName();
 	}
+
 }

@@ -8,8 +8,8 @@ public class TrackingMovementComponent extends MovementComponent{
 	private IEntity myEntityToTrack;
 	private double mySpeed;
 
-	public TrackingMovementComponent() {
-		// TODO Auto-generated constructor stub
+	public TrackingMovementComponent(MovementComponent component) {
+		super(component);
 	}
 	
 	//for demo purposes

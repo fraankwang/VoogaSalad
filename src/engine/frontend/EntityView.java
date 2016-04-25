@@ -29,6 +29,8 @@ public class EntityView {
 		myH = height;
 		
 		//create imageview
+		/*System.out.println(myID);
+		System.out.println(myImageName);*/
 		myImageView = new ImageView(new Image(myImageName));
 		myImageView.setX(myX);
 		myImageView.setY(myY);

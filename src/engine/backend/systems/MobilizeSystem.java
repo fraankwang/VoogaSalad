@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -40,25 +41,25 @@ public class MobilizeSystem extends GameSystem{
 			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
 			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 			
+			IEvent event;
+			
 			if(entity.hasComponent(ComponentTagResources.pathComponentTag)){
 				
 				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
 				//if on path
-				IEvent event = updatePositionOnPath(entity.getID(), posComponent, movComponent, pathComponent, myLevel.getMap().getPath());
-				
-				if(event != null){
-					//add to event map
-				}
-				
+				event = updatePositionOnPath(entity.getID(), posComponent, movComponent, pathComponent, myLevel.getMap().getPath());
+
 			}
 			else{
 				
-				IEvent event = updatePosition(entity.getID(), posComponent, movComponent, myLevel.getMap());
+				event = updatePosition(entity.getID(), posComponent, movComponent, myLevel.getMap());
 				
-				if(event != null){
-					//add to event map;
-				}
 				
+				
+			}
+			
+			if(event != null){
+				addToEventMap(myEventMap, event, Arrays.asList(entity));
 			}
 			
 			updateRotation(movComponent);
