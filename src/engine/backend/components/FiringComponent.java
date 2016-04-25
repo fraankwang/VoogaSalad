@@ -240,4 +240,8 @@ public class FiringComponent extends Component implements IComponent{
 		this.myFiringRate = firingRate;
 	}
 	
+	public int getNumDirections(){
+		return 1;
+	}
+	
 }
