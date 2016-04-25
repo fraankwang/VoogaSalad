@@ -15,8 +15,14 @@ public class SpawnerComponent extends Component implements IComponent{
 	private List<Spawn> mySpawns;
 	private int pathID;
 	
-	public SpawnerComponent(){
+	public SpawnerComponent(int id){
 		mySpawns = new ArrayList<Spawn>();
+		pathID = id;
+	}
+	
+	public SpawnerComponent(List<Spawn> spawns, int id){
+		mySpawns = spawns;
+		pathID = id;
 	}
 	
 	public SpawnerComponent(SpawnerComponent component) {

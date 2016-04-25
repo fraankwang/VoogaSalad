@@ -44,6 +44,7 @@ public class Level {
 		this.entities = new HashMap<Integer, IEntity>();
 		this.myID = myID;
 		this.myEventMap = new HashMap<String, List<EntityAction>>();
+		ruleAgenda = new ArrayList<Rule>();
 	}
 
 	/**

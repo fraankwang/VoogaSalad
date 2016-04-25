@@ -36,7 +36,7 @@ public class FiringSystem extends GameSystem {
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		for(IEntity shootingEntity : entities){
 
-			if(!shootingEntity.hasComponent(ComponentTagResources.movementComponentTag)){
+			if(!shootingEntity.hasComponent(ComponentTagResources.firingComponentTag)){
 				continue;
 			}
 

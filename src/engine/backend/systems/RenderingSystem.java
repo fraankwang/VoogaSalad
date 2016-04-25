@@ -6,6 +6,7 @@
 
 package engine.backend.systems;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class RenderingSystem extends GameSystem {
 		// TODO Auto-generated method stub
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
+		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
 		for(IEntity myEntity : entities){
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
@@ -69,10 +71,17 @@ public class RenderingSystem extends GameSystem {
 			
 			//System.out.println("Name:  " + myEntity.getName() + myEntity.getID());
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
-
+			
+			if(!show){
+				entitiesToRemove.add(myEntity);
+			}
+			
 			myEntity.setHasBeenModified(false);
-
+		
 		}
+		
+		entities.removeAll(entitiesToRemove);
+	//	System.out.println(entities.size());
 	}
 	
 	public void sendUpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show){

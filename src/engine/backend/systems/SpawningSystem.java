@@ -35,7 +35,7 @@ public class SpawningSystem extends GameSystem{
 			if(!entity.hasComponent(ComponentTagResources.spawnerComponentTag)){
 				continue;
 			}
-			
+						
 			SpawnerComponent spawnerComponent = (SpawnerComponent) entity.getComponent(ComponentTagResources.spawnerComponentTag);
 			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 			
@@ -52,6 +52,7 @@ public class SpawningSystem extends GameSystem{
 			
 		}
 		
+		//System.out.println(newEntities.size());
 		sendAddEntityEvent(newEntities);
 		
 		//addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
@@ -62,6 +63,7 @@ public class SpawningSystem extends GameSystem{
 		if(spawn.getTimer() == 0){
 			//spawn
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
+			System.out.println(newEntity.getName() + "   " + newEntity.getID());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
 			newEntity.addComponent(newPositionComponent);
 			
@@ -69,9 +71,7 @@ public class SpawningSystem extends GameSystem{
 				PathComponent pathComp = (PathComponent) newEntity.getComponent(ComponentTagResources.pathComponentTag);
 				pathComp.setPathID(pathID);
 			}
-			
 			newEntities.add(newEntity);
-			
 			spawn.resetTimer();
 		}
 		else{

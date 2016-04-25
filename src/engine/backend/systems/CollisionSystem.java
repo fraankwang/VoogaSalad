@@ -38,7 +38,7 @@ public class CollisionSystem extends GameSystem{
         		}
     			
     			if(checkIntersection(entity1, entity2)){
-    				IEvent event = getCollisionEvent(entity1.getID(), entity2.getID());
+    				IEvent event = getCollisionEvent(entity1, entity2);
     				Set<IEntity> entitySet = new HashSet<IEntity>();
     				entitySet.add(entity1);
     				entitySet.add(entity2);
@@ -51,9 +51,10 @@ public class CollisionSystem extends GameSystem{
     	
     }
     
-	private IEvent getCollisionEvent(int entityID1, int entityID2){
-		System.out.println("Collision Detected!");
-		CollisionEvent collisionEvent = new CollisionEvent(entityID1, entityID2);
+	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){
+//		System.out.println("Collision Detected!");
+		CollisionEvent collisionEvent = new CollisionEvent(entity1.getID(), entity2.getID());
+		collisionEvent.setEventID(Arrays.asList(entity1.getName(), entity2.getName()));
 		return collisionEvent;
 	}
     

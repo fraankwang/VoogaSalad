@@ -94,14 +94,14 @@ public class EventManager implements Observer{
 		for(Rule rule : myRuleAgenda){
 
 			List<Set<Integer>> myPossibleEntities = new ArrayList<Set<Integer>>();
-			Collection<IEvent> ruleEvents = rule.getEvents();
+			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
-			for(IEvent event : ruleEvents){
-				if(!generatedEventMap.containsKey(event.getEventID())){
+			for(String event : ruleEvents){
+				if(!generatedEventMap.containsKey(event)){
 					myPossibleEntities.clear();
 					break;
 				}
-				myPossibleEntities.add(generatedEventMap.get(event.getEventID()));
+				myPossibleEntities.add(generatedEventMap.get(event));
 			}
 			if (myPossibleEntities.size() > 0) {
 				myFinalEntities = new HashSet<Integer>(myPossibleEntities.get(0));

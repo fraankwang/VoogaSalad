@@ -23,7 +23,8 @@ public class SystemsController {
 	private GameSystem healthSystem;
 	private GameSystem firingSystem;
 	private GameSystem collisionSystem;
-
+	private GameSystem spawningSystem;
+	
 	private List<ISystem> mySystems;
 	private EngineController engineController;
 	private EventManager myEventManager;
@@ -56,7 +57,7 @@ public class SystemsController {
 		healthSystem = new HealthSystem();
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
-
+		spawningSystem = new SpawningSystem();
 
 		this.myEventManager = myEventManager;
 
@@ -64,8 +65,10 @@ public class SystemsController {
 		firingSystem.addObserver(myEventManager);
 		collisionSystem.addObserver(myEventManager);
 		renderingSystem.addObserver(myEventManager);
+		spawningSystem.addObserver(myEventManager);
 
 		mySystems = new ArrayList<ISystem>();
+		mySystems.add(spawningSystem);
 		mySystems.add(firingSystem);
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);
