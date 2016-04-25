@@ -52,11 +52,6 @@ public class FiringSystem extends GameSystem{
 			}
 
 		}
-		
-		List<Integer> ids = new ArrayList<Integer>();
-		for(IEntity entity : newEntities){
-			ids.add(entity.getID());
-		}
 
 		addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
 

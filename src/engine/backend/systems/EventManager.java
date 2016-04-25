@@ -23,7 +23,7 @@ import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.controller.IEngineController;
 
-public class EventManager implements Observer, ISystem{
+public class EventManager implements Observer{
 
 	private Level myCurrentLevel;
 	IEngineController myEngineController;
@@ -97,7 +97,7 @@ myActions.forEach(a -> {
 		}
 	}
 
-	private void applyActions(Set<Integer> entityIDs, List<EntityAction> actions){
+	private void applyActions(Set<Integer> entityIDs, Collection<EntityAction> actions){
 
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		for (Integer i : entityIDs) {
@@ -117,11 +117,11 @@ myActions.forEach(a -> {
 	//supposed to handle list of events generated in each loop iteration
 	public void handleGeneratedEvents(Map<String, Set<Integer>> generatedEventMap){
 
-
 		for(Rule rule : myRuleAgenda){
 
 			List<Set<Integer>> myPossibleEntities = new ArrayList<Set<Integer>>();
 			Collection<IEvent> ruleEvents = rule.getEvents();
+			Set<Integer> myFinalEntities;
 			for(IEvent event : ruleEvents){
 				if(!generatedEventMap.containsKey(event.getEventID())){
 					myPossibleEntities.clear();
@@ -130,11 +130,18 @@ myActions.forEach(a -> {
 				myPossibleEntities.add(generatedEventMap.get(event.getEventID()));
 			}
 			if (myPossibleEntities.size() > 0) {
-				Set<Integer> myFinalEntities = new HashSet<Integer>(myPossibleEntities.get(0));
+				myFinalEntities = new HashSet<Integer>(myPossibleEntities.get(0));
 				myPossibleEntities.forEach(e -> myFinalEntities.retainAll(e));
+				
+				//remove IDs
+				if(myFinalEntities.size() > 0){
+					applyActions(myFinalEntities, rule.getActions());
+					
+					myPossibleEntities.forEach(s -> s.removeAll(myFinalEntities));
+					
+				}
+				
 			}
-
-
 
 		}
 
@@ -169,11 +176,5 @@ myActions.forEach(a -> {
 
 	}
 
-	@Override
-	public void update(Level myLevel, List<IEvent> myEventList, InGameEntityFactory myEntityFactory,
-			double currentSecond, ResourceBundle myComponentTagResources) {
-		// TODO Auto-generated method stub
-
-	}
 }
 

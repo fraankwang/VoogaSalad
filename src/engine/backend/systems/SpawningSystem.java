@@ -60,12 +60,13 @@ public class SpawningSystem extends GameSystem{
 			
 		}
 		
-		sendAddEntityEvent(newEntities);
-		
+		addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
+
+	}
+
+	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
+		AddEntityEvent event = new AddEntityEvent(newEntities);
+		return event;
 	}
 	
-	private void sendAddEntityEvent(Collection<IEntity> newEntities){
-		AddEntityEvent event = new AddEntityEvent(newEntities);
-		notifyObservers(event);
-	}
 }
