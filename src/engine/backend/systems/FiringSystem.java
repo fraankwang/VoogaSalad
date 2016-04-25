@@ -10,6 +10,7 @@ import java.util.Set;
 
 import engine.backend.components.FiringComponent;
 import engine.backend.components.MovementComponent;
+import engine.backend.components.StaticDirectionalFiringComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
@@ -37,7 +38,7 @@ public class FiringSystem extends GameSystem {
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		for(IEntity shootingEntity : entities){
 
-			if(!shootingEntity.hasComponent(ComponentTagResources.movementComponentTag)){
+			if(!shootingEntity.hasComponent(ComponentTagResources.firingComponentTag)){
 				continue;
 			}
 
@@ -64,26 +65,44 @@ public class FiringSystem extends GameSystem {
 			double currentSecond, InGameEntityFactory myEntityFactory){
 		
 		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(ComponentTagResources.firingComponentTag);
-		PositionComponent shootingPosComponent = (PositionComponent) shootingEntity.getComponent(ComponentTagResources.positionComponentTag);
-		PositionComponent targetPosComponent = (PositionComponent) targetEntity.getComponent(ComponentTagResources.positionComponentTag);
-
-		Vector shootingPosVector = shootingPosComponent.getPositionVector();
-		Vector targetPosVector = targetPosComponent.getPositionVector();
 		
 		if(firingComponent.getTimer() == 0 || firingComponent.fireNow()){
-			double xComp = targetPosVector.getX() - shootingPosVector.getX();
-			double yComp = targetPosVector.getY() - shootingPosVector.getY();
-			Vector firedVelVector = new Vector(xComp, yComp);
-
-			IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), shootingPosVector, firedVelVector, 
-					firingComponent.getAmmunitionSpeed(), targetEntity, myEntityFactory);
-			newEntities.add(newEntity);
+			
+			for (int i = 0; i < firingComponent.getNumDirections(); i++) {
+				Vector firedVelVector = null;
+				
+				if(firingComponent instanceof StaticDirectionalFiringComponent){
+					firedVelVector = ((StaticDirectionalFiringComponent) firingComponent).getDirectionAtIndex(i);
+				}
+				else{
+					firedVelVector = calculateVelocityVector(shootingEntity, targetEntity);
+				}
+				
+				IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), getEntityPositionVector(shootingEntity), firedVelVector,
+						firingComponent.getAmmunitionSpeed(), targetEntity, myEntityFactory);
+				newEntities.add(newEntity);
+			}
+			
 			firingComponent.setFireNow(false);
 			firingComponent.resetTimer();
 		}
+		
 		else{
 			firingComponent.setTimer(currentSecond);
 		}
+	}
+	
+	private Vector calculateVelocityVector(IEntity shootingEntity, IEntity targetEntity){
+		Vector shootingPosVector = getEntityPositionVector(shootingEntity);
+		Vector targetPosVector = getEntityPositionVector(targetEntity);
+		double xComp = targetPosVector.getX() - shootingPosVector.getX();
+		double yComp = targetPosVector.getY() - shootingPosVector.getY();
+		return new Vector(xComp, yComp);
+	}
+	
+	private Vector getEntityPositionVector(IEntity entity){
+		PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
+		return posComponent.getPositionVector();
 	}
 
 	private boolean isTarget(IEntity shootingEntity, IEntity targetEntity){
@@ -137,7 +156,4 @@ public class FiringSystem extends GameSystem {
 		setChanged();
 		notifyObservers(event);
 	}
-	
-	
-
 }

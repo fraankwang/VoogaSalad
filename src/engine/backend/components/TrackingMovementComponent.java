@@ -39,7 +39,7 @@ public class TrackingMovementComponent extends MovementComponent{
 	
 	private void updateCurrentVelocityVector(){
 		Vector targetPosVector = ((PositionComponent) myEntityToTrack.getComponent(ComponentTagResources.positionComponentTag)).getPositionVector();
-		Vector updatedDirection = new Vector( targetPosVector.getX(),  targetPosVector.getX());
+		Vector updatedDirection = new Vector(targetPosVector.getX(), targetPosVector.getX());
 		updatedDirection = updatedDirection.normalize();
 		updatedDirection = updatedDirection.scale(mySpeed);
 		super.setCurrentVelocityVector(updatedDirection);
