@@ -46,6 +46,7 @@ public class MovementComponent extends Component implements IComponent{
 	public void setCurrentVelocityVector(Vector vel){
 		myCurrentVelocityVector = vel;
 	}
+	
 	public void setDefaultVelocityVector(Vector vel){
 		myDefaultVelocityVector = vel;
 	}

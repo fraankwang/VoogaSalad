@@ -14,5 +14,6 @@ public class MultiDirectionFiringComponent extends FiringComponent{
 		
 	}
 	
+	
 	//everything else is the same here except for direction to fire, make calls to super
 }
