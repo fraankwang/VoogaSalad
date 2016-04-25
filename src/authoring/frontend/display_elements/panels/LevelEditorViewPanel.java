@@ -16,9 +16,11 @@ import javafx.scene.layout.VBox;
 public class LevelEditorViewPanel extends EditorViewPanel {
 
 	private List<PathBuilder> myPathBuilders;
+	private int pathIndexNumber;
 	
 	public LevelEditorViewPanel(double height, double width) {
 		super(height, width);
+		pathIndexNumber = 0;
 	}
 	
 	@Override
@@ -34,11 +36,15 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		myScrollPane.setContent(myGroup);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
 		myPanelBar.addButton("Create New Path", e -> {
-			PathBuilder newPath = new PathBuilder();
+			PathBuilder newPath = new PathBuilder(pathIndexNumber);
 			newPath.initialize();
+			pathIndexNumber++;
 			newPath.setSize(myImageView.getImage().getWidth(), myImageView.getImage().getHeight());
 			myPathBuilders.add(newPath);
-			myPanelBar.addButton("Add to Path " + myPathBuilders.size(), f -> newPath.createNewCurve());
+			myPanelBar.addButton("Add to Path " + myPathBuilders.size(), f -> {
+				pathIndexNumber++;
+				newPath.createNewCurve();
+			});
 			myGroup.getChildren().add(newPath.getNode());
 		});
 		myNode = vbox;
@@ -52,4 +58,16 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		}
 	}
 
+	/**
+	 * Gets fully compressed Path information in String form.
+	 * @return
+	 */
+	public String getPathIDs() {
+		String result = "";
+		for (PathBuilder path : myPathBuilders) {
+			result = result + path.getCoordinatesString() + "_";
+		}
+		
+		return result.substring(0,result.length()-1);
+	}
 }

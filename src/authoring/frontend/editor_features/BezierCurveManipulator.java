@@ -257,7 +257,14 @@ public class BezierCurveManipulator implements IDisplayElement {
 	
 	public String getCoordinatesString() {
 		// format: "startX-startY,control1X-control1Y,control2X-control2Y,endX-endY"
-		return "0-0,1-1,2-2,3-3";
+		String result = "";
+//		result.concat(start.getXCoordinate() + "-" + start.getYCoordinate());
+//		result.concat(control1.getXCoordinate() + "-" + control1.getYCoordinate());
+//		result.concat(control2.getXCoordinate() + "-" + control2.getYCoordinate());
+//		result.concat(end.getXCoordinate() + "-" + end.getYCoordinate());
+		
+		return result;
+//		return "0-0,1-1,2-2,3-3";
 	}
 
 }

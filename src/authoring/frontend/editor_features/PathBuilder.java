@@ -8,19 +8,21 @@ import javafx.scene.Node;
 
 public class PathBuilder implements IDisplayElement {
 
+	private int pathIndex;
 	private List<BezierCurveManipulator> myBezierCurves;
 	private Group myNode;
 	private double myWidth, myHeight;
 	private boolean selected;
-	
-	public PathBuilder() {
+
+	public PathBuilder(int pathIndexNumber) {
+		pathIndex = pathIndexNumber;
 	}
-	
+
 	public void initialize() {
 		myBezierCurves = new ArrayList<BezierCurveManipulator>();
 		myNode = new Group();
 	}
-	
+
 	public void createNewCurve() {
 		BezierCurveManipulator newCurve = new BezierCurveManipulator(myWidth, myHeight, this, myBezierCurves.size());
 		newCurve.initialize();
@@ -28,7 +30,7 @@ public class PathBuilder implements IDisplayElement {
 		myNode.getChildren().add(newCurve.getNode());
 		newCurve.getCurve().requestFocus();
 	}
-	
+
 	protected void removeCurve(BezierCurveManipulator curve) {
 		int removedIndex = myBezierCurves.indexOf(curve);
 		myBezierCurves.remove(curve);
@@ -37,20 +39,20 @@ public class PathBuilder implements IDisplayElement {
 			myBezierCurves.get(i).setNumber(i);
 		}
 	}
-	
+
 	public void setSize(double width, double height) {
 		myWidth = width;
 		myHeight = height;
 		myBezierCurves.forEach(bc -> bc.setSize(width, height));
 	}
-	
+
 	public List<BezierCurveManipulator> getMyBezierCurves() {
 		return myBezierCurves;
 	}
-	
+
 	public void setSelect() {
 		int i = 0;
-		for (BezierCurveManipulator bc: myBezierCurves) {
+		for (BezierCurveManipulator bc : myBezierCurves) {
 			if (bc.getCurve().isFocused()) {
 				i += 1;
 			}
@@ -61,7 +63,7 @@ public class PathBuilder implements IDisplayElement {
 		}
 		selected = false;
 	}
-	
+
 	public boolean isSelected() {
 		return selected;
 	}
@@ -69,5 +71,21 @@ public class PathBuilder implements IDisplayElement {
 	@Override
 	public Node getNode() {
 		return myNode;
+	}
+
+	/**
+	 * Compresses coordinates from all Bezier curve segments and formats it with
+	 * Path ID.
+	 * 
+	 * @return
+	 */
+	public String getCoordinatesString() {
+		String result = "";
+		result = result + Integer.toString(pathIndex) + ":";
+		for (BezierCurveManipulator curve : myBezierCurves) {
+			result = result + curve.getCoordinatesString() + " ";
+		}
+		result = result.substring(0, result.length() - 1);
+		return result;
 	}
 }
