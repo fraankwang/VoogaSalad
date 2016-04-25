@@ -124,13 +124,13 @@ public class FiringSystem extends GameSystem{
 		if(firedMovComponent instanceof TrackingMovementComponent){
 			((TrackingMovementComponent) firedMovComponent).setEntityToTrack(targetEntity);
 		}
-		else{
-			Vector velVector = new Vector(directionToFire);
-			velVector = velVector.normalize();
-			velVector.scale(speed);
-			firedMovComponent.setCurrentVelocityVector(velVector);
-			firedMovComponent.setDefaultVelocityVector(velVector);
-		}
+		
+		Vector velVector = new Vector(directionToFire);
+		velVector = velVector.normalize();
+		velVector.scale(speed);
+		firedMovComponent.setCurrentVelocityVector(velVector);
+		firedMovComponent.setDefaultVelocityVector(velVector);
+		
 
 		return ammoEntity;		
 	}
