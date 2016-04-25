@@ -6,12 +6,11 @@
 
 package engine.backend.game_object;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.map.GameMap;
 import engine.backend.rules.EntityAction;
@@ -23,6 +22,8 @@ public class Level {
 	private String myParentModeName;
 	private GameMap map;
 	private double timer;
+	private int numWaves;
+	private int currentWaveIndex;
 
 	public Level(int myID, GameMap map) {
 		this.myID = myID;
@@ -59,6 +60,26 @@ public class Level {
 		entity.setLevelID(myID);
 		entities.put(entity.getID(), entity);
 	}
+	
+	/**
+	 * Adds an entity created to the map that stores the entities on the game
+	 * screen.
+	 * 
+	 * @param entity
+	 */
+	public void addEntityToMap(IEntity entity) {
+		entities.put(entity.getID(), entity);
+	}
+
+	/**
+	 * Adds a collection of entities to the map that stores the entities on the
+	 * game screen.
+	 * 
+	 * @param entities
+	 */
+	public void addEntityToMap(Collection<IEntity> entities) {
+		entities.stream().forEach(e -> addEntityToMap(e));
+	}
 
 	public void setModeName(String modeID) {
 		this.myParentModeName = modeID;
@@ -90,6 +111,22 @@ public class Level {
 	public IEntity getEntityWithID(int entityID) {
 		// TODO Auto-generated method stub
 		return entities.get(entityID);
+	}
+
+	public int getNumWaves() {
+		return numWaves;
+	}
+
+	public void setNumWaves(int numWaves) {
+		this.numWaves = numWaves;
+	}
+
+	public int getCurrentWaveIndex() {
+		return currentWaveIndex;
+	}
+
+	public void setCurrentWaveIndex(int currentWaveIndex) {
+		this.currentWaveIndex = currentWaveIndex;
 	}
 
 }

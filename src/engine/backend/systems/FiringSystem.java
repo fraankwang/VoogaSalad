@@ -123,5 +123,11 @@ public class FiringSystem extends GameSystem{
 
 		return ammoEntity;		
 	}
+	
+	private void sendAddEntityEvent(Collection<IEntity> newEntities){
+		AddEntityEvent event = new AddEntityEvent(newEntities);
+		setChanged();
+		notifyObservers(event);
+	}
 
 }

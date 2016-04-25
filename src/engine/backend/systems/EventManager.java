@@ -133,11 +133,12 @@ myActions.forEach(a -> {
 				myFinalEntities = new HashSet<Integer>(myPossibleEntities.get(0));
 				myPossibleEntities.forEach(e -> myFinalEntities.retainAll(e));
 				
-				//remove IDs
+				//apply actions
 				if(myFinalEntities.size() > 0){
 					applyActions(myFinalEntities, rule.getActions());
 					
-					myPossibleEntities.forEach(s -> s.removeAll(myFinalEntities));
+					//remove IDs
+					generatedEventMap.values().forEach(s -> s.removeAll(myFinalEntities));
 					
 				}
 				
@@ -149,7 +150,6 @@ myActions.forEach(a -> {
 
 	private List<EntityAction> checkPossibleIDs(List<String> ids) {
 		for (String id : ids) {
-
 			if (myCustomEntityEvents.get(id) != null) {
 				return myCustomEntityEvents.get(id);
 			}
@@ -159,11 +159,7 @@ myActions.forEach(a -> {
 
 	public void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
-		myCurrentLevel.addToEntities(event.getNewEntity());
-		//we have a problem :/
-		//		EntityEvent myEntityEvent = (EntityEvent) myEvent;
-		//		myEntityEvent.getEntities().stream()
-		//			forEach(e -> myCurrentLevel.addToEntities(e));
+		myCurrentLevel.addEntityToMap(event.getNewEntities());
 	}
 
 	public void handleEnemyMissed() {
