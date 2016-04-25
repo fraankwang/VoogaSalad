@@ -15,6 +15,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -99,11 +101,18 @@ public class LevelsTabGrid extends TabGrid {
 		}
 
 		String newName = promptNewName();
-		duplicateEntity.replace("Name", newName);
-		myTabDisplay.openEditorDisplay(duplicateEntity);
+
+		if (!newName.equals("")) {
+			duplicateEntity.replace("Name", newName);
+			myTabDisplay.openEditorDisplay(duplicateEntity);
+		}
 	}
 
 	private void delete(Map<String, String> info) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Delete Level Warning");
+		alert.setContentText("Didn't mean to delete this level? The data is still saved - just press Open Editor and save it again!");
+		alert.show();
 		myController.deleteData(info);
 	}
 
