@@ -3,6 +3,7 @@ package authoring.frontend.display_elements.grids.tab_grids;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.EntitiesTabGridFactory;
@@ -16,9 +17,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -77,19 +80,21 @@ public class EntitiesTabGrid extends TabGrid {
 
 		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
-				myEntities.add(info.get("Name"));
-
-				ImageView iv = new ImageView(info.get("DisplayComponent_Image"));
-				iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
-					public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
-							Boolean newValue) {
-						if (newValue) {
-							setAttributesPanel(info);
-							currentInfo = info;
+				if (!myEntities.contains(info.get("Name"))) {
+					myEntities.add(info.get("Name"));
+					ImageView iv = new ImageView(info.get("DisplayComponent_Image"));
+					iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
+						public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+								Boolean newValue) {
+							if (newValue) {
+								setAttributesPanel(info);
+								currentInfo = info;
+							}
 						}
-					}
-				});
-				gridView.addImage(iv);
+					});
+					gridView.addImage(iv);
+					
+				}
 			}
 		}
 	}
@@ -110,9 +115,24 @@ public class EntitiesTabGrid extends TabGrid {
 	private void delete(Map<String, String> info) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Delete Entity Warning");
-		alert.setContentText("Didn't mean to delete this entity? The data is still saved - just press Open Editor and save it again!");
-		alert.show();
-		myController.deleteData(info);
+		alert.setContentText("Are you sure you want to delete this Entity?");
+		
+		
+		ButtonType buttonTypeOK = new ButtonType("OK");
+		ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(buttonTypeOK, buttonTypeCancel);
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == buttonTypeOK) {
+			myController.deleteData(info);
+			currentInfo.clear();
+			setAttributesPanel(currentInfo);
+			alert.close();
+		} else if (result.get() == buttonTypeCancel) {
+			return;
+		}
+
 	}
 
 	private String promptNewName() {
@@ -152,5 +172,6 @@ public class EntitiesTabGrid extends TabGrid {
 	public List<String> getEntities() {
 		return myEntities;
 	}
+
 
 }

@@ -31,6 +31,9 @@ public class EditorViewPanel extends Panel {
 	@Override
 	protected void initializeComponents() {
 		myImageView = new ImageView();
+		myImageView.setOnMouseEntered(e -> {
+			myImageView.toBack();
+		});
 		myScrollPane = new ScrollPane();
 		myScrollPane.setCenterShape(false);
 		myScrollPane.setFitToHeight(true);
