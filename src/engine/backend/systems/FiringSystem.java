@@ -10,7 +10,7 @@ import java.util.Set;
 
 import engine.backend.components.FiringComponent;
 import engine.backend.components.MovementComponent;
-import engine.backend.components.StaticDirectionalFiringComponent;
+import engine.backend.components.MultiDirectionalFiringComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
@@ -71,8 +71,8 @@ public class FiringSystem extends GameSystem {
 			for (int i = 0; i < firingComponent.getNumDirections(); i++) {
 				Vector firedVelVector = null;
 				
-				if(firingComponent instanceof StaticDirectionalFiringComponent){
-					firedVelVector = ((StaticDirectionalFiringComponent) firingComponent).getDirectionAtIndex(i);
+				if(firingComponent instanceof MultiDirectionalFiringComponent){
+					firedVelVector = ((MultiDirectionalFiringComponent) firingComponent).getDirectionAtIndex(i);
 				}
 				else{
 					firedVelVector = calculateVelocityVector(shootingEntity, targetEntity);

@@ -8,16 +8,16 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-public class StaticDirectionalFiringComponent extends FiringComponent{
+public class MultiDirectionalFiringComponent extends FiringComponent{
 	
 	private List<Vector> myDirectionsToFire;
 	
-	public StaticDirectionalFiringComponent(FiringComponent component){
+	public MultiDirectionalFiringComponent(FiringComponent component){
 		super(component);
 		initializeDirectionVectors();
 	}
 	
-	public StaticDirectionalFiringComponent(){
+	public MultiDirectionalFiringComponent(){
 		initializeDirectionVectors();
 	}
 	
