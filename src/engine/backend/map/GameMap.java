@@ -15,14 +15,14 @@ public class GameMap {
 	private double myMapWidth;
 	private double myMapHeight;
 	private List<Quadrant> quadrants;
-	private Path path;
+	private Path[] paths;
 	
-	public GameMap(String image, Path path, double width, double height) {
+	public GameMap(String image, Path[] paths, double width, double height) {
 		this.myMapImage = image;
 		this.myMapWidth = width;
 		this.myMapHeight = height;
 		this.quadrants = new ArrayList<Quadrant>();
-		this.path = path;
+		this.paths = paths;
 	}
 	
 	public GameMap() {
@@ -30,7 +30,6 @@ public class GameMap {
 		this.myMapWidth = 0;
 		this.myMapHeight = 0;
 		this.quadrants = new ArrayList<Quadrant>();
-		this.path = new Path();
 	}
 	
 	public String getMapImage(){
@@ -57,12 +56,12 @@ public class GameMap {
 		this.myMapHeight = height;
 	}
 	
-	public Path getPath() {
-		return path;
+	public Path[] getPaths() {
+		return paths;
 	}
 	
-	public void setPath(Path path) {
-		this.path = path;
+	public void setPath(Path[] paths) {
+		this.paths = paths;
 	}
 	
 	public List<Quadrant> getQuadrants() {
