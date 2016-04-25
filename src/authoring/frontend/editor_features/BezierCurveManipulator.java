@@ -1,8 +1,13 @@
 package authoring.frontend.editor_features;
 
+import java.util.Arrays;
+import java.util.List;
+
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -33,12 +38,12 @@ public class BezierCurveManipulator implements IDisplayElement {
 	private Line controlLine1, controlLine2;
 	private double myWidth, myHeight;
 	private PathBuilder myContainer;
-	private Integer myNum;
+	private IntegerProperty myNum;
 	
 	public BezierCurveManipulator(double width, double height, PathBuilder builder, int curveNum) {
 		setSize(width, height);
 		myContainer = builder;
-		myNum = curveNum;
+		myNum = new SimpleIntegerProperty(curveNum);
 	}
 
 	@Override
@@ -52,6 +57,9 @@ public class BezierCurveManipulator implements IDisplayElement {
 	}
 
 
+	public void setNumber(int num) {
+		myNum.set(num);
+	}
 
 	public void initialize() {
 		myCurve = createInitialCurve();
@@ -109,6 +117,10 @@ public class BezierCurveManipulator implements IDisplayElement {
 		return myCurve;
 	}
 	
+	public List<Circle> getAnchors() {
+		return Arrays.asList(start, control1, control2, end);
+	}
+	
 	
 	class BoundLine extends Line {
 	    BoundLine(DoubleProperty startX, DoubleProperty startY, DoubleProperty endX, DoubleProperty endY) {
@@ -137,9 +149,23 @@ public class BezierCurveManipulator implements IDisplayElement {
 	      
 	      setOnMousePressed(e -> myCurve.requestFocus());
 	      Label numLabel = new Label(myNum.toString());
+	      numLabel.textProperty().bind(myNum.asString());
 	      numLabel.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
 	      numLabel.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
 	      myNode.getChildren().add(numLabel);
+	    }
+	    
+	    // lock in place with other anchors
+	    private void lockToAnchors() {
+	    	for (BezierCurveManipulator bc: myContainer.getCurves()) {
+		    	List<Circle> anchors = bc.getAnchors();
+		    	for (Circle a: anchors) {
+		    		if (intersect(this, a).getBoundsInLocal().getWidth() > 0) {
+		    			this.setCenterX(a.getCenterX());
+		    			this.setCenterY(a.getCenterY());
+		    		}
+		    	}
+	    	}
 	    }
 
 	    // make a node movable by dragging it around with the mouse.
@@ -167,7 +193,8 @@ public class BezierCurveManipulator implements IDisplayElement {
 	          double newY = mouseEvent.getY() + dragDelta.y;
 	          if (newY > 0 && newY < myHeight) {
 	            setCenterY(newY);
-	          }  
+	          }
+	          lockToAnchors();
 	        }
 	      });
 	      setOnMouseEntered(new EventHandler<MouseEvent>() {
