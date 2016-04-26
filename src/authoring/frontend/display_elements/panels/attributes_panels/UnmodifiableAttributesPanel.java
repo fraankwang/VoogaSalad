@@ -29,10 +29,10 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected static final int COLUMN_2_PERCENTAGE = 50;
 	protected static final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
+	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
 	protected static final int BUTTON_HEIGHT_PERCENTAGE = 8;
 	protected static final int TITLED_PANE_HEIGHT = 350;
 
-	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
 
 	protected Button myOpenEditorButton;
 

@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
+import java.util.TreeMap;
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
+import authoring.parser.GlobalParser;
 //import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -29,14 +30,14 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private ScrollPane myScrollPane;
 	private GridPane mySpawnEntitiesGridPane;
 
-	private static final int SPAWN_ENTITIES_COLUMN_1 = 60;
-	private static final int SPAWN_ENTITIES_COLUMN_2 = 10;
-	private static final int SPAWN_ENTITIES_COLUMN_3 = 10;
-	private static final int SPAWN_ENTITIES_COLUMN_4 = 10;
-	private static final int SPAWN_ENTITIES_COLUMN_5 = 10;
-	
-	private List<String> columnNames = (List<String>) Arrays.asList("Name", "PathID", "WaveNumber", "Number", "Rate");
+	private static final int SPAWN_ENTITIES_COLUMN_1 = 18;
+	private static final int SPAWN_ENTITIES_COLUMN_2 = 50;
+	private static final int SPAWN_ENTITIES_COLUMN_3 = 18;
+	private static final int SPAWN_ENTITIES_COLUMN_4 = 23;
+	private static final int SPAWN_ENTITIES_COLUMN_5 = 15;
 
+	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("PathID", "Name", "Wave", "Number",
+			"Rate");
 
 	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
@@ -56,7 +57,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-
+		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
+		
 		List<String> levelAttributes = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
 				"WaveDelayTimer", "MapWidth", "MapHeight");
 
@@ -65,7 +67,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		mySpawnEntitiesGridPane = createSpawnEntitiesGridPane();
 
 		myScrollPane = new ScrollPane();
-		myScrollPane.setContent(myAttributesGridPane);
+		myScrollPane.setContent(mySpawnEntitiesGridPane);
+		myScrollPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 	}
 
 	/**
@@ -83,32 +86,19 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		columnConstraints.add(SPAWN_ENTITIES_COLUMN_5);
 
 		mySpawnEntitiesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		mySpawnEntitiesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
-
-		addColumnNames(columnNames, mySpawnEntitiesGridPane);
+		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
 
 		return mySpawnEntitiesGridPane;
 	}
 
-	/**
-	 * Helper method for creating and repopulating Grids
-	 * 
-	 * @param names
-	 * @param gridPane
-	 */
-	private void addColumnNames(List<String> names, GridPane gridPane) {
-		for (int i = 0; i < names.size(); i++) {
-			Text text = new Text(names.get(i));
-			text.setFont(new Font(FONT_SIZE));
-			mySpawnEntitiesGridPane.add(text, i, 0);
-		}
-	}
+
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
 		myGridPane.add(myAttributesGridPane, 0, 1);
-		myGridPane.add(myScrollPane, 0, 1);
+		myGridPane.add(myScrollPane, 0, 2);
+		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
@@ -141,16 +131,43 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 		}
 
-		// get SpawnEntities from myAttributesMap and parse to Map<String,
-		// String>
-		// loop through map keyset and add numbers to correct columns
-
 		mySpawnEntitiesGridPane.getChildren().clear();
-		addColumnNames()
+
+		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
+				(TreeMap<String, String>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
 
 		refreshRows();
 		myGridPane.getChildren().clear();
 		assembleComponents();
+	}
+
+	/**
+	 * Helper method that takes a GridPane and parses Spawn Entities to fill it.
+	 * 
+	 * @param gridPane
+	 * @param map
+	 */
+	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String> map) {
+		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
+
+		int row = 1; // row 0 is filled by addColumnNames
+		for (String pathID : map.keySet()) {
+			Text ID = new Text(pathID);
+			ID.setFont(new Font(FONT_SIZE));
+
+			gridPane.add(ID, 0, row);
+			String compressed = map.get(pathID);
+			String[] components = compressed.split(".");
+			int column = 1;
+			for (String component : components) {
+				Text text = new Text(component);
+				text.setFont(new Font(FONT_SIZE));
+				gridPane.add(text, column, row);
+				column++;
+			}
+
+			row++;
+		}
 	}
 
 	@Override
