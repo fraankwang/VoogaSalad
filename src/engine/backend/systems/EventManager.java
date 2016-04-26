@@ -37,7 +37,7 @@ public class EventManager implements Observer{
 	InGameEntityFactory myEntityFactory;
 
 	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats, InGameEntityFactory factory) {
-		setLevel(game.getLevelWithId(0));
+		setLevel(game.getLevelWithId(0, 0));
 		myEngineController = engineController;
 		myGameWorld = game;
 		//pass in right values
@@ -50,7 +50,7 @@ public class EventManager implements Observer{
 	}
 
 	public Level getCurrentLevel() {
-		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentLevelIndex());
+		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentModeIndex() , currentModeStatistics.getCurrentLevelIndex());
 	}
 
 	@Override
@@ -81,6 +81,7 @@ public class EventManager implements Observer{
 	}
 	
 	public void handleEntityDropEvent(EntityDroppedEvent event){
+		System.out.println("hit");
 		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));

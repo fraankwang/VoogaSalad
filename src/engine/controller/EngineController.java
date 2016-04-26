@@ -7,6 +7,7 @@ import engine.backend.game_object.ModeStatistics;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
+import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.frontend.overall.EngineView;
 //import engine.frontend.EngineView;
 import javafx.animation.Animation;
@@ -106,6 +107,9 @@ public class EngineController implements IEngineController{
 	
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		// TODO Auto-generated method stub
+		System.out.println("HIIIT");
+		EntityDroppedEvent event = new EntityDroppedEvent(xLoc, yLoc, type);
+		myEventManager.handleEntityDropEvent(event);
 	}
 
 	public void entityClicked(int myID) {

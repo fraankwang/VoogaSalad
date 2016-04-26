@@ -109,17 +109,12 @@ public class EngineView{
 	
 	private void handleEndMouseRelease(DragEvent e) {
 		
-
-		
 		if( isInBoardPane( e.getSceneX(), e.getSceneY() ) && e.getDragboard().hasString()){
 			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY(), e.getDragboard().getString());
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
-
-		/*if( isInScene(e.getSceneX(), e.getSceneY()){
-			myDummyCursor.changePic(null);
-		}
-		*/
+		
+		myDummyCursor.changePic(null);
 		
 	}
 	

@@ -99,7 +99,8 @@ public class testingClass {
 	public GameWorld testFiring() {
 		GameWorld firingTest = new GameWorld();
 		Mode mode = new Mode("test firing");
-		Level level = new Level(0);
+		Level level = new Level("blah");
+		level.setIndex(0);
 		EntityAction action = new EntityAction("tempEntity", "Display", "Delete", "true");
 		EntityAction action4 = new EntityAction("tempEntity", "Display", "CanBeShown", "false");
 		EntityAction action2 = new EntityAction("tempEntity", "Health", "Health", "0");
