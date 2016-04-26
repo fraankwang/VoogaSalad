@@ -3,17 +3,13 @@ package engine.frontend.shop;
 /**
  * @author HaydenBader
  */
-import engine.controller.EngineController;
+
 import engine.frontend.overall.EngineView;
 import javafx.scene.Cursor;
-import javafx.scene.ImageCursor;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -27,21 +23,26 @@ public class ShopView {
 	private HBox myHBox; 
 	private ImageView myImageView;
 	
-	public ShopView(EngineView ev, String image, String type, double cost, double width, double height){
+	public ShopView(EngineView ev){
+		myEngineView = ev;		
+	}
+	
+	public Node buildShopView(String image, String type, double cost, double width, double height){
 		myHBox = new HBox();
 		
 		Text name = new Text(type);		
-		myEngineView = ev;
 		myType = type;
 		myImageView = new ImageView(new Image(image));
 		myImageView.setFitWidth(width);
 		myImageView.setFitHeight(height);
 		
 		myHBox.getChildren().addAll(name, myImageView);
-		myHBox.setOnDragDetected(e -> handleClick(e));
-	}
+		myHBox.setOnDragDetected(e -> selectTower(e));
 		
-	public void handleClick(MouseEvent e){
+		return myHBox;
+	}
+
+	public void selectTower(MouseEvent e){
 		
 		//myEngineView.getStage().getScene().setCursor(value);
 		myEngineView.getDummyCursor().changePic(myImageView.getImage());
@@ -52,6 +53,11 @@ public class ShopView {
         content.putString(myType);
         db.setContent(content);
         e.consume();		
+	}
+	
+	public void changeCursor(MouseEvent e){
+		myEngineView.getStage().getScene().setCursor(Cursor.NONE);
+		
 	}
 	
 	public Node getNode(){

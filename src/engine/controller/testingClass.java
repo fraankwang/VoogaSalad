@@ -39,7 +39,7 @@ public class testingClass {
 	public GameWorld initTestGame(GameWorld myGameWorld) {
 		GameWorld collisionTest = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
-		Level tempLevel = new Level(0);
+//		Level tempLevel = new Level(0);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
 		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
@@ -49,7 +49,7 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 
-		GameMap tempMap = new GameMap("", tempPath, 800, 600);
+		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 600, 400);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object");
 		IComponent tempPosition = new PositionComponent(0, 60);
@@ -103,7 +103,7 @@ public class testingClass {
 		level.setIndex(0);
 		EntityAction action = new EntityAction("tempEntity", "Display", "Delete", "true");
 		EntityAction action4 = new EntityAction("tempEntity", "Display", "CanBeShown", "false");
-		EntityAction action2 = new EntityAction("tempEntity", "Health", "Health", "0");
+		EntityAction action2 = new EntityAction("tempEntity", "Health", "Health", "-5");
 		EntityAction action3 = new EntityAction("SimpleBullet", "Display", "CanBeShown", "false");
 		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
 		
@@ -129,7 +129,11 @@ public class testingClass {
 		rule3.addActions(Arrays.asList(shootAction));
 		rule3.addEvents(Arrays.asList("tempEntity2EntityClickedEvent"));
 		
-		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3));
+		Rule rule4 = new Rule();
+		rule4.addActions(Arrays.asList(action3, action5));
+		rule4.addEvents(Arrays.asList("SimpleBulletOutOfMapEvent"));
+		
+		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4));
 		//level.addActionToEventMap(Arrays.asList("SimpleBullettempEntityCollisionEvent"), myActions);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
@@ -139,10 +143,11 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
-		GameMap tempMap = new GameMap("", tempPath, 200, 200);
+
+		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 900, 600);
 		
-		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 20);
+		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
@@ -158,7 +163,7 @@ public class testingClass {
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
-		IComponent tempHealth = new HealthComponent(100);
+		IComponent tempHealth = new HealthComponent(5);
 		IComponent pathComp = new PathComponent(0, 0);
 
 		tempEntity.addComponent(tempDisplay);
@@ -185,7 +190,7 @@ public class testingClass {
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
-		mySimpleBullet.addComponent(new MovementComponent(10, 0));
+		mySimpleBullet.addComponent(new TrackingMovementComponent(10, 0));
 		mySimpleBullet.addComponent(tempDisplay3);
 		mySimpleBullet.addComponent(tempSize3);
 		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
@@ -196,8 +201,11 @@ public class testingClass {
 		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
 		createdAmmunition.put("SimpleBullet", mySimpleBullet);
 		
+
+		
 		myCreatableEntityMap.put("Ammunition", createdAmmunition);
 		myCreatableEntityMap.put("Spawns", createdSpawns);
+
 		
 		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
@@ -208,6 +216,10 @@ public class testingClass {
 		tempEntity2.addComponent(tempPosition2);
 		tempEntity2.addComponent(simpleFire);
 
+		Map<String, IEntity> createdTowers = new HashMap<String, IEntity>();
+		createdTowers.put("tempEntity2", tempEntity2);
+		myCreatableEntityMap.put("Towers", createdTowers);
+		
 		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
 		//level.addToEntities(tempEntity2);
@@ -223,7 +235,7 @@ public class testingClass {
 	public GameWorld testCollision() {
 		GameWorld collisionTest = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
-		Level tempLevel = new Level(0);
+//		Level tempLevel = new Level(0);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
 		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);

@@ -6,8 +6,13 @@
 
 package engine.backend.components;
 
-public class DisplayComponent extends Component {
-
+/**
+ * 
+ * @author 
+ *
+ */
+public class DisplayComponent extends Component{
+	
 	private boolean canBeShown;
 	private String image;
 	private boolean delete;

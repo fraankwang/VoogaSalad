@@ -3,6 +3,7 @@ package engine.backend.entities;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class InGameEntityFactory {
 			return (IComponent) constructor.newInstance(component);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
+			System.exit(1);
 			e.printStackTrace();
 			return null;
 		} catch (NoSuchMethodException e1) {
