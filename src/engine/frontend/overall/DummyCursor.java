@@ -20,8 +20,8 @@ public class DummyCursor {
 	
 	public Node buildNode(){
 		myImage = new ImageView();
-		myImage.fitWidthProperty().bind(myEngineView.getBoardPane().getNode().widthProperty().multiply(myEngineView.loadDoubleResource("CursorWidth")));
-		myImage.fitHeightProperty().bind(myEngineView.getBoardPane().getNode().heightProperty().multiply(myEngineView.loadDoubleResource("CursorHeight")));
+		myImage.fitWidthProperty().bind(myEngineView.getBoardPane().getPane().widthProperty().multiply(myEngineView.loadDoubleResource("CursorWidth")));
+		myImage.fitHeightProperty().bind(myEngineView.getBoardPane().getPane().heightProperty().multiply(myEngineView.loadDoubleResource("CursorHeight")));
 		return myImage;
 	}
 	

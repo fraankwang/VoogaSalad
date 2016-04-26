@@ -86,12 +86,12 @@ public class testingClass {
 		tempEntity3.addComponent(tempDisplay3);
 		tempEntity3.addComponent(tempSize3);
 		tempEntity3.addComponent(tempPosition3);
-
-		tempLevel.addToEntities(tempEntity);
-		tempLevel.addToEntities(tempEntity2);
-		tempLevel.addToEntities(tempEntity3);
-		tempLevel.setMap(tempMap);
-		tempMode.addLevel(tempLevel);
+//
+//		tempLevel.addToEntities(tempEntity);
+//		tempLevel.addToEntities(tempEntity2);
+//		tempLevel.addToEntities(tempEntity3);
+//		tempLevel.setMap(tempMap);
+//		tempMode.addLevel(tempLevel);
 		collisionTest.addMode(tempMode);
 		return collisionTest;
 	}
@@ -278,13 +278,13 @@ public class testingClass {
 		tempEntity3.addComponent(tempSize3);
 		tempEntity3.addComponent(tempPosition3);
 
-		tempLevel.addToEntities(tempEntity);
-		tempLevel.addToEntities(tempEntity2);
-		tempLevel.addToEntities(tempEntity3);
-		tempLevel.addEntityToMap(tempEntity);
-		tempLevel.addEntityToMap(tempEntity2);
-		tempLevel.setMap(tempMap);
-		tempMode.addLevel(tempLevel);
+//		tempLevel.addToEntities(tempEntity);
+//		tempLevel.addToEntities(tempEntity2);
+//		tempLevel.addToEntities(tempEntity3);
+//		tempLevel.addEntityToMap(tempEntity);
+//		tempLevel.addEntityToMap(tempEntity2);
+//		tempLevel.setMap(tempMap);
+//		tempMode.addLevel(tempLevel);
 		collisionTest.addMode(tempMode);
 		return collisionTest;
 	}

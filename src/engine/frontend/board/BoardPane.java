@@ -3,54 +3,36 @@ package engine.frontend.board;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
-public class BoardPane {
-	private EngineView myEngineView;	
-	
-	private Pane myPane;
+public class BoardPane extends AbstractPane{
 	private ImageView myBackground;
+	private Group myGroup;
 	
-	private Map<Integer, EntityView> myEntityViewMap = new HashMap<Integer, EntityView>();
+	private Map<Integer, EntityView> myEntityViewMap;
 	
 	public BoardPane(EngineView ev){
-		myEngineView = ev;
+		super(ev);
+		myEntityViewMap = new HashMap<Integer, EntityView>();
 	}
 	
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
-		myPane = new Pane();
-		
-		bindWidth(widthBinding);
-		bindHeight(heightBinding);
-		
+		super.buildNode(widthBinding, heightBinding);
 		myBackground = new ImageView(new Image(myEngineView.getEngineController().getBackgroundImageFile()));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
-		myPane.getChildren().add(myBackground);
+		
+		myGroup = new Group();
+		myPane.getChildren().addAll(myBackground, myGroup);
 		return myPane;
 	}
 	
-
-	private void bindWidth(DoubleExpression db){
-		myPane.minWidthProperty().bind(db);
-		myPane.maxWidthProperty().bind(db);
-	}
-	
-	private void bindHeight(DoubleExpression db){
-		myPane.minHeightProperty().bind(db);
-		myPane.maxHeightProperty().bind(db);
-	}
-	
-	
-	public Pane getNode(){
-		return myPane;
-	}
-
 	public void setBackground(String imageName){
 		myBackground.setImage(new Image(imageName));
 	}
@@ -86,9 +68,11 @@ public class BoardPane {
 	}
 
 	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower){
+		System.out.println(myPane.getLayoutX());
+		System.out.println(myPane.getLayoutY());
 		// need to tell them which type it is too
-		double xLoc = mouseXLoc - myPane.getBoundsInParent().getMinX();
-		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
+		double xLoc = mouseXLoc - myPane.getLayoutX();
+		double yLoc = mouseYLoc - myPane.getLayoutY();
 
 		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
 		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	

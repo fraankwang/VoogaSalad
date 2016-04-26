@@ -1,6 +1,8 @@
 package engine.frontend.shop;
 
+
 import java.util.HashMap;
+
 
 /**
  * @author HaydenBader
@@ -8,65 +10,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import engine.backend.game_features.ShopItem;
+import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
 import engine.frontend.shop.ShopCell;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.beans.binding.DoubleExpression;
-import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 
-
-
-public class ShopPane {
+public class ShopPane extends AbstractPane {
+	private VBox myVBox;
+	private ListView<Map<String, String>> myListView;
 	private EngineView myEngineView;
 	private Pane myPane;
-	private VBox myVBox = new VBox();
-	private ListView<Map<String, String>> myListView; 
-	
-	public ShopPane(EngineView ev){
-		myEngineView = ev;
-	}
-	
-	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
-		
-		myListView = new ListView<Map<String, String>>();
-				
-		myPane = new Pane();
-		myPane.setStyle("-fx-border-color: black;");
-		
-		bindWidth(widthBinding);
-		bindHeight(heightBinding);
-		
-		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
-		
-		myVBox.getChildren().add(myListView);
-	    VBox.setVgrow(myListView, Priority.ALWAYS);
-	    myListView.setCellFactory( e-> handleShopCreation());
-		
-		//Map<String, String> addMap = new HashMap();
-		//addMap.put("name", "Trumpf");
-		//addMap.put("image", "DrumpfVader.png");
-		//addMap.put("cost", Double.toString(10.0));
-		//myListView.getItems().add(addMap);
-	    
-	    ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
-		addShopObject(tester);	
-		myPane.getChildren().add(myVBox);
-		return myPane;
 
-
-	}
 
 	
 	private ListCell<Map<String, String>> handleShopCreation(){
@@ -74,18 +35,49 @@ public class ShopPane {
 		return myVal;
 	}
 	
-	public void createShop(String image, String type, double cost){
-		Map<String, String> addMap = new HashMap();
-		addMap.put("name", type);
-		addMap.put("image", image);
-		addMap.put("cost", Double.toString(cost));
-		
-		//myListView.getItems().add(addMap);
-		//ShopView myTower = new ShopView(myEngineView, image, type, width, height);
-		//myVBox.getChildren().add(myTower.getNode());	
+	
+	public ShopPane(EngineView ev) {
+		super(ev);
+		myListView = new ListView<Map<String, String>>();
 	}
 
-	public void addShopObject(ShopItem myShopItem){
+	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
+		super.buildNode(widthBinding, heightBinding);
+		myPane.setStyle("-fx-border-color: black;");
+
+		myListView = new ListView<Map<String, String>>();
+	    VBox.setVgrow(myListView, Priority.ALWAYS);
+	    myListView.setCellFactory( e-> handleShopCreation());
+
+	    ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
+		addShopObject(tester);	
+		myPane.getChildren().add(myVBox);
+
+		myVBox = new VBox();
+		myVBox.minWidthProperty().bind(myPane.widthProperty());
+		myVBox.minHeightProperty().bind(myPane.heightProperty());
+		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
+
+		myPane.getChildren().add(myVBox);
+
+		VBox.setVgrow(myPane, Priority.ALWAYS);
+		addShopObject(tester);
+		return myPane;
+	}
+
+	public void createShop(String image, String type, double cost) {
+
+		
+			Map<String, String> addMap = new HashMap();
+			addMap.put("name", type);
+			addMap.put("image", image);
+			addMap.put("cost", Double.toString(cost));
+			
+			myListView.getItems().add(addMap);
+		
+	}
+
+	public void addShopObject(ShopItem myShopItem) {
 		ShopView myShopView = new ShopView(myEngineView);
 		Map<String, String> addMap = new HashMap();
 		addMap.put("name", myShopItem.getItemName());
@@ -102,18 +94,19 @@ public class ShopPane {
 //		myEngineView.getDummyCursor().changePic(new Image(myMap.get("image")));	
 //	}
 
-	private void bindWidth(DoubleExpression db){
+	protected void bindWidth(DoubleExpression db){
 		myPane.minWidthProperty().bind(db);
 		myPane.maxWidthProperty().bind(db);
 	}
 	
-	private void bindHeight(DoubleExpression db){
+	protected void bindHeight(DoubleExpression db){
 		myPane.minHeightProperty().bind(db);
 		myPane.maxHeightProperty().bind(db);
 	}
 	
 	public void updateShop(List<ShopItem> myShopList){
 		
+
 	}
 
 }
