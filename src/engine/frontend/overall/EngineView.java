@@ -80,7 +80,6 @@ public class EngineView{
 		myScene = new Scene(myBody, Color.WHITE);
 		myMenuBar = myMenubarManager.buildMenuBar(myScene.widthProperty(), myScene.heightProperty().multiply(loadDoubleResource("MenuBarHeight")));
 		myBody.setTop(myMenuBar);
-
 		SimpleDoubleProperty mapHeight = new SimpleDoubleProperty(myController.getEventManager().getCurrentLevel().getMap().getMapHeight());
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
 		
@@ -99,7 +98,7 @@ public class EngineView{
 		myBody.setBottom(myStatusPane.buildNode(myScene.widthProperty(), myScene.heightProperty().subtract(boardHeight).subtract(myMenuBar.heightProperty())));
 		
 		myScene.setOnDragExited(e -> handleEndMouseRelease(e));
-		myBody.getChildren().add(myDummyCursor.getNode());
+		myBody.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
