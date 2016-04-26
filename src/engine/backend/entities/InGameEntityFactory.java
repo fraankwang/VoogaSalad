@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import engine.backend.components.IComponent;
@@ -15,16 +17,33 @@ public class InGameEntityFactory {
 	private GameStatistics myStats;
 	private Map<String, Map<String, IEntity>> myEntityMap;
 
-	public InGameEntityFactory(GameStatistics stats, Map<String, Map<String, IEntity>> map) {
+	public InGameEntityFactory(GameStatistics stats, List<IEntity> entities) {
 		this.myStats = stats;
-		this.myEntityMap = map;
+		this.myEntityMap = createMap(entities);
 	}
-
+	
+	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities)
+	{
+		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>(); 
+		for(IEntity entity : entities){
+			Map<String, IEntity> typeMap = null;
+			if(mainEntityMap.containsKey(entity.getType())){
+				typeMap = mainEntityMap.get(entity.getType());
+			}
+			else{
+				typeMap = new HashMap<String, IEntity>();
+				mainEntityMap.put(entity.getType(), typeMap);
+			}
+			typeMap.put(entity.getName(), entity);
+		}
+		return mainEntityMap;
+	}
 	/**
 	 * 
 	 * @param entityName
 	 * @return A entity with the entity name given.
 	 */
+	
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
 		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getType(),
