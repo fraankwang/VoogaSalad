@@ -9,6 +9,7 @@ public class BezierCurve implements IBezierCurve{
 	private Vector control1Vector;
 	private Vector control2Vector;
 	private Vector endPointVector;
+	private Vector[] vectors;
 	private double myLength;
 	
 	public BezierCurve(double startX, double startY, double c1X, double c1Y, 
@@ -18,6 +19,7 @@ public class BezierCurve implements IBezierCurve{
 		control1Vector = new Vector(c1X, c1Y);
 		control2Vector = new Vector(c2X, c2Y);
 		endPointVector = new Vector(endX, endY);
+		addVectors();
 		
 		myLength = calculateBezierLength();
 	}
@@ -25,6 +27,26 @@ public class BezierCurve implements IBezierCurve{
 	public BezierCurve(double[] points) {
 		this(points[0], points[1], points[2], points[3], points[4],
 				points[5], points[6], points[7]);
+	}
+	
+	private void addVectors() {
+		vectors[0] = startPointVector;
+		vectors[1] = control1Vector;
+		vectors[2] = control2Vector;
+		vectors[3] = endPointVector;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < vectors.length; i++) {
+			Vector vector = vectors[i];
+			sb.append(vector.getX());
+			sb.append("-");
+			sb.append(vector.getY());
+			sb.append(",");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
 	}
 	
 	public Vector calculateNewBezierPoint(double t){

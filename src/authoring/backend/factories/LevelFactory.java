@@ -30,8 +30,8 @@ public class LevelFactory {
 		for (String key : data.keySet()) {
 			switch (key) {
 
-			case "Path":
-				map.setPath(getPaths(data.get(key)));
+			case "Paths":
+				map.setPaths(getPaths(data.get(key)));
 				break;
 			case "MapBackgroundImage":
 				map.setMapImage(data.get(key));

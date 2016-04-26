@@ -33,6 +33,11 @@ public class Level {
 		this.entities = new ArrayList<IEntity>();
 		this.levelInfo = new HashMap<String, String>();
 		initializeInfo();
+	}	
+
+	public Level(String myName) {
+		this.entities = new ArrayList<IEntity>();
+		this.myName = myName;
 	}
 	
 	private void initializeInfo() {
@@ -41,12 +46,7 @@ public class Level {
 		levelInfo.put("MapBackgroundImage", map.getMapImage());
 		levelInfo.put("MapWidth", map.getMapWidth() + "");
 		levelInfo.put("MapHeight", map.getMapHeight() + "");
-		levelInfo.put("Path", map.getPath().getID() + "");
-	}
-
-	public Level(String myName) {
-		this.entities = new ArrayList<IEntity>();
-		this.myName = myName;
+		levelInfo.put("Paths", map.getPathsInfo());
 	}
 	
 	public String getName(){

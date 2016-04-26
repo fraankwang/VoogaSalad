@@ -56,11 +56,21 @@ public class GameMap {
 		this.myMapHeight = height;
 	}
 	
+	public String getPathsInfo() {
+		StringBuilder sb = new StringBuilder();
+		for (Path path : paths) {
+			sb.append(path.toString());
+			sb.append("_");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	}
+	
 	public Path[] getPaths() {
 		return paths;
 	}
 	
-	public void setPath(Path[] paths) {
+	public void setPaths(Path[] paths) {
 		this.paths = paths;
 	}
 	

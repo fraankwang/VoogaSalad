@@ -55,7 +55,18 @@ public class Path implements IPath{
 			return myCurves.get(0);
 		}
 		return myCurves.get(index); 
-		
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(myID);
+		sb.append(":");
+		for (BezierCurve curve : myCurves) {
+			sb.append(curve.toString());
+			sb.append(" ");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
 	}
 	
 }
