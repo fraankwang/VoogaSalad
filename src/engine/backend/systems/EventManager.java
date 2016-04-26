@@ -9,7 +9,10 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import engine.backend.components.PositionComponent;
+import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.ModeStatistics;
@@ -19,8 +22,10 @@ import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.systems.Events.EntityClickedEvent;
+import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
+import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
 
 public class EventManager implements Observer{
@@ -29,14 +34,15 @@ public class EventManager implements Observer{
 	GameWorld myGameWorld;
 	ModeStatistics currentModeStatistics;
 	private List<Rule> myRuleAgenda;
+	InGameEntityFactory myEntityFactory;
 
-	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats) {
+	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats, InGameEntityFactory factory) {
 		setLevel(game.getLevelWithId(0));
 		myEngineController = engineController;
 		myGameWorld = game;
 		//pass in right values
 		currentModeStatistics = stats;
-
+		myEntityFactory = factory;
 	}
 
 	public void setLevel(Level level) {
@@ -74,22 +80,43 @@ public class EventManager implements Observer{
 
 	}
 	
+	public void handleEntityDropEvent(EntityDroppedEvent event){
+		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
+		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
+		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
+		getCurrentLevel().addEntityToMap(newEntity);
+	}
+	
 	public void handleClickEvent(EntityClickedEvent event) {
-		
-		System.out.println("CLICKED");
-		
+
 		String identifier = getCurrentLevel().getEntityWithID(event.getClickedEntityID()).getName();
 		event.setEventID(identifier);
-		
+
 		for(Rule rule : myRuleAgenda){
 			ArrayList<String> ruleEvents = (ArrayList<String>) rule.getEvents();
 			if(ruleEvents.size() == 1 && ruleEvents.get(0).equals(event.getEventID())){
-				applyActions(new HashSet<Integer>(event.getClickedEntityID()), rule.getActions());
+				applyActions(getCurrentLevel().getEntityWithID(event.getClickedEntityID()), rule.getActions());
 			}
 		}
-		
+
 	}
-	
+
+	private void applyActions(IEntity entity, Collection<IAction> actions){
+		
+		for (IAction a : actions) {
+			if(a instanceof EntityAction){
+
+				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
+					entity.applyAction((EntityAction) a);
+				}
+
+			}
+			else if(a instanceof LevelAction){
+				currentModeStatistics.applyAction((LevelAction) a);
+			}
+		}
+	}
+
 	private void applyActions(Set<Integer> entityIDs, Collection<IAction> actions){
 
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
@@ -130,16 +157,16 @@ public class EventManager implements Observer{
 			if (myPossibleEntities.size() > 0) {
 				myFinalEntities = new HashSet<Integer>(myPossibleEntities.get(0));
 				myPossibleEntities.forEach(e -> myFinalEntities.retainAll(e));
-				
+
 				//apply actions
 				if(myFinalEntities.size() > 0){
 					applyActions(myFinalEntities, rule.getActions());
-					
+
 					//remove IDs
 					generatedEventMap.values().forEach(s -> s.removeAll(myFinalEntities));
-					
+
 				}
-				
+
 			}
 
 		}		

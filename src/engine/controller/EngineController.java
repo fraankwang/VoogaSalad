@@ -1,11 +1,12 @@
 package engine.controller;
 
+import authoring.backend.factories.EntityFactory;
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
-import engine.backend.systems.Events.IEvent;
 import engine.frontend.overall.EngineView;
 //import engine.frontend.EngineView;
 import javafx.animation.Animation;
@@ -25,6 +26,7 @@ public class EngineController implements IEngineController{
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
+	private InGameEntityFactory myEntityFactory;
 	
 	//testing
 	private testingClass myTestingClass;
@@ -47,7 +49,12 @@ public class EngineController implements IEngineController{
 		//initTestGame();
 		
 		ModeStatistics stats = new ModeStatistics(10, 10);
-		myEventManager = new EventManager(this, myGameWorld, stats);
+		
+		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
+				myGameWorld.getEntityMap());
+		
+		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
+		
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		playing = true;
 		

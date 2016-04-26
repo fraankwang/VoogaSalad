@@ -151,7 +151,6 @@ public class testingClass {
 		tempSpawn.addComponent(tempPosition4);
 		tempSpawn.addComponent(tempDisplay4);
 		
-		
 		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns", 20);
 		IComponent tempPosition = new PositionComponent(0, 100);
 		IComponent tempMovement = new MovementComponent(2, 0);
@@ -170,7 +169,7 @@ public class testingClass {
 		tempEntity.addComponent(pathComp);
 		
 		
-		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2", 20);
+		IEntity tempEntity2 = new Entity(-1, "tempEntity2", "object2", 20);
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
