@@ -23,26 +23,27 @@ import engine.backend.rules.Rule;
  *
  */
 public class Level {
+	
 	private List<IEntity> authoredEntities;
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
-	private int myID;
-	private String myParentModeName;
+	private String myName;
+	private int index;
 	private GameMap map;
 	private double timer;
 	private int numWaves;
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
 
-	public Level(int myID, GameMap map) {
-		this.myID = myID;
+	public Level(String name, GameMap map) {
+		this.myName = name;
 		this.map = map;
 	}
 
-	public Level(int myID) {
+	public Level(String name) {
 		this.authoredEntities = new ArrayList<IEntity>();
 		this.entities = new HashMap<Integer, IEntity>();
-		this.myID = myID;
+		this.myName = name;
 		this.myEventMap = new HashMap<String, List<EntityAction>>();
 		ruleAgenda = new ArrayList<Rule>();
 	}
@@ -51,8 +52,8 @@ public class Level {
 	 * 
 	 * @return The unique identifier for the level.
 	 */
-	public int getId() {
-		return myID;
+	public String getName() {
+		return myName;
 	}
 	
 	public List<Rule> getRuleAgenda(){
@@ -134,31 +135,14 @@ public class Level {
 	 * 
 	 * @param modeID
 	 */
-	public void setParentModeName(String modeID) {
-		this.myParentModeName = modeID;
-	}
+
 
 	/**
 	 * 
 	 * @return A String with the identifier of the mode with this level.
 	 */
-	public String getModeID() {
-		return myParentModeName;
-	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Level) {
-			Level temp = (Level) o;
-			if (this.myID == temp.myID) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
+
 	
 	public void removeEntites(Collection<IEntity> entitiesToRemove){
 		for(IEntity entity : entitiesToRemove){
@@ -193,6 +177,14 @@ public class Level {
 
 	public void setCurrentWaveIndex(int currentWaveIndex) {
 		this.currentWaveIndex = currentWaveIndex;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 }

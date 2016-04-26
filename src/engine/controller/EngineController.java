@@ -1,25 +1,12 @@
 package engine.controller;
-
-import engine.backend.components.DisplayComponent;
-import engine.backend.components.IComponent;
-import engine.backend.components.MovementComponent;
-import engine.backend.components.PathComponent;
-import engine.backend.components.PositionComponent;
-import engine.backend.components.SizeComponent;
-import engine.backend.entities.Entity;
-import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
 import engine.backend.game_object.ModeStatistics;
-import engine.backend.map.BezierCurve;
-import engine.backend.map.GameMap;
-import engine.backend.map.Path;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
+import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.frontend.overall.EngineView;
-//import engine.frontend.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -49,6 +36,7 @@ public class EngineController implements IEngineController{
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
+	private InGameEntityFactory myEntityFactory;
 	
 	//testing
 	private testingClass myTestingClass;
@@ -66,7 +54,12 @@ public class EngineController implements IEngineController{
 		myGameWorld = myTestingClass.testFiring();
 		
 		ModeStatistics stats = new ModeStatistics(10, 10);
-		myEventManager = new EventManager(this, myGameWorld, stats);
+		
+		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
+				myGameWorld.getEntityMap());
+		
+		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
+		
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		playing = true;
 		
@@ -98,6 +91,15 @@ public class EngineController implements IEngineController{
 
 	}
 	
+	private void setupStage(){
+		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
+		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
+		myStage.setX(0);
+		myStage.setY(0);
+		myStage.setScene(myEngineView.buildScene());
+		myStage.show();
+	}
+	
 	//backend endpoint 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
@@ -118,8 +120,10 @@ public class EngineController implements IEngineController{
 //		//call backend to say stat object clicked
 //	}
 	
-	public void attemptTower(double xLoc, double yLoc) {
+	public void attemptTower(double xLoc, double yLoc, String type) {
 		// TODO Auto-generated method stub
+		EntityDroppedEvent event = new EntityDroppedEvent(xLoc, yLoc, type);
+		myEventManager.handleEntityDropEvent(event);
 	}
 
 	public void entityClicked(int myID) {

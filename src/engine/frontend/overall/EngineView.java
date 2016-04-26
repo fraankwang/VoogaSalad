@@ -14,6 +14,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -80,7 +81,7 @@ public class EngineView{
 		myScene = new Scene(myBody, Color.WHITE);
 		myMenuBar = myMenubarManager.buildMenuBar(myScene.widthProperty(), myScene.heightProperty().multiply(loadDoubleResource("MenuBarHeight")));
 		myBody.setTop(myMenuBar);
-		
+
 		SimpleDoubleProperty mapHeight = new SimpleDoubleProperty(myController.getEventManager().getCurrentLevel().getMap().getMapHeight());
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
 		
@@ -102,6 +103,8 @@ public class EngineView{
 		myBody.getChildren().add(myDummyCursor.getNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
+		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
+		//myScene.setOnDrag
 		return myScene;
 	}
 	
@@ -110,19 +113,27 @@ public class EngineView{
 	}
 
 	private void handleDrop(DragEvent e){
+		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene &&  e.getDragboard().hasString()) {
-
 			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+			//System.out.println(e.getSceneX());
         }	
-        e.consume();
+		if( myScene.getCursor() != Cursor.NONE){
+			myScene.setCursor(Cursor.NONE);
+		}
+		e.consume();
 	}
 	
 	private void handleEndMouseRelease(DragEvent e) {
-		if( isInBoardPane( e.getSceneX(), e.getSceneY() ) && e.getDragboard().hasString()){
-			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY(), e.getDragboard().getString());
+
+		if(e.getGestureSource() != myScene){
+			if( isInBoardPane( e.getScreenX(), e.getScreenY() ) && e.getDragboard().hasString()){
+				myBoardPane.attemptTower(e.getSceneX(), e.getSceneY(), e.getDragboard().getString());
+			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
+
 	}
 	
 	private boolean isInBoardPane(double x, double y){
