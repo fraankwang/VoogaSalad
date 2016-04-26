@@ -39,7 +39,7 @@ public class AuthoringLevel {
 		myInfo.put("MapBackgroundImage", myMap.getMapImage());
 		myInfo.put("MapWidth", myMap.getMapWidth() + "");
 		myInfo.put("MapHeight", myMap.getMapHeight() + "");
-		myInfo.put("Paths", myMap.getPathsInfo());
+//		myInfo.put("Paths", myMap.getPathsInfo());
 	}
 	
 	public Set<String> getEntities() {
@@ -61,25 +61,33 @@ public class AuthoringLevel {
 	}
 	
 	private String getSpawnEntityInfo() {
-		StringBuilder sb = new StringBuilder();
-		for (AuthoringEntity entity : spawnEntities) {
-			Map<String, String> info = entity.getInfo();
-			String spawnInfo = info.get("SpawnComponent");
-			sb.append(spawnInfo);
-			sb.append(",");
+		if (spawnEntities.isEmpty()) {
+			return "";
+		} else {
+			StringBuilder sb = new StringBuilder();
+			for (AuthoringEntity entity : spawnEntities) {
+				Map<String, String> info = entity.getInfo();
+				String spawnInfo = info.get("SpawnComponent");
+				sb.append(spawnInfo);
+				sb.append(",");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			return sb.toString();
 		}
-		sb.deleteCharAt(sb.length() - 1);
-		return sb.toString();
 	}
 	
 	private String getEntityNames() {
-		StringBuilder sb = new StringBuilder();
-		for (String entity : entities) {
-			sb.append(entity);
-			sb.append(" ");
+		if (entities.isEmpty()) {
+			return "";
+		} else {
+			StringBuilder sb = new StringBuilder();
+			for (String entity : entities) {
+				sb.append(entity);
+				sb.append(" ");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			return sb.toString();
 		}
-		sb.deleteCharAt(sb.length() - 1);
-		return sb.toString();
 	}
 	
 	@Override

@@ -60,6 +60,7 @@ public class AuthoringController implements IAuthoringController {
 	private Map<String, String> processData(Map<String, String> data) {
 		for (String key : data.keySet()) {
 			if (data.get(key).equals("") || data.get(key) == null) {
+				System.out.println(key);
 				data.put(key, "0");
 			}
 		}
