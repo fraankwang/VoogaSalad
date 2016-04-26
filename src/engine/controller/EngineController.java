@@ -1,6 +1,4 @@
 package engine.controller;
-
-import authoring.backend.factories.EntityFactory;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.ModeStatistics;
@@ -9,13 +7,24 @@ import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.frontend.overall.EngineView;
-//import engine.frontend.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
+
+/*
+ * Todos:
+ * Scaling- for pixel amounts coming in from backend, only endpoint is EngineController.updateEntity, scale points
+ * 		  - for pixel amounts going to backend, may be multiple endpoints, the various click events all need to be 
+ * 		  backscaled before they go to the backend
+ * 		Bind the width/height/x/y property of everything on the map to the current size
+ * 
+ *  Want to scale everything based on the size of the 
+ */
+
 
 public class EngineController implements IEngineController{
 	private Stage myStage;
@@ -37,17 +46,12 @@ public class EngineController implements IEngineController{
 	public EngineController(Stage s, Main m) {
 		myStage = s;
 		myMain = m;
-		myEngineView = new EngineView(myStage, this); 
-        myStage.setScene(myEngineView.buildScene());
-        myStage.show();
-        
 	}
 	
 	public void start(){
 		myGameWorld = new GameWorld();
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
-		//initTestGame();
 		
 		ModeStatistics stats = new ModeStatistics(10, 10);
 		
@@ -60,9 +64,7 @@ public class EngineController implements IEngineController{
 		playing = true;
 		
 		myEngineView = new EngineView(myStage, this);
-		myStage.setScene(myEngineView.buildScene());
-		setupStage();
-		myStage.show();
+		buildStage();
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
@@ -71,6 +73,17 @@ public class EngineController implements IEngineController{
 		animation.play();
 	}
 
+	private void buildStage(){
+		myStage.setMinWidth(myEngineView.loadIntResource("StageMinWidth"));
+		myStage.setMinHeight(myEngineView.loadIntResource("StageMinHeight"));
+		myStage.setX(0);
+		myStage.setY(0);
+		
+		Scene scene = myEngineView.buildScene();
+		myStage.setScene(scene); 
+		myStage.show();
+	}
+	
 	public void step() {
 		if(playing){
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
@@ -90,6 +103,8 @@ public class EngineController implements IEngineController{
 	//backend endpoint 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
+		//these points need to be scaled based on the ratio of the size of the board to the size of the map
+		//they need to be scaled dynamically
 	}
 	
 //	public void updateShop(Shop shop){
@@ -121,13 +136,15 @@ public class EngineController implements IEngineController{
 		return myMain;
 	}
 
-	public String getBackgroundFile(){
-		return "test";
-//		return myGameWorld.someGetFileName();
+	public String getBackgroundImageFile(){
+		return myEventManager.getCurrentLevel().getMap().getMapImage();
 	}
 
-	public GameWorld getMyGameWorld(){
+	public GameWorld getGameWorld(){
 		return myGameWorld;
 	}
-
+	
+	public EventManager getEventManager(){
+		return myEventManager;
+	}
 }

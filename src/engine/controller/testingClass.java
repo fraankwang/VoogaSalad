@@ -39,7 +39,7 @@ public class testingClass {
 	public GameWorld initTestGame(GameWorld myGameWorld) {
 		GameWorld collisionTest = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
-		Level tempLevel = new Level(0);
+//		Level tempLevel = new Level(0);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
 		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
@@ -49,7 +49,7 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 
-		GameMap tempMap = new GameMap("", tempPath, 800, 600);
+		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 600, 400);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
 		IComponent tempPosition = new PositionComponent(0, 60);
@@ -143,7 +143,8 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
-		GameMap tempMap = new GameMap("", tempPath, 900, 600);
+
+		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
@@ -234,7 +235,7 @@ public class testingClass {
 	public GameWorld testCollision() {
 		GameWorld collisionTest = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
-		Level tempLevel = new Level(0);
+//		Level tempLevel = new Level(0);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
 		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
