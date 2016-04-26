@@ -70,8 +70,6 @@ public class EngineView{
 		myStatusPane = new StatusPane(this);
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myDummyCursor = new DummyCursor(loadDoubleResource("CursorWidth"), loadDoubleResource("CursorHeight"));
-		
-		
 	}
 	
 	/**
@@ -83,8 +81,15 @@ public class EngineView{
 		myBody = new BorderPane();
 		myScene = new Scene(myBody, Color.WHITE);
 		myMenuBar = myMenubarManager.buildMenuBar();
+		
 		myBody.setTop(myMenuBar);
 		myBody.setLeft(myBoardPane.buildNode());
+		/*
+		 * Boardpane is sized by the size of the map scaled down to what fits within the 75% of screen w/h
+		 * Shoppane is sized by same height as boardpane and remaining width
+		 * Status pane is sized by remaining width
+		 */
+		
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
 		
@@ -118,7 +123,7 @@ public class EngineView{
 	}
 	
 	public DoubleBinding getUsableHeight(double porportion){
-		return myScene.heightProperty().subtract(myMenuBar.heightProperty()).multiply(porportion);
+		return myScene.heightProperty().multiply(porportion);
 	}
 
 	public Stage getStage(){

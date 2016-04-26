@@ -20,9 +20,21 @@ import engine.frontend.overall.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
+
+/*
+ * Todos:
+ * Scaling- for pixel amounts coming in from backend, only endpoint is EngineController.updateEntity, scale points
+ * 		  - for pixel amounts going to backend, may be multiple endpoints, the various click events all need to be 
+ * 		  backscaled before they go to the backend
+ * 		Bind the width/height/x/y property of everything on the map to the current size
+ * 
+ *  Want to scale everything based on the size of the 
+ */
+
 
 public class EngineController implements IEngineController{
 	private Stage myStage;
@@ -54,7 +66,7 @@ public class EngineController implements IEngineController{
 		playing = true;
 		
 		myEngineView = new EngineView(myStage, this);
-		setupStage();
+		buildStage();
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
@@ -63,12 +75,13 @@ public class EngineController implements IEngineController{
 		animation.play();
 	}
 
-	private void setupStage(){
-		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
-		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
+	private void buildStage(){
+		myStage.setMinWidth(myEngineView.loadIntResource("StageMinWidth"));
+		myStage.setMinHeight(myEngineView.loadIntResource("StageMinHeight"));
 		myStage.setX(0);
 		myStage.setY(0);
-		myStage.setScene(myEngineView.buildScene());
+		Scene scene = myEngineView.buildScene();
+		myStage.setScene(scene); 
 		myStage.show();
 	}
 	
@@ -81,6 +94,20 @@ public class EngineController implements IEngineController{
 	//backend endpoint 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
+		//these points need to be scaled based on the ratio of the size of the board to the size of the map
+		//they need to be scaled dynamically
+	}
+//	
+//	public double scaleIncomingX(double xinput){
+//		
+//	}
+//	
+//	public double scaleIncomingY(double yinput){
+//		
+//	}
+	
+	public void scaleOutgoingYValue(){
+		
 	}
 	
 //	public void updateShop(Shop shop){
@@ -113,13 +140,16 @@ public class EngineController implements IEngineController{
 		return myMain;
 	}
 
-	public String getBackgroundFile(){
-		return "test";
-//		return myGameWorld.someGetFileName();
+	public String getBackgroundImageFile(){
+		return myEventManager.getCurrentLevel().getMap().getMapImage();
 	}
 
-	public GameWorld getMyGameWorld(){
+	public GameWorld getGameWorld(){
 		return myGameWorld;
+	}
+	
+	public EventManager getEventManager(){
+		return myEventManager;
 	}
 	
 	private void initTestGame(){
@@ -135,7 +165,7 @@ public class EngineController implements IEngineController{
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 		
-		GameMap tempMap = new GameMap("", tempPath, 200, 200);
+		GameMap tempMap = new GameMap("", tempPath, 800, 600);
 		
 		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
 		IComponent tempPosition = new PositionComponent(0, 0);

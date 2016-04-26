@@ -37,6 +37,12 @@ public class MenubarManager {
 		
 	public MenuBar buildMenuBar(){
 		MenuBar menubar = new MenuBar();
+		
+		menubar.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("MenuBarWidth")));
+		menubar.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("MenuBarHeight")));
+		menubar.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("MenuBarWidth")));
+		menubar.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("MenuBarHeight")));
+		
 		Menu filemenu = buildFileMenu();
 		Menu capturemenu = buildCaptureMenu();
 		final Menu menu3 = new Menu("Help");

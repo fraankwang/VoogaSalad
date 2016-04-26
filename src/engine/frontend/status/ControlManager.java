@@ -69,6 +69,7 @@ public class ControlManager {
 		});
 		
 		vbox.getChildren().addAll(play, pause, nextwave, nextlevel, switchmode);
+		vbox.minWidthProperty().bind(myStatusPane.getPane().widthProperty().divide(4));
 		return vbox;
 	}
 	

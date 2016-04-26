@@ -92,4 +92,8 @@ public class StatusPane {
 	public ResourceBundle getMyResources(){
 		return myResources;
 	}
+	
+	public Pane getPane(){
+		return myPane;
+	}
 }
