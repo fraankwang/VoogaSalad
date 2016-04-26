@@ -91,8 +91,7 @@ public class BoardPane {
 		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
 
 		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
-		if(placingTower != null){
-//			myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
-		}
+		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
+
 	}
 }
