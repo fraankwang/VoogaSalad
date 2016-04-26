@@ -32,32 +32,6 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		super(height, width, controller);
 	}
 
-	/**
-	 * @Override to remove row constraints from superclass method.
-	 */
-	@Override
-	protected void initializeComponents() {
-		myWrapper = new BorderPane();
-
-		List<Integer> rowConstraints = new ArrayList<Integer>();
-		List<Integer> columnConstraints = new ArrayList<Integer>();
-
-		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-
-		myAttributes = new ArrayList<String>();
-		myAttributesMap = new TreeMap<String, String>();
-		myInputMap = new TreeMap<String, Control>();
-		myAttributesGridPane = createAttributesGridPane();
-
-		myScrollPane = new ScrollPane();
-		myScrollPane.setContent(myAttributesGridPane);
-		myScrollPane.setFitToWidth(false);
-
-		assembleEmptyInputRows();
-
-	}
-
 	@Override
 	protected void assembleEmptyInputRows() {
 		super.assembleEmptyInputRows();
