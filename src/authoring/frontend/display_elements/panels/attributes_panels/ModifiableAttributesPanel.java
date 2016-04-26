@@ -44,6 +44,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected Map<String, Control> myInputMap;
 
 	protected static final int RULES_HEIGHT_PERCENTAGE = 30;
+	protected static final int ATTRIBUTES_HEIGHT = 50;
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
 	private static final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
@@ -60,15 +61,10 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myWrapper = new BorderPane();
 
 		List<Integer> rowConstraints = new ArrayList<Integer>();
-		rowConstraints.add(100 - RULES_HEIGHT_PERCENTAGE);
-		rowConstraints.add(RULES_HEIGHT_PERCENTAGE);
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-
-		// myRulesListView = createRulesListView();
-		// myRulesPane = new TitledPane("Rules", myRulesListView);
 
 		myAttributes = new ArrayList<String>();
 		myAttributesMap = new TreeMap<String, String>();
@@ -137,13 +133,13 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	 * components. Clears myAttributesGridPane and re-populates it using
 	 * myAttributes and the mapped Control in myInputMap.
 	 */
-	protected void refreshInputRows() {
+	protected void refreshAttributeInputRows() {
 
 		myAttributesGridPane.getChildren().clear();
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
-			if (!currentAttribute.equals("Type")){
+			if (!currentAttribute.equals("Type") && !currentAttribute.equals("SpawnEntities")){
 				Text text = new Text(currentAttribute);
 				text.setFont(new Font(FONT_SIZE));
 				
@@ -227,7 +223,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	 * 
 	 * @param info
 	 */
-	public void setAttributes(Map<String, String> info) {
+	public void updateAttributes(Map<String, String> info) {
 		myAttributesMap = info;
 		myAttributes = new ArrayList<String>();
 		myAttributes.addAll(myAttributesMap.keySet());

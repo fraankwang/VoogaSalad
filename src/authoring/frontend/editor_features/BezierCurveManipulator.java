@@ -147,7 +147,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    curve.setFill(null);
 	    curve.setOnMouseEntered(e -> {
 	    	curve.toFront();
-	    	myCurve.requestFocus();
+	    	curve.requestFocus();
 	    });
 	    curve.setOnMouseEntered(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
@@ -168,6 +168,17 @@ public class BezierCurveManipulator implements IDisplayElement {
 	      });
       
 	    return curve;
+	}
+	
+	public void setCoordinates(List<String> coordinates) {
+		start.setCenterX(Double.parseDouble(coordinates.get(0)));
+	    start.setCenterY(Double.parseDouble(coordinates.get(1)));
+	    control1.setCenterX(Double.parseDouble(coordinates.get(2)));
+	    control1.setCenterY(Double.parseDouble(coordinates.get(3)));
+	    control2.setCenterX(Double.parseDouble(coordinates.get(4)));
+	    control2.setCenterY(Double.parseDouble(coordinates.get(5)));
+	    end.setCenterX(Double.parseDouble(coordinates.get(6)));
+	    end.setCenterY(Double.parseDouble(coordinates.get(7)));
 	}
 	
 	public CubicCurve getCurve() {
@@ -323,13 +334,12 @@ public class BezierCurveManipulator implements IDisplayElement {
 	public String getCoordinatesString() {
 		// format: "startX-startY,control1X-control1Y,control2X-control2Y,endX-endY"
 		String result = "";
-//		result.concat(start.getXCoordinate() + "-" + start.getYCoordinate());
-//		result.concat(control1.getXCoordinate() + "-" + control1.getYCoordinate());
-//		result.concat(control2.getXCoordinate() + "-" + control2.getYCoordinate());
-//		result.concat(end.getXCoordinate() + "-" + end.getYCoordinate());
+		result += (Double.toString(start.getCenterX()) + "-" + Double.toString(start.getCenterY()) + ",");
+		result += (Double.toString(control1.getCenterX()) + "-" + Double.toString(control1.getCenterY()) + ",");
+		result += (Double.toString(control2.getCenterX()) + "-" + Double.toString(control2.getCenterY()) + ",");
+		result += (Double.toString(end.getCenterX()) + "-" + Double.toString(end.getCenterY()));
 		
 		return result;
-//		return "0-0,1-1,2-2,3-3";
 	}
 
 }

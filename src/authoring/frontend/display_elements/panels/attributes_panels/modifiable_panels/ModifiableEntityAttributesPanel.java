@@ -1,7 +1,6 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.editor_features.EntityComponentSelector;
@@ -22,6 +21,7 @@ import javafx.scene.text.Font;
 public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
 	private Button myAddComponentButton;
+
 	public ModifiableEntityAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
 	}
@@ -55,26 +55,25 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 					myAttributes.add(key);
 					myAttributesMap.put(key, null);
 					myInputMap.put(key, newComponents.get(key));
-					refreshInputRows();
+					refreshAttributeInputRows();
 				}
 			}
 		});
 	}
 
 	@Override
-	public void updateImageComponent(String image)  {
+	public void updateImageComponent(String image) {
 		myAttributesMap.replace("DisplayComponent_Image", image);
 		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
 		tf.setText(image);
 		tf.setEditable(false);
 		myInputMap.replace("DisplayComponent_Image", tf);
-		refreshInputRows();
+		refreshAttributeInputRows();
 	}
 
-	
 	@Override
-	public void setAttributes(Map<String, String> info) {
-		super.setAttributes(info);
+	public void updateAttributes(Map<String, String> info) {
+		super.updateAttributes(info);
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
 		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
@@ -123,12 +122,12 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 			}
 
 		}
-		refreshInputRows();
+		refreshAttributeInputRows();
 	}
 
 	@Override
-	protected void refreshInputRows() {
-		super.refreshInputRows();
+	protected void refreshAttributeInputRows() {
+		super.refreshAttributeInputRows();
 		createAddComponentButton();
 	}
 

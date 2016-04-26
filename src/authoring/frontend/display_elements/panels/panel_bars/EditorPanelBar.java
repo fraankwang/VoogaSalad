@@ -47,10 +47,16 @@ public class EditorPanelBar extends PanelBar {
 		myNode = hbox;
 	}
 	
-	public void addButton(String label, EventHandler<ActionEvent> action) {
+	@Override
+	public Button addButton(String label, EventHandler<ActionEvent> action) {
 		Button b = new Button(label);
 		b.setOnAction(action);
 		myDescription.getChildren().add(b);
+		return b;
+	}
+	
+	public void removeButtons(int from, int to) {
+		myDescription.getChildren().remove(from, to);
 	}
 
 }

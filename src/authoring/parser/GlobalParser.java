@@ -3,6 +3,11 @@ package authoring.parser;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * 
+ * @author Frank, Jonathan Ma
+ *
+ */
 public class GlobalParser {
 	
 	public static Map<String, String[]> pathParse(String path) {
@@ -51,8 +56,27 @@ public class GlobalParser {
 			return spawns;
 		}
 	}
+
+	public static Map<String, String> parseSpawnEntities(String spawnEntities) {
+		TreeMap<String, String> spawnEntitiesMap = new TreeMap<String, String>();
+		
+		String[] allSpawnEntities = spawnEntities.split(",");
+		for (String entity : allSpawnEntities) {
+			String[] pathSplit = entity.split(":"); 
+			String pathID = pathSplit[0];
+			String spawnObjects = pathSplit[1];
+			String[] spawnObjectsSplit = spawnObjects.split(" ");
+			for (String spawn : spawnObjectsSplit) {
+				spawnEntitiesMap.put(pathID, spawn);
+				
+			}
+			
+		}
+		
+		return spawnEntitiesMap;
+	}
 	
-	public static String spawnCompress(Map<String, String> spawn) {
+	public static String spawnCompress(Map<String, String> spawnEntities) {
 		
 		return null;
 	}
