@@ -129,7 +129,11 @@ public class testingClass {
 		rule3.addActions(Arrays.asList(shootAction));
 		rule3.addEvents(Arrays.asList("tempEntity2EntityClickedEvent"));
 		
-		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3));
+		Rule rule4 = new Rule();
+		rule4.addActions(Arrays.asList(action3, action5));
+		rule4.addEvents(Arrays.asList("SimpleBulletOutOfMapEvent"));
+		
+		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4));
 		//level.addActionToEventMap(Arrays.asList("SimpleBullettempEntityCollisionEvent"), myActions);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
@@ -139,7 +143,7 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
-		GameMap tempMap = new GameMap("", tempPath, 200, 200);
+		GameMap tempMap = new GameMap("", tempPath, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
@@ -180,7 +184,7 @@ public class testingClass {
 		IComponent tempSize3 = new SizeComponent();
 		
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector, -1);
+				500, myBulletVector, 1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
 		mySimpleBullet.addComponent(tempCollision2);

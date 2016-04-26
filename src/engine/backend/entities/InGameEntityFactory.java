@@ -26,6 +26,7 @@ public class InGameEntityFactory {
 	 */
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
+		System.out.println(templateEntity.getName());
 		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getType(),
 				templateEntity.getValue());
 		copyComponents(newEntity, templateEntity);
@@ -34,7 +35,6 @@ public class InGameEntityFactory {
 
 	private IEntity findInMap(String entityName) {
 		for (String type : myEntityMap.keySet()) {
-			System.out.println("Type: " + type);
 			Map<String, IEntity> entities = myEntityMap.get(type);
 			if (entities.containsKey(entityName)) {
 				return entities.get(entityName);
