@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -86,21 +87,24 @@ public class EngineView{
 		myBody.setLeft(myBoardPane.buildNode());
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
-		myScene.setOnMouseReleased(e -> handleEndMouseRelease(e));
+		myScene.setOnDragExited(e -> handleEndMouseRelease(e));
 		myBody.getChildren().add(myDummyCursor.getNode());
 		myScene.setCursor(Cursor.DEFAULT);
-		myScene.setOnMouseDragged(e -> handleDummyCursor(e));
-		
+		myScene.setOnDragOver(e -> handleDrop(e));
 		return myScene;
 	}
 
-	private void handleDummyCursor(MouseEvent e){
-		myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+	private void handleDrop(DragEvent e){
+		if (e.getGestureSource() != myScene &&  e.getDragboard().hasString()) {
+
+			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+        }	
+        e.consume();
 	}
 	
-	private void handleEndMouseRelease(MouseEvent e) {
-		if( isInBoardPane( e.getSceneX(), e.getSceneY() ) && this.getStage().getScene().getCursor() != Cursor.DEFAULT ){
-			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY());
+	private void handleEndMouseRelease(DragEvent e) {
+		if( isInBoardPane( e.getSceneX(), e.getSceneY() ) && e.getDragboard().hasString()){
+			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY(), e.getDragboard().getString());
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
