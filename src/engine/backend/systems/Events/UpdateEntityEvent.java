@@ -2,8 +2,8 @@ package engine.backend.systems.Events;
 
 import engine.backend.entities.IEntity;
 
-public class UpdateEntityEvent extends EntityEvent {
-
+public class UpdateEntityEvent extends EntityEvent{
+	
 	double x;
 	double y;
 	String image;

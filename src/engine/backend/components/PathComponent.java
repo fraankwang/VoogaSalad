@@ -12,55 +12,100 @@ public class PathComponent extends Component {
 	//stores which path you're on
 	private int pathID;
 	private double myBezierTime;
-	
-	
+
 	private boolean reachedEndOfPath;
 	private boolean movesWithTime;
-	//stores which curve in the path you're on
+	// stores which curve in the path you're on
 	private int curveID;
 
-	public PathComponent(){
+	/**
+	 * Initializes a path component from an existing path component.
+	 * 
+	 * @param component
+	 */
+	public PathComponent(PathComponent component) {
+		this.pathID = component.getPathID();
+		this.myBezierTime = component.getBezierTime();
+		this.reachedEndOfPath = component.getReachedEndOfPath();
+		this.movesWithTime = component.movesWithTime();
+		this.curveID = component.getCurveID();
 	}
-	
-	public PathComponent(int id, double time){
+
+	public PathComponent(int id, double time) {
 		pathID = id;
 		myBezierTime = time;
 		movesWithTime = true;
 	}
-	
-	public int getCurveID(){
+
+	/**
+	 * 
+	 * @return The int identifier for this curve.
+	 */
+	public int getCurveID() {
 		return curveID;
 	}
-	public void setCurveID(int newID){
+
+	/**
+	 * Sets the identifier for this curve.
+	 * 
+	 * @param newID
+	 */
+	public void setCurveID(int newID) {
 		curveID = newID;
 	}
-	public int getPathID(){
+
+	/**
+	 * 
+	 * @return The int identifier for this path.
+	 */
+	public int getPathID() {
 		return pathID;
 	}
-	public void setPathID(int newID){
+
+	/**
+	 * Sets the path identifier.
+	 * 
+	 * @param newID
+	 */
+	public void setPathID(int newID) {
 		pathID = newID;
 	}
-	
+
 	public double getBezierTime() {
 		return myBezierTime;
 	}
 
+	/**
+	 * 
+	 * @param myBezierTime
+	 */
 	public void setBezierTime(double myBezierTime) {
 		this.myBezierTime = myBezierTime;
 	}
 
-	public boolean movesWithTime(){
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean movesWithTime() {
 		return movesWithTime;
 	}
-	
-	public boolean getReachedEndOfPath(){
+
+	/**
+	 * 
+	 * @return A boolean representing whether or not the end of path has been reached.
+	 */
+	public boolean getReachedEndOfPath() {
 		return reachedEndOfPath;
 	}
 
+	/**
+	 * Sets the boolean for whether the end of path has been reached by the entity with this component.
+	 * @param bool
+	 */
 	public void setReachedEndOfPath(boolean bool) {
-		// TODO Auto-generated method stub
 		reachedEndOfPath = bool;
-	}
+	}	
 	
 	@Override
 	public String getComponentInfo() {
@@ -73,5 +118,5 @@ public class PathComponent extends Component {
 			this.pathID = Integer.parseInt(data);
 		}
 	}
-	
+
 }

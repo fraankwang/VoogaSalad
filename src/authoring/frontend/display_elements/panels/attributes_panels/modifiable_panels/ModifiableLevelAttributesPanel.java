@@ -118,11 +118,13 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myEntitySelector = new ComboBox<String>();
 		myEntitySelector.setPrefSize(MAX_SIZE, MAX_SIZE);
 		myEntitySelector.getItems().addAll(myEntities);
+		myEntitySelector.setPromptText("Select Entity");
 
 		myWaveSelector = new ComboBox<String>();
 		myWaveSelector.setPrefSize(MAX_SIZE, MAX_SIZE);
 		myWaveSelector.getItems().addAll(myWaves);
-
+		myWaveSelector.setPromptText("Select Wave");
+		
 		myAddSpawnButton.setOnAction(e -> {
 			String selected = myEntitySelector.getSelectionModel().getSelectedItem();
 			String wave = myWaveSelector.getSelectionModel().getSelectedItem();
@@ -134,11 +136,12 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				myWaveSelector.getItems().addAll(myWaves);
 			}
 			String pathID = promptPathID();
-			String tag = selected + ":" + wave + ":" + pathID;
-			SpawnEntityRow row = new SpawnEntityRow(tag, selected, wave, pathID);
-			Button deleteButton = row.getMyDeleteButton();
-			deleteButton.setOnAction(f -> {
-				if (Integer.parseInt(row.getMyWaveOrder().getText()) != 1) {
+			if (!pathID.equals("")) {
+				String tag = selected + ":" + wave + ":" + pathID;
+				SpawnEntityRow row = new SpawnEntityRow(tag, selected, wave, pathID);
+				Button deleteButton = row.getMyDeleteButton();
+				deleteButton.setOnAction(f -> {
+
 					if (row.getMyWaveOrder().getText().equals(Integer.toString(myMaxWave))) {
 						myWaves.remove(myMaxWave);
 						myMaxWave--;
@@ -146,10 +149,12 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 					;
 					mySpawnEntitiesInputMap.remove(tag);
 					refreshAttributeInputRows();
-				}
-			});
-			mySpawnEntitiesInputMap.put(tag, row);
-			refreshAttributeInputRows();
+
+				});
+				mySpawnEntitiesInputMap.put(tag, row);
+				refreshAttributeInputRows();
+
+			}
 		});
 
 		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size());

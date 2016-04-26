@@ -1,5 +1,6 @@
 package engine.controller;
 
+<<<<<<< HEAD
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
@@ -10,15 +11,16 @@ import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
+=======
+>>>>>>> 71eadc63fbbf74393ea3ae4fa2b332bff550fd06
 import engine.backend.game_object.GameWorld;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
-import engine.backend.map.BezierCurve;
-import engine.backend.map.GameMap;
-import engine.backend.map.Path;
+import engine.backend.game_object.ModeStatistics;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
-import engine.frontend.EngineView;
+import engine.backend.systems.Events.EntityClickedEvent;
+import engine.backend.systems.Events.IEvent;
+import engine.frontend.overall.EngineView;
+//import engine.frontend.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -36,6 +38,9 @@ public class EngineController implements IEngineController{
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
+	
+	//testing
+	private testingClass myTestingClass;
 
 	private EngineView myEngineView;
 
@@ -45,13 +50,17 @@ public class EngineController implements IEngineController{
 		myEngineView = new EngineView(myStage, this); 
         myStage.setScene(myEngineView.buildScene());
         myStage.show();
+        
 	}
 	
 	public void start(){
 		myGameWorld = new GameWorld();
-		initTestGame();
+		myTestingClass = new testingClass();
+		myGameWorld = myTestingClass.testFiring();
+		//initTestGame();
 		
-		myEventManager = new EventManager(this, myGameWorld);
+		ModeStatistics stats = new ModeStatistics(10, 10);
+		myEventManager = new EventManager(this, myGameWorld, stats);
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		playing = true;
 		
@@ -97,6 +106,8 @@ public class EngineController implements IEngineController{
 
 	public void entityClicked(int myID) {
 		// TODO Auto-generated method stub
+		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
+		myEventManager.handleClickEvent(clickedEvent);
 	}
 	
 	public Main getMain(){
@@ -111,6 +122,7 @@ public class EngineController implements IEngineController{
 	public GameWorld getMyGameWorld(){
 		return myGameWorld;
 	}
+<<<<<<< HEAD
 	
 	private void initTestGame(){
 		myGameWorld = new GameWorld();
@@ -182,4 +194,7 @@ public class EngineController implements IEngineController{
 		//the this reference to rendering will get removed, so only the event handler will get passed
 		mySystems = new SystemsController(60, myEventManager);
 	}
+=======
+
+>>>>>>> 71eadc63fbbf74393ea3ae4fa2b332bff550fd06
 }

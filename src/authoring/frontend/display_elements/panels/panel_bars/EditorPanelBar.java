@@ -54,5 +54,9 @@ public class EditorPanelBar extends PanelBar {
 		myDescription.getChildren().add(b);
 		return b;
 	}
+	
+	public void removeButtons(int from, int to) {
+		myDescription.getChildren().remove(from, to);
+	}
 
 }

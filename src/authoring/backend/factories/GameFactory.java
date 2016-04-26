@@ -11,6 +11,7 @@ import java.util.Map;
 import authoring.backend.data.GameData;
 import authoring.backend.data.GlobalData;
 import engine.backend.entities.Entity;
+import engine.backend.entities.IEntity;
 
 public class GameFactory {
 
@@ -60,7 +61,7 @@ public class GameFactory {
 			for (String entityName : level.getEntityNames()) {
 				for (Entity entity : myGlobalData.getEntities().getList()) {
 					if (entity.getName().equals(entityName)) {
-						level.addEntity(entity);
+						level.addAuthoredEntity(entity);
 					}
 				}
 			}
@@ -68,13 +69,13 @@ public class GameFactory {
 	}
 
 	private void setUpEntityMap() {
-		Map<String, Map<String, Entity>> map = new HashMap<String, Map<String, Entity>>();
-		for (Entity entity : myGlobalData.getEntities().getList()) {
-			Map<String, Entity> existingMap = null;
+		Map<String, Map<String, IEntity>> map = new HashMap<String, Map<String, IEntity>>();
+		for (IEntity entity : myGlobalData.getEntities().getList()) {
+			Map<String, IEntity> existingMap = null;
 			if (map.containsKey(entity.getType())) {
 				existingMap = map.get(entity.getType());
 			} else {
-				existingMap = new HashMap<String, Entity>();
+				existingMap = new HashMap<String, IEntity>();
 				map.put(entity.getType(), existingMap);
 			}
 			existingMap.put(entity.getName(), entity);
