@@ -9,14 +9,18 @@ import engine.backend.entities.IEntity;
 public abstract class EntityEvent implements IEvent {
 
 	private int entityID;
+	private String eventID;
 
-	public List<String> getEventID(List<String> identifiers) {
-		List<String> eventIDs = new ArrayList<String>();
-		eventIDs.add(identifiers.get(0) + this.getClass().getSimpleName());
-		return eventIDs;
+	public void setEventID(List<String> identifiers) {
+		
+		this.eventID = (identifiers.get(0) + this.getClass().getSimpleName()); 
+	}
+	
+	public void setEventID(String indentifier) {
+		this.eventID = (indentifier + this.getClass().getSimpleName());
 	}
 
-	public Collection<Integer> getEntities() {
+	public Collection<Integer> getEntityIDs() {
 		Collection<Integer> entities = new ArrayList<Integer>();
 		entities.add(entityID);
 		return entities;
@@ -24,5 +28,9 @@ public abstract class EntityEvent implements IEvent {
 
 	public void setEntityID(int entityID) {
 		this.entityID = entityID;
+	}
+	
+	public String getEventID(){
+		return eventID;
 	}
 }

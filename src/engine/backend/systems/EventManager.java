@@ -1,114 +1,197 @@
 package engine.backend.systems;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
+import java.util.Set;
 
+import engine.backend.components.PositionComponent;
+import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.rules.EntityAction;
-import engine.backend.systems.Events.*;
+import engine.backend.rules.IAction;
+import engine.backend.rules.LevelAction;
+import engine.backend.rules.Rule;
+import engine.backend.systems.Events.AddEntityEvent;
+import engine.backend.systems.Events.EntityClickedEvent;
+import engine.backend.systems.Events.EntityDroppedEvent;
+import engine.backend.systems.Events.IEvent;
+import engine.backend.systems.Events.UpdateEntityEvent;
+import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
 
 public class EventManager implements Observer {
 
-	private Level myCurrentLevel;
-	ResourceBundle myComponentTagResources;
-	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
 	ModeStatistics currentModeStatistics;
+	private List<Rule> myRuleAgenda;
+	InGameEntityFactory myEntityFactory;
 
-	private SystemsController mySystemsController;
-	private Map<String, List<EntityAction>> myCustomEntityEvents;
-
-	public EventManager(IEngineController engineController, GameWorld game) {
-		this.myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
-		setLevel(game.getLevelWithId(0));
+	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats,
+			InGameEntityFactory factory) {
+		setLevel(game.getLevelWithId(0, 0));
 		myEngineController = engineController;
 		myGameWorld = game;
+		// pass in right values
+		currentModeStatistics = stats;
+		myEntityFactory = factory;
 	}
 
 	public void setLevel(Level level) {
-		myCurrentLevel = level;
-		myCustomEntityEvents = level.getCustomEvents();
+		setCustomRules(level.getRuleAgenda());
 	}
 
 	public Level getCurrentLevel() {
-		return myCurrentLevel;
+		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentModeIndex(),
+				currentModeStatistics.getCurrentLevelIndex());
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
+		// System.out.println(arg.getClass().getName());
 		handleCustomEvent((IEvent) arg);
 	}
-	
-	public void sendUpdatedEntity(UpdateEntityEvent myEvent){
-		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(), myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
+
+	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
+		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(),
+				myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}
 
-	public void setCustomEvents(Map<String, List<EntityAction>> myCustomEntityEvents) {
-		this.myCustomEntityEvents = myCustomEntityEvents;
+	public void setCustomRules(List<Rule> rules) {
+		this.myRuleAgenda = rules;
 	}
 
 	private void handleCustomEvent(IEvent myEvent) {
-		if(myEvent instanceof UpdateEntityEvent){
+
+		if (myEvent instanceof UpdateEntityEvent) {
 			sendUpdatedEntity((UpdateEntityEvent) myEvent);
 			return;
 		}
-		
-		if(myEvent instanceof AddEntityEvent){
+
+		if (myEvent instanceof AddEntityEvent) {
 			handleAddEntityEvent(myEvent);
 		}
-		
-		if (myEvent instanceof EntityEvent) {
-			EntityEvent myEntityEvent = (EntityEvent) myEvent;
-			List<String> identifiers = myEntityEvent.getEntities().stream()
-													.map(id -> myCurrentLevel.getEntities().get(id).getName())
-													.collect(Collectors.toList());
-			List<EntityAction> myActions = checkPossibleIDs(myEvent.getEventID(identifiers));
-			if (myActions != null) {
-				Collection<Integer> myEntitiesIDs = myEntityEvent.getEntities();
-				Collection<IEntity> myEntities = myEntitiesIDs.stream()
-															  .map(e -> myCurrentLevel.getEntities().get(e);))
-															  .collect(Collectors.toCollection()));
-				myActions.forEach(a -> {
-					myEntities.stream()
-							  .filter(e -> a.getEntityName().equals(e.getName()))
-							  .forEach(e -> e.applyAction(a, myComponentTagResources));
-				});
+
+	}
+
+	public void handleEntityDropEvent(EntityDroppedEvent event) {
+		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
+		System.out.println(newEntity);
+		PositionComponent posComp = (PositionComponent) newEntity
+				.getComponent(ComponentTagResources.positionComponentTag);
+		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
+		getCurrentLevel().addEntityToMap(newEntity);
+	}
+
+	public void handleClickEvent(EntityClickedEvent event) {
+
+		String identifier = getCurrentLevel().getEntityWithID(event.getClickedEntityID()).getName();
+		event.setEventID(identifier);
+
+		for (Rule rule : myRuleAgenda) {
+			ArrayList<String> ruleEvents = (ArrayList<String>) rule.getEvents();
+			if (ruleEvents.size() == 1 && ruleEvents.get(0).equals(event.getEventID())) {
+				applyActions(getCurrentLevel().getEntityWithID(event.getClickedEntityID()), rule.getActions());
+			}
+		}
+
+	}
+
+	private void applyActions(IEntity entity, Collection<IAction> actions) {
+
+		for (IAction a : actions) {
+			if (a instanceof EntityAction) {
+
+				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
+					entity.applyAction((EntityAction) a);
+				}
+
+			} else if (a instanceof LevelAction) {
+				currentModeStatistics.applyAction((LevelAction) a);
 			}
 		}
 	}
 
-	private List<EntityAction> checkPossibleIDs(List<String> ids) {
-		for (String id : ids) {
-			if (myCustomEntityEvents.get(id) != null) {
-				return myCustomEntityEvents.get(id);
+	private void applyActions(Set<Integer> entityIDs, Collection<IAction> actions) {
+
+		Collection<IEntity> myEntities = new ArrayList<IEntity>();
+		for (Integer i : entityIDs) {
+			myEntities.add(getCurrentLevel().getEntityWithID(i));
+		}
+		for (IAction a : actions) {
+			if (a instanceof EntityAction) {
+				for (IEntity e : myEntities) {
+					if (((EntityAction) a).getEntityName().equals(e.getName())) {
+						e.applyAction((EntityAction) a);
+					}
+				}
+			} else if (a instanceof LevelAction) {
+				currentModeStatistics.applyAction((LevelAction) a);
 			}
 		}
-		return null;
+
+	}
+
+	// supposed to handle list of events generated in each loop iteration
+	public void handleGeneratedEvents(Map<String, Set<Integer>> generatedEventMap) {
+
+		for (Rule rule : myRuleAgenda) {
+
+			List<Set<Integer>> myPossibleEntities = new ArrayList<Set<Integer>>();
+			Collection<String> ruleEvents = rule.getEvents();
+			Set<Integer> myFinalEntities;
+			for (String event : ruleEvents) {
+				if (!generatedEventMap.containsKey(event)) {
+					myPossibleEntities.clear();
+					break;
+				}
+				myPossibleEntities.add(generatedEventMap.get(event));
+			}
+			if (myPossibleEntities.size() > 0) {
+				myFinalEntities = new HashSet<Integer>(myPossibleEntities.get(0));
+				myPossibleEntities.forEach(e -> myFinalEntities.retainAll(e));
+
+				// apply actions
+				if (myFinalEntities.size() > 0) {
+					applyActions(myFinalEntities, rule.getActions());
+
+					// remove IDs
+					generatedEventMap.values().forEach(s -> s.removeAll(myFinalEntities));
+
+				}
+
+			}
+
+		}
 	}
 
 	public void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
-		myCurrentLevel.addEntityToMap(event.getNewEntities());
+		getCurrentLevel().addEntityToMap(event.getNewEntities());
 	}
 
 	public void handleEnemyMissed() {
 		// gets events, send event to level manager
 
 	}
-	
-	public GameWorld getGameWorld(){
+
+	public GameWorld getGameWorld() {
 		return myGameWorld;
 
 	}
-}
 
+	public ModeStatistics getModeStatistics() {
+		// TODO Auto-generated method stub
+		return currentModeStatistics;
+	}
+
+}

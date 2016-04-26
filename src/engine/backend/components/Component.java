@@ -19,6 +19,9 @@ public abstract class Component implements IComponent{
 		this.myParentEntityName = entityName;
 	}
 	
+	/**
+	 * @return The name of the entity with this component.
+	 */
 	public String getEntityName() {
 		return myParentEntityName;
 	}

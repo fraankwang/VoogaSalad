@@ -6,15 +6,16 @@
 package engine.backend.systems;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.swing.text.html.parser.Entity;
 
 import engine.backend.entities.InGameEntityFactory;
-import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
 import engine.controller.EngineController;
 
 public class SystemsController {
@@ -25,7 +26,7 @@ public class SystemsController {
 	private GameSystem firingSystem;
 	private GameSystem collisionSystem;
 	private GameSystem spawningSystem;
-
+	private RangeSystem rangeSystem;
 	private List<ISystem> mySystems;
 	private EngineController engineController;
 	private EventManager myEventManager;
@@ -53,7 +54,8 @@ public class SystemsController {
 
 		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 
-		renderingSystem = new RenderingSystem(engineController);
+		rangeSystem = new RangeSystem();
+		renderingSystem = new RenderingSystem();
 		mobilizationSystem = new MobilizeSystem();
 		healthSystem = new HealthSystem();
 		firingSystem = new FiringSystem();
@@ -66,29 +68,35 @@ public class SystemsController {
 		firingSystem.addObserver(myEventManager);
 		collisionSystem.addObserver(myEventManager);
 		renderingSystem.addObserver(myEventManager);
+		spawningSystem.addObserver(myEventManager);
 
 		mySystems = new ArrayList<ISystem>();
+		mySystems.add(spawningSystem);
 		mySystems.add(firingSystem);
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
 		mySystems.add(renderingSystem);
+		mySystems.add(rangeSystem);
 		mySystems.add(spawningSystem);
 
 		myGameClock = new GameClock(framesPerSecond);
 	}
 
 	public void iterateThroughSystems(Level level) {
+		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
+		// go through systems, update stuff and gather events
 		for (ISystem system : mySystems) {
-			long startTime = System.currentTimeMillis();
-			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(),
-					myComponentTagResources);
-			long endTime = System.currentTimeMillis();
-			long totalTime = endTime - startTime;
-			// System.out.println(myGameClock.getCurrentSecond());
-			// System.out.println(system.getClass().getSimpleName() + ": " +
-			// totalTime);
+			system.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory,
+					myGameClock.getCurrentSecond());
 		}
+		// handle all the generate events
+		myEventManager.handleGeneratedEvents(myEventMap);
+		// final system, do all the rendering
+		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory,
+				myGameClock.getCurrentSecond());
+		// System.out.println(myEventManager.getModeStatistics().getCurrentNumLives());
+
 		myGameClock.updateLoopIteration();
 	}
 

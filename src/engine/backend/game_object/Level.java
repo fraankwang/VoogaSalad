@@ -12,55 +12,104 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.map.GameMap;
 import engine.backend.rules.EntityAction;
+import engine.backend.rules.Rule;
 
+/**
+ * 
+ * @author 
+ *
+ */
 public class Level {
+	
 	private List<IEntity> authoredEntities;
 	private Map<Integer, IEntity> entities;
-	private int myID;
-	private String myParentModeName;
+	private Map<String, List<EntityAction>> myEventMap;
+	private String myName;
+	private int index;
 	private GameMap map;
 	private double timer;
+	private int numWaves;
+	private int currentWaveIndex;
+	private List<Rule> ruleAgenda;
 
-	public Level(int myID, GameMap map) {
-		this.myID = myID;
+	public Level(String name, GameMap map) {
+		this.myName = name;
 		this.map = map;
 	}
 
-	public Level(int myID) {
+	public Level(String name) {
 		this.authoredEntities = new ArrayList<IEntity>();
 		this.entities = new HashMap<Integer, IEntity>();
-		this.myID = myID;
+		this.myName = name;
+		this.myEventMap = new HashMap<String, List<EntityAction>>();
+		ruleAgenda = new ArrayList<Rule>();
 	}
 
-	public int getId() {
-		return myID;
+	/**
+	 * 
+	 * @return The unique identifier for the level.
+	 */
+	public String getName() {
+		return myName;
+	}
+	
+	public List<Rule> getRuleAgenda(){
+		return ruleAgenda;
+	}
+	
+	public void setRuleAgenda(List<Rule> rules){
+		ruleAgenda = rules;
+	}
+	
+	public void addActionToEventMap(String eventID, List<EntityAction> actions) {
+		myEventMap.put(eventID, actions);
 	}
 
+	/**
+	 * 
+	 * @return The entities currently on the game screen.
+	 */
 	public Map<Integer, IEntity> getEntities() {
 		return entities;
 	}
-	
+
+	/**
+	 * Adds an entity created to the map that stores the entities on the game
+	 * screen.
+	 * 
+	 * @param entity
+	 */
 	public void addEntityToMap(IEntity entity) {
 		entities.put(entity.getID(), entity);
 	}
-	
+
+	/**
+	 * Adds a collection of entities to the map that stores the entities on the
+	 * game screen.
+	 * 
+	 * @param entities
+	 */
 	public void addEntityToMap(Collection<IEntity> entities) {
-		entities.stream()
-				.forEach(e -> addEntityToMap(e));
-	}
-	
-	public IEntity getEntityWithID(int entityID) {
-		return entities.get(entityID);
+		entities.stream().forEach(e -> addEntityToMap(e));
 	}
 
+
+	/**
+	 * 
+	 * @return The instance of GameMap for the level.
+	 */
 	public GameMap getMap() {
 		return map;
 	}
 
+	/**
+	 * Setting the map for the game.
+	 * 
+	 * @param map
+	 */
 	public void setMap(GameMap map) {
 		this.map = map;
 	}
@@ -70,36 +119,72 @@ public class Level {
 		return "Level [entities=" + entities + "] ";
 	}
 
+	/**
+	 * Authoring environment adds entities that can be created during the
+	 * entity.
+	 * 
+	 * @param entity
+	 */
 	public void addToEntities(IEntity entity) {
 		entity.setLevelID(myID);
 		authoredEntities.add(entity);
 	}
 
-	public void setModeName(String modeID) {
-		this.myParentModeName = modeID;
-	}
+	/**
+	 * Setting the name of the mode containing this level.
+	 * 
+	 * @param modeID
+	 */
 
-	public String getModeID() {
-		return myParentModeName;
-	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Level) {
-			Level temp = (Level) o;
-			if (this.myID == temp.myID) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
+	/**
+	 * 
+	 * @return A String with the identifier of the mode with this level.
+	 */
+
+
+	
+	public void removeEntites(Collection<IEntity> entitiesToRemove){
+		for(IEntity entity : entitiesToRemove){
+			entities.remove(entity.getID());
 		}
 	}
 
+	/**
+	 * 
+	 * @return A map containing the events that can occur during this level.
+	 */
 	public Map<String, List<EntityAction>> getCustomEvents() {
+		return myEventMap;
+	}
+
+	public IEntity getEntityWithID(int entityID) {
 		// TODO Auto-generated method stub
-		return null;
+		return entities.get(entityID);
+	}
+
+	public int getNumWaves() {
+		return numWaves;
+	}
+
+	public void setNumWaves(int numWaves) {
+		this.numWaves = numWaves;
+	}
+
+	public int getCurrentWaveIndex() {
+		return currentWaveIndex;
+	}
+
+	public void setCurrentWaveIndex(int currentWaveIndex) {
+		this.currentWaveIndex = currentWaveIndex;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 }
