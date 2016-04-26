@@ -171,14 +171,14 @@ public class BezierCurveManipulator implements IDisplayElement {
 	}
 	
 	public void setCoordinates(List<String> coordinates) {
-		myCurve.setStartX(Double.parseDouble(coordinates.get(0)));
-	    myCurve.setStartY(Double.parseDouble(coordinates.get(1)));
-	    myCurve.setControlX1(Double.parseDouble(coordinates.get(2)));
-	    myCurve.setControlY1(Double.parseDouble(coordinates.get(3)));
-	    myCurve.setControlX2(Double.parseDouble(coordinates.get(4)));
-	    myCurve.setControlY2(Double.parseDouble(coordinates.get(5)));
-	    myCurve.setEndX(Double.parseDouble(coordinates.get(6)));
-	    myCurve.setEndY(Double.parseDouble(coordinates.get(7)));
+		start.setCenterX(Double.parseDouble(coordinates.get(0)));
+	    start.setCenterY(Double.parseDouble(coordinates.get(1)));
+	    control1.setCenterX(Double.parseDouble(coordinates.get(2)));
+	    control1.setCenterY(Double.parseDouble(coordinates.get(3)));
+	    control2.setCenterX(Double.parseDouble(coordinates.get(4)));
+	    control2.setCenterY(Double.parseDouble(coordinates.get(5)));
+	    end.setCenterX(Double.parseDouble(coordinates.get(6)));
+	    end.setCenterY(Double.parseDouble(coordinates.get(7)));
 	}
 	
 	public CubicCurve getCurve() {
@@ -334,10 +334,10 @@ public class BezierCurveManipulator implements IDisplayElement {
 	public String getCoordinatesString() {
 		// format: "startX-startY,control1X-control1Y,control2X-control2Y,endX-endY"
 		String result = "";
-		result += (Double.toString(myCurve.getStartX()) + "-" + Double.toString(myCurve.getStartY()) + ",");
-		result += (Double.toString(myCurve.getControlX1()) + "-" + Double.toString(myCurve.getControlY1()) + ",");
-		result += (Double.toString(myCurve.getControlX2()) + "-" + Double.toString(myCurve.getControlY2()) + ",");
-		result += (Double.toString(myCurve.getEndX()) + "-" + Double.toString(myCurve.getEndY()));
+		result += (Double.toString(start.getCenterX()) + "-" + Double.toString(start.getCenterY()) + ",");
+		result += (Double.toString(control1.getCenterX()) + "-" + Double.toString(control1.getCenterY()) + ",");
+		result += (Double.toString(control2.getCenterX()) + "-" + Double.toString(control2.getCenterY()) + ",");
+		result += (Double.toString(end.getCenterX()) + "-" + Double.toString(end.getCenterY()));
 		
 		return result;
 	}

@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author Frank
+ * @author Frank, benchesnut
  *
  */
 
@@ -39,14 +39,14 @@ public class LevelEditorGrid extends EditorGrid {
 	
 	@Override
 	public void setAttributesPanel(Map<String, String> info) {
+		((LevelEditorViewPanel) myPrimaryDisplay).setPaths(info.get("Paths"));
+		info.remove("Paths");
 		super.setAttributesPanel(info);
 		if (info.get("MapBackgroundImage") == null) {
 			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("question_mark.png"));
 		} else {
 			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("MapBackgroundImage")));
 		}
-		((LevelEditorViewPanel) myPrimaryDisplay).setPaths(info.get("Paths"));
-		System.out.println(info.get("Paths"));
 	}
 	
 	@Override

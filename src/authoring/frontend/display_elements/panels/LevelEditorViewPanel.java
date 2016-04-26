@@ -79,7 +79,7 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 			PathBuilder path = createNewPath();
 			List<String> curves = Arrays.asList(p.substring(2).split(" "));
 			for (String c: curves) {
-				List<String> coordinates = Arrays.asList(c.substring(2).split(",|-"));
+				List<String> coordinates = Arrays.asList(c.split(",|-"));
 				path.createNewCurve(coordinates);
 			}			
 		}

@@ -30,6 +30,7 @@ public class BezierCurve implements IBezierCurve{
 	}
 	
 	private void addVectors() {
+		this.vectors = new Vector[4];
 		vectors[0] = startPointVector;
 		vectors[1] = control1Vector;
 		vectors[2] = control2Vector;
