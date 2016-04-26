@@ -9,6 +9,10 @@ import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.editor_features.SpawnEntityRow;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +22,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 //import javafx.scene.layout.GridPane;
 //import javafx.scene.text.Font;
 import javafx.scene.layout.BorderPane;
@@ -157,9 +162,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			}
 		});
 
-		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size());
+		myAttributesGridPane.add(new Label("Create waves of entities:"), 0, myAttributes.size());
 		myAttributesGridPane.add(myEntitySelector, 0, myAttributes.size() + 1);
 		myAttributesGridPane.add(myWaveSelector, 1, myAttributes.size() + 1);
+		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size() + 2);
 	}
 
 	private GridPane assembleEmptySpawnEntitiesGridPane() {
@@ -241,7 +247,36 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		tf.setText(image);
 		tf.setEditable(false);
 		myInputMap.replace("MapBackgroundImage", tf);
+		preserveMapRatio();
 		refreshAttributeInputRows();
+	}
+	
+	private void preserveMapRatio() {
+		Image mapImage = new Image(((TextField) myInputMap.get("MapBackgroundImage")).getText());
+		double mapRatio = (mapImage.getHeight() / mapImage.getWidth());
+		System.out.println(Double.toString(mapRatio));
+		myInputMap.replace("MapHeight", new TextField(Double.toString(mapImage.getHeight())));
+		myInputMap.replace("MapWidth", new TextField(Double.toString(mapImage.getWidth())));
+		
+		((TextField) myInputMap.get("MapWidth")).textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (myInputMap.get("MapWidth").isFocused()) {
+					((TextField) myInputMap.get("MapHeight")).setText(Double.toString(
+						Double.parseDouble(newValue) * mapRatio));
+				}
+			}
+		});
+		
+		((TextField) myInputMap.get("MapHeight")).textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (myInputMap.get("MapHeight").isFocused()) {
+					((TextField) myInputMap.get("MapWidth")).setText(Double.toString(
+						Double.parseDouble(newValue) / mapRatio));
+				}
+			}
+		});
 	}
 
 	@Override
@@ -257,7 +292,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			myInputMap.put(attribute, tf);
 
 		}
-
+		
 		if (myAttributesMap.get("SpawnEntities") != null) {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
 		}
@@ -334,6 +369,12 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
 				if (myInputMap.get(myAttributes.get(i)) instanceof TextField) {
+					if (myAttributes.get(i).equals("MapBackgroundImage")) {
+						if (myAttributesMap.get(myAttributes.get(i)) == null) {
+							myInputMap.replace(myAttributes.get(i), new TextField("question_mark.png"));
+							continue;
+						}
+					}
 					TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
 					tf.setText(myAttributesMap.get(myAttributes.get(i)));
 					tf.setEditable(true);
@@ -349,6 +390,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			}
 
 		}
+		preserveMapRatio();
 		refreshAttributeInputRows();
 
 	}

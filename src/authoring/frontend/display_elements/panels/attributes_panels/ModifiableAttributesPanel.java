@@ -113,6 +113,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			tf.setEditable(true);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
+			myInputMap.put(currentAttribute, tf);
 			myAttributesGridPane.add(text, 0, i);
 
 		}
