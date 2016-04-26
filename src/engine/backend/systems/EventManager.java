@@ -36,6 +36,7 @@ public class EventManager implements Observer{
 		myGameWorld = game;
 		//pass in right values
 		currentModeStatistics = stats;
+
 	}
 
 	public void setLevel(Level level) {

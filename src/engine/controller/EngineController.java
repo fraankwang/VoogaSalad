@@ -3,7 +3,7 @@ package engine.controller;
 import engine.backend.game_object.GameWorld;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
-import engine.frontend.EngineView;
+import engine.frontend.overall.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -16,7 +16,7 @@ public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
 
-	private static final int NUM_FRAMES_PER_SECOND = 60;
+	private static final int NUM_FRAMES_PER_SECOND = 50;
 	private boolean playing;
 	
 	private EventManager myEventManager;
@@ -49,8 +49,7 @@ public class EngineController implements IEngineController{
 		playing = true;
 		
 		myEngineView = new EngineView(myStage, this);
-		myStage.setScene(myEngineView.buildScene());
-		myStage.show();
+		setupStage();
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
@@ -59,11 +58,19 @@ public class EngineController implements IEngineController{
 		animation.play();
 	}
 
+	private void setupStage(){
+		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
+		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
+		myStage.setX(0);
+		myStage.setY(0);
+		myStage.setScene(myEngineView.buildScene());
+		myStage.show();
+	}
+	
 	public void step() {
 		if(playing){
-			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());
 		}
-
 	}
 	
 	//backend endpoint 
@@ -77,14 +84,12 @@ public class EngineController implements IEngineController{
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-	public void shopClicked(String name){
-		//call backend to say shop object clicked
-	}
+	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
 //	}
 	
-	public void attemptTower(double xLoc, double yLoc) {
+	public void attemptTower(double xLoc, double yLoc, String type) {
 		// TODO Auto-generated method stub
 	}
 
