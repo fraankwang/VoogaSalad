@@ -71,7 +71,7 @@ public class EngineView{
 		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
-		myDummyCursor = new DummyCursor(loadDoubleResource("CursorWidth"), loadDoubleResource("CursorHeight"));
+		myDummyCursor = new DummyCursor(this);
 	}
 	
 	/**
