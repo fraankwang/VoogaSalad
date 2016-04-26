@@ -3,9 +3,9 @@ package authoring.backend;
 import java.util.Map;
 
 import authoring.backend.data.GlobalData;
-import authoring.backend.factories.EntityFactory;
-import authoring.backend.factories.LevelFactory;
-import authoring.backend.factories.ModeFactory;
+import authoring.backend.factories.AuthoringEntityFactory;
+import authoring.backend.factories.AuthoringLevelFactory;
+import authoring.backend.factories.AuthoringModeFactory;
 import engine.backend.entities.Entity;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -17,15 +17,15 @@ import engine.backend.game_object.Mode;
 public class ModelManager implements IModel {
 	
 	private final GlobalData globaldata;
-	private final EntityFactory entityfactory;
-	private final LevelFactory levelfactory;
-	private final ModeFactory modefactory;
+	private final AuthoringEntityFactory entityfactory;
+	private final AuthoringLevelFactory levelfactory;
+	private final AuthoringModeFactory modefactory;
 	
 	public ModelManager(GlobalData globaldata) {
 		this.globaldata = globaldata;
-		this.entityfactory = new EntityFactory();
-		this.levelfactory = new LevelFactory();
-		this.modefactory = new ModeFactory();
+		this.entityfactory = new AuthoringEntityFactory();
+		this.levelfactory = new AuthoringLevelFactory();
+		this.modefactory = new AuthoringModeFactory();
 	}
 	
 	public void updateEntities(String command, Map<String, String> data) {

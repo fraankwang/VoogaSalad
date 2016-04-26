@@ -65,11 +65,4 @@ public class SizeComponent extends Component implements IComponent {
 		}
 	}
 
-	public void initWithParams(String[] params) {
-		if (params.length > 0) {
-			this.width = Double.parseDouble(params[0]);
-			this.height = Double.parseDouble(params[1]);
-		}
-	}
-
 }
