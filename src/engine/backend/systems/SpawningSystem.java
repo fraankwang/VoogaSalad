@@ -47,7 +47,8 @@ public class SpawningSystem extends GameSystem {
 							System.out.println("hello");
 							if (spawn.getSpawningEntityName().equals(TESTNAME)) {
 								IEntity newentity = new Entity(TESTID, TESTNAME, TESTNAME, 20);
-								IComponent display = new DisplayComponent("DrumpfVader.png");
+								DisplayComponent display = new DisplayComponent("DrumpfVader.png");
+								display.shouldBeShown();
 								IComponent size = new SizeComponent();
 								IComponent position = new PositionComponent();
 								newentity.addComponent(display);
