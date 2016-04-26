@@ -53,6 +53,7 @@ public class EngineController implements IEngineController{
 		
 		myEngineView = new EngineView(myStage, this);
 		myStage.setScene(myEngineView.buildScene());
+		setupStage();
 		myStage.show();
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
@@ -67,6 +68,15 @@ public class EngineController implements IEngineController{
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
 		}
 
+	}
+	
+	private void setupStage(){
+		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
+		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
+		myStage.setX(0);
+		myStage.setY(0);
+		myStage.setScene(myEngineView.buildScene());
+		myStage.show();
 	}
 	
 	//backend endpoint 
@@ -87,7 +97,7 @@ public class EngineController implements IEngineController{
 //		//call backend to say stat object clicked
 //	}
 	
-	public void attemptTower(double xLoc, double yLoc) {
+	public void attemptTower(double xLoc, double yLoc, String type) {
 		// TODO Auto-generated method stub
 	}
 
