@@ -13,6 +13,8 @@ import java.util.Set;
 import engine.backend.components.IComponent;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
+import engine.backend.utilities.ComponentTagResources;
+import engine.backend.utilities.IComponentTagResources;
 
 public class Entity implements IEntity {
 
@@ -47,6 +49,8 @@ public class Entity implements IEntity {
 	}
 
 	public void addComponent(IComponent component) {
+		if (component == null)
+			System.out.println("this component is null");
 		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
 	}
@@ -59,26 +63,50 @@ public class Entity implements IEntity {
 		return myComponents.keySet();
 	}
 
+	/**
+	 * Returns a set of components that this entity has.
+	 */
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
 
+	/**
+	 * Sets the unique identifier for this entity.
+	 * 
+	 * @param myID
+	 */
 	public void setID(int myID) {
 		this.myID = myID;
 	}
 
+	/**
+	 * @return The unique identifier for this entity.
+	 */
 	public int getID() {
 		return myID;
 	}
 
+	/**
+	 * @return A string that represents the name or type of the entity; this is
+	 *         not a unique id.
+	 */
 	public String getName() {
 		return myName;
 	}
 
+	/**
+	 * Sets the name of the type of entity.
+	 * 
+	 * @param name
+	 */
 	public void setMane(String name) {
 		this.myName = name;
 	}
 
+	/**
+	 * @return A boolean representing whether this entity has the component with
+	 *         the tag.
+	 */
 	public boolean hasComponent(String tag) {
 		return myComponents.get(tag) != null;
 	}
@@ -91,10 +119,20 @@ public class Entity implements IEntity {
 		hasBeenModified = bool;
 	}
 
+	/**
+	 * 
+	 * @return The identifier for the level that has this entity object.
+	 */
 	public int getLevelID() {
 		return myParentLevelID;
 	}
 
+	/**
+	 * Sets the level identifier to the identifier of the level that has this
+	 * object.
+	 * 
+	 * @param levelID
+	 */
 	public void setLevelID(int levelID) {
 		this.myParentLevelID = levelID;
 	}
@@ -134,17 +172,19 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources) {
+	public void applyAction(EntityAction action) {
 		String component = action.getComponentToModifiy();
 		String instanceVar = action.getValueInComponent();
 		String newVal = action.getNewValue();
 		Method setMethod;
 
-		String fullName = myComponentTagResources.getString(component);
+		String fullName = ComponentTagResources.getComponentTag(component);
+		//System.out.println(getName() + "   " + fullName);
 		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
-
+		//System.out.println(componentClass.getName());
 		try {
 			Object componentClassInstance = componentClass.newInstance();
+			
 			componentClassInstance = componentClass.cast(myComponents.get(fullName));
 			// put in resource file!!!
 			String methodName = "set" + instanceVar;

@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import engine.backend.components.MouseComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;

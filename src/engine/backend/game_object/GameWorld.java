@@ -14,7 +14,7 @@ import engine.backend.entities.IEntity;
 
 public class GameWorld {
 
-	private Map<String, Map<String, Entity>> myEntityTypeMap; //maps types of entities to a map containing specific entity names of that type
+	private Map<String, Map<String, IEntity>> myEntityTypeMap; //maps types of entities to a map containing specific entity names of that type
 	private List<Mode> modes;
 	private GameStatistics myGameStatistics;
 
@@ -83,11 +83,11 @@ public class GameWorld {
 		System.out.println("I have " + modes.size() + " mode(s) and they are composed of " + modes.get(0).toString());
 	}
 
-	public void setEntityMap(Map<String, Map<String, Entity>> map){
+	public void setEntityMap(Map<String, Map<String, IEntity>> map){
 		this.myEntityTypeMap = map;
 	}
 
-	public Map<String, Map<String, Entity>> getEntityMap(){
+	public Map<String, Map<String, IEntity>> getEntityMap(){
 		return myEntityTypeMap;
 	}
 
