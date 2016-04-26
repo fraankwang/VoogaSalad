@@ -87,4 +87,15 @@ public interface IGameCapture {
      */
 	File getSaveLocation();
 
+	/**
+	 * Method that must be called if stage moves
+	 * @param height new x
+	 */
+	void setCaptureX(int x);
+	
+	/**
+	 * Method that must be called if stage moves
+	 * @param height new y
+	 */
+	void setCaptureY(int y);
 }

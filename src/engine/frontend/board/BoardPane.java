@@ -6,12 +6,14 @@ import java.util.Map;
 import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class BoardPane extends AbstractPane{
 	private ImageView myBackground;
+	private Group myGroup;
 	
 	private Map<Integer, EntityView> myEntityViewMap;
 	
@@ -25,7 +27,9 @@ public class BoardPane extends AbstractPane{
 		myBackground = new ImageView(new Image(myEngineView.getEngineController().getBackgroundImageFile()));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
-		myPane.getChildren().add(myBackground);
+		
+		myGroup = new Group();
+		myPane.getChildren().addAll(myBackground, myGroup);
 		return myPane;
 	}
 	
@@ -64,9 +68,11 @@ public class BoardPane extends AbstractPane{
 	}
 
 	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower){
+		System.out.println(myPane.getLayoutX());
+		System.out.println(myPane.getLayoutY());
 		// need to tell them which type it is too
-		double xLoc = mouseXLoc - myPane.getBoundsInParent().getMinX();
-		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
+		double xLoc = mouseXLoc - myPane.getLayoutX();
+		double yLoc = mouseYLoc - myPane.getLayoutY();
 
 		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
 		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	

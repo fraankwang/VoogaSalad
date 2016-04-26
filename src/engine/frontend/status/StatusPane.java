@@ -60,7 +60,7 @@ public class StatusPane extends AbstractPane{
 			stop.setDisable(true);
 		});
 		
-		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot(myEngineView.getBody()));
+		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot(myEngineView.getBorderPane()));
 		
 		vbox.minWidthProperty().bind(myPane.widthProperty().divide(4));
 		vbox.minHeightProperty().bind(myPane.heightProperty());

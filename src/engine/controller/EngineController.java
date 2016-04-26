@@ -10,10 +10,13 @@ import engine.frontend.overall.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
+import utility.GameCapture;
 
 /*
  * Todos:
@@ -42,6 +45,7 @@ public class EngineController implements IEngineController{
 	private testingClass myTestingClass;
 
 	private EngineView myEngineView;
+	private GameCapture myGameCapture;
 
 	public EngineController(Stage s, Main m) {
 		myStage = s;
@@ -72,12 +76,35 @@ public class EngineController implements IEngineController{
 	private void buildStage(){
 		myStage.setMinWidth(myEngineView.loadIntResource("StageMinWidth"));
 		myStage.setMinHeight(myEngineView.loadIntResource("StageMinHeight"));
-		myStage.setX(0);
-		myStage.setY(0);
+		myStage.setX(myEngineView.loadIntResource("StartX"));
+		myStage.setY(myEngineView.loadIntResource("StartY"));
 		
 		Scene scene = myEngineView.buildScene();
 		myStage.setScene(scene); 
 		myStage.show();
+		setupGameCapture();
+	}
+	
+	private void setupGameCapture(){
+		myGameCapture = new GameCapture(myEngineView, 
+				myEngineView.loadIntResource("StartX"), 
+				myEngineView.loadIntResource("StartY"),
+				myEngineView.loadIntResource("StageMinWidth"),
+				myEngineView.loadIntResource("StageMinHeight"));
+		
+		myStage.xProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureX(newValue.intValue());
+			}
+		});
+		
+		myStage.yProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureY(newValue.intValue());
+			}
+		});
 	}
 	
 	public void step() {
@@ -138,4 +165,8 @@ public class EngineController implements IEngineController{
 	public EventManager getEventManager(){
 		return myEventManager;
 	}
+	public GameCapture getGameCapture(){
+		return myGameCapture;
+	}
+	
 }

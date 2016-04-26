@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+
 public class ShopPane extends AbstractPane {
 	private VBox myVBox;
 	private ListView<Map<String, String>> myListView;
