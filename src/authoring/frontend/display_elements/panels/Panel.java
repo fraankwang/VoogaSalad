@@ -3,7 +3,10 @@ package authoring.frontend.display_elements.panels;
 import java.util.List;
 
 import authoring.frontend.interfaces.display_element_interfaces.IPanel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -50,7 +53,7 @@ public abstract class Panel implements IPanel {
 	public Node getNode() {
 		return myNode;
 	}
-
+	
 	/**
 	 * Creates GridPane with set row and column constraints.
 	 * 
@@ -64,21 +67,22 @@ public abstract class Panel implements IPanel {
 			row.setPercentHeight(i);
 			grid.getRowConstraints().add(row);
 		}
-		
+
 		for (Integer i : columnConstraints) {
 			ColumnConstraints column = new ColumnConstraints();
 			column.setPercentWidth(i);
 			grid.getColumnConstraints().add(column);
 		}
-		
+
 		return grid;
 	}
 	
-	@Override
-	public void setVisible(boolean visible) {
-		myNode.setVisible(visible);
+	public Button addButton(String label, EventHandler<ActionEvent> action) {
+		Button b = new Button(label);
+		b.setOnAction(action);
+		return b;
 	}
-
+	
 	@Override
 	public void setHeight(double height) {
 		myHeight = height;
