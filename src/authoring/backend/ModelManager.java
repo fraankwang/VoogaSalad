@@ -6,9 +6,8 @@ import authoring.backend.data.GlobalData;
 import authoring.backend.factories.AuthoringEntityFactory;
 import authoring.backend.factories.AuthoringLevelFactory;
 import authoring.backend.factories.AuthoringModeFactory;
-import engine.backend.entities.Entity;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
+import authoring.backend.game_objects.AuthoringEntity;
+
 
 /*
  * @author: Jonathan Ma
@@ -29,7 +28,7 @@ public class ModelManager implements IModel {
 	}
 	
 	public void updateEntities(String command, Map<String, String> data) {
-		Entity entity = entityfactory.createEntity(data);
+		AuthoringEntity entity = entityfactory.createEntity(data);
 		if (command.equals("Update")) {
 			globaldata.getEntities().add(entity);
 			return;
