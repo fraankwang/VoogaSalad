@@ -58,6 +58,7 @@ public class SpawnEntityRow {
 		
 		myName = new Label(name);
 		myName.setFont(new Font(FONT_SIZE));
+		myName.toFront();
 		myImage = image;
 		myImage.setFitHeight(25);
 		myImage.setFitWidth(25);

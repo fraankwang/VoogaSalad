@@ -7,11 +7,11 @@ import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
+import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 
 /**
  * This class contains the link to the backend through GlobalData, the link to
@@ -86,7 +86,7 @@ public class AuthoringView implements IAuthoringView {
 		return myAuthoringViewManager;
 	}
 	
-	public Map<String, ImageView> getEntities() {
+	public Map<String, Image> getEntities() {
 		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntities();
 	}
 

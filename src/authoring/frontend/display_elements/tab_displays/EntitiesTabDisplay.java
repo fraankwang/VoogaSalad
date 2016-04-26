@@ -30,7 +30,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -217,24 +216,22 @@ public class EntitiesTabDisplay extends TabDisplay {
 	}
 
 	/**
-	 * Takes duplicates of all Entities by Genre and their ImageViews.
+	 * Takes duplicates of all Entities by Genre and their Images.
 	 * 
 	 * @return
 	 */
-	public Map<String, ImageView> getEntities() {
+	public Map<String, Image> getEntities() {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
-		Map<String, ImageView> entities = new TreeMap<String, ImageView>();
+		Map<String, Image> entities = new TreeMap<String, Image>();
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
-				Map<String, ImageView> genreEntities = (TreeMap<String, ImageView>) ((EntitiesTabGrid) myGrid)
-						.getEntities();
+				Map<String, Image> genreEntities = (TreeMap<String, Image>) ((EntitiesTabGrid) myGrid).getEntities();
 				for (String name : genreEntities.keySet()) {
-					String imagePath = ((LocalImage) genreEntities.get(name).getImage()).getURL();
-					Image newImage = new Image(imagePath);
-					ImageView newImageView = new ImageView(newImage);
-					entities.put(name, newImageView);
+					String imagePath = ((LocalImage) genreEntities.get(name)).getURL();
+					Image newImage = new LocalImage(imagePath);
+					entities.put(name, newImage);
 				}
 			}
 		}

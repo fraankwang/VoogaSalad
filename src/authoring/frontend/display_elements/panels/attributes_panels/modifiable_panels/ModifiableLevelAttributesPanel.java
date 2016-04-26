@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring.frontend.editor_features.SpawnEntityRow;
 import authoring.frontend.editor_features.LocalImage;
+import authoring.frontend.editor_features.SpawnEntityRow;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 //import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,15 +18,13 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import javafx.scene.layout.GridPane;
 //import javafx.scene.text.Font;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 /**
  * 
@@ -40,17 +38,16 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private ComboBox<String> myEntitySelector;
 	private ComboBox<String> myWaveSelector;
 	private String mySpawnEntitiesCompressed;
-	private TreeMap<String, ImageView> myEntities;
+	private TreeMap<String, Image> myEntities;
 	private TreeMap<String, SpawnEntityRow> mySpawnEntitiesInputMap;
 	private GridPane mySpawnEntitiesGridPane;
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",
 			"Rate");
-	private static final List<String> LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
-			"WaveDelayTimer", "MapWidth", "MapHeight");
+	private static final List<String> LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("Name", "MapBackgroundImage",
+			"LevelTimer", "WaveDelayTimer", "MapWidth", "MapHeight");
 
 	private List<String> myWaves;
 	private int myMaxWave;
-	private String promptedPath;
 
 	private static final int SPAWN_ENTITIES_COLUMN_1 = 5;
 	private static final int SPAWN_ENTITIES_COLUMN_2 = 13;
@@ -63,7 +60,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	public ModifiableLevelAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
-		myEntities = new TreeMap<String, ImageView>();
+		myEntities = new TreeMap<String, Image>();
 		myWaves = new ArrayList<String>();
 		myWaves.add("New");
 		myWaves.add("1");
@@ -93,18 +90,11 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myScrollPane.setContent(mySpawnEntitiesGridPane);
 		myScrollPane.setFitToWidth(false);
 
-		myAddSpawnButton = new Button("Add Spawn");
-		myEntitySelector = new ComboBox<String>();
-		myWaveSelector = new ComboBox<String>();
-
 		assembleEmptyInputRows();
 	}
 
 	@Override
 	protected void assembleComponents() {
-		myAttributesGridPane.add(myEntitySelector, 0, myAttributes.size());
-		myAttributesGridPane.add(myWaveSelector, 1, myAttributes.size());
-		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size() + 1);
 		myGridPane.add(myAttributesGridPane, 0, 0);
 		myGridPane.add(myScrollPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
@@ -114,7 +104,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void assembleEmptyInputRows() {
 		super.assembleEmptyInputRows();
-		createAddEntityOptions();
+		assembleAddSpawnOptions();
+
 	}
 
 	private GridPane assembleEmptySpawnEntitiesGridPane() {
@@ -137,7 +128,11 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		return mySpawnEntitiesGridPane;
 	}
 
-	private void createAddEntityOptions() {
+	private void assembleAddSpawnOptions() {
+		myAddSpawnButton = new Button("Add Spawn");
+		myEntitySelector = new ComboBox<String>();
+		myWaveSelector = new ComboBox<String>();
+
 		myAddSpawnButton.setPrefSize(MAX_SIZE, MAX_SIZE);
 		myAddSpawnButton.setFont(new Font(20));
 		myAddSpawnButton.setAlignment(Pos.BASELINE_LEFT);
@@ -153,8 +148,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		myAddSpawnButton.setOnAction(e -> {
 			String selected = myEntitySelector.getSelectionModel().getSelectedItem();
-			ImageView selectedImage = myEntities.get(selected);
+			Image selectedImage = myEntities.get(selected);
 			String wave = myWaveSelector.getSelectionModel().getSelectedItem();
+			
 			if (wave.equals("New")) {
 				myMaxWave++;
 				myWaves.add(Integer.toString(myMaxWave));
@@ -162,31 +158,41 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				myWaveSelector.getItems().clear();
 				myWaveSelector.getItems().addAll(myWaves);
 			}
-			String pathID = promptPathID();
+			
+			String pathID = promptUserInput("Path Number");
 			if (!pathID.equals("")) {
 				String tag = selected + ":" + wave + ":" + pathID;
-				String URL = ((LocalImage) selectedImage.getImage()).getURL();
+				String URL = ((LocalImage) selectedImage).getURL();
 				ImageView newImageView = new ImageView(new LocalImage(URL));
 				SpawnEntityRow row = new SpawnEntityRow(tag, selected, newImageView, wave, pathID);
-				
-				row.getMyDeleteButton().setOnAction(f -> {
-					if (row.getMyWaveOrder().getText().equals(Integer.toString(myMaxWave))) {
-						myWaves.remove(myMaxWave);
-						myMaxWave--;
-					};
-					
-					mySpawnEntitiesInputMap.remove(tag);
-					refreshAttributeInputRows();
-				});
-				
-				mySpawnEntitiesInputMap.put(tag, row);
-				refreshAttributeInputRows();
-
+				linkRow(row);
+			
 			}
 		});
 
+		myAttributesGridPane.add(myEntitySelector, 0, myAttributes.size());
+		myAttributesGridPane.add(myWaveSelector, 1, myAttributes.size());
+		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size() + 1);
 	}
 
+	private void linkRow(SpawnEntityRow row) {
+		mySpawnEntitiesInputMap.put(row.getMyTag(), row);
+
+		row.getMyDeleteButton().setOnAction(f -> {
+			if (row.getMyWaveOrder().getText().equals(Integer.toString(myMaxWave))) {
+				myWaves.remove(myMaxWave);
+				myMaxWave--;
+			}
+			;
+
+			mySpawnEntitiesInputMap.remove(row.getMyTag());
+			refreshAttributeInputRows();
+		});
+		
+		refreshAttributeInputRows();
+
+	}
+	
 	@Override
 	protected void addColumnNames(List<String> columnNames, GridPane gridPane) {
 		for (int i = 0; i < columnNames.size(); i++) {
@@ -207,38 +213,6 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		}
 	}
 
-	private String promptPathID() {
-		Stage promptStage = new Stage();
-		promptedPath = "";
-		VBox promptBox = new VBox();
-		promptBox.setAlignment(Pos.CENTER);
-		Label prompt = new Label("Enter Path Number:");
-		TextField textBox = new TextField();
-		textBox.setMaxWidth(200);
-		promptBox.getChildren().add(prompt);
-		promptBox.getChildren().add(textBox);
-		HBox buttonBox = new HBox();
-		buttonBox.setAlignment(Pos.CENTER);
-		Button cancelButton = new Button("Cancel");
-		Button saveButton = new Button("Save");
-		cancelButton.setOnAction(e -> promptStage.close());
-		textBox.setOnAction(e -> {
-			promptedPath = textBox.getText();
-			promptStage.close();
-		});
-
-		saveButton.setOnAction(e -> {
-			promptedPath = textBox.getText();
-			promptStage.close();
-		});
-		buttonBox.getChildren().addAll(cancelButton, saveButton);
-		promptBox.getChildren().add(buttonBox);
-		Scene promptScene = new Scene(promptBox, 300, 200);
-		promptStage.setScene(promptScene);
-		promptStage.showAndWait();
-		return promptedPath;
-	}
-
 	@Override
 	public void updateImageComponent(String image) {
 		myAttributesMap.replace("MapBackgroundImage", image);
@@ -254,7 +228,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		super.updateAttributes(info);
 		myAttributes.remove("SpawnEntities");
 		myInputMap = new TreeMap<String, Control>();
-	
+
 		for (String attribute : LEVEL_ATTRIBUTES) {
 			TextField tf = new TextField();
 			myInputMap.put(attribute, tf);
@@ -283,12 +257,13 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			for (String spawn : spawnObjects) {
 				String[] components = spawn.split(".");
 				String name = components[0];
-				ImageView image = myEntities.get(name);
+				String imagePath = ((LocalImage) myEntities.get(name)).getURL();
+				ImageView newImage = new ImageView(new LocalImage(imagePath));
 				String wave = components[1];
 				String number = components[2];
 				String rate = components[3];
 				String tag = pathID + ":" + name + ":" + wave;
-				mySpawnEntitiesInputMap.put(tag, new SpawnEntityRow(tag, pathID, name, image, number, wave, rate));
+				mySpawnEntitiesInputMap.put(tag, new SpawnEntityRow(tag, pathID, name, newImage, number, wave, rate));
 
 			}
 		}
@@ -358,7 +333,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void refreshAttributeInputRows() {
 		super.refreshAttributeInputRows();
-		createAddEntityOptions();
+		assembleAddSpawnOptions();
 		refreshSpawnEntityDisplay();
 	}
 
@@ -385,8 +360,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	}
 
-	public void setMyEntities(Map<String, ImageView> entities) {
-		myEntities = (TreeMap<String, ImageView>) entities;
+	public void setMyEntities(Map<String, Image> entities) {
+		myEntities = (TreeMap<String, Image>) entities;
 		myEntitySelector.getItems().clear();
 		myEntitySelector.getItems().setAll(entities.keySet());
 	}
