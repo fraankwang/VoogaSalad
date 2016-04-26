@@ -45,6 +45,7 @@ public class ShopView {
 		
 		//myEngineView.getStage().getScene().setCursor(value);
 		myEngineView.getDummyCursor().changePic(myImageView.getImage());
+		myEngineView.getStage().getScene().setCursor(Cursor.NONE);
 		Dragboard db = myHBox.startDragAndDrop(TransferMode.ANY);
         /* Put a string on a dragboard */
         ClipboardContent content = new ClipboardContent();
