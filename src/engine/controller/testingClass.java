@@ -163,7 +163,7 @@ public class testingClass {
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
-		IComponent tempHealth = new HealthComponent(20);
+		IComponent tempHealth = new HealthComponent(5);
 		IComponent pathComp = new PathComponent(0, 0);
 
 		tempEntity.addComponent(tempDisplay);
@@ -185,7 +185,7 @@ public class testingClass {
 		IComponent tempSize3 = new SizeComponent();
 		
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector, 1);
+				500, myBulletVector, -1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
 		mySimpleBullet.addComponent(tempCollision2);

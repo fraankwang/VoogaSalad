@@ -6,7 +6,7 @@ package engine.backend.components;
  * @author raghav kedia rk145
  *
  */
-public class PositionComponent extends Component implements IComponent {
+public class PositionComponent extends Component {
 
 	private Vector myPositionVector;
 	private Vector myCriticalPosition;

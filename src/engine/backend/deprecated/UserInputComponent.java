@@ -1,11 +1,13 @@
-package engine.backend.components;
+package engine.backend.deprecated;
 
 import java.util.List;
+
+import engine.backend.components.Component;
 
 /**
  * Created by colinduffy on 4/12/16.
  */
-public class UserInputComponent extends Component implements IComponent {
+public class UserInputComponent extends Component {
 
     private boolean clicked, cursorOver, keyPressed;
     private String keyValue;

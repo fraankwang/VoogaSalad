@@ -4,7 +4,7 @@
 
 package engine.backend.components;
 
-public class RotationComponent extends Component implements IComponent{
+public class RotationComponent extends Component {
 	
 	private double myAngle;
 	private double myAngularVelocity;

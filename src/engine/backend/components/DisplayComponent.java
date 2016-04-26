@@ -12,7 +12,7 @@ package engine.backend.components;
  * @author 
  *
  */
-public class DisplayComponent extends Component implements IComponent{
+public class DisplayComponent extends Component{
 	
 	private boolean canBeShown;
 	private String image;

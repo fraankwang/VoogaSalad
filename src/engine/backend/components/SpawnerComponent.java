@@ -10,7 +10,7 @@ import engine.backend.entities.IEntity;
  * @author 
  *
  */
-public class SpawnerComponent extends Component implements IComponent{
+public class SpawnerComponent extends Component {
 
 	private List<Spawn> mySpawns;
 	private int pathID;

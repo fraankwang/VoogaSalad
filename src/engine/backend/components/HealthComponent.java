@@ -5,7 +5,7 @@ package engine.backend.components;
  * @author 
  *
  */
-public class HealthComponent extends Component implements IComponent{
+public class HealthComponent extends Component {
 	
 	private double myHealth;
 	private double myDamage;
