@@ -1,76 +1,61 @@
 package engine.frontend.shop;
 
-
 /**
  * @author HaydenBader
  */
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.game_features.ShopItem;
+import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+public class ShopPane extends AbstractPane {
+	private VBox myVBox;
+	private ListView<Map<String, String>> myListView;
 
-
-public class ShopPane {
-	private EngineView myEngineView;
-	private ScrollPane myScrollPane;
-	private VBox myVBox = new VBox();
-	//private ListView<Map<String, String>> myListView = new ListView<Map<String, String>>()
-	
-	public ShopPane(EngineView ev){
-		myEngineView = ev;
+	public ShopPane(EngineView ev) {
+		super(ev);
+		myListView = new ListView<Map<String, String>>();
 	}
-	
-	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
-		myScrollPane = new ScrollPane();
-		myScrollPane.setStyle("-fx-border-color: black;");
-		
-		bindWidth(widthBinding);
-		bindHeight(heightBinding);
-		
-		myVBox.minWidthProperty().bind(myScrollPane.widthProperty());
-		myVBox.minHeightProperty().bind(myScrollPane.heightProperty());
+
+	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
+		super.buildNode(widthBinding, heightBinding);
+		myPane.setStyle("-fx-border-color: black;");
+
+		myVBox = new VBox();
+		myVBox.minWidthProperty().bind(myPane.widthProperty());
+		myVBox.minHeightProperty().bind(myPane.heightProperty());
 		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
-		
-		myScrollPane.setContent(myVBox);
-		
-		//VBox.setVgrow(myVBox, Priority.ALWAYS);
-		VBox.setVgrow(myScrollPane, Priority.ALWAYS);
-		
-	    ShopItem tester = new ShopItem("tempEntity2", "DrumpfVader.png", 10);
-		
+
+		myPane.getChildren().add(myVBox);
+
+//		 VBox.setVgrow(myVBox, Priority.ALWAYS);
+		VBox.setVgrow(myPane, Priority.ALWAYS);
+
+		ShopItem tester = new ShopItem("tempEntity2", "DrumpfVader.png", 10);
+
 		addShopObject(tester);
-		return myScrollPane;
+		return myPane;
 	}
 
-	
-	private void bindWidth(DoubleExpression db){
-		myScrollPane.minWidthProperty().bind(db);
-		myScrollPane.maxWidthProperty().bind(db);
-	}
-	
-	private void bindHeight(DoubleExpression db){
-		myScrollPane.minHeightProperty().bind(db);
-		myScrollPane.maxHeightProperty().bind(db);
-	}
-	
-	public void createShop(String image, String type, double cost){
+	public void createShop(String image, String type, double cost) {
 
 	}
 
-	public void addShopObject(ShopItem myShopItem){
+	public void addShopObject(ShopItem myShopItem) {
 		ShopView myShopView = new ShopView(myEngineView);
-		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40, 40));
+		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(),
+				myShopItem.getItemValue(), 40, 40));
 	}
 
+	public void updateShop(List<ShopItem> myShopList) {
 
-	public void updateShop(List<ShopItem> myShopList){
-		
 	}
 
 }

@@ -60,8 +60,7 @@ public class EngineView{
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
 		myController = c;
-		//myGameCapture = new GameCapture(this);
-		// game capture not working due to .classpath and jar libraries not quite set up
+		myGameCapture = new GameCapture(this);
 		
 		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
@@ -105,10 +104,6 @@ public class EngineView{
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
 		//myScene.setOnDrag
 		return myScene;
-	}
-	
-	private void setupBindings(){
-		
 	}
 
 	private void handleDrop(DragEvent e){
