@@ -1,6 +1,9 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
@@ -9,7 +12,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
@@ -22,8 +27,35 @@ import javafx.scene.text.Font;
 public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
 	private Button myAddComponentButton;
+
 	public ModifiableEntityAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
+	}
+
+	/**
+	 * @Override to remove row constraints from superclass method.
+	 */
+	@Override
+	protected void initializeComponents() {
+		myWrapper = new BorderPane();
+
+		List<Integer> rowConstraints = new ArrayList<Integer>();
+		List<Integer> columnConstraints = new ArrayList<Integer>();
+
+		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
+		myGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+
+		myAttributes = new ArrayList<String>();
+		myAttributesMap = new TreeMap<String, String>();
+		myInputMap = new TreeMap<String, Control>();
+		myAttributesGridPane = createAttributesGridPane();
+
+		myScrollPane = new ScrollPane();
+		myScrollPane.setContent(myAttributesGridPane);
+		myScrollPane.setFitToWidth(false);
+
+		assembleEmptyInputRows();
+
 	}
 
 	@Override
@@ -62,7 +94,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image)  {
+	public void updateImageComponent(String image) {
 		myAttributesMap.replace("DisplayComponent_Image", image);
 		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
 		tf.setText(image);
@@ -71,7 +103,6 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		refreshInputRows();
 	}
 
-	
 	@Override
 	public void setAttributes(Map<String, String> info) {
 		super.setAttributes(info);
