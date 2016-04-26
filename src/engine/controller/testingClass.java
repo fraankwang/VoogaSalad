@@ -142,7 +142,7 @@ public class testingClass {
 		GameMap tempMap = new GameMap("", tempPath, 200, 200);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 20);
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
@@ -196,8 +196,11 @@ public class testingClass {
 		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
 		createdAmmunition.put("SimpleBullet", mySimpleBullet);
 		
+
+		
 		myCreatableEntityMap.put("Ammunition", createdAmmunition);
 		myCreatableEntityMap.put("Spawns", createdSpawns);
+
 		
 		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
@@ -208,6 +211,10 @@ public class testingClass {
 		tempEntity2.addComponent(tempPosition2);
 		tempEntity2.addComponent(simpleFire);
 
+		Map<String, IEntity> createdTowers = new HashMap<String, IEntity>();
+		createdTowers.put("tempEntity2", tempEntity2);
+		myCreatableEntityMap.put("Towers", createdTowers);
+		
 		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
 		//level.addToEntities(tempEntity2);

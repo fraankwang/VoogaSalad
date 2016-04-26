@@ -42,7 +42,7 @@ public class ShopPane {
 		//VBox.setVgrow(myVBox, Priority.ALWAYS);
 		VBox.setVgrow(myScrollPane, Priority.ALWAYS);
 		
-	    ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
+	    ShopItem tester = new ShopItem("tempEntity2", "DrumpfVader.png", 10);
 		
 		addShopObject(tester);
 		return myScrollPane;

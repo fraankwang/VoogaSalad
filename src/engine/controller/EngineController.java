@@ -107,7 +107,6 @@ public class EngineController implements IEngineController{
 	
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		// TODO Auto-generated method stub
-		System.out.println("HIIIT");
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc, yLoc, type);
 		myEventManager.handleEntityDropEvent(event);
 	}

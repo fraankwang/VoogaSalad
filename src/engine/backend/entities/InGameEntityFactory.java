@@ -34,6 +34,7 @@ public class InGameEntityFactory {
 
 	private IEntity findInMap(String entityName) {
 		for (String type : myEntityMap.keySet()) {
+			System.out.println("Type: " + type);
 			Map<String, IEntity> entities = myEntityMap.get(type);
 			if (entities.containsKey(entityName)) {
 				return entities.get(entityName);

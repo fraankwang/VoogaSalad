@@ -36,6 +36,7 @@ public class FiringSystem extends GameSystem {
 		// TODO Auto-generated method stub
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
+		
 		for(IEntity shootingEntity : entities){
 
 			if(!shootingEntity.hasComponent(ComponentTagResources.firingComponentTag)){

@@ -48,6 +48,7 @@ public class FiringComponent extends Component implements IComponent{
 		this.myDirectionToFire = component.getDirectionToFire();
 		this.myFiringRate = component.getFiringRate();
 		this.timer = component.getTimer();
+		this.myTargets = component.getTargets();
 	}
 	
 	public FiringComponent() {
