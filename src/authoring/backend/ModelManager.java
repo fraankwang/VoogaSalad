@@ -7,7 +7,8 @@ import authoring.backend.factories.AuthoringEntityFactory;
 import authoring.backend.factories.AuthoringLevelFactory;
 import authoring.backend.factories.AuthoringModeFactory;
 import authoring.backend.game_objects.AuthoringEntity;
-
+import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringMode;
 
 /*
  * @author: Jonathan Ma
@@ -40,7 +41,7 @@ public class ModelManager implements IModel {
 	}
 
 	public void updateLevels(String command, Map<String, String> data) {
-		Level level = levelfactory.createLevel(data);
+		AuthoringLevel level = levelfactory.createLevel(data);
 		if (command.equals("Update")) {
 			globaldata.getLevels().add(level);
 			return;
@@ -52,7 +53,7 @@ public class ModelManager implements IModel {
 	}
 
 	public void updateModes(String command, Map<String, String> data) {
-		Mode mode = modefactory.createMode(data);
+		AuthoringMode mode = modefactory.createMode(data);
 		if (command.equals("Update")) {
 			globaldata.getModes().add(mode);
 			return;
