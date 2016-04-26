@@ -4,10 +4,10 @@ import java.util.Map;
 
 import authoring.backend.data.GlobalData;
 import authoring.backend.data.ObservableList;
+import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringMode;
 import authoring.frontend.interfaces.IViewManager;
-import engine.backend.entities.Entity;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -49,17 +49,17 @@ public class AuthoringView implements IAuthoringView {
 		myGlobalData.deleteData(data);
 	}
 
-	public ObservableList<Entity> getEntityList() {
+	public ObservableList<AuthoringEntity> getEntityList() {
 		return myGlobalData.getEntities();
 	}
 
 	@Override
-	public ObservableList<Level> getLevelList() {
+	public ObservableList<AuthoringLevel> getLevelList() {
 		return myGlobalData.getLevels();
 	}
 
 	@Override
-	public ObservableList<Mode> getModeList() {
+	public ObservableList<AuthoringMode> getModeList() {
 		return myGlobalData.getModes();
 	}
 

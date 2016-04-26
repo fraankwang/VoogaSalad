@@ -40,22 +40,18 @@ public class AuthoringController implements IAuthoringController {
 		data.remove("Command");
 		data.remove("Type");
 		if (type.equals("Entity")) {
-//			data.remove("Type");
 			model.updateEntities(command, data);
 			return;
 		}
 		if (type.equals("Level")) {
-//			data.remove("Type");
 			model.updateLevels(command, data);
 			return;
 		}
 		if (type.equals("Mode")) {
-//			data.remove("Type");
 			model.updateModes(command, data);
 			return;
 		}
 		if (type.equals("Game")) {
-//			data.remove("Type");
 			model.updateGame(command, data);
 			return;
 		}
@@ -64,6 +60,7 @@ public class AuthoringController implements IAuthoringController {
 	private Map<String, String> processData(Map<String, String> data) {
 		for (String key : data.keySet()) {
 			if (data.get(key).equals("") || data.get(key) == null) {
+				System.out.println(key);
 				data.put(key, "0");
 			}
 		}

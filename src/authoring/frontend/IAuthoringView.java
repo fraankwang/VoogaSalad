@@ -2,10 +2,10 @@ package authoring.frontend;
 
 import java.util.Map;
 import authoring.backend.data.ObservableList;
+import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringMode;
 import authoring.frontend.interfaces.IViewManager;
-import engine.backend.entities.Entity;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 
@@ -25,11 +25,11 @@ public interface IAuthoringView {
 
 	void deleteData(Map<String, String> data);
 	
-	public ObservableList<Entity> getEntityList();
+	public ObservableList<AuthoringEntity> getEntityList();
 
-	public ObservableList<Level> getLevelList();
+	public ObservableList<AuthoringLevel> getLevelList();
 
-	public ObservableList<Mode> getModeList();
+	public ObservableList<AuthoringMode> getModeList();
 
 	/**
 	 * Displays given scene on current stage.

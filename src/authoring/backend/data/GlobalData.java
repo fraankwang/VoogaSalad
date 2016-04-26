@@ -6,52 +6,53 @@ package authoring.backend.data;
 
 import java.util.Map;
 
-import engine.backend.entities.Entity;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
+import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringGame;
+import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringMode;
 
 public class GlobalData {
 	
 	private DataContainer datacontainer;
-	private ObservableList<Entity> entities;
-	private ObservableList<Level> levels;
-	private ObservableList<Mode> modes;
-	private GameData game;
+	private ObservableList<AuthoringEntity> entities;
+	private ObservableList<AuthoringLevel> levels;
+	private ObservableList<AuthoringMode> modes;
+	private AuthoringGame game;
 	
 	public GlobalData() {
 		this.datacontainer = new DataContainer();
-		this.entities = new ObservableList<Entity>();
-		this.levels = new ObservableList<Level>();
-		this.modes = new ObservableList<Mode>();
-		this.game = new GameData();
+		this.entities = new ObservableList<AuthoringEntity>();
+		this.levels = new ObservableList<AuthoringLevel>();
+		this.modes = new ObservableList<AuthoringMode>();
+		this.game = new AuthoringGame();
 	}
 	
 	public void updateData(Map<String, String> data) {
 		datacontainer.updateData(data);
+	}
+
+	public void deleteData(Map<String, String> data) {
+		datacontainer.deleteData(data);
 	}
 	
 	public DataContainer getData() {
 		return datacontainer;
 	}
 	
-	public ObservableList<Entity> getEntities() {
+	public ObservableList<AuthoringEntity> getEntities() {
 		return entities;
 	}
 	
-	public ObservableList<Level> getLevels() {
+	public ObservableList<AuthoringLevel> getLevels() {
 		return levels;
 	}
 	
-	public ObservableList<Mode> getModes() {
+	public ObservableList<AuthoringMode> getModes() {
 		return modes;
 	}
 	
-	public GameData getGame() {
+	public AuthoringGame getGame() {
 		return game;
-	}
-
-	public void deleteData(Map<String, String> data) {
-		datacontainer.deleteData(data);
 	}
 
 }

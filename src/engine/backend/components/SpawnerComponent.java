@@ -1,6 +1,5 @@
 package engine.backend.components;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,15 +12,6 @@ public class SpawnerComponent extends Component {
 
 	private List<Spawn> mySpawns;
 	private int pathID;
-
-	public SpawnerComponent() {
-		
-	}
-	
-	public SpawnerComponent(int id){
-		mySpawns = new ArrayList<Spawn>();
-		pathID = id;
-	}
 	
 	public SpawnerComponent(List<Spawn> spawns, int id){
 		mySpawns = spawns;
@@ -43,8 +33,15 @@ public class SpawnerComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append(pathID);
+		sb.append(":");
+		for (Spawn spawn : mySpawns) {
+			sb.append(spawn.getInfo());
+			sb.append("_");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
 	}
 
 	@Override

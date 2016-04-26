@@ -8,13 +8,13 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import authoring.backend.data.ObservableList;
+import authoring.backend.game_objects.AuthoringEntity;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.editor_features.LocalImage;
-import engine.backend.entities.Entity;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -44,7 +44,7 @@ import javafx.stage.Stage;
 public class EntitiesTabDisplay extends TabDisplay {
 
 	private TabPane myEntitiesTabPane;
-	private ObservableList<Entity> myEntityList;
+	private ObservableList<AuthoringEntity> myEntityList;
 	private String genreName;
 
 	public EntitiesTabDisplay(int tabIndex, IAuthoringView controller) {

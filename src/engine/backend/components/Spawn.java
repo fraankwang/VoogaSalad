@@ -69,4 +69,16 @@ public class Spawn {
 		this.numEntities = numEntities;
 	}
 	
+	public String getInfo() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(spawningEntityName);
+		sb.append(".");
+		sb.append(waveIndex);
+		sb.append(".");
+		sb.append(numEntities);
+		sb.append(".");
+		sb.append(spawningRate);
+		return sb.toString();
+	}
+	
 }

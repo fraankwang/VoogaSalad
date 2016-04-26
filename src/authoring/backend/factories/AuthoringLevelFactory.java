@@ -6,20 +6,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringLevel;
 import authoring.parser.GlobalParser;
-import engine.backend.game_object.Level;
+import engine.backend.components.IComponent;
+import engine.backend.components.Spawn;
+import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 
-public class LevelFactory {
-
-	public LevelFactory() {
+public class AuthoringLevelFactory {
+	
+	public AuthoringLevelFactory() {
+		
 	}
 	
-	public Level createLevel(Map<String, String> data) {
+	public AuthoringLevel createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
-		Set<String> entityNames = new HashSet<String>();
+		Set<String> entities = new HashSet<String>();
+		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
 		String name = "";
 		double levelTimer = 0;
 		double waveDelayTimer = 0;
@@ -42,7 +48,6 @@ public class LevelFactory {
 				break;
 			case "Name":
 				name = data.get(key);
-				System.out.println(name);
 				break;
 			case "LevelTimer":
 				levelTimer = Double.parseDouble(data.get(key));
@@ -51,19 +56,46 @@ public class LevelFactory {
 				waveDelayTimer = Double.parseDouble(data.get(key));
 				break;
 			case "Entities":
-				String entities = data.get(key);
-				entityNames = getEntityNames(entities);
+				String raw = data.get(key);
+				entities = getEntityNames(raw);
 				break;
+			case "SpawnEntities":
+				String spawnInfo = data.get(key);
+				spawnEntities = createSpawnEntities(spawnInfo);
 			}
 		}
-		Level level = new Level(name, map);
-		level.setLevelTimer(levelTimer);
-		level.setWaveDelayTimer(waveDelayTimer);
-		level.setEntityNames(entityNames);
+		AuthoringLevel level = new AuthoringLevel(name, map, levelTimer, waveDelayTimer);
+		level.setEntities(entities);
+		level.setSpawnEntities(spawnEntities);
 		
 		return level;
 	}
 	
+	private List<AuthoringEntity> createSpawnEntities(String info) {
+		Map<String, String[]> spawnInfo = GlobalParser.spawnParse(info);
+		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
+		for (String key : spawnInfo.keySet()) {
+			int pathID = Integer.parseInt(key);
+			String entityName = "Spawn" + key;
+			String genre = "Spawner";
+			String[] spawnObjectInfo = spawnInfo.get(key);
+			List<Spawn> spawns = new ArrayList<Spawn>();
+			for (String spawn : spawnObjectInfo) {
+				String[] list = spawn.split(".");
+				String entity = list[0];
+				int wave = Integer.parseInt(list[1]);
+				int numSpawn = Integer.parseInt(list[2]);
+				double rate = Double.parseDouble(list[3]);
+				spawns.add(new Spawn(entity, rate, wave, numSpawn));
+			}
+			IComponent spawner = new SpawnerComponent(spawns, pathID);
+			AuthoringEntity spawnEntity = new AuthoringEntity(entityName, genre);
+			spawnEntity.addComponent(spawner);
+			spawnEntities.add(spawnEntity);
+		}
+		return spawnEntities;
+	}
+		
 	private Set<String> getEntityNames(String str) {
 		String[] names = str.split(" ");
 		Set<String> entityNames = new HashSet<String>();

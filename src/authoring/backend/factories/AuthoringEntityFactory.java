@@ -1,4 +1,3 @@
-//Kushal Byatnal
 package authoring.backend.factories;
 
 import java.util.ArrayList;
@@ -7,23 +6,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import authoring.backend.game_objects.AuthoringEntity;
 import engine.backend.components.IComponent;
-import engine.backend.entities.Entity;
 
-public class EntityFactory {
+/*
+ * @author: Kushal, Jonathan
+ */
+
+public class AuthoringEntityFactory {
 	private ComponentFactory myComponentFactory;
 	
-	public EntityFactory() {
+	public AuthoringEntityFactory() {
 		this.myComponentFactory = new ComponentFactory();
 	}
 
-	public Entity createEntity(Map<String, String> info){
-		Entity newEntity = new Entity(info.get("Name"), info.get("Genre"));
+	public AuthoringEntity createEntity(Map<String, String> info){
+		String name = info.get("Name");
+		String genre = info.get("Genre");
+		
+		AuthoringEntity newAuthoringEntity = new AuthoringEntity(name, genre);
+		
 		List<IComponent> entityComponents = createComponents(info);
+		
 		for(IComponent comp : entityComponents){
-			newEntity.addComponent(comp);
+			newAuthoringEntity.addComponent(comp);
 		}
-		return newEntity;
+		return newAuthoringEntity;
 	}
 	
 	private List<IComponent> createComponents(Map<String, String> info){

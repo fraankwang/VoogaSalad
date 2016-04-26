@@ -99,15 +99,27 @@ public class EngineView{
 
 			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
         }	
+		
+		if( myScene.getCursor() != Cursor.NONE){
+			myScene.setCursor(Cursor.NONE);
+		}
+		
         e.consume();
 	}
 	
 	private void handleEndMouseRelease(DragEvent e) {
+		
 		if( isInBoardPane( e.getSceneX(), e.getSceneY() ) && e.getDragboard().hasString()){
 			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY(), e.getDragboard().getString());
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
+		
 		myDummyCursor.changePic(null);
+		
+	}
+	
+	private boolean isInScene(double x, double y){
+		return true;
 	}
 	
 	private boolean isInBoardPane(double x, double y){
