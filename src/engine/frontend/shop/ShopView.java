@@ -38,10 +38,10 @@ public class ShopView {
 		myImageView.setFitHeight(height);
 		
 		myHBox.getChildren().addAll(name, myImageView);
-		myHBox.setOnDragDetected(e -> handleClick(e));
+		myHBox.setOnDragDetected(e -> selectTower(e));
 	}
-		
-	public void handleClick(MouseEvent e){
+
+	public void selectTower(MouseEvent e){
 		
 		//myEngineView.getStage().getScene().setCursor(value);
 		myEngineView.getDummyCursor().changePic(myImageView.getImage());
@@ -52,6 +52,11 @@ public class ShopView {
         content.putString(myType);
         db.setContent(content);
         e.consume();		
+	}
+	
+	public void changeCursor(MouseEvent e){
+		myEngineView.getStage().getScene().setCursor(Cursor.NONE);
+		
 	}
 	
 	public Node getNode(){
