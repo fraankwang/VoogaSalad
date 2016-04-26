@@ -25,10 +25,6 @@ import javafx.beans.binding.DoubleExpression;
 public class ShopPane extends AbstractPane {
 	private VBox myVBox;
 	private ListView<Map<String, String>> myListView;
-	private EngineView myEngineView;
-	private Pane myPane;
-
-
 	
 	private ListCell<Map<String, String>> handleShopCreation(){
 		ListCell<Map<String, String>> myVal = new ShopCell(myEngineView);
@@ -43,24 +39,23 @@ public class ShopPane extends AbstractPane {
 
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
 		super.buildNode(widthBinding, heightBinding);
-		myPane.setStyle("-fx-border-color: black;");
+		Pane myPane = super.getPane();
+		myPane.setStyle("-fx-border-color: black");
 
 		myListView = new ListView<Map<String, String>>();
 	    VBox.setVgrow(myListView, Priority.ALWAYS);
 	    myListView.setCellFactory( e-> handleShopCreation());
 
 	    ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
-		addShopObject(tester);	
-		myPane.getChildren().add(myVBox);
-
 		myVBox = new VBox();
 		myVBox.minWidthProperty().bind(myPane.widthProperty());
 		myVBox.minHeightProperty().bind(myPane.heightProperty());
-		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
+		
+		myVBox.setSpacing(getEngineView().loadDoubleResource("ShopSpacing"));
 
 		myPane.getChildren().add(myVBox);
-
-		VBox.setVgrow(myPane, Priority.ALWAYS);
+		myVBox.getChildren().add(myListView);
+		VBox.setVgrow(myListView, Priority.ALWAYS);
 		addShopObject(tester);
 		return myPane;
 	}
@@ -78,7 +73,7 @@ public class ShopPane extends AbstractPane {
 	}
 
 	public void addShopObject(ShopItem myShopItem) {
-		ShopView myShopView = new ShopView(myEngineView);
+		ShopView myShopView = new ShopView(getEngineView());
 		Map<String, String> addMap = new HashMap();
 		addMap.put("name", myShopItem.getItemName());
 		addMap.put("image", myShopItem.getItemImage());
@@ -94,16 +89,6 @@ public class ShopPane extends AbstractPane {
 //		myEngineView.getDummyCursor().changePic(new Image(myMap.get("image")));	
 //	}
 
-	protected void bindWidth(DoubleExpression db){
-		myPane.minWidthProperty().bind(db);
-		myPane.maxWidthProperty().bind(db);
-	}
-	
-	protected void bindHeight(DoubleExpression db){
-		myPane.minHeightProperty().bind(db);
-		myPane.maxHeightProperty().bind(db);
-	}
-	
 	public void updateShop(List<ShopItem> myShopList){
 		
 
