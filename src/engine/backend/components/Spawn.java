@@ -51,6 +51,10 @@ public class Spawn {
 		}
 	}
 	
+	public void decrementTimer(){
+		timer = timer - GameClock.getTimePerLoop();
+	}
+	
 	public void setSpawningEntityName(String spawningEntityName) {
 		this.spawningEntityName = spawningEntityName;
 	}

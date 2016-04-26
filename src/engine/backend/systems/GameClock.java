@@ -44,8 +44,7 @@ public class GameClock {
 	 * @return The time in seconds for each loop iteration.
 	 */
 	public static double getTimePerLoop() {
-
-		return round(1/fps, 2);
+		return round(1.0/fps, 2);
 	}
 
 	public static double round(double value, int places) {

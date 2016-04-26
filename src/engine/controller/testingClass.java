@@ -184,7 +184,7 @@ public class testingClass {
 		IComponent tempSize3 = new SizeComponent();
 		
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector, 	1);
+				500, myBulletVector, .5);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
 		mySimpleBullet.addComponent(tempCollision2);
@@ -206,7 +206,7 @@ public class testingClass {
 		myCreatableEntityMap.put("Spawns", createdSpawns);
 		
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
-		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet));
+		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
 		firingTest.setAuthoredEntities(authoredEntities);
 		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();

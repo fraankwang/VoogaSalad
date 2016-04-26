@@ -2,6 +2,8 @@ package engine.backend.components;
 
 import java.util.List;
 
+import engine.backend.systems.GameClock;
+
 /**
  * 
  * @author raghavkedia
@@ -216,6 +218,10 @@ public class FiringComponent extends Component{
 			this.currentSecond = currentSecond;
 			timer = timer - 1;
 		}
+	}
+	
+	public void decrementTimer(){
+		timer = timer - GameClock.getTimePerLoop();
 	}
 	
 	/**
