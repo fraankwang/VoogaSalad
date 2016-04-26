@@ -12,15 +12,16 @@ import java.util.Set;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
+import engine.backend.game_object.ModeStatistics;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
+import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.controller.IEngineController;
-import engine.backend.game_object.ModeStatistics;
 
 public class EventManager implements Observer{
 
@@ -70,7 +71,21 @@ public class EventManager implements Observer{
 			handleAddEntityEvent(myEvent);
 		}
 
-}
+	}
+	
+	public void handleClickEvent(EntityClickedEvent event) {
+		String identifier = getCurrentLevel().getEntityWithID(event.getClickedEntityID()).getName();
+		event.setEventID(identifier);
+		
+		for(Rule rule : myRuleAgenda){
+			ArrayList<String> ruleEvents = (ArrayList<String>) rule.getEvents();
+			if(ruleEvents.size() == 1 && ruleEvents.get(0).equals(event.getEventID())){
+				applyActions(new HashSet<Integer>(event.getClickedEntityID()), rule.getActions());
+			}
+		}
+		
+	}
+	
 	private void applyActions(Set<Integer> entityIDs, Collection<IAction> actions){
 
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();

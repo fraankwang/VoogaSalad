@@ -145,7 +145,6 @@ public class FiringSystem extends GameSystem {
 		Vector velVector = new Vector(directionToFire);
 		velVector = velVector.normalize();
 		velVector = velVector.scale(speed);
-
 		firedMovComponent.setCurrentVelocityVector(velVector);
 		firedMovComponent.setDefaultVelocityVector(velVector);
 		return ammoEntity;		

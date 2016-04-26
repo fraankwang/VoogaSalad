@@ -8,7 +8,7 @@ public class TrackingMovementComponent extends MovementComponent{
 	private IEntity myEntityToTrack;
 	private double mySpeed;
 
-	public TrackingMovementComponent(MovementComponent component) {
+	public TrackingMovementComponent(TrackingMovementComponent component) {
 		super(component);
 	}
 	

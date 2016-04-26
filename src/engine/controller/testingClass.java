@@ -17,6 +17,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
+import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
@@ -105,7 +106,7 @@ public class testingClass {
 		EntityAction action3 = new EntityAction("SimpleBullet", "Display", "CanBeShown", "false");
 		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
 		
-		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
+		//LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
 		
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action); 
@@ -119,7 +120,7 @@ public class testingClass {
 		
 		
 		Rule rule2 = new Rule();
-		rule2.addActions(Arrays.asList(action, action4, levelAction));
+		rule2.addActions(Arrays.asList(action, action4));
 		rule2.addEvents(Arrays.asList("tempEntityDeathEvent"));
 		
 		level.setRuleAgenda(Arrays.asList(rule1, rule2));
@@ -172,8 +173,10 @@ public class testingClass {
 		Vector myBulletVector = new Vector(0,1222);
 		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
 		IComponent tempSize3 = new SizeComponent();
+		
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
 				500, myBulletVector, 1);
+		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);

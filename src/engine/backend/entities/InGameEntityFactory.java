@@ -47,6 +47,7 @@ public class InGameEntityFactory {
 		Collection<IComponent> templateComponents = templateEntity.getComponents();
 		for (IComponent component : templateComponents) {
 			IComponent copyComponent = cloneComponent(component);
+			System.out.println(copyComponent.getTag());
 			newEntity.addComponent(copyComponent);
 		}
 	}
