@@ -44,7 +44,7 @@ public class TrackingMovementComponent extends MovementComponent{
 	
 	@Override
 	public Vector getCurrentVelocityVector(){
-		if(myEntityToTrack != null){ //check if entity has been removed from map
+		if(!((DisplayComponent) myEntityToTrack.getComponent(ComponentTagResources.displayComponentTag)).getDelete()){ //check if entity has been removed from map
 			updateCurrentVelocityVector();
 		}
 		return super.getCurrentVelocityVector();
