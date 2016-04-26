@@ -35,7 +35,7 @@ public class HealthComponent extends Component implements IComponent{
 	 */
 	public void setHealth(String deltaHealth){
 		Double delta = Double.parseDouble(deltaHealth);
-		myHealth = delta;
+		myHealth += delta;
 	}
 	
 	/**

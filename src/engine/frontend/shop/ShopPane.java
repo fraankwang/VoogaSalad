@@ -47,6 +47,7 @@ public class ShopPane {
 		addShopObject(tester);
 		return myScrollPane;
 	}
+
 	
 	private void bindWidth(DoubleExpression db){
 		myScrollPane.minWidthProperty().bind(db);
@@ -63,8 +64,8 @@ public class ShopPane {
 	}
 
 	public void addShopObject(ShopItem myShopItem){
-		ShopView myShopView = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40, 40);			
-		myVBox.getChildren().add(myShopView.getNode());
+		ShopView myShopView = new ShopView(myEngineView);
+		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40, 40));
 	}
 
 

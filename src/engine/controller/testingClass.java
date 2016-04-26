@@ -103,7 +103,7 @@ public class testingClass {
 		level.setIndex(0);
 		EntityAction action = new EntityAction("tempEntity", "Display", "Delete", "true");
 		EntityAction action4 = new EntityAction("tempEntity", "Display", "CanBeShown", "false");
-		EntityAction action2 = new EntityAction("tempEntity", "Health", "Health", "0");
+		EntityAction action2 = new EntityAction("tempEntity", "Health", "Health", "-5");
 		EntityAction action3 = new EntityAction("SimpleBullet", "Display", "CanBeShown", "false");
 		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
 		
@@ -163,7 +163,7 @@ public class testingClass {
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
-		IComponent tempHealth = new HealthComponent(100);
+		IComponent tempHealth = new HealthComponent(20);
 		IComponent pathComp = new PathComponent(0, 0);
 
 		tempEntity.addComponent(tempDisplay);

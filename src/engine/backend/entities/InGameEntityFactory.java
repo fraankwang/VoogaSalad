@@ -26,7 +26,6 @@ public class InGameEntityFactory {
 	 */
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
-		System.out.println(templateEntity.getName());
 		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getType(),
 				templateEntity.getValue());
 		copyComponents(newEntity, templateEntity);
