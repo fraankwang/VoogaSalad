@@ -2,7 +2,7 @@ package engine.backend.systems;
 
 public class GameClock {
 
-	private int fps;
+	private static int fps;
 	private int currentLoopIteration;
 	private double currentSecond;
 
@@ -39,7 +39,7 @@ public class GameClock {
 	 * 
 	 * @return The time in seconds for each loop iteration.
 	 */
-	public double getTimePerLoop() {
+	public static double getTimePerLoop() {
 		return 1.0 / (double) fps;
 	}
 
