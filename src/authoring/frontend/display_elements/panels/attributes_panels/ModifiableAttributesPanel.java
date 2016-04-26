@@ -144,7 +144,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 				text.setFont(new Font(FONT_SIZE));
 				
 				myAttributesGridPane.add(text, 0, i);
-				System.out.println(currentAttribute);
 				myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
 				
 			}
