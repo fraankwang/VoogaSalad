@@ -54,7 +54,9 @@ public class InGameEntityFactory {
 
 	private IComponent cloneComponent(IComponent component) {
 		try {
+			System.out.println(component.getTag() + " " + component.getClass());
 			Constructor constructor = component.getClass().getConstructor(component.getClass());
+			System.out.println(constructor.getName());
 			return (IComponent) constructor.newInstance(component);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {

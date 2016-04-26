@@ -126,7 +126,9 @@ public class FiringSystem extends GameSystem {
 	}
 
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, IEntity targetEntity, InGameEntityFactory myEntityFactory){
-
+		
+		System.out.println(entityName);
+		
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
 
 		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(ComponentTagResources.positionComponentTag);
