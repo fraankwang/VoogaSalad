@@ -109,6 +109,26 @@ public class GameCapture implements IGameCapture {
 			e.printStackTrace();
 		}
 	}
+	
+	public void takeScreenshot(){
+		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "." + imageFormat;
+//		WritableImage image = n.snapshot(new SnapshotParameters(), null);
+		BufferedImage bi;
+		try {
+			bi = (new Robot()).createScreenCapture(captureRegion);
+			BufferedImage convertedImg = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
+		    convertedImg.getGraphics().drawImage(bi, 0, 0, null);
+			
+		    try {
+				ImageIO.write(convertedImg, imageFormat, new File(outputFileName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	@Override
 	public File exportFile(Event exportEvent) {

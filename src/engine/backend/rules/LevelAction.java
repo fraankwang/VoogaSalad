@@ -1,21 +1,29 @@
 package engine.backend.rules;
 
-public class LevelAction {
+public class LevelAction implements IAction{
 	
-	private String resourceToModify;
-	private String changeInValue;
+	private String variableToModify;
+	private String deltaValue;
 
-	public LevelAction(String resourceToModify, String changeInValue) {
-		this.resourceToModify = resourceToModify;
-		this.changeInValue = changeInValue;
+	public LevelAction(String varToModify, String delta) {
+		this.setVariableToModify(varToModify);
+		this.setDeltaValue(delta);
 	}
 
-	public String getResourceToModify() {
-		return resourceToModify;
+	public String getVariableToModify() {
+		return variableToModify;
 	}
 
-	public String getChangeInValue() {
-		return changeInValue;
+	public void setVariableToModify(String variableToModify) {
+		this.variableToModify = variableToModify;
+	}
+
+	public String getDeltaValue() {
+		return deltaValue;
+	}
+
+	public void setDeltaValue(String deltaValue) {
+		this.deltaValue = deltaValue;
 	}
 
 }

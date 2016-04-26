@@ -11,7 +11,6 @@ public class Vector {
 	}
 	
 	public Vector(double x, double y) {
-		// TODO Auto-generated constructor stub
 		myXComponent = x;
 		myYComponent = y;
 	}

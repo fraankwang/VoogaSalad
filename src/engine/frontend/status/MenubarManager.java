@@ -9,9 +9,8 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import com.xuggle.xuggler.ICodec;
-
 import engine.frontend.overall.EngineView;
+import javafx.beans.binding.DoubleExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceDialog;
@@ -30,19 +29,35 @@ public class MenubarManager {
 	public static final String DEFAULT_RESOURCE = "engine/resources/menubar";
 	private ResourceBundle myResources;
 	
+	private MenuBar menubar;
+	
 	public MenubarManager(EngineView ev){
 		myEngineView = ev;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
+
+	public MenuBar buildMenuBar(DoubleExpression widthBinding, DoubleExpression heightBinding){
+		menubar = new MenuBar();
 		
-	public MenuBar buildMenuBar(){
-		MenuBar menubar = new MenuBar();
+		bindWidth(widthBinding);
+		bindHeight(heightBinding);
+		
 		Menu filemenu = buildFileMenu();
 		Menu capturemenu = buildCaptureMenu();
 		final Menu menu3 = new Menu("Help");
 		menubar.getMenus().addAll(filemenu, capturemenu, menu3);
 
 		return menubar; 
+	}
+	
+	private void bindWidth(DoubleExpression db){
+		menubar.minWidthProperty().bind(db);
+		menubar.maxWidthProperty().bind(db);
+	}
+	
+	private void bindHeight(DoubleExpression db){
+		menubar.minHeightProperty().bind(db);
+		menubar.maxHeightProperty().bind(db);
 	}
 	
 	private Menu buildFileMenu(){
