@@ -38,10 +38,7 @@ public interface IEntity {
 
 	public int getID();
 
-//	public void applyAction(Action action, ResourceBundle myComponentTagResources);
-
 	public void setLevelID(int levelID);
-
-	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources);
 	
+	public void applyAction(EntityAction action);
 }

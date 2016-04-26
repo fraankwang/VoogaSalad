@@ -18,6 +18,11 @@ public class SizeComponent extends Component implements IComponent {
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
 	}
+	
+	public SizeComponent(SizeComponent component) {
+		this.width = component.getWidth();
+		this.height = component.getHeight();
+	}
 
 	@Override
 	public String toString() {
