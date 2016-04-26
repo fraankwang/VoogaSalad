@@ -12,6 +12,7 @@ public class AuthoringMode {
 	
 	private Set<String> levels;
 	private Map<String, String> myInfo;
+	private Map<Integer, String> levelIndex;
 	
 	public AuthoringMode(String myName, int initialNumLives, double initialResources, Set<String> levels) {
 		this.myName = myName;
@@ -27,10 +28,31 @@ public class AuthoringMode {
 		myInfo.put("Name", myName);
 		myInfo.put("InitialLives", initialNumLives + "");
 		myInfo.put("InitialResources", initialResources + "");
-		myInfo.put("LevelNames", getLevelNames());
+		myInfo.put("LevelNames", getStringLevelNames());
+		myInfo.put("LevelIndex", getStringLevelIndexes());
 	}
 	
-	private String getLevelNames() {
+	public void setLevelIndex(Map<Integer, String> levelIndex) {
+		this.levelIndex = levelIndex;
+	}
+	
+	private String getStringLevelIndexes() {
+		if (levelIndex.isEmpty()) {
+			return "";
+		} else {
+			StringBuilder sb = new StringBuilder();
+			for (int key : levelIndex.keySet()) {
+				sb.append(key);
+				sb.append(":");
+				sb.append(levelIndex.get(key));
+				sb.append(" ");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			return sb.toString();
+		}
+	}
+	
+	private String getStringLevelNames() {
 		StringBuilder sb = new StringBuilder();
 		for (String level : levels) {
 			sb.append(level);
@@ -54,6 +76,10 @@ public class AuthoringMode {
 	
 	public double getInitialResources() {
 		return initialResources;
+	}
+	
+	public Map<Integer, String> getLevelIndex() {
+		return levelIndex;
 	}
 	
 	@Override

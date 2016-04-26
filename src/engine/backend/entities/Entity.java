@@ -17,8 +17,7 @@ import engine.backend.utilities.ComponentTagResources;
 public class Entity implements IEntity {
 
 	private String myName;
-	private String myType;
-	private List<Rule> myRules;
+	private String myGenre;
 	private int myID;
 	private Map<String, IComponent> myComponents;
 	private boolean hasBeenModified;
@@ -29,7 +28,7 @@ public class Entity implements IEntity {
 	 */
 	public Entity(String myName, String myType, Map<String, IComponent> myComponents) {
 		this.myName = myName;
-		this.myType = myType;
+		this.myGenre = myType;
 		this.myComponents = myComponents;		
 	}
 
@@ -38,10 +37,9 @@ public class Entity implements IEntity {
 	 */
 	public Entity(int myID, String myName, String myType) {
 		this.myName = myName;
-		this.myType = myType;
+		this.myGenre = myType;
 		this.myID = myID;
 		this.myComponents = new HashMap<String, IComponent>();
-		this.myRules = new ArrayList<Rule>();
 		this.hasBeenModified = true;
 	}
 
@@ -59,9 +57,9 @@ public class Entity implements IEntity {
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
-
-	public List<Rule> getRules() {
-		return myRules;
+	
+	public void addComponent(IComponent component) {
+		myComponents.put(component.getTag(), component);
 	}
 
 	/**
@@ -90,8 +88,8 @@ public class Entity implements IEntity {
 	/**
 	 * @return A string that represents the type of the entity.
 	 */
-	public String getType() {
-		return myType;
+	public String getGenre() {
+		return myGenre;
 	}
 
 	/**

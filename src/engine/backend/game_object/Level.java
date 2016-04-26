@@ -22,11 +22,11 @@ import engine.backend.rules.Rule;
  */
 public class Level {
 	
+	//put spawning entities in this map
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
 	private List<IEntity> authoredEntities;
 	private String myName;
-	private int index;
 	private GameMap map;
 	private double waveDelayTimer;
 	private double timer;
@@ -34,15 +34,22 @@ public class Level {
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
 	
+	private int index;
+	
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double waveDelayTimer) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
+		this.authoredEntities = authoredEntities;
 	}
 	
+	public Level(int index) {
+		this.index = index;
+	}
+
 	/**
 	 * 
 	 * @return The unique identifier for the level.
@@ -127,10 +134,6 @@ public class Level {
 
 	public void setCurrentWaveIndex(int currentWaveIndex) {
 		this.currentWaveIndex = currentWaveIndex;
-	}
-
-	public int getIndex() {
-		return index;
 	}
 	
 	@Override

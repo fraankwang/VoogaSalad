@@ -12,11 +12,18 @@ public class Mode {
 	private Map<Integer, Level> myLevels;
 	private String myName;
 	private ModeStatistics myModeStatistics;
-	private int index;
 	
-	public Mode(String myName, ModeStatistics modeStatistics) {
+	/**
+	 * Authoring Environment Constructor.
+	 */
+	public Mode(String myName, ModeStatistics modeStatistics, Map<Integer, Level> levels) {
 		this.myName = myName;
 		this.myModeStatistics = modeStatistics;		
+		this.myLevels = levels;
+	}
+	
+	public Mode(String myName) {
+		this.myName = myName;
 	}
 		
 	public Map<Integer, Level> getLevels() {
@@ -30,22 +37,10 @@ public class Mode {
 	public String getName(){
 		return this.myName;
 	}
-
-	public void addLevel(Level level) {
-		myLevels.put(level.getIndex(), level);
-	}
 	
 	@Override
 	public String toString() {
 		return "Mode [levels=" + myLevels + "]";
-	}
-
-	public int getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
 	}
 
 }
