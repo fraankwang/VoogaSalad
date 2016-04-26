@@ -123,7 +123,12 @@ public class testingClass {
 		rule2.addActions(Arrays.asList(action, action4));
 		rule2.addEvents(Arrays.asList("tempEntityDeathEvent"));
 		
-		level.setRuleAgenda(Arrays.asList(rule1, rule2));
+		Rule rule3 = new Rule();
+		EntityAction shootAction = new EntityAction("tempEntity2", "Firing", "FireNow", "true");
+		rule3.addActions(Arrays.asList(shootAction));
+		rule3.addEvents(Arrays.asList("tempEntity2EntityClickedEvent"));
+		
+		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3));
 		//level.addActionToEventMap(Arrays.asList("SimpleBullettempEntityCollisionEvent"), myActions);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
@@ -175,7 +180,7 @@ public class testingClass {
 		IComponent tempSize3 = new SizeComponent();
 		
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector, 1);
+				500, myBulletVector, -1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
 		mySimpleBullet.addComponent(tempCollision2);

@@ -28,6 +28,11 @@ public class FiringComponent extends Component implements IComponent{
 		this.myAmmunitionSpeed = myAmmunitionSpeed;
 		this.myEnemyInSightRange = myEnemyInSightRange;
 		this.myDirectionToFire = myDirectionToFire;
+		
+		if(myFiringRate < 0){
+			timer = -1;
+		}
+		
 		this.myFiringRate = myFiringRate;
 	}
 	
@@ -179,6 +184,10 @@ public class FiringComponent extends Component implements IComponent{
 	 */
 	public void setFireNow(boolean bool){
 		fireNow = bool;
+	}
+	
+	public void setFireNow(String bool){
+		fireNow  = Boolean.parseBoolean(bool);
 	}
 	
 	/**

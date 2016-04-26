@@ -4,6 +4,8 @@ import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
+import engine.backend.systems.Events.EntityClickedEvent;
+import engine.backend.systems.Events.IEvent;
 import engine.frontend.overall.EngineView;
 //import engine.frontend.EngineView;
 import javafx.animation.Animation;
@@ -91,6 +93,8 @@ public class EngineController implements IEngineController{
 
 	public void entityClicked(int myID) {
 		// TODO Auto-generated method stub
+		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
+		myEventManager.handleClickEvent(clickedEvent);
 	}
 	
 	public Main getMain(){

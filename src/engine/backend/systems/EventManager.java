@@ -75,6 +75,9 @@ public class EventManager implements Observer{
 	}
 	
 	public void handleClickEvent(EntityClickedEvent event) {
+		
+		System.out.println("CLICKED");
+		
 		String identifier = getCurrentLevel().getEntityWithID(event.getClickedEntityID()).getName();
 		event.setEventID(identifier);
 		

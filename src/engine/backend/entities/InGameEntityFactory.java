@@ -26,7 +26,6 @@ public class InGameEntityFactory {
 	 */
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
-		System.out.println(entityName);
 		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getType(),
 				templateEntity.getValue());
 		copyComponents(newEntity, templateEntity);
@@ -47,7 +46,7 @@ public class InGameEntityFactory {
 		Collection<IComponent> templateComponents = templateEntity.getComponents();
 		for (IComponent component : templateComponents) {
 			IComponent copyComponent = cloneComponent(component);
-			System.out.println(copyComponent.getTag());
+			//System.out.println(copyComponent.getTag());
 			newEntity.addComponent(copyComponent);
 		}
 	}
