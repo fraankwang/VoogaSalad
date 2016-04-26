@@ -7,6 +7,11 @@ import java.util.Map;
 import java.util.Set;
 
 import authoring.parser.GlobalParser;
+import engine.backend.components.IComponent;
+import engine.backend.components.Spawn;
+import engine.backend.components.SpawnerComponent;
+import engine.backend.entities.Entity;
+import engine.backend.entities.IEntity;
 import engine.backend.game_object.Level;
 import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
@@ -54,6 +59,9 @@ public class LevelFactory {
 				String entities = data.get(key);
 				entityNames = getEntityNames(entities);
 				break;
+			case "SpawnEntities":
+				String spawnEntities = data.get(key);
+				
 			}
 		}
 		Level level = new Level(name, map);
@@ -63,6 +71,35 @@ public class LevelFactory {
 		
 		return level;
 	}
+	
+	private List<IEntity> createSpawnEntities(String spawnEntities) {
+		List<IEntity> spawns = new ArrayList<IEntity>();
+		Map<String, String[]> spawnMap = GlobalParser.spawnParse(spawnEntities);
+		for (String key : spawnMap.keySet()) {
+			//per spawner component
+			String[] str = key.split(".");
+			String name = str[0];
+			int pathID = Integer.parseInt(str[1]);
+			String[] spawnInfo = spawnMap.get(key);
+			List<Spawn> spawnList = new ArrayList<Spawn>();
+			for (String spawn : spawnInfo) {
+				//per spawn object in spawner component
+				String[] info = spawn.split(".");
+				String entityName = info[0];
+				int index = Integer.parseInt(info[1]);
+				int numSpawn = Integer.parseInt(info[2]);
+				int spawnRate = Integer.parseInt(info[3]);
+				Spawn s = new Spawn(entityName, spawnRate, index, numSpawn);
+				spawnList.add(s);
+			}
+			IEntity spawnEntity = new Entity(name, "Spawn");
+			IComponent spawnComponent = new SpawnerComponent(spawnList, pathID);
+			spawnEntity.addComponent(spawnComponent);
+			spawns.add(spawnEntity);
+		}
+		return spawns;		
+	}
+	
 	
 	private Set<String> getEntityNames(String str) {
 		String[] names = str.split(" ");

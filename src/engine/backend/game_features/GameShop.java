@@ -1,6 +1,7 @@
 package engine.backend.game_features;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,10 @@ public class GameShop {
 	
 	public GameShop(){
 		myItems = new ArrayList<ShopItem>();
+	}
+	
+	public void setShopItems(List<ShopItem> items) {
+		this.myItems = items;
 	}
 	
 	public void updateShop(double currentResources){
