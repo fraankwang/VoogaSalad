@@ -190,7 +190,7 @@ public class testingClass {
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
-		mySimpleBullet.addComponent(new MovementComponent(10, 0));
+		mySimpleBullet.addComponent(new TrackingMovementComponent(10, 0));
 		mySimpleBullet.addComponent(tempDisplay3);
 		mySimpleBullet.addComponent(tempSize3);
 		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();

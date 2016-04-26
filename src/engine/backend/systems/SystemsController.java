@@ -95,6 +95,7 @@ public class SystemsController {
 		//final system, do all the rendering
 		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory, myGameClock.getCurrentSecond());
 		//System.out.println(myEventManager.getModeStatistics().getCurrentNumLives());
+
 		myGameClock.updateLoopIteration();
 	}
 

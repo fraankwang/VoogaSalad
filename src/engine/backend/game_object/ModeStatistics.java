@@ -115,8 +115,6 @@ public class ModeStatistics {
 
 		try {
 			String methodName = "set" + instanceVar;
-			System.out.println(methodName);
-			
 			setMethod = this.getClass().getMethod(methodName, String.class);
 			setMethod.invoke(this, deltaVal);
 
