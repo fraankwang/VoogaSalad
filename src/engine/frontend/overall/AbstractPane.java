@@ -1,5 +1,6 @@
 package engine.frontend.overall;
 
+import engine.controller.EngineController;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -29,11 +30,11 @@ public abstract class AbstractPane {
 		myPane.maxHeightProperty().bind(db);
 	}
 	
-	protected EngineView getEngineView(){
+	public EngineView getEngineView(){
 		return myEngineView;
 	}	
 
-	protected Pane getPane(){
+	public Pane getPane(){
 		return myPane;
 	}
 }

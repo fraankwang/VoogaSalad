@@ -12,7 +12,6 @@ public class ControlManager {
 	private StatusPane myStatusPane;
 	
 	private Button play;
-	private Button pause;
 	private Button nextwave;
 	private Button nextlevel;
 	private Button switchmode;
@@ -26,21 +25,18 @@ public class ControlManager {
 		VBox vbox = new VBox();
 		
 		play = myStatusPane.createButton(myStatusPane.getMyResources().getString("PlayLabel"));
-		pause = myStatusPane.createButton(myStatusPane.getMyResources().getString("PauseLabel"));
 		nextwave = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextWaveLabel"));
 		nextlevel = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextLevelLabel"));
 		switchmode = myStatusPane.createButton(myStatusPane.getMyResources().getString("SwitchModeLabel"));
 		
-		play.setDisable(true);
 		play.setOnAction(e ->{
-			
-			play.setDisable(true);
-			pause.setDisable(false);
-		});
-		
-		pause.setOnAction(e ->{
-			pause.setDisable(true);
-			play.setDisable(false);
+			if(play.getText().equals(myStatusPane.getMyResources().getString("PlayLabel"))){
+				myStatusPane.getEngineView().getEngineController().setPlaying(true);
+				play.setText(myStatusPane.getMyResources().getString("PauseLabel"));
+			} else {
+				myStatusPane.getEngineView().getEngineController().setPlaying(false);
+				play.setText(myStatusPane.getMyResources().getString("PlayLabel"));
+			}
 		});
 		
 		nextwave.setDisable(true);
@@ -69,7 +65,7 @@ public class ControlManager {
 			result.ifPresent(letter -> System.out.println("Your choice: " + letter));
 		});
 		
-		vbox.getChildren().addAll(play, pause, nextwave, nextlevel, switchmode);
+		vbox.getChildren().addAll(play, nextwave, nextlevel, switchmode);
 		vbox.minWidthProperty().bind(myStatusPane.getPane().widthProperty().divide(4));
 		return vbox;
 	}

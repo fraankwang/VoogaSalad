@@ -31,7 +31,7 @@ public class EngineController implements IEngineController{
 	private Main myMain;
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	private boolean playing = true;
+	private boolean playing;
 	
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
