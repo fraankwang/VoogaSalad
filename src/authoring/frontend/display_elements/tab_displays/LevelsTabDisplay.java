@@ -60,6 +60,7 @@ public class LevelsTabDisplay extends TabDisplay {
 		map.put("WaveDelayTimer", null);
 		map.put("MapWidth", null);
 		map.put("MapHeight", null);
+		map.put("SpawnEntities", null);
 
 		System.out.println("*****1. LevelsTabDisplay: got default Levels attributes");
 		System.out.println(map);

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -40,7 +42,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	public UnmodifiableAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width);
 		myTabDisplay = (ITabDisplay) tabDisplay;
-		myAttributesMap = new HashMap<String, String>();
+		myAttributesMap = new TreeMap<String, String>();
 	}
 
 	/**
@@ -75,7 +77,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		initializeMaps();
 		myAttributesGridPane = assembleEmptyOutputRows(myAttributesGridPane, myAttributes, myOutputMap);
 
-		myAttributesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		return myAttributesGridPane;
 
 	}
@@ -86,18 +88,20 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	 * attributes.
 	 */
 	protected void initializeMaps() {
-		myOutputMap = new HashMap<String, Control>();
-		myAttributesMap = new HashMap<String, String>();
+		myOutputMap = new TreeMap<String, Control>();
+		myAttributesMap = new TreeMap<String, String>();
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
-			Text text = new Text(currentAttribute);
-			text.setFont(new Font(FONT_SIZE));
-			TextField tf = new TextField();
-			tf.setEditable(false);
-
-			myOutputMap.put(currentAttribute, tf);
-			myAttributesMap.put(currentAttribute, tf.getText());
+			if (currentAttribute.equals("SpawnEntities")) {
+				Text text = new Text(currentAttribute);
+				text.setFont(new Font(FONT_SIZE));
+				TextField tf = new TextField();
+				tf.setEditable(false);
+				
+				myOutputMap.put(currentAttribute, tf);
+				myAttributesMap.put(currentAttribute, tf.getText());
+			}
 
 		}
 
@@ -107,10 +111,13 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 			Map<String, Control> outputMap) {
 		for (int i = 0; i < attributes.size(); i++) {
 			String currentAttribute = attributes.get(i);
-			Text text = new Text(currentAttribute);
-			text.setFont(new Font(FONT_SIZE));
-			gridPane.add(text, 0, i);
-			gridPane.add(outputMap.get(currentAttribute), 1, i);
+			if (currentAttribute.equals("SpawnEntities")) {
+				
+				Text text = new Text(currentAttribute);
+				text.setFont(new Font(FONT_SIZE));
+				gridPane.add(text, 0, i);
+				gridPane.add(outputMap.get(currentAttribute), 1, i);
+			}
 		}
 
 		return gridPane;
@@ -122,7 +129,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected void refreshRows() {
 		int i = 0;
 		for (String currentAttribute : myAttributesMap.keySet()) {
-			if (!currentAttribute.equals("Type")) {
+			if (!currentAttribute.equals("Type") || !currentAttribute.equals("SpawnEntities")) {
 				Text text = new Text(currentAttribute);
 				text.setFont(new Font(FONT_SIZE));
 				myAttributesGridPane.add(text, 0, i);

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 //import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -21,6 +22,10 @@ import javafx.scene.control.TextField;
 
 public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
+	private String mySpawnEntitiesData;
+	private List<String> myEntities;
+	private TreeMap<String, String> mySpawnEntitiesMap;
+	
 	public ModifiableLevelAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
 	}
@@ -39,7 +44,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public void setAttributes(Map<String, String> info) {
 		super.setAttributes(info);
 		myInputMap = new TreeMap<String, Control>();
-		List<String> levelAttributes = (List<String>) Arrays.asList("LevelTimer", "MapHeight", "MapBackgroundImage", "MapWidth", "Name", "WaveDelayTimer");
+		List<String> levelAttributes = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer", "WaveDelayTimer", "MapWidth", "MapHeight");
 
 		for (String attribute : levelAttributes) {
 			TextField tf = new TextField();
@@ -47,31 +52,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			
 		}
 
+		myEntities = ((EntitiesTabDisplay) myController.getAuthoringViewManager().getTabBarElement().getEntitiesTabDisplay()).getEntities();
 		refreshAttributes();
 	}
-
-	// change to adding spawn/waves
-//	@Override
-//	public void createAddComponentButton() {
-//		Button addComponentButton = new Button("Add Component");
-//		addComponentButton.setFont(new Font(20));
-//		myAttributesGridPane.add(addComponentButton, 0, myAttributes.size());
-//		GridPane.setColumnSpan(addComponentButton, 2);
-//
-//		addComponentButton.setOnAction(e -> {
-//			EntityComponentSelector selector = new EntityComponentSelector();
-//			selector.initialize();
-//			Map<String, Control> newComponents = selector.selectComponents(myInputMap);
-//			for (String key : newComponents.keySet()) {
-//				if (!myAttributes.contains(key)) {
-//					myAttributes.add(key);
-//					myAttributesMap.put(key, null);
-//					myInputMap.put(key, newComponents.get(key));
-//					refreshInputRows();
-//				}
-//			}
-//		});
-//	}
 
 	@SuppressWarnings("unchecked")
 	public Map<String, String> saveAttributes() {
@@ -86,6 +69,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		}
 
+		//parse SpawnEntities stuff here
+		//myAttributesMap.replace("SpawnEntities", mySpawnEntitiesData);
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
@@ -93,7 +78,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	protected void refreshAttributes() {
-
+		myAttributes.remove("SpawnEntities");
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
 				if (myInputMap.get(myAttributes.get(i)) instanceof TextField) {
