@@ -12,7 +12,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+//import javafx.scene.control.ContextMenu;
+//import javafx.scene.control.Label;
+//import javafx.scene.control.MenuItem;
+//import javafx.scene.layout.VBox;
+//import javafx.scene.text.Font;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -36,11 +42,14 @@ public class BezierCurveManipulator implements IDisplayElement {
 	private double myWidth, myHeight;
 	private PathBuilder myContainer;
 	private IntegerProperty myNum;
+//	private static final int LABEL_FONT_SIZE = 7;
+	private int myPathIndex;
 	
-	public BezierCurveManipulator(double width, double height, PathBuilder builder, int curveNum) {
+	public BezierCurveManipulator(double width, double height, PathBuilder builder, int curveNum, int pathIndex) {
 		setSize(width, height);
 		myContainer = builder;
 		myNum = new SimpleIntegerProperty(curveNum);
+		myPathIndex = pathIndex;
 	}
 
 	@Override
@@ -136,6 +145,28 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    curve.setStrokeWidth(4);
 	    curve.setStrokeLineCap(StrokeLineCap.ROUND);
 	    curve.setFill(null);
+	    curve.setOnMouseEntered(e -> {
+	    	curve.toFront();
+	    	myCurve.requestFocus();
+	    });
+	    curve.setOnMouseEntered(new EventHandler<MouseEvent>() {
+	        @Override public void handle(MouseEvent mouseEvent) {
+	          if (!mouseEvent.isPrimaryButtonDown()) {
+	            curve.getScene().setCursor(Cursor.HAND);
+	          }
+	        }
+	    });
+	    curve.setOnMousePressed(new EventHandler<MouseEvent>() {
+	        @Override public void handle(MouseEvent mouseEvent) {
+	        	if (mouseEvent.isShiftDown()) {
+	        		Alert alert = new Alert(AlertType.INFORMATION);
+	        		alert.setTitle("Path Information");
+	        		alert.setHeaderText("Path #" + Integer.toString(myPathIndex+1) + "\n" + "Segment #" + Integer.toString(myNum.get()+1));
+	        		alert.show();
+	        	}
+	        }
+	      });
+      
 	    return curve;
 	}
 	
@@ -172,21 +203,54 @@ public class BezierCurveManipulator implements IDisplayElement {
 	      x.bind(centerXProperty());
 	      y.bind(centerYProperty());
 	      
-	      Label numLabel = new Label(myNum.toString());
-	      numLabel.textProperty().bind(myNum.asString());
-	      numLabel.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
-	      numLabel.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
-	      myNode.getChildren().add(numLabel);
-	      numLabel.toFront();
+//	      Label numLabel = new Label(myNum.toString());
+//	      numLabel.setFont(new Font(LABEL_FONT_SIZE));
+//	      numLabel.textProperty().bind(myNum.asString());
+//	      Label indexLabel = new Label("Path #" + Integer.toString(myPathIndex));
+//	      indexLabel.setFont(new Font(LABEL_FONT_SIZE));
+////	      indexLabel.textProperty().bind(myNum.asString());
+//	      VBox labelBox = new VBox();
+//	      labelBox.getChildren().addAll(indexLabel,numLabel);
+//	      labelBox.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
+//	      labelBox.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
+////	      numLabel.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
+////	      numLabel.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
+//	      myNode.getChildren().add(labelBox);
+////	      myNode.getChildren().add(numLabel);
+////	      numLabel.toFront();
+//	      labelBox.toFront();
 	      
 	      enableDrag();
 	      
-	      this.opacityProperty().addListener(new ChangeListener<Number>() {
-				@Override
-				public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-					numLabel.toFront();
-				} 
+	      this.setOnMousePressed(new EventHandler<MouseEvent>() {
+		        @Override public void handle(MouseEvent mouseEvent) {
+		        	if (mouseEvent.isShiftDown()) {
+		        		Alert alert = new Alert(AlertType.INFORMATION);
+		        		alert.setTitle("Path Information");
+		        		alert.setHeaderText("Path #" + Integer.toString(myPathIndex+1) + "\n" + "Segment #" + Integer.toString(myNum.get()+1));
+		        		alert.show();
+		        	}
+		        }
 		      });
+	      
+	      this.setOnMouseEntered(e -> {
+	    	  this.toFront();
+	    	  myCurve.requestFocus();
+	      });
+	      this.setOnMouseEntered(new EventHandler<MouseEvent>() {
+		        @Override public void handle(MouseEvent mouseEvent) {
+		          if (!mouseEvent.isPrimaryButtonDown()) {
+		            getScene().setCursor(Cursor.HAND);
+		          }
+		        }
+	      });
+	      
+//	      this.opacityProperty().addListener(new ChangeListener<Number>() {
+//				@Override
+//				public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//					numLabel.toFront();
+//				} 
+//		      });
 
 	    }
 	    
@@ -242,6 +306,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	          }
 	        }
 	      });
+	      
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	          if (!mouseEvent.isPrimaryButtonDown()) {

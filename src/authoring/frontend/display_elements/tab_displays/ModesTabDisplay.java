@@ -8,6 +8,7 @@ import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.ModesTabGrid;
+import authoring.frontend.display_elements.panels.GridViewPanel;
 
 /**
  * 
@@ -26,6 +27,8 @@ public class ModesTabDisplay extends TabDisplay {
 	public void initialize() {
 		myGrid = new ModesTabGrid(myController, this);
 		myGrid.initialize();
+		((GridViewPanel) myGrid.getPrimaryDisplay()).setPanelBarDescription("Modes");
+
 		myEditorDisplay = new ModeEditorDisplay(myController);
 		myEditorDisplay.initialize();
 		

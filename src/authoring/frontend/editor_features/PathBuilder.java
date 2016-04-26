@@ -8,14 +8,14 @@ import javafx.scene.Node;
 
 public class PathBuilder implements IDisplayElement {
 
-	private int pathIndex;
+	private int myPathIndex;
 	private List<BezierCurveManipulator> myBezierCurves;
 	private Group myNode;
 	private double myWidth, myHeight;
 	private boolean selected;
 
 	public PathBuilder(int pathIndexNumber) {
-		pathIndex = pathIndexNumber;
+		myPathIndex = pathIndexNumber;
 	}
 
 	public void initialize() {
@@ -24,7 +24,7 @@ public class PathBuilder implements IDisplayElement {
 	}
 
 	public void createNewCurve() {
-		BezierCurveManipulator newCurve = new BezierCurveManipulator(myWidth, myHeight, this, myBezierCurves.size());
+		BezierCurveManipulator newCurve = new BezierCurveManipulator(myWidth, myHeight, this, myBezierCurves.size(), myPathIndex);
 		newCurve.initialize();
 		myBezierCurves.add(newCurve);
 		myNode.getChildren().add(newCurve.getNode());
@@ -81,7 +81,7 @@ public class PathBuilder implements IDisplayElement {
 	 */
 	public String getCoordinatesString() {
 		String result = "";
-		result = result + Integer.toString(pathIndex) + ":";
+		result = result + Integer.toString(myPathIndex) + ":";
 		for (BezierCurveManipulator curve : myBezierCurves) {
 			result = result + curve.getCoordinatesString() + " ";
 		}

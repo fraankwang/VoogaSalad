@@ -143,7 +143,11 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
-		myAttributesMap.remove("Type");
+		
+		if (myAttributesMap.isEmpty() == false) {
+			myAttributesMap.remove("Type");
+		}
+		
 		refreshDisplay();
 	}
 
