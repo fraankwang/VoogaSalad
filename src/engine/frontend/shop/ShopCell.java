@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import engine.frontend.overall.EngineView;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -18,6 +22,8 @@ import javafx.scene.text.TextAlignment;
 public class ShopCell extends ListCell<Map<String, String>> {
 	
 	private EngineView myEngineView;
+	private Text myName;
+	private Image myImage;
 	
 	ShopCell(EngineView ev){
 		myEngineView = ev;
@@ -32,27 +38,32 @@ public class ShopCell extends ListCell<Map<String, String>> {
 //            Color paletteColor = Color.web(item.split("=")[1]);
 //            Text text = new Text(item);
 //            
-            Text name = new Text(itemMap.get("name"));
-            Image myImage = new Image(itemMap.get("image"));
+            myName = new Text(itemMap.get("name"));
+            myImage = new Image(itemMap.get("image"));
             ImageView myPic = new ImageView(myImage);
             myPic.setFitWidth(myEngineView.loadDoubleResource("ShopCellWidth"));
             myPic.setFitHeight(myEngineView.loadDoubleResource("ShopCellHeight"));
             
-        	setOnMousePressed(e -> handleClick(e));
-            hbox.getChildren().addAll(name, myPic);
-   	       	myPic.setImage(myImage);
+            setOnDragDetected(e -> selectTower(e));
+    		
+            hbox.getChildren().addAll(myName, myPic);
    	       	setText(String.valueOf(itemMap.get("cost")));
    	        setTextAlignment(TextAlignment.RIGHT);     
+   	        hbox.setAlignment(Pos.CENTER_LEFT);
             setGraphic(hbox);
         }
     }
 
 
 	
-	private void handleClick(MouseEvent e){
-		myEngineView.getEngineController().shopClicked(this.getItem().get("name"));
+	private void selectTower(MouseEvent e){
+		myEngineView.getDummyCursor().changePic(myImage);
 		myEngineView.getStage().getScene().setCursor(Cursor.NONE);
-		myEngineView.getDummyCursor().updateLocation(e.getSceneX(), e.getSceneY());
-		myEngineView.getDummyCursor().changePic(new Image(this.getItem().get("image")));		
+		Dragboard db = this.startDragAndDrop(TransferMode.ANY);
+        /* Put a string on a dragboard */
+        ClipboardContent content = new ClipboardContent();
+        content.putString(myName.getText());
+        db.setContent(content);
+        e.consume();		
 	}
 }

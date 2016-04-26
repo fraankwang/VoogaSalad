@@ -50,7 +50,6 @@ public class ShopPane {
 		
 		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
 		
-		
 		myVBox.getChildren().add(myListView);
 	    VBox.setVgrow(myListView, Priority.ALWAYS);
 	    myListView.setCellFactory( e-> handleShopCreation());
@@ -62,10 +61,8 @@ public class ShopPane {
 		//myListView.getItems().add(addMap);
 	    
 	    ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
-		
 		addShopObject(tester);	
 		myPane.getChildren().add(myVBox);
-		
 		return myPane;
 
 
@@ -89,13 +86,12 @@ public class ShopPane {
 	}
 
 	public void addShopObject(ShopItem myShopItem){
-		ShopView myShopView = new ShopView(myEngineView);	
-//		Map<String, String> addMap = new HashMap();
-//		addMap.put("name", myShopItem.getItemName());
-//		addMap.put("image", myShopItem.getItemImage());
-//		addMap.put("cost", Double.toString(myShopItem.getItemValue()));
-//		myListView.getItems().add(addMap);
-		//myListView.setOnMouseClicked( e -> handleMouseClick(e, myListView.getItems().get(myListView.getItems().indexOf(addMap))));
+		ShopView myShopView = new ShopView(myEngineView);
+		Map<String, String> addMap = new HashMap();
+		addMap.put("name", myShopItem.getItemName());
+		addMap.put("image", myShopItem.getItemImage());
+		addMap.put("cost",  Double.toString(myShopItem.getItemValue()));
+		myListView.getItems().add(addMap);
 		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40.0, 40.0));
 	}
 //	
