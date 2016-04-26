@@ -25,11 +25,11 @@ public class ControlManager {
 	public VBox buildGameControls(){
 		VBox vbox = new VBox();
 		
-		Button play = myStatusPane.createButton(myStatusPane.getMyResources().getString("PlayLabel"));
-		Button pause = myStatusPane.createButton(myStatusPane.getMyResources().getString("PauseLabel"));
-		Button nextwave = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextWaveLabel"));
-		Button nextlevel = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextLevelLabel"));
-		Button switchmode = myStatusPane.createButton(myStatusPane.getMyResources().getString("SwitchModeLabel"));
+		play = myStatusPane.createButton(myStatusPane.getMyResources().getString("PlayLabel"));
+		pause = myStatusPane.createButton(myStatusPane.getMyResources().getString("PauseLabel"));
+		nextwave = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextWaveLabel"));
+		nextlevel = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextLevelLabel"));
+		switchmode = myStatusPane.createButton(myStatusPane.getMyResources().getString("SwitchModeLabel"));
 		
 		play.setDisable(true);
 		play.setOnAction(e ->{

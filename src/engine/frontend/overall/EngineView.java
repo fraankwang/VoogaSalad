@@ -105,10 +105,6 @@ public class EngineView{
 		//myScene.setOnDrag
 		return myScene;
 	}
-	
-	private void setupBindings(){
-		
-	}
 
 	private void handleDrop(DragEvent e){
 		e.acceptTransferModes(TransferMode.ANY);
