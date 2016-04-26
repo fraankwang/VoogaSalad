@@ -138,7 +138,7 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
-		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 600, 400);
+		GameMap tempMap = new GameMap("Park_Path2.png", tempPath, 400, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 20);
