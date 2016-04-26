@@ -48,7 +48,7 @@ public class SystemsController {
 	 */
 	public SystemsController(int framesPerSecond, EventManager myEventManager) {
 		myEntityFactory = new InGameEntityFactory(myEventManager.getGameWorld().getGameStatistics(),
-				myEventManager.getGameWorld().getEntityMap());
+				myEventManager.getGameWorld().getAuthoredEntities());
 
 		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 

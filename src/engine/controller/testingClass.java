@@ -204,8 +204,10 @@ public class testingClass {
 		
 		myCreatableEntityMap.put("Ammunition", createdAmmunition);
 		myCreatableEntityMap.put("Spawns", createdSpawns);
-
 		
+		List<IEntity> authoredEntities = new ArrayList<IEntity>();
+		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet));
+		firingTest.setAuthoredEntities(authoredEntities);
 		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");

@@ -47,7 +47,7 @@ public class Spawn {
 	public void setTimer(double currentSecond){
 		if(this.currentSecond != currentSecond){
 			this.currentSecond = currentSecond;
-			timer = timer - 1.0/60.0;
+			timer = timer - GameClock.getTimePerLoop();
 		}
 	}
 	
