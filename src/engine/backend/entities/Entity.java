@@ -200,7 +200,7 @@ public class Entity implements IEntity {
 
 		String fullName = ComponentTagResources.getComponentTag(component);
 		//System.out.println(getName() + "   " + fullName);
-		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
+		Class<? extends IComponent> componentClass = getComponent(fullName).getClass();
 		//System.out.println(componentClass.getName());
 		try {
 			Object componentClassInstance = componentClass.newInstance();
@@ -208,7 +208,7 @@ public class Entity implements IEntity {
 			componentClassInstance = componentClass.cast(myComponents.get(fullName));
 			// put in resource file!!!
 			String methodName = "set" + instanceVar;
-
+			System.out.println(methodName);
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 
 			setMethod.invoke(componentClassInstance, newVal);

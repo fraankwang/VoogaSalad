@@ -12,6 +12,7 @@ import engine.backend.components.FiringComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
+import engine.backend.components.MultiDirectionalFiringComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
@@ -184,7 +185,7 @@ public class testingClass {
 		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
 		IComponent tempSize3 = new SizeComponent();
 		
-		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
+		FiringComponent simpleFire = new MultiDirectionalFiringComponent("SimpleBullet", 100, 5, 
 				500, myBulletVector, -1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
