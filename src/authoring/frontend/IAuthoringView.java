@@ -7,6 +7,7 @@ import engine.backend.entities.Entity;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -48,6 +49,8 @@ public interface IAuthoringView {
 	public void showPrimaryScene();
 	
 	public IViewManager getAuthoringViewManager();
+
+	public Map<String, ImageView> getEntities();
 
 
 }
