@@ -1,6 +1,5 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,17 +10,18 @@ import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
+import authoring.frontend.editor_features.LocalImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -37,7 +37,7 @@ public class EntitiesTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
-	private List<String> myEntities;
+	private Map<String, ImageView> myEntities;
 
 	public EntitiesTabGrid(IAuthoringView controller, TabDisplay tab) {
 		super(controller, tab);
@@ -48,7 +48,7 @@ public class EntitiesTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
-		myEntities = new ArrayList<String>();
+		myEntities = new TreeMap<String, ImageView>();
 	}
 
 	@Override
@@ -80,9 +80,10 @@ public class EntitiesTabGrid extends TabGrid {
 
 		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
-				if (!myEntities.contains(info.get("Name"))) {
-					myEntities.add(info.get("Name"));
-					ImageView iv = new ImageView(info.get("DisplayComponent_Image"));
+				if (!myEntities.containsKey((info.get("Name")))) {
+					LocalImage image = new LocalImage(info.get("DisplayComponent_Image"));
+					ImageView iv = new ImageView(image);
+					myEntities.put(info.get("Name"), iv);
 					iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 						public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 								Boolean newValue) {
@@ -93,7 +94,7 @@ public class EntitiesTabGrid extends TabGrid {
 						}
 					});
 					gridView.addImage(iv);
-					
+
 				}
 			}
 		}
@@ -116,8 +117,7 @@ public class EntitiesTabGrid extends TabGrid {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Delete Entity Warning");
 		alert.setContentText("Are you sure you want to delete this Entity?");
-		
-		
+
 		ButtonType buttonTypeOK = new ButtonType("OK");
 		ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
@@ -169,9 +169,8 @@ public class EntitiesTabGrid extends TabGrid {
 		return newName;
 	}
 
-	public List<String> getEntities() {
+	public Map<String, ImageView> getEntities() {
 		return myEntities;
 	}
-
 
 }

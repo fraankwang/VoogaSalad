@@ -4,9 +4,7 @@ import java.util.*;
 
 import authoring.frontend.display_elements.panels.Panel;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
 /**

@@ -1,9 +1,10 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Set;
 import java.util.TreeMap;
 
 import authoring.backend.data.ObservableList;
@@ -13,6 +14,7 @@ import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
+import authoring.frontend.editor_features.LocalImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -27,6 +29,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -84,7 +88,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 					}
 
 				}
-				
+
 			}
 		});
 
@@ -205,21 +209,33 @@ public class EntitiesTabDisplay extends TabDisplay {
 		return "Entities";
 	}
 
-	public List<String> getGenres() {
-		List<String> genres = new ArrayList<String>();
+	public Set<String> getGenres() {
+		Set<String> genres = new HashSet<String>();
 		myEntitiesTabPane.getTabs().forEach(t -> genres.add(t.getText()));
 		genres.remove("Add New...");
 		return genres;
 	}
 
-	public List<String> getEntities() {
+	/**
+	 * Takes duplicates of all Entities by Genre and their ImageViews.
+	 * 
+	 * @return
+	 */
+	public Map<String, ImageView> getEntities() {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
-		List<String> entities = new ArrayList<String>();
+		Map<String, ImageView> entities = new TreeMap<String, ImageView>();
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
-				entities.addAll(((EntitiesTabGrid) myGrid).getEntities());
+				Map<String, ImageView> genreEntities = (TreeMap<String, ImageView>) ((EntitiesTabGrid) myGrid)
+						.getEntities();
+				for (String name : genreEntities.keySet()) {
+					String imagePath = ((LocalImage) genreEntities.get(name).getImage()).getURL();
+					Image newImage = new Image(imagePath);
+					ImageView newImageView = new ImageView(newImage);
+					entities.put(name, newImageView);
+				}
 			}
 		}
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
