@@ -58,7 +58,7 @@ public class InGameEntityFactory {
 			return (IComponent) constructor.newInstance(component);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
+			System.exit(1);
 			e.printStackTrace();
 			return null;
 		} catch (NoSuchMethodException e1) {

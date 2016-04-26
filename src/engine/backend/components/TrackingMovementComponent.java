@@ -35,7 +35,7 @@ public class TrackingMovementComponent extends MovementComponent{
 	
 	@Override
 	public String toString() {
-		return this.getTag() + " with tracked entity id: " + this.myEntityToTrack.getID() + " with speed: " + this.mySpeed;
+		return this.getTag();
 	}
 	
 	public void setPosition(PositionComponent position){
@@ -44,10 +44,17 @@ public class TrackingMovementComponent extends MovementComponent{
 	
 	@Override
 	public Vector getCurrentVelocityVector(){
-		if(!((DisplayComponent) myEntityToTrack.getComponent(ComponentTagResources.displayComponentTag)).getDelete()){ //check if entity has been removed from map
+		if(isEntityDisplayed()){ //check if entity has been removed from map
 			updateCurrentVelocityVector();
 		}
 		return super.getCurrentVelocityVector();
+	}
+	
+	private boolean isEntityDisplayed(){
+		if(myEntityToTrack != null){
+			return !((DisplayComponent) myEntityToTrack.getComponent(ComponentTagResources.displayComponentTag)).getDelete();
+		}
+		return false;
 	}
 	
 	private void updateCurrentVelocityVector(){
