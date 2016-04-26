@@ -56,7 +56,17 @@ public class Entity implements IEntity {
 	}
 
 	public IComponent getComponent(String tag) {
-		return myComponents.get(tag);
+		if(myComponents.containsKey(tag)){
+			return myComponents.get(tag);
+		}
+		//find substring tag
+		Set<String> keys = myComponents.keySet();
+		for(String key : keys){
+			if(key.contains(tag)){
+				return myComponents.get(key);
+			}
+		}
+		return null;
 	}
 
 	public Set<String> getComponentTags() {
@@ -108,7 +118,17 @@ public class Entity implements IEntity {
 	 *         the tag.
 	 */
 	public boolean hasComponent(String tag) {
-		return myComponents.get(tag) != null;
+		if(myComponents.containsKey(tag)){
+			return true;
+		}
+		//find substring tag
+		Set<String> keys = myComponents.keySet();
+		for(String key : keys){
+			if(key.contains(tag)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean hasBeenModified() {

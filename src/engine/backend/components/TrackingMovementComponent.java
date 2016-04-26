@@ -7,9 +7,13 @@ public class TrackingMovementComponent extends MovementComponent{
 	
 	private IEntity myEntityToTrack;
 	private double mySpeed;
+	private PositionComponent myCurrentPosition;
 
-	public TrackingMovementComponent(MovementComponent component) {
+	public TrackingMovementComponent(TrackingMovementComponent component) {
 		super(component);
+	}
+	
+	public TrackingMovementComponent(){
 	}
 	
 	//for demo purposes
@@ -21,13 +25,22 @@ public class TrackingMovementComponent extends MovementComponent{
 		return myEntityToTrack;
 	}
 
-	public void setEntityToTrack(IEntity myEntityToTrack) {
+	public void setEntityToTrack(IEntity myEntityToTrack){ 
 		this.myEntityToTrack = myEntityToTrack;
 	}
 	 
 	public void setSpeed(double speed){
 		 mySpeed = speed;
 	 }
+	
+	@Override
+	public String toString() {
+		return this.getTag() + " with tracked entity id: " + this.myEntityToTrack.getID() + " with speed: " + this.mySpeed;
+	}
+	
+	public void setPosition(PositionComponent position){
+		this.myCurrentPosition = position;
+	}
 	
 	@Override
 	public Vector getCurrentVelocityVector(){
@@ -39,11 +52,12 @@ public class TrackingMovementComponent extends MovementComponent{
 	
 	private void updateCurrentVelocityVector(){
 		Vector targetPosVector = ((PositionComponent) myEntityToTrack.getComponent(ComponentTagResources.positionComponentTag)).getPositionVector();
-		Vector updatedDirection = new Vector(targetPosVector.getX(), targetPosVector.getX());
+		double xComp = targetPosVector.getX() - myCurrentPosition.getX();
+		double yComp = targetPosVector.getY() - myCurrentPosition.getY();
+		Vector updatedDirection = new Vector(xComp, yComp);
 		updatedDirection = updatedDirection.normalize();
 		updatedDirection = updatedDirection.scale(mySpeed);
 		super.setCurrentVelocityVector(updatedDirection);
 	}
-
 
 }
