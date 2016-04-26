@@ -1,11 +1,9 @@
 package engine.backend.systems;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.FiringComponent;
@@ -18,7 +16,6 @@ import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
-import engine.backend.systems.Events.EntityEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.utilities.ComponentTagResources;
 
@@ -57,7 +54,6 @@ public class FiringSystem extends GameSystem {
 
 		}
 
-		//addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
 		sendAddEntityEvent(newEntities);
 
 	} 
