@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.EntitiesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
@@ -22,6 +23,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -37,7 +39,7 @@ public class EntitiesTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
-	private Map<String, ImageView> myEntities;
+	private Map<String, Image> myEntities;
 
 	public EntitiesTabGrid(IAuthoringView controller, TabDisplay tab) {
 		super(controller, tab);
@@ -48,7 +50,7 @@ public class EntitiesTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
-		myEntities = new TreeMap<String, ImageView>();
+		myEntities = new TreeMap<String, Image>();
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class EntitiesTabGrid extends TabGrid {
 				if (!myEntities.containsKey((info.get("Name")))) {
 					LocalImage image = new LocalImage(info.get("DisplayComponent_Image"));
 					ImageView iv = new ImageView(image);
-					myEntities.put(info.get("Name"), iv);
+					myEntities.put(info.get("Name"), image);
 					iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 						public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 								Boolean newValue) {
@@ -169,7 +171,7 @@ public class EntitiesTabGrid extends TabGrid {
 		return newName;
 	}
 
-	public Map<String, ImageView> getEntities() {
+	public Map<String, Image> getEntities() {
 		return myEntities;
 	}
 

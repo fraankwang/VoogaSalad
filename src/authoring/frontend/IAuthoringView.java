@@ -1,12 +1,14 @@
 package authoring.frontend;
 
 import java.util.Map;
+
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 /**
  * 
@@ -48,6 +50,8 @@ public interface IAuthoringView {
 	public void showPrimaryScene();
 	
 	public IViewManager getAuthoringViewManager();
+
+	public Map<String, Image> getEntities();
 
 
 }
