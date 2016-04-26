@@ -41,7 +41,7 @@ public class GameClock {
 	 * @return The time in seconds for each loop iteration.
 	 */
 	public static double getTimePerLoop() {
-		return 1.0 / (double) fps;
+		return Math.floor((1.0 / (double) fps) * 100) / 100;
 	}
 
 }
