@@ -16,7 +16,9 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -87,50 +89,42 @@ public class EngineView{
 		myBody.setLeft(myBoardPane.buildNode());
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
-		myScene.setOnDragExited(e -> handleEndMouseRelease(e));
+
 		myBody.getChildren().add(myDummyCursor.getNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
+		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
+		//myScene.setOnDrag
 		return myScene;
 	}
 
 	private void handleDrop(DragEvent e){
+		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene &&  e.getDragboard().hasString()) {
-
 			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+			//System.out.println(e.getSceneX());
         }	
-		
 		if( myScene.getCursor() != Cursor.NONE){
 			myScene.setCursor(Cursor.NONE);
 		}
-		
-        e.consume();
+		e.consume();
 	}
 	
 	private void handleEndMouseRelease(DragEvent e) {
-		
-
-		
-		if( isInBoardPane( e.getSceneX(), e.getSceneY() ) && e.getDragboard().hasString()){
-			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY(), e.getDragboard().getString());
+		if(e.getGestureSource() != myScene){
+			if( isInBoardPane( e.getScreenX(), e.getScreenY() ) && e.getDragboard().hasString()){
+				myBoardPane.attemptTower(e.getSceneX(), e.getSceneY(), e.getDragboard().getString());
+			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
-
-		/*if( isInScene(e.getSceneX(), e.getSceneY()){
-			myDummyCursor.changePic(null);
-		}
-		*/
-		
-	}
-	
-	private boolean isInScene(double x, double y){
-		return true;
+		myDummyCursor.changePic(null);
 	}
 	
 	private boolean isInBoardPane(double x, double y){
 		// board pane's node seems to be scaling as entities move outside the previous bounds
 		boolean xInPane = x > myScene.getX() && x < getUsableWidth(loadDoubleResource("BoardWidth")).doubleValue();
 		boolean yInPane = y > myMenuBar.heightProperty().doubleValue() && y < getUsableHeight(loadDoubleResource("BoardHeight")).doubleValue()+myMenuBar.heightProperty().doubleValue();
+		
 		return (xInPane && yInPane);
 	}
 	
