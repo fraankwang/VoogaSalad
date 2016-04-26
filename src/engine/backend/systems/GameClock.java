@@ -2,6 +2,7 @@ package engine.backend.systems;
 
 public class GameClock {
 
+	private static final int HUNDRED = 100;
 	private static int fps;
 	private int currentLoopIteration;
 	private double currentSecond;
@@ -29,10 +30,10 @@ public class GameClock {
 
 	/**
 	 * 
-	 * @return The current second.
+	 * @return The current second to hundredth of a second.
 	 */
 	public double getCurrentSecond() {
-		return currentSecond;
+		return Math.floor(currentSecond * HUNDRED) / HUNDRED;
 	}
 
 	/**
