@@ -88,7 +88,7 @@ public abstract class EditorGrid extends Grid {
 	}
 
 	public void setAttributesPanel(Map<String, String> info) {
-		((ModifiableAttributesPanel) myModifiableAttributesPanel).setAttributes(info);
+		((ModifiableAttributesPanel) myModifiableAttributesPanel).updateAttributes(info);
 
 	}
 
