@@ -74,7 +74,6 @@ public class FiringSystem extends GameSystem {
 				else{
 					firedVelVector = calculateVelocityVector(shootingEntity, targetEntity);
 				}
-				
 				IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), getEntityPositionVector(shootingEntity), firedVelVector,
 						firingComponent.getAmmunitionSpeed(), targetEntity, myEntityFactory);
 				newEntities.add(newEntity);
@@ -126,11 +125,8 @@ public class FiringSystem extends GameSystem {
 	}
 
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, IEntity targetEntity, InGameEntityFactory myEntityFactory){
-		
-		System.out.println(entityName);
-		
-		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
 
+		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
 		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(ComponentTagResources.positionComponentTag);
 		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(ComponentTagResources.movementComponentTag);
 		

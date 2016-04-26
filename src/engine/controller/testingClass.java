@@ -39,7 +39,6 @@ public class testingClass {
 	public GameWorld initTestGame(GameWorld myGameWorld) {
 		GameWorld collisionTest = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
-//		Level tempLevel = new Level(0);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
 		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
@@ -185,7 +184,7 @@ public class testingClass {
 		IComponent tempSize3 = new SizeComponent();
 		
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector, -1);
+				500, myBulletVector, 	1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
 		mySimpleBullet.addComponent(tempCollision2);
