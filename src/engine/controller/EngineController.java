@@ -31,7 +31,7 @@ public class EngineController implements IEngineController{
 	private Main myMain;
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	private boolean playing;
+	private boolean playing = true;
 	
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
@@ -52,16 +52,12 @@ public class EngineController implements IEngineController{
 		myGameWorld = new GameWorld();
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
-		
 		ModeStatistics stats = new ModeStatistics(10, 10);
-		
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
 				myGameWorld.getEntityMap());
 		
 		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
-		
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-		playing = true;
 		
 		myEngineView = new EngineView(myStage, this);
 		buildStage();
@@ -89,15 +85,6 @@ public class EngineController implements IEngineController{
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
 		}
 
-	}
-	
-	private void setupStage(){
-		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
-		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
-		myStage.setX(0);
-		myStage.setY(0);
-		myStage.setScene(myEngineView.buildScene());
-		myStage.show();
 	}
 	
 	//backend endpoint 
@@ -134,6 +121,10 @@ public class EngineController implements IEngineController{
 	
 	public Main getMain(){
 		return myMain;
+	}
+	
+	public void setPlaying(boolean b){
+		playing = b;
 	}
 
 	public String getBackgroundImageFile(){

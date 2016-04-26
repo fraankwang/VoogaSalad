@@ -33,6 +33,7 @@ public class ControlManager {
 		
 		play.setDisable(true);
 		play.setOnAction(e ->{
+			
 			play.setDisable(true);
 			pause.setDisable(false);
 		});

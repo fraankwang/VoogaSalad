@@ -3,31 +3,25 @@ package engine.frontend.board;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
-public class BoardPane {
-	private EngineView myEngineView;	
-	
-	private Pane myPane;
+public class BoardPane extends AbstractPane{
 	private ImageView myBackground;
 	
-	private Map<Integer, EntityView> myEntityViewMap = new HashMap<Integer, EntityView>();
+	private Map<Integer, EntityView> myEntityViewMap;
 	
 	public BoardPane(EngineView ev){
-		myEngineView = ev;
+		super(ev);
+		myEntityViewMap = new HashMap<Integer, EntityView>();
 	}
 	
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
-		myPane = new Pane();
-		
-		bindWidth(widthBinding);
-		bindHeight(heightBinding);
-		
+		super.buildNode(widthBinding, heightBinding);
 		myBackground = new ImageView(new Image(myEngineView.getEngineController().getBackgroundImageFile()));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
@@ -35,22 +29,6 @@ public class BoardPane {
 		return myPane;
 	}
 	
-
-	private void bindWidth(DoubleExpression db){
-		myPane.minWidthProperty().bind(db);
-		myPane.maxWidthProperty().bind(db);
-	}
-	
-	private void bindHeight(DoubleExpression db){
-		myPane.minHeightProperty().bind(db);
-		myPane.maxHeightProperty().bind(db);
-	}
-	
-	
-	public Pane getNode(){
-		return myPane;
-	}
-
 	public void setBackground(String imageName){
 		myBackground.setImage(new Image(imageName));
 	}
