@@ -1,13 +1,10 @@
 package engine.backend.systems;
 
+import java.util.Arrays;
 import java.util.Collection;
-
-/**
- * author raghavkedia
- */
-
-import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.MovementComponent;
@@ -20,6 +17,10 @@ import engine.backend.game_object.Level;
 import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
+import engine.backend.systems.Events.EndOfPathEvent;
+import engine.backend.systems.Events.IEvent;
+import engine.backend.systems.Events.OutOfMapEvent;
+import engine.backend.utilities.ComponentTagResources;
 
 public class MobilizeSystem extends GameSystem{
 	
@@ -28,34 +29,40 @@ public class MobilizeSystem extends GameSystem{
 	}
 	
 	@Override
-	public void update(Level myLevel, InGameEntityFactory myEntityFactory, double currentSecond, ResourceBundle myComponentTagResources) {
+	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		for(IEntity entity : entities){
 			
-			if(!entity.hasComponent(myComponentTagResources.getString("Movement"))){
+			if(!entity.hasComponent(ComponentTagResources.movementComponentTag)){
 				continue;
 			}
 			
-			MovementComponent movComponent = (MovementComponent) entity.getComponent(myComponentTagResources.getString("Movement"));
-			PositionComponent posComponent = (PositionComponent) entity.getComponent(myComponentTagResources.getString("Position"));
+			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
+			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 			
-			if(entity.hasComponent(myComponentTagResources.getString("Path"))){
+			IEvent event;
+			
+			if(entity.hasComponent(ComponentTagResources.pathComponentTag)){
+				
+				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
 				//if on path
-				updatePathMovement(entity, myLevel.getMap(), myComponentTagResources);
+				event = updatePositionOnPath(entity.getID(), posComponent, movComponent, pathComponent, myLevel.getMap().getPath());
+
 			}
 			else{
-				//do movement
-				Vector posVector = posComponent.getPositionVector();
-				Vector velVector = movComponent.getCurrentVelocityVector();
-				Vector newPos = posVector.add(velVector);
-				posComponent.setPositionVector(newPos);
+				
+				event = updatePosition(entity.getID(), posComponent, movComponent, myLevel.getMap());
+				
+				
+				
 			}
 			
-			//do rotation
-			double theta = movComponent.getTheta();
-			double omega = movComponent.getCurrentOmega();
-			movComponent.setTheta(theta+omega);
+			if(event != null){
+				addToEventMap(myEventMap, event, Arrays.asList(entity));
+			}
+			
+			updateRotation(movComponent);
 			
 			entity.setHasBeenModified(true);
 			
@@ -63,30 +70,81 @@ public class MobilizeSystem extends GameSystem{
 
 	}
 	
-	private void updatePathMovement(IEntity entity, GameMap map, ResourceBundle myComponentTagResources){
-		//needs access to path
-		
-		updatePositionOnPath(entity, map.getPath(), myComponentTagResources);
-		
+	
+	/**
+	 * 
+	 * This method updates the rotation of an entity, by adding it's angular velocity omega to it'current angle theta
+	 */
+	private void updateRotation(MovementComponent movComponent){
+		//do rotation
+		double theta = movComponent.getTheta();
+		double omega = movComponent.getCurrentOmega();
+		movComponent.setTheta(theta+omega);
 	}
 	
-	public void updatePositionOnPath(IEntity entity, Path path, ResourceBundle myComponentTagResources){
+	/**
+	 * 
+	 *This method updates the position of an entity that DOES NOT exist on a path. 
+	 *It takes it's current position vector, and adds it's velocity vector to it, updating it's position
+	 *If it's new position is outside of the Map, it will generate an OutOfMap event
+	 */
+	private IEvent updatePosition(int entityID, PositionComponent posComponent, MovementComponent movComponent, GameMap map){
 		
-		PathComponent pathComponent = (PathComponent) entity.getComponent(myComponentTagResources.getString("Path"));
+		//do movement
+		Vector posVector = posComponent.getPositionVector();
+		Vector velVector = movComponent.getCurrentVelocityVector();
+		Vector newPos = posVector.add(velVector);
+		posComponent.setPositionVector(newPos);
+		
+		if(outOfMap(newPos, map.getMapHeight(), map.getMapWidth())){
+			IEvent event = getOutOfMapEvent(entityID);
+			return event;
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * Checks to see if the position Vector of an entity is outside of the map
+	 */
+	private boolean outOfMap(Vector posVector, double height, double width){
+		if(posVector.getX() < 0 || posVector.getX() > width){
+			return true;
+		}
+		if(posVector.getY() < 0 || posVector.getY() > height){
+			return true;
+		}
+		return false;
+	}
+	
+	private IEvent getEndOfPathEvent(int entityID){
+		EndOfPathEvent event = new EndOfPathEvent(entityID);
+		return event;
+	}
+	
+	private IEvent getOutOfMapEvent(int entityID){
+		OutOfMapEvent event = new OutOfMapEvent(entityID);
+		return event;
+	}
+	
+	/**
+	 * 
+	 * This method updates the position of entites that move ON A PATH
+	 * It gets the current bezier curve for an object, and based on it's velocity it gets the new bezier time, 
+	 * and adds the new time to the current time to updates it's position along the curve
+	 * If the entity reaches the end of the curve (bezier time is max), it will generate an EndOfPathEvent
+	 */
+	private IEvent updatePositionOnPath(int entityID, PositionComponent posComponent, MovementComponent movComponent, PathComponent pathComponent, Path path){
+		
 		double currBezTime = pathComponent.getBezierTime();
 
-		//turn off display component and return
 		if((currBezTime >= path.numCurves() - 0.01 && pathComponent.movesWithTime())){
 			
-			DisplayComponent dispComponent = (DisplayComponent) entity.getComponent(myComponentTagResources.getString("Display"));
-			dispComponent.doNotShow();
-			pathComponent.setReachedEndOfPath(true);
 			//create end of path event
-			return;
+			IEvent event = getEndOfPathEvent(entityID);
+			return event;
+			
 		}
-		
-		PositionComponent posComponent = (PositionComponent) entity.getComponent(myComponentTagResources.getString("Position"));
-		MovementComponent movComponent = (MovementComponent) entity.getComponent(myComponentTagResources.getString("Movement"));
 		
 		Vector newPos = new Vector();
 		Vector newVel = new Vector();
@@ -96,7 +154,6 @@ public class MobilizeSystem extends GameSystem{
 		BezierCurve currCurve = path.getCurveFromTime(currBezTime);
 		double speed = velVector.calculateMagnitude();
 		double bezTimeStep = ((pathComponent.movesWithTime()) ? 1 : -1 ) * speed / currCurve.getLength();
-		
 		
 		double newBezTime = currBezTime + bezTimeStep;
 		
@@ -110,6 +167,8 @@ public class MobilizeSystem extends GameSystem{
 		posComponent.setPositionVector(newPos);
 		pathComponent.setBezierTime(newBezTime);
 		movComponent.setCurrentVelocityVector(newVel);
+		
+		return null;
 		
 	}
 	

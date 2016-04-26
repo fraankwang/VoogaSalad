@@ -7,6 +7,11 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+/**
+ * Class for calling methods to write an XML String.
+ * @author Christine Zhou (clz4)
+ *
+ */
 public class XMLWriter {
 	private StringWriter stringWriter;
 	private XMLStreamWriter xmlStreamWriter;

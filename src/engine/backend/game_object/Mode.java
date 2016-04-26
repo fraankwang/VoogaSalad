@@ -5,22 +5,25 @@
  */
 package engine.backend.game_object;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Mode {
 
 	private List<Level> levels;
+	private Map<Integer, Level> myLevels;
 	private String myName;
 	private ModeStatistics myModeStatistics;
+	private int index;
 	
 	public Mode(String name) {
-		levels = new ArrayList<Level>();
+		myLevels = new HashMap<Integer, Level>();
 		this.myName = name;
 	}
 
-	public List<Level> getLevels() {
-		return levels;
+	public Map<Integer, Level> getLevels() {
+		return myLevels;
 	}
 	
 	public ModeStatistics getModeStatistics(){
@@ -32,8 +35,7 @@ public class Mode {
 	}
 
 	public void addLevel(Level level) {
-		level.setModeName(myName);
-		levels.add(level);
+		myLevels.put(level.getIndex(), level);
 	}
 
 	@Override
@@ -53,6 +55,14 @@ public class Mode {
 		} else {
 			return false;
 		}
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 }
