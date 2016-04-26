@@ -128,6 +128,10 @@ public class SpawnEntityRow {
 		myRate.setText(rate);
 	}
 
+	public String getMyTag() {
+		return myTag;
+	}
+	
 	public Button getMyDecreaseButton() {
 		return myDecreaseButton;
 	}
