@@ -3,6 +3,8 @@ package engine.frontend.status;
 import java.util.ResourceBundle;
 
 import engine.frontend.overall.EngineView;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -30,13 +32,12 @@ public class StatusPane {
 		myControlManager = new ControlManager(this);
 	}
 	
-	public Node buildNode(){
+	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
 		myPane = new Pane();
 		myPane.setStyle("-fx-background-color: #ffffff;");
-		myPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("StatusWidth")));
-		myPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("StatusHeight")));
-		myPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("StatusWidth")));
-		myPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("StatusHeight")));
+		
+		bindWidth(widthBinding);
+		bindHeight(heightBinding);
 		
 		HBox hbox = new HBox();
 		hbox.getChildren().add(buildRecordControls());
@@ -44,6 +45,16 @@ public class StatusPane {
 		
 		myPane.getChildren().add(hbox);
 		return myPane;
+	}
+	
+	private void bindWidth(DoubleExpression db){
+		myPane.minWidthProperty().bind(db);
+		myPane.maxWidthProperty().bind(db);
+	}
+	
+	private void bindHeight(DoubleExpression db){
+		myPane.minHeightProperty().bind(db);
+		myPane.maxHeightProperty().bind(db);
 	}
 	
 	private VBox buildRecordControls(){

@@ -9,16 +9,20 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import com.xuggle.xuggler.ICodec;
+//import com.xuggle.xuggler.ICodec;
 
 import engine.frontend.overall.EngineView;
+import javafx.beans.binding.DoubleExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
@@ -30,18 +34,18 @@ public class MenubarManager {
 	public static final String DEFAULT_RESOURCE = "engine/resources/menubar";
 	private ResourceBundle myResources;
 	
+	private MenuBar menubar;
+	
 	public MenubarManager(EngineView ev){
 		myEngineView = ev;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
+
+	public MenuBar buildMenuBar(DoubleExpression widthBinding, DoubleExpression heightBinding){
+		menubar = new MenuBar();
 		
-	public MenuBar buildMenuBar(){
-		MenuBar menubar = new MenuBar();
-		
-		menubar.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("MenuBarWidth")));
-		menubar.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("MenuBarHeight")));
-		menubar.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("MenuBarWidth")));
-		menubar.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("MenuBarHeight")));
+		bindWidth(widthBinding);
+		bindHeight(heightBinding);
 		
 		Menu filemenu = buildFileMenu();
 		Menu capturemenu = buildCaptureMenu();
@@ -49,6 +53,16 @@ public class MenubarManager {
 		menubar.getMenus().addAll(filemenu, capturemenu, menu3);
 
 		return menubar; 
+	}
+	
+	private void bindWidth(DoubleExpression db){
+		menubar.minWidthProperty().bind(db);
+		menubar.maxWidthProperty().bind(db);
+	}
+	
+	private void bindHeight(DoubleExpression db){
+		menubar.minHeightProperty().bind(db);
+		menubar.maxHeightProperty().bind(db);
 	}
 	
 	private Menu buildFileMenu(){

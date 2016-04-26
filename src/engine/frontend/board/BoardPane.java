@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import engine.frontend.overall.EngineView;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,8 +15,6 @@ public class BoardPane {
 	
 	private Pane myPane;
 	private ImageView myBackground;
-	private DoubleBinding scalingFactor;
-	private double aspectRatio;
 	
 	private Map<Integer, EntityView> myEntityViewMap = new HashMap<Integer, EntityView>();
 	
@@ -25,37 +22,11 @@ public class BoardPane {
 		myEngineView = ev;
 	}
 	
-	public Node buildNode(){
+	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
 		myPane = new Pane();
-		/*
-		 * board width and board height need to be bound to the maximum possible size of the map given its aspect ratio
-		 * that can fit within MaxBoardHeight% of the usable space 
-		 */
-		System.out.println(myEngineView.getEngineController().getEventManager());
-		double mapHeight = myEngineView.getEngineController().getEventManager().getCurrentLevel().getMap().getMapHeight();
-		double mapWidth= myEngineView.getEngineController().getEventManager().getCurrentLevel().getMap().getMapWidth();
-		aspectRatio = mapHeight/mapWidth;
-		//always scale the larger of the two to the boardsize
-		//myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth"))
 		
-		/*
-		 * 
-		 * Lets say the height is greater than the width
-		 * then the height of the pane is bound to the height of the map scaled to the boardheight 
-		 * and the width of the pane is bound to the width of the map scaled by the same scale ratio^
-		 */
-		
-		if(mapHeight > mapWidth){
-			DoubleBinding usableHeight = myEngineView.getUsableHeight(myEngineView.loadDoubleResource("BoardMaxHeight"));
-			scalingFactor = usableHeight.divide(mapHeight);
-			bindHeight(usableHeight.multiply(scalingFactor));
-			bindWidth((new SimpleDoubleProperty(mapWidth)).multiply(scalingFactor));
-		} else {
-			DoubleBinding usableWidth = myEngineView.getUsableWidth(myEngineView.loadDoubleResource("BoardMaxWidth"));
-			scalingFactor = usableWidth.divide(mapWidth);
-			bindWidth(usableWidth.multiply(scalingFactor));
-			bindHeight((new SimpleDoubleProperty(mapHeight)).multiply(scalingFactor));
-		}
+		bindWidth(widthBinding);
+		bindHeight(heightBinding);
 		
 		myBackground = new ImageView(new Image(myEngineView.getEngineController().getBackgroundImageFile()));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
@@ -64,14 +35,14 @@ public class BoardPane {
 		return myPane;
 	}
 	
-	private void bindHeight(DoubleBinding db){
-		myPane.minHeightProperty().bind(db);
-		myPane.maxHeightProperty().bind(db);
-	}
-	
-	private void bindWidth(DoubleBinding db){
+	private void bindWidth(DoubleExpression db){
 		myPane.minWidthProperty().bind(db);
 		myPane.maxWidthProperty().bind(db);
+	}
+	
+	private void bindHeight(DoubleExpression db){
+		myPane.minHeightProperty().bind(db);
+		myPane.maxHeightProperty().bind(db);
 	}
 	
 	
@@ -112,15 +83,15 @@ public class BoardPane {
 			myEntityViewMap.remove(id);
 		}
 	}
-	
-	public void attemptTower(double mouseXLoc, double mouseYLoc){
+
+	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower){
 		// need to tell them which type it is too
 		double xLoc = mouseXLoc - myPane.getBoundsInParent().getMinX();
 		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
 
 		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
-		
-		myEngineView.getEngineController().attemptTower(xLoc,  yLoc);		
-
+		if(placingTower != null){
+//			myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
+		}
 	}
 }

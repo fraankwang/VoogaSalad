@@ -1,47 +1,43 @@
 package engine.backend.rules;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import engine.backend.components.IComponent;
-import engine.backend.components.SizeComponent;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import engine.backend.systems.Events.IEvent;
 
 public class Rule {
 
-	private List<Predicate> conditionals;
-	private Action action;
-	//this string needs to get moved to action
-
-
+	private Collection<String> myEvents;
+	private Collection<IAction> myActions;
 
 	public Rule() {
-		conditionals = new ArrayList<Predicate>();
-	}
-	
-	public void addPredicate(Predicate myPredicate){
-		conditionals.add(myPredicate);
-	}
-	
-	public void setMyAction(Action myAction){
-		action = myAction;
+		myEvents = new ArrayList<String>();
+		myActions = new ArrayList<IAction>();
 	}
 
-	public String getMyAction(){
-		if(action == null) System.out.println("throw exception--> action is null");
-		System.out.println("rule.java nothing there");
-		return "nothing added";
-//		return action.getMethodToCall();
+	public void addEvents(Collection<String> events) {
+		for (String e : events) {
+			myEvents.add(e);
+		}
 	}
-	
-	public List<Predicate> getMyConditionals(){
-		return conditionals;
+
+	public void addEvents(String event) {
+		myEvents.add(event);
 	}
-	
-	public void increaseSize(IComponent myComponent, Integer delta){
-		((SizeComponent) myComponent).increaseSize(delta);
+
+	public void addActions(Collection<IAction> actions) {
+		actions.forEach(a -> myActions.add(a));
+	}
+
+	public void addActions(IAction action) {
+		myActions.add(action);
+	}
+
+	public Collection<String> getEvents() {
+		return myEvents;
+	}
+
+	public Collection<IAction> getActions() {
+		return myActions;
 	}
 
 }

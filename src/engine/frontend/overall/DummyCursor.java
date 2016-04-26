@@ -8,11 +8,11 @@ public class DummyCursor {
 
 	private ImageView myImage;
 	
-	public DummyCursor(double width, double height){
+	public DummyCursor(EngineView ev){
 		
 		myImage = new ImageView();
-		myImage.setFitWidth(width);
-		myImage.setFitHeight(height);	
+		myImage.fitWidthProperty().bind(ev.getStage().widthProperty().multiply(ev.loadDoubleResource("CursorWidth")));
+		myImage.fitHeightProperty().bind(ev.getStage().heightProperty().multiply(ev.loadDoubleResource("CursorHeight")));	
 	}
 	
 	public Node getNode(){
@@ -24,8 +24,8 @@ public class DummyCursor {
 	}
 	
 	public void updateLocation(double x, double y){
-		myImage.setX(x);
-		myImage.setY(y);
+		myImage.setX(x - myImage.getFitWidth()/2);
+		myImage.setY(y - myImage.getFitHeight()/2);
 	}
 	
 	
