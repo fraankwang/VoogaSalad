@@ -35,6 +35,7 @@ public class BoardPane {
 		return myPane;
 	}
 	
+
 	private void bindWidth(DoubleExpression db){
 		myPane.minWidthProperty().bind(db);
 		myPane.maxWidthProperty().bind(db);
@@ -46,7 +47,7 @@ public class BoardPane {
 	}
 	
 	
-	public Node getNode(){
+	public Pane getNode(){
 		return myPane;
 	}
 
@@ -90,8 +91,7 @@ public class BoardPane {
 		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
 
 		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
-		if(placingTower != null){
-//			myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
-		}
+		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
+
 	}
 }
