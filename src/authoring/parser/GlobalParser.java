@@ -59,6 +59,9 @@ public class GlobalParser {
 
 	public static Map<String, String> parseSpawnEntities(String spawnEntities) {
 		TreeMap<String, String> spawnEntitiesMap = new TreeMap<String, String>();
+		if (spawnEntities.equals("")) {
+			return spawnEntitiesMap;
+		}
 		
 		String[] allSpawnEntities = spawnEntities.split(",");
 		for (String entity : allSpawnEntities) {
