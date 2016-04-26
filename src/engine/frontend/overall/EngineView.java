@@ -90,7 +90,7 @@ public class EngineView{
 		myBody.setRight(myShopPane.buildNode());
 		myBody.setBottom(myStatusPane.buildNode());
 
-		myBody.getChildren().add(myDummyCursor.getNode());
+		myBody.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
@@ -118,6 +118,7 @@ public class EngineView{
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
+		
 	}
 	
 	private boolean isInBoardPane(double x, double y){

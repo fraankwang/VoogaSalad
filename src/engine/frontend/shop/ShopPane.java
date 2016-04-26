@@ -48,14 +48,9 @@ public class ShopPane {
 		return myScrollPane;
 	}
 
-	
-	public void createShop(String image, String type, double cost){
-
-	}
-
 	public void addShopObject(ShopItem myShopItem){
-		ShopView myShopView = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40, 40);			
-		myVBox.getChildren().add(myShopView.getNode());
+		ShopView myShopView = new ShopView(myEngineView);
+		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40, 40));
 	}
 
 

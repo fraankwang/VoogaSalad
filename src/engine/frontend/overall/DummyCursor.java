@@ -1,5 +1,7 @@
 package engine.frontend.overall;
-
+/*
+ * 
+ */
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,9 +13,14 @@ public class DummyCursor {
 	
 	public DummyCursor(EngineView ev){
 		myEngineView = ev;
+
+	}
+	
+	public Node buildNode(){
 		myImage = new ImageView();
-		myImage.fitWidthProperty().bind(ev.getStage().widthProperty().multiply(ev.loadDoubleResource("CursorWidth")));
-		myImage.fitHeightProperty().bind(ev.getStage().heightProperty().multiply(ev.loadDoubleResource("CursorHeight")));	
+		myImage.fitWidthProperty().bind(myEngineView.getBoardPane().getNode().widthProperty().multiply(myEngineView.loadDoubleResource("CursorWidth")));
+		myImage.fitHeightProperty().bind(myEngineView.getBoardPane().getNode().heightProperty().multiply(myEngineView.loadDoubleResource("CursorHeight")));
+		return myImage;
 	}
 	
 	public Node getNode(){

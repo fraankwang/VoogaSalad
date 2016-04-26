@@ -35,7 +35,7 @@ public class BoardPane {
 		return myPane;
 	}
 	
-	public Node getNode(){
+	public Pane getNode(){
 		return myPane;
 	}
 
