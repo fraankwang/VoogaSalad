@@ -147,7 +147,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    curve.setFill(null);
 	    curve.setOnMouseEntered(e -> {
 	    	curve.toFront();
-	    	myCurve.requestFocus();
+	    	curve.requestFocus();
 	    });
 	    curve.setOnMouseEntered(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
@@ -168,6 +168,17 @@ public class BezierCurveManipulator implements IDisplayElement {
 	      });
       
 	    return curve;
+	}
+	
+	public void setCoordinates(List<String> coordinates) {
+		myCurve.setStartX(Double.parseDouble(coordinates.get(0)));
+	    myCurve.setStartY(Double.parseDouble(coordinates.get(1)));
+	    myCurve.setControlX1(Double.parseDouble(coordinates.get(2)));
+	    myCurve.setControlY1(Double.parseDouble(coordinates.get(3)));
+	    myCurve.setControlX2(Double.parseDouble(coordinates.get(4)));
+	    myCurve.setControlY2(Double.parseDouble(coordinates.get(5)));
+	    myCurve.setEndX(Double.parseDouble(coordinates.get(6)));
+	    myCurve.setEndY(Double.parseDouble(coordinates.get(7)));
 	}
 	
 	public CubicCurve getCurve() {
@@ -323,13 +334,12 @@ public class BezierCurveManipulator implements IDisplayElement {
 	public String getCoordinatesString() {
 		// format: "startX-startY,control1X-control1Y,control2X-control2Y,endX-endY"
 		String result = "";
-//		result.concat(start.getXCoordinate() + "-" + start.getYCoordinate());
-//		result.concat(control1.getXCoordinate() + "-" + control1.getYCoordinate());
-//		result.concat(control2.getXCoordinate() + "-" + control2.getYCoordinate());
-//		result.concat(end.getXCoordinate() + "-" + end.getYCoordinate());
+		result += (Double.toString(myCurve.getStartX()) + "-" + Double.toString(myCurve.getStartY()) + ",");
+		result += (Double.toString(myCurve.getControlX1()) + "-" + Double.toString(myCurve.getControlY1()) + ",");
+		result += (Double.toString(myCurve.getControlX2()) + "-" + Double.toString(myCurve.getControlY2()) + ",");
+		result += (Double.toString(myCurve.getEndX()) + "-" + Double.toString(myCurve.getEndY()));
 		
 		return result;
-//		return "0-0,1-1,2-2,3-3";
 	}
 
 }

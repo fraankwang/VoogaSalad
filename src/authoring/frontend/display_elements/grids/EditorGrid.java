@@ -52,7 +52,7 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
 		((EditorButtonDashboard) myButtonDashboard).getSaveButton()
-				.setOnAction(e -> sendData(((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
+				.setOnAction(e -> sendData(saveAttributes()));
 
 		((EditorButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
 
@@ -69,6 +69,10 @@ public abstract class EditorGrid extends Grid {
 		myController.writeData(map);
 		myEditorStage.close();
 
+	}
+	
+	protected Map<String, String> saveAttributes() {
+		return myModifiableAttributesPanel.saveAttributes();
 	}
 
 	/**
@@ -88,7 +92,7 @@ public abstract class EditorGrid extends Grid {
 	}
 
 	public void setAttributesPanel(Map<String, String> info) {
-		((ModifiableAttributesPanel) myModifiableAttributesPanel).setAttributes(info);
+		myModifiableAttributesPanel.setAttributes(info);
 
 	}
 

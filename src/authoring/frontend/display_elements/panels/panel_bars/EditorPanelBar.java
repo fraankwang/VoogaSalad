@@ -52,5 +52,9 @@ public class EditorPanelBar extends PanelBar {
 		b.setOnAction(action);
 		myDescription.getChildren().add(b);
 	}
+	
+	public void removeButtons(int from, int to) {
+		myDescription.getChildren().remove(from, to);
+	}
 
 }

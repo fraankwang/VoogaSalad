@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.panels;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import authoring.frontend.editor_features.PathBuilder;
@@ -36,17 +37,22 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		myScrollPane.setContent(myGroup);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
 		myPanelBar.addButton("Create New Path", e -> {
-			PathBuilder newPath = new PathBuilder(pathIndexNumber);
-			newPath.initialize();
-			newPath.setSize(myImageView.getImage().getWidth(), myImageView.getImage().getHeight());
-			myPathBuilders.add(newPath);
-			myPanelBar.addButton("Add to Path " + myPathBuilders.size(), f -> {
-				newPath.createNewCurve();
-			});
-			myGroup.getChildren().add(newPath.getNode());
-			pathIndexNumber++;
+			createNewPath();
 		});
 		myNode = vbox;
+	}
+	
+	private PathBuilder createNewPath() {
+		PathBuilder newPath = new PathBuilder(pathIndexNumber);
+		newPath.initialize();
+		newPath.setSize(myImageView.getImage().getWidth(), myImageView.getImage().getHeight());
+		myPathBuilders.add(newPath);
+		myPanelBar.addButton("Add to Path " + myPathBuilders.size(), f -> {
+			newPath.createNewCurve(null);
+		});
+		myGroup.getChildren().add(newPath.getNode());
+		pathIndexNumber++;
+		return newPath;
 	}
 	
 	@Override
@@ -54,6 +60,28 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		super.setImage(image);
 		for (PathBuilder path: myPathBuilders) {
 			path.setSize(image.getWidth(), image.getHeight());
+		}
+	}
+	
+	private void resetPaths() {
+		myPanelBar.removeButtons(2, 2 + myPathBuilders.size());
+		myPathBuilders.clear();
+		pathIndexNumber = 0;
+		myGroup.getChildren().clear();
+		myGroup.getChildren().addAll(myImageView);
+	}
+	
+	public void setPaths(String pathString) {
+		resetPaths();
+		if (pathString == null) return;
+		List<String> paths = Arrays.asList(pathString.split("_"));
+		for (String p: paths) {
+			PathBuilder path = createNewPath();
+			List<String> curves = Arrays.asList(p.substring(2).split(" "));
+			for (String c: curves) {
+				List<String> coordinates = Arrays.asList(c.substring(2).split(",|-"));
+				path.createNewCurve(coordinates);
+			}			
 		}
 	}
 
