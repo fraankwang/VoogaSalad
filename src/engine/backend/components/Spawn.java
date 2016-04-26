@@ -1,5 +1,7 @@
 package engine.backend.components;
 
+import engine.backend.systems.GameClock;
+
 /**
  * Creates a spawn, a object that holds the name of the entity being spawned, the spawn rate, start, end
  * and duration of the entity being spawned.
@@ -45,7 +47,7 @@ public class Spawn {
 	public void setTimer(double currentSecond){
 		if(this.currentSecond != currentSecond){
 			this.currentSecond = currentSecond;
-			timer = timer - 1;
+			timer = timer - 1.0/60.0;
 		}
 	}
 	
