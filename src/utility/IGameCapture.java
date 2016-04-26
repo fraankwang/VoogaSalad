@@ -29,7 +29,13 @@ public interface IGameCapture {
      * Takes a screenshot of the current specified image type and writes
      * it to the current specified image save location of specified Javafx Node
      */
-    void takeScreenshot(Node n);
+    void takeSnapshot(Node n);
+    
+    /**
+     * Takes a screenshot of the entire screen and writes it with the 
+     * specified image type to the correct location
+     */
+    void takeScreenshot();
     
     /**
      * Exports the last generated file to set destination upon front end event
@@ -62,7 +68,6 @@ public interface IGameCapture {
      * @return string representation of image format
      */
     String getImageFileType();
-
     
     /**
      * Sets number of screenshots captured per second during recording
@@ -89,13 +94,25 @@ public interface IGameCapture {
 
 	/**
 	 * Method that must be called if stage moves
-	 * @param height new x
+	 * @param x new x value
 	 */
 	void setCaptureX(int x);
 	
 	/**
 	 * Method that must be called if stage moves
-	 * @param height new y
-	 */
+	 * @param y new y value
+	 */ 
 	void setCaptureY(int y);
+	
+	/**
+	 * Method that must be called if stage is resized
+	 * @param w new width
+	 */
+	void setCaptureWidth(int w);
+	
+	/**
+	 * Method that must be called if stage is resized
+	 * @param h new height
+	 */
+	void setCaptureHeight(int h);
 }

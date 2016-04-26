@@ -86,7 +86,7 @@ public class EngineController implements IEngineController{
 	}
 	
 	private void setupGameCapture(){
-		myGameCapture = new GameCapture(myEngineView, 
+		myGameCapture = new GameCapture( 
 				myEngineView.loadIntResource("StartX"), 
 				myEngineView.loadIntResource("StartY"),
 				myEngineView.loadIntResource("StageMinWidth"),
@@ -105,13 +105,26 @@ public class EngineController implements IEngineController{
 				myGameCapture.setCaptureY(newValue.intValue());
 			}
 		});
+		
+		myStage.widthProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureWidth(newValue.intValue());
+			}
+		});
+		
+		myStage.heightProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureHeight(newValue.intValue());
+			}
+		});
 	}
 	
 	public void step() {
 		if(playing){
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
 		}
-
 	}
 	
 	//backend endpoint 
@@ -135,13 +148,11 @@ public class EngineController implements IEngineController{
 //	}
 	
 	public void attemptTower(double xLoc, double yLoc, String type) {
-		// TODO Auto-generated method stub
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc, yLoc, type);
 		myEventManager.handleEntityDropEvent(event);
 	}
 
 	public void entityClicked(int myID) {
-		// TODO Auto-generated method stub
 		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
 		myEventManager.handleClickEvent(clickedEvent);
 	}
