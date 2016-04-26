@@ -25,7 +25,5 @@ public class LevelAction implements IAction{
 	public void setDeltaValue(String deltaValue) {
 		this.deltaValue = deltaValue;
 	}
-	
-	
 
 }
