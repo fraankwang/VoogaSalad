@@ -1,10 +1,6 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.editor_features.EntityComponentSelector;
@@ -12,9 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
@@ -61,7 +55,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 					myAttributes.add(key);
 					myAttributesMap.put(key, null);
 					myInputMap.put(key, newComponents.get(key));
-					refreshInputRows();
+					refreshAttributeInputRows();
 				}
 			}
 		});
@@ -74,12 +68,12 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		tf.setText(image);
 		tf.setEditable(false);
 		myInputMap.replace("DisplayComponent_Image", tf);
-		refreshInputRows();
+		refreshAttributeInputRows();
 	}
 
 	@Override
-	public void setAttributes(Map<String, String> info) {
-		super.setAttributes(info);
+	public void updateAttributes(Map<String, String> info) {
+		super.updateAttributes(info);
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
 		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
@@ -128,12 +122,12 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 			}
 
 		}
-		refreshInputRows();
+		refreshAttributeInputRows();
 	}
 
 	@Override
-	protected void refreshInputRows() {
-		super.refreshInputRows();
+	protected void refreshAttributeInputRows() {
+		super.refreshAttributeInputRows();
 		createAddComponentButton();
 	}
 

@@ -5,13 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.editor_features.SpawnEntityRow;
-import authoring.parser.GlobalParser;
-import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,8 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 //import javafx.scene.layout.GridPane;
@@ -31,7 +26,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  * 
@@ -46,7 +40,6 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private ComboBox<String> myWaveSelector;
 	private String mySpawnEntitiesCompressed;
 	private List<String> myEntities;
-	private int mySpawnRows;
 	private TreeMap<String, SpawnEntityRow> mySpawnEntitiesInputMap;
 	private GridPane mySpawnEntitiesGridPane;
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",

@@ -85,7 +85,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void setAttributes(Map<String, String> info) {
+	public void updateAttributes(Map<String, String> info) {
 		myAttributesMap = info;
 		refreshAttributes();
 	}
@@ -100,11 +100,11 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 			myInputMap.replace("Mode", cb);
 		}
 
-		refreshInputRows();
+		refreshAttributeInputRows();
 	}
 
 	@Override
-	protected void refreshInputRows() {
+	protected void refreshAttributeInputRows() {
 		myAttributesGridPane.getChildren().clear();
 
 		Text text = new Text("Mode");
