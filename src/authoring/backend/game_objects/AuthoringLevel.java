@@ -13,17 +13,15 @@ public class AuthoringLevel {
 	
 	private String myName;
 	private GameMap myMap;
-	private double levelTimer;
 	private double waveDelayTimer;
 	
 	private Set<String> entities;
 	private Map<String, String> myInfo;
 	private List<AuthoringEntity> spawnEntities;
 	
-	public AuthoringLevel(String myName, GameMap myMap, double levelTimer, double waveDelayTimer) {
+	public AuthoringLevel(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
 		this.myMap = myMap;
-		this.levelTimer = levelTimer;
 		this.waveDelayTimer = waveDelayTimer;
 		this.entities = new HashSet<String>();
 		this.myInfo = new HashMap<String, String>();
@@ -34,7 +32,6 @@ public class AuthoringLevel {
 	private void initializeInfo() {
 		myInfo.put("Type", "Level");
 		myInfo.put("Name", myName);
-		myInfo.put("LevelTimer", levelTimer + "");
 		myInfo.put("WaveDelayTimer", waveDelayTimer + "");
 		myInfo.put("MapBackgroundImage", myMap.getMapImage());
 		myInfo.put("MapWidth", myMap.getMapWidth() + "");
@@ -56,10 +53,6 @@ public class AuthoringLevel {
 	
 	public GameMap getMap() {
 		return myMap;
-	}
-	
-	public double getLevelTimer() {
-		return levelTimer;
 	}
 	
 	public double getWaveDelayTimer() {

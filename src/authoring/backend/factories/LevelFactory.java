@@ -13,10 +13,9 @@ public class LevelFactory {
 	public Level createLevel(AuthoringLevel authoringLevel) {
 		String name = authoringLevel.getName();
 		GameMap map = authoringLevel.getMap();
-		double levelTimer = authoringLevel.getLevelTimer();
 		double waveDelayTimer = authoringLevel.getWaveDelayTimer();
 		
-		return new Level(name, map, levelTimer, waveDelayTimer);
+		return new Level(name, map, waveDelayTimer);
 	}
 
 }

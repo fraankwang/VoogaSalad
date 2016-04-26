@@ -27,7 +27,6 @@ public class AuthoringLevelFactory {
 		Set<String> entities = new HashSet<String>();
 		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
 		String name = "";
-		double levelTimer = 0;
 		double waveDelayTimer = 0;
 		for (String key : data.keySet()) {
 			switch (key) {
@@ -49,9 +48,6 @@ public class AuthoringLevelFactory {
 			case "Name":
 				name = data.get(key);
 				break;
-			case "LevelTimer":
-				levelTimer = Double.parseDouble(data.get(key));
-				break;
 			case "WaveDelayTimer":
 				waveDelayTimer = Double.parseDouble(data.get(key));
 				break;
@@ -64,7 +60,7 @@ public class AuthoringLevelFactory {
 				spawnEntities = createSpawnEntities(spawnInfo);
 			}
 		}
-		AuthoringLevel level = new AuthoringLevel(name, map, levelTimer, waveDelayTimer);
+		AuthoringLevel level = new AuthoringLevel(name, map, waveDelayTimer);
 		level.setEntities(entities);
 		level.setSpawnEntities(spawnEntities);
 		

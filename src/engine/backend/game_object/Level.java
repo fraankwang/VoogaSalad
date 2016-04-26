@@ -24,10 +24,10 @@ public class Level {
 	
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
+	private List<IEntity> authoredEntities;
 	private String myName;
 	private int index;
 	private GameMap map;
-	private double levelTimer;
 	private double waveDelayTimer;
 	private double timer;
 	private int numWaves;
@@ -37,10 +37,9 @@ public class Level {
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double levelTimer, double waveDelayTimer) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
 		this.map = myMap;
-		this.levelTimer = levelTimer;
 		this.waveDelayTimer = waveDelayTimer;
 	}
 	
