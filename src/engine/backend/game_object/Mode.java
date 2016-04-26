@@ -13,6 +13,11 @@ public class Mode {
 	private String myName;
 	private ModeStatistics myModeStatistics;
 	private int index;
+	
+	public Mode(String myName, ModeStatistics modeStatistics) {
+		this.myName = myName;
+		this.myModeStatistics = modeStatistics;		
+	}
 		
 	public Map<Integer, Level> getLevels() {
 		return myLevels;

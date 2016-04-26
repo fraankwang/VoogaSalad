@@ -22,7 +22,20 @@ public class Entity implements IEntity {
 	private int myID;
 	private Map<String, IComponent> myComponents;
 	private boolean hasBeenModified;
+	
+	/**
+	 * Initializes an Entity without a unique ID. 
+	 * Authoring Environment Constructor.
+	 */
+	public Entity(String myName, String myType, Map<String, IComponent> myComponents) {
+		this.myName = myName;
+		this.myType = myType;
+		this.myComponents = myComponents;		
+	}
 
+	/**
+	 * Initializes an Entity with a unique ID.
+	 */
 	public Entity(int myID, String myName, String myType) {
 		this.myName = myName;
 		this.myType = myType;

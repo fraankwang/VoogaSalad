@@ -44,6 +44,18 @@ public class AuthoringMode {
 		return myInfo;
 	}
 	
+	public String getName() {
+		return myName;
+	}
+	
+	public int getInitialLives() {
+		return initialNumLives;
+	}
+	
+	public double getInitialResources() {
+		return initialResources;
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AuthoringMode) {

@@ -39,7 +39,7 @@ public class AuthoringLevel {
 		myInfo.put("MapBackgroundImage", myMap.getMapImage());
 		myInfo.put("MapWidth", myMap.getMapWidth() + "");
 		myInfo.put("MapHeight", myMap.getMapHeight() + "");
-//		myInfo.put("Paths", myMap.getPathsInfo());
+		myInfo.put("Paths", myMap.getPathsInfo());
 	}
 	
 	public Set<String> getEntities() {
@@ -48,6 +48,22 @@ public class AuthoringLevel {
 	
 	public Map<String, String> getInfo() {
 		return myInfo;
+	}
+	
+	public String getName() {
+		return myName;
+	}
+	
+	public GameMap getMap() {
+		return myMap;
+	}
+	
+	public double getLevelTimer() {
+		return levelTimer;
+	}
+	
+	public double getWaveDelayTimer() {
+		return waveDelayTimer;
 	}
 	
 	public void setEntities(Set<String> entities) {

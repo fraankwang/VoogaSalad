@@ -33,7 +33,17 @@ public class Level {
 	private int numWaves;
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
-		
+	
+	/**
+	 * Authoring Environment Constructor.
+	 */
+	public Level(String myName, GameMap myMap, double levelTimer, double waveDelayTimer) {
+		this.myName = myName;
+		this.map = myMap;
+		this.levelTimer = levelTimer;
+		this.waveDelayTimer = waveDelayTimer;
+	}
+	
 	/**
 	 * 
 	 * @return The unique identifier for the level.
