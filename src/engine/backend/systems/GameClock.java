@@ -11,7 +11,7 @@ public class GameClock {
 	}
 	
 	private double convertLoopIterationToSeconds() {
-		return currentLoopIteration/fps;
+		return currentLoopIteration/ (double) fps;
 	}
 	
 	public void setCurrentLoopIteration(int currentLoopIteration) {
