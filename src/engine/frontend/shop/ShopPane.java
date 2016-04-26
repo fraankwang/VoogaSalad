@@ -1,6 +1,7 @@
 package engine.frontend.shop;
 
 import java.util.HashMap;
+
 /**
  * @author HaydenBader
  */
@@ -18,36 +19,41 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.beans.binding.DoubleExpression;
+import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+
 
 
 
 public class ShopPane {
 	private EngineView myEngineView;
-	private Pane myPane = new Pane();
+	private Pane myPane;
 	private VBox myVBox = new VBox();
-	//private ListView<Map<String, String>> myListView = new ListView<Map<String, String>>()
+	private ListView<Map<String, String>> myListView; 
 	
 	public ShopPane(EngineView ev){
 		myEngineView = ev;
 	}
 	
-	public Node buildNode(){
-
-		myPane.setStyle("-fx-border-color: black;");
-		//we can make this a superclass
-		myPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
-		myPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
-		myPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("ShopWidth")));
-		myPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("ShopHeight")));
+	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
 		
-		myVBox.minWidthProperty().bind(myPane.widthProperty());
-		myVBox.minHeightProperty().bind(myPane.heightProperty());
+		myListView = new ListView<Map<String, String>>();
+				
+		myPane = new Pane();
+		myPane.setStyle("-fx-border-color: black;");
+		
+		bindWidth(widthBinding);
+		bindHeight(heightBinding);
+		
 		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
 		
 		
-		//myVBox.getChildren().add(myListView);
-	    //VBox.setVgrow(myListView, Priority.ALWAYS);
-	    //myListView.setCellFactory( e-> handleShopCreation());
+		myVBox.getChildren().add(myListView);
+	    VBox.setVgrow(myListView, Priority.ALWAYS);
+	    myListView.setCellFactory( e-> handleShopCreation());
 		
 		//Map<String, String> addMap = new HashMap();
 		//addMap.put("name", "Trumpf");
@@ -61,7 +67,10 @@ public class ShopPane {
 		myPane.getChildren().add(myVBox);
 		
 		return myPane;
+
+
 	}
+
 	
 	private ListCell<Map<String, String>> handleShopCreation(){
 		ListCell<Map<String, String>> myVal = new ShopCell(myEngineView);
@@ -80,14 +89,14 @@ public class ShopPane {
 	}
 
 	public void addShopObject(ShopItem myShopItem){
-		ShopView myShopView = new ShopView(myEngineView, myShopItem.getItemImage(), myShopItem.getItemName(), 40, 40);	
+		ShopView myShopView = new ShopView(myEngineView);	
 //		Map<String, String> addMap = new HashMap();
 //		addMap.put("name", myShopItem.getItemName());
 //		addMap.put("image", myShopItem.getItemImage());
 //		addMap.put("cost", Double.toString(myShopItem.getItemValue()));
 //		myListView.getItems().add(addMap);
 		//myListView.setOnMouseClicked( e -> handleMouseClick(e, myListView.getItems().get(myListView.getItems().indexOf(addMap))));
-		myVBox.getChildren().add(myShopView.getNode());
+		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40.0, 40.0));
 	}
 //	
 //	private void handleMouseClick(MouseEvent e, Map<String, String> myMap) {
@@ -97,7 +106,18 @@ public class ShopPane {
 //		myEngineView.getDummyCursor().changePic(new Image(myMap.get("image")));	
 //	}
 
+	private void bindWidth(DoubleExpression db){
+		myPane.minWidthProperty().bind(db);
+		myPane.maxWidthProperty().bind(db);
+	}
+	
+	private void bindHeight(DoubleExpression db){
+		myPane.minHeightProperty().bind(db);
+		myPane.maxHeightProperty().bind(db);
+	}
+	
 	public void updateShop(List<ShopItem> myShopList){
 		
 	}
+
 }

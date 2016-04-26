@@ -3,19 +3,18 @@ package engine.frontend.overall;
 import java.util.ResourceBundle;
 
 import engine.controller.EngineController;
-
 import engine.frontend.board.BoardPane;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.DoubleExpression;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -58,7 +57,6 @@ public class EngineView{
 	private StatusPane myStatusPane;
 	private DummyCursor myDummyCursor;
 	
-	
 	public EngineView(Stage s, EngineController c){
 		myStage = s;
 		myController = c;
@@ -70,47 +68,77 @@ public class EngineView{
 		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
-		myDummyCursor = new DummyCursor(loadDoubleResource("CursorWidth"), loadDoubleResource("CursorHeight"));
+		myDummyCursor = new DummyCursor(this);
 	}
 	
 	/**
-	 * builds a "body HBox" for the current view
+	 * builds a Scene for the current view
 	 * @return
 	 */
 	public Scene buildScene(){
 		
 		myBody = new BorderPane();
 		myScene = new Scene(myBody, Color.WHITE);
-		myMenuBar = myMenubarManager.buildMenuBar();
+		myMenuBar = myMenubarManager.buildMenuBar(myScene.widthProperty(), myScene.heightProperty().multiply(loadDoubleResource("MenuBarHeight")));
 		myBody.setTop(myMenuBar);
-		myBody.setLeft(myBoardPane.buildNode());
-		myBody.setRight(myShopPane.buildNode());
-		myBody.setBottom(myStatusPane.buildNode());
-		myScene.setOnMouseReleased(e -> handleEndMouseRelease(e));
-		myBody.getChildren().add(myDummyCursor.getNode());
-		myScene.setCursor(Cursor.DEFAULT);
-		myScene.setOnMouseDragged(e -> handleDummyCursor(e));
+		SimpleDoubleProperty mapHeight = new SimpleDoubleProperty(myController.getEventManager().getCurrentLevel().getMap().getMapHeight());
+		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
 		
+		DoubleBinding scalingFactor;		
+		if(mapHeight.get() > mapWidth.get()){
+			DoubleBinding usableHeight = getUsableBoardHeight();
+			scalingFactor = usableHeight.divide(mapHeight);
+		} else {
+			DoubleBinding usableWidth = getUsableBoardWidth();
+			scalingFactor = usableWidth.divide(mapWidth);
+		}
+		DoubleExpression boardWidth = mapWidth.multiply(scalingFactor);
+		DoubleExpression boardHeight = mapHeight.multiply(scalingFactor);
+		myBody.setLeft(myBoardPane.buildNode(boardWidth, boardHeight));
+		myBody.setRight(myShopPane.buildNode(myScene.widthProperty().subtract(boardWidth), boardHeight));
+		myBody.setBottom(myStatusPane.buildNode(myScene.widthProperty(), myScene.heightProperty().subtract(boardHeight).subtract(myMenuBar.heightProperty())));
+		
+		myScene.setOnDragExited(e -> handleEndMouseRelease(e));
+		myBody.getChildren().add(myDummyCursor.buildNode());
+		myScene.setCursor(Cursor.DEFAULT);
+		myScene.setOnDragOver(e -> handleDrop(e));
+		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
+		//myScene.setOnDrag
 		return myScene;
 	}
+	
+	private void setupBindings(){
+		
+	}
 
-	private void handleDummyCursor(MouseEvent e){
-		myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+	private void handleDrop(DragEvent e){
+		e.acceptTransferModes(TransferMode.ANY);
+		if (e.getGestureSource() != myScene &&  e.getDragboard().hasString()) {
+			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+			//System.out.println(e.getSceneX());
+        }	
+		if( myScene.getCursor() != Cursor.NONE){
+			myScene.setCursor(Cursor.NONE);
+		}
+		e.consume();
 	}
 	
-	private void handleEndMouseRelease(MouseEvent e) {
-		if( isInBoardPane( e.getSceneX(), e.getSceneY() ) && this.getStage().getScene().getCursor() != Cursor.DEFAULT ){
-			myBoardPane.attemptTower(e.getSceneX(), e.getSceneY());
+	private void handleEndMouseRelease(DragEvent e) {
+
+		if(e.getGestureSource() != myScene){
+			if( isInBoardPane( e.getScreenX(), e.getScreenY() ) && e.getDragboard().hasString()){
+				myBoardPane.attemptTower(e.getSceneX(), e.getSceneY(), e.getDragboard().getString());
+			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-		this.getEngineController().shopUnclicked();
+
 	}
 	
 	private boolean isInBoardPane(double x, double y){
 		// board pane's node seems to be scaling as entities move outside the previous bounds
-		boolean xInPane = x > myScene.getX() && x < getUsableWidth(loadDoubleResource("BoardWidth")).doubleValue();
-		boolean yInPane = y > myMenuBar.heightProperty().doubleValue() && y < getUsableHeight(loadDoubleResource("BoardHeight")).doubleValue()+myMenuBar.heightProperty().doubleValue();
+		boolean xInPane = x > myScene.getX() && x < getUsableBoardWidth().doubleValue();
+		boolean yInPane = y > myMenuBar.heightProperty().doubleValue() && y < getUsableBoardHeight().doubleValue()+myMenuBar.heightProperty().doubleValue();
 		return (xInPane && yInPane);
 	}
 	
@@ -118,12 +146,16 @@ public class EngineView{
 		return myDummyCursor;
 	}
 	
-	public DoubleBinding getUsableWidth(double porportion){
-		return myScene.widthProperty().multiply(porportion);
+	public DoubleBinding getUsableBoardWidth(){
+		return myScene.widthProperty().multiply(loadDoubleResource("BoardMaxWidth"));
 	}
 	
-	public DoubleBinding getUsableHeight(double porportion){
-		return myScene.heightProperty().subtract(myMenuBar.heightProperty()).multiply(porportion);
+	public DoubleBinding getUsableBoardHeight(){
+		return myScene.heightProperty().multiply(loadDoubleResource("BoardMaxHeight"));
+	}
+	
+	public DoubleBinding getUsableShopWidth(){
+		return myScene.widthProperty().subtract(getUsableBoardWidth());	
 	}
 
 	public Stage getStage(){

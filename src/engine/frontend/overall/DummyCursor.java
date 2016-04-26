@@ -1,7 +1,9 @@
 package engine.frontend.overall;
-/**
+
+/*
  * @author HaydenBader
- */
+*/
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,12 +11,18 @@ import javafx.scene.image.ImageView;
 public class DummyCursor {
 
 	private ImageView myImage;
+	private EngineView myEngineView;
 	
-	public DummyCursor(double width, double height){
-		
+	public DummyCursor(EngineView ev){
+		myEngineView = ev;
+
+	}
+	
+	public Node buildNode(){
 		myImage = new ImageView();
-		myImage.setFitWidth(width);
-		myImage.setFitHeight(height);	
+		myImage.fitWidthProperty().bind(myEngineView.getBoardPane().getNode().widthProperty().multiply(myEngineView.loadDoubleResource("CursorWidth")));
+		myImage.fitHeightProperty().bind(myEngineView.getBoardPane().getNode().heightProperty().multiply(myEngineView.loadDoubleResource("CursorHeight")));
+		return myImage;
 	}
 	
 	public Node getNode(){
@@ -28,6 +36,17 @@ public class DummyCursor {
 	public void updateLocation(double x, double y){
 		myImage.setX(x - myImage.getFitWidth()/2);
 		myImage.setY(y - myImage.getFitHeight()/2);
+		
+		if( myEngineView.getStage().getScene().getWidth() < x || x < 0 || y < 0 || y > myEngineView.getStage().getScene().getWidth()){
+			if(myImage.isVisible()){
+				myImage.setVisible(false);
+			}
+		}else{
+			if(!myImage.isVisible()){
+				myImage.setVisible(true);
+			}
+		}
+		
 	}
 	
 	
