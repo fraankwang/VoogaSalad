@@ -9,14 +9,14 @@ import engine.backend.systems.GameClock;
  *
  */
 public class Spawn {
-	
+
 	private String spawningEntityName;
 	private double spawningRate;
 	private int waveIndex;
 	private int numEntities;
 	private double timer;
 	private double currentSecond;
-	
+
 	public Spawn(String name, double rate, int index, int numEntities){
 		setSpawningEntityName(name);
 		setSpawningRate(rate);
@@ -36,16 +36,16 @@ public class Spawn {
 		return spawningEntityName;
 	}
 
-	public double getTimer(){
+	public double getTimer() {
 		return timer;
 	}
-	
-	public void resetTimer(){
+
+	public void resetTimer() {
 		timer = spawningRate;
 	}
-	
-	public void setTimer(double currentSecond){
-		if(this.currentSecond != currentSecond){
+
+	public void setTimer(double currentSecond) {
+		if (this.currentSecond != currentSecond) {
 			this.currentSecond = currentSecond;
 			timer = timer - GameClock.getTimePerLoop();
 		}
@@ -73,6 +73,18 @@ public class Spawn {
 
 	public void setNumEntities(int numEntities) {
 		this.numEntities = numEntities;
+	}
+	
+	public String getInfo() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(spawningEntityName);
+		sb.append(".");
+		sb.append(waveIndex);
+		sb.append(".");
+		sb.append(numEntities);
+		sb.append(".");
+		sb.append(spawningRate);
+		return sb.toString();
 	}
 	
 }

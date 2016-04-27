@@ -1,5 +1,6 @@
 package engine.backend.deprecated;
 
+
 import java.util.List;
 
 import engine.backend.components.Component;
@@ -51,6 +52,23 @@ public class UserInputComponent extends Component {
 		this.keyValue = keyValue;
 	}
 
+<<<<<<< HEAD
+    @Override
+    public String getTag(){
+        return "UserInput";
+    }
+
+	@Override
+	public String getComponentInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
+=======
 	@Override
 	public String getTag() {
 		return "UserInput";
@@ -59,5 +77,6 @@ public class UserInputComponent extends Component {
 	@Override
 	public void initWithParams(String[] params) {
 
+>>>>>>> 3da7f90757e5c20942cb51657314ae3502129a31
 	}
 }

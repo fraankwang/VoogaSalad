@@ -1,5 +1,9 @@
 package engine.controller;
+
+import java.util.List;
+
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.systems.EventManager;
@@ -10,10 +14,13 @@ import engine.frontend.overall.EngineView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
+import utility.GameCapture;
 
 /*
  * Todos:
@@ -42,6 +49,7 @@ public class EngineController implements IEngineController{
 	private testingClass myTestingClass;
 
 	private EngineView myEngineView;
+	private GameCapture myGameCapture;
 
 	public EngineController(Stage s, Main m) {
 		myStage = s;
@@ -52,16 +60,12 @@ public class EngineController implements IEngineController{
 		myGameWorld = new GameWorld();
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
-		
 		ModeStatistics stats = new ModeStatistics(10, 10);
-		
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
 				myGameWorld.getAuthoredEntities());
 		
 		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
-		
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-		playing = true;
 		
 		myEngineView = new EngineView(myStage, this);
 		buildStage();
@@ -76,28 +80,55 @@ public class EngineController implements IEngineController{
 	private void buildStage(){
 		myStage.setMinWidth(myEngineView.loadIntResource("StageMinWidth"));
 		myStage.setMinHeight(myEngineView.loadIntResource("StageMinHeight"));
-		myStage.setX(0);
-		myStage.setY(0);
+		myStage.setX(myEngineView.loadIntResource("StartX"));
+		myStage.setY(myEngineView.loadIntResource("StartY"));
 		
 		Scene scene = myEngineView.buildScene();
 		myStage.setScene(scene); 
 		myStage.show();
+		setupGameCapture();
+	}
+	
+	private void setupGameCapture(){
+		myGameCapture = new GameCapture( 
+				myEngineView.loadIntResource("StartX"), 
+				myEngineView.loadIntResource("StartY"),
+				myEngineView.loadIntResource("StageMinWidth"),
+				myEngineView.loadIntResource("StageMinHeight"));
+		
+		myStage.xProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureX(newValue.intValue());
+			}
+		});
+		
+		myStage.yProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureY(newValue.intValue());
+			}
+		});
+		
+		myStage.widthProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureWidth(newValue.intValue());
+			}
+		});
+		
+		myStage.heightProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureHeight(newValue.intValue());
+			}
+		});
 	}
 	
 	public void step() {
 		if(playing){
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
 		}
-
-	}
-	
-	private void setupStage(){
-		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
-		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
-		myStage.setX(0);
-		myStage.setY(0);
-		myStage.setScene(myEngineView.buildScene());
-		myStage.show();
 	}
 	
 	//backend endpoint 
@@ -107,33 +138,33 @@ public class EngineController implements IEngineController{
 		//they need to be scaled dynamically
 	}
 	
-//	public void updateShop(Shop shop){
-//		myEngineView.getShopPane().updateShop(shop);
-//	}
+	public void updateShop(List<ShopItem> shoplist){
+		myEngineView.getShopPane().updateShop(shoplist);
+	}
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-	public void shopClicked(String name){
-		//call backend to say shop object clicked
-	}
+	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
 //	}
 	
 	public void attemptTower(double xLoc, double yLoc, String type) {
-		// TODO Auto-generated method stub
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc, yLoc, type);
 		myEventManager.handleEntityDropEvent(event);
 	}
 
 	public void entityClicked(int myID) {
-		// TODO Auto-generated method stub
 		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
 		myEventManager.handleClickEvent(clickedEvent);
 	}
 	
 	public Main getMain(){
 		return myMain;
+	}
+	
+	public void setPlaying(boolean b){
+		playing = b;
 	}
 
 	public String getBackgroundImageFile(){
@@ -147,4 +178,8 @@ public class EngineController implements IEngineController{
 	public EventManager getEventManager(){
 		return myEventManager;
 	}
+	public GameCapture getGameCapture(){
+		return myGameCapture;
+	}
+	
 }

@@ -5,9 +5,7 @@ import java.util.List;
 import engine.backend.systems.GameClock;
 
 /**
- * 
  * @author raghavkedia
- *
  */
 
 public class FiringComponent extends Component{
@@ -156,15 +154,6 @@ public class FiringComponent extends Component{
 		this.myAmmunitionSpeed = speed;
 	}
 	
-	@Override
-	public void initWithParams(String[] params) {
-		myAmmunition = params[0];
-		myAmmunitionAmount = Integer.parseInt(params[1]);
-		myAmmunitionSpeed = Double.parseDouble(params[2]);
-		myEnemyInSightRange = Double.parseDouble(params[3]);
-		//myDirectionToFire = Double.parseDouble(params[4]);
-	}
-	
 	 /**
 	  * 
 	  * @return A list of strings representing the entities that can be targets of the entity with this firing component. 
@@ -254,6 +243,48 @@ public class FiringComponent extends Component{
 	 */
 	public void setFiringRate(double firingRate) {
 		this.myFiringRate = firingRate;
+	}
+
+	@Override
+	public String getComponentInfo() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Ammunition:");
+		sb.append(myAmmunition);
+		sb.append(",");
+		sb.append("AmmunitionSpeed:");
+		sb.append(myAmmunitionSpeed);
+		sb.append(",");
+		sb.append("EnemyInSightRange:");
+		sb.append(myEnemyInSightRange);
+		sb.append(",");
+		sb.append("Targets:");
+		sb.append(myTargets);
+		sb.append(",");
+		sb.append("FiringRate:");
+		sb.append(myFiringRate);
+		
+		return sb.toString();
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+		
+		case "Ammunition":
+			this.myAmmunition = data;
+			return;
+		case "AmmunitionSpeed":
+			this.myAmmunitionSpeed = Double.parseDouble(data);
+			return;
+		case "EnemyInSightRange":
+			this.myEnemyInSightRange = Double.parseDouble(data);
+			return;
+		case "FiringRate":
+			this.myFiringRate = Double.parseDouble(data);
+			return;
+			
+		}
 	}
 	
 	public int getNumDirections(){

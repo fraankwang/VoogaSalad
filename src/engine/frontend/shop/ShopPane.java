@@ -1,76 +1,87 @@
 package engine.frontend.shop;
 
-
+import java.util.HashMap;
 /**
  * @author HaydenBader
  */
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.game_features.ShopItem;
+import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+public class ShopPane extends AbstractPane {
+	private VBox myVBox;
+	private ListView<ShopItem> myShopList;
+	private CurrentView myCurrentView;
+	private ListView<ShopItem> myUpgradeList;
 
-
-public class ShopPane {
-	private EngineView myEngineView;
-	private ScrollPane myScrollPane;
-	private VBox myVBox = new VBox();
-	//private ListView<Map<String, String>> myListView = new ListView<Map<String, String>>()
-	
-	public ShopPane(EngineView ev){
-		myEngineView = ev;
+	public ShopPane(EngineView ev) {
+		super(ev);
 	}
-	
-	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
-		myScrollPane = new ScrollPane();
-		myScrollPane.setStyle("-fx-border-color: black;");
+
+	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
+		super.buildNode(widthBinding, heightBinding);
+		Pane myPane = super.getPane();
+		myPane.setStyle("-fx-border-color: black");
+
+		myVBox = new VBox();
+		bindWidth(myVBox, myPane.widthProperty());
+		bindHeight(myVBox, myPane.heightProperty());
+		myVBox.setSpacing(getEngineView().loadDoubleResource("ShopSpacing"));
 		
-		bindWidth(widthBinding);
-		bindHeight(heightBinding);
+		ShopItem tester = new ShopItem("tempEntity2", "DrumpfVader.png", 10);
 		
-		myVBox.minWidthProperty().bind(myScrollPane.widthProperty());
-		myVBox.minHeightProperty().bind(myScrollPane.heightProperty());
-		myVBox.setSpacing(myEngineView.loadDoubleResource("ShopSpacing"));
+		myShopList = new ListView<ShopItem>();
+		myUpgradeList = new ListView<ShopItem>();
 		
-		myScrollPane.setContent(myVBox);
-		
-		//VBox.setVgrow(myVBox, Priority.ALWAYS);
-		VBox.setVgrow(myScrollPane, Priority.ALWAYS);
-		
-	    ShopItem tester = new ShopItem("tempEntity2", "DrumpfVader.png", 10);
+		setupShopList();
+		myCurrentView = new CurrentView(this);
+		myVBox.getChildren().add(myCurrentView.buildCurrentView(tester, myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
+		setupUpgradeList();
+		myPane.getChildren().add(myVBox);
 		
 		addShopObject(tester);
-		return myScrollPane;
-	}
-
-	
-	private void bindWidth(DoubleExpression db){
-		myScrollPane.minWidthProperty().bind(db);
-		myScrollPane.maxWidthProperty().bind(db);
+		return myPane;
 	}
 	
-	private void bindHeight(DoubleExpression db){
-		myScrollPane.minHeightProperty().bind(db);
-		myScrollPane.maxHeightProperty().bind(db);
+	private void setupShopList(){
+		myShopList = new ListView<ShopItem>();
+		myShopList.setCellFactory(e -> {return new ShopCell(this);});
+		bindWidth(myShopList, myVBox.widthProperty());
+		bindHeight(myShopList, myVBox.heightProperty().multiply(.6));
+		myVBox.getChildren().add(myShopList);
 	}
 	
-	public void createShop(String image, String type, double cost){
-
+	private void setupUpgradeList(){
+		myUpgradeList = new ListView<ShopItem>();
+		myUpgradeList.setCellFactory(e -> {return new UpgradeCell(this);});
+		bindWidth(myUpgradeList, myVBox.widthProperty());
+		bindHeight(myUpgradeList, myVBox.heightProperty().multiply(.3));
+		myVBox.getChildren().add(myUpgradeList);
+	}
+	
+	public void addShopObject(ShopItem myShopItem) {
+		myShopList.getItems().add(myShopItem);
 	}
 
-	public void addShopObject(ShopItem myShopItem){
-		ShopView myShopView = new ShopView(myEngineView);
-		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40, 40));
+	public void updateShop(List<ShopItem> list) {
+		myShopList.getItems().clear();
+		myShopList.getItems().addAll(list);
 	}
-
-
-	public void updateShop(List<ShopItem> myShopList){
-		
+	
+	public void updateCurrentView(ShopItem sp){
+		myCurrentView.updateCurrentView(sp);
 	}
-
+	
+	public CurrentView getCurrentView(){
+		return myCurrentView;
+	}
 }
