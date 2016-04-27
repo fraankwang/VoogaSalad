@@ -71,7 +71,6 @@ public class AuthoringLevel {
 	public void setSpawnEntities(List<AuthoringEntity> spawnEntities) {
 		this.spawnEntities = spawnEntities;
 		this.myInfo.put("SpawnEntities", getSpawnEntityInfo());
-		
 	}
 	
 	private String getSpawnEntityInfo() {
@@ -81,7 +80,7 @@ public class AuthoringLevel {
 			StringBuilder sb = new StringBuilder();
 			for (AuthoringEntity entity : spawnEntities) {
 				Map<String, String> info = entity.getInfo();
-				String spawnInfo = info.get("SpawnComponent");
+				String spawnInfo = info.get("SpawnerComponent");
 				sb.append(spawnInfo);
 				sb.append(",");
 			}
