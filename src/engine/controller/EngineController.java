@@ -1,5 +1,6 @@
 package engine.controller;
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.ShopItem;
@@ -136,6 +137,12 @@ public class EngineController implements IEngineController{
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
+	
+	public void updateShopStatistics(Map<Integer, Map<String, String>> shopStatistics, boolean hasChanged){
+		for( Integer i : shopStatistics.keySet()){
+			myEngineView.getShopPane().addStatsObject(i.intValue(), shopStatistics.get(i), hasChanged);
+		}
+	}
 	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
