@@ -15,7 +15,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-public class ShopCell extends ListCell<ShopItem> {
+public class UpgradeCell extends ListCell<ShopItem> {
 
 	private ShopPane myShopPane;
 	private ShopItem myItem;
@@ -23,7 +23,7 @@ public class ShopCell extends ListCell<ShopItem> {
 	public static final String DEFAULT_RESOURCE = "engine/resources/shop_cell";
 	private ResourceBundle myResources;
 
-	public ShopCell(ShopPane sp) {
+	public UpgradeCell(ShopPane sp) {
 		myShopPane = sp;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
@@ -35,7 +35,7 @@ public class ShopCell extends ListCell<ShopItem> {
 			myItem = item;
 			HBox hbox = new HBox();
 			myShopPane.bindHeight(hbox, super.getListView().heightProperty().multiply(.1));
-			myShopPane.bindWidth(hbox, super.getListView().widthProperty());
+			myShopPane.bindHeight(hbox, super.getListView().widthProperty());
 			
 			myImage = new Image(item.getItemImage());
 			ImageView myImageView = new ImageView(myImage);
@@ -44,7 +44,7 @@ public class ShopCell extends ListCell<ShopItem> {
 			Text myType = new Text(item.getItemName());
 			Text myCost = new Text(myResources.getString("ShopCostPrompt") + String.valueOf(item.getItemValue()));
 			
-			if (true) {
+			if (item.isCanBuy()) {
 				setOnDragDetected(e -> selectTower(e));
 			} else {
 				setOnDragDetected(null);

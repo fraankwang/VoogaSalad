@@ -1,40 +1,30 @@
 package engine.frontend.shop;
 
-
 import java.util.HashMap;
-
-
 /**
  * @author HaydenBader
  */
 import java.util.List;
 import java.util.Map;
+
 import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
-import engine.frontend.shop.ShopCell;
-import javafx.scene.Node;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.beans.binding.DoubleExpression;
-
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class ShopPane extends AbstractPane {
 	private VBox myVBox;
-	private ListView<Map<String, String>> myListView;
-	
-	private ListCell<Map<String, String>> handleShopCreation(){
-		ListCell<Map<String, String>> myVal = new ShopCell(myEngineView);
-		return myVal;
-	}
-	
-	
+	private ListView<ShopItem> myShopList;
+	private CurrentView myCurrentView;
+	private ListView<ShopItem> myUpgradeList;
+
 	public ShopPane(EngineView ev) {
 		super(ev);
-		myListView = new ListView<Map<String, String>>();
 	}
 
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
@@ -42,60 +32,63 @@ public class ShopPane extends AbstractPane {
 		Pane myPane = super.getPane();
 		myPane.setStyle("-fx-border-color: black");
 
-		myListView = new ListView<Map<String, String>>();
-	    VBox.setVgrow(myListView, Priority.ALWAYS);
-	    myListView.setCellFactory( e-> handleShopCreation());
-
-	    ShopItem tester = new ShopItem("Trumpf", "DrumpfVader.png", 10);
 		myVBox = new VBox();
-		myVBox.minWidthProperty().bind(myPane.widthProperty());
-		myVBox.minHeightProperty().bind(myPane.heightProperty());
-		
-		
+		bindWidth(myVBox, myPane.widthProperty());
+		bindHeight(myVBox, myPane.heightProperty());
 		myVBox.setSpacing(getEngineView().loadDoubleResource("ShopSpacing"));
-
+		
+		ShopItem tester = new ShopItem("tempEntity2", "DrumpfVader.png", 10);
+		
+		myShopList = new ListView<ShopItem>();
+		myUpgradeList = new ListView<ShopItem>();
+		
+		setupShopList();
+		myCurrentView = new CurrentView(this);
+		myVBox.getChildren().add(myCurrentView.buildCurrentView(tester, myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
+		setupUpgradeList();
 		myPane.getChildren().add(myVBox);
-		myVBox.getChildren().add(myListView);
-		VBox.setVgrow(myListView, Priority.ALWAYS);
+		
 		addShopObject(tester);
 		return myPane;
 	}
-
-	public void createShop(String image, String type, double cost) {
-
-		
-			Map<String, String> addMap = new HashMap();
-			addMap.put("name", type);
-			addMap.put("image", image);
-			addMap.put("cost", Double.toString(cost));
-			addMap.put("purchasable", "true");
-			
-			myListView.getItems().add(addMap);
-		
+	
+	private void setupShopList(){
+		myShopList = new ListView<ShopItem>();
+		myShopList.setCellFactory(e -> {return new ShopCell(this);});
+		bindWidth(myShopList, myVBox.widthProperty());
+		bindHeight(myShopList, myVBox.heightProperty().multiply(.6));
+		myVBox.getChildren().add(myShopList);
 	}
-
+	
+	private void setupUpgradeList(){
+		myUpgradeList = new ListView<ShopItem>();
+		myUpgradeList.setCellFactory(e -> {return new UpgradeCell(this);});
+		bindWidth(myUpgradeList, myVBox.widthProperty());
+		bindHeight(myUpgradeList, myVBox.heightProperty().multiply(.3));
+		myVBox.getChildren().add(myUpgradeList);
+	}
+	
 	public void addShopObject(ShopItem myShopItem) {
-		ShopView myShopView = new ShopView(getEngineView());
-		Map<String, String> addMap = new HashMap();
-		addMap.put("name", myShopItem.getItemName());
-		addMap.put("image", myShopItem.getItemImage());
-		addMap.put("cost",  Double.toString(myShopItem.getItemValue()));
-		addMap.put("purchasable", "true");
-		// get purchasable
-		myListView.getItems().add(addMap);
-		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40.0, 40.0));
+		myShopList.getItems().add(myShopItem);
 	}
-//	
-//	private void handleMouseClick(MouseEvent e, Map<String, String> myMap) {
-//		myEngineView.getEngineController().shopClicked(myMap.get("name"));
-//		myEngineView.getStage().getScene().setCursor(Cursor.NONE);
-//		myEngineView.getDummyCursor().updateLocation(e.getSceneX(), e.getSceneY());
-//		myEngineView.getDummyCursor().changePic(new Image(myMap.get("image")));	
-//	}
+	//
+	// private void handleMouseClick(MouseEvent e, Map<String, String> myMap) {
+	// myEngineView.getEngineController().shopClicked(myMap.get("name"));
+	// myEngineView.getStage().getScene().setCursor(Cursor.NONE);
+	// myEngineView.getDummyCursor().updateLocation(e.getSceneX(),
+	// e.getSceneY());
+	// myEngineView.getDummyCursor().changePic(new Image(myMap.get("image")));
+	// }
 
-	public void updateShop(List<ShopItem> myShopList){
-		
+	public void updateShop(List<ShopItem> myShopList) {
 
 	}
-
+	
+	public void updateCurrentView(ShopItem sp){
+		myCurrentView.updateCurrentView(sp);
+	}
+	
+	public CurrentView getCurrentView(){
+		return myCurrentView;
+	}
 }
