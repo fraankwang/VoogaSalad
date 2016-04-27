@@ -30,7 +30,6 @@ public class Level {
 	private String myName;
 	private int index;
 	private GameMap map;
-	private double timer;
 	private int numWaves;
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;

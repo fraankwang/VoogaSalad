@@ -59,8 +59,9 @@ public class SpawningSystem extends GameSystem{
 	}
 		
 	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities, InGameEntityFactory myEntityFactory, double currentSecond, int pathID){
-		
-		if(spawn.getTimer() == 0 && spawn.getNumEntities() > 0){
+		System.out.println(spawn.getTimer());
+		if(spawn.getTimer() <= 0 && spawn.getNumEntities() > 0){
+			//System.out.println(spawn.getTimer());
 			//spawn
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 			//System.out.println(newEntity.getName() + "   " + newEntity.getID());
@@ -76,7 +77,7 @@ public class SpawningSystem extends GameSystem{
 			spawn.resetTimer();
 		}
 		else{
-			spawn.setTimer(currentSecond);
+			spawn.decrementTimer();
 		}
 		
 	}

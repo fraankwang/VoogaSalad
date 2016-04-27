@@ -17,14 +17,9 @@ public class InGameEntityFactory {
 	private GameStatistics myStats;
 	private Map<String, Map<String, IEntity>> myEntityMap;
 
-//	public InGameEntityFactory(GameStatistics stats, List<IEntity> entities) {
-//		this.myStats = stats;
-//		this.myEntityMap = createMap(entities);
-//	}
-	
-	public InGameEntityFactory(GameStatistics stats, Map<String, Map<String, IEntity>> entities) {
+	public InGameEntityFactory(GameStatistics stats, List<IEntity> entities) {
 		this.myStats = stats;
-		this.myEntityMap = entities;
+		this.myEntityMap = createMap(entities);
 	}
 	
 	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities)

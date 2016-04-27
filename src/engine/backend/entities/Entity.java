@@ -14,13 +14,11 @@ import engine.backend.components.IComponent;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
 import engine.backend.utilities.ComponentTagResources;
-import engine.backend.utilities.IComponentTagResources;
 
 public class Entity implements IEntity {
 
 	private String myName;
 	private String myType;
-	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
 	private int myParentLevelID;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();
@@ -38,14 +36,6 @@ public class Entity implements IEntity {
 		this.myName = myName;
 		this.myType = myType;
 		// this.myValue = myValue;
-	}
-
-	public List<Rule> getRules() {
-		return myRules;
-	}
-
-	public void addRule(Rule myRule) {
-		myRules.add(myRule);
 	}
 
 	public void addComponent(IComponent component) {

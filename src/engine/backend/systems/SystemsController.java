@@ -48,7 +48,7 @@ public class SystemsController {
 	 */
 	public SystemsController(int framesPerSecond, EventManager myEventManager) {
 		myEntityFactory = new InGameEntityFactory(myEventManager.getGameWorld().getGameStatistics(),
-				myEventManager.getGameWorld().getEntityMap());
+				myEventManager.getGameWorld().getAuthoredEntities());
 
 		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 
@@ -94,8 +94,9 @@ public class SystemsController {
 		myEventManager.handleGeneratedEvents(myEventMap);
 		//final system, do all the rendering
 		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory, myGameClock.getCurrentSecond());
+		//System.out.println(myGameClock.getCurrentSecond());
 		//System.out.println(myEventManager.getModeStatistics().getCurrentNumLives());
-
+		//System.out.println(myGameClock.getCurrentSecond());
 		myGameClock.updateLoopIteration();
 	}
 
