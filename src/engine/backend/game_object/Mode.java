@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class Mode {
 
-	private List<Level> levels;
 	private Map<Integer, Level> myLevels;
 	private String myName;
 	private ModeStatistics myModeStatistics;
@@ -38,10 +37,6 @@ public class Mode {
 		myLevels.put(level.getIndex(), level);
 	}
 
-	@Override
-	public String toString() {
-		return "Mode [levels=" + levels + "]";
-	}
 	
 	@Override
 	public boolean equals(Object o) {

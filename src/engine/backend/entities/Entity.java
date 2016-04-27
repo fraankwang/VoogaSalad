@@ -2,17 +2,13 @@ package engine.backend.entities;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
 import engine.backend.rules.EntityAction;
-import engine.backend.rules.Rule;
 import engine.backend.utilities.ComponentTagResources;
 
 public class Entity implements IEntity {
@@ -20,7 +16,6 @@ public class Entity implements IEntity {
 	private String myName;
 	private String myType;
 	private int myID;
-	private int myParentLevelID;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();
 
 	private boolean hasBeenModified = true;
@@ -39,9 +34,6 @@ public class Entity implements IEntity {
 	}
 
 	public void addComponent(IComponent component) {
-		if (component == null)
-			System.out.println("this component is null");
-		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
 	}
 
@@ -95,15 +87,6 @@ public class Entity implements IEntity {
 	}
 
 	/**
-	 * Sets the name of the type of entity.
-	 * 
-	 * @param name
-	 */
-	public void setMane(String name) {
-		this.myName = name;
-	}
-
-	/**
 	 * @return A boolean representing whether this entity has the component with
 	 *         the tag.
 	 */
@@ -129,58 +112,15 @@ public class Entity implements IEntity {
 		hasBeenModified = bool;
 	}
 
-	/**
-	 * 
-	 * @return The identifier for the level that has this entity object.
-	 */
-	public int getLevelID() {
-		return myParentLevelID;
-	}
-
-	/**
-	 * Sets the level identifier to the identifier of the level that has this
-	 * object.
-	 * 
-	 * @param levelID
-	 */
-	public void setLevelID(int levelID) {
-		this.myParentLevelID = levelID;
-	}
-
 	public String getType() {
 		return myType;
-	}
-
-	public void setMyType(String myType) {
-		this.myType = myType;
 	}
 
 	@Override
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Entity) {
-			Entity temp = (Entity) o;
-			if (this.myName.equals(temp.myName)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-
-	}
-
-	@Override
-	public double getValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+ 
 	@Override
 	public void applyAction(EntityAction action) {
 		String component = action.getComponentToModifiy();

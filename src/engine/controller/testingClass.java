@@ -146,7 +146,7 @@ public class testingClass {
 		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
+		Spawn spawn = new Spawn("tempEntity", .1, 0, 500);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
@@ -158,7 +158,7 @@ public class testingClass {
 		
 		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns", 20);
 		IComponent tempPosition = new PositionComponent(0, 100);
-		IComponent tempMovement = new MovementComponent(2, 0);
+		IComponent tempMovement = new MovementComponent(6, 0);
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();

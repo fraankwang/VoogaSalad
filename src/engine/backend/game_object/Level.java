@@ -34,11 +34,6 @@ public class Level {
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
 
-	public Level(String name, GameMap map) {
-		this.myName = name;
-		this.map = map;
-	}
-
 	public Level(String name) {
 		this.authoredEntities = new ArrayList<IEntity>();
 		this.entities = new HashMap<Integer, IEntity>();
@@ -118,43 +113,11 @@ public class Level {
 		return "Level [entities=" + entities + "] ";
 	}
 
-	/**
-	 * Authoring environment adds entities that can be created during the
-	 * entity.
-	 * 
-	 * @param entity
-	 */
-	public void addToEntities(IEntity entity) {
-		entity.setLevelID(myID);
-		authoredEntities.add(entity);
-	}
-
-	/**
-	 * Setting the name of the mode containing this level.
-	 * 
-	 * @param modeID
-	 */
-
-
-	/**
-	 * 
-	 * @return A String with the identifier of the mode with this level.
-	 */
-
-
 	
 	public void removeEntites(Collection<IEntity> entitiesToRemove){
 		for(IEntity entity : entitiesToRemove){
 			entities.remove(entity.getID());
 		}
-	}
-
-	/**
-	 * 
-	 * @return A map containing the events that can occur during this level.
-	 */
-	public Map<String, List<EntityAction>> getCustomEvents() {
-		return myEventMap;
 	}
 
 	public IEntity getEntityWithID(int entityID) {
