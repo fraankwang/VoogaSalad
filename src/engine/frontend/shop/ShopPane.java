@@ -1,11 +1,9 @@
 package engine.frontend.shop;
 
-import java.util.HashMap;
 /**
  * @author HaydenBader
  */
 import java.util.List;
-import java.util.Map;
 
 import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.AbstractPane;
@@ -13,7 +11,6 @@ import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -71,17 +68,10 @@ public class ShopPane extends AbstractPane {
 	public void addShopObject(ShopItem myShopItem) {
 		myShopList.getItems().add(myShopItem);
 	}
-	//
-	// private void handleMouseClick(MouseEvent e, Map<String, String> myMap) {
-	// myEngineView.getEngineController().shopClicked(myMap.get("name"));
-	// myEngineView.getStage().getScene().setCursor(Cursor.NONE);
-	// myEngineView.getDummyCursor().updateLocation(e.getSceneX(),
-	// e.getSceneY());
-	// myEngineView.getDummyCursor().changePic(new Image(myMap.get("image")));
-	// }
 
-	public void updateShop(List<ShopItem> myShopList) {
-
+	public void updateShop(List<ShopItem> list) {
+		myShopList.getItems().clear();
+		myShopList.getItems().addAll(list);
 	}
 	
 	public void updateCurrentView(ShopItem sp){
