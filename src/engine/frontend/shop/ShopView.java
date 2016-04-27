@@ -4,6 +4,7 @@ package engine.frontend.shop;
  * @author HaydenBader
  */
 
+import engine.controller.EngineController;
 import engine.frontend.overall.EngineView;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -32,6 +33,7 @@ public class ShopView {
 		
 		Text name = new Text(type);		
 		myType = type;
+		
 		myImageView = new ImageView(new Image(image));
 		myImageView.setFitWidth(width);
 		myImageView.setFitHeight(height);
