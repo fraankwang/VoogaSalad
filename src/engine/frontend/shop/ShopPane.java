@@ -51,6 +51,7 @@ public class ShopPane extends AbstractPane {
 		myVBox.minWidthProperty().bind(myPane.widthProperty());
 		myVBox.minHeightProperty().bind(myPane.heightProperty());
 		
+		
 		myVBox.setSpacing(getEngineView().loadDoubleResource("ShopSpacing"));
 
 		myPane.getChildren().add(myVBox);
@@ -67,6 +68,7 @@ public class ShopPane extends AbstractPane {
 			addMap.put("name", type);
 			addMap.put("image", image);
 			addMap.put("cost", Double.toString(cost));
+			addMap.put("purchasable", "true");
 			
 			myListView.getItems().add(addMap);
 		
@@ -78,6 +80,8 @@ public class ShopPane extends AbstractPane {
 		addMap.put("name", myShopItem.getItemName());
 		addMap.put("image", myShopItem.getItemImage());
 		addMap.put("cost",  Double.toString(myShopItem.getItemValue()));
+		addMap.put("purchasable", "true");
+		// get purchasable
 		myListView.getItems().add(addMap);
 		myVBox.getChildren().add(myShopView.buildShopView(myShopItem.getItemImage(), myShopItem.getItemName(), myShopItem.getItemValue(), 40.0, 40.0));
 	}

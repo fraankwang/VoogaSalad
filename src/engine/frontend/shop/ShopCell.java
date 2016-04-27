@@ -4,6 +4,7 @@ package engine.frontend.shop;
  */
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import engine.frontend.overall.EngineView;
 import javafx.geometry.Pos;
@@ -24,9 +25,12 @@ public class ShopCell extends ListCell<Map<String, String>> {
 	private EngineView myEngineView;
 	private Text myName;
 	private Image myImage;
+	public static final String DEFAULT_RESOURCE = "engine/resources/shop_cell";
+	private ResourceBundle myResources;
 	
 	ShopCell(EngineView ev){
 		myEngineView = ev;
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
 	
 	@Override
@@ -41,13 +45,19 @@ public class ShopCell extends ListCell<Map<String, String>> {
             myName = new Text(itemMap.get("name"));
             myImage = new Image(itemMap.get("image"));
             ImageView myPic = new ImageView(myImage);
-            myPic.setFitWidth(myEngineView.loadDoubleResource("ShopCellWidth"));
-            myPic.setFitHeight(myEngineView.loadDoubleResource("ShopCellHeight"));
+            myPic.setFitWidth(myEngineView.loadDoubleResource("ShopCellWidth") * myEngineView.getStage().getWidth());
+            myPic.setFitHeight(myEngineView.loadDoubleResource("ShopCellHeight") * myEngineView.getStage().getHeight());
             
-            setOnDragDetected(e -> selectTower(e));
-    		
+            if(itemMap.get("purchasable").equals("true")){
+                setOnDragDetected(e -> selectTower(e));
+            }else{
+            	setOnDragDetected(null);
+            }
+
+
+            
             hbox.getChildren().addAll(myName, myPic);
-   	       	setText(String.valueOf(itemMap.get("cost")));
+   	       	setText(myResources.getString("ShopCostPrompt") + String.valueOf((itemMap.get("cost"))));
    	        setTextAlignment(TextAlignment.RIGHT);     
    	        hbox.setAlignment(Pos.CENTER_LEFT);
             setGraphic(hbox);
