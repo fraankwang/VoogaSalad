@@ -14,7 +14,6 @@ import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -86,8 +85,10 @@ public class ShopPane extends AbstractPane {
 		myShopList.getItems().add(myShopItem);
 	}
 
-	public void updateShop(List<ShopItem> myShopList) {
-		
+
+	public void updateShop(List<ShopItem> list) {
+		myShopList.getItems().clear();
+		myShopList.getItems().addAll(list);
 	}
 	
 	public void updateCurrentView(int id){

@@ -1,5 +1,8 @@
 package engine.controller;
+import java.util.List;
+
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.systems.EventManager;
@@ -17,17 +20,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 import utility.GameCapture;
-
-/*
- * Todos:
- * Scaling- for pixel amounts coming in from backend, only endpoint is EngineController.updateEntity, scale points
- * 		  - for pixel amounts going to backend, may be multiple endpoints, the various click events all need to be 
- * 		  backscaled before they go to the backend
- * 		Bind the width/height/x/y property of everything on the map to the current size
- * 
- *  Want to scale everything based on the size of the 
- */
-
 
 public class EngineController implements IEngineController{
 	private Stage myStage;
@@ -138,9 +130,9 @@ public class EngineController implements IEngineController{
 		//they need to be scaled dynamically
 	}
 	
-//	public void updateShop(Shop shop){
-//		myEngineView.getShopPane().updateShop(shop);
-//	}
+	public void updateShop(List<ShopItem> shoplist){
+		myEngineView.getShopPane().updateShop(shoplist);
+	}
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
@@ -183,4 +175,7 @@ public class EngineController implements IEngineController{
 		return myGameCapture;
 	}
 	
+	public EngineView getEngineView(){
+		return myEngineView;
+	}
 }
