@@ -70,6 +70,11 @@ public class GameMap {
 		return paths;
 	}
 	
+	public Path getPath(int index){
+		return paths[index];
+	}
+	
+	
 	public void setPaths(Path[] paths) {
 		this.paths = paths;
 	}

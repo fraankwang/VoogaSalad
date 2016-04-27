@@ -22,6 +22,8 @@ public interface IEntity {
 	public Set<String> getComponentTags();
 
 	public Collection<IComponent> getComponents();
+	
+	public void addComponent(IComponent component);
 
 	public boolean hasComponent(String tag);
 
@@ -31,7 +33,7 @@ public interface IEntity {
 
 	public void setHasBeenModified(boolean bool);
 
-	public String getType();
+	public String getGenre();
 
 	public int getID();
 

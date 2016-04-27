@@ -81,8 +81,8 @@ public class EventManager implements Observer{
 	}
 	
 	public void handleEntityDropEvent(EntityDroppedEvent event){
-		System.out.println("hit");
 		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
+		System.out.println(newEntity);
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
 		getCurrentLevel().addEntityToMap(newEntity);

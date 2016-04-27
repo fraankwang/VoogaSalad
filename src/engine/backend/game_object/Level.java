@@ -6,7 +6,9 @@
 
 package engine.backend.game_object;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,18 +24,40 @@ import engine.backend.rules.Rule;
  */
 public class Level {
 	
+	//put spawning entities in this map
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
+	private List<IEntity> authoredEntities;
 	private String myName;
-	private int index;
 	private GameMap map;
-	private double levelTimer;
 	private double waveDelayTimer;
-	private double timer;
 	private int numWaves;
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
-		
+	private int index;
+	
+	/**
+	 * Authoring Environment Constructor.
+	 */
+	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+		this.myName = myName;
+		this.map = myMap;
+		this.waveDelayTimer = waveDelayTimer;
+		this.authoredEntities = authoredEntities;
+		this.entities = entities;
+	}
+	
+	/**
+	 * Engine Testing Constructor.
+	 */
+	public Level(String name) {
+        this.authoredEntities = new ArrayList<IEntity>();
+        this.entities = new HashMap<Integer, IEntity>();
+        this.myName = name;
+        this.myEventMap = new HashMap<String, List<EntityAction>>();
+        ruleAgenda = new ArrayList<Rule>();
+    }
+
 	/**
 	 * 
 	 * @return The unique identifier for the level.
@@ -89,19 +113,18 @@ public class Level {
 	public GameMap getMap() {
 		return map;
 	}
+	
+	/**
+	 * Engine Testing Method.
+	 */
+	public void setMap(GameMap map) {
+		this.map = map;
+	}
 
 	public void removeEntites(Collection<IEntity> entitiesToRemove){
 		for(IEntity entity : entitiesToRemove){
 			entities.remove(entity.getID());
 		}
-	}
-
-	/**
-	 * 
-	 * @return A map containing the events that can occur during this level.
-	 */
-	public Map<String, List<EntityAction>> getCustomEvents() {
-		return myEventMap;
 	}
 
 	public IEntity getEntityWithID(int entityID) {
@@ -119,9 +142,21 @@ public class Level {
 	public void setCurrentWaveIndex(int currentWaveIndex) {
 		this.currentWaveIndex = currentWaveIndex;
 	}
-
+	
 	public int getIndex() {
 		return index;
+	}
+	
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	
+	public double getWaveDelayTimer() {
+		return waveDelayTimer;
+	}
+	
+	public List<IEntity> getAuthoredEntities() {
+		return authoredEntities;
 	}
 	
 	@Override

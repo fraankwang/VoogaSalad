@@ -9,8 +9,6 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-//import com.xuggle.xuggler.ICodec;
-
 import engine.frontend.overall.EngineView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,16 +25,19 @@ public class MenubarManager {
 	
 	private static final ObservableList<Integer> workspaceList = FXCollections.observableArrayList();
 	
-	public static final String DEFAULT_RESOURCE = "engine/resources/menubar";
+	public static final String DEFAULT_RESOURCE = "engine/frontend/status/menubar";
 	private ResourceBundle myResources;
+	
+	private MenuBar menubar;
 	
 	public MenubarManager(EngineView ev){
 		myEngineView = ev;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
-		
+
 	public MenuBar buildMenuBar(){
-		MenuBar menubar = new MenuBar();
+		menubar = new MenuBar();
+		
 		Menu filemenu = buildFileMenu();
 		Menu capturemenu = buildCaptureMenu();
 		final Menu menu3 = new Menu("Help");

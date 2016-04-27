@@ -1,5 +1,12 @@
 package engine.backend.components;
 
+
+/**
+ * 
+ * @author 
+ *
+ */
+
 public class HealthComponent extends Component {
 	
 	private double myHealth;
@@ -30,7 +37,7 @@ public class HealthComponent extends Component {
 	 */
 	public void setHealth(String deltaHealth){
 		Double delta = Double.parseDouble(deltaHealth);
-		myHealth = delta;
+		myHealth += delta;
 	}
 	
 	/**

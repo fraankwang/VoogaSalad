@@ -29,6 +29,7 @@ public class Path implements IPath{
 	}
 	
 	public Path() {
+		this.myCurves = new ArrayList<BezierCurve>();
 	}
 	
 	public int getID() {

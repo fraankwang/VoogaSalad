@@ -47,12 +47,12 @@ public class MobilizeSystem extends GameSystem{
 				
 				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
 				//if on path
-				event = updatePositionOnPath(entity.getID(), posComponent, movComponent, pathComponent, myLevel.getMap().getPath());
+				event = updatePositionOnPath(entity, posComponent, movComponent, pathComponent, myLevel.getMap().getPath(pathComponent.getPathID()));
 
 			}
 			else{
 				
-				event = updatePosition(entity.getID(), posComponent, movComponent, myLevel.getMap());
+				event = updatePosition(entity, posComponent, movComponent, myLevel.getMap());
 				
 				
 				
@@ -88,7 +88,7 @@ public class MobilizeSystem extends GameSystem{
 	 *It takes it's current position vector, and adds it's velocity vector to it, updating it's position
 	 *If it's new position is outside of the Map, it will generate an OutOfMap event
 	 */
-	private IEvent updatePosition(int entityID, PositionComponent posComponent, MovementComponent movComponent, GameMap map){
+	private IEvent updatePosition(IEntity entity, PositionComponent posComponent, MovementComponent movComponent, GameMap map){
 		
 		//do movement
 		Vector posVector = posComponent.getPositionVector();
@@ -97,7 +97,7 @@ public class MobilizeSystem extends GameSystem{
 		posComponent.setPositionVector(newPos);
 		
 		if(outOfMap(newPos, map.getMapHeight(), map.getMapWidth())){
-			IEvent event = getOutOfMapEvent(entityID);
+			IEvent event = getOutOfMapEvent(entity);
 			return event;
 		}
 		return null;
@@ -107,7 +107,7 @@ public class MobilizeSystem extends GameSystem{
 	 * 
 	 * Checks to see if the position Vector of an entity is outside of the map
 	 */
-	private boolean outOfMap(Vector posVector, double height, double width){
+	private boolean outOfMap(Vector posVector, double height, double width){		
 		if(posVector.getX() < 0 || posVector.getX() > width){
 			return true;
 		}
@@ -117,13 +117,15 @@ public class MobilizeSystem extends GameSystem{
 		return false;
 	}
 	
-	private IEvent getEndOfPathEvent(int entityID){
-		EndOfPathEvent event = new EndOfPathEvent(entityID);
+	private IEvent getEndOfPathEvent(IEntity entity){
+		EndOfPathEvent event = new EndOfPathEvent(entity.getID());
+		event.setEventID(entity.getName());
 		return event;
 	}
 	
-	private IEvent getOutOfMapEvent(int entityID){
-		OutOfMapEvent event = new OutOfMapEvent(entityID);
+	private IEvent getOutOfMapEvent(IEntity entity){
+		OutOfMapEvent event = new OutOfMapEvent(entity.getID());
+		event.setEventID(entity.getName());
 		return event;
 	}
 	
@@ -134,14 +136,14 @@ public class MobilizeSystem extends GameSystem{
 	 * and adds the new time to the current time to updates it's position along the curve
 	 * If the entity reaches the end of the curve (bezier time is max), it will generate an EndOfPathEvent
 	 */
-	private IEvent updatePositionOnPath(int entityID, PositionComponent posComponent, MovementComponent movComponent, PathComponent pathComponent, Path path){
+	private IEvent updatePositionOnPath(IEntity entity, PositionComponent posComponent, MovementComponent movComponent, PathComponent pathComponent, Path path){
 		
 		double currBezTime = pathComponent.getBezierTime();
 
 		if((currBezTime >= path.numCurves() - 0.01 && pathComponent.movesWithTime())){
 			
 			//create end of path event
-			IEvent event = getEndOfPathEvent(entityID);
+			IEvent event = getEndOfPathEvent(entity);
 			return event;
 			
 		}
