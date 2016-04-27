@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -35,7 +36,7 @@ public class ImageImporter {
 	public void initialize() {
 		File imageFolder = new File(IMAGE_FOLDER);
 		for (final File fileEntry : imageFolder.listFiles()) {
-			myChooser.updateList(IMAGE_PATH + fileEntry.getName(), IMAGE_PATH + fileEntry.getName());
+			myChooser.updateList(fileEntry.toURI().toString(), IMAGE_PATH + fileEntry.getName());
 		}
 	}
 	
@@ -48,7 +49,7 @@ public class ImageImporter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myChooser.updateList(IMAGE_PATH + newFile.getName(), IMAGE_PATH + newFile.getName());
+		myChooser.updateList(newFile.toURI().toString(), IMAGE_PATH + newFile.getName());
 	}
 	
 	public void openImporter() {
