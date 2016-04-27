@@ -90,6 +90,7 @@ public class EntitiesTabGrid extends TabGrid {
 						public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 								Boolean newValue) {
 							if (newValue) {
+								info.remove("Type");
 								setAttributesPanel(info);
 								currentInfo = info;
 							}
