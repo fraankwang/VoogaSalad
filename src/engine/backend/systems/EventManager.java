@@ -13,6 +13,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_features.GameShop;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.ModeStatistics;
@@ -35,22 +36,30 @@ public class EventManager implements Observer{
 	ModeStatistics currentModeStatistics;
 	private List<Rule> myRuleAgenda;
 	InGameEntityFactory myEntityFactory;
+	private GameShop myGameShop;
 
 	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats, InGameEntityFactory factory) {
-		setLevel(game.getLevelWithId(0, 0));
+		setLevelRules(game.getLevelWithId(0, 0));
 		myEngineController = engineController;
 		myGameWorld = game;
 		//pass in right values
 		currentModeStatistics = stats;
 		myEntityFactory = factory;
+		myGameShop = new GameShop();
 	}
 
-	public void setLevel(Level level) {
+	public void setLevelRules(Level level) {
 		setCustomRules(level.getRuleAgenda());
 	}
 
 	public Level getCurrentLevel() {
 		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentModeIndex() , currentModeStatistics.getCurrentLevelIndex());
+	}
+	
+	public void updateGameShop() {
+		myGameShop.setShopItems(getCurrentLevel().getShopItems());
+		myGameShop.updateShop(currentModeStatistics.getCurrentResources());
+		myEngineController.updateShop(myGameShop.getShopItems());
 	}
 
 	@Override

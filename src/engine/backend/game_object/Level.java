@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import engine.backend.entities.IEntity;
+import engine.backend.game_features.ShopItem;
 import engine.backend.map.GameMap;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
@@ -28,6 +29,7 @@ public class Level {
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
 	private List<IEntity> authoredEntities;
+	private List<ShopItem> myShopItems;
 	private String myName;
 	private GameMap map;
 	private double waveDelayTimer;
@@ -161,6 +163,14 @@ public class Level {
 	@Override
 	public String toString() {
 		return "Level [entities=" + entities + "] ";
+	}
+
+	public List<ShopItem> getShopItems() {
+		return myShopItems;
+	}
+
+	public void setShopItems(List<ShopItem> myShopItems) {
+		this.myShopItems = myShopItems;
 	}
 
 }

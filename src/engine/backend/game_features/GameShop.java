@@ -32,5 +32,10 @@ public class GameShop {
 		ShopItem newItem = new ShopItem(itemName, itemImage, itemValue);
 		myItems.add(newItem);
 	}
+
+	public List<ShopItem> getShopItems() {
+		// TODO Auto-generated method stub
+		return myItems;
+	}
 	
 }

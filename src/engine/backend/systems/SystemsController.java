@@ -88,6 +88,8 @@ public class SystemsController {
 		}
 		//handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
+		myEventManager.updateGameShop();
+		
 		//final system, do all the rendering
 		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory, myGameClock.getCurrentSecond());
 		//System.out.println(myGameClock.getCurrentSecond());

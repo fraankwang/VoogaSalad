@@ -3,6 +3,8 @@ package engine.backend.game_object;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import engine.backend.game_features.GameShop;
 import engine.backend.rules.LevelAction;
 
 /**
