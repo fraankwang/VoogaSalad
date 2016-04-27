@@ -2,7 +2,6 @@ package authoring.backend.game_objects;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class AuthoringMode {
 	
@@ -10,11 +9,10 @@ public class AuthoringMode {
 	private int initialNumLives;
 	private double initialResources;
 	
-	private Set<String> levels;
 	private Map<String, String> myInfo;
-	private Map<Integer, String> levelIndex;
+	private Map<Integer, String> levels;
 	
-	public AuthoringMode(String myName, int initialNumLives, double initialResources, Set<String> levels) {
+	public AuthoringMode(String myName, int initialNumLives, double initialResources, Map<Integer, String> levels) {
 		this.myName = myName;
 		this.levels = levels;
 		this.initialNumLives = initialNumLives;
@@ -28,38 +26,23 @@ public class AuthoringMode {
 		myInfo.put("Name", myName);
 		myInfo.put("InitialLives", initialNumLives + "");
 		myInfo.put("InitialResources", initialResources + "");
-		myInfo.put("LevelNames", getStringLevelNames());
-		myInfo.put("LevelIndex", getStringLevelIndexes());
-	}
-	
-	public void setLevelIndex(Map<Integer, String> levelIndex) {
-		this.levelIndex = levelIndex;
+		myInfo.put("Levels", getStringLevelIndexes());
 	}
 	
 	private String getStringLevelIndexes() {
-		if (levelIndex.isEmpty()) {
+		if (levels.isEmpty()) {
 			return "";
 		} else {
 			StringBuilder sb = new StringBuilder();
-			for (int key : levelIndex.keySet()) {
+			for (int key : levels.keySet()) {
 				sb.append(key);
 				sb.append(":");
-				sb.append(levelIndex.get(key));
+				sb.append(levels.get(key));
 				sb.append(" ");
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			return sb.toString();
 		}
-	}
-	
-	private String getStringLevelNames() {
-		StringBuilder sb = new StringBuilder();
-		for (String level : levels) {
-			sb.append(level);
-			sb.append(" ");
-		}
-		sb.deleteCharAt(sb.length() - 1);
-		return sb.toString();
 	}
 	
 	public Map<String, String> getInfo() {
@@ -78,8 +61,8 @@ public class AuthoringMode {
 		return initialResources;
 	}
 	
-	public Map<Integer, String> getLevelIndex() {
-		return levelIndex;
+	public Map<Integer, String> getLevels() {
+		return levels;
 	}
 	
 	@Override

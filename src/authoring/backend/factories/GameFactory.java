@@ -63,6 +63,5 @@ public class GameFactory {
 			modeMap.put(authoringMode.getName(), modeFactory.createMode(authoringMode, levelMap));
 		}
 	}
-		
 	
 }

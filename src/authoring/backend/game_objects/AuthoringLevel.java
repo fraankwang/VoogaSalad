@@ -59,6 +59,10 @@ public class AuthoringLevel {
 		return waveDelayTimer;
 	}
 	
+	public List<AuthoringEntity> getSpawnEntities() {
+		return spawnEntities;
+	}
+	
 	public void setEntities(Set<String> entities) {
 		this.entities = entities;
 		this.myInfo.put("EntityNames", getEntityNames());
