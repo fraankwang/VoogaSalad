@@ -30,6 +30,11 @@ public class SpawningSystem extends GameSystem {
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 		// TODO Auto-generated method stub
 		
+		if(myLevel.sendNextWave()){
+			myLevel.setSendNextWave(false);
+			delayTimer = 0;
+		}
+		
 		if(delayTimer > 0){
 			System.out.println(delayTimer);
 			delayTimer = delayTimer - GameClock.getTimePerLoop();
@@ -63,15 +68,13 @@ public class SpawningSystem extends GameSystem {
 				//not sure what to do with wave over events
 				System.out.println("WAVE IS OVER");
 				sendEvent(getWaveOverEvent());
-				delayTimer = myLevel.getWaveDelayTimer();
+				delayTimer = 100 * myLevel.getWaveDelayTimer();
 			}
 
 		}
 		
-		//System.out.println(newEntities.size());
 		sendEvent(getAddEntityEvent(newEntities));
 		
-		//addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
 	}
 		
 	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities, InGameEntityFactory myEntityFactory, double currentSecond, int pathID){

@@ -40,8 +40,9 @@ public class Spawn {
 		return timer;
 	}
 
-	public void resetTimer() {
-		timer = spawningRate;
+	
+	public void resetTimer(){
+		timer = spawningRate * 100;
 	}
 
 	public void setTimer(double currentSecond) {

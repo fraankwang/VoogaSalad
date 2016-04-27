@@ -152,6 +152,7 @@ public class testingClass {
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 10);
 		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 10);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
+
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
@@ -196,6 +197,7 @@ public class testingClass {
 				500, myBulletVector, 1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
+
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
 		mySimpleBullet.addComponent(new MovementComponent(10, 0));

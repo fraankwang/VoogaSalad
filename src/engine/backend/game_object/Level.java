@@ -37,6 +37,7 @@ public class Level {
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
 	private int index;
+	private boolean sendNextWave;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -184,6 +185,15 @@ public class Level {
 	public void setAuthoredEntities(List<IEntity> authoredEntities) {
 		// TODO Auto-generated method stub
 		this.authoredEntities = authoredEntities;
+	}
+
+	public boolean sendNextWave() {
+		// TODO Auto-generated method stub
+		return sendNextWave;
+	}
+	
+	public void setSendNextWave(boolean bool){
+		sendNextWave = bool;
 	}
 
 }
