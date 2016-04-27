@@ -79,17 +79,17 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH + 15);
+		myGridPane.setMaxWidth(MAX_SIZE);
 
 		myAttributes = new ArrayList<String>();
 		myAttributesMap = new TreeMap<String, String>();
 		myInputMap = new TreeMap<String, Control>();
 		myAttributesGridPane = createAttributesGridPane();
 		mySpawnEntitiesGridPane = assembleEmptySpawnEntitiesGridPane();
-
+		mySpawnEntitiesGridPane.setMaxWidth(50);
+		
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(mySpawnEntitiesGridPane);
-		myScrollPane.setFitToWidth(false);
 
 		assembleEmptyInputRows();
 	}
