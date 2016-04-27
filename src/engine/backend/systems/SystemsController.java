@@ -77,23 +77,12 @@ public class SystemsController {
 
 	public void iterateThroughSystems(Level level) {
 		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
-		//System.out.println(myGameClock.getCurrentSecond());
-		//go through systems, update stuff and gather events
-		//myEventManager.updateEntityFactory();
+
 		for (ISystem system : mySystems) {
-			
-			long startTime = System.currentTimeMillis();
 			system.update(myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());			
-			long endTime   = System.currentTimeMillis();
-			long totalTime = endTime - startTime;
-			System.out.println(system.getClass().getSimpleName() + "   " +  totalTime);
 		}
 		//handle all the generate events
-		long startTime = System.currentTimeMillis();
 		myEventManager.handleGeneratedEvents(myEventMap);
-		long endT   = System.currentTimeMillis();
-		long totalTime = endT - startTime;
-		System.out.println("OTHER" + "   " +  totalTime);
 		//myEventManager.updateGameShop();
 		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
 		myGameClock.updateLoopIteration();
