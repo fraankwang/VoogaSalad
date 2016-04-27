@@ -71,17 +71,10 @@ public class ShopPane extends AbstractPane {
 	public void addShopObject(ShopItem myShopItem) {
 		myShopList.getItems().add(myShopItem);
 	}
-	//
-	// private void handleMouseClick(MouseEvent e, Map<String, String> myMap) {
-	// myEngineView.getEngineController().shopClicked(myMap.get("name"));
-	// myEngineView.getStage().getScene().setCursor(Cursor.NONE);
-	// myEngineView.getDummyCursor().updateLocation(e.getSceneX(),
-	// e.getSceneY());
-	// myEngineView.getDummyCursor().changePic(new Image(myMap.get("image")));
-	// }
 
-	public void updateShop(List<ShopItem> myShopList) {
-
+	public void updateShop(List<ShopItem> list) {
+		myShopList.getItems().clear();
+		myShopList.getItems().addAll(list);
 	}
 	
 	public void updateCurrentView(ShopItem sp){

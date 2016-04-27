@@ -1,5 +1,8 @@
 package engine.controller;
+import java.util.List;
+
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.systems.EventManager;
@@ -134,15 +137,13 @@ public class EngineController implements IEngineController{
 		//they need to be scaled dynamically
 	}
 	
-//	public void updateShop(Shop shop){
-//		myEngineView.getShopPane().updateShop(shop);
-//	}
+	public void updateShop(List<ShopItem> shoplist){
+		myEngineView.getShopPane().updateShop(shoplist);
+	}
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-	public void shopClicked(String name){
-		//call backend to say shop object clicked
-	}
+	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
 //	}
