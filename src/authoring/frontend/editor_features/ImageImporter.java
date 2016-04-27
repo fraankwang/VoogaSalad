@@ -35,7 +35,7 @@ public class ImageImporter {
 	public void initialize() {
 		File imageFolder = new File(IMAGE_FOLDER);
 		for (final File fileEntry : imageFolder.listFiles()) {
-			myChooser.updateList(new Image(fileEntry.toURI().toString()), IMAGE_PATH + fileEntry.getName());
+			myChooser.updateList(IMAGE_PATH + fileEntry.getName(), IMAGE_PATH + fileEntry.getName());
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class ImageImporter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myChooser.updateList(new Image(newFile.toURI().toString()), IMAGE_PATH + newFile.getName());
+		myChooser.updateList(IMAGE_PATH + newFile.getName(), IMAGE_PATH + newFile.getName());
 	}
 	
 	public void openImporter() {

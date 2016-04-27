@@ -1,111 +1,45 @@
 package authoring.backend.factories;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import authoring.parser.GlobalParser;
+import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringLevel;
+import engine.backend.entities.IEntity;
 import engine.backend.game_object.Level;
-import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
-import engine.backend.map.Path;
 
 public class LevelFactory {
-
+	
+	private EntityFactory entityFactory;
+	
 	public LevelFactory() {
+		this.entityFactory = new EntityFactory();
 	}
 	
-	public Level createLevel(Map<String, String> data) {
-		GameMap map = new GameMap();
-		Set<String> entityNames = new HashSet<String>();
-		String name = "";
-		double levelTimer = 0;
-		double waveDelayTimer = 0;
-		for (String key : data.keySet()) {
-			switch (key) {
-
-			case "Paths":
-				map.setPaths(getPaths(data.get(key)));
-				break;
-			case "MapBackgroundImage":
-				map.setMapImage(data.get(key));
-				break;
-			case "MapWidth":
-				double width = Double.parseDouble(data.get(key));
-				map.setMapWidth(width);
-				break;
-			case "MapHeight":
-				double height = Double.parseDouble(data.get(key));
-				map.setMapHeight(height);
-				break;
-			case "Name":
-				name = data.get(key);
-				System.out.println(name);
-				break;
-			case "LevelTimer":
-				levelTimer = Double.parseDouble(data.get(key));
-				break;
-			case "WaveDelayTimer":
-				waveDelayTimer = Double.parseDouble(data.get(key));
-				break;
-			case "Entities":
-				String entities = data.get(key);
-				entityNames = getEntityNames(entities);
-				break;
-			}
+	public Level createLevel(AuthoringLevel authoringLevel, Map<String, IEntity> entityMap) {
+		String name = authoringLevel.getName();
+		GameMap map = authoringLevel.getMap();
+		double waveDelayTimer = authoringLevel.getWaveDelayTimer();
+		Set<String> entityNames = authoringLevel.getEntities();
+		List<IEntity> authoredEntities = new ArrayList<IEntity>();
+		for (String key : entityNames) {
+			IEntity entity = entityMap.get(key);
+			authoredEntities.add(entity);
 		}
-		Level level = new Level(name, map);
-		level.setLevelTimer(levelTimer);
-		level.setWaveDelayTimer(waveDelayTimer);
-		level.setEntityNames(entityNames);
+		List<AuthoringEntity> spawnEntities = authoringLevel.getSpawnEntities();
+		Map<Integer, IEntity> entitiesMap = new HashMap<Integer, IEntity>();
+		int entityID = 0;
+		for (AuthoringEntity authoringEntity : spawnEntities) {
+			IEntity spawnEntity = entityFactory.createEntity(authoringEntity);
+			authoredEntities.add(spawnEntity);
+			entitiesMap.put(entityID, spawnEntity);
+		}
 		
-		return level;
-	}
-	
-	private Set<String> getEntityNames(String str) {
-		String[] names = str.split(" ");
-		Set<String> entityNames = new HashSet<String>();
-		for (int i = 0; i < names.length; i++) {
-			entityNames.add(names[i]);
-		}
-		return entityNames;
-	}
-	
-	private Path[] getPaths(String str) {
-		Map<String, String[]> temp = GlobalParser.pathParse(str);
-		Path[] paths = new Path[temp.size()];
-		int count = 0;
-		for (String key : temp.keySet()) {
-			paths[count] = createPath(key, temp.get(key));
-		}
-		return paths;
-	}
-	
-	private Path createPath(String ID, String[] curves) {
-		List<BezierCurve> temp = new ArrayList<BezierCurve>();
-		for (String curve : curves) {
-			temp.add(createCurve(curve));
-		}
-		int pathID = Integer.parseInt(ID);
-		return new Path(temp, pathID);
-	}
-	
-	private BezierCurve createCurve(String curve) {
-		String[] raw = curve.split(",");
-		double[] points = new double[raw.length * 2];
-		int count = 0;
-		for (String point : raw) {
-			String[] xy = point.split("-");
-			double x = Double.parseDouble(xy[0]);
-			points[count] = x;
-			count++;
-			double y = Double.parseDouble(xy[1]);
-			points[count] = y;
-			count++;
-		}
-		return new BezierCurve(points);
+		return new Level(name, map, waveDelayTimer, authoredEntities, entitiesMap);
 	}
 
 }

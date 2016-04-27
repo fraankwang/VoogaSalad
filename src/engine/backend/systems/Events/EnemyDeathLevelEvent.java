@@ -6,4 +6,10 @@ public class EnemyDeathLevelEvent extends LevelEvent {
 		
 	}
 
+	@Override
+	public String getEventID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

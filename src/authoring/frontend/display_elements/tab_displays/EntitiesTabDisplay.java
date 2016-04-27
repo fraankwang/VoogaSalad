@@ -1,18 +1,19 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Set;
 import java.util.TreeMap;
 
 import authoring.backend.data.ObservableList;
+import authoring.backend.game_objects.AuthoringEntity;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
-import engine.backend.entities.Entity;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -40,7 +41,7 @@ import javafx.stage.Stage;
 public class EntitiesTabDisplay extends TabDisplay {
 
 	private TabPane myEntitiesTabPane;
-	private ObservableList<Entity> myEntityList;
+	private ObservableList<AuthoringEntity> myEntityList;
 	private String genreName;
 
 	public EntitiesTabDisplay(int tabIndex, IAuthoringView controller) {
@@ -84,7 +85,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 					}
 
 				}
-				
+
 			}
 		});
 
@@ -205,21 +206,30 @@ public class EntitiesTabDisplay extends TabDisplay {
 		return "Entities";
 	}
 
-	public List<String> getGenres() {
-		List<String> genres = new ArrayList<String>();
+	public Set<String> getGenres() {
+		Set<String> genres = new HashSet<String>();
 		myEntitiesTabPane.getTabs().forEach(t -> genres.add(t.getText()));
 		genres.remove("Add New...");
 		return genres;
 	}
 
-	public List<String> getEntities() {
+	/**
+	 * Takes duplicates of all Entities by Genre and their Images.
+	 * 
+	 * @return
+	 */
+	public Map<String, String> getEntities() {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
-		List<String> entities = new ArrayList<String>();
+		Map<String, String> entities = new TreeMap<String, String>();
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
-				entities.addAll(((EntitiesTabGrid) myGrid).getEntities());
+				Map<String, String> genreEntities = (TreeMap<String, String>) ((EntitiesTabGrid) myGrid).getEntities();
+				for (String name : genreEntities.keySet()) {
+					String imagePath = genreEntities.get(name);
+					entities.put(name, imagePath);
+				}
 			}
 		}
 		myEntitiesTabPane.getSelectionModel().select(tempTab);

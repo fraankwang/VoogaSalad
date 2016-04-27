@@ -1,5 +1,7 @@
 package authoring.frontend.editor_features;
 
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -47,9 +49,13 @@ public class ObjectChooser {
 		});
 	}
 	
-	public void updateList(Image graphic, String name) {
+//	public void updateList(Map<String, String> objects) {
+//		objects.keySet().forEach(action);
+//	}
+	
+	public void updateList(String graphic, String name) {
 		Label label = new Label(name);
-		ImageView iv = new ImageView(graphic);
+		ImageView iv = new ImageView(new Image(graphic));
 		iv.setPreserveRatio(true);
 		iv.setFitHeight(IMAGE_SIZE);
 		label.setGraphic(iv);

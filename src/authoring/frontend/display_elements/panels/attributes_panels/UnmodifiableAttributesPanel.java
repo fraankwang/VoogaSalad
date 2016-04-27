@@ -1,7 +1,6 @@
 package authoring.frontend.display_elements.panels.attributes_panels;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -32,7 +31,6 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
 	protected static final int BUTTON_HEIGHT_PERCENTAGE = 8;
 	protected static final int TITLED_PANE_HEIGHT = 350;
-
 
 	protected Button myOpenEditorButton;
 
@@ -77,7 +75,6 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		initializeMaps();
 		myAttributesGridPane = assembleEmptyOutputRows(myAttributesGridPane, myAttributes, myOutputMap);
 
-		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		return myAttributesGridPane;
 
 	}
@@ -98,7 +95,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 				text.setFont(new Font(FONT_SIZE));
 				TextField tf = new TextField();
 				tf.setEditable(false);
-				
+
 				myOutputMap.put(currentAttribute, tf);
 				myAttributesMap.put(currentAttribute, tf.getText());
 			}
@@ -112,7 +109,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		for (int i = 0; i < attributes.size(); i++) {
 			String currentAttribute = attributes.get(i);
 			if (currentAttribute.equals("SpawnEntities")) {
-				
+
 				Text text = new Text(currentAttribute);
 				text.setFont(new Font(FONT_SIZE));
 				gridPane.add(text, 0, i);
@@ -129,14 +126,11 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected void refreshRows() {
 		int i = 0;
 		for (String currentAttribute : myAttributesMap.keySet()) {
-			if (!currentAttribute.equals("Type") || !currentAttribute.equals("SpawnEntities")) {
-				Text text = new Text(currentAttribute);
-				text.setFont(new Font(FONT_SIZE));
-				myAttributesGridPane.add(text, 0, i);
-				myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
-				i++;
-				
-			}
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			myAttributesGridPane.add(text, 0, i);
+			myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
+			i++;
 		}
 	}
 
@@ -150,11 +144,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
-		
-		if (myAttributesMap.isEmpty() == false) {
-			myAttributesMap.remove("Type");
-		}
-		
+
 		refreshDisplay();
 	}
 

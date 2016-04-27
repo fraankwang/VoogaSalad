@@ -1,5 +1,7 @@
 package engine.backend.components;
 
+import engine.backend.systems.GameClock;
+
 /**
  * Creates a spawn, a object that holds the name of the entity being spawned, the spawn rate, start, end
  * and duration of the entity being spawned.
@@ -9,13 +11,13 @@ package engine.backend.components;
 public class Spawn {
 
 	private String spawningEntityName;
-	private double spawningRate;
+	private int spawningRate;
 	private int waveIndex;
 	private int numEntities;
 	private double timer;
 	private double currentSecond;
 
-	public Spawn(String name, double rate, int index, int numEntities){
+	public Spawn(String name, int rate, int index, int numEntities){
 		setSpawningEntityName(name);
 		setSpawningRate(rate);
 		setWaveIndex(index);
@@ -26,7 +28,7 @@ public class Spawn {
 		return spawningRate;
 	}
 
-	public void setSpawningRate(double spawningRate) {
+	public void setSpawningRate(int spawningRate) {
 		this.spawningRate = spawningRate;
 	}
 
@@ -45,10 +47,14 @@ public class Spawn {
 	public void setTimer(double currentSecond) {
 		if (this.currentSecond != currentSecond) {
 			this.currentSecond = currentSecond;
-			timer = timer - 1;
+			timer = timer - GameClock.getTimePerLoop();
 		}
 	}
-
+	
+	public void decrementTimer(){
+		timer = timer - GameClock.getTimePerLoop();
+	}
+	
 	public void setSpawningEntityName(String spawningEntityName) {
 		this.spawningEntityName = spawningEntityName;
 	}
@@ -67,6 +73,18 @@ public class Spawn {
 
 	public void setNumEntities(int numEntities) {
 		this.numEntities = numEntities;
+	}
+	
+	public String getInfo() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(spawningEntityName);
+		sb.append(".");
+		sb.append(waveIndex);
+		sb.append(".");
+		sb.append(numEntities);
+		sb.append(".");
+		sb.append(spawningRate);
+		return sb.toString();
 	}
 	
 }

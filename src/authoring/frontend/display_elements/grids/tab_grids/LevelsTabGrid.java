@@ -1,6 +1,6 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -35,7 +35,7 @@ public class LevelsTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
-	private List<String> myLevels;
+	private Map<String, String> myLevels;
 
 	public LevelsTabGrid(IAuthoringView controller, TabDisplay tabDisplay) {
 		super(controller, tabDisplay);
@@ -46,7 +46,7 @@ public class LevelsTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
-		myLevels = new ArrayList<String>();
+		myLevels = new HashMap<String, String>();
 	}
 
 	@Override
@@ -68,6 +68,8 @@ public class LevelsTabGrid extends TabGrid {
 	}
 
 	public void update(List<Map<String, String>> data) {
+		myLevels.clear();
+
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
 
@@ -76,14 +78,15 @@ public class LevelsTabGrid extends TabGrid {
 		}
 
 		for (Map<String, String> info : data) {
+			myLevels.put(info.get("Name"), info.get("MapBackgroundImage"));
 			info.remove("EntityNames");
-			info.remove("Path");
 
 			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
 			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 						Boolean newValue) {
 					if (newValue) {
+						info.remove("Type");
 						setAttributesPanel(info);
 						currentInfo = info;
 					}
@@ -111,7 +114,8 @@ public class LevelsTabGrid extends TabGrid {
 	private void delete(Map<String, String> info) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Delete Level Warning");
-		alert.setContentText("Didn't mean to delete this level? The data is still saved - just press Open Editor and save it again!");
+		alert.setContentText(
+				"Didn't mean to delete this level? The data is still saved - just press Open Editor and save it again!");
 		alert.show();
 		myController.deleteData(info);
 	}
@@ -147,7 +151,7 @@ public class LevelsTabGrid extends TabGrid {
 		return newName;
 	}
 
-	public List<String> getLevels() {
+	public Map<String, String> getLevels() {
 		return myLevels;
 	}
 }

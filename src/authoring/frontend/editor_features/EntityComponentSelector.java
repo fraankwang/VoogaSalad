@@ -1,11 +1,12 @@
 package authoring.frontend.editor_features;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
@@ -94,8 +95,10 @@ public class EntityComponentSelector {
 	// "MovementComponent_CanMove", "MovementComponent_CanRotate"
 
 	public Map<String, Control> parseComponents(Map<String, Control> inputMap, List<String> components) {
-		List<String> booleanComboBox = (List<String>) Arrays.asList("true", "false");
-
+		Set<String> booleanComboBox = new HashSet<String>();
+		booleanComboBox.add("true");
+		booleanComboBox.add("false");
+		
 		for (String component : components) {
 
 			switch (component) {
@@ -120,9 +123,9 @@ public class EntityComponentSelector {
 
 			case "FiringComponent":
 				ComboBox<String> ammo = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
-						.getTabBarElement().getEntitiesTabDisplay()).getEntities());
+						.getTabBarElement().getEntitiesTabDisplay()).getEntities().keySet());
 				ComboBox<String> targets = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
-						.getTabBarElement().getEntitiesTabDisplay()).getEntities());
+						.getTabBarElement().getEntitiesTabDisplay()).getEntities().keySet());
 				TextField speed = new TextField();
 				TextField sightRange = new TextField();
 				TextField firingRate = new TextField();
@@ -231,12 +234,12 @@ public class EntityComponentSelector {
 	/**
 	 * Creates a String ComboBox that populates given List of options.
 	 * 
-	 * @param options
+	 * @param set
 	 * @return
 	 */
-	private ComboBox<String> createComboBox(List<String> options) {
+	private ComboBox<String> createComboBox(Set<String> set) {
 		ComboBox<String> cb = new ComboBox<String>();
-		for (String option : options) {
+		for (String option : set) {
 			cb.getItems().add(option);
 		}
 		return cb;

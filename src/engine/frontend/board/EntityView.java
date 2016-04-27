@@ -28,9 +28,6 @@ public class EntityView {
 		myW = width;
 		myH = height;
 		
-		//create imageview
-		/*System.out.println(myID);
-		System.out.println(myImageName);*/
 		myImageView = new ImageView(new Image(myImageName));
 		myImageView.setX(myX);
 		myImageView.setY(myY);
@@ -56,7 +53,7 @@ public class EntityView {
 			myY = yLoc;
 			myImageView.setY(myY);
 		}
-		if(!myImageName.equals(image)){
+		if(!myImageName.equals(image) ){
 			myImageName = image;
 			myImageView.setImage(new Image(image));
 		}

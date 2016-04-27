@@ -48,7 +48,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected static final int ATTRIBUTES_HEIGHT = 50;
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
-	private static final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
 	private static final int COLUMN_1_PERCENTAGE = 50;
 	private static final int COLUMN_2_PERCENTAGE = 50;
 
@@ -65,7 +64,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		myGridPane.setMaxWidth(MAX_SIZE);
 
 		myAttributes = new ArrayList<String>();
 		myAttributesMap = new TreeMap<String, String>();
@@ -74,7 +73,8 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(myAttributesGridPane);
-		myScrollPane.setFitToWidth(false);
+		myScrollPane.setFitToWidth(true);
+		myScrollPane.setPrefWidth(MAX_SIZE);
 
 		assembleEmptyInputRows();
 
@@ -96,7 +96,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
 		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myAttributesGridPane.setPrefSize(ATTRIBUTES_PANEL_WIDTH, DEFAULT_ATTRIBUTES_HEIGHT);
+		myAttributesGridPane.setPrefSize(MAX_SIZE, MAX_SIZE);
 		return myAttributesGridPane;
 
 	}
@@ -146,7 +146,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 				text.setFont(new Font(FONT_SIZE));
 				
 				myAttributesGridPane.add(text, 0, i);
-				System.out.println(currentAttribute);
 				myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
 				
 			}

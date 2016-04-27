@@ -1,14 +1,14 @@
-package authoring.backend.data;
+package authoring.backend.game_objects;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
-public class GameData extends Observable {
+public class AuthoringGame extends Observable {
 	
 	private Map<String, String> gameInfo;
 	
-	public GameData() {
+	public AuthoringGame() {
 		this.gameInfo = new HashMap<String, String>();
 	}
 	
@@ -26,10 +26,6 @@ public class GameData extends Observable {
 		return gameInfo.get("GameType");
 	}
 	
-	public int getNumPlayers() {
-		return Integer.parseInt(gameInfo.get("NumberOfPlayers"));
-	}
-	
 	public int getStartLives() {
 		return Integer.parseInt(gameInfo.get("NumberOfStartingLives"));
 	}
@@ -45,5 +41,5 @@ public class GameData extends Observable {
 	public double getStartResources() {
 		return Double.parseDouble(gameInfo.get("StartingResources"));
 	}
-	
+
 }

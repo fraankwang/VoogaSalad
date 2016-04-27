@@ -38,6 +38,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
+		myGridPane.setMaxWidth(MAX_SIZE);
 
 		List<String> entityAttributes = (List<String>) Arrays.asList("Genre", "Name");
 		myAttributesGridPane = createAttributesGridPane(entityAttributes);
@@ -53,26 +54,27 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myGridPane.add(myScrollPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
-		
+
 	}
 
 	@Override
 	protected void refreshDisplay() {
 		myAttributesGridPane.getChildren().clear();
 
-		System.out.println("*****7. UnmodifiableEntityAttributesPanel: Entities display refreshed with updated myAttributesMap");
+		System.out.println(
+				"*****7. UnmodifiableEntityAttributesPanel: Entities display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
 		for (String currentAttribute : myAttributesMap.keySet()) {
-			
+
 			if (myOutputMap.keySet().contains(currentAttribute)) {
 				TextField tf = (TextField) myOutputMap.get(currentAttribute);
 				tf.setText(myAttributesMap.get(currentAttribute));
 				tf.setEditable(false);
 				myOutputMap.replace(currentAttribute, tf);
-				
+
 			}
-			
+
 			else {
 				TextField tf = new TextField();
 				tf.setText(myAttributesMap.get(currentAttribute));
@@ -86,12 +88,11 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myGridPane.getChildren().clear();
 		assembleComponents();
 	}
-	
+
 	@Override
 	public void setAttributes(Map<String, String> updatedInfo) {
 		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
-		myAttributesMap.put("Type", "Entity");
 		myAttributesMap = updatedInfo;
 		refreshDisplay();
 	}

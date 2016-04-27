@@ -7,9 +7,33 @@ public class EntityDroppedEvent {
 	private String entityName;
 	
 	public EntityDroppedEvent(double x, double y, String name) {
-		xPosition = x;
-		yPosition = y;
-		entityName = name;
+		setXCoordinate(x);
+		setYCoordinate(y);
+		setEntityName(name);
+	}
+
+	public String getEntityName() {
+		return entityName;
+	}
+
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+
+	public double getXCoordinate() {
+		return xPosition;
+	}
+
+	public void setXCoordinate(double xPosition) {
+		this.xPosition = xPosition;
+	}
+
+	public double getYCoordinate() {
+		return yPosition;
+	}
+
+	public void setYCoordinate(double yPosition) {
+		this.yPosition = yPosition;
 	}
 	
 }

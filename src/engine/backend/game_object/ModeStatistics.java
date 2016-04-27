@@ -19,6 +19,7 @@ public class ModeStatistics {
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
 	private int currentLevelIndex;
+	private int currentModeIndex;
 
 	public ModeStatistics(int numLives, double resources) {
 		setInitialNumLives(numLives);
@@ -83,7 +84,15 @@ public class ModeStatistics {
 		return currentLevelIndex;
 	}
 
+	public void setCurrentModeIndex(int currentModeIndex){
+		this.currentModeIndex = currentModeIndex;
+	}
 
+	public int getCurrentModeIndex() {
+		checkEndOfGame();
+		return currentModeIndex;
+	}
+	
 	public void setCurrentLevelIndex(int currentLevelIndex) {
 		this.currentLevelIndex = currentLevelIndex;
 	}
@@ -106,8 +115,6 @@ public class ModeStatistics {
 
 		try {
 			String methodName = "set" + instanceVar;
-			System.out.println(methodName);
-			
 			setMethod = this.getClass().getMethod(methodName, String.class);
 			setMethod.invoke(this, deltaVal);
 
