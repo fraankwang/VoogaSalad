@@ -57,7 +57,6 @@ public class AuthoringLevelFactory {
 				break;
 			case "SpawnEntities":
 				String spawnInfo = data.get(key);
-				System.out.println(spawnInfo);
 				spawnEntities = createSpawnEntities(spawnInfo);
 				break;
 			}
