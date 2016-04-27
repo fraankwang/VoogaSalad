@@ -46,6 +46,7 @@ public class RenderingSystem extends GameSystem {
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
 		//System.out.println(entities.size());
 		for(IEntity myEntity : entities){
+			System.out.println("Name:  " + myEntity.getName() + "  " + myEntity.getID());
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
@@ -53,9 +54,7 @@ public class RenderingSystem extends GameSystem {
 			double sizey = 200;
 			boolean show = true;
 			boolean delete = false;
-			if (!myEntity.hasBeenModified()) {
-				continue;
-			}
+
 			for (IComponent eachComponent : myEntity.getComponents()) {
 				if (eachComponent.getTag().equals(ComponentTagResources.displayComponentTag)) {
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
@@ -72,7 +71,7 @@ public class RenderingSystem extends GameSystem {
 				}
 			}
 			
-			System.out.println("Name:  " + myEntity.getName() + "  " + myEntity.getID() + "  " + imageToDisplay);
+			System.out.println("Name:  " + myEntity.getName() + "  " + myEntity.getID() + "  " + imageToDisplay + " " + show);
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
 			
 			if(delete){

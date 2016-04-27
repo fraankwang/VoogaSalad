@@ -227,8 +227,6 @@ public class testingClass {
 		
 		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
-		//level.addToEntities(tempEntity2);
-		//level.addEntityToMap(tempEntity);
 		level.addEntityToMap(tempEntity2);
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
