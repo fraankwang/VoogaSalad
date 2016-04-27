@@ -122,6 +122,10 @@ public class EngineController implements IEngineController{
 	//backend endpoint 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
+		
+		// put statsobject and if the stats have changed in method call
+		//myEngineView.getShopPane().updateStatsObject(id, myStatsObject, hasChanged);
+		
 		//these points need to be scaled based on the ratio of the size of the board to the size of the map
 		//they need to be scaled dynamically
 	}
@@ -145,6 +149,7 @@ public class EngineController implements IEngineController{
 	public void entityClicked(int myID) {
 		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
 		myEventManager.handleClickEvent(clickedEvent);
+		myEngineView.getShopPane().updateCurrentView(myID);
 	}
 	
 	public Main getMain(){
