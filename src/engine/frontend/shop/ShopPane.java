@@ -123,5 +123,10 @@ public class ShopPane extends AbstractPane {
 	public void removeStatsObject(int id, Map<String, String> statsObject){
 		myStatsObjectMap.remove(id);
 	}
+
+	public void updateUpgrade(List<ShopItem> upgradelist) {
+		myUpgradeList.getItems().clear();
+		myUpgradeList.getItems().addAll(upgradelist);
+	}
 	
 }

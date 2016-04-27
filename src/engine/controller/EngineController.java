@@ -134,6 +134,10 @@ public class EngineController implements IEngineController{
 	public void updateShop(List<ShopItem> shoplist){
 		myEngineView.getShopPane().updateShop(shoplist);
 	}
+	
+	public void updateUpgrades(List<ShopItem> upgradelist){
+		myEngineView.getShopPane().updateUpgrade(upgradelist);
+	}
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
