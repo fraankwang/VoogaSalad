@@ -11,7 +11,6 @@ import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
-import authoring.frontend.editor_features.LocalImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -83,7 +82,7 @@ public class EntitiesTabGrid extends TabGrid {
 		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
 				if (!myEntities.containsKey((info.get("Name")))) {
-					LocalImage image = new LocalImage(info.get("DisplayComponent_Image"));
+					Image image = new Image(info.get("DisplayComponent_Image"));
 					ImageView iv = new ImageView(image);
 					myEntities.put(info.get("Name"), image);
 					iv.focusedProperty().addListener(new ChangeListener<Boolean>() {

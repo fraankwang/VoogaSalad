@@ -220,18 +220,17 @@ public class EntitiesTabDisplay extends TabDisplay {
 	 * 
 	 * @return
 	 */
-	public Map<String, Image> getEntities() {
+	public Map<String, String> getEntities() {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
-		Map<String, Image> entities = new TreeMap<String, Image>();
+		Map<String, String> entities = new TreeMap<String, String>();
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
 				Map<String, Image> genreEntities = (TreeMap<String, Image>) ((EntitiesTabGrid) myGrid).getEntities();
 				for (String name : genreEntities.keySet()) {
 					String imagePath = ((LocalImage) genreEntities.get(name)).getURL();
-					Image newImage = new LocalImage(imagePath);
-					entities.put(name, newImage);
+					entities.put(name, imagePath);
 				}
 			}
 		}

@@ -8,7 +8,6 @@ import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring.frontend.editor_features.LocalImage;
 import authoring.frontend.editor_features.SpawnEntityRow;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -38,7 +37,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private ComboBox<String> myEntitySelector;
 	private ComboBox<String> myWaveSelector;
 	private String mySpawnEntitiesCompressed;
-	private TreeMap<String, Image> myEntities;
+	private TreeMap<String, String> myEntities;
 	private TreeMap<String, SpawnEntityRow> mySpawnEntitiesInputMap;
 	private GridPane mySpawnEntitiesGridPane;
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",
@@ -60,7 +59,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	public ModifiableLevelAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
-		myEntities = new TreeMap<String, Image>();
+		myEntities = new TreeMap<String, String>();
 		myWaves = new ArrayList<String>();
 		myWaves.add("New");
 		myWaves.add("1");
@@ -148,7 +147,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		myAddSpawnButton.setOnAction(e -> {
 			String selected = myEntitySelector.getSelectionModel().getSelectedItem();
-			Image selectedImage = myEntities.get(selected);
+			String selectedImagePath = myEntities.get(selected);
 			String wave = myWaveSelector.getSelectionModel().getSelectedItem();
 			
 			if (wave.equals("New")) {
@@ -162,8 +161,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			String pathID = promptUserInput("Path Number");
 			if (!pathID.equals("")) {
 				String tag = selected + ":" + wave + ":" + pathID;
-				String URL = ((LocalImage) selectedImage).getURL();
-				ImageView newImageView = new ImageView(new LocalImage(URL));
+				ImageView newImageView = new ImageView(new Image(selectedImagePath));
 				SpawnEntityRow row = new SpawnEntityRow(tag, selected, newImageView, wave, pathID);
 				linkRow(row);
 			
@@ -257,8 +255,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			for (String spawn : spawnObjects) {
 				String[] components = spawn.split(".");
 				String name = components[0];
-				String imagePath = ((LocalImage) myEntities.get(name)).getURL();
-				ImageView newImage = new ImageView(new LocalImage(imagePath));
+				String imagePath = myEntities.get(name);
+				ImageView newImage = new ImageView(new Image(imagePath));
 				String wave = components[1];
 				String number = components[2];
 				String rate = components[3];
@@ -360,8 +358,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	}
 
-	public void setMyEntities(Map<String, Image> entities) {
-		myEntities = (TreeMap<String, Image>) entities;
+	public void setMyEntities(Map<String, String> entities) {
+		myEntities = (TreeMap<String, String>) entities;
 		myEntitySelector.getItems().clear();
 		myEntitySelector.getItems().setAll(entities.keySet());
 	}
