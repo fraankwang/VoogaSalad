@@ -20,7 +20,7 @@ public class ShopCell extends ListCell<ShopItem> {
 	private ShopPane myShopPane;
 	private ShopItem myItem;
 	private Image myImage;
-	public static final String DEFAULT_RESOURCE = "engine/resources/shop_cell";
+	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/shop_cell";
 	private ResourceBundle myResources;
 
 	public ShopCell(ShopPane sp) {
@@ -34,8 +34,10 @@ public class ShopCell extends ListCell<ShopItem> {
 		if (item != null) {
 			myItem = item;
 			HBox hbox = new HBox();
-			myShopPane.bindHeight(hbox, super.getListView().heightProperty().multiply(.1));
+			myShopPane.bindHeight(hbox, super.getListView().heightProperty().multiply(getDoubleResource("TowerCellWidth")));
 			myShopPane.bindWidth(hbox, super.getListView().widthProperty());
+			hbox.spacingProperty().bind(hbox.widthProperty().multiply(getDoubleResource("TowerCellSpacing")));
+			
 			
 			myImage = new Image(item.getItemImage());
 			ImageView myImageView = new ImageView(myImage);
@@ -44,7 +46,7 @@ public class ShopCell extends ListCell<ShopItem> {
 			Text myType = new Text(item.getItemName());
 			Text myCost = new Text(myResources.getString("ShopCostPrompt") + String.valueOf(item.getItemValue()));
 			
-			if (true) {
+			if (myItem.isCanBuy()) {
 				setOnDragDetected(e -> selectTower(e));
 			} else {
 				setOnDragDetected(null);
@@ -66,5 +68,9 @@ public class ShopCell extends ListCell<ShopItem> {
 		db.setContent(content);
 		e.consume();
 		myShopPane.getCurrentView().updateCurrentView(myImage, myItem.getItemName(), myItem.getItemValue());
+	}
+	
+	private double getDoubleResource(String myString){
+		return Double.parseDouble(myResources.getString(myString));
 	}
 }
