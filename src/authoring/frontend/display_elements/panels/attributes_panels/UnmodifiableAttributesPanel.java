@@ -75,7 +75,6 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		initializeMaps();
 		myAttributesGridPane = assembleEmptyOutputRows(myAttributesGridPane, myAttributes, myOutputMap);
 
-		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		return myAttributesGridPane;
 
 	}

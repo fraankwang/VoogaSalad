@@ -38,6 +38,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
+		myGridPane.setMaxWidth(MAX_SIZE);
 
 		List<String> entityAttributes = (List<String>) Arrays.asList("Genre", "Name");
 		myAttributesGridPane = createAttributesGridPane(entityAttributes);

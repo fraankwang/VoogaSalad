@@ -59,7 +59,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
+		myGridPane.setMaxWidth(MAX_SIZE);
 
 		List<String> levelAttributes = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
 				"WaveDelayTimer", "MapWidth", "MapHeight");
@@ -70,7 +70,6 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(mySpawnEntitiesGridPane);
-		myScrollPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 	}
 
 	/**
@@ -98,7 +97,6 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		myGridPane.add(myOpenEditorButton, 0, 0);
 		myGridPane.add(myAttributesGridPane, 0, 1);
 		myGridPane.add(myScrollPane, 0, 2);
-		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
