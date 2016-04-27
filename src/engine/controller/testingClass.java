@@ -147,7 +147,7 @@ public class testingClass {
 		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
+		Spawn spawn = new Spawn("tempEntity", .5, 0, 30);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
@@ -184,8 +184,8 @@ public class testingClass {
 		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
 		IComponent tempSize3 = new SizeComponent();
 		
-		FiringComponent simpleFire = new MultiDirectionalFiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector, -1);
+		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
+				500, myBulletVector, 1);
 		  
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
 		mySimpleBullet.addComponent(tempCollision2);

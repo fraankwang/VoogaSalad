@@ -45,7 +45,7 @@ public class FiringSystem extends GameSystem {
 				//needs to check if it's something it can fire at, and if it's in range
 				if(isTarget(shootingEntity, targetEntity) && 
 						targetIsInRange(shootingEntity, targetEntity)){
-
+					
 					updateFiring(shootingEntity, targetEntity, newEntities, currentSecond, myEntityFactory);
 					
 				}
