@@ -20,18 +20,18 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 
 	private List<PathBuilder> myPathBuilders;
 	private int pathIndexNumber;
-	
+
 	public LevelEditorViewPanel(double height, double width) {
 		super(height, width);
 		pathIndexNumber = 0;
 	}
-	
+
 	@Override
 	public void initializeComponents() {
 		super.initializeComponents();
 		myPathBuilders = new ArrayList<PathBuilder>();
 	}
-	
+
 	@Override
 	public void assembleComponents() {
 		VBox vbox = new VBox();
@@ -43,27 +43,27 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		});
 		myNode = vbox;
 	}
-	
+
 	private PathBuilder createNewPath() {
 		PathBuilder newPath = new PathBuilder(pathIndexNumber);
 		newPath.initialize();
 		newPath.setSize(myImageView.getImage().getWidth(), myImageView.getImage().getHeight());
 		myPathBuilders.add(newPath);
-		myPanelBar.addButton("Add to Path " + Integer.toString(pathIndexNumber), f -> {
+		myPanelBar.addButton("Add to Path " + Integer.toString(pathIndexNumber + 1), f -> {
 			newPath.createNewCurve(null);
 		});
 		myGroup.getChildren().add(newPath.getNode());
 		pathIndexNumber++;
 		return newPath;
 	}
-	
+
 	@Override
 	public void setImage(Image image) {
 		super.setImage(image);
 		myImageView.fitHeightProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				for (PathBuilder path: myPathBuilders) {
+				for (PathBuilder path : myPathBuilders) {
 					path.setSize(myImageView.getFitWidth(), myImageView.getFitHeight());
 				}
 			}
@@ -71,17 +71,17 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		myImageView.fitWidthProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				for (PathBuilder path: myPathBuilders) {
+				for (PathBuilder path : myPathBuilders) {
 					path.setSize(myImageView.getFitWidth(), myImageView.getFitHeight());
 				}
 			}
 		});
-		
-		for (PathBuilder path: myPathBuilders) {
+
+		for (PathBuilder path : myPathBuilders) {
 			path.setSize(myImageView.getFitWidth(), myImageView.getFitHeight());
 		}
 	}
-	
+
 	private void resetPaths() {
 		myPanelBar.removeButtons(2, 2 + myPathBuilders.size());
 		myPathBuilders.clear();
@@ -89,23 +89,25 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		myGroup.getChildren().clear();
 		myGroup.getChildren().addAll(myImageView);
 	}
-	
+
 	public void setPaths(String pathString) {
 		resetPaths();
-		if (pathString == null) return;
+		if (pathString == null)
+			return;
 		List<String> paths = Arrays.asList(pathString.split("_"));
-		for (String p: paths) {
+		for (String p : paths) {
 			PathBuilder path = createNewPath();
 			List<String> curves = Arrays.asList(p.substring(2).split(" "));
-			for (String c: curves) {
+			for (String c : curves) {
 				List<String> coordinates = Arrays.asList(c.split(",|-"));
 				path.createNewCurve(coordinates);
-			}			
+			}
 		}
 	}
 
 	/**
 	 * Gets fully compressed Path information in String form.
+	 * 
 	 * @return
 	 */
 	public String getPathIDs() {
@@ -115,9 +117,9 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		}
 		System.out.println(result);
 
-		return result.substring(0,result.length()-1);
+		return result.substring(0, result.length() - 1);
 	}
-	
+
 	public int getNumberOfPaths() {
 		return pathIndexNumber;
 	}

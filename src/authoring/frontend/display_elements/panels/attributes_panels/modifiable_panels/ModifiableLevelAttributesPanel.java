@@ -233,7 +233,6 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				.getEditor().getEditorGrid().getPrimaryDisplay()).getImage();
 		iv.setPreserveRatio(true);
 		double mapRatio = (iv.getImage().getHeight() / iv.getImage().getWidth());
-		System.out.println(Double.toString(mapRatio));
 		myInputMap.replace("MapHeight", new TextField(Double.toString(iv.getImage().getHeight())));
 		myInputMap.replace("MapWidth", new TextField(Double.toString(iv.getImage().getWidth())));
 		iv.setFitHeight(iv.getImage().getHeight());

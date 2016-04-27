@@ -92,6 +92,7 @@ public class EntitiesTabGrid extends TabGrid {
 								info.remove("Type");
 								setAttributesPanel(info);
 								currentInfo = info;
+								currentInfo.put("Type", "Entity");
 							}
 						}
 					});
@@ -111,6 +112,7 @@ public class EntitiesTabGrid extends TabGrid {
 		String newName = promptNewName();
 		if (!newName.equals("")) {
 			duplicateEntity.replace("Name", newName);
+			duplicateEntity.remove("Type");
 			myTabDisplay.openEditorDisplay(duplicateEntity);
 		}
 	}

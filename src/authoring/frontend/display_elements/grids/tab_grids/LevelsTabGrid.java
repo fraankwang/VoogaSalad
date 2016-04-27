@@ -96,6 +96,7 @@ public class LevelsTabGrid extends TabGrid {
 						info.remove("Type");
 						setAttributesPanel(info);
 						currentInfo = info;
+						currentInfo.put("Type", "Level");
 					}
 				}
 			});
@@ -114,6 +115,7 @@ public class LevelsTabGrid extends TabGrid {
 
 		if (!newName.equals("")) {
 			duplicateEntity.replace("Name", newName);
+			duplicateEntity.remove("Type");
 			myTabDisplay.openEditorDisplay(duplicateEntity);
 		}
 	}
