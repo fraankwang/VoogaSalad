@@ -57,6 +57,7 @@ public class AuthoringLevelFactory {
 				break;
 			case "SpawnEntities":
 				String spawnInfo = data.get(key);
+				System.out.println(spawnInfo);
 				spawnEntities = createSpawnEntities(spawnInfo);
 				break;
 			}
@@ -108,6 +109,7 @@ public class AuthoringLevelFactory {
 		int count = 0;
 		for (String key : temp.keySet()) {
 			paths[count] = createPath(key, temp.get(key));
+			count++;
 		}
 		return paths;
 	}

@@ -74,7 +74,6 @@ public class GameMap {
 		return paths[index];
 	}
 	
-	
 	public void setPaths(Path[] paths) {
 		this.paths = paths;
 	}
