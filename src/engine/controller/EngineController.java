@@ -21,17 +21,6 @@ import javafx.util.Duration;
 import main.Main;
 import utility.GameCapture;
 
-/*
- * Todos:
- * Scaling- for pixel amounts coming in from backend, only endpoint is EngineController.updateEntity, scale points
- * 		  - for pixel amounts going to backend, may be multiple endpoints, the various click events all need to be 
- * 		  backscaled before they go to the backend
- * 		Bind the width/height/x/y property of everything on the map to the current size
- * 
- *  Want to scale everything based on the size of the 
- */
-
-
 public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
@@ -181,4 +170,7 @@ public class EngineController implements IEngineController{
 		return myGameCapture;
 	}
 	
+	public EngineView getEngineView(){
+		return myEngineView;
+	}
 }

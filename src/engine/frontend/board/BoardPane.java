@@ -27,7 +27,6 @@ public class BoardPane extends AbstractPane{
 		myBackground = new ImageView(new Image(myEngineView.getEngineController().getBackgroundImageFile()));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
-		
 		myGroup = new Group();
 		myPane.getChildren().addAll(myBackground, myGroup);
 		return myPane;
@@ -38,7 +37,7 @@ public class BoardPane extends AbstractPane{
 	}
 	
 	/**
-	 * updates entity with id to correct coordinate and size, if size is negative 
+	 * updates entity relative to map with id to correct coordinate and size, if size is negative 
 	 * @param xCoord
 	 * @param yCoord
 	 * @param image

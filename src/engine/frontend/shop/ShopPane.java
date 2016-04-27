@@ -1,11 +1,9 @@
 package engine.frontend.shop;
 
-import java.util.HashMap;
 /**
  * @author HaydenBader
  */
 import java.util.List;
-import java.util.Map;
 
 import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.AbstractPane;
@@ -13,7 +11,6 @@ import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 

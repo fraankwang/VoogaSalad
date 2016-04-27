@@ -7,7 +7,7 @@ import engine.frontend.board.BoardPane;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
-import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.DoubleExpression;
 import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
@@ -43,6 +43,8 @@ public class EngineView {
 	private StatusPane myStatusPane;
 	private DummyCursor myDummyCursor;
 
+	private DoubleExpression scalingFactor;
+	
 	public EngineView(Stage s, EngineController c) {
 		myStage = s;
 		myController = c;		
@@ -52,6 +54,7 @@ public class EngineView {
 		myStatusPane = new StatusPane(this);
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myDummyCursor = new DummyCursor(this);
+		scalingFactor = new SimpleDoubleProperty(1);
 	}
 
 	/**
@@ -71,12 +74,11 @@ public class EngineView {
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
 
-		DoubleBinding scalingFactor;
 		if (mapHeight.get() > mapWidth.get()) {
-			DoubleBinding usableHeight = getUsableBoardHeight();
+			DoubleExpression usableHeight = getUsableBoardHeight();
 			scalingFactor = usableHeight.divide(mapHeight);
 		} else {
-			DoubleBinding usableWidth = getUsableBoardWidth();
+			DoubleExpression usableWidth = getUsableBoardWidth();
 			scalingFactor = usableWidth.divide(mapWidth);
 		}
 		DoubleExpression boardWidth = mapWidth.multiply(scalingFactor);
@@ -91,7 +93,6 @@ public class EngineView {
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
-		// myScene.setOnDrag
 		return myScene;
 	}
 
@@ -129,16 +130,16 @@ public class EngineView {
 		return myDummyCursor;
 	}
 
-	public DoubleBinding getUsableBoardWidth() {
+	public DoubleExpression getUsableBoardWidth() {
 		return myScene.widthProperty().multiply(loadDoubleResource("BoardMaxWidth"));
 	}
 
-	public DoubleBinding getUsableBoardHeight() {
+	public DoubleExpression getUsableBoardHeight() {
 		return myScene.heightProperty().subtract(myMenuBar.heightProperty())
 				.multiply(loadDoubleResource("BoardMaxHeight"));
 	}
 
-	public DoubleBinding getUsableShopWidth() {
+	public DoubleExpression getUsableShopWidth() {
 		return myScene.widthProperty().subtract(getUsableBoardWidth());
 	}
 
@@ -172,6 +173,10 @@ public class EngineView {
 
 	public BorderPane getBorderPane() {
 		return myBorderPane;
+	}
+	
+	public DoubleExpression getScalingFactor(){
+		return scalingFactor;
 	}
 
 	public int loadIntResource(String input) {
