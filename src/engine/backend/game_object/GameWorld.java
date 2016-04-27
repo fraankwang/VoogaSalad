@@ -15,6 +15,7 @@ import engine.backend.entities.IEntity;
 public class GameWorld {
 
 	private Map<String, Map<String, IEntity>> myEntityTypeMap; //maps types of entities to a map containing specific entity names of that type
+	private List<IEntity> authoredEntities;
 	private Map<Integer, Mode> myModes;
 	private List<Mode> modes;
 	private GameStatistics myGameStatistics;
@@ -69,6 +70,15 @@ public class GameWorld {
 
 	public Map<String, Map<String, IEntity>> getEntityMap(){
 		return myEntityTypeMap;
+	}
+
+	public List<IEntity> getAuthoredEntities() {
+		// TODO Auto-generated method stub
+		return  authoredEntities;
+	}
+	
+	public void setAuthoredEntities(List<IEntity> entities) {
+		authoredEntities = entities;
 	}
 
 }

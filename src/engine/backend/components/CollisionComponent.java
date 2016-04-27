@@ -8,7 +8,7 @@ package engine.backend.components;
  * @author 
  *
  */
-public class CollisionComponent extends Component implements IComponent{
+public class CollisionComponent extends Component{
     
 	private boolean isCollided;
 

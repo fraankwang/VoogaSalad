@@ -7,7 +7,7 @@ package engine.backend.components;
  *
  */
 
-public class PathComponent extends Component implements IComponent {
+public class PathComponent extends Component {
 
 	// stores which path you're on
 	private int pathID;

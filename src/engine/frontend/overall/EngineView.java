@@ -51,7 +51,7 @@ public class EngineView {
 
 	public EngineView(Stage s, EngineController c) {
 		myStage = s;
-		myController = c;
+		myController = c;		
 		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
 		myShopPane = new ShopPane(this);

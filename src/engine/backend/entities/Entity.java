@@ -14,13 +14,11 @@ import engine.backend.components.IComponent;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
 import engine.backend.utilities.ComponentTagResources;
-import engine.backend.utilities.IComponentTagResources;
 
 public class Entity implements IEntity {
 
 	private String myName;
 	private String myType;
-	private List<Rule> myRules = new ArrayList<Rule>();;
 	private int myID;
 	private int myParentLevelID;
 	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();
@@ -40,14 +38,6 @@ public class Entity implements IEntity {
 		// this.myValue = myValue;
 	}
 
-	public List<Rule> getRules() {
-		return myRules;
-	}
-
-	public void addRule(Rule myRule) {
-		myRules.add(myRule);
-	}
-
 	public void addComponent(IComponent component) {
 		if (component == null)
 			System.out.println("this component is null");
@@ -56,7 +46,17 @@ public class Entity implements IEntity {
 	}
 
 	public IComponent getComponent(String tag) {
-		return myComponents.get(tag);
+		if(myComponents.containsKey(tag)){
+			return myComponents.get(tag);
+		}
+		//find substring tag
+		Set<String> keys = myComponents.keySet();
+		for(String key : keys){
+			if(key.contains(tag)){
+				return myComponents.get(key);
+			}
+		}
+		return null;
 	}
 
 	public Set<String> getComponentTags() {
@@ -108,7 +108,17 @@ public class Entity implements IEntity {
 	 *         the tag.
 	 */
 	public boolean hasComponent(String tag) {
-		return myComponents.get(tag) != null;
+		if(myComponents.containsKey(tag)){
+			return true;
+		}
+		//find substring tag
+		Set<String> keys = myComponents.keySet();
+		for(String key : keys){
+			if(key.contains(tag)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean hasBeenModified() {
@@ -180,15 +190,15 @@ public class Entity implements IEntity {
 
 		String fullName = ComponentTagResources.getComponentTag(component);
 		//System.out.println(getName() + "   " + fullName);
-		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
+		Class<? extends IComponent> componentClass = getComponent(fullName).getClass();
 		//System.out.println(componentClass.getName());
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 			
-			componentClassInstance = componentClass.cast(myComponents.get(fullName));
+			componentClassInstance = componentClass.cast(getComponent(fullName));
 			// put in resource file!!!
 			String methodName = "set" + instanceVar;
-
+			System.out.println(methodName);
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 
 			setMethod.invoke(componentClassInstance, newVal);
@@ -197,7 +207,6 @@ public class Entity implements IEntity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
