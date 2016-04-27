@@ -27,12 +27,12 @@ public class InGameEntityFactory {
 		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>(); 
 		for(IEntity entity : entities){
 			Map<String, IEntity> typeMap = null;
-			if(mainEntityMap.containsKey(entity.getType())){
-				typeMap = mainEntityMap.get(entity.getType());
+			if(mainEntityMap.containsKey(entity.getGenre())){
+				typeMap = mainEntityMap.get(entity.getGenre());
 			}
 			else{
 				typeMap = new HashMap<String, IEntity>();
-				mainEntityMap.put(entity.getType(), typeMap);
+				mainEntityMap.put(entity.getGenre(), typeMap);
 			}
 			typeMap.put(entity.getName(), entity);
 		}
