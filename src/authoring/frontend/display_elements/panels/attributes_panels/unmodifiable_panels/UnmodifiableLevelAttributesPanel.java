@@ -113,22 +113,19 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		System.out.println(myAttributesMap);
 
 		for (String currentAttribute : myAttributesMap.keySet()) {
-			if (!currentAttribute.equals("SpawnEntities")) {
-				if (myOutputMap.containsKey(currentAttribute)) {
-					TextField tf = (TextField) myOutputMap.get(currentAttribute);
-					tf.setText(myAttributesMap.get(currentAttribute));
-					tf.setEditable(false);
-					myOutputMap.replace(currentAttribute, tf);
-					
-				}
+			if (myOutputMap.containsKey(currentAttribute)) {
+				TextField tf = (TextField) myOutputMap.get(currentAttribute);
+				tf.setText(myAttributesMap.get(currentAttribute));
+				tf.setEditable(false);
+				myOutputMap.replace(currentAttribute, tf);
 				
-				else {
-					TextField tf = new TextField();
-					tf.setText(myAttributesMap.get(currentAttribute));
-					tf.setEditable(false);
-					myOutputMap.put(currentAttribute, tf);
-				}
-				
+			}
+			
+			else {
+				TextField tf = new TextField();
+				tf.setText(myAttributesMap.get(currentAttribute));
+				tf.setEditable(false);
+				myOutputMap.put(currentAttribute, tf);
 			}
 
 		}
@@ -177,8 +174,10 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
+		String tempSpawns = updatedInfo.get("SpawnEntities");
+		updatedInfo.remove("SpawnEntities");
 		refreshDisplay();
-		myAttributesMap.put("Type", "Level");
+		myAttributesMap.put("SpawnEntities", tempSpawns);
 	}
 
 }

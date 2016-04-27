@@ -91,7 +91,6 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	public void setAttributes(Map<String, String> updatedInfo) {
 		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
-		myAttributesMap.put("Type", "Entity");
 		myAttributesMap = updatedInfo;
 		refreshDisplay();
 	}

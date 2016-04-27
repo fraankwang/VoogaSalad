@@ -127,14 +127,11 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected void refreshRows() {
 		int i = 0;
 		for (String currentAttribute : myAttributesMap.keySet()) {
-			if (!currentAttribute.equals("Type") && !currentAttribute.equals("SpawnEntities")) {
-				Text text = new Text(currentAttribute);
-				text.setFont(new Font(FONT_SIZE));
-				myAttributesGridPane.add(text, 0, i);
-				myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
-				i++;
-
-			}
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			myAttributesGridPane.add(text, 0, i);
+			myAttributesGridPane.add(myOutputMap.get(currentAttribute), 1, i);
+			i++;
 		}
 	}
 
@@ -148,10 +145,6 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
-
-		if (myAttributesMap.isEmpty() == false) {
-			myAttributesMap.remove("Type");
-		}
 
 		refreshDisplay();
 	}
