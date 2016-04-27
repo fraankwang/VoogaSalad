@@ -257,6 +257,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		mySpawnEntitiesInputMap = new TreeMap<String, SpawnEntityRow>();
 
 		String[] pathIDs = compressed.split(",");
+		System.out.println(pathIDs[0]);
+		System.out.println(pathIDs[1]);
 		for (String pathID : pathIDs) {
 			String[] spawnObjects = pathID.split(" ");
 			for (String spawn : spawnObjects) {

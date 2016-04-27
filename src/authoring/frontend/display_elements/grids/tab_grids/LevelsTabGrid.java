@@ -82,6 +82,7 @@ public class LevelsTabGrid extends TabGrid {
 		for (Map<String, String> info : data) {
 			Image levelImage = new LocalImage(info.get("MapBackgroundImage"));
 			myLevels.put(info.get("Name"), levelImage);
+			info.remove("EntityNames");
 
 			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
 			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {

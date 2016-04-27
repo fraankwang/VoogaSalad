@@ -110,6 +110,13 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 				"*****7. UnmodifiableLevelAttributesPanel: Levels display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
+		mySpawnEntitiesGridPane.getChildren().clear();
+
+		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
+				(TreeMap<String, String>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
+
+		myAttributesMap.remove("SpawnEntities");
+		
 		for (String currentAttribute : myAttributesMap.keySet()) {
 			if (myOutputMap.containsKey(currentAttribute)) {
 				TextField tf = (TextField) myOutputMap.get(currentAttribute);
@@ -128,11 +135,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 		}
 
-		mySpawnEntitiesGridPane.getChildren().clear();
-
-		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
-				(TreeMap<String, String>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
-
+		
 		refreshRows();
 		myGridPane.getChildren().clear();
 		assembleComponents();
