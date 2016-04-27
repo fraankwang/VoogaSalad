@@ -10,6 +10,7 @@ import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
+import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.StartView;
 import javafx.animation.Animation;
@@ -153,12 +154,23 @@ public class EngineController implements IEngineController{
 		myEventManager.handleClickEvent(clickedEvent);
 	}
 	
+	public void nextLevelClicked() {
+		NextWaveEvent nextWaveEvent = new NextWaveEvent();
+		myEventManager.handleNextWaveEvent(nextWaveEvent);
+	}
+
+	public void nextWaveClicked() {
+		NextWaveEvent nextWaveEvent = new NextWaveEvent();
+		myEventManager.handleNextWaveEvent(nextWaveEvent);
+	}
+	
 	public void levelIsOver(){
-		
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 	}
 	
 	public void waveIsOver(){
-		
+		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
+		myEngineView.getStatusPane().getControlManager().switchModeEnable();
 	}
 	
 	public Main getMain(){
@@ -180,6 +192,7 @@ public class EngineController implements IEngineController{
 	public EventManager getEventManager(){
 		return myEventManager;
 	}
+	
 	public GameCapture getGameCapture(){
 		return myGameCapture;
 	}
