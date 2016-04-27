@@ -13,17 +13,15 @@ public class AuthoringLevel {
 	
 	private String myName;
 	private GameMap myMap;
-	private double levelTimer;
 	private double waveDelayTimer;
 	
 	private Set<String> entities;
 	private Map<String, String> myInfo;
 	private List<AuthoringEntity> spawnEntities;
 	
-	public AuthoringLevel(String myName, GameMap myMap, double levelTimer, double waveDelayTimer) {
+	public AuthoringLevel(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
 		this.myMap = myMap;
-		this.levelTimer = levelTimer;
 		this.waveDelayTimer = waveDelayTimer;
 		this.entities = new HashSet<String>();
 		this.myInfo = new HashMap<String, String>();
@@ -34,12 +32,11 @@ public class AuthoringLevel {
 	private void initializeInfo() {
 		myInfo.put("Type", "Level");
 		myInfo.put("Name", myName);
-		myInfo.put("LevelTimer", levelTimer + "");
 		myInfo.put("WaveDelayTimer", waveDelayTimer + "");
 		myInfo.put("MapBackgroundImage", myMap.getMapImage());
 		myInfo.put("MapWidth", myMap.getMapWidth() + "");
 		myInfo.put("MapHeight", myMap.getMapHeight() + "");
-//		myInfo.put("Paths", myMap.getPathsInfo());
+		myInfo.put("Paths", myMap.getPathsInfo());
 	}
 	
 	public Set<String> getEntities() {
@@ -48,6 +45,22 @@ public class AuthoringLevel {
 	
 	public Map<String, String> getInfo() {
 		return myInfo;
+	}
+	
+	public String getName() {
+		return myName;
+	}
+	
+	public GameMap getMap() {
+		return myMap;
+	}
+	
+	public double getWaveDelayTimer() {
+		return waveDelayTimer;
+	}
+	
+	public List<AuthoringEntity> getSpawnEntities() {
+		return spawnEntities;
 	}
 	
 	public void setEntities(Set<String> entities) {
@@ -62,12 +75,12 @@ public class AuthoringLevel {
 	
 	private String getSpawnEntityInfo() {
 		if (spawnEntities.isEmpty()) {
-			return "";
+			return "empty";
 		} else {
 			StringBuilder sb = new StringBuilder();
 			for (AuthoringEntity entity : spawnEntities) {
 				Map<String, String> info = entity.getInfo();
-				String spawnInfo = info.get("SpawnComponent");
+				String spawnInfo = info.get("SpawnerComponent");
 				sb.append(spawnInfo);
 				sb.append(",");
 			}

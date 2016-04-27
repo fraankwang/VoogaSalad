@@ -3,55 +3,40 @@ package engine.frontend.board;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
+import javafx.beans.binding.DoubleExpression;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
-
-
-public class BoardPane {
-	private EngineView myEngineView;
-	private Map<Integer, EntityView> myEntityViewMap = new HashMap<Integer, EntityView>();
-	private Pane myPane;
-	private ImageView myBackground;	
+public class BoardPane extends AbstractPane{
+	private ImageView myBackground;
+	private Group myGroup;
+	
+	private Map<Integer, EntityView> myEntityViewMap;
 	
 	public BoardPane(EngineView ev){
-		myEngineView = ev;
+		super(ev);
+		myEntityViewMap = new HashMap<Integer, EntityView>();
 	}
 	
-	public Node buildNode(){
-		myPane = new Pane();
-		myPane.minWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("BoardWidth")));
-		myPane.minHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("BoardHeight")));
-		myPane.maxWidthProperty().bind(myEngineView.getUsableWidth(myEngineView.loadDoubleResource("BoardWidth")));
-		myPane.maxHeightProperty().bind(myEngineView.getUsableHeight(myEngineView.loadDoubleResource("BoardHeight")));
-		
-		myBackground = new ImageView(new Image("Park_Path.png"));
+	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
+		super.buildNode(widthBinding, heightBinding);
+		myBackground = new ImageView(new Image(myEngineView.getEngineController().getBackgroundImageFile()));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
-		myPane.getChildren().add(myBackground);
+		
+		myGroup = new Group();
+		myPane.getChildren().addAll(myBackground, myGroup);
 		return myPane;
 	}
 	
-	public Node getNode(){
-		return myPane;
-	}
-
 	public void setBackground(String imageName){
 		myBackground.setImage(new Image(imageName));
 	}
 	
-	public void createCharacterImage(double xCoord, double yCoord, String image, int id, double width, double height){
-		ImageView myPlayer = new ImageView(new Image(image));
-		myPlayer.setFitWidth(width);
-		myPlayer.setFitHeight(height);
-		myPlayer.setX(xCoord);
-		myPlayer.setY(yCoord);
-		myPane.getChildren().add(myPlayer);
-	}
-
 	/**
 	 * updates entity with id to correct coordinate and size, if size is negative 
 	 * @param xCoord
@@ -83,13 +68,14 @@ public class BoardPane {
 	}
 
 	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower){
+		System.out.println(myPane.getLayoutX());
+		System.out.println(myPane.getLayoutY());
 		// need to tell them which type it is too
-		double xLoc = mouseXLoc - myPane.getBoundsInParent().getMinX();
-		double yLoc = mouseYLoc - myPane.getBoundsInParent().getMinY();
+		double xLoc = mouseXLoc - myPane.getLayoutX();
+		double yLoc = mouseYLoc - myPane.getLayoutY();
 
 		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
-		if(placingTower != null){
-			myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
-		}
+		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
+
 	}
 }

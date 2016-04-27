@@ -16,13 +16,13 @@ public class AuthoringEntity {
 	private static final String UNDERSCORE_SPLIT = "_";
 	
 	private String myName;
-	private String myType;
+	private String myGenre;
 	private Map<String, String> myInfo;
 	private Map<String, IComponent> myComponents;
 	
-	public AuthoringEntity(String myName, String myType) {
+	public AuthoringEntity(String myName, String myGenre) {
 		this.myName = myName;
-		this.myType = myType;
+		this.myGenre = myGenre;
 		this.myInfo = new HashMap<String, String>();
 		this.myComponents = new HashMap<String, IComponent>();
 		initializeInfo();
@@ -30,13 +30,13 @@ public class AuthoringEntity {
 	
 	private void initializeInfo() {
 		myInfo.put(TYPE, CLASS_TYPE);
-		myInfo.put(GENRE, myType);
+		myInfo.put(GENRE, myGenre);
 		myInfo.put(NAME, myName);
 	}
 	
 	public void addComponent(IComponent component) {
 		myComponents.put(component.getTag(), component);
-		if (!myType.equals("Spawner")) {
+		if (!myGenre.equals("Spawner")) {
 			String[] componentInfo = component.getComponentInfo().split(COMMA_SPLIT);
 			for (String s : componentInfo) {
 				String[] info = s.split(SEMICOLON_SPLIT);
@@ -53,6 +53,18 @@ public class AuthoringEntity {
 	
 	public Map<String, String> getInfo() {
 		return myInfo;
+	}
+	
+	public String getName() {
+		return myName;
+	}
+	
+	public String getGenre() {
+		return myGenre;
+	}
+	
+	public Map<String, IComponent> getComponents() {
+		return myComponents;
 	}
 	
 	@Override

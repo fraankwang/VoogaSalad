@@ -38,7 +38,7 @@ public class EntitiesTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
-	private Map<String, Image> myEntities;
+	private Map<String, String> myEntities;
 
 	public EntitiesTabGrid(IAuthoringView controller, TabDisplay tab) {
 		super(controller, tab);
@@ -49,7 +49,7 @@ public class EntitiesTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
-		myEntities = new TreeMap<String, Image>();
+		myEntities = new TreeMap<String, String>();
 	}
 
 	@Override
@@ -84,11 +84,12 @@ public class EntitiesTabGrid extends TabGrid {
 				if (!myEntities.containsKey((info.get("Name")))) {
 					Image image = new Image(info.get("DisplayComponent_Image"));
 					ImageView iv = new ImageView(image);
-					myEntities.put(info.get("Name"), image);
+					myEntities.put(info.get("Name"), info.get("DisplayComponent_Image"));
 					iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 						public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 								Boolean newValue) {
 							if (newValue) {
+								info.remove("Type");
 								setAttributesPanel(info);
 								currentInfo = info;
 							}
@@ -170,7 +171,7 @@ public class EntitiesTabGrid extends TabGrid {
 		return newName;
 	}
 
-	public Map<String, Image> getEntities() {
+	public Map<String, String> getEntities() {
 		return myEntities;
 	}
 

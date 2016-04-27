@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import authoring.parser.GlobalParser;
+import javafx.scene.control.Label;
 //import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -57,8 +59,8 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
-		
+		myGridPane.setMaxWidth(MAX_SIZE);
+
 		List<String> levelAttributes = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
 				"WaveDelayTimer", "MapWidth", "MapHeight");
 
@@ -68,7 +70,6 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(mySpawnEntitiesGridPane);
-		myScrollPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 	}
 
 	/**
@@ -91,14 +92,11 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		return mySpawnEntitiesGridPane;
 	}
 
-
-
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
 		myGridPane.add(myAttributesGridPane, 0, 1);
 		myGridPane.add(myScrollPane, 0, 2);
-		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
@@ -112,9 +110,15 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 				"*****7. UnmodifiableLevelAttributesPanel: Levels display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
-		for (String currentAttribute : myAttributesMap.keySet()) {
+		mySpawnEntitiesGridPane.getChildren().clear();
 
-			if (myOutputMap.keySet().contains(currentAttribute)) {
+		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
+				(TreeMap<String, String>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
+
+		myAttributesMap.remove("SpawnEntities");
+		
+		for (String currentAttribute : myAttributesMap.keySet()) {
+			if (myOutputMap.containsKey(currentAttribute)) {
 				TextField tf = (TextField) myOutputMap.get(currentAttribute);
 				tf.setText(myAttributesMap.get(currentAttribute));
 				tf.setEditable(false);
@@ -131,11 +135,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 		}
 
-		mySpawnEntitiesGridPane.getChildren().clear();
-
-		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
-				(TreeMap<String, String>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
-
+		
 		refreshRows();
 		myGridPane.getChildren().clear();
 		assembleComponents();
@@ -150,7 +150,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String> map) {
 		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
 
-		int row = 1; // row 0 is filled by addColumnNames
+		int row = 1;
 		for (String pathID : map.keySet()) {
 			Text ID = new Text(pathID);
 			ID.setFont(new Font(FONT_SIZE));
@@ -160,7 +160,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 			String[] components = compressed.split(".");
 			int column = 1;
 			for (String component : components) {
-				Text text = new Text(component);
+				Label text = new Label(component);
 				text.setFont(new Font(FONT_SIZE));
 				gridPane.add(text, column, row);
 				column++;
@@ -174,7 +174,6 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	public void setAttributes(Map<String, String> updatedInfo) {
 		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
-		myAttributesMap.put("Type", "Level");
 		myAttributesMap = updatedInfo;
 		refreshDisplay();
 	}

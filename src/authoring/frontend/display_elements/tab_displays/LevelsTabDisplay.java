@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.TreeMap;
+
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.frontend.IAuthoringView;
@@ -76,7 +77,7 @@ public class LevelsTabDisplay extends TabDisplay {
 		return "Levels";
 	}
 	
-	public List<String> getLevels() {
+	public Map<String, String> getLevels() {
 		return ((LevelsTabGrid) myGrid).getLevels();
 	}
 }

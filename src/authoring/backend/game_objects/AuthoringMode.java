@@ -2,7 +2,6 @@ package authoring.backend.game_objects;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class AuthoringMode {
 	
@@ -10,10 +9,10 @@ public class AuthoringMode {
 	private int initialNumLives;
 	private double initialResources;
 	
-	private Set<String> levels;
 	private Map<String, String> myInfo;
+	private Map<Integer, String> levels;
 	
-	public AuthoringMode(String myName, int initialNumLives, double initialResources, Set<String> levels) {
+	public AuthoringMode(String myName, int initialNumLives, double initialResources, Map<Integer, String> levels) {
 		this.myName = myName;
 		this.levels = levels;
 		this.initialNumLives = initialNumLives;
@@ -27,21 +26,43 @@ public class AuthoringMode {
 		myInfo.put("Name", myName);
 		myInfo.put("InitialLives", initialNumLives + "");
 		myInfo.put("InitialResources", initialResources + "");
-		myInfo.put("LevelNames", getLevelNames());
+		myInfo.put("Levels", getStringLevelIndexes());
 	}
 	
-	private String getLevelNames() {
-		StringBuilder sb = new StringBuilder();
-		for (String level : levels) {
-			sb.append(level);
-			sb.append(" ");
+	private String getStringLevelIndexes() {
+		if (levels.isEmpty()) {
+			return "";
+		} else {
+			StringBuilder sb = new StringBuilder();
+			for (int key : levels.keySet()) {
+				sb.append(key);
+				sb.append(":");
+				sb.append(levels.get(key));
+				sb.append(" ");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			return sb.toString();
 		}
-		sb.deleteCharAt(sb.length() - 1);
-		return sb.toString();
 	}
 	
 	public Map<String, String> getInfo() {
 		return myInfo;
+	}
+	
+	public String getName() {
+		return myName;
+	}
+	
+	public int getInitialLives() {
+		return initialNumLives;
+	}
+	
+	public double getInitialResources() {
+		return initialResources;
+	}
+	
+	public Map<Integer, String> getLevels() {
+		return levels;
 	}
 	
 	@Override
