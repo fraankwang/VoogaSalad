@@ -59,6 +59,10 @@ public class AuthoringLevel {
 		return waveDelayTimer;
 	}
 	
+	public List<AuthoringEntity> getSpawnEntities() {
+		return spawnEntities;
+	}
+	
 	public void setEntities(Set<String> entities) {
 		this.entities = entities;
 		this.myInfo.put("EntityNames", getEntityNames());
@@ -71,12 +75,12 @@ public class AuthoringLevel {
 	
 	private String getSpawnEntityInfo() {
 		if (spawnEntities.isEmpty()) {
-			return "";
+			return "empty";
 		} else {
 			StringBuilder sb = new StringBuilder();
 			for (AuthoringEntity entity : spawnEntities) {
 				Map<String, String> info = entity.getInfo();
-				String spawnInfo = info.get("SpawnComponent");
+				String spawnInfo = info.get("SpawnerComponent");
 				sb.append(spawnInfo);
 				sb.append(",");
 			}

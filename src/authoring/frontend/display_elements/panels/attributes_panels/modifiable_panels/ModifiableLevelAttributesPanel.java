@@ -10,6 +10,7 @@ import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.editor_features.LocalImage;
 import authoring.frontend.editor_features.SpawnEntityRow;
+import authoring.parser.GlobalParser;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 //import javafx.scene.control.Button;
@@ -150,7 +151,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			String selected = myEntitySelector.getSelectionModel().getSelectedItem();
 			Image selectedImage = myEntities.get(selected);
 			String wave = myWaveSelector.getSelectionModel().getSelectedItem();
-			
+
 			if (wave.equals("New")) {
 				myMaxWave++;
 				myWaves.add(Integer.toString(myMaxWave));
@@ -158,15 +159,15 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				myWaveSelector.getItems().clear();
 				myWaveSelector.getItems().addAll(myWaves);
 			}
-			
+
 			String pathID = promptUserInput("Path Number");
 			if (!pathID.equals("")) {
-				String tag = selected + ":" + wave + ":" + pathID;
+				String tag = pathID + ":" + selected + ":" + wave;
 				String URL = ((LocalImage) selectedImage).getURL();
 				ImageView newImageView = new ImageView(new LocalImage(URL));
 				SpawnEntityRow row = new SpawnEntityRow(tag, selected, newImageView, wave, pathID);
 				linkRow(row);
-			
+
 			}
 		});
 
@@ -188,11 +189,11 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			mySpawnEntitiesInputMap.remove(row.getMyTag());
 			refreshAttributeInputRows();
 		});
-		
+
 		refreshAttributeInputRows();
 
 	}
-	
+
 	@Override
 	protected void addColumnNames(List<String> columnNames, GridPane gridPane) {
 		for (int i = 0; i < columnNames.size(); i++) {
@@ -227,6 +228,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public void updateAttributes(Map<String, String> info) {
 		super.updateAttributes(info);
 		myAttributes.remove("SpawnEntities");
+		
 		myInputMap = new TreeMap<String, Control>();
 
 		for (String attribute : LEVEL_ATTRIBUTES) {
@@ -249,6 +251,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	 * @param map
 	 */
 	private void updateSpawnEntitiesData(String compressed) {
+		System.out.println("ModLevelAttr: updating inputmap with compressed: ");
+		System.out.println(compressed);
+		
 		mySpawnEntitiesInputMap = new TreeMap<String, SpawnEntityRow>();
 
 		String[] pathIDs = compressed.split(",");
@@ -283,26 +288,19 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		}
 
-		// mySpawnEntitiesCompressed = compressSpawnEntitie();
-		// myAttributesMap.replace("SpawnEntities", mySpawnEntitiesCompressed);
+		mySpawnEntitiesCompressed = GlobalParser.spawnCompress(mySpawnEntitiesInputMap);
+		
+		if (!myAttributesMap.containsKey("SpawnEntities")) {
+			myAttributesMap.put("SpawnEntities", mySpawnEntitiesCompressed);
+		} else {
+			myAttributesMap.replace("SpawnEntities", mySpawnEntitiesCompressed);
+		}
+		
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
 		return myAttributesMap;
 	}
-
-	// private void compressSpawnEntities() {
-	// StringBuilder sb = new StringBuilder();
-	//
-	// for (Integer i : mySpawnEntitiesInputMap.keySet()) {
-	// SpawnEntityRow info = mySpawnEntitiesInputMap.get(i);
-	// sb.append(info.getMyPathID() + ":");
-	// sb.append(info.getMyName().getText() + "." +
-	// info.getMyWaveOrder().getText() + "." + info.getMyNumber() + "." +
-	// info.getMyRate().getText());
-	// sb.append(" ");
-	// }
-	// }
 
 	protected void refreshAttributes() {
 

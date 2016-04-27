@@ -13,5 +13,4 @@ public abstract class Component implements IComponent{
 		return this.getClass().getSimpleName();
 	}
 
-	
 }

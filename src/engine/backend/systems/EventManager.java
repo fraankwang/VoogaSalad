@@ -103,10 +103,10 @@ public class EventManager implements Observer{
 		int index = getCurrentLevel().getCurrentWaveIndex();
 		//last wave
 		if(index == getCurrentLevel().getNumWaves() - 1){
-			
+			myEngineController.levelIsOver();
 		}
 		else{
-			
+			myEngineController.waveIsOver();
 			getCurrentLevel().setCurrentWaveIndex(index + 1);
 		}
 		

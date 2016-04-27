@@ -20,7 +20,7 @@ public class ModeFactory {
 		double resources = authoringMode.getInitialResources();
 		ModeStatistics modeStatistics = new ModeStatistics(numLives, resources);
 		
-		Map<Integer, String> levelIndex = authoringMode.getLevelIndex();
+		Map<Integer, String> levelIndex = authoringMode.getLevels();
 		Map<Integer, Level> levels = new HashMap<Integer, Level>();
 		
 		for (int key : levelIndex.keySet()) {

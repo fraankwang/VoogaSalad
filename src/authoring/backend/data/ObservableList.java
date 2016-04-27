@@ -68,6 +68,7 @@ public class ObservableList<E> extends Observable {
 				info.add(game.getInfo());
 			}
 		}
+		System.out.println("Backend: " + info);
 		return info;
 	}
 

@@ -6,20 +6,29 @@
 package engine.backend.game_object;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import engine.backend.entities.IEntity;
 
 public class GameWorld {
 
-	private Map<Integer, Mode> myModes;
+	private Map<String, Mode> myModes;
 	private String myGameType;
 	private GameStatistics myGameStatistics;
 	
+	/**
+	 * Authoring Environment Constructor
+	 */
+	public GameWorld(String gameType, GameStatistics gameStatistics, Map<String, Mode> modes) {
+		this.myGameType = gameType;
+		this.myGameStatistics = gameStatistics;
+		this.myModes = modes;
+	}
+	
+	/**
+	 * Engine Environment Testing.
+	 */
 	public GameWorld() {
 		this.myGameStatistics = new GameStatistics();
-		this.myModes = new HashMap<Integer, Mode>();
+		this.myModes = new HashMap<String, Mode>();
 	}
 
 	public GameStatistics getGameStatistics() {
@@ -39,7 +48,7 @@ public class GameWorld {
 	}
 	
 	public void addMode(Mode mode) {
-		myModes.put(mode.getIndex(), mode);
+		myModes.put(mode.getName(), mode);
 		myGameStatistics.incrementNumModes();
 	}
 

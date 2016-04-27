@@ -127,7 +127,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected void refreshRows() {
 		int i = 0;
 		for (String currentAttribute : myAttributesMap.keySet()) {
-			if (!currentAttribute.equals("Type") || !currentAttribute.equals("SpawnEntities")) {
+			if (!currentAttribute.equals("Type") && !currentAttribute.equals("SpawnEntities")) {
 				Text text = new Text(currentAttribute);
 				text.setFont(new Font(FONT_SIZE));
 				myAttributesGridPane.add(text, 0, i);
