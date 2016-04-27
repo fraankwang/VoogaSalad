@@ -3,6 +3,7 @@ package authoring.frontend.display_elements.grids.tab_grids;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
@@ -17,7 +18,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -78,6 +81,10 @@ public class LevelsTabGrid extends TabGrid {
 		}
 
 		for (Map<String, String> info : data) {
+			if (myLevels.containsKey(info.get("Name"))) {
+				continue;
+			};
+			
 			myLevels.put(info.get("Name"), info.get("MapBackgroundImage"));
 			info.remove("EntityNames");
 
@@ -113,11 +120,23 @@ public class LevelsTabGrid extends TabGrid {
 
 	private void delete(Map<String, String> info) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Delete Level Warning");
-		alert.setContentText(
-				"Didn't mean to delete this level? The data is still saved - just press Open Editor and save it again!");
-		alert.show();
-		myController.deleteData(info);
+		alert.setTitle("Delete Entity Warning");
+		alert.setContentText("Are you sure you want to delete this Level?");
+
+		ButtonType buttonTypeOK = new ButtonType("OK");
+		ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(buttonTypeOK, buttonTypeCancel);
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == buttonTypeOK) {
+			myController.deleteData(info);
+			currentInfo.clear();
+			setAttributesPanel(currentInfo);
+			alert.close();
+		} else if (result.get() == buttonTypeCancel) {
+			return;
+		}
 	}
 
 	private String promptNewName() {
