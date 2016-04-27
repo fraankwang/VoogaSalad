@@ -1,11 +1,9 @@
 package engine.backend.systems;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.FiringComponent;
@@ -18,7 +16,6 @@ import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
-import engine.backend.systems.Events.EntityEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.utilities.ComponentTagResources;
 
@@ -57,7 +54,6 @@ public class FiringSystem extends GameSystem {
 
 		}
 
-		//addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
 		sendAddEntityEvent(newEntities);
 
 	} 
@@ -67,7 +63,7 @@ public class FiringSystem extends GameSystem {
 		
 		FiringComponent firingComponent = (FiringComponent) shootingEntity.getComponent(ComponentTagResources.firingComponentTag);
 		
-		if(firingComponent.getTimer() == 0 || firingComponent.fireNow()){
+		if(firingComponent.getTimer() <= 0 || firingComponent.fireNow()){
 			
 			for (int i = 0; i < firingComponent.getNumDirections(); i++) {
 				Vector firedVelVector = null;
@@ -78,7 +74,6 @@ public class FiringSystem extends GameSystem {
 				else{
 					firedVelVector = calculateVelocityVector(shootingEntity, targetEntity);
 				}
-				
 				IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), getEntityPositionVector(shootingEntity), firedVelVector,
 						firingComponent.getAmmunitionSpeed(), targetEntity, myEntityFactory);
 				newEntities.add(newEntity);
@@ -89,7 +84,7 @@ public class FiringSystem extends GameSystem {
 		}
 		
 		else{
-			firingComponent.setTimer(currentSecond);
+			firingComponent.decrementTimer();;
 		}
 	}
 	
@@ -132,7 +127,6 @@ public class FiringSystem extends GameSystem {
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, IEntity targetEntity, InGameEntityFactory myEntityFactory){
 
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
-
 		PositionComponent firedPosComponent = (PositionComponent) ammoEntity.getComponent(ComponentTagResources.positionComponentTag);
 		MovementComponent firedMovComponent = (MovementComponent) ammoEntity.getComponent(ComponentTagResources.movementComponentTag);
 		
@@ -141,6 +135,7 @@ public class FiringSystem extends GameSystem {
 		if(firedMovComponent instanceof TrackingMovementComponent){
 			((TrackingMovementComponent) firedMovComponent).setEntityToTrack(targetEntity);
 			((TrackingMovementComponent) firedMovComponent).setSpeed(speed);
+			((TrackingMovementComponent) firedMovComponent).setPosition(firedPosComponent);
 		}
 		
 		Vector velVector = new Vector(directionToFire);

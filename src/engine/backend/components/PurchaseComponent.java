@@ -5,7 +5,7 @@ package engine.backend.components;
  * @author 
  *
  */
-public class PurchaseComponent extends Component implements IComponent{
+public class PurchaseComponent extends Component {
 
 	private double myValue;
 	

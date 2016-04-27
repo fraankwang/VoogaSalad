@@ -1,6 +1,6 @@
 package engine.backend.components;
 
-public class DamageComponent extends Component implements IComponent{
+public class DamageComponent extends Component{
 	
 	private double myDamageToHealth;
 	private double myDamageToVelocity;

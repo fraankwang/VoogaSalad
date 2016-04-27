@@ -1,11 +1,11 @@
 /**
  * 
- * @author mario_oliver93
+ * @author mario_oliver93, raghav kedia
  * 
  */
 package engine.backend.components;
 
-public class SizeComponent extends Component implements IComponent {
+public class SizeComponent extends Component  {
 
 	private double width;
 	private double height;
