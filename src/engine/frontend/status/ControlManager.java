@@ -49,7 +49,7 @@ public class ControlManager {
 			
 		});
 		
-		switchmode.setDisable(true);
+//		switchmode.setDisable(true);
 		switchmode.setOnAction(e ->{
 			List<String> choices = new ArrayList<>();
 			choices.add("a");

@@ -10,12 +10,12 @@ import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.frontend.overall.EngineView;
+import engine.frontend.overall.StartView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
@@ -55,6 +55,11 @@ public class EngineController implements IEngineController{
 		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		
+		StartView myStartView = new StartView(this);
+		myStage.setScene(myStartView.buildScene());
+		myStage.show();
+		
+		
 		myEngineView = new EngineView(myStage, this);
 		buildStage();
 		
@@ -70,9 +75,7 @@ public class EngineController implements IEngineController{
 		myStage.setMinHeight(myEngineView.loadIntResource("StageMinHeight"));
 		myStage.setX(myEngineView.loadIntResource("StartX"));
 		myStage.setY(myEngineView.loadIntResource("StartY"));
-		
-		Scene scene = myEngineView.buildScene();
-		myStage.setScene(scene); 
+		myStage.setScene(myEngineView.buildScene()); 
 		myStage.show();
 		setupGameCapture();
 	}

@@ -63,7 +63,6 @@ public class EngineView {
 	 * @return
 	 */
 	public Scene buildScene() {
-
 		myBorderPane = new BorderPane();
 		myScene = new Scene(myBorderPane, Color.WHITE);
 		myMenuBar = myMenubarManager.buildMenuBar();
