@@ -47,7 +47,6 @@ public class FiringSystem extends GameSystem {
 						targetIsInRange(shootingEntity, targetEntity)){
 
 					updateFiring(shootingEntity, targetEntity, newEntities, currentSecond, myEntityFactory);
-					
 				}
 
 			}

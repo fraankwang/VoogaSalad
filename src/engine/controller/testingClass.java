@@ -86,12 +86,12 @@ public class testingClass {
 		tempEntity3.addComponent(tempDisplay3);
 		tempEntity3.addComponent(tempSize3);
 		tempEntity3.addComponent(tempPosition3);
-
-		tempLevel.addToEntities(tempEntity);
-		tempLevel.addToEntities(tempEntity2);
-		tempLevel.addToEntities(tempEntity3);
-		tempLevel.setMap(tempMap);
-		tempMode.addLevel(tempLevel);
+//
+//		tempLevel.addToEntities(tempEntity);
+//		tempLevel.addToEntities(tempEntity2);
+//		tempLevel.addToEntities(tempEntity3);
+//		tempLevel.setMap(tempMap);
+//		tempMode.addLevel(tempLevel);
 		collisionTest.addMode(tempMode);
 		return collisionTest;
 	}
@@ -143,8 +143,11 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
-
-		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 900, 600);
+		
+		Path[] pathArray = new Path[1];
+		pathArray[0] = tempPath;
+		
+		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
@@ -159,7 +162,7 @@ public class testingClass {
 		
 		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns");
 		IComponent tempPosition = new PositionComponent(0, 100);
-		IComponent tempMovement = new MovementComponent(2, 0);
+		IComponent tempMovement = new MovementComponent(6, 0);
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
@@ -184,8 +187,8 @@ public class testingClass {
 		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
 		IComponent tempSize3 = new SizeComponent();
 		
-		FiringComponent simpleFire = new MultiDirectionalFiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector, -1);
+		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
+				500, myBulletVector, 1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
 		mySimpleBullet.addComponent(tempCollision2);
@@ -209,7 +212,7 @@ public class testingClass {
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
 		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
 		firingTest.setAuthoredEntities(authoredEntities);
-		firingTest.setEntityMap(myCreatableEntityMap);
+//		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);
@@ -224,8 +227,6 @@ public class testingClass {
 		
 		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
-		//level.addToEntities(tempEntity2);
-		//level.addEntityToMap(tempEntity);
 		level.addEntityToMap(tempEntity2);
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
@@ -246,8 +247,11 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
-
-		GameMap tempMap = new GameMap("", tempPath, 200, 200);
+		
+		Path[] pathArray = new Path[1];
+		pathArray[0] = tempPath;
+		
+		GameMap tempMap = new GameMap("", pathArray, 200, 200);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object");
 		IComponent tempPosition = new PositionComponent(0, 60);
@@ -285,13 +289,13 @@ public class testingClass {
 		tempEntity3.addComponent(tempSize3);
 		tempEntity3.addComponent(tempPosition3);
 
-		tempLevel.addToEntities(tempEntity);
-		tempLevel.addToEntities(tempEntity2);
-		tempLevel.addToEntities(tempEntity3);
-		tempLevel.addEntityToMap(tempEntity);
-		tempLevel.addEntityToMap(tempEntity2);
-		tempLevel.setMap(tempMap);
-		tempMode.addLevel(tempLevel);
+//		tempLevel.addToEntities(tempEntity);
+//		tempLevel.addToEntities(tempEntity2);
+//		tempLevel.addToEntities(tempEntity3);
+//		tempLevel.addEntityToMap(tempEntity);
+//		tempLevel.addEntityToMap(tempEntity2);
+//		tempLevel.setMap(tempMap);
+//		tempMode.addLevel(tempLevel);
 		collisionTest.addMode(tempMode);
 		return collisionTest;
 	}

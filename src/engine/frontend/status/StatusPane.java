@@ -2,8 +2,8 @@ package engine.frontend.status;
 
 import java.util.ResourceBundle;
 
+import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
-import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -17,44 +17,27 @@ import javafx.scene.layout.VBox;
  * Add button enabling based on current game status
  */
 
-public class StatusPane {
-	private EngineView myEngineView;
-	private Pane myPane;
-	
+public class StatusPane extends AbstractPane{
 	public static final String DEFAULT_RESOURCE = "engine/frontend/status/statuspane";
 	private ResourceBundle myResources;
 	
 	private ControlManager myControlManager;
-	
+
 	public StatusPane(EngineView ev){
-		myEngineView = ev;
+		super(ev);
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		myControlManager = new ControlManager(this);
 	}
 	
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
-		myPane = new Pane();
-		myPane.setStyle("-fx-background-color: #ffffff;");
-		
-		bindWidth(widthBinding);
-		bindHeight(heightBinding);
+		super.buildNode(widthBinding, heightBinding);
 		
 		HBox hbox = new HBox();
 		hbox.getChildren().add(buildRecordControls());
 		hbox.getChildren().add(myControlManager.buildGameControls());
 		
-		myPane.getChildren().add(hbox);
-		return myPane;
-	}
-	
-	private void bindWidth(DoubleExpression db){
-		myPane.minWidthProperty().bind(db);
-		myPane.maxWidthProperty().bind(db);
-	}
-	
-	private void bindHeight(DoubleExpression db){
-		myPane.minHeightProperty().bind(db);
-		myPane.maxHeightProperty().bind(db);
+		getPane().getChildren().add(hbox);
+		return getPane();
 	}
 	
 	private VBox buildRecordControls(){
@@ -68,6 +51,7 @@ public class StatusPane {
 			myEngineView.getGameCapture().startCapture();
 			record.setDisable(true);
 			stop.setDisable(false);
+			myEngineView.getStage().setResizable(false);
 		});
 		
 		stop.setDisable(true);
@@ -75,9 +59,10 @@ public class StatusPane {
 			myEngineView.getGameCapture().endCapture();
 			record.setDisable(false);
 			stop.setDisable(true);
+			myEngineView.getStage().setResizable(true);
 		});
 		
-		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot(myEngineView.getBody()));
+		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot());
 		
 		vbox.minWidthProperty().bind(myPane.widthProperty().divide(4));
 		vbox.minHeightProperty().bind(myPane.heightProperty());

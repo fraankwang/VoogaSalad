@@ -9,20 +9,14 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import com.xuggle.xuggler.ICodec;
-
 import engine.frontend.overall.EngineView;
-import javafx.beans.binding.DoubleExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
@@ -31,7 +25,7 @@ public class MenubarManager {
 	
 	private static final ObservableList<Integer> workspaceList = FXCollections.observableArrayList();
 	
-	public static final String DEFAULT_RESOURCE = "engine/resources/menubar";
+	public static final String DEFAULT_RESOURCE = "engine/frontend/status/menubar";
 	private ResourceBundle myResources;
 	
 	private MenuBar menubar;
@@ -41,11 +35,8 @@ public class MenubarManager {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
 
-	public MenuBar buildMenuBar(DoubleExpression widthBinding, DoubleExpression heightBinding){
+	public MenuBar buildMenuBar(){
 		menubar = new MenuBar();
-		
-		bindWidth(widthBinding);
-		bindHeight(heightBinding);
 		
 		Menu filemenu = buildFileMenu();
 		Menu capturemenu = buildCaptureMenu();
@@ -53,16 +44,6 @@ public class MenubarManager {
 		menubar.getMenus().addAll(filemenu, capturemenu, menu3);
 
 		return menubar; 
-	}
-	
-	private void bindWidth(DoubleExpression db){
-		menubar.minWidthProperty().bind(db);
-		menubar.maxWidthProperty().bind(db);
-	}
-	
-	private void bindHeight(DoubleExpression db){
-		menubar.minHeightProperty().bind(db);
-		menubar.maxHeightProperty().bind(db);
 	}
 	
 	private Menu buildFileMenu(){

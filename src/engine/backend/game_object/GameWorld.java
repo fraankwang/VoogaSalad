@@ -56,7 +56,6 @@ public class GameWorld {
 	}
 
 	public List<IEntity> getAuthoredEntities() {
-		// TODO Auto-generated method stub
 		return  authoredEntities;
 	}
 	
