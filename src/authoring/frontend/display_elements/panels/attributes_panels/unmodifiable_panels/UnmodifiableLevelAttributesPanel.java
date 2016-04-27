@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import authoring.parser.GlobalParser;
+import javafx.scene.control.Label;
 //import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -58,7 +60,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
-		
+
 		List<String> levelAttributes = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
 				"WaveDelayTimer", "MapWidth", "MapHeight");
 
@@ -91,8 +93,6 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		return mySpawnEntitiesGridPane;
 	}
 
-
-
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
@@ -118,9 +118,9 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 				tf.setText(myAttributesMap.get(currentAttribute));
 				tf.setEditable(false);
 				myOutputMap.replace(currentAttribute, tf);
-				
+
 			}
-			
+
 			else {
 				TextField tf = new TextField();
 				tf.setText(myAttributesMap.get(currentAttribute));
@@ -149,7 +149,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String> map) {
 		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
 
-		int row = 1; // row 0 is filled by addColumnNames
+		int row = 1;
 		for (String pathID : map.keySet()) {
 			Text ID = new Text(pathID);
 			ID.setFont(new Font(FONT_SIZE));
@@ -159,7 +159,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 			String[] components = compressed.split(".");
 			int column = 1;
 			for (String component : components) {
-				Text text = new Text(component);
+				Label text = new Label(component);
 				text.setFont(new Font(FONT_SIZE));
 				gridPane.add(text, column, row);
 				column++;
@@ -174,10 +174,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
-		String tempSpawns = updatedInfo.get("SpawnEntities");
-		updatedInfo.remove("SpawnEntities");
 		refreshDisplay();
-		myAttributesMap.put("SpawnEntities", tempSpawns);
 	}
 
 }
