@@ -109,6 +109,7 @@ public class AuthoringLevelFactory {
 		int count = 0;
 		for (String key : temp.keySet()) {
 			paths[count] = createPath(key, temp.get(key));
+			count++;
 		}
 		return paths;
 	}
