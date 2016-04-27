@@ -20,6 +20,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -156,9 +157,9 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	
 	/**
 	 * Update image display based on attribute image name.
-	 * @param image
+	 * @param imageView
 	 */
-	public abstract void updateImageComponent(String image);
+	public abstract void updateImageComponent(String imageName);
 	
 	
 	/**

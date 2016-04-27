@@ -15,13 +15,13 @@ public interface ITabBarElement extends IDisplayElement {
 
 	public void show(ITabDisplay display);
 
-	public TabDisplay getGameTabDisplay();
+	public ITabDisplay getGameTabDisplay();
 
-	public TabDisplay getModesTabDisplay();
+	public ITabDisplay getModesTabDisplay();
 
-	public TabDisplay getLevelsTabDisplay();
+	public ITabDisplay getLevelsTabDisplay();
 
-	public TabDisplay getEntitiesTabDisplay();
+	public ITabDisplay getEntitiesTabDisplay();
 
 	/**
 	 * After the stage is displayed, this method traces back to each aspect of

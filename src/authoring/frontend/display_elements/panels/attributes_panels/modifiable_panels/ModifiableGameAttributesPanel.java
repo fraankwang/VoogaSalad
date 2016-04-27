@@ -6,6 +6,7 @@ import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -47,7 +48,7 @@ public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image) {
+	public void updateImageComponent(String imageName) {
 		//update
 	}
 }

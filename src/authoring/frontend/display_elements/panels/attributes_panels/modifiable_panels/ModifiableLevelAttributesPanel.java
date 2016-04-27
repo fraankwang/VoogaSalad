@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.editor_features.SpawnEntityRow;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -22,7 +21,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 //import javafx.scene.layout.GridPane;
 //import javafx.scene.text.Font;
 import javafx.scene.layout.BorderPane;
@@ -241,10 +240,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image) {
-		myAttributesMap.replace("MapBackgroundImage", image);
+	public void updateImageComponent(String imageName) {
+		myAttributesMap.replace("MapBackgroundImage", imageName);
 		TextField tf = (TextField) myInputMap.get("MapBackgroundImage");
-		tf.setText(image);
+		tf.setText(imageName);
 		tf.setEditable(false);
 		myInputMap.replace("MapBackgroundImage", tf);
 		preserveMapRatio();
@@ -252,11 +251,15 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	}
 	
 	private void preserveMapRatio() {
-		Image mapImage = new Image(((TextField) myInputMap.get("MapBackgroundImage")).getText());
-		double mapRatio = (mapImage.getHeight() / mapImage.getWidth());
+		ImageView iv = ((EditorViewPanel) myController.getAuthoringViewManager().getTabBarElement().getLevelsTabDisplay()
+				.getEditor().getEditorGrid().getPrimaryDisplay()).getImage();
+		iv.setPreserveRatio(true);
+		double mapRatio = (iv.getImage().getHeight() / iv.getImage().getWidth());
 		System.out.println(Double.toString(mapRatio));
-		myInputMap.replace("MapHeight", new TextField(Double.toString(mapImage.getHeight())));
-		myInputMap.replace("MapWidth", new TextField(Double.toString(mapImage.getWidth())));
+		myInputMap.replace("MapHeight", new TextField(Double.toString(iv.getImage().getHeight())));
+		myInputMap.replace("MapWidth", new TextField(Double.toString(iv.getImage().getWidth())));
+		iv.setFitHeight(iv.getImage().getHeight());
+		iv.setFitWidth(iv.getImage().getWidth());
 		
 		((TextField) myInputMap.get("MapWidth")).textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -265,6 +268,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 					((TextField) myInputMap.get("MapHeight")).setText(Double.toString(
 						Double.parseDouble(newValue) * mapRatio));
 				}
+				iv.setFitWidth(Double.parseDouble(newValue));
 			}
 		});
 		
@@ -275,6 +279,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 					((TextField) myInputMap.get("MapWidth")).setText(Double.toString(
 						Double.parseDouble(newValue) / mapRatio));
 				}
+				iv.setFitHeight(Double.parseDouble(newValue));
 			}
 		});
 	}
@@ -371,7 +376,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				if (myInputMap.get(myAttributes.get(i)) instanceof TextField) {
 					if (myAttributes.get(i).equals("MapBackgroundImage")) {
 						if (myAttributesMap.get(myAttributes.get(i)) == null) {
-							myInputMap.replace(myAttributes.get(i), new TextField("question_mark.png"));
+							myInputMap.replace(myAttributes.get(i), new TextField("images/question_mark.png"));
 							continue;
 						}
 					}

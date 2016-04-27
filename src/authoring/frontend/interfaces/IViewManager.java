@@ -1,5 +1,6 @@
 package authoring.frontend.interfaces;
 
+import authoring.frontend.editor_features.ImageChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
 import javafx.stage.Stage;
@@ -19,9 +20,11 @@ public interface IViewManager {
 	 * 
 	 * @param s
 	 */
-	public void initialize(Stage s);
+	void initialize(Stage s);
 
-	public IMenuBarElement getMenuBarElement();
+	IMenuBarElement getMenuBarElement();
 
-	public ITabBarElement getTabBarElement();
+	ITabBarElement getTabBarElement();
+
+	ImageChooser getImageChooser();
 }

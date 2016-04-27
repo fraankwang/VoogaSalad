@@ -39,7 +39,7 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		EditorViewPanel editorView = new EditorViewPanel(50, 50);
 		editorView.initialize();
-		editorView.setImage(new Image("question_mark.png")); // set default
+		editorView.setImage(new Image("images/question_mark.png")); // set default
 																// image as
 																// question
 																// mark or

@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
@@ -62,10 +63,10 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image) {
-		myAttributesMap.replace("DisplayComponent_Image", image);
+	public void updateImageComponent(String imageName) {
+		myAttributesMap.replace("DisplayComponent_Image", imageName);
 		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
-		tf.setText(image);
+		tf.setText(imageName);
 		tf.setEditable(false);
 		myInputMap.replace("DisplayComponent_Image", tf);
 		refreshAttributeInputRows();

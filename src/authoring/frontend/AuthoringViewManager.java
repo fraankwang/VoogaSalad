@@ -2,6 +2,7 @@ package authoring.frontend;
 
 import authoring.frontend.display_elements.MenuBarElement;
 import authoring.frontend.display_elements.TabBarElement;
+import authoring.frontend.editor_features.ImageChooser;
 import authoring.frontend.interfaces.IViewManager;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
@@ -27,6 +28,7 @@ public class AuthoringViewManager implements IViewManager {
 	private Scene myPrimaryScene;
 	private IMenuBarElement myMenuBar;
 	private ITabBarElement myTabBar;
+	private ImageChooser myImageChooser;
 	private IAuthoringView myController;
 	
 
@@ -39,7 +41,9 @@ public class AuthoringViewManager implements IViewManager {
 	public void initialize(Stage s) {
 		myTabBar = new TabBarElement(myController);
 		myTabBar.initialize();
-		myMenuBar = new MenuBarElement();
+		myImageChooser = new ImageChooser();
+		myImageChooser.initialize();
+		myMenuBar = new MenuBarElement(myImageChooser);
 		myMenuBar.initialize();
 		myMenuBar.link(myTabBar);
 
@@ -65,6 +69,11 @@ public class AuthoringViewManager implements IViewManager {
 	@Override
 	public ITabBarElement getTabBarElement() {
 		return myTabBar;
+	}
+	
+	@Override
+	public ImageChooser getImageChooser() {
+		return myImageChooser;
 	}
 
 }

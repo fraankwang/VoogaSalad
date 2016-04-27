@@ -12,6 +12,7 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableLevelAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
+import authoring.frontend.editor_features.ImageChooser;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -42,7 +43,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
-		editorView.setImage(new Image("question_mark.png")); // set default
+		editorView.setImage(new Image("images/question_mark.png")); // set default
 																// image as
 																// question
 																// mark or

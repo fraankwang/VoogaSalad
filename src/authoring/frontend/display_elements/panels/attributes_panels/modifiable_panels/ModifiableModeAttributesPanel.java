@@ -10,6 +10,7 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -138,7 +139,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image) {
+	public void updateImageComponent(String imageName) {
 		// null because no image component?
 	}
 
