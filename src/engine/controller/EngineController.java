@@ -27,6 +27,14 @@ public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
 
+	/*
+	 * Controls to implement:
+	 * When switch mode is pressed, reshow startView scene, 
+	 * update start view scene's level combobox, and then
+	 * allow user to pick stuff, then recreate engineView and reshow new scene
+	 * ORGANIZE METHODS TO ALLOW FOR THIS  
+	 */
+	
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean playing;
 	
@@ -155,22 +163,23 @@ public class EngineController implements IEngineController{
 		myEventManager.handleClickEvent(clickedEvent);
 	}
 	
-	public void nextLevelClicked() {
-		NextWaveEvent nextWaveEvent = new NextWaveEvent();
-		myEventManager.handleNextWaveEvent(nextWaveEvent);
-	}
-
 	public void nextWaveClicked() {
 		NextWaveEvent nextWaveEvent = new NextWaveEvent();
 		myEventManager.handleNextWaveEvent(nextWaveEvent);
 	}
 	
-	public void levelIsOver(){
-		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
+	public void nextLevelClicked() {
+		NextWaveEvent nextWaveEvent = new NextWaveEvent();
+		myEventManager.handleNextWaveEvent(nextWaveEvent);
 	}
-	
+
 	public void waveIsOver(){
 		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
+		myEngineView.getStatusPane().getControlManager().switchModeEnable();
+	}
+	
+	public void levelIsOver(){
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 		myEngineView.getStatusPane().getControlManager().switchModeEnable();
 	}
 	

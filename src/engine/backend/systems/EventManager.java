@@ -98,7 +98,6 @@ public class EventManager implements Observer{
 	}
 	
 	private void handleWaveOverEvent(WaveOverEvent event){
-		
 		int index = getCurrentLevel().getCurrentWaveIndex();
 		//last wave
 		if(index == getCurrentLevel().getNumWaves() - 1){

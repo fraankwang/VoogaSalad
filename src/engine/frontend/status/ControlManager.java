@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ControlManager {
@@ -18,6 +19,7 @@ public class ControlManager {
 	private Button nextWave;
 	private Button nextLevel;
 	private ComboBox<String> modeComboBox;
+	private Button modeButton;
 	
 	public ControlManager(StatusPane sp){
 		myStatusPane = sp;
@@ -30,6 +32,7 @@ public class ControlManager {
 		play = myStatusPane.createButton(myStatusPane.getMyResources().getString("PlayLabel"));
 		nextWave = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextWaveLabel"));
 		nextLevel = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextLevelLabel"));
+		modeButton = myStatusPane.createButton(myStatusPane.getMyResources().getString("ModeTitlwLabel"));
 		modeComboBox = new ComboBox<String>();
 		
 		play.setOnAction(e ->{
@@ -64,6 +67,10 @@ public class ControlManager {
                 modeComboBox.setDisable(true);
             }    
         });
+		
+		modeComboBox.setMaxHeight(Double.MAX_VALUE);
+		modeComboBox.setMaxWidth(Double.MAX_VALUE);
+		VBox.setVgrow(modeComboBox, Priority.ALWAYS);
 		
 		vbox.getChildren().addAll(play, nextWave, nextLevel, modeComboBox);
 		vbox.minWidthProperty().bind(myStatusPane.getPane().widthProperty().divide(4));
