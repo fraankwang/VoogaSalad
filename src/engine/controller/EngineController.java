@@ -62,6 +62,7 @@ public class EngineController implements IEngineController{
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
 				myEventManager.getCurrentLevel().getAuthoredEntities());
 		myEventManager.setEntityFactory(myEntityFactory);
+		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		
 		myEngineView = new EngineView(myStage, this);

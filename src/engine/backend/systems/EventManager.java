@@ -240,5 +240,10 @@ public class EventManager implements Observer{
 		return myEntityFactory;
 	}
 
+	public void initializeRules() {
+		// TODO Auto-generated method stub
+		myRuleAgenda = getCurrentLevel().getRuleAgenda();
+	}
+
 }
 
