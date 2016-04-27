@@ -6,8 +6,6 @@ import java.util.HashMap;
  */
 import java.util.List;
 import java.util.Map;
-
-import engine.backend.entities.Entity;
 import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
@@ -28,6 +26,9 @@ public class ShopPane extends AbstractPane {
 		super(ev);
 	}
 
+	/**
+	 * Instantiates the node binding and attaching all underlying children
+	 */
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
 		super.buildNode(widthBinding, heightBinding);
 		Pane myPane = super.getPane();
@@ -65,6 +66,10 @@ public class ShopPane extends AbstractPane {
 		}	
 	}
 */
+	
+	/**
+	 * instantiates the shop listView
+	 */
 	private void setupShopList(){
 		myShopList = new ListView<ShopItem>();
 		myShopList.setCellFactory(e -> {return new ShopCell(this);});
@@ -73,6 +78,9 @@ public class ShopPane extends AbstractPane {
 		myVBox.getChildren().add(myShopList);
 	}
 	
+	/**
+	 * instantiates the upgrade listView
+	 */
 	private void setupUpgradeList(){
 		myUpgradeList = new ListView<ShopItem>();
 		myUpgradeList.setCellFactory(e -> {return new UpgradeCell(this);});
@@ -81,21 +89,44 @@ public class ShopPane extends AbstractPane {
 		myVBox.getChildren().add(myUpgradeList);
 	}
 	
+	/**
+	 * Allows others to add a shop item to the shop listView
+	 * @param myShopItem - contains shop name, image, cost, and if it's interactable
+	 */
 	public void addShopObject(ShopItem myShopItem) {
 		myShopList.getItems().add(myShopItem);
 	}
 
-
+	/**
+	 * Updates the shop given a list of shopItems
+	 * @param list - list of shopItems - each shopItem contains shon name, image, cost, and if it's interactable
+	 */
 	public void updateShop(List<ShopItem> list) {
 		myShopList.getItems().clear();
 		myShopList.getItems().addAll(list);
 	}
 	
+	/**
+	 * Updates the most recently clicked entity to be displayed in the shopView.
+	 * @param id - used as an index into private map that obtains a map of properties to values and forwards that to a currentView object 
+	 */
 	public void updateCurrentView(int id){
 		myCurrentView.updateCurrentView(myStatsObjectMap.get(id));
 	}
 	
-	public CurrentView getCurrentView(){
-		return myCurrentView;
+	public void addStatsObject(int id, Map<String, String> statsObject, boolean hasChanged){
+		if(!myStatsObjectMap.containsKey(id) ||hasChanged){
+			myStatsObjectMap.put(id, statsObject);
+		}
 	}
+	
+	public void removeStatsObject(int id, Map<String, String> statsObject){
+		myStatsObjectMap.remove(id);
+	}
+
+	public void updateUpgrade(List<ShopItem> upgradelist) {
+		myUpgradeList.getItems().clear();
+		myUpgradeList.getItems().addAll(upgradelist);
+	}
+	
 }

@@ -19,8 +19,9 @@ public class ShopCell extends ListCell<ShopItem> {
 
 	private ShopPane myShopPane;
 	private ShopItem myItem;
-	private ImageView myImageView;
 	private String itemImage;
+
+	private ImageView myImageView;
 	private Text myType;
 	private Text myCost;
 	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/shop_cell";
@@ -69,7 +70,10 @@ public class ShopCell extends ListCell<ShopItem> {
 						
 			if (myItem.isCanBuy()) {
 				setOnDragDetected(e -> selectTower(e));
+				setHBoxOpacity(getDoubleResource("YesOpacity"));
+				
 			} else {
+				setHBoxOpacity(getDoubleResource("NoOpacity"));
 				setOnDragDetected(null);
 			}
 
@@ -93,5 +97,11 @@ public class ShopCell extends ListCell<ShopItem> {
 	
 	private double getDoubleResource(String myString){
 		return Double.parseDouble(myResources.getString(myString));
+	}
+	
+	private void setHBoxOpacity(double value){
+		myImageView.setOpacity(value);
+		myType.setOpacity(value);
+		myCost.setOpacity(value);
 	}
 }
