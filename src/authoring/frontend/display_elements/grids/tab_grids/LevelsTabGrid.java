@@ -20,12 +20,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import authoring.frontend.editor_features.LocalImage;
 
 /**
  * 
@@ -37,7 +35,7 @@ public class LevelsTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
-	private Map<String, Image> myLevels;
+	private Map<String, String> myLevels;
 
 	public LevelsTabGrid(IAuthoringView controller, TabDisplay tabDisplay) {
 		super(controller, tabDisplay);
@@ -48,7 +46,7 @@ public class LevelsTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
-		myLevels = new HashMap<String, Image>();
+		myLevels = new HashMap<String, String>();
 	}
 
 	@Override
@@ -80,8 +78,8 @@ public class LevelsTabGrid extends TabGrid {
 		}
 
 		for (Map<String, String> info : data) {
-			Image levelImage = new LocalImage(info.get("MapBackgroundImage"));
-			myLevels.put(info.get("Name"), levelImage);
+			myLevels.put(info.get("Name"), info.get("MapBackgroundImage"));
+			info.remove("EntityNames");
 
 			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
 			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -153,7 +151,7 @@ public class LevelsTabGrid extends TabGrid {
 		return newName;
 	}
 
-	public Map<String, Image> getLevels() {
+	public Map<String, String> getLevels() {
 		return myLevels;
 	}
 }

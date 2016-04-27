@@ -11,7 +11,6 @@ import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
-import authoring.frontend.editor_features.LocalImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -39,7 +38,7 @@ public class EntitiesTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo = new TreeMap<String, String>();
 	private String newName;
-	private Map<String, Image> myEntities;
+	private Map<String, String> myEntities;
 
 	public EntitiesTabGrid(IAuthoringView controller, TabDisplay tab) {
 		super(controller, tab);
@@ -50,7 +49,7 @@ public class EntitiesTabGrid extends TabGrid {
 		initializeGridFactory();
 		initializeGrid();
 		assembleGridComponents();
-		myEntities = new TreeMap<String, Image>();
+		myEntities = new TreeMap<String, String>();
 	}
 
 	@Override
@@ -83,9 +82,9 @@ public class EntitiesTabGrid extends TabGrid {
 		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
 				if (!myEntities.containsKey((info.get("Name")))) {
-					LocalImage image = new LocalImage(info.get("DisplayComponent_Image"));
+					Image image = new Image(info.get("DisplayComponent_Image"));
 					ImageView iv = new ImageView(image);
-					myEntities.put(info.get("Name"), image);
+					myEntities.put(info.get("Name"), info.get("DisplayComponent_Image"));
 					iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 						public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 								Boolean newValue) {
@@ -172,7 +171,7 @@ public class EntitiesTabGrid extends TabGrid {
 		return newName;
 	}
 
-	public Map<String, Image> getEntities() {
+	public Map<String, String> getEntities() {
 		return myEntities;
 	}
 

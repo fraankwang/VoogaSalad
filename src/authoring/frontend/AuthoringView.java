@@ -87,7 +87,7 @@ public class AuthoringView implements IAuthoringView {
 		return myAuthoringViewManager;
 	}
 	
-	public Map<String, Image> getEntities() {
+	public Map<String, String> getEntities() {
 		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntities();
 	}
 

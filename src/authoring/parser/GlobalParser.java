@@ -72,7 +72,7 @@ public class GlobalParser {
 			String[] pathSplit = entity.split(":");
 			String pathID = pathSplit[0];
 			String spawnObjects = pathSplit[1];
-			String[] spawnObjectsSplit = spawnObjects.split(" ");
+			String[] spawnObjectsSplit = spawnObjects.split("_");
 			for (String spawn : spawnObjectsSplit) {
 				spawnEntitiesMap.put(pathID, spawn);
 
@@ -111,7 +111,7 @@ public class GlobalParser {
 					SpawnEntityRow row = map.get(tag);
 					String number = row.getMyNumber().getText();
 					String rate = row.getMyRate().getText();
-					String entityObject = new String(name + "." + wave + "." + number + "." + rate + " ");
+					String entityObject = new String(name + "." + wave + "." + number + "." + rate + "_");
 					pathString = pathString + entityObject;
 				}
 

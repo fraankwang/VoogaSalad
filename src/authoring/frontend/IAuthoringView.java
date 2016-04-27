@@ -51,7 +51,7 @@ public interface IAuthoringView {
 	
 	public IViewManager getAuthoringViewManager();
 
-	public Map<String, Image> getEntities();
+	public Map<String, String> getEntities();
 
 
 }

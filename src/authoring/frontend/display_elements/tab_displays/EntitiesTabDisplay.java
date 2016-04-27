@@ -14,7 +14,6 @@ import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
-import authoring.frontend.editor_features.LocalImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -29,7 +28,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -220,18 +218,17 @@ public class EntitiesTabDisplay extends TabDisplay {
 	 * 
 	 * @return
 	 */
-	public Map<String, Image> getEntities() {
+	public Map<String, String> getEntities() {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
-		Map<String, Image> entities = new TreeMap<String, Image>();
+		Map<String, String> entities = new TreeMap<String, String>();
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
-				Map<String, Image> genreEntities = (TreeMap<String, Image>) ((EntitiesTabGrid) myGrid).getEntities();
+				Map<String, String> genreEntities = (TreeMap<String, String>) ((EntitiesTabGrid) myGrid).getEntities();
 				for (String name : genreEntities.keySet()) {
-					String imagePath = ((LocalImage) genreEntities.get(name)).getURL();
-					Image newImage = new LocalImage(imagePath);
-					entities.put(name, newImage);
+					String imagePath = genreEntities.get(name);
+					entities.put(name, imagePath);
 				}
 			}
 		}

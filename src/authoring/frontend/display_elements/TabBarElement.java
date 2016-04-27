@@ -139,7 +139,7 @@ public class TabBarElement implements ITabBarElement {
 	public void initializeHotKeys() {
 //		List<TabDisplay> myTabDisplays = Arrays.asList(myGameTabDisplay, myModesTabDisplay, myLevelsTabDisplay,
 //				myEntitiesTabDisplay);
-		//removed ModesTabDisplay cause not working yet
+//		removed ModesTabDisplay cause not working yet
 		List<TabDisplay> myTabDisplays = Arrays.asList(myGameTabDisplay, myLevelsTabDisplay,
 				myEntitiesTabDisplay);
 		
@@ -179,7 +179,7 @@ public class TabBarElement implements ITabBarElement {
 			@Override
 			public void run() {
 				int currentIndex = myTabPane.getSelectionModel().getSelectedIndex();
-				if (currentIndex < 2) { //TODO: change to 3 later
+				if (currentIndex < 3) { //TODO: change to 3 later
 					myTabPane.getSelectionModel().select(currentIndex + 1);
 				} else {
 					myTabPane.getSelectionModel().select(0);
