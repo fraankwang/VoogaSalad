@@ -195,7 +195,7 @@ public class Entity implements IEntity {
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 			
-			componentClassInstance = componentClass.cast(myComponents.get(fullName));
+			componentClassInstance = componentClass.cast(getComponent(fullName));
 			// put in resource file!!!
 			String methodName = "set" + instanceVar;
 			System.out.println(methodName);
