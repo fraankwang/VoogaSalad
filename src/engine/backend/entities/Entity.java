@@ -38,7 +38,7 @@ public class Entity implements IEntity {
 		this.myID = myID;
 		this.myComponents = new HashMap<String, IComponent>();
 	}
-	
+
 	public void addComponent(IComponent component) {
         myComponents.put(component.getTag(), component);
     }
@@ -138,15 +138,15 @@ public class Entity implements IEntity {
 
 		String fullName = ComponentTagResources.getComponentTag(component);
 		//System.out.println(getName() + "   " + fullName);
-		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
+		Class<? extends IComponent> componentClass = getComponent(fullName).getClass();
 		//System.out.println(componentClass.getName());
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 			
-			componentClassInstance = componentClass.cast(myComponents.get(fullName));
+			componentClassInstance = componentClass.cast(getComponent(fullName));
 			// put in resource file!!!
 			String methodName = "set" + instanceVar;
-
+			System.out.println(methodName);
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 
 			setMethod.invoke(componentClassInstance, newVal);

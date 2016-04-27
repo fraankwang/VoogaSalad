@@ -57,7 +57,7 @@ public class EngineController implements IEngineController{
 		ModeStatistics stats = new ModeStatistics(10, 10);
 		
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myGameWorld.getEntityMap());
+				myGameWorld.getAuthoredEntities());
 		
 		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
 		

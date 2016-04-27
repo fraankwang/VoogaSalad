@@ -13,6 +13,7 @@ import engine.backend.entities.IEntity;
 
 public class GameWorld {
 
+	private List<IEntity> authoredEntities;
 	private Map<Integer, Mode> myModes;
 	private String myGameType;
 	private GameStatistics myGameStatistics;
@@ -52,6 +53,15 @@ public class GameWorld {
 	public void printWhatIHave() {
 		System.out.println("I am game object " + this.toString() + " and I have been created");
 		System.out.println("I have " + myModes.size() + " mode(s) and they are composed of " + myModes);
+	}
+
+	public List<IEntity> getAuthoredEntities() {
+		// TODO Auto-generated method stub
+		return  authoredEntities;
+	}
+	
+	public void setAuthoredEntities(List<IEntity> entities) {
+		authoredEntities = entities;
 	}
 
 }

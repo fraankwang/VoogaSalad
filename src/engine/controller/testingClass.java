@@ -12,6 +12,7 @@ import engine.backend.components.FiringComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
+import engine.backend.components.MultiDirectionalFiringComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
@@ -39,7 +40,6 @@ public class testingClass {
 	public GameWorld initTestGame(GameWorld myGameWorld) {
 		GameWorld collisionTest = new GameWorld();
 		Mode tempMode = new Mode("tempMode");
-//		Level tempLevel = new Level(0);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
 		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
@@ -184,13 +184,13 @@ public class testingClass {
 		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
 		IComponent tempSize3 = new SizeComponent();
 		
-		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
+		FiringComponent simpleFire = new MultiDirectionalFiringComponent("SimpleBullet", 100, 5, 
 				500, myBulletVector, -1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
-		mySimpleBullet.addComponent(new TrackingMovementComponent(10, 0));
+		mySimpleBullet.addComponent(new MovementComponent(10, 0));
 		mySimpleBullet.addComponent(tempDisplay3);
 		mySimpleBullet.addComponent(tempSize3);
 		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
@@ -205,9 +205,11 @@ public class testingClass {
 		
 		myCreatableEntityMap.put("Ammunition", createdAmmunition);
 		myCreatableEntityMap.put("Spawns", createdSpawns);
-
 		
-//		firingTest.setEntityMap(myCreatableEntityMap);
+		List<IEntity> authoredEntities = new ArrayList<IEntity>();
+		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
+		firingTest.setAuthoredEntities(authoredEntities);
+		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);
