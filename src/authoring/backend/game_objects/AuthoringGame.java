@@ -6,7 +6,7 @@ import java.util.Observable;
 
 public class AuthoringGame extends Observable {
 	
-private Map<String, String> gameInfo;
+	private Map<String, String> gameInfo;
 	
 	public AuthoringGame() {
 		this.gameInfo = new HashMap<String, String>();
@@ -24,10 +24,6 @@ private Map<String, String> gameInfo;
 	
 	public String getGameType() {
 		return gameInfo.get("GameType");
-	}
-	
-	public int getNumPlayers() {
-		return Integer.parseInt(gameInfo.get("NumberOfPlayers"));
 	}
 	
 	public int getStartLives() {

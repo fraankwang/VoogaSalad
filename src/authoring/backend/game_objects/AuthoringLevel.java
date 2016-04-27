@@ -71,11 +71,12 @@ public class AuthoringLevel {
 	public void setSpawnEntities(List<AuthoringEntity> spawnEntities) {
 		this.spawnEntities = spawnEntities;
 		this.myInfo.put("SpawnEntities", getSpawnEntityInfo());
+		
 	}
 	
 	private String getSpawnEntityInfo() {
 		if (spawnEntities.isEmpty()) {
-			return "";
+			return "empty";
 		} else {
 			StringBuilder sb = new StringBuilder();
 			for (AuthoringEntity entity : spawnEntities) {

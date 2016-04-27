@@ -9,7 +9,7 @@ import java.util.Observable;
 
 public class GameStatistics extends Observable{
 
-	private double myMoney;
+	private double myResources;
 	private double myScore;
 	private double myHealth;
 	private int myLives;
@@ -23,15 +23,29 @@ public class GameStatistics extends Observable{
 	private int nextAvailableID = 0;
 	private int nextAvailableEntityID = 0;
 	
+	/**
+	 * Authoring Environment Constructor
+	 */
+	public GameStatistics(int startLives, int defeatLives, double gameTimer, double resources) {
+		this.myLives = startLives;
+		this.myLivesForDefeat = defeatLives;
+		this.gameTimer = gameTimer;
+		this.myResources = resources;
+	}
+	
+	/**
+	 * Engine Testing Constructor
+	 */
 	public GameStatistics() {
+		
 	}
 	
 	public double getGameTimer() {
 		return gameTimer;
 	}
 	
-	public double getMyMoney() {
-		return myMoney;
+	public double getMyResources() {
+		return myResources;
 	}
 	
 	public double getMyScore() {
@@ -51,7 +65,7 @@ public class GameStatistics extends Observable{
 	}
 	
 	public void setStartMoney(double d) {
-		this.myMoney = d;
+		this.myResources = d;
 	}
 	
 	public void setStartLives(int lives) {

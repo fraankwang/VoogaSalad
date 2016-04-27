@@ -56,8 +56,10 @@ public class AuthoringLevelFactory {
 				entities = getEntityNames(raw);
 				break;
 			case "SpawnEntities":
+				System.out.println("reached spawn entities");
 				String spawnInfo = data.get(key);
 				spawnEntities = createSpawnEntities(spawnInfo);
+				break;
 			}
 		}
 		AuthoringLevel level = new AuthoringLevel(name, map, waveDelayTimer);

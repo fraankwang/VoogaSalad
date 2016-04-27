@@ -1,5 +1,6 @@
 package authoring.backend.factories;
 
+import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -10,13 +11,14 @@ import java.util.Map;
 
 import authoring.backend.data.GlobalData;
 import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringGame;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
 import engine.backend.entities.IEntity;
 
 public class GameFactory {
 
-	private final GameWorld myGame;
+	private GameWorld myGame;
 	private final GlobalData myGlobalData;
 	private Map<String, IEntity> entityMap;
 	private Map<String, Level> levelMap;
@@ -28,7 +30,6 @@ public class GameFactory {
 
 	public GameFactory(GlobalData globaldata) {
 		this.myGlobalData = globaldata;
-		this.myGame = new GameWorld();
 		this.entityMap = new HashMap<String, IEntity>();
 		this.levelMap = new HashMap<String, Level>();
 		this.entityFactory = new EntityFactory();
@@ -40,7 +41,19 @@ public class GameFactory {
 		setupEntityMap();
 		setupLevelMap();
 		setupModeMap();
+		setupGame();
 		return myGame;
+	}
+	
+	public void setupGame() {
+		AuthoringGame authoringGame = myGlobalData.getGame();
+		int startLives = authoringGame.getStartLives();
+		int defeatLives = authoringGame.getNumLivesDefeat();
+		double gameTimer = authoringGame.getGameTimer();
+		double resources = authoringGame.getStartResources();
+		String gameType = authoringGame.getGameType();
+		GameStatistics gameStatistics = new GameStatistics(startLives, defeatLives, gameTimer, resources);
+		this.myGame = new GameWorld(gameType, gameStatistics, modeMap);
 	}
 	
 	private void setupEntityMap() {
