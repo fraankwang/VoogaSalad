@@ -1,7 +1,12 @@
 package engine.frontend.shop;
 
+import java.util.List;
+import java.util.Map;
+
+import engine.backend.entities.Entity;
 import engine.backend.game_features.ShopItem;
 import javafx.beans.binding.DoubleExpression;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,41 +16,62 @@ import javafx.scene.text.Text;
 public class CurrentView {
 	
 	private ShopPane myShopPane;
-	
-	private ImageView myImageView;
-	private Text nameText;
-	private Text costText;
 	private HBox myHBox; 
+	private ImageView myImageView;
+	private String myImageLoc;
+	private Map<String, Text> myComponents;
 	
 	public CurrentView(ShopPane sp){
 		myShopPane = sp;		
 	}
 	
-	public Node buildCurrentView(ShopItem sp, DoubleExpression widthBinding, DoubleExpression heightBinding){
+	public Node buildCurrentView(Map<String, String> myStats, DoubleExpression widthBinding, DoubleExpression heightBinding){
 		myHBox = new HBox();
 		myShopPane.bindHeight(myHBox, heightBinding);
 		myShopPane.bindWidth(myHBox, widthBinding);
 		
-		myImageView = new ImageView(new Image(sp.getItemImage()));
-		myImageView.fitHeightProperty().bind(heightBinding);
-		myImageView.setPreserveRatio(true);
-		nameText = new Text(sp.getItemName());	
-		costText = new Text(Double.toString(sp.getItemValue()));
 		
-		myHBox.getChildren().addAll(myImageView, nameText, costText);
+		myHBox.getChildren().clear();
+		if(myStats.containsKey("image")){
+			myImageView = new ImageView(new Image(myStats.get("image")));
+			myHBox.getChildren().add(myImageView);
+			myImageView.fitHeightProperty().bind(heightBinding);
+			myImageView.setPreserveRatio(true);
+			myImageLoc = myStats.get("image");
+		}
+		for( String s : myStats.keySet()){
+			if( !s.equals("image")){
+				Text newText = new Text(myStats.get(s));
+				myHBox.getChildren().add(newText);
+				myComponents.put(s, newText);				
+			}
+		}
+
+		
+		myHBox.setAlignment(Pos.CENTER_LEFT);
 		return myHBox;
 	}
 
-	public void updateCurrentView(Image image, String type, double cost){
-		myImageView = new ImageView(image);
-		nameText.setText(type);
-		costText.setText(Double.toString(cost));
-	}
 	
-	public void updateCurrentView(ShopItem sp){
-		myImageView = new ImageView(new Image(sp.getItemImage()));
-		nameText.setText(sp.getItemName());
-		costText.setText(Double.toString(sp.getItemValue()));
+	public void updateCurrentView(Map<String, String> myStats){
+		
+		if(myStats.containsKey("image")){
+			if(myImageLoc != myStats.get("image")){
+				myImageView.setImage(new Image(myStats.get("image")));
+				myHBox.getChildren().add(myImageView);
+			}
+		}
+		for( String s : myStats.keySet()){
+			if( !s.equals("image")){
+				if(!myComponents.containsKey(s) || !myComponents.get(s).equals(myStats.get(s))){
+					Text newText = new Text(myStats.get(s));
+					myHBox.getChildren().add(newText);
+					myComponents.put(s, newText);
+				}else{
+					myComponents.get(s).setText(myStats.get(s));
+				}
+			}
+		}
 	}
 	
 	public Node getNode(){

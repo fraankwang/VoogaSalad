@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import engine.backend.entities.Entity;
 import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
@@ -22,6 +23,7 @@ public class ShopPane extends AbstractPane {
 	private ListView<ShopItem> myShopList;
 	private CurrentView myCurrentView;
 	private ListView<ShopItem> myUpgradeList;
+	private Map<Integer, Map<String, String>> myStatsObjectMap;
 
 	public ShopPane(EngineView ev) {
 		super(ev);
@@ -44,7 +46,7 @@ public class ShopPane extends AbstractPane {
 		
 		setupShopList();
 		myCurrentView = new CurrentView(this);
-		myVBox.getChildren().add(myCurrentView.buildCurrentView(tester, myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
+		myVBox.getChildren().add(myCurrentView.buildCurrentView(new HashMap<String,String>(), myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
 		setupUpgradeList();
 		myPane.getChildren().add(myVBox);
 		
@@ -52,6 +54,18 @@ public class ShopPane extends AbstractPane {
 		return myPane;
 	}
 	
+/*	private void updateStatsObject(int id, StatsObject myStats, boolean hasChanged){
+		if(hasChanged || !myStatsObjectMap.contains(id)){
+ 			// much simpler if stats object is just a map of strings to strings
+ 
+			Map myPropertiesMap<String, String> = new HashMap<String, String>();
+			for( String s: myStats.getKeySet() ){
+				myPropertiesMap.put(s, myStats.getStatistic(s));
+			}
+			myStatsObjectMap.put(id, myPropertiesMap);
+		}	
+	}
+*/
 	private void setupShopList(){
 		myShopList = new ListView<ShopItem>();
 		myShopList.setCellFactory(e -> {return new ShopCell(this);});
@@ -71,21 +85,13 @@ public class ShopPane extends AbstractPane {
 	public void addShopObject(ShopItem myShopItem) {
 		myShopList.getItems().add(myShopItem);
 	}
-	//
-	// private void handleMouseClick(MouseEvent e, Map<String, String> myMap) {
-	// myEngineView.getEngineController().shopClicked(myMap.get("name"));
-	// myEngineView.getStage().getScene().setCursor(Cursor.NONE);
-	// myEngineView.getDummyCursor().updateLocation(e.getSceneX(),
-	// e.getSceneY());
-	// myEngineView.getDummyCursor().changePic(new Image(myMap.get("image")));
-	// }
 
 	public void updateShop(List<ShopItem> myShopList) {
-
+		
 	}
 	
-	public void updateCurrentView(ShopItem sp){
-		myCurrentView.updateCurrentView(sp);
+	public void updateCurrentView(int id){
+		myCurrentView.updateCurrentView(myStatsObjectMap.get(id));
 	}
 	
 	public CurrentView getCurrentView(){

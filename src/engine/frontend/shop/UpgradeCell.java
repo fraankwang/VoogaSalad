@@ -65,6 +65,5 @@ public class UpgradeCell extends ListCell<ShopItem> {
 		content.putString(myItem.getItemName());
 		db.setContent(content);
 		e.consume();
-		myShopPane.getCurrentView().updateCurrentView(myImage, myItem.getItemName(), myItem.getItemValue());
 	}
 }

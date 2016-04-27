@@ -22,7 +22,8 @@ public class ShopCell extends ListCell<ShopItem> {
 	private Image myImage;
 	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/shop_cell";
 	private ResourceBundle myResources;
-
+	
+	
 	public ShopCell(ShopPane sp) {
 		myShopPane = sp;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
@@ -67,7 +68,7 @@ public class ShopCell extends ListCell<ShopItem> {
 		content.putString(myItem.getItemName());
 		db.setContent(content);
 		e.consume();
-		myShopPane.getCurrentView().updateCurrentView(myImage, myItem.getItemName(), myItem.getItemValue());
+		
 	}
 	
 	private double getDoubleResource(String myString){
