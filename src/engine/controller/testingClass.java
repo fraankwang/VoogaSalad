@@ -146,7 +146,7 @@ public class testingClass {
 
 		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 900, 600);
 		
-		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
+		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
 		IComponent tempPosition4 = new PositionComponent(0, 100);
@@ -207,7 +207,7 @@ public class testingClass {
 		myCreatableEntityMap.put("Spawns", createdSpawns);
 
 		
-		firingTest.setEntityMap(myCreatableEntityMap);
+//		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);

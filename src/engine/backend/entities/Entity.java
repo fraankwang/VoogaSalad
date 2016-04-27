@@ -2,16 +2,13 @@ package engine.backend.entities;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
 import engine.backend.rules.EntityAction;
-import engine.backend.rules.Rule;
 import engine.backend.utilities.ComponentTagResources;
 
 public class Entity implements IEntity {
@@ -33,16 +30,19 @@ public class Entity implements IEntity {
 	}
 
 	/**
-	 * Initializes an Entity with a unique ID.
+	 * Engine Testing Constructor.
 	 */
-	public Entity(int myID, String myName, String myType) {
+	public Entity(int myID, String myName, String myGenre) {
 		this.myName = myName;
-		this.myGenre = myType;
+		this.myGenre = myGenre;
 		this.myID = myID;
 		this.myComponents = new HashMap<String, IComponent>();
-		this.hasBeenModified = true;
 	}
-
+	
+	public void addComponent(IComponent component) {
+        myComponents.put(component.getTag(), component);
+    }
+	
 	public IComponent getComponent(String tag) {
 		if(myComponents.containsKey(tag)){
 			return myComponents.get(tag);
@@ -66,10 +66,6 @@ public class Entity implements IEntity {
 	 */
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
-	}
-	
-	public void addComponent(IComponent component) {
-		myComponents.put(component.getTag(), component);
 	}
 
 	/**

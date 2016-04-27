@@ -12,7 +12,6 @@ import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
-import engine.backend.rules.Action;
 import engine.backend.rules.EntityAction;
 
 public class BezierCurveTest {

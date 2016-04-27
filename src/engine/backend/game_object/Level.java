@@ -6,7 +6,9 @@
 
 package engine.backend.game_object;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +31,9 @@ public class Level {
 	private String myName;
 	private GameMap map;
 	private double waveDelayTimer;
-	private double timer;
 	private int numWaves;
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
-	
 	private int index;
 	
 	/**
@@ -46,9 +46,16 @@ public class Level {
 		this.authoredEntities = authoredEntities;
 	}
 	
-	public Level(int index) {
-		this.index = index;
-	}
+	/**
+	 * Engine Testing Constructor.
+	 */
+	public Level(String name) {
+        this.authoredEntities = new ArrayList<IEntity>();
+        this.entities = new HashMap<Integer, IEntity>();
+        this.myName = name;
+        this.myEventMap = new HashMap<String, List<EntityAction>>();
+        ruleAgenda = new ArrayList<Rule>();
+    }
 
 	/**
 	 * 
@@ -105,19 +112,18 @@ public class Level {
 	public GameMap getMap() {
 		return map;
 	}
+	
+	/**
+	 * Engine Testing Method.
+	 */
+	public void setMap(GameMap map) {
+		this.map = map;
+	}
 
 	public void removeEntites(Collection<IEntity> entitiesToRemove){
 		for(IEntity entity : entitiesToRemove){
 			entities.remove(entity.getID());
 		}
-	}
-
-	/**
-	 * 
-	 * @return A map containing the events that can occur during this level.
-	 */
-	public Map<String, List<EntityAction>> getCustomEvents() {
-		return myEventMap;
 	}
 
 	public IEntity getEntityWithID(int entityID) {
@@ -134,6 +140,22 @@ public class Level {
 
 	public void setCurrentWaveIndex(int currentWaveIndex) {
 		this.currentWaveIndex = currentWaveIndex;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+	
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	
+	public double getWaveDelayTimer() {
+		return waveDelayTimer;
+	}
+	
+	public List<IEntity> getAuthoredEntities() {
+		return authoredEntities;
 	}
 	
 	@Override

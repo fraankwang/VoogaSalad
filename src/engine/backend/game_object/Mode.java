@@ -5,6 +5,7 @@
  */
 package engine.backend.game_object;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Mode {
@@ -12,6 +13,7 @@ public class Mode {
 	private Map<Integer, Level> myLevels;
 	private String myName;
 	private ModeStatistics myModeStatistics;
+	private int index;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -22,8 +24,12 @@ public class Mode {
 		this.myLevels = levels;
 	}
 	
-	public Mode(String myName) {
-		this.myName = myName;
+	/**
+	 * Engine Testing Constructor.
+	 */
+	public Mode(String name) {
+		this.myName = name;
+		this.myLevels = new HashMap<Integer, Level>();
 	}
 		
 	public Map<Integer, Level> getLevels() {
@@ -36,6 +42,21 @@ public class Mode {
 	
 	public String getName(){
 		return this.myName;
+	}
+	
+	/**
+	 * Engine Testing Method
+	 */
+	public void addLevel(Level level) {
+		this.myLevels.put(level.getIndex(), level);
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+	
+	public void setIndex(int index) {
+		this.index = index;
 	}
 	
 	@Override
