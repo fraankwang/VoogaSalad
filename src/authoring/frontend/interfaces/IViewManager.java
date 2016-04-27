@@ -1,6 +1,6 @@
 package authoring.frontend.interfaces;
 
-import authoring.frontend.editor_features.ImageChooser;
+import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
 import javafx.stage.Stage;
@@ -26,5 +26,5 @@ public interface IViewManager {
 
 	ITabBarElement getTabBarElement();
 
-	ImageChooser getImageChooser();
+	ObjectChooser getImageChooser();
 }

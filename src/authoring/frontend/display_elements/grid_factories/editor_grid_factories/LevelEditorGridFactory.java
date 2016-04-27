@@ -12,7 +12,7 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableLevelAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
-import authoring.frontend.editor_features.ImageChooser;
+import authoring.frontend.editor_features.ImageImporter;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -50,15 +50,11 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 																// something
 
 		editorView.getPanelBar().addButton("Upload Map Image", e -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-			File imageFile = fileChooser.showOpenDialog(null);
-			if (imageFile != null) {
-				editorView.setImage(new Image(imageFile.toURI().toString()));
-				((ModifiableAttributesPanel) myEditorGrid.getAttributesPanel())
-				.updateImageComponent(imageFile.getName());
-			}
+			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();
+			System.out.println(newImage);
+			editorView.setImage(new Image(newImage));
+			((ModifiableAttributesPanel) myEditorGrid.getAttributesPanel())
+					.updateImageComponent(newImage);
 		});
 
 		return editorView;

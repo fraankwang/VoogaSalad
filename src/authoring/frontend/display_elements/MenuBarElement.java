@@ -3,7 +3,8 @@ package authoring.frontend.display_elements;
 import java.io.File;
 
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring.frontend.editor_features.ImageChooser;
+import authoring.frontend.editor_features.ImageImporter;
+import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
 import javafx.scene.Group;
@@ -31,9 +32,10 @@ public class MenuBarElement implements IMenuBarElement {
 
 	private MenuBar myMenuBar;
 	private ITabBarElement myTabBar;
-	private ImageChooser myImageChooser;
+	private ObjectChooser myImageChooser;
+	private ImageImporter myImageImporter;
 
-	public MenuBarElement(ImageChooser ic) {
+	public MenuBarElement(ObjectChooser ic) {
 		myImageChooser = ic;
 	}
 
@@ -48,6 +50,8 @@ public class MenuBarElement implements IMenuBarElement {
 		Menu file = createFileMenu();
 		Menu create = new Menu("Create");
 		Menu help = createHelpMenu();
+		myImageImporter = new ImageImporter(myImageChooser);
+		myImageImporter.initialize();
 
 		myMenuBar.getMenus().addAll(file, create, help);
 	}
@@ -56,17 +60,8 @@ public class MenuBarElement implements IMenuBarElement {
 		Menu file = new Menu("File");
 		
 		MenuItem importImages = new MenuItem("Import Images...");
-		importImages.setOnAction(e -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-			File imageFile = fileChooser.showOpenDialog(null);
-			if (imageFile != null) {
-				myImageChooser.addNewImage(imageFile.toURI().toString(), imageFile.getName());
-
-			}
-		});
-
+		importImages.setOnAction(e -> myImageImporter.openImporter());
+		
 		Menu open = new Menu("Open in separate window");
 		MenuItem openGame = new MenuItem("Open Game Tab");
 		openGame.setOnAction(e -> myTabBar.show(myTabBar.getGameTabDisplay()));
