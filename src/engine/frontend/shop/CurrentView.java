@@ -30,8 +30,6 @@ public class CurrentView {
 		myShopPane.bindHeight(myHBox, heightBinding);
 		myShopPane.bindWidth(myHBox, widthBinding);
 		
-		
-		myHBox.getChildren().clear();
 		if(myStats.containsKey("image")){
 			myImageView = new ImageView(new Image(myStats.get("image")));
 			myHBox.getChildren().add(myImageView);
@@ -63,11 +61,12 @@ public class CurrentView {
 		}
 		for( String s : myStats.keySet()){
 			if( !s.equals("image")){
-				if(!myComponents.containsKey(s) || !myComponents.get(s).equals(myStats.get(s))){
+				if(!myComponents.containsKey(s) ){
 					Text newText = new Text(myStats.get(s));
 					myHBox.getChildren().add(newText);
 					myComponents.put(s, newText);
-				}else{
+				}
+				if(!myComponents.get(s).equals(myStats.get(s))){
 					myComponents.get(s).setText(myStats.get(s));
 				}
 			}

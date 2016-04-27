@@ -20,7 +20,7 @@ public class UpgradeCell extends ListCell<ShopItem> {
 	private ShopPane myShopPane;
 	private ShopItem myItem;
 	private Image myImage;
-	public static final String DEFAULT_RESOURCE = "engine/resources/shop_cell";
+	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/shop_cell";
 	private ResourceBundle myResources;
 
 	public UpgradeCell(ShopPane sp) {
