@@ -24,6 +24,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Benchesnut
+ *
+ */
 public class EntityComponentSelector {
 
 	public static final String COMPONENT_RESOURCES = "backend/resources/component_tags";

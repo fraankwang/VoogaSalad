@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import authoring.frontend.editor_features.PathBuilder;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
@@ -47,7 +49,7 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		newPath.initialize();
 		newPath.setSize(myImageView.getImage().getWidth(), myImageView.getImage().getHeight());
 		myPathBuilders.add(newPath);
-		myPanelBar.addButton("Add to Path " + myPathBuilders.size(), f -> {
+		myPanelBar.addButton("Add to Path " + Integer.toString(pathIndexNumber), f -> {
 			newPath.createNewCurve(null);
 		});
 		myGroup.getChildren().add(newPath.getNode());
@@ -58,8 +60,25 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 	@Override
 	public void setImage(Image image) {
 		super.setImage(image);
+		myImageView.fitHeightProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				for (PathBuilder path: myPathBuilders) {
+					path.setSize(myImageView.getFitWidth(), myImageView.getFitHeight());
+				}
+			}
+		});
+		myImageView.fitWidthProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				for (PathBuilder path: myPathBuilders) {
+					path.setSize(myImageView.getFitWidth(), myImageView.getFitHeight());
+				}
+			}
+		});
+		
 		for (PathBuilder path: myPathBuilders) {
-			path.setSize(image.getWidth(), image.getHeight());
+			path.setSize(myImageView.getFitWidth(), myImageView.getFitHeight());
 		}
 	}
 	

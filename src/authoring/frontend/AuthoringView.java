@@ -11,7 +11,6 @@ import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -91,7 +90,7 @@ public class AuthoringView implements IAuthoringView {
 		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntities();
 	}
 
-	public Map<String, Image> getLevels() {
+	public Map<String, String> getLevels() {
 		return ((LevelsTabDisplay) myAuthoringViewManager.getTabBarElement().getLevelsTabDisplay()).getLevels();
 	}
 }

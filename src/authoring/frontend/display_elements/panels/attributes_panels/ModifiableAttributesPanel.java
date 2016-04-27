@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-
 import authoring.frontend.IAuthoringView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -113,6 +112,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			tf.setEditable(true);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
+			myInputMap.put(currentAttribute, tf);
 			myAttributesGridPane.add(text, 0, i);
 
 		}
@@ -154,9 +154,9 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	
 	/**
 	 * Update image display based on attribute image name.
-	 * @param image
+	 * @param imageView
 	 */
-	public abstract void updateImageComponent(String image);
+	public abstract void updateImageComponent(String imageName);
 	
 	
 	/**
