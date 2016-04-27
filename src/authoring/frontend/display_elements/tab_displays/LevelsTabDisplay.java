@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.TreeMap;
+
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.frontend.IAuthoringView;
@@ -11,6 +12,7 @@ import authoring.frontend.display_elements.editor_displays.LevelEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.LevelsTabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
+import javafx.scene.image.Image;
 
 /**
  * The LevelsTabDisplay contains multiple tabs of a set of user-created levels
@@ -76,7 +78,7 @@ public class LevelsTabDisplay extends TabDisplay {
 		return "Levels";
 	}
 	
-	public List<String> getLevels() {
+	public Map<String, Image> getLevels() {
 		return ((LevelsTabGrid) myGrid).getLevels();
 	}
 }

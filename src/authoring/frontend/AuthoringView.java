@@ -8,6 +8,7 @@ import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
+import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -90,4 +91,7 @@ public class AuthoringView implements IAuthoringView {
 		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntities();
 	}
 
+	public Map<String, Image> getLevels() {
+		return ((LevelsTabDisplay) myAuthoringViewManager.getTabBarElement().getLevelsTabDisplay()).getLevels();
+	}
 }
