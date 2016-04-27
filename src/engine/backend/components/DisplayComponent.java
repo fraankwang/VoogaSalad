@@ -4,7 +4,6 @@
  * 
  */
 
-
 package engine.backend.components;
 
 /**
@@ -84,8 +83,18 @@ public class DisplayComponent extends Component{
 	}
 
 	@Override
-	public void initWithParams(String[] params) {
-		this.canBeShown = true; //default
+	public String getComponentInfo() {
+		return "CanBeShown:" + canBeShown + "," + "Image:" + image;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("Image")) {
+			if (!data.equals("0")) {
+				this.image = data;
+				this.canBeShown = true;
+			}
+		}
 	}
 
 	public boolean getDelete() {

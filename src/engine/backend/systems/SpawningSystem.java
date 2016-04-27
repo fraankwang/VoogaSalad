@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import engine.backend.components.DisplayComponent;
+import engine.backend.components.IComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
+import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.components.Vector;
@@ -19,9 +22,13 @@ import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.WaveOverEvent;
 import engine.backend.utilities.ComponentTagResources;
 
-public class SpawningSystem extends GameSystem{
+public class SpawningSystem extends GameSystem {
+	
+	public static final String TESTNAME = "tower"; 
+	public static final int TESTID = 1000;
 
 	@Override
+
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 		// TODO Auto-generated method stub
 		
@@ -49,7 +56,7 @@ public class SpawningSystem extends GameSystem{
 			if(waveIsOver){
 				//not sure what to do with wave over events
 			}
-			
+
 		}
 		
 		//System.out.println(newEntities.size());

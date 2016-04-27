@@ -6,7 +6,6 @@
 package engine.backend.game_object;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Mode {
@@ -16,15 +15,27 @@ public class Mode {
 	private ModeStatistics myModeStatistics;
 	private int index;
 	
-	public Mode(String name) {
-		myLevels = new HashMap<Integer, Level>();
-		this.myName = name;
+	/**
+	 * Authoring Environment Constructor.
+	 */
+	public Mode(String myName, ModeStatistics modeStatistics, Map<Integer, Level> levels) {
+		this.myName = myName;
+		this.myModeStatistics = modeStatistics;		
+		this.myLevels = levels;
 	}
-
+	
+	/**
+	 * Engine Testing Constructor.
+	 */
+	public Mode(String name) {
+		this.myName = name;
+		this.myLevels = new HashMap<Integer, Level>();
+	}
+		
 	public Map<Integer, Level> getLevels() {
 		return myLevels;
 	}
-	
+
 	public ModeStatistics getModeStatistics(){
 		return myModeStatistics;
 	}
@@ -32,32 +43,25 @@ public class Mode {
 	public String getName(){
 		return this.myName;
 	}
-
-	public void addLevel(Level level) {
-		myLevels.put(level.getIndex(), level);
-	}
-
 	
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Mode) {
-			Mode temp = (Mode) o;
-			if (this.myName.equals(temp.myName)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+	/**
+	 * Engine Testing Method
+	 */
+	public void addLevel(Level level) {
+		this.myLevels.put(level.getIndex(), level);
 	}
-
+	
 	public int getIndex() {
 		return index;
 	}
-
+	
 	public void setIndex(int index) {
 		this.index = index;
+	}
+	
+	@Override
+	public String toString() {
+		return "Mode [levels=" + myLevels + "]";
 	}
 
 }

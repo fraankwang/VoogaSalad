@@ -14,29 +14,35 @@ import engine.backend.utilities.ComponentTagResources;
 public class Entity implements IEntity {
 
 	private String myName;
-	private String myType;
+	private String myGenre;
 	private int myID;
-	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();
-
-	private boolean hasBeenModified = true;
-
-	public Entity(int myID, String myName, String myType, double myValue) {
+	private Map<String, IComponent> myComponents;
+	private boolean hasBeenModified;
+	
+	/**
+	 * Initializes an Entity without a unique ID. 
+	 * Authoring Environment Constructor.
+	 */
+	public Entity(String myName, String myType, Map<String, IComponent> myComponents) {
 		this.myName = myName;
-		this.myType = myType;
-		this.myID = myID;
-		// this.myValue = myValue;
+		this.myGenre = myType;
+		this.myComponents = myComponents;		
 	}
 
-	public Entity(String myName, String myType, double myValue) {
+	/**
+	 * Engine Testing Constructor.
+	 */
+	public Entity(int myID, String myName, String myGenre) {
 		this.myName = myName;
-		this.myType = myType;
-		// this.myValue = myValue;
+		this.myGenre = myGenre;
+		this.myID = myID;
+		this.myComponents = new HashMap<String, IComponent>();
 	}
 
 	public void addComponent(IComponent component) {
-		myComponents.put(component.getTag(), component);
-	}
-
+        myComponents.put(component.getTag(), component);
+    }
+	
 	public IComponent getComponent(String tag) {
 		if(myComponents.containsKey(tag)){
 			return myComponents.get(tag);
@@ -79,11 +85,17 @@ public class Entity implements IEntity {
 	}
 
 	/**
-	 * @return A string that represents the name or type of the entity; this is
-	 *         not a unique id.
+	 * @return A string that represents the name of the entity.
 	 */
 	public String getName() {
 		return myName;
+	}
+	
+	/**
+	 * @return A string that represents the type of the entity.
+	 */
+	public String getGenre() {
+		return myGenre;
 	}
 
 	/**
@@ -112,15 +124,11 @@ public class Entity implements IEntity {
 		hasBeenModified = bool;
 	}
 
-	public String getType() {
-		return myType;
-	}
-
 	@Override
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
- 
+
 	@Override
 	public void applyAction(EntityAction action) {
 		String component = action.getComponentToModifiy();
@@ -130,32 +138,28 @@ public class Entity implements IEntity {
 
 		String fullName = ComponentTagResources.getComponentTag(component);
 		//System.out.println(getName() + "   " + fullName);
-		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
+		Class<? extends IComponent> componentClass = getComponent(fullName).getClass();
 		//System.out.println(componentClass.getName());
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 			
-			componentClassInstance = componentClass.cast(myComponents.get(fullName));
+			componentClassInstance = componentClass.cast(getComponent(fullName));
 			// put in resource file!!!
 			String methodName = "set" + instanceVar;
-
+			System.out.println(methodName);
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 
 			setMethod.invoke(componentClassInstance, newVal);
 
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 }

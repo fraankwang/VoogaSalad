@@ -180,7 +180,6 @@ public class EventManager implements Observer{
 
 	public void handleEnemyMissed() {
 		// gets events, send event to level manager
-
 	}
 
 	public GameWorld getGameWorld(){

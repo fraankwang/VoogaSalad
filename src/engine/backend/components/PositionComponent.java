@@ -1,4 +1,3 @@
-
 package engine.backend.components;
 
 /**
@@ -10,8 +9,9 @@ public class PositionComponent extends Component {
 
 	private Vector myPositionVector;
 	private Vector myCriticalPosition;
-
+	
 	public PositionComponent() {
+		
 	}
 
 	public PositionComponent(PositionComponent posComp) {
@@ -64,12 +64,6 @@ public class PositionComponent extends Component {
 		return myPositionVector.getY();
 	}
 
-	@Override
-	public void initWithParams(String[] params) {
-		// x is 1, y is 2
-		myPositionVector = new Vector(Double.parseDouble(params[0]), Double.parseDouble(params[1]));
-	}
-
 	/**
 	 * 
 	 * @return A vector representing a critical position.
@@ -84,6 +78,34 @@ public class PositionComponent extends Component {
 	 */
 	public void setCriticalPosition(Vector myCriticalPosition) {
 		this.myCriticalPosition = myCriticalPosition;
+	}
+
+	@Override
+	public String getComponentInfo() {
+		return "XCoordinate:" + myPositionVector.getX() + "," + "YCoordinate:" + myPositionVector.getY();
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+		
+		case "XCoordinate":
+			double x = Double.parseDouble(data);
+			double y = 0;
+			if (myPositionVector != null){
+				y = myPositionVector.getY();
+			}
+			this.myPositionVector = new Vector(x, y);
+			return;
+		case "YCoordinate":
+			double y2 = Double.parseDouble(data);
+			double x2 = 0;
+			if (myPositionVector != null) {
+				x2 = myPositionVector.getX();
+			}
+			this.myPositionVector = new Vector(x2, y2);
+			return;
+		}
 	}
 
 }

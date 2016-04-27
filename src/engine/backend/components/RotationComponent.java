@@ -62,8 +62,15 @@ public class RotationComponent extends Component {
 	}
 
 	@Override
-	public void initWithParams(String[] params) {
-		myAngle = Double.parseDouble(params[0]);
+	public String getComponentInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

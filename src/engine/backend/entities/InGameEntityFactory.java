@@ -27,12 +27,12 @@ public class InGameEntityFactory {
 		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>(); 
 		for(IEntity entity : entities){
 			Map<String, IEntity> typeMap = null;
-			if(mainEntityMap.containsKey(entity.getType())){
-				typeMap = mainEntityMap.get(entity.getType());
+			if(mainEntityMap.containsKey(entity.getGenre())){
+				typeMap = mainEntityMap.get(entity.getGenre());
 			}
 			else{
 				typeMap = new HashMap<String, IEntity>();
-				mainEntityMap.put(entity.getType(), typeMap);
+				mainEntityMap.put(entity.getGenre(), typeMap);
 			}
 			typeMap.put(entity.getName(), entity);
 		}
@@ -46,8 +46,8 @@ public class InGameEntityFactory {
 	
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
-		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getType(),
-				templateEntity.getValue());
+
+		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
 	}

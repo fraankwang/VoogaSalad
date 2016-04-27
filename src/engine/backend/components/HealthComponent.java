@@ -1,10 +1,12 @@
 package engine.backend.components;
 
+
 /**
  * 
  * @author 
  *
  */
+
 public class HealthComponent extends Component {
 	
 	private double myHealth;
@@ -71,12 +73,6 @@ public class HealthComponent extends Component {
 		return myDamage;
 	}
 
-	@Override
-	public void initWithParams(String[] params) {
-		myHealth = Double.parseDouble(params[0]);
-		myDamage = Double.parseDouble(params[1]);
-	}
-
 	/**
 	 * 
 	 * @return The critical health for an entity with this component.
@@ -100,6 +96,25 @@ public class HealthComponent extends Component {
 	public void setCriticalHealth(String myCriticalHealth) {
 		double newVal = Double.parseDouble(myCriticalHealth);
 		this.myCriticalHealth = newVal;
+	}
+
+	@Override
+	public String getComponentInfo() {
+		return "Health:" + myHealth + "," + "CriticalHealth:" + myCriticalHealth;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+		
+		case "Health":
+			this.myHealth = Double.parseDouble(data);
+			return;
+		case "CriticalHealth":
+			this.myCriticalHealth = Double.parseDouble(data);
+			return;
+			
+		}
 	}
 
 }

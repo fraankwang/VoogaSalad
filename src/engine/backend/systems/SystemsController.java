@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javax.swing.text.html.parser.Entity;
+
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.controller.EngineController;
@@ -24,7 +26,6 @@ public class SystemsController {
 	private GameSystem firingSystem;
 	private GameSystem collisionSystem;
 	private GameSystem spawningSystem;
-	
 	private List<ISystem> mySystems;
 	private EngineController engineController;
 	private EventManager myEventManager;
@@ -35,8 +36,8 @@ public class SystemsController {
 	private InGameEntityFactory myEntityFactory;
 
 	private int myLevelIndex;
-	private int myModeIndex; 
-	
+	private int myModeIndex;
+
 	private GameClock myGameClock;
 
 	/*
@@ -75,14 +76,9 @@ public class SystemsController {
 		mySystems.add(healthSystem);
 		//mySystems.add(myEventManager);
 		//mySystems.add(renderingSystem);
-		
+	
 		myGameClock = new GameClock(framesPerSecond);
-
 	}
-
-//	public void initializeGame(GameWorld game) {
-//		myGame = game;
-//	}
 
 	public void iterateThroughSystems(Level level) {
 		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();

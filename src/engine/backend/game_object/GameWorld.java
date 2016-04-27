@@ -5,7 +5,6 @@
  */
 package engine.backend.game_object;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,18 +15,30 @@ public class GameWorld {
 
 	private List<IEntity> authoredEntities;
 	private Map<Integer, Mode> myModes;
+	private String myGameType;
 	private GameStatistics myGameStatistics;
-
+	
 	public GameWorld() {
 		this.myGameStatistics = new GameStatistics();
-		//this.modes = new ArrayList<Mode>();
-		myModes = new HashMap<Integer, Mode>();
+		this.myModes = new HashMap<Integer, Mode>();
 	}
 
 	public GameStatistics getGameStatistics() {
 		return myGameStatistics;
 	}
+	
+	public void setGameStatistics(GameStatistics gameStatistics) {
+		this.myGameStatistics = gameStatistics;
+	}
+	
+	public void setGameType(String gameType) {
+		this.myGameType = gameType;
+	}
 
+	public String getGameType() {
+		return myGameType;
+	}
+	
 	public void addMode(Mode mode) {
 		myModes.put(mode.getIndex(), mode);
 		myGameStatistics.incrementNumModes();
@@ -39,8 +50,12 @@ public class GameWorld {
 		return level;
 	}
 
+	public void printWhatIHave() {
+		System.out.println("I am game object " + this.toString() + " and I have been created");
+		System.out.println("I have " + myModes.size() + " mode(s) and they are composed of " + myModes);
+	}
+
 	public List<IEntity> getAuthoredEntities() {
-		// TODO Auto-generated method stub
 		return  authoredEntities;
 	}
 	

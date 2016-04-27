@@ -13,10 +13,6 @@ public class TrackingMovementComponent extends MovementComponent {
 		super(component);
 	}
 
-	public TrackingMovementComponent() {
-
-	}
-
 	// for demo purposes
 	public TrackingMovementComponent(double xspeed, double yspeed) {
 		super(xspeed, yspeed);

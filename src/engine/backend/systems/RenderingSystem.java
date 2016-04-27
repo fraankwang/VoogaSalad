@@ -72,7 +72,7 @@ public class RenderingSystem extends GameSystem {
 				}
 			}
 			
-			//System.out.println("Name:  " + myEntity.getName() + myEntity.getID());
+			System.out.println("Name:  " + myEntity.getName() + "  " + myEntity.getID() + "  " + imageToDisplay);
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
 			
 			if(delete){
