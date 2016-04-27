@@ -24,18 +24,23 @@ import engine.backend.utilities.ComponentTagResources;
 
 public class SpawningSystem extends GameSystem {
 	
-	public static final String TESTNAME = "tower"; 
-	public static final int TESTID = 1000;
-
+	private double delayTimer;
+	
 	@Override
-
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 		// TODO Auto-generated method stub
+		
+		if(delayTimer > 0){
+			delayTimer = delayTimer - GameClock.getTimePerLoop();
+			return;
+		}
 		
 		int currentWaveIndex = myLevel.getCurrentWaveIndex();
 		boolean waveIsOver = true;
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
+		
+		
 		
 		for(IEntity entity : entities){
 			
@@ -55,12 +60,14 @@ public class SpawningSystem extends GameSystem {
 			
 			if(waveIsOver){
 				//not sure what to do with wave over events
+				sendEvent(getWaveOverEvent());
+				delayTimer = myLevel.getWaveDelayTimer();
 			}
 
 		}
 		
 		//System.out.println(newEntities.size());
-		sendAddEntityEvent(newEntities);
+		sendEvent(getAddEntityEvent(newEntities));
 		
 		//addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
 	}
@@ -94,8 +101,12 @@ public class SpawningSystem extends GameSystem {
 		return event;
 	}
 
-	private void sendAddEntityEvent(Collection<IEntity> newEntities){
+	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
 		AddEntityEvent event = new AddEntityEvent(newEntities);
+		return event;
+	}
+	
+	private void sendEvent(IEvent event){
 		setChanged();
 		notifyObservers(event);
 	}

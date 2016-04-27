@@ -131,6 +131,10 @@ public class Level {
 	public IEntity getEntityWithID(int entityID) {
 		return entities.get(entityID);
 	}
+	
+	public void setWaveDelayTimer(double time){
+		waveDelayTimer = time;
+	}
 
 	public int getNumWaves() {
 		return numWaves;
@@ -150,6 +154,10 @@ public class Level {
 	
 	public void setIndex(int index) {
 		this.index = index;
+	}
+	
+	public void setNumWaves(int num){
+		numWaves = num;
 	}
 	
 	public double getWaveDelayTimer() {

@@ -26,6 +26,7 @@ import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
+import engine.backend.systems.Events.WaveOverEvent;
 import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
 
@@ -87,7 +88,25 @@ public class EventManager implements Observer{
 		if(myEvent instanceof AddEntityEvent){
 			handleAddEntityEvent(myEvent);
 		}
+		
+		if(myEvent instanceof WaveOverEvent){
+			handleWaveOverEvent((WaveOverEvent) myEvent);
+		}
 
+	}
+	
+	private void handleWaveOverEvent(WaveOverEvent event){
+		
+		int index = getCurrentLevel().getCurrentWaveIndex();
+		//last wave
+		if(index - 1 == getCurrentLevel().getNumWaves()){
+			
+		}
+		else{
+			System.out.println("WAVE IS OVER");
+			getCurrentLevel().setCurrentWaveIndex(index + 1);
+		}
+		
 	}
 	
 	public void handleEntityDropEvent(EntityDroppedEvent event){
