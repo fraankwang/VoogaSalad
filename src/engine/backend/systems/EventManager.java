@@ -39,16 +39,19 @@ public class EventManager implements Observer{
 	InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
 
-	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats, InGameEntityFactory factory) {
+	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats) {
 		setLevelRules(game.getLevelWithId(0, 0));
 		myEngineController = engineController;
 		myGameWorld = game;
 		//pass in right values
 		currentModeStatistics = stats;
-		myEntityFactory = factory;
 		myGameShop = new GameShop();
 	}
 
+	public void setEntityFactory(InGameEntityFactory factory){
+		myEntityFactory = factory;
+	}
+	
 	public void setLevelRules(Level level) {
 		setCustomRules(level.getRuleAgenda());
 	}
@@ -60,7 +63,6 @@ public class EventManager implements Observer{
 	public void updateGameShop() {
 		myGameShop.setShopItems(getCurrentLevel().getShopItems());
 		myGameShop.updateShop(currentModeStatistics.getCurrentResources());
-		System.out.println("fdjkafdja");
 		myEngineController.updateShop(myGameShop.getShopItems());
 	}
 
@@ -99,11 +101,10 @@ public class EventManager implements Observer{
 		
 		int index = getCurrentLevel().getCurrentWaveIndex();
 		//last wave
-		if(index - 1 == getCurrentLevel().getNumWaves()){
+		if(index == getCurrentLevel().getNumWaves() - 1){
 			
 		}
 		else{
-			System.out.println("WAVE IS OVER");
 			getCurrentLevel().setCurrentWaveIndex(index + 1);
 		}
 		
@@ -111,7 +112,6 @@ public class EventManager implements Observer{
 	
 	public void handleEntityDropEvent(EntityDroppedEvent event){
 		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
-		System.out.println(newEntity);
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
 		getCurrentLevel().addEntityToMap(newEntity);
@@ -129,6 +129,15 @@ public class EventManager implements Observer{
 			}
 		}
 
+	}
+	
+	public void updateEntityFactory(){
+		if(myEntityFactory.isCurrent(getCurrentLevel().getIndex())){
+			return;
+		}
+		myEntityFactory.setEntities(getCurrentLevel().getAuthoredEntities());
+		myEntityFactory.setID(getCurrentLevel().getIndex());
+		return;
 	}
 
 	private void applyActions(IEntity entity, Collection<IAction> actions){
@@ -219,6 +228,11 @@ public class EventManager implements Observer{
 	public ModeStatistics getModeStatistics() {
 		// TODO Auto-generated method stub
 		return currentModeStatistics;
+	}
+
+	public InGameEntityFactory getEntityFactory() {
+		// TODO Auto-generated method stub
+		return myEntityFactory;
 	}
 
 }

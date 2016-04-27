@@ -146,7 +146,6 @@ public class Entity implements IEntity {
 			componentClassInstance = componentClass.cast(getComponent(fullName));
 			// put in resource file!!!
 			String methodName = "set" + instanceVar;
-			System.out.println(methodName);
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 
 			setMethod.invoke(componentClassInstance, newVal);

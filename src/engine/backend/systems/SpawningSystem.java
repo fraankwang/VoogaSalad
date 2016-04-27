@@ -31,6 +31,7 @@ public class SpawningSystem extends GameSystem {
 		// TODO Auto-generated method stub
 		
 		if(delayTimer > 0){
+			System.out.println(delayTimer);
 			delayTimer = delayTimer - GameClock.getTimePerLoop();
 			return;
 		}
@@ -60,6 +61,7 @@ public class SpawningSystem extends GameSystem {
 			
 			if(waveIsOver){
 				//not sure what to do with wave over events
+				System.out.println("WAVE IS OVER");
 				sendEvent(getWaveOverEvent());
 				delayTimer = myLevel.getWaveDelayTimer();
 			}

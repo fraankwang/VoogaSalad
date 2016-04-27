@@ -61,10 +61,10 @@ public class EngineController implements IEngineController{
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		ModeStatistics stats = new ModeStatistics(10, 10);
+		myEventManager = new EventManager(this, myGameWorld, stats);
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myGameWorld.getAuthoredEntities());
-		
-		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
+				myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEventManager.setEntityFactory(myEntityFactory);
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		
 		myEngineView = new EngineView(myStage, this);

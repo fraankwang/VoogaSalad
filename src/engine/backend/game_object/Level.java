@@ -181,4 +181,9 @@ public class Level {
 		this.myShopItems = myShopItems;
 	}
 
+	public void setAuthoredEntities(List<IEntity> authoredEntities) {
+		// TODO Auto-generated method stub
+		this.authoredEntities = authoredEntities;
+	}
+
 }

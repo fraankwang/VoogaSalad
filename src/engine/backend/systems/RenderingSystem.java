@@ -46,7 +46,6 @@ public class RenderingSystem extends GameSystem {
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
 		//System.out.println(entities.size());
 		for(IEntity myEntity : entities){
-			System.out.println("Name:  " + myEntity.getName() + "  " + myEntity.getID());
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
@@ -71,7 +70,6 @@ public class RenderingSystem extends GameSystem {
 				}
 			}
 			
-			System.out.println("Name:  " + myEntity.getName() + "  " + myEntity.getID() + "  " + imageToDisplay + " " + show);
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
 			
 			if(delete){
