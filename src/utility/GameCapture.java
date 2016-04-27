@@ -32,7 +32,6 @@ public class GameCapture implements IGameCapture {
 	private ResourceBundle myResources;
 	private IMediaWriter fileWriter;
 
-
 	private String fileName;
 	private File saveLocation;
 	private String imageFormat;
@@ -44,8 +43,14 @@ public class GameCapture implements IGameCapture {
 	private File lastSavedFile;
 	private int fps;
 
-	
-	public GameCapture(EngineView ev, int height, int width, int posx, int posy) {
+	/**
+	 * Constructor for gameCapture, needs the starting position and dimensions of the application in pixels
+	 * @param height
+	 * @param width
+	 * @param posx
+	 * @param posy
+	 */
+	public GameCapture(int height, int width, int posx, int posy) {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		fileName = myResources.getString("DefaultName");
 		saveLocation = new File(myResources.getString("DefaultSaveLocation"));
@@ -96,7 +101,7 @@ public class GameCapture implements IGameCapture {
 	}
 
 	@Override
-	public void takeScreenshot(Node n) {
+	public void takeSnapshot(Node n) {
 		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "." + imageFormat;
 		WritableImage image = n.snapshot(new SnapshotParameters(), null);
 		BufferedImage bi = SwingFXUtils.fromFXImage(image, null);
@@ -110,23 +115,17 @@ public class GameCapture implements IGameCapture {
 		}
 	}
 	
+	@Override
 	public void takeScreenshot(){
 		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "." + imageFormat;
-//		WritableImage image = n.snapshot(new SnapshotParameters(), null);
 		BufferedImage bi;
 		try {
 			bi = (new Robot()).createScreenCapture(captureRegion);
 			BufferedImage convertedImg = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
 		    convertedImg.getGraphics().drawImage(bi, 0, 0, null);
-			
-		    try {
-				ImageIO.write(convertedImg, imageFormat, new File(outputFileName));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (AWTException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		    ImageIO.write(convertedImg, imageFormat, new File(outputFileName));
+		} catch (AWTException | IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -202,5 +201,15 @@ public class GameCapture implements IGameCapture {
 	@Override
 	public void setCaptureY(int y) {
 		captureRegion.setBounds(captureRegion.x, y, captureRegion.width, captureRegion.height);
+	}
+	
+	@Override 
+	public void setCaptureWidth(int w){
+		captureRegion.setBounds(captureRegion.x, captureRegion.y, w, captureRegion.height);
+	}
+	
+	@Override
+	public void setCaptureHeight(int h){
+		captureRegion.setBounds(captureRegion.x, captureRegion.y, captureRegion.width, h);
 	}
 }

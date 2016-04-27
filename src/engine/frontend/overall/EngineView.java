@@ -69,9 +69,9 @@ public class EngineView {
 
 		myBorderPane = new BorderPane();
 		myScene = new Scene(myBorderPane, Color.WHITE);
-		myMenuBar = myMenubarManager.buildMenuBar(myScene.widthProperty(),
-				myScene.heightProperty().multiply(loadDoubleResource("MenuBarHeight")));
+		myMenuBar = myMenubarManager.buildMenuBar();
 		myBorderPane.setTop(myMenuBar);
+
 		SimpleDoubleProperty mapHeight = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapHeight());
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(
@@ -114,7 +114,6 @@ public class EngineView {
 	}
 
 	private void handleEndMouseRelease(DragEvent e) {
-
 		if (e.getGestureSource() != myScene) {
 			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
@@ -141,7 +140,8 @@ public class EngineView {
 	}
 
 	public DoubleBinding getUsableBoardHeight() {
-		return myScene.heightProperty().multiply(loadDoubleResource("BoardMaxHeight"));
+		return myScene.heightProperty().subtract(myMenuBar.heightProperty())
+				.multiply(loadDoubleResource("BoardMaxHeight"));
 	}
 
 	public DoubleBinding getUsableShopWidth() {

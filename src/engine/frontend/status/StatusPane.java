@@ -51,6 +51,7 @@ public class StatusPane extends AbstractPane{
 			myEngineView.getGameCapture().startCapture();
 			record.setDisable(true);
 			stop.setDisable(false);
+			myEngineView.getStage().setResizable(false);
 		});
 		
 		stop.setDisable(true);
@@ -58,9 +59,10 @@ public class StatusPane extends AbstractPane{
 			myEngineView.getGameCapture().endCapture();
 			record.setDisable(false);
 			stop.setDisable(true);
+			myEngineView.getStage().setResizable(true);
 		});
 		
-		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot(myEngineView.getBorderPane()));
+		picture.setOnAction(e -> myEngineView.getGameCapture().takeScreenshot());
 		
 		vbox.minWidthProperty().bind(myPane.widthProperty().divide(4));
 		vbox.minHeightProperty().bind(myPane.heightProperty());

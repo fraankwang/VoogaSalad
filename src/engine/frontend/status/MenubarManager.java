@@ -26,7 +26,7 @@ public class MenubarManager {
 	
 	private static final ObservableList<Integer> workspaceList = FXCollections.observableArrayList();
 	
-	public static final String DEFAULT_RESOURCE = "engine/resources/menubar";
+	public static final String DEFAULT_RESOURCE = "engine/frontend/status/menubar";
 	private ResourceBundle myResources;
 	
 	private MenuBar menubar;
@@ -36,11 +36,8 @@ public class MenubarManager {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
 
-	public MenuBar buildMenuBar(DoubleExpression widthBinding, DoubleExpression heightBinding){
+	public MenuBar buildMenuBar(){
 		menubar = new MenuBar();
-		
-		bindWidth(widthBinding);
-		bindHeight(heightBinding);
 		
 		Menu filemenu = buildFileMenu();
 		Menu capturemenu = buildCaptureMenu();
@@ -48,16 +45,6 @@ public class MenubarManager {
 		menubar.getMenus().addAll(filemenu, capturemenu, menu3);
 
 		return menubar; 
-	}
-	
-	private void bindWidth(DoubleExpression db){
-		menubar.minWidthProperty().bind(db);
-		menubar.maxWidthProperty().bind(db);
-	}
-	
-	private void bindHeight(DoubleExpression db){
-		menubar.minHeightProperty().bind(db);
-		menubar.maxHeightProperty().bind(db);
 	}
 	
 	private Menu buildFileMenu(){
