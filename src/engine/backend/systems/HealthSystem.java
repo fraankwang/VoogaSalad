@@ -24,9 +24,7 @@ import java.util.Observable;
  *
  */
 
-
-
-public class HealthSystem extends GameSystem{
+public class HealthSystem extends GameSystem {
 
 	@Override
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
@@ -51,7 +49,6 @@ public class HealthSystem extends GameSystem{
 		}
 	}
 
-	
 	private IEvent getDeathEvent(IEntity entity){
 		DeathEvent deathEvent = new DeathEvent(entity.getID());
 		deathEvent.setEventID(entity.getName());
@@ -63,6 +60,5 @@ public class HealthSystem extends GameSystem{
 		criticalHealthEvent.setEventID(entity.getName());
 		return criticalHealthEvent;
 	}
-
 
 }

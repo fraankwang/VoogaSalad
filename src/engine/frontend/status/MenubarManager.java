@@ -8,10 +8,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
-import com.xuggle.xuggler.ICodec;
 
 import engine.frontend.overall.EngineView;
-import javafx.beans.binding.DoubleExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceDialog;

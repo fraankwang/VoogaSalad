@@ -13,6 +13,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_features.GameShop;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.ModeStatistics;
@@ -24,7 +25,9 @@ import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.IEvent;
+import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
+import engine.backend.systems.Events.WaveOverEvent;
 import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
 
@@ -35,22 +38,32 @@ public class EventManager implements Observer{
 	ModeStatistics currentModeStatistics;
 	private List<Rule> myRuleAgenda;
 	InGameEntityFactory myEntityFactory;
+	private GameShop myGameShop;
 
-	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats, InGameEntityFactory factory) {
-		setLevel(game.getLevelWithId(0, 0));
+	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats) {
 		myEngineController = engineController;
 		myGameWorld = game;
 		//pass in right values
 		currentModeStatistics = stats;
-		myEntityFactory = factory;
+		myGameShop = new GameShop();
 	}
 
-	public void setLevel(Level level) {
+	public void setEntityFactory(InGameEntityFactory factory){
+		myEntityFactory = factory;
+	}
+	
+	public void setLevelRules(Level level) {
 		setCustomRules(level.getRuleAgenda());
 	}
 
 	public Level getCurrentLevel() {
-		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentModeIndex() , currentModeStatistics.getCurrentLevelIndex());
+		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode() , currentModeStatistics.getCurrentLevelIndex());
+	}
+	
+	public void updateGameShop() {
+		myGameShop.setShopItems(getCurrentLevel().getShopItems());
+		myGameShop.updateShop(currentModeStatistics.getCurrentResources());
+		myEngineController.updateShop(myGameShop.getShopItems());
 	}
 
 	@Override
@@ -77,12 +90,33 @@ public class EventManager implements Observer{
 		if(myEvent instanceof AddEntityEvent){
 			handleAddEntityEvent(myEvent);
 		}
+		
+		if(myEvent instanceof WaveOverEvent){
+			handleWaveOverEvent((WaveOverEvent) myEvent);
+		}
 
+	}
+	
+	private void handleWaveOverEvent(WaveOverEvent event){
+		
+		int index = getCurrentLevel().getCurrentWaveIndex();
+		//last wave
+		if(index == getCurrentLevel().getNumWaves() - 1){
+			myEngineController.levelIsOver();
+		}
+		else{
+			myEngineController.waveIsOver();
+			getCurrentLevel().setCurrentWaveIndex(index + 1);
+		}
+		
+	}
+	
+	public void handleNextWaveEvent(NextWaveEvent event){
+		getCurrentLevel().setSendNextWave(true);
 	}
 	
 	public void handleEntityDropEvent(EntityDroppedEvent event){
 		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
-		System.out.println(newEntity);
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
 		getCurrentLevel().addEntityToMap(newEntity);
@@ -100,6 +134,15 @@ public class EventManager implements Observer{
 			}
 		}
 
+	}
+	
+	public void updateEntityFactory(){
+		if(myEntityFactory.isCurrent(getCurrentLevel().getIndex())){
+			return;
+		}
+		myEntityFactory.setEntities(getCurrentLevel().getAuthoredEntities());
+		myEntityFactory.setID(getCurrentLevel().getIndex());
+		return;
 	}
 
 	private void applyActions(IEntity entity, Collection<IAction> actions){
@@ -180,7 +223,6 @@ public class EventManager implements Observer{
 
 	public void handleEnemyMissed() {
 		// gets events, send event to level manager
-
 	}
 
 	public GameWorld getGameWorld(){
@@ -191,6 +233,11 @@ public class EventManager implements Observer{
 	public ModeStatistics getModeStatistics() {
 		// TODO Auto-generated method stub
 		return currentModeStatistics;
+	}
+
+	public InGameEntityFactory getEntityFactory() {
+		// TODO Auto-generated method stub
+		return myEntityFactory;
 	}
 
 }

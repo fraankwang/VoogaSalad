@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import engine.backend.entities.IEntity;
+import engine.backend.game_features.ShopItem;
 import engine.backend.map.GameMap;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
@@ -24,28 +25,41 @@ import engine.backend.rules.Rule;
  */
 public class Level {
 	
-	private List<IEntity> authoredEntities;
+	//put spawning entities in this map
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
+	private List<IEntity> authoredEntities;
+	private List<ShopItem> myShopItems;
 	private String myName;
-	private int index;
 	private GameMap map;
+	private double waveDelayTimer;
 	private int numWaves;
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
-
-	public Level(String name, GameMap map) {
-		this.myName = name;
-		this.map = map;
+	private int index;
+	private boolean sendNextWave;
+	
+	/**
+	 * Authoring Environment Constructor.
+	 */
+	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+		this.myName = myName;
+		this.map = myMap;
+		this.waveDelayTimer = waveDelayTimer;
+		this.authoredEntities = authoredEntities;
+		this.entities = entities;
 	}
-
+	
+	/**
+	 * Engine Testing Constructor.
+	 */
 	public Level(String name) {
-		this.authoredEntities = new ArrayList<IEntity>();
-		this.entities = new HashMap<Integer, IEntity>();
-		this.myName = name;
-		this.myEventMap = new HashMap<String, List<EntityAction>>();
-		ruleAgenda = new ArrayList<Rule>();
-	}
+        this.authoredEntities = new ArrayList<IEntity>();
+        this.entities = new HashMap<Integer, IEntity>();
+        this.myName = name;
+        this.myEventMap = new HashMap<String, List<EntityAction>>();
+        ruleAgenda = new ArrayList<Rule>();
+    }
 
 	/**
 	 * 
@@ -95,7 +109,6 @@ public class Level {
 		entities.stream().forEach(e -> addEntityToMap(e));
 	}
 
-
 	/**
 	 * 
 	 * @return The instance of GameMap for the level.
@@ -103,71 +116,30 @@ public class Level {
 	public GameMap getMap() {
 		return map;
 	}
-
+	
 	/**
-	 * Setting the map for the game.
-	 * 
-	 * @param map
+	 * Engine Testing Method.
 	 */
 	public void setMap(GameMap map) {
 		this.map = map;
 	}
 
-	@Override
-	public String toString() {
-		return "Level [entities=" + entities + "] ";
-	}
-
-	/**
-	 * Authoring environment adds entities that can be created during the
-	 * entity.
-	 * 
-	 * @param entity
-	 */
-	public void addToEntities(IEntity entity) {
-		entity.setLevelID(myID);
-		authoredEntities.add(entity);
-	}
-
-	/**
-	 * Setting the name of the mode containing this level.
-	 * 
-	 * @param modeID
-	 */
-
-
-	/**
-	 * 
-	 * @return A String with the identifier of the mode with this level.
-	 */
-
-
-	
 	public void removeEntites(Collection<IEntity> entitiesToRemove){
 		for(IEntity entity : entitiesToRemove){
 			entities.remove(entity.getID());
 		}
 	}
 
-	/**
-	 * 
-	 * @return A map containing the events that can occur during this level.
-	 */
-	public Map<String, List<EntityAction>> getCustomEvents() {
-		return myEventMap;
-	}
-
 	public IEntity getEntityWithID(int entityID) {
-		// TODO Auto-generated method stub
 		return entities.get(entityID);
+	}
+	
+	public void setWaveDelayTimer(double time){
+		waveDelayTimer = time;
 	}
 
 	public int getNumWaves() {
 		return numWaves;
-	}
-
-	public void setNumWaves(int numWaves) {
-		this.numWaves = numWaves;
 	}
 
 	public int getCurrentWaveIndex() {
@@ -177,13 +149,52 @@ public class Level {
 	public void setCurrentWaveIndex(int currentWaveIndex) {
 		this.currentWaveIndex = currentWaveIndex;
 	}
-
+	
 	public int getIndex() {
 		return index;
 	}
-
+	
 	public void setIndex(int index) {
 		this.index = index;
+	}
+	
+	public void setNumWaves(int num){
+		numWaves = num;
+	}
+	
+	public double getWaveDelayTimer() {
+		return waveDelayTimer;
+	}
+	
+	public List<IEntity> getAuthoredEntities() {
+		return authoredEntities;
+	}
+	
+	@Override
+	public String toString() {
+		return "Level [entities=" + entities + "] ";
+	}
+
+	public List<ShopItem> getShopItems() {
+		return myShopItems;
+	}
+
+	public void setShopItems(List<ShopItem> myShopItems) {
+		this.myShopItems = myShopItems;
+	}
+
+	public void setAuthoredEntities(List<IEntity> authoredEntities) {
+		// TODO Auto-generated method stub
+		this.authoredEntities = authoredEntities;
+	}
+
+	public boolean sendNextWave() {
+		// TODO Auto-generated method stub
+		return sendNextWave;
+	}
+	
+	public void setSendNextWave(boolean bool){
+		sendNextWave = bool;
 	}
 
 }

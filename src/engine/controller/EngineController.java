@@ -1,4 +1,5 @@
 package engine.controller;
+
 import java.util.List;
 
 import engine.backend.entities.InGameEntityFactory;
@@ -49,16 +50,18 @@ public class EngineController implements IEngineController{
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		ModeStatistics stats = new ModeStatistics(10, 10);
-		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myGameWorld.getAuthoredEntities());
-		
-		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
-		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
+		myEventManager = new EventManager(this, myGameWorld, stats);
 		
 		StartView myStartView = new StartView(this);
 		myStage.setScene(myStartView.buildScene());
 		myStage.show();
-		
+	}
+	
+	public void startGame(){
+		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
+				myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEventManager.setEntityFactory(myEntityFactory);
+		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		
 		myEngineView = new EngineView(myStage, this);
 		buildStage();
@@ -148,6 +151,14 @@ public class EngineController implements IEngineController{
 	public void entityClicked(int myID) {
 		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
 		myEventManager.handleClickEvent(clickedEvent);
+	}
+	
+	public void levelIsOver(){
+		
+	}
+	
+	public void waveIsOver(){
+		
 	}
 	
 	public Main getMain(){

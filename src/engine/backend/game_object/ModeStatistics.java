@@ -3,6 +3,8 @@ package engine.backend.game_object;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import engine.backend.game_features.GameShop;
 import engine.backend.rules.LevelAction;
 
 /**
@@ -19,7 +21,7 @@ public class ModeStatistics {
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
 	private int currentLevelIndex;
-	private int currentModeIndex;
+	private String currentMode;
 
 	public ModeStatistics(int numLives, double resources) {
 		setInitialNumLives(numLives);
@@ -84,13 +86,13 @@ public class ModeStatistics {
 		return currentLevelIndex;
 	}
 
-	public void setCurrentModeIndex(int currentModeIndex){
-		this.currentModeIndex = currentModeIndex;
+	public void setCurrentModeIndex(String c){
+		currentMode = c;
 	}
 
-	public int getCurrentModeIndex() {
+	public String getCurrentMode() {
 		checkEndOfGame();
-		return currentModeIndex;
+		return currentMode;
 	}
 	
 	public void setCurrentLevelIndex(int currentLevelIndex) {

@@ -1,63 +1,80 @@
 package authoring.backend.factories;
 
-import authoring.controller.GlobalData;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import engine.backend.entities.Entity;
+
+import authoring.backend.data.GlobalData;
+import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringGame;
+import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringMode;
+import engine.backend.entities.IEntity;
 
 public class GameFactory {
 
-	private final GameWorld myGame;
+	private GameWorld myGame;
 	private final GlobalData myGlobalData;
+	private Map<String, IEntity> entityMap;
+	private Map<String, Level> levelMap;
+	private Map<String, Mode> modeMap;
+	
+	private final EntityFactory entityFactory;
+	private final LevelFactory levelFactory;
+	private final ModeFactory modeFactory;
 
 	public GameFactory(GlobalData globaldata) {
 		this.myGlobalData = globaldata;
-		this.myGame = new GameWorld();
+		this.entityMap = new HashMap<String, IEntity>();
+		this.levelMap = new HashMap<String, Level>();
+		this.entityFactory = new EntityFactory();
+		this.levelFactory = new LevelFactory();
+		this.modeFactory = new ModeFactory();
 	}
 
 	public GameWorld createGame() {
-		setUpEntities();
-		setUpLevels();
-		setUpEntityMap();
+		setupEntityMap();
+		setupLevelMap();
+		setupModeMap();
+		setupGame();
 		return myGame;
 	}
-
-	private void setUpLevels() {
-		for (Mode mode : myGlobalData.getModes()) {
-			for (Level level : myGlobalData.getLevels()) {
-				if (level.getModeID().equals(mode.getName())) {
-					mode.addLevel(level);
-				}
-			}
+	
+	public void setupGame() {
+		AuthoringGame authoringGame = myGlobalData.getGame();
+		int startLives = authoringGame.getStartLives();
+		int defeatLives = authoringGame.getNumLivesDefeat();
+		double gameTimer = authoringGame.getGameTimer();
+		double resources = authoringGame.getStartResources();
+		String gameType = authoringGame.getGameType();
+		GameStatistics gameStatistics = new GameStatistics(startLives, defeatLives, gameTimer, resources);
+		this.myGame = new GameWorld(gameType, gameStatistics, modeMap);
+	}
+	
+	private void setupEntityMap() {
+		List<AuthoringEntity> entities = myGlobalData.getEntities().getList();
+		for (AuthoringEntity entity : entities) {
+			entityMap.put(entity.getName(), entityFactory.createEntity(entity));
 		}
 	}
-
-	private void setUpEntities() {
-		for (Level level : myGlobalData.getLevels()) {
-			for (Entity entity : myGlobalData.getEntities()) {
-				if (entity.getLevelID() == level.getId()) {
-					level.addToEntities(entity);
-				}
-			}
+	
+	private void setupLevelMap() {
+		List<AuthoringLevel> authoringLevels = myGlobalData.getLevels().getList();
+		for (AuthoringLevel authoringLevel : authoringLevels) {
+			levelMap.put(authoringLevel.getName(), levelFactory.createLevel(authoringLevel, entityMap));
 		}
 	}
-
-	private void setUpEntityMap() {
-		Map<String, Map<String, Entity>> map = new HashMap<String, Map<String, Entity>>();
-		for (Entity entity : myGlobalData.getEntities()) {
-			Map<String, Entity> existingMap = null;
-			if (map.containsKey(entity.getType())) {
-				existingMap = map.get(entity.getType());
-			} else {
-				existingMap = new HashMap<String, Entity>();
-				map.put(entity.getType(), existingMap);
-			}
-			existingMap.put(entity.getName(), entity);
+	
+	private void setupModeMap() {
+		List<AuthoringMode> authoringModes = myGlobalData.getModes().getList();
+		for (AuthoringMode authoringMode : authoringModes) {
+			modeMap.put(authoringMode.getName(), modeFactory.createMode(authoringMode, levelMap));
 		}
-		myGame.setEntityMap(map);
 	}
+	
 }

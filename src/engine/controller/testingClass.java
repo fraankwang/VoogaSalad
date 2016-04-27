@@ -12,16 +12,16 @@ import engine.backend.components.FiringComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
-import engine.backend.components.MultiDirectionalFiringComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
-import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
+import engine.backend.game_features.GameShop;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -29,7 +29,6 @@ import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 import engine.backend.rules.EntityAction;
-import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 
 public class testingClass {
@@ -51,7 +50,7 @@ public class testingClass {
 
 		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 600, 400);
 
-		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
+		IEntity tempEntity = new Entity(0, "tempEntity", "object");
 		IComponent tempPosition = new PositionComponent(0, 60);
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent tempCollision = new CollisionComponent();
@@ -65,7 +64,7 @@ public class testingClass {
 		tempEntity.addComponent(tempCollision);
 		// tempEntity.addComponent(pathComp);
 
-		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2", 20);
+		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempMovement2 = new MovementComponent(-4, 0);
 		// IComponent pathComp2 = new PathComponent(0, 0);
@@ -79,7 +78,7 @@ public class testingClass {
 		tempEntity.addComponent(tempCollision2);
 		// tempEntity2.addComponent(pathComp2);
 
-		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3", 20);
+		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3");
 		IComponent tempPosition3 = new PositionComponent(450, 450);
 		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize3 = new SizeComponent();
@@ -143,12 +142,17 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
-
-		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 900, 600);
 		
-		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner", 10);
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
-		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
+		Path[] pathArray = new Path[1];
+		pathArray[0] = tempPath;
+		
+		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
+		
+		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 10);
+		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 10);
+		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
+
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
@@ -157,9 +161,9 @@ public class testingClass {
 		tempSpawn.addComponent(tempPosition4);
 		tempSpawn.addComponent(tempDisplay4);
 		
-		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns", 20);
+		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns");
 		IComponent tempPosition = new PositionComponent(0, 100);
-		IComponent tempMovement = new MovementComponent(2, 0);
+		IComponent tempMovement = new MovementComponent(6, 0);
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
@@ -174,8 +178,13 @@ public class testingClass {
 		tempEntity.addComponent(tempHealth);
 		tempEntity.addComponent(pathComp);
 		
+		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
+		GameShop shop = new GameShop();
+		shop.addItem("tempEntity2", "DrumpfVader.png", 30);
 		
-		IEntity tempEntity2 = new Entity(-1, "tempEntity2", "object2", 20);
+		level.setShopItems(Arrays.asList(item));
+		
+		IEntity tempEntity2 = new Entity(-1, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
@@ -184,10 +193,11 @@ public class testingClass {
 		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
 		IComponent tempSize3 = new SizeComponent();
 		
-		FiringComponent simpleFire = new MultiDirectionalFiringComponent("SimpleBullet", 100, 5, 
-				500, myBulletVector, -1);
-		  
-		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition", 0);
+		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 
+				500, myBulletVector, 1);
+		
+		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
+
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
 		mySimpleBullet.addComponent(new MovementComponent(10, 0));
@@ -208,8 +218,8 @@ public class testingClass {
 		
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
 		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
-		firingTest.setAuthoredEntities(authoredEntities);
-		firingTest.setEntityMap(myCreatableEntityMap);
+		//firingTest.setAuthoredEntities(authoredEntities);
+//		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);
@@ -224,11 +234,13 @@ public class testingClass {
 		
 		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
-		//level.addToEntities(tempEntity2);
-		//level.addEntityToMap(tempEntity);
 		level.addEntityToMap(tempEntity2);
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
+		level.setCurrentWaveIndex(0);
+		level.setNumWaves(2);
+		level.setWaveDelayTimer(5);
+		level.setAuthoredEntities(authoredEntities);
 		mode.addLevel(level);
 		firingTest.addMode(mode);
 		return firingTest;
@@ -246,10 +258,13 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
+		
+		Path[] pathArray = new Path[1];
+		pathArray[0] = tempPath;
+		
+		GameMap tempMap = new GameMap("", pathArray, 200, 200);
 
-		GameMap tempMap = new GameMap("", tempPath, 200, 200);
-
-		IEntity tempEntity = new Entity(0, "tempEntity", "object", 20);
+		IEntity tempEntity = new Entity(0, "tempEntity", "object");
 		IComponent tempPosition = new PositionComponent(0, 60);
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent tempCollision = new CollisionComponent();
@@ -263,7 +278,7 @@ public class testingClass {
 		tempEntity.addComponent(tempCollision);
 		// tempEntity.addComponent(pathComp);
 
-		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2", 20);
+		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempMovement2 = new MovementComponent(-4, 0);
 		// IComponent pathComp2 = new PathComponent(0, 0);
@@ -277,7 +292,7 @@ public class testingClass {
 		tempEntity.addComponent(tempCollision2);
 		// tempEntity2.addComponent(pathComp2);
 
-		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3", 20);
+		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3");
 		IComponent tempPosition3 = new PositionComponent(450, 450);
 		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize3 = new SizeComponent();

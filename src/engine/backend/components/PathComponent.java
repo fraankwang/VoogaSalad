@@ -8,8 +8,8 @@ package engine.backend.components;
  */
 
 public class PathComponent extends Component {
-
-	// stores which path you're on
+	
+	//stores which path you're on
 	private int pathID;
 	private double myBezierTime;
 
@@ -71,19 +71,6 @@ public class PathComponent extends Component {
 		pathID = newID;
 	}
 
-	@Override
-	public void initWithParams(String[] params) {
-		pathID = Integer.parseInt(params[0]);
-		curveID = Integer.parseInt(params[1]);
-		movesWithTime = Boolean.parseBoolean(params[2]);
-		myBezierTime = Double.parseDouble(params[3]);
-		reachedEndOfPath = false;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
 	public double getBezierTime() {
 		return myBezierTime;
 	}
@@ -118,6 +105,18 @@ public class PathComponent extends Component {
 	 */
 	public void setReachedEndOfPath(boolean bool) {
 		reachedEndOfPath = bool;
+	}	
+	
+	@Override
+	public String getComponentInfo() {
+		return "PathID:" + pathID;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("PathID")) {
+			this.pathID = Integer.parseInt(data);
+		}
 	}
 
 }
