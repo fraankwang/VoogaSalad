@@ -24,14 +24,8 @@ import utility.GameCapture;
 public class EngineView {
 
 	/*
-	 * TODO: Fix size of overall window- DONE Add menu bar- DONE Fix aspect
-	 * ratio of game player- DONE Background Image- DONE Load in shop info Load
-	 * in stat info General game state info- mode level etc.
-	 * 
 	 * Future Big Items: Dynamic window resizing- make EVERYTHING relative and
-	 * in terms of ratios Resizing/rearranging Panes Add game recorder
-	 * functionality as an add-on
-	 * 
+	 * in terms of ratios Resizing/rearranging Panes 
 	 */
 	public static final String DEFAULT_RESOURCE = "engine/resources/engine_window";
 	private ResourceBundle myResources;

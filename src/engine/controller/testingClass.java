@@ -12,16 +12,16 @@ import engine.backend.components.FiringComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
-import engine.backend.components.MultiDirectionalFiringComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
-import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
+import engine.backend.game_features.GameShop;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -29,7 +29,6 @@ import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 import engine.backend.rules.EntityAction;
-import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 
 public class testingClass {
@@ -177,6 +176,11 @@ public class testingClass {
 		tempEntity.addComponent(tempHealth);
 		tempEntity.addComponent(pathComp);
 		
+		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
+		GameShop shop = new GameShop();
+		shop.addItem("tempEntity2", "DrumpfVader.png", 30);
+		
+		level.setShopItems(Arrays.asList(item));
 		
 		IEntity tempEntity2 = new Entity(-1, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);

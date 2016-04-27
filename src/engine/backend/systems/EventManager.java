@@ -59,6 +59,7 @@ public class EventManager implements Observer{
 	public void updateGameShop() {
 		myGameShop.setShopItems(getCurrentLevel().getShopItems());
 		myGameShop.updateShop(currentModeStatistics.getCurrentResources());
+		System.out.println("fdjkafdja");
 		myEngineController.updateShop(myGameShop.getShopItems());
 	}
 
