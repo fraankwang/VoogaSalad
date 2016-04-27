@@ -83,6 +83,7 @@ public class SystemsController {
 	public void iterateThroughSystems(Level level) {
 		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
 		//go through systems, update stuff and gather events
+		updateEntityFactory();
 		for (ISystem system : mySystems) {
 			system.update(myEventManager.getCurrentLevel(), myEventMap, myEntityFactory, myGameClock.getCurrentSecond());
 		}
@@ -96,6 +97,15 @@ public class SystemsController {
 		//System.out.println(myEventManager.getModeStatistics().getCurrentNumLives());
 		//System.out.println(myGameClock.getCurrentSecond());
 		myGameClock.updateLoopIteration();
+	}
+	
+	private void updateEntityFactory(){
+		if(myEntityFactory.isCurrent(myEventManager.getCurrentLevel().getIndex())){
+			return;
+		}
+		myEntityFactory.setEntities(myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEntityFactory.setID(myEventManager.getCurrentLevel().getIndex());
+		return;
 	}
 
 }

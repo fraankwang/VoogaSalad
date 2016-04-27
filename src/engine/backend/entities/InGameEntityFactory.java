@@ -16,6 +16,7 @@ public class InGameEntityFactory {
 
 	private GameStatistics myStats;
 	private Map<String, Map<String, IEntity>> myEntityMap;
+	private int currentLevelId;
 
 	public InGameEntityFactory(GameStatistics stats, List<IEntity> entities) {
 		this.myStats = stats;
@@ -100,6 +101,18 @@ public class InGameEntityFactory {
 		// System.out.println(e.getStackTrace());
 		// return null;
 		// }
+	}
+	
+	public boolean isCurrent(int id){
+		return this.currentLevelId == id;
+	}
+	
+	public void setEntities(List<IEntity> entities){
+		this.myEntityMap = createMap(entities);
+	}
+	
+	public void setID(int id){
+		this.currentLevelId = id;
 	}
 
 }
