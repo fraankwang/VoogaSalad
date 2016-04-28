@@ -101,13 +101,11 @@ public class SpawningSystem extends GameSystem {
 	}
 		
 	private IEvent getWaveOverEvent(){
-		IEvent event = new WaveOverEvent();
-		return event;
+		return new WaveOverEvent();
 	}
 
 	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
-		AddEntityEvent event = new AddEntityEvent(newEntities);
-		return event;
+		return new AddEntityEvent(newEntities);
 	}
 	
 	private void sendEvent(IEvent event){

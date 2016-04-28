@@ -165,7 +165,7 @@ public class EngineController implements IEngineController{
 	
 	public void nextWaveClicked() {
 		NextWaveEvent nextWaveEvent = new NextWaveEvent();
-		myEventManager.handleNextWaveEvent(nextWaveEvent);
+		myEventManager.handleNextWaveEvent(nextWaveEvent);	
 	}
 	
 	public void nextLevelClicked() {
@@ -178,7 +178,7 @@ public class EngineController implements IEngineController{
 		myEngineView.getStatusPane().getControlManager().switchModeEnable();
 	}
 	
-	public void levelIsOver(){
+	public void levelIsOver(boolean won){
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 		myEngineView.getStatusPane().getControlManager().switchModeEnable();
 	}

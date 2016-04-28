@@ -1,17 +1,13 @@
 package engine.backend.systems.Events;
 
-public class NextWaveEvent implements IEvent{
-	
-	public NextWaveEvent(){
-		
+public class NextWaveEvent implements IEvent {
+
+	public NextWaveEvent() {
 	}
-	
+
 	@Override
 	public String getEventID() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getClass().getSimpleName();
 	}
-	
-	
-	
+
 }

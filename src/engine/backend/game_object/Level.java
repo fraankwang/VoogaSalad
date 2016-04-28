@@ -69,14 +69,27 @@ public class Level {
 		return myName;
 	}
 	
+	/**
+	 * 
+	 * @return A list of Rule objects that has the rules for the level.
+	 */
 	public List<Rule> getRuleAgenda(){
 		return ruleAgenda;
 	}
 	
+	/**
+	 * Sets the rules for the level.	
+	 * @param rules
+	 */
 	public void setRuleAgenda(List<Rule> rules){
 		ruleAgenda = rules;
 	}
 	
+	/**
+	 * Adds an action to the event map.
+	 * @param eventID
+	 * @param actions
+	 */
 	public void addActionToEventMap(String eventID, List<EntityAction> actions) {
 		myEventMap.put(eventID, actions);
 	}
@@ -125,9 +138,7 @@ public class Level {
 	}
 
 	public void removeEntites(Collection<IEntity> entitiesToRemove){
-		for(IEntity entity : entitiesToRemove){
-			entities.remove(entity.getID());
-		}
+		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
 	public IEntity getEntityWithID(int entityID) {
@@ -184,12 +195,10 @@ public class Level {
 	}
 
 	public void setAuthoredEntities(List<IEntity> authoredEntities) {
-		// TODO Auto-generated method stub
 		this.authoredEntities = authoredEntities;
 	}
 
 	public boolean sendNextWave() {
-		// TODO Auto-generated method stub
 		return sendNextWave;
 	}
 	

@@ -118,11 +118,6 @@ public class FiringSystem extends GameSystem {
 
 	}
 
-	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
-		AddEntityEvent event = new AddEntityEvent(newEntities);
-		return event;
-	}
-
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, IEntity targetEntity, InGameEntityFactory myEntityFactory){
 
 		IEntity ammoEntity = myEntityFactory.createEntity(entityName);

@@ -8,5 +8,5 @@ public interface IEngineController {
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show);
 	public void updateShop(List<ShopItem> shoplist);
 	public void waveIsOver();
-	public void levelIsOver();
+	public void levelIsOver(boolean won);
 }
