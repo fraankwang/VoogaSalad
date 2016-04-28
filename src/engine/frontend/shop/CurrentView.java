@@ -93,7 +93,7 @@ public class CurrentView implements Observer {
 				myImageView.setImage(new Image(statMap.get("Image")));
 				myImageName = statMap.get("Image");
 			} else if (showMap.get(s)){
-				stats.add(myResources.getString(s) + ": " + statMap.get(s));
+//				stats.add(myResources.getString(s) + ": " + statMap.get(s));
 			}
 		}
 	}

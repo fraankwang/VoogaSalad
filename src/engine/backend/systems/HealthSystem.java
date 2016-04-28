@@ -37,7 +37,6 @@ public class HealthSystem extends GameSystem {
 				addToEventMap(myEventMap, getDeathEvent(entity), Arrays.asList(entity));
 				continue;
 			}
-			
 			if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
 				addToEventMap(myEventMap, getCriticalHealthEvent(entity), entity);
 				continue;

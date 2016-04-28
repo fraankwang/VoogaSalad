@@ -1,12 +1,9 @@
 package engine.backend.systems;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 
-import engine.backend.components.DisplayComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
@@ -35,7 +32,6 @@ public class MobilizeSystem extends GameSystem{
 			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
 			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
-
 				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
 				addToEventMap(myEventMap, updatePositionOnPath(entity, posComponent, movComponent, pathComponent,
 						myLevel.getMap().getPath(pathComponent.getPathID())), entity);
@@ -45,44 +41,6 @@ public class MobilizeSystem extends GameSystem{
 			updateRotation(movComponent);
 			entity.setHasBeenModified(true);
 		}
-					   
-//		for (IEntity entity : entities) {
-//
-//			if (!entity.hasComponent(ComponentTagResources.movementComponentTag)) {
-//				continue;
-//			}
-//
-//			MovementComponent movComponent = (MovementComponent) entity
-//					.getComponent(ComponentTagResources.movementComponentTag);
-//			PositionComponent posComponent = (PositionComponent) entity
-//					.getComponent(ComponentTagResources.positionComponentTag);
-//
-//			IEvent event;
-//
-//			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
-//
-//				PathComponent pathComponent = (PathComponent) entity
-//						.getComponent(ComponentTagResources.pathComponentTag);
-//				// if on path
-//				event = updatePositionOnPath(entity, posComponent, movComponent, pathComponent,
-//						myLevel.getMap().getPath(pathComponent.getPathID()));
-//
-//			} else {
-//
-//				event = updatePosition(entity, posComponent, movComponent, myLevel.getMap());
-//
-//			}
-//
-//			if (event != null) {
-//				addToEventMap(myEventMap, event, Arrays.asList(entity));
-//			}
-//
-//			updateRotation(movComponent);
-//
-//			entity.setHasBeenModified(true);
-//
-//		}
-
 	}
 	
 	
