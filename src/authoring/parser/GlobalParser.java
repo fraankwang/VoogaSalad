@@ -61,8 +61,12 @@ public class GlobalParser {
 		}
 	}
 
-	public static Map<String, String> parseSpawnEntities(String spawnEntities) {
-		TreeMap<String, String> spawnEntitiesMap = new TreeMap<String, String>();
+
+	public static Map<String, String[]> parseSpawnEntities(String spawnEntities) {
+		TreeMap<String, String[]> spawnEntitiesMap = new TreeMap<String, String[]>();
+		
+		if (spawnEntities == null) return null;
+		
 		if (spawnEntities.equals("")) {
 			return spawnEntitiesMap;
 		}
@@ -72,11 +76,9 @@ public class GlobalParser {
 			String[] pathSplit = entity.split(":");
 			String pathID = pathSplit[0];
 			String spawnObjects = pathSplit[1];
-			String[] spawnObjectsSplit = spawnObjects.split("_");
-			for (String spawn : spawnObjectsSplit) {
-				spawnEntitiesMap.put(pathID, spawn);
 
-			}
+			String[] spawnObjectsSplit = spawnObjects.split("_");
+			spawnEntitiesMap.put(pathID, spawnObjectsSplit);
 
 		}
 
@@ -101,27 +103,27 @@ public class GlobalParser {
 		}
 
 		for (String id : myIDs) {
+
 			String pathString = new String(id + ":");
 			for (String tag : map.keySet()) {
 				String[] split = tag.split(":");
 				String currentID = split[0];
 				if (currentID.equals(id)) {
-					String name = split[1];
-					String wave = split[2];
 					SpawnEntityRow row = map.get(tag);
+					String name = row.getMyName().getText();
+					String wave = row.getMyWaveOrder().getText();
 					String number = row.getMyNumber().getText();
 					String rate = row.getMyRate().getText();
-					String entityObject = new String(name + "." + wave + "." + number + "." + rate + "_");
-					pathString = pathString + entityObject;
+					String entityObject = name + "." + wave + "." + number + "." + rate + "_";
+					pathString += entityObject;
 				}
 
 			}
-			pathString = pathString.substring(0, pathString.length() - 1);
-			result = result + pathString + ",";
+			String completePath = pathString.substring(0, pathString.length() - 1);
+			result = result + completePath + ",";
 		}
 
 		result = result.substring(0, result.length() - 1);
-
 		return result;
 	}
 

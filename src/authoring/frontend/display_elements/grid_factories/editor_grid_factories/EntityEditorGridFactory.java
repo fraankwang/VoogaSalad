@@ -34,18 +34,14 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		EditorViewPanel editorView = new EditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
-		editorView.setImage(new Image("question_mark.png")); // set default
+		editorView.setImage(new Image("images/question_mark.png")); // set default
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
-			File imageFile = fileChooser.showOpenDialog(null);
-			if (imageFile != null) {
-				editorView.setImage(new Image(imageFile.toURI().toString()));
-				((ModifiableAttributesPanel) myEditorGrid.getAttributesPanel())
-						.updateImageComponent(imageFile.getName());
-			}
+			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();
+			System.out.println(newImage);
+			editorView.setImage(new Image(newImage));
+			((ModifiableAttributesPanel) myEditorGrid.getAttributesPanel())
+					.updateImageComponent(newImage);
 		});
 		return editorView;
 	}

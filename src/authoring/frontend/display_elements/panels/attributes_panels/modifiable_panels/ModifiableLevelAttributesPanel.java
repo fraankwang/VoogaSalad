@@ -7,8 +7,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.editor_features.SpawnEntityRow;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import authoring.parser.GlobalParser;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -66,6 +69,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myWaves.add("1");
 		myMaxWave = 1;
 		mySpawnEntitiesInputMap = new TreeMap<String, SpawnEntityRow>();
+
 	}
 
 	@Override
@@ -86,7 +90,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAttributesGridPane = createAttributesGridPane();
 		mySpawnEntitiesGridPane = assembleEmptySpawnEntitiesGridPane();
 		mySpawnEntitiesGridPane.setMaxWidth(50);
-		
+
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(mySpawnEntitiesGridPane);
 
@@ -169,9 +173,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			}
 		});
 
-		myAttributesGridPane.add(myEntitySelector, 0, myAttributes.size());
-		myAttributesGridPane.add(myWaveSelector, 1, myAttributes.size());
-		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size() + 1);
+		myAttributesGridPane.add(new Label("Create waves of entities:"), 0, myAttributes.size());
+		myAttributesGridPane.add(myEntitySelector, 0, myAttributes.size() + 1);
+		myAttributesGridPane.add(myWaveSelector, 1, myAttributes.size() + 1);
+		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size() + 2);
 	}
 
 	private void linkRow(SpawnEntityRow row) {
@@ -213,20 +218,58 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image) {
-		myAttributesMap.replace("MapBackgroundImage", image);
+	public void updateImageComponent(String imageName) {
+		myAttributesMap.replace("MapBackgroundImage", imageName);
 		TextField tf = (TextField) myInputMap.get("MapBackgroundImage");
-		tf.setText(image);
+		tf.setText(imageName);
 		tf.setEditable(false);
 		myInputMap.replace("MapBackgroundImage", tf);
+		preserveMapRatio();
 		refreshAttributeInputRows();
+	}
+	
+	private void preserveMapRatio() {
+		ImageView iv = ((EditorViewPanel) myController.getAuthoringViewManager().getTabBarElement().getLevelsTabDisplay()
+				.getEditor().getEditorGrid().getPrimaryDisplay()).getImage();
+		iv.setPreserveRatio(true);
+		double mapRatio = (iv.getImage().getHeight() / iv.getImage().getWidth());
+		myInputMap.replace("MapHeight", new TextField(Double.toString(iv.getImage().getHeight())));
+		myInputMap.replace("MapWidth", new TextField(Double.toString(iv.getImage().getWidth())));
+		iv.setFitHeight(iv.getImage().getHeight());
+		iv.setFitWidth(iv.getImage().getWidth());
+		
+		((TextField) myInputMap.get("MapWidth")).textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue != null) {
+					if (myInputMap.get("MapWidth").isFocused()) {
+						((TextField) myInputMap.get("MapHeight")).setText(Double.toString(
+								Double.parseDouble(newValue) * mapRatio));
+					}
+					iv.setFitWidth(Double.parseDouble(newValue));
+				}
+			}
+		});
+		
+		((TextField) myInputMap.get("MapHeight")).textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue != null) {
+					if (myInputMap.get("MapHeight").isFocused()) {
+						((TextField) myInputMap.get("MapWidth")).setText(Double.toString(
+								Double.parseDouble(newValue) / mapRatio));
+					}
+					iv.setFitHeight(Double.parseDouble(newValue));
+				}
+			}
+		});
 	}
 
 	@Override
 	public void updateAttributes(Map<String, String> info) {
 		super.updateAttributes(info);
 		myAttributes.remove("SpawnEntities");
-		
+
 		myInputMap = new TreeMap<String, Control>();
 
 		for (String attribute : LEVEL_ATTRIBUTES) {
@@ -234,7 +277,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			myInputMap.put(attribute, tf);
 
 		}
-
+		
 		if (myAttributesMap.get("SpawnEntities") != null) {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
 		}
@@ -249,16 +292,14 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	 * @param map
 	 */
 	private void updateSpawnEntitiesData(String compressed) {
-		System.out.println("ModLevelAttr: updating inputmap with compressed: ");
-		System.out.println(compressed);
-		
 		mySpawnEntitiesInputMap = new TreeMap<String, SpawnEntityRow>();
 
 		String[] pathIDs = compressed.split(",");
 		for (String pathID : pathIDs) {
-			String[] spawnObjects = pathID.split(" ");
+			String path = pathID.split(":")[0];
+			String[] spawnObjects = pathID.split(":")[1].split(("_"));
 			for (String spawn : spawnObjects) {
-				String[] components = spawn.split(".");
+				String[] components = spawn.split("\\.");
 				String name = components[0];
 				String imagePath = myEntities.get(name);
 				ImageView newImage = new ImageView(new Image(imagePath));
@@ -266,7 +307,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				String number = components[2];
 				String rate = components[3];
 				String tag = pathID + ":" + name + ":" + wave;
-				mySpawnEntitiesInputMap.put(tag, new SpawnEntityRow(tag, pathID, name, newImage, number, wave, rate));
+				mySpawnEntitiesInputMap.put(tag, new SpawnEntityRow(tag, path, name, newImage, number, wave, rate));
 
 			}
 		}
@@ -287,13 +328,13 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		}
 
 		mySpawnEntitiesCompressed = GlobalParser.spawnCompress(mySpawnEntitiesInputMap);
-		
+
 		if (!myAttributesMap.containsKey("SpawnEntities")) {
 			myAttributesMap.put("SpawnEntities", mySpawnEntitiesCompressed);
 		} else {
 			myAttributesMap.replace("SpawnEntities", mySpawnEntitiesCompressed);
 		}
-		
+
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
@@ -303,10 +344,18 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	protected void refreshAttributes() {
 
 		myAttributes.remove("SpawnEntities");
+		preserveMapRatio();
 
+		
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
 				if (myInputMap.get(myAttributes.get(i)) instanceof TextField) {
+					if (myAttributes.get(i).equals("MapBackgroundImage")) {
+						if (myAttributesMap.get(myAttributes.get(i)) == null) {
+							myInputMap.replace(myAttributes.get(i), new TextField("images/question_mark.png"));
+							continue;
+						}
+					}
 					TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
 					tf.setText(myAttributesMap.get(myAttributes.get(i)));
 					tf.setEditable(true);
@@ -322,6 +371,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			}
 
 		}
+		
 		refreshAttributeInputRows();
 
 	}

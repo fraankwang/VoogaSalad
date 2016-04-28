@@ -3,7 +3,6 @@ package authoring.frontend.display_elements.panels.attributes_panels.modifiable_
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 
@@ -47,7 +46,7 @@ public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image) {
+	public void updateImageComponent(String imageName) {
 		//update
 	}
 }

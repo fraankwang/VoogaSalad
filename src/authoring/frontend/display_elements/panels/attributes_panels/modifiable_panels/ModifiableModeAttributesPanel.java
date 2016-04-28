@@ -138,7 +138,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image) {
+	public void updateImageComponent(String imageName) {
 		// null because no image component?
 	}
 

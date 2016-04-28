@@ -53,4 +53,8 @@ public abstract class TabDisplay implements ITabDisplay {
 	public abstract Map<String, String> getDefaultAttributesMap();
 
 	public abstract void initializeHotKeys();
+
+	public EditorDisplay getEditor() {
+		return myEditorDisplay;
+	}
 }

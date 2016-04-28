@@ -62,10 +62,10 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	}
 
 	@Override
-	public void updateImageComponent(String image) {
-		myAttributesMap.replace("DisplayComponent_Image", image);
+	public void updateImageComponent(String imageName) {
+		myAttributesMap.replace("DisplayComponent_Image", imageName);
 		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
-		tf.setText(image);
+		tf.setText(imageName);
 		tf.setEditable(false);
 		myInputMap.replace("DisplayComponent_Image", tf);
 		refreshAttributeInputRows();

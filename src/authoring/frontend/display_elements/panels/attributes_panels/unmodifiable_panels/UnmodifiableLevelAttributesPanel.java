@@ -110,13 +110,9 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 				"*****7. UnmodifiableLevelAttributesPanel: Levels display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
-		mySpawnEntitiesGridPane.getChildren().clear();
-
 		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
-				(TreeMap<String, String>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
+				(TreeMap<String, String[]>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
 
-		myAttributesMap.remove("SpawnEntities");
-		
 		for (String currentAttribute : myAttributesMap.keySet()) {
 			if (myOutputMap.containsKey(currentAttribute)) {
 				TextField tf = (TextField) myOutputMap.get(currentAttribute);
@@ -135,7 +131,6 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 		}
 
-		
 		refreshRows();
 		myGridPane.getChildren().clear();
 		assembleComponents();
@@ -147,8 +142,9 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	 * @param gridPane
 	 * @param map
 	 */
-	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String> map) {
-		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
+	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String[]> map) {
+		gridPane.getChildren().clear();
+		addColumnNames(COLUMN_NAMES, gridPane);
 
 		int row = 1;
 		for (String pathID : map.keySet()) {
@@ -156,18 +152,25 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 			ID.setFont(new Font(FONT_SIZE));
 
 			gridPane.add(ID, 0, row);
-			String compressed = map.get(pathID);
-			String[] components = compressed.split(".");
-			int column = 1;
-			for (String component : components) {
-				Label text = new Label(component);
-				text.setFont(new Font(FONT_SIZE));
-				gridPane.add(text, column, row);
-				column++;
+			String[] spawnObjects = map.get(pathID);
+			for (String spawn : spawnObjects) {
+				String[] components = spawn.split("\\.");
+
+				int column = 1;
+				for (String component : components) {
+					Label text = new Label(component);
+					text.setFont(new Font(FONT_SIZE));
+					gridPane.add(text, column, row);
+					column++;
+				}
+				
+				row++;
 			}
 
 			row++;
 		}
+		row = 1;
+		
 	}
 
 	@Override
