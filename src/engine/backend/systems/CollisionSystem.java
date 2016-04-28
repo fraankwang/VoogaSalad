@@ -32,29 +32,6 @@ public class CollisionSystem extends GameSystem{
     				entitySet.add(entity2);
     				addToEventMap(myEventMap, event, entitySet);
     			}));
-//    	for(IEntity entity1 : entities){
-//    		if(!entity1.hasComponent(ComponentTagResources.collisionComponentTag)){
-//    			continue;
-//    		}
-//    		
-//    		for(IEntity entity2 : entities){
-//    			
-//    			if(!entity1.hasComponent(ComponentTagResources.collisionComponentTag) || entity2.equals(entity1)){
-//        			continue;
-//        		}
-//    			
-//    			if(checkIntersection(entity1, entity2)){
-//    				IEvent event = getCollisionEvent(entity1, entity2);
-//    				Set<IEntity> entitySet = new HashSet<IEntity>();
-//    				entitySet.add(entity1);
-//    				entitySet.add(entity2);
-//    				addToEventMap(myEventMap, event, entitySet);
-//    			}
-//    			
-//    		}
-//    		
-//    	}
-    	
     }
     
 	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){

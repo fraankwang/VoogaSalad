@@ -30,43 +30,58 @@ public class MobilizeSystem extends GameSystem{
 	
 	@Override
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
-
-		Collection<IEntity> entities = myLevel.getEntities().values();
-		for(IEntity entity : entities){
-			
-			if(!entity.hasComponent(ComponentTagResources.movementComponentTag)){
-				continue;
-			}
-			
+		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.movementComponentTag);
+		for (IEntity entity : movableEntities) {
 			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
 			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
-			
-			IEvent event;
-			
-			if(entity.hasComponent(ComponentTagResources.pathComponentTag)){
-				
-				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
-				//if on path
-				event = updatePositionOnPath(entity, posComponent, movComponent, pathComponent, myLevel.getMap().getPath(pathComponent.getPathID()));
+			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
 
+				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
+				addToEventMap(myEventMap, updatePositionOnPath(entity, posComponent, movComponent, pathComponent,
+						myLevel.getMap().getPath(pathComponent.getPathID())), entity);
+			} else {
+				addToEventMap(myEventMap, updatePosition(entity, posComponent, movComponent, myLevel.getMap()), entity);
 			}
-			else{
-				
-				event = updatePosition(entity, posComponent, movComponent, myLevel.getMap());
-				
-				
-				
-			}
-			
-			if(event != null){
-				addToEventMap(myEventMap, event, Arrays.asList(entity));
-			}
-			
 			updateRotation(movComponent);
-			
 			entity.setHasBeenModified(true);
-			
 		}
+					   
+//		for (IEntity entity : entities) {
+//
+//			if (!entity.hasComponent(ComponentTagResources.movementComponentTag)) {
+//				continue;
+//			}
+//
+//			MovementComponent movComponent = (MovementComponent) entity
+//					.getComponent(ComponentTagResources.movementComponentTag);
+//			PositionComponent posComponent = (PositionComponent) entity
+//					.getComponent(ComponentTagResources.positionComponentTag);
+//
+//			IEvent event;
+//
+//			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
+//
+//				PathComponent pathComponent = (PathComponent) entity
+//						.getComponent(ComponentTagResources.pathComponentTag);
+//				// if on path
+//				event = updatePositionOnPath(entity, posComponent, movComponent, pathComponent,
+//						myLevel.getMap().getPath(pathComponent.getPathID()));
+//
+//			} else {
+//
+//				event = updatePosition(entity, posComponent, movComponent, myLevel.getMap());
+//
+//			}
+//
+//			if (event != null) {
+//				addToEventMap(myEventMap, event, Arrays.asList(entity));
+//			}
+//
+//			updateRotation(movComponent);
+//
+//			entity.setHasBeenModified(true);
+//
+//		}
 
 	}
 	
