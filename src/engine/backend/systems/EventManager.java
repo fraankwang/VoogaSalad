@@ -126,9 +126,14 @@ public class EventManager implements Observer {
 	/**
 	 * Handles when a level has been selected.
 	 * @param Level
+	 * @throws IOException 
 	 */
-	public void handleLevelClickedEvent(int level) {
+	public void handleLevelClickedEvent(int level) throws IOException {
 		currentModeStatistics.setCurrentLevelIndex(level);
+		serializeLevel(
+				myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
+						currentModeStatistics.getCurrentLevelIndex()),
+				myGameWorld.getGameType() + currentModeStatistics.getCurrentLevelIndex());
 	}
 	
 	/**
