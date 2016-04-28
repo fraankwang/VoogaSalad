@@ -5,6 +5,7 @@ import java.util.Map;
 
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_features.HUDValueFinder;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.GameStatistics;
@@ -24,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 import utility.GameCapture;
+import voogasalad.util.hud.source.HUDController;
 
 public class EngineController implements IEngineController{
 	private Stage myStage;
@@ -63,7 +65,7 @@ public class EngineController implements IEngineController{
 		GameStatistics stats = new GameStatistics(10, 10);
 		myGameWorld.setGameStatistics(stats);
 		myEventManager = new EventManager(this, myGameWorld);
-		
+		setupHUD();
 		StartView myStartView = new StartView(this);
 		myStage.setScene(myStartView.buildScene());
 		myStage.show();
@@ -84,6 +86,11 @@ public class EngineController implements IEngineController{
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
+	}
+	
+	private void setupHUD(){
+		HUDController HUD = new HUDController();
+		HUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
 	}
 
 	private void buildStage(){
