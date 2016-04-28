@@ -46,8 +46,6 @@ public class SpawningSystem extends GameSystem {
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		
-		
-		
 		for(IEntity entity : entities){
 			
 			if(!entity.hasComponent(ComponentTagResources.spawnerComponentTag)){
