@@ -1,7 +1,5 @@
 package engine.frontend.status;
 
-import java.util.ResourceBundle;
-
 import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
@@ -12,20 +10,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-/*
- * Todos:
- * Add button enabling based on current game status
- */
-
 public class StatusPane extends AbstractPane{
-	public static final String DEFAULT_RESOURCE = "engine/frontend/status/statuspane";
-	private ResourceBundle myResources;
+	public static final String DEFAULT_RESOURCE = "status";
 	
 	private ControlManager myControlManager;
 
 	public StatusPane(EngineView ev){
-		super(ev);
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
+		super(ev, DEFAULT_RESOURCE);
 		myControlManager = new ControlManager(this);
 	}
 	
@@ -43,9 +34,9 @@ public class StatusPane extends AbstractPane{
 	private VBox buildRecordControls(){
 		VBox vbox = new VBox();
 		
-		Button record = createButton(myResources.getString("RecordLabel"));
-		Button stop = createButton(myResources.getString("StopRecordLabel"));
-		Button picture = createButton(myResources.getString("PictureLabel"));
+		Button record = createButton(loadStringResource("RecordLabel"));
+		Button stop = createButton(loadStringResource("StopRecordLabel"));
+		Button picture = createButton(loadStringResource("PictureLabel"));
 		
 		record.setOnAction(e -> {
 			myEngineView.getGameCapture().startCapture();
@@ -83,10 +74,6 @@ public class StatusPane extends AbstractPane{
 	
 	private Node buildStatDisplay(String name){
 		return null;
-	}
-	
-	public ResourceBundle getMyResources(){
-		return myResources;
 	}
 	
 	public Pane getPane(){

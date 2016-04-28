@@ -1,13 +1,10 @@
 package engine.frontend.overall;
 
-import java.util.ResourceBundle;
-
 import engine.controller.EngineController;
 import engine.frontend.board.BoardPane;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
-import javafx.beans.binding.DoubleExpression;
 import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
@@ -21,7 +18,7 @@ import javafx.stage.Stage;
 import main.Main;
 import utility.GameCapture;
 
-public class EngineView {
+public class EngineView extends ResourceUser{
 
 	/*
 	 * Future Big Items: Dynamic window resizing- make EVERYTHING relative and
@@ -31,13 +28,12 @@ public class EngineView {
 	 *  While things are paused, do not allow towers to be placed
 	 *  Fix the gameplay cycle with scenes moving around
 	 */
-	public static final String DEFAULT_RESOURCE = "engine/resources/engine_window";
-	private ResourceBundle myResources;
+	public static final String RESOURCE_NAME = "engine_window";
+	
 	private Stage myStage;
 	private Scene myScene;
 
 	private EngineController myController;
-
 	private MenubarManager myMenubarManager;
 
 	private BorderPane myBorderPane;
@@ -50,13 +46,14 @@ public class EngineView {
 	private DoubleExpression scalingFactor;
 	
 	public EngineView(Stage s, EngineController c) {
+		super(RESOURCE_NAME);
 		myStage = s;
 		myController = c;		
 		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
 		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
+		
 		myDummyCursor = new DummyCursor(this);
 		scalingFactor = new SimpleDoubleProperty(1);
 	}
@@ -180,17 +177,5 @@ public class EngineView {
 	
 	public DoubleExpression getScalingFactor(){
 		return scalingFactor;
-	}
-
-	public int loadIntResource(String input) {
-		return Integer.parseInt(myResources.getString(input));
-	}
-
-	public double loadDoubleResource(String input) {
-		return Double.parseDouble(myResources.getString(input));
-	}
-
-	protected String loadUIStringResource(String input) {
-		return myResources.getString(input);
 	}
 }

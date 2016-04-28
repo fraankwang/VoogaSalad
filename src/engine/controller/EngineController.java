@@ -1,9 +1,7 @@
 package engine.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
@@ -14,6 +12,7 @@ import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
+import engine.frontend.overall.ResourceUser;
 import engine.frontend.overall.StartView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -25,7 +24,7 @@ import javafx.util.Duration;
 import main.Main;
 import utility.GameCapture;
 
-public class EngineController implements IEngineController{
+public class EngineController extends ResourceUser implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
 
@@ -36,6 +35,8 @@ public class EngineController implements IEngineController{
 	 * allow user to pick stuff, then recreate engineView and reshow new scene
 	 * ORGANIZE METHODS TO ALLOW FOR THIS  
 	 */
+	
+	private static final String RESOURCE_NAME = "stage";
 	
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean playing;
@@ -52,22 +53,40 @@ public class EngineController implements IEngineController{
 	private GameCapture myGameCapture;
 
 	public EngineController(Stage s, Main m) {
+		super(RESOURCE_NAME);
 		myStage = s;
 		myMain = m;
 	}
 	
 	public void start(){
 		myGameWorld = new GameWorld();
+		
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
+		
 		ModeStatistics stats = new ModeStatistics(10, 10);
 		myEventManager = new EventManager(this, myGameWorld, stats);
 		
+		initStage();
+		initStartView();
+	}
+	
+	private void initStage(){
+		myStage.setMinWidth(loadIntResource("StageMinWidth"));
+		myStage.setMinHeight(loadIntResource("StageMinHeight"));
+		myStage.setX(loadIntResource("StartX"));
+		myStage.setY(loadIntResource("StartY"));
+	}
+	
+	public void initStartView(){
 		StartView myStartView = new StartView(this);
 		myStage.setScene(myStartView.buildScene());
 		myStage.show();
 	}
 	
+	/**
+	 * Starts a game after the intial scene sets the stage and 
+	 */
 	public void startGame(){
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
 				myEventManager.getCurrentLevel().getAuthoredEntities());
@@ -75,32 +94,27 @@ public class EngineController implements IEngineController{
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		
+		initEngineView();	
+	}
+	
+	private void initEngineView(){
 		myEngineView = new EngineView(myStage, this);
-		buildStage();
-		
+		myStage.setScene(myEngineView.buildScene()); 
+		myStage.show();
+		setupGameCapture();
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-
-	private void buildStage(){
-		myStage.setMinWidth(myEngineView.loadIntResource("StageMinWidth"));
-		myStage.setMinHeight(myEngineView.loadIntResource("StageMinHeight"));
-		myStage.setX(myEngineView.loadIntResource("StartX"));
-		myStage.setY(myEngineView.loadIntResource("StartY"));
-		myStage.setScene(myEngineView.buildScene()); 
-		myStage.show();
-		setupGameCapture();
-	}
 	
 	private void setupGameCapture(){
 		myGameCapture = new GameCapture( 
-				myEngineView.loadIntResource("StartX"), 
-				myEngineView.loadIntResource("StartY"),
-				myEngineView.loadIntResource("StageMinWidth"),
-				myEngineView.loadIntResource("StageMinHeight"));
+				loadIntResource("StartX"), 
+				loadIntResource("StartY"),
+				loadIntResource("StageMinWidth"),
+				loadIntResource("StageMinHeight"));
 		
 		myStage.xProperty().addListener(new ChangeListener<Number>(){
 			@Override

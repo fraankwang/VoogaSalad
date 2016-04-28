@@ -7,6 +7,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 import engine.backend.entities.IEntity;
+import engine.frontend.overall.ResourceUser;
 import javafx.beans.binding.DoubleExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,10 +20,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-public class CurrentView implements Observer {
+public class CurrentView extends ResourceUser implements Observer{
 
-	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/statlabels";
-	private ResourceBundle myResources;
+	public static final String RESOURCE_NAME = "statlabels";
 	
 	private ShopPane myShopPane;
 
@@ -38,17 +38,17 @@ public class CurrentView implements Observer {
 	private boolean debug = true;
 	
 	public CurrentView(ShopPane sp) {
+		super(RESOURCE_NAME);
 		myShopPane = sp;
 		showMap = new HashMap<String, Boolean>(); 
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		if(!debug){
 			addDefaultShows(showMap);
 		}
 	}
 	
 	private void addDefaultShows(Map<String, Boolean> showMap){
-		String[] hides = myResources.getString("DefaultHides").split(",");
-		String[] shows = myResources.getString("DefaultShows").split(",");
+		String[] hides = loadStringArrayResource("DefaultHides", ",");
+		String[] shows = loadStringArrayResource("DefaultShows", ",");
 		for(String s: hides){
 			showMap.put(s, false);
 		}
@@ -93,7 +93,7 @@ public class CurrentView implements Observer {
 				myImageView.setImage(new Image(statMap.get("Image")));
 				myImageName = statMap.get("Image");
 			} else if (showMap.get(s)){
-				stats.add(myResources.getString(s) + ": " + statMap.get(s));
+				stats.add(loadStringResource(s) + ": " + statMap.get(s));
 			}
 		}
 	}
