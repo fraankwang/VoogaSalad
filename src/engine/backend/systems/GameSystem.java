@@ -42,7 +42,13 @@ public abstract class GameSystem extends Observable implements ISystem {
 			myEventMap.put(event.getEventID(), set);
 		}
 	}
-
+	
+	/**
+	 * Filters a collection by their component tag.
+	 * @param entities
+	 * @param tag
+	 * @return A list of IEntities that have the tag specified.
+	 */
 	public List<IEntity> getEntitiesWithTag(Collection<IEntity> entities, String tag) {
 		return entities.stream().filter(e -> e.hasComponent(tag)).collect(Collectors.toList());
 	}

@@ -180,7 +180,7 @@ public class EventManager implements Observer {
 		}
 	}
 
-	private void applyActions(Set<Integer> entityIDs, Collection<IAction> actions) {
+	private void applyActions(Collection<Integer> entityIDs, Collection<IAction> actions) {
 
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
