@@ -30,8 +30,8 @@ public class HealthSystem extends GameSystem {
 
 	@Override
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
-		Collection<IEntity> entities = myLevel.getEntities().values();
-		Collection<IEntity> applicableEntities = getEntitiesWithTag(entities, ComponentTagResources.healthComponentTag);
+//		Collection<IEntity> entities = myLevel.getEntities().values();
+		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.healthComponentTag);
 		for (IEntity entity : applicableEntities) {
 			HealthComponent healthComp = (HealthComponent) entity.getComponent(ComponentTagResources.healthComponentTag);
 			if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
