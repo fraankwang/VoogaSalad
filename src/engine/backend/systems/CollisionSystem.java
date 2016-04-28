@@ -33,7 +33,7 @@ public class CollisionSystem extends GameSystem{
     		
     		for(IEntity entity2 : entities){
     			
-    			if(!entity1.hasComponent(ComponentTagResources.collisionComponentTag) || entity2.equals(entity1)){
+    			if(!entity2.hasComponent(ComponentTagResources.collisionComponentTag) || entity2.equals(entity1)){
         			continue;
         		}
     			
@@ -52,7 +52,6 @@ public class CollisionSystem extends GameSystem{
     }
     
 	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){
-//		System.out.println("Collision Detected!");
 		CollisionEvent collisionEvent = new CollisionEvent(entity1.getID(), entity2.getID());
 		collisionEvent.setEventID(Arrays.asList(entity1.getName(), entity2.getName()));
 		return collisionEvent;
