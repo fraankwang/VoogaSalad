@@ -43,7 +43,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
-		editorView.setImage(new Image("images/question_mark.png")); // set default
+		editorView.setImage(new Image("resources/images/question_mark.png")); // set default
 																// image as
 																// question
 																// mark or
