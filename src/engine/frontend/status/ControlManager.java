@@ -31,7 +31,6 @@ public class ControlManager extends ResourceUser{
 		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"));
 		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"));
 		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"));
-		modeComboBox = new ComboBox<String>();
 		
 		play.setOnAction(e ->{
 			if(play.getText().equals(loadStringResource("PlayLabel"))){
@@ -55,20 +54,11 @@ public class ControlManager extends ResourceUser{
 			nextLevel.setDisable(true);
 		});
 		
-		modeComboBox.setDisable(true);
-		modeComboBox.setPromptText("Select Mode");
-		modeComboBox.getItems().addAll(myStatusPane.getEngineView().getEngineController().getGameWorld().getModes().keySet());
-		modeComboBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override 
-            public void changed(ObservableValue ov, String t, String t1) {
-                myStatusPane.getEngineView().getEngineController().getEventManager().getModeStatistics().setCurrentModeIndex(t1);
-                modeComboBox.setDisable(true);
-            }    
-        });
-		
-		modeComboBox.setMaxHeight(Double.MAX_VALUE);
-		modeComboBox.setMaxWidth(Double.MAX_VALUE);
-		VBox.setVgrow(modeComboBox, Priority.ALWAYS);
+		modeButton.setDisable(true);
+		modeButton.setOnAction(e ->{
+			myStatusPane.getEngineView().getEngineController().nextLevelClicked();
+			modeButton.setDisable(true);
+		});
 		
 		vbox.getChildren().addAll(play, nextWave, nextLevel, modeComboBox);
 		vbox.minWidthProperty().bind(myStatusPane.getPane().widthProperty().divide(4));
@@ -86,6 +76,4 @@ public class ControlManager extends ResourceUser{
 	public void switchModeEnable(){
 		modeComboBox.setDisable(false);
 	}
-	
-	
 }
