@@ -83,17 +83,13 @@ public class CurrentView extends ResourceUser implements Observer{
 	public void update(Observable o, Object arg) {
 		IEntity entity = (IEntity) o;
 		Map<String, String> statMap = entity.getStats().getStatsMap();
-		for(String s: statMap.keySet()){
-			if(!showMap.containsKey(s))
-				showMap.put(s, true);
-		}
 		stats.clear();
 		for (String s : statMap.keySet()) {
 			if (s.equals("Image") && !statMap.get("Image").equals(myImageName)) {
 				myImageView.setImage(new Image(statMap.get("Image")));
 				myImageName = statMap.get("Image");
 			} else if (showMap.get(s)){
-				stats.add(loadStringResource(s) + ": " + statMap.get(s));
+//				stats.add(loadStringResource(s) + ": " + statMap.get(s));
 			}
 		}
 	}

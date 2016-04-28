@@ -5,7 +5,9 @@ import engine.frontend.board.BoardPane;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
+import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleExpression;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -25,8 +27,6 @@ public class EngineView extends ResourceUser{
 	 * in terms of ratios Resizing/rearranging Panes
 	 * 
 	 *  Small todos:
-	 *  While things are paused, do not allow towers to be placed
-	 *  Fix the gameplay cycle with scenes moving around
 	 *  scale outgoing points
 	 *  scale fonts/sizes of buttons etc.
 	 *  lose screen
@@ -46,7 +46,7 @@ public class EngineView extends ResourceUser{
 	private StatusPane myStatusPane;
 	private DummyCursor myDummyCursor;
 
-	private DoubleExpression scalingFactor;
+	private DoubleProperty scalingFactor;
 	
 	public EngineView(Stage s, EngineController c) {
 		super(RESOURCE_NAME);
@@ -77,13 +77,8 @@ public class EngineView extends ResourceUser{
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
 
-		if (mapHeight.get() > mapWidth.get()) {
-			DoubleExpression usableHeight = getUsableBoardHeight();
-			scalingFactor = usableHeight.divide(mapHeight);
-		} else {
-			DoubleExpression usableWidth = getUsableBoardWidth();
-			scalingFactor = usableWidth.divide(mapWidth);
-		}
+		
+		scalingFactor.bind(Bindings.min(getUsableBoardHeight().divide(mapHeight), getUsableBoardWidth().divide(mapWidth)));
 		DoubleExpression boardWidth = mapWidth.multiply(scalingFactor);
 		DoubleExpression boardHeight = mapHeight.multiply(scalingFactor);
 		myBorderPane.setLeft(myBoardPane.buildNode(boardWidth, boardHeight));
@@ -103,7 +98,6 @@ public class EngineView extends ResourceUser{
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene && e.getDragboard().hasString()) {
 			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
-			// System.out.println(e.getSceneX());
 		}
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);

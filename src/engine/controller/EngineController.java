@@ -5,7 +5,7 @@ import java.util.List;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
-import engine.backend.game_object.ModeStatistics;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
@@ -86,8 +86,9 @@ public class EngineController extends ResourceUser implements IEngineController{
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		
-		ModeStatistics stats = new ModeStatistics(10, 10);
-		myEventManager = new EventManager(this, myGameWorld, stats);
+		GameStatistics stats = new GameStatistics(10, 10);
+		myGameWorld.setGameStatistics(stats);
+		myEventManager = new EventManager(this, myGameWorld);
 		
 		StartView myStartView = new StartView(this);
 		myStage.setScene(myStartView.buildScene());

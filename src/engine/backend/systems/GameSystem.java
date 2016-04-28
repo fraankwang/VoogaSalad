@@ -20,13 +20,7 @@ public abstract class GameSystem extends Observable implements ISystem {
 	 * @param entities
 	 */
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, Collection<IEntity> entities) {
-//		Set<Integer> myIDs = new HashSet<Integer>();
 		entities.forEach(e -> putEventInMap(myEventMap, event, e));
-//		if (myEventMap.containsKey(event.getEventID())) {
-//			myEventMap.get(event.getEventID()).addAll(myIDs);
-//		} else {
-//			myEventMap.put(event.getEventID(), myIDs);
-//		}
 	}
 	
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, IEntity entity) {
@@ -37,7 +31,9 @@ public abstract class GameSystem extends Observable implements ISystem {
 		if (myEventMap.containsKey(event.getEventID())) {
 			myEventMap.get(event.getEventID()).add(entity.getID());
 		} else {
-			myEventMap.put(event.getEventID(), new HashSet<Integer>(entity.getID()));
+			Set<Integer> set = new HashSet<Integer>();
+			set.add(entity.getID());
+			myEventMap.put(event.getEventID(), set);
 		}
 	}
 

@@ -26,10 +26,10 @@ public class ControlManager extends ResourceUser {
 	public VBox buildGameControls() {
 		VBox vbox = new VBox();
 
-		play = myStatusPane.createButton(loadStringResource("PlayLabel"));
-		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"));
-		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"));
-		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"));
+		play = myStatusPane.createButton(loadStringResource("PlayLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
+		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
+		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
+		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
 
 		play.setOnAction(e -> {
 			if (play.getText().equals(loadStringResource("PlayLabel"))) {
@@ -56,7 +56,8 @@ public class ControlManager extends ResourceUser {
 		modeButton.setOnAction(e -> myStatusPane.getEngineView().getEngineController().switchModeClicked());
 
 		vbox.getChildren().addAll(play, nextWave, nextLevel, modeButton);
-		vbox.minWidthProperty().bind(myStatusPane.getPane().widthProperty().divide(4));
+		myStatusPane.bindWidth(vbox, myStatusPane.getPane().widthProperty().divide(4));
+		myStatusPane.bindHeight(vbox, myStatusPane.getPane().heightProperty());
 		return vbox;
 	}
 
