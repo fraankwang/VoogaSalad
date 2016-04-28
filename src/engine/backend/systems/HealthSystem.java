@@ -30,39 +30,20 @@ public class HealthSystem extends GameSystem {
 
 	@Override
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
-//		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.healthComponentTag);
 		for (IEntity entity : applicableEntities) {
 			HealthComponent healthComp = (HealthComponent) entity.getComponent(ComponentTagResources.healthComponentTag);
+			if(healthComp.getHealth() <= 0){
+				addToEventMap(myEventMap, getDeathEvent(entity), Arrays.asList(entity));
+				continue;
+			}
+			
 			if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
-				//IEvent event = getDeathEvent(entity); 
 				addToEventMap(myEventMap, getCriticalHealthEvent(entity), entity);
 				continue;
 			}
 			
-			if(healthComp.getHealth() <= 0){
-				//IEvent event = getCriticalHealthEvent(entity);
-				addToEventMap(myEventMap, getDeathEvent(entity), Arrays.asList(entity));
-				continue;
-			}
 		}
-//		for(IEntity entity : entities){
-//			if(entity.hasComponent(ComponentTagResources.healthComponentTag)){
-//				HealthComponent healthComp = (HealthComponent) entity.getComponent(ComponentTagResources.healthComponentTag);
-//				
-//				if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
-//					IEvent event = getDeathEvent(entity); 
-//					addToEventMap(myEventMap, event, Arrays.asList(entity));
-//					continue;
-//				}
-//				
-//				if(healthComp.getHealth() <= 0){
-//					IEvent event = getCriticalHealthEvent(entity);
-//					addToEventMap(myEventMap, event, Arrays.asList(entity));
-//					continue;
-//				}
-//			}
-//		}
 	}
 
 	private IEvent getDeathEvent(IEntity entity){
