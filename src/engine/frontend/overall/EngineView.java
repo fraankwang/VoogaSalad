@@ -25,7 +25,11 @@ public class EngineView {
 
 	/*
 	 * Future Big Items: Dynamic window resizing- make EVERYTHING relative and
-	 * in terms of ratios Resizing/rearranging Panes 
+	 * in terms of ratios Resizing/rearranging Panes
+	 * 
+	 *  Small todos:
+	 *  While things are paused, do not allow towers to be placed
+	 *  Fix the gameplay cycle with scenes moving around
 	 */
 	public static final String DEFAULT_RESOURCE = "engine/resources/engine_window";
 	private ResourceBundle myResources;
@@ -63,7 +67,6 @@ public class EngineView {
 	 * @return
 	 */
 	public Scene buildScene() {
-
 		myBorderPane = new BorderPane();
 		myScene = new Scene(myBorderPane, Color.WHITE);
 		myMenuBar = myMenubarManager.buildMenuBar();

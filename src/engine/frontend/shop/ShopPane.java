@@ -5,7 +5,8 @@ import java.util.HashMap;
  * @author HaydenBader
  */
 import java.util.List;
-import java.util.Map;
+
+import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
 import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
@@ -20,7 +21,6 @@ public class ShopPane extends AbstractPane {
 	private ListView<ShopItem> myShopList;
 	private CurrentView myCurrentView;
 	private ListView<ShopItem> myUpgradeList;
-	private Map<Integer, Map<String, String>> myStatsObjectMap;
 
 	public ShopPane(EngineView ev) {
 		super(ev);
@@ -43,29 +43,17 @@ public class ShopPane extends AbstractPane {
 		
 		myShopList = new ListView<ShopItem>();
 		myUpgradeList = new ListView<ShopItem>();
-		
-		setupShopList();
 		myCurrentView = new CurrentView(this);
-		myVBox.getChildren().add(myCurrentView.buildCurrentView(new HashMap<String,String>(), myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
+		
+		setupShopList();		
 		setupUpgradeList();
+		myVBox.getChildren().add(myCurrentView.buildCurrentView(myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
+		
 		myPane.getChildren().add(myVBox);
 		
 		addShopObject(tester);
 		return myPane;
 	}
-	
-/*	private void updateStatsObject(int id, StatsObject myStats, boolean hasChanged){
-		if(hasChanged || !myStatsObjectMap.contains(id)){
- 			// much simpler if stats object is just a map of strings to strings
- 
-			Map myPropertiesMap<String, String> = new HashMap<String, String>();
-			for( String s: myStats.getKeySet() ){
-				myPropertiesMap.put(s, myStats.getStatistic(s));
-			}
-			myStatsObjectMap.put(id, myPropertiesMap);
-		}	
-	}
-*/
 	
 	/**
 	 * instantiates the shop listView
@@ -106,27 +94,13 @@ public class ShopPane extends AbstractPane {
 		myShopList.getItems().addAll(list);
 	}
 	
-	/**
-	 * Updates the most recently clicked entity to be displayed in the shopView.
-	 * @param id - used as an index into private map that obtains a map of properties to values and forwards that to a currentView object 
-	 */
-	public void updateCurrentView(int id){
-		myCurrentView.updateCurrentView(myStatsObjectMap.get(id));
-	}
-	
-	public void addStatsObject(int id, Map<String, String> statsObject, boolean hasChanged){
-		if(!myStatsObjectMap.containsKey(id) ||hasChanged){
-			myStatsObjectMap.put(id, statsObject);
-		}
-	}
-	
-	public void removeStatsObject(int id, Map<String, String> statsObject){
-		myStatsObjectMap.remove(id);
-	}
-
 	public void updateUpgrade(List<ShopItem> upgradelist) {
 		myUpgradeList.getItems().clear();
 		myUpgradeList.getItems().addAll(upgradelist);
+	}
+	
+	public CurrentView getCurrentView(){
+		return myCurrentView;
 	}
 	
 }

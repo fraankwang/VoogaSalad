@@ -1,7 +1,9 @@
 package engine.controller;
+
 import java.util.List;
 import java.util.Map;
 
+import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
@@ -10,13 +12,14 @@ import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
+import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
+import engine.frontend.overall.StartView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
@@ -26,6 +29,14 @@ public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
 
+	/*
+	 * Controls to implement:
+	 * When switch mode is pressed, reshow startView scene, 
+	 * update start view scene's level combobox, and then
+	 * allow user to pick stuff, then recreate engineView and reshow new scene
+	 * ORGANIZE METHODS TO ALLOW FOR THIS  
+	 */
+	
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean playing;
 	
@@ -50,10 +61,18 @@ public class EngineController implements IEngineController{
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		ModeStatistics stats = new ModeStatistics(10, 10);
-		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myGameWorld.getAuthoredEntities());
+		myEventManager = new EventManager(this, myGameWorld, stats);
 		
-		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
+		StartView myStartView = new StartView(this);
+		myStage.setScene(myStartView.buildScene());
+		myStage.show();
+	}
+	
+	public void startGame(){
+		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
+				myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEventManager.setEntityFactory(myEntityFactory);
+		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		
 		myEngineView = new EngineView(myStage, this);
@@ -71,9 +90,7 @@ public class EngineController implements IEngineController{
 		myStage.setMinHeight(myEngineView.loadIntResource("StageMinHeight"));
 		myStage.setX(myEngineView.loadIntResource("StartX"));
 		myStage.setY(myEngineView.loadIntResource("StartY"));
-		
-		Scene scene = myEngineView.buildScene();
-		myStage.setScene(scene); 
+		myStage.setScene(myEngineView.buildScene()); 
 		myStage.show();
 		setupGameCapture();
 	}
@@ -138,15 +155,10 @@ public class EngineController implements IEngineController{
 	public void updateUpgrades(List<ShopItem> upgradelist){
 		myEngineView.getShopPane().updateUpgrade(upgradelist);
 	}
+
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-	
-	public void updateShopStatistics(Map<Integer, Map<String, String>> shopStatistics, boolean hasChanged){
-		for( Integer i : shopStatistics.keySet()){
-			myEngineView.getShopPane().addStatsObject(i.intValue(), shopStatistics.get(i), hasChanged);
-		}
-	}
 	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
@@ -158,9 +170,28 @@ public class EngineController implements IEngineController{
 	}
 
 	public void entityClicked(int myID) {
-		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
+		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		myEventManager.handleClickEvent(clickedEvent);
-		myEngineView.getShopPane().updateCurrentView(myID);
+	}
+	
+	public void nextWaveClicked() {
+		NextWaveEvent nextWaveEvent = new NextWaveEvent();
+		myEventManager.handleNextWaveEvent(nextWaveEvent);	
+	}
+	
+	public void nextLevelClicked() {
+		NextWaveEvent nextWaveEvent = new NextWaveEvent();
+		myEventManager.handleNextWaveEvent(nextWaveEvent);
+	}
+
+	public void waveIsOver(){
+		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
+		myEngineView.getStatusPane().getControlManager().switchModeEnable();
+	}
+	
+	public void levelIsOver(boolean won){
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
+		myEngineView.getStatusPane().getControlManager().switchModeEnable();
 	}
 	
 	public Main getMain(){
@@ -182,6 +213,7 @@ public class EngineController implements IEngineController{
 	public EventManager getEventManager(){
 		return myEventManager;
 	}
+	
 	public GameCapture getGameCapture(){
 		return myGameCapture;
 	}

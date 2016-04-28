@@ -53,9 +53,7 @@ public class RenderingSystem extends GameSystem {
 			double sizey = 200;
 			boolean show = true;
 			boolean delete = false;
-			if (!myEntity.hasBeenModified()) {
-				continue;
-			}
+
 			for (IComponent eachComponent : myEntity.getComponents()) {
 				if (eachComponent.getTag().equals(ComponentTagResources.displayComponentTag)) {
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
@@ -72,9 +70,8 @@ public class RenderingSystem extends GameSystem {
 				}
 			}
 			
-			//System.out.println("Name:  " + myEntity.getName() + myEntity.getID());
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
-			
+			myEntity.broadcastEntity();
 			if(delete){
 				entitiesToRemove.add(myEntity);
 			}

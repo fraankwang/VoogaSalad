@@ -1,79 +1,100 @@
 package engine.frontend.shop;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
-import engine.backend.entities.Entity;
-import engine.backend.game_features.ShopItem;
+import engine.backend.entities.IEntity;
 import javafx.beans.binding.DoubleExpression;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Priority;
 
-public class CurrentView {
+public class CurrentView implements Observer {
+
+	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/statlabels";
+	private ResourceBundle myResources;
 	
 	private ShopPane myShopPane;
-	private HBox myHBox; 
+
+	private HBox myHBox;
 	private ImageView myImageView;
-	private String myImageLoc;
-	private Map<String, Text> myComponents;
+	private String myImageName;
+
+	private ListView<String> myStatsList;
+	private ObservableList<String> stats;
+
+	private Map<String, Boolean> showMap;
+
+	private boolean debug = true;
 	
-	public CurrentView(ShopPane sp){
-		myShopPane = sp;		
+	public CurrentView(ShopPane sp) {
+		myShopPane = sp;
+		showMap = new HashMap<String, Boolean>(); 
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
+		if(!debug){
+			addDefaultShows(showMap);
+		}
 	}
 	
-	public Node buildCurrentView(Map<String, String> myStats, DoubleExpression widthBinding, DoubleExpression heightBinding){
+	private void addDefaultShows(Map<String, Boolean> showMap){
+		String[] hides = myResources.getString("DefaultHides").split(",");
+		String[] shows = myResources.getString("DefaultShows").split(",");
+		for(String s: hides){
+			showMap.put(s, false);
+		}
+		for(String s: shows){
+			showMap.put(s, true);
+		}
+	}
+
+	public Node buildCurrentView(DoubleExpression widthBinding, DoubleExpression heightBinding) {
 		myHBox = new HBox();
 		myShopPane.bindHeight(myHBox, heightBinding);
 		myShopPane.bindWidth(myHBox, widthBinding);
-		
-		if(myStats.containsKey("image")){
-			myImageView = new ImageView(new Image(myStats.get("image")));
-			myHBox.getChildren().add(myImageView);
-			myImageView.fitHeightProperty().bind(heightBinding);
-			myImageView.setPreserveRatio(true);
-			myImageLoc = myStats.get("image");
-		}
-		for( String s : myStats.keySet()){
-			if( !s.equals("image")){
-				Text newText = new Text(myStats.get(s));
-				myHBox.getChildren().add(newText);
-				myComponents.put(s, newText);				
-			}
-		}
 
-		
+		myImageView = new ImageView();
+		myImageView.fitHeightProperty().bind(myHBox.heightProperty());
+		myImageView.setPreserveRatio(true);
+
+		myStatsList = new ListView<String>();
+		myStatsList.setOrientation(Orientation.HORIZONTAL);
+		stats = FXCollections.observableArrayList();
+		myStatsList.setItems(stats);
+		myStatsList.setMaxWidth(Double.MAX_VALUE);
+		HBox.setHgrow(myStatsList, Priority.ALWAYS);
+		myShopPane.bindHeight(myStatsList, myHBox.heightProperty());
+
+		myHBox.getChildren().addAll(myImageView, myStatsList);
 		myHBox.setAlignment(Pos.CENTER_LEFT);
 		return myHBox;
 	}
 
-	
-	public void updateCurrentView(Map<String, String> myStats){
-		
-		if(myStats.containsKey("image")){
-			if(myImageLoc != myStats.get("image")){
-				myImageView.setImage(new Image(myStats.get("image")));
-				myHBox.getChildren().add(myImageView);
+	@Override
+	public void update(Observable o, Object arg) {
+		IEntity entity = (IEntity) o;
+		Map<String, String> statMap = entity.getStats().getStatsMap();
+		for(String s: statMap.keySet()){
+			if(!showMap.containsKey(s))
+				showMap.put(s, true);
+		}
+		stats.clear();
+		for (String s : statMap.keySet()) {
+			if (s.equals("Image") && !statMap.get("Image").equals(myImageName)) {
+				myImageView.setImage(new Image(statMap.get("Image")));
+				myImageName = statMap.get("Image");
+			} else if (showMap.get(s)){
+				stats.add(myResources.getString(s) + ": " + statMap.get(s));
 			}
 		}
-		for( String s : myStats.keySet()){
-			if( !s.equals("image")){
-				if(!myComponents.containsKey(s) ){
-					Text newText = new Text(myStats.get(s));
-					myHBox.getChildren().add(newText);
-					myComponents.put(s, newText);
-				}
-				if(!myComponents.get(s).equals(myStats.get(s))){
-					myComponents.get(s).setText(myStats.get(s));
-				}
-			}
-		}
-	}
-	
-	public Node getNode(){
-		return myHBox;
 	}
 }

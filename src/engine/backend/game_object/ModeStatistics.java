@@ -3,6 +3,8 @@ package engine.backend.game_object;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
 
 /**
@@ -10,8 +12,9 @@ import engine.backend.rules.LevelAction;
  * @author 
  *
  */
-public class ModeStatistics {
-
+public class ModeStatistics implements IModifiable{
+	
+	private static final String PREFIX = "set";
 	private int initialNumLives;
 	private int currentNumLives;
 	private double initialResources;
@@ -19,7 +22,7 @@ public class ModeStatistics {
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
 	private int currentLevelIndex;
-	private int currentModeIndex;
+	private String currentMode;
 
 	public ModeStatistics(int numLives, double resources) {
 		setInitialNumLives(numLives);
@@ -84,13 +87,13 @@ public class ModeStatistics {
 		return currentLevelIndex;
 	}
 
-	public void setCurrentModeIndex(int currentModeIndex){
-		this.currentModeIndex = currentModeIndex;
+	public void setCurrentModeIndex(String c){
+		currentMode = c;
 	}
 
-	public int getCurrentModeIndex() {
+	public String getCurrentMode() {
 		checkEndOfGame();
-		return currentModeIndex;
+		return currentMode;
 	}
 	
 	public void setCurrentLevelIndex(int currentLevelIndex) {
@@ -107,14 +110,14 @@ public class ModeStatistics {
 		}
 	}
 
-	
-	public void applyAction(LevelAction action) {
-		String instanceVar = action.getVariableToModify();
-		String deltaVal = action.getDeltaValue();
+	@Override
+	public void applyAction(IAction action) {
+		String instanceVar = ((LevelAction) action).getVariableToModify();
+		String deltaVal = ((LevelAction) action).getDeltaValue();
 		Method setMethod;
 
 		try {
-			String methodName = "set" + instanceVar;
+			String methodName = PREFIX + instanceVar;
 			setMethod = this.getClass().getMethod(methodName, String.class);
 			setMethod.invoke(this, deltaVal);
 

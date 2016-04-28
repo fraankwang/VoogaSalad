@@ -8,19 +8,13 @@ package engine.backend.components;
 public class PurchaseComponent extends Component {
 
 	private double myValue;
-	
+		
 	/**
 	 * Initializes a purchase component with an existing purchase component.
 	 * @param component
 	 */
 	public PurchaseComponent(PurchaseComponent component) {
 		this.myValue = component.getValue();
-	}
-	
-	@Override
-	public void initWithParams(String[] params) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	/**
@@ -37,6 +31,15 @@ public class PurchaseComponent extends Component {
 	 */
 	public void setValue(double myValue) {
 		this.myValue = myValue;
+	}
+	
+	public String getComponentInfo() {
+		return myValue + "";
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
 	}
 
 }

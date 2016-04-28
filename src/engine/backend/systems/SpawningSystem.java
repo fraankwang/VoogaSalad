@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import engine.backend.components.DisplayComponent;
+import engine.backend.components.IComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
+import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.components.Vector;
@@ -19,16 +22,31 @@ import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.WaveOverEvent;
 import engine.backend.utilities.ComponentTagResources;
 
-public class SpawningSystem extends GameSystem{
-
+public class SpawningSystem extends GameSystem {
+	
+	private double delayTimer;
+	
 	@Override
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 		// TODO Auto-generated method stub
+		
+		if(myLevel.sendNextWave()){
+			myLevel.setSendNextWave(false);
+			delayTimer = 0;
+		}
+		
+		if(delayTimer > 0){
+			System.out.println(delayTimer);
+			delayTimer = delayTimer - GameClock.getTimePerLoop();
+			return;
+		}
 		
 		int currentWaveIndex = myLevel.getCurrentWaveIndex();
 		boolean waveIsOver = true;
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
+		
+		
 		
 		for(IEntity entity : entities){
 			
@@ -48,14 +66,15 @@ public class SpawningSystem extends GameSystem{
 			
 			if(waveIsOver){
 				//not sure what to do with wave over events
+				System.out.println("WAVE IS OVER");
+				sendEvent(getWaveOverEvent());
+				delayTimer = 100 * myLevel.getWaveDelayTimer();
 			}
-			
+
 		}
 		
-		//System.out.println(newEntities.size());
-		sendAddEntityEvent(newEntities);
+		sendEvent(getAddEntityEvent(newEntities));
 		
-		//addToEventMap(myEventMap, getAddEntityEvent(newEntities), newEntities);
 	}
 		
 	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities, InGameEntityFactory myEntityFactory, double currentSecond, int pathID){
@@ -82,12 +101,14 @@ public class SpawningSystem extends GameSystem{
 	}
 		
 	private IEvent getWaveOverEvent(){
-		IEvent event = new WaveOverEvent();
-		return event;
+		return new WaveOverEvent();
 	}
 
-	private void sendAddEntityEvent(Collection<IEntity> newEntities){
-		AddEntityEvent event = new AddEntityEvent(newEntities);
+	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
+		return new AddEntityEvent(newEntities);
+	}
+	
+	private void sendEvent(IEvent event){
 		setChanged();
 		notifyObservers(event);
 	}

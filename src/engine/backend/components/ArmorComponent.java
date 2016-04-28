@@ -1,6 +1,6 @@
 package engine.backend.components;
 
-public class ArmorComponent {
+public class ArmorComponent extends Component {
 	
 	private double resistanceToDamage;
 	
@@ -11,5 +11,17 @@ public class ArmorComponent {
 	public void setResistanceToDamage(String value){
 		double newValue = Double.parseDouble(value);
 		this.resistanceToDamage = newValue;
+	}
+
+	@Override
+	public String getComponentInfo() {
+		return "ResistanceToDamage:" + resistanceToDamage;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("ResistanceToDamage")) {
+			this.resistanceToDamage = Double.parseDouble(data);
+		}
 	}
 }

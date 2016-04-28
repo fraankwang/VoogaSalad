@@ -16,6 +16,7 @@ public class InGameEntityFactory {
 
 	private GameStatistics myStats;
 	private Map<String, Map<String, IEntity>> myEntityMap;
+	private int currentLevelId;
 
 	public InGameEntityFactory(GameStatistics stats, List<IEntity> entities) {
 		this.myStats = stats;
@@ -27,12 +28,12 @@ public class InGameEntityFactory {
 		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>(); 
 		for(IEntity entity : entities){
 			Map<String, IEntity> typeMap = null;
-			if(mainEntityMap.containsKey(entity.getType())){
-				typeMap = mainEntityMap.get(entity.getType());
+			if(mainEntityMap.containsKey(entity.getGenre())){
+				typeMap = mainEntityMap.get(entity.getGenre());
 			}
 			else{
 				typeMap = new HashMap<String, IEntity>();
-				mainEntityMap.put(entity.getType(), typeMap);
+				mainEntityMap.put(entity.getGenre(), typeMap);
 			}
 			typeMap.put(entity.getName(), entity);
 		}
@@ -46,8 +47,8 @@ public class InGameEntityFactory {
 	
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
-		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getType(),
-				templateEntity.getValue());
+
+		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
 	}
@@ -66,7 +67,6 @@ public class InGameEntityFactory {
 		Collection<IComponent> templateComponents = templateEntity.getComponents();
 		for (IComponent component : templateComponents) {
 			IComponent copyComponent = cloneComponent(component);
-			//System.out.println(copyComponent.getTag());
 			newEntity.addComponent(copyComponent);
 		}
 	}
@@ -101,6 +101,18 @@ public class InGameEntityFactory {
 		// System.out.println(e.getStackTrace());
 		// return null;
 		// }
+	}
+	
+	public boolean isCurrent(int id){
+		return this.currentLevelId == id;
+	}
+	
+	public void setEntities(List<IEntity> entities){
+		this.myEntityMap = createMap(entities);
+	}
+	
+	public void setID(int id){
+		this.currentLevelId = id;
 	}
 
 }
