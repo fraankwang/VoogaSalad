@@ -59,7 +59,7 @@ public class EventManager implements Observer {
 
 	public Level getCurrentLevel() {
 		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
-				currentModeStatistics.getCurrentLevelIndex());
+				currentModeStatistics. getCurrentLevelIndex());
 	}
 
 	public void updateGameShop() {
