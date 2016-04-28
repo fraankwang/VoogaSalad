@@ -22,9 +22,4 @@ public class EntityStatistics {
 	public Map<String, String> getStatsMap(){
 		return myStatsMap;
 	}
-	
-	public List<String> getList(){
-		return myEntityStats;
-	}
-	
 }

@@ -28,9 +28,9 @@ public class Entity extends Observable implements IEntity, IModifiable {
 	 * Initializes an Entity without a unique ID. 
 	 * Authoring Environment Constructor.
 	 */
-	public Entity(String myName, String myType, Map<String, IComponent> myComponents) {
+	public Entity(String myName, String myGenre, Map<String, IComponent> myComponents) {
 		this.myName = myName;
-		this.myGenre = myType;
+		this.myGenre = myGenre;
 		this.myComponents = myComponents;
 		myStats = new EntityStatistics();
 	}
@@ -43,6 +43,7 @@ public class Entity extends Observable implements IEntity, IModifiable {
 		this.myGenre = myGenre;
 		this.myID = myID;
 		this.myComponents = new HashMap<String, IComponent>();
+		this.myStats = new EntityStatistics();
 	}
 
 	public void addComponent(IComponent component) {
@@ -135,10 +136,11 @@ public class Entity extends Observable implements IEntity, IModifiable {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
 	
-	public void getStats(){
+	public EntityStatistics getStats(){
 		for(IComponent component : myComponents.values()){
 			myStats.addStat(component.getComponentInfo());
 		}
+		return myStats;
 	}
 
 	@Override
@@ -177,5 +179,4 @@ public class Entity extends Observable implements IEntity, IModifiable {
 		setChanged();
 		notifyObservers();
 	}
-
 }
