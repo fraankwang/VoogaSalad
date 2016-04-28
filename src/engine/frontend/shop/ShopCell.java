@@ -24,7 +24,7 @@ public class ShopCell extends ListCell<ShopItem> {
 	private ImageView myImageView;
 	private Text myType;
 	private Text myCost;
-	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/shop_cell";
+	public static final String DEFAULT_RESOURCE = "engine/frontend/resources/shop_cell";
 	private ResourceBundle myResources;
 	
 	

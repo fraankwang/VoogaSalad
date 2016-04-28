@@ -22,37 +22,21 @@ public class CollisionSystem extends GameSystem{
  
     @Override
     public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
-    	
-    	Collection<IEntity> entities = myLevel.getEntities().values();
-    	
-    	for(IEntity entity1 : entities){
-    		
-    		if(!entity1.hasComponent(ComponentTagResources.collisionComponentTag)){
-    			continue;
-    		}
-    		
-    		for(IEntity entity2 : entities){
-    			
-    			if(!entity1.hasComponent(ComponentTagResources.collisionComponentTag) || entity2.equals(entity1)){
-        			continue;
-        		}
-    			
-    			if(checkIntersection(entity1, entity2)){
+
+    	Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.collisionComponentTag);
+    	collidableEntities.stream().forEach(entity1 -> collidableEntities.stream()
+    			.filter(entity2 -> checkIntersection(entity1, entity2))
+    			.forEach(entity2 -> {
     				IEvent event = getCollisionEvent(entity1, entity2);
     				Set<IEntity> entitySet = new HashSet<IEntity>();
     				entitySet.add(entity1);
     				entitySet.add(entity2);
     				addToEventMap(myEventMap, event, entitySet);
-    			}
-    			
-    		}
-    		
-    	}
+    			}));
     	
     }
     
 	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){
-//		System.out.println("Collision Detected!");
 		CollisionEvent collisionEvent = new CollisionEvent(entity1.getID(), entity2.getID());
 		collisionEvent.setEventID(Arrays.asList(entity1.getName(), entity2.getName()));
 		return collisionEvent;

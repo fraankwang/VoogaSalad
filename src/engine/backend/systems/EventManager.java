@@ -18,7 +18,7 @@ import engine.backend.game_features.GameShop;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
-import engine.backend.game_object.ModeStatistics;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
@@ -39,16 +39,16 @@ public class EventManager implements Observer {
 	
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
-	ModeStatistics currentModeStatistics;
+	GameStatistics currentModeStatistics;
 	private List<Rule> myRuleAgenda;
 	InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
 
-	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats) {
+	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
 		myGameWorld = game;
 		// pass in right values
-		currentModeStatistics = stats;
+		currentModeStatistics = game.getGameStatistics();
 		myGameShop = new GameShop();
 	}
 
@@ -130,6 +130,10 @@ public class EventManager implements Observer {
 	 * @param event
 	 */
 	public void handleEntityDropEvent(EntityDroppedEvent event) {
+		
+		double value = event.getEntityValue();
+		currentModeStatistics.setCurrentResources(Double.toString(value));
+		
 		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
@@ -176,7 +180,7 @@ public class EventManager implements Observer {
 		}
 	}
 
-	private void applyActions(Set<Integer> entityIDs, Collection<IAction> actions) {
+	private void applyActions(Collection<Integer> entityIDs, Collection<IAction> actions) {
 
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
@@ -241,7 +245,7 @@ public class EventManager implements Observer {
 
 	}
 
-	public ModeStatistics getModeStatistics() {
+	public GameStatistics getModeStatistics() {
 		return currentModeStatistics;
 	}
 

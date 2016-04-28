@@ -49,7 +49,6 @@ public class GameWorld {
 	
 	public void addMode(Mode mode) {
 		myModes.put(mode.getName(), mode);
-		myGameStatistics.incrementNumModes();
 	}
 
 	public Level getLevelWithId(String modeString, int levelIndex){
