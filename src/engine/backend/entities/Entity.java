@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
@@ -13,7 +14,7 @@ import engine.backend.rules.EntityAction;
 import engine.backend.rules.IAction;
 import engine.backend.utilities.ComponentTagResources;
 
-public class Entity implements IEntity, IModifiable {
+public class Entity extends Observable implements IEntity, IModifiable {
 	
 	private static final String PREFIX = "set";
 	private String myName;
@@ -170,6 +171,11 @@ public class Entity implements IEntity, IModifiable {
 		} catch (IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void broadcastEntity(){
+		setChanged();
+		notifyObservers();
 	}
 
 }
