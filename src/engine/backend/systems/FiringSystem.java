@@ -45,7 +45,7 @@ public class FiringSystem extends GameSystem {
 				//needs to check if it's something it can fire at, and if it's in range
 				if(isTarget(shootingEntity, targetEntity) && 
 						targetIsInRange(shootingEntity, targetEntity)){
-
+					
 					updateFiring(shootingEntity, targetEntity, newEntities, currentSecond, myEntityFactory);
 				}
 
@@ -116,11 +116,6 @@ public class FiringSystem extends GameSystem {
 
 		return shootingPosVector.calculateDistance(targetPosVector) <= firingComponent.getEnemyInSightRange();
 
-	}
-
-	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
-		AddEntityEvent event = new AddEntityEvent(newEntities);
-		return event;
 	}
 
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, IEntity targetEntity, InGameEntityFactory myEntityFactory){

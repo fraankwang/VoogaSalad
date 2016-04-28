@@ -1,12 +1,13 @@
 package engine.backend.systems.Events;
 
-public class WaveOverEvent implements IEvent {
+public class NextWaveEvent implements IEvent {
 
-	public WaveOverEvent() {
+	public NextWaveEvent() {
 	}
 
 	@Override
 	public String getEventID() {
 		return this.getClass().getSimpleName();
 	}
+
 }

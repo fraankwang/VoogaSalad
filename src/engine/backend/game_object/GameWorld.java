@@ -52,8 +52,8 @@ public class GameWorld {
 		myGameStatistics.incrementNumModes();
 	}
 
-	public Level getLevelWithId(int modeIndex, int levelIndex){
-		Mode mode = myModes.get(modeIndex);
+	public Level getLevelWithId(String modeString, int levelIndex){
+		Mode mode = myModes.get(modeString);
 		Level level = mode.getLevels().get(levelIndex);
 		return level;
 	}
@@ -61,6 +61,10 @@ public class GameWorld {
 	public void printWhatIHave() {
 		System.out.println("I am game object " + this.toString() + " and I have been created");
 		System.out.println("I have " + myModes.size() + " mode(s) and they are composed of " + myModes);
+	}
+	
+	public Map<String, Mode> getModes(){
+		return myModes;
 	}
 
 }
