@@ -18,7 +18,7 @@ import engine.backend.game_features.GameShop;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
-import engine.backend.game_object.ModeStatistics;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
@@ -39,16 +39,16 @@ public class EventManager implements Observer {
 	
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
-	ModeStatistics currentModeStatistics;
+	GameStatistics currentModeStatistics;
 	private List<Rule> myRuleAgenda;
 	InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
 
-	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats) {
+	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
 		myGameWorld = game;
 		// pass in right values
-		currentModeStatistics = stats;
+		currentModeStatistics = game.getGameStatistics();
 		myGameShop = new GameShop();
 	}
 
@@ -245,7 +245,7 @@ public class EventManager implements Observer {
 
 	}
 
-	public ModeStatistics getModeStatistics() {
+	public GameStatistics getModeStatistics() {
 		return currentModeStatistics;
 	}
 
