@@ -1,8 +1,7 @@
 package authoring.backend.factories;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.TreeMap;
 
 import authoring.backend.game_objects.AuthoringMode;
 
@@ -14,7 +13,7 @@ public class AuthoringModeFactory {
 	
 	public AuthoringMode createMode(Map<String, String> data){
 		String name = "";
-		Set<String> levelNames = new HashSet<String>();
+		Map<Integer, String> levelMap = new TreeMap<Integer, String>();
 		int initialLives = 0;
 		int initialResources = 0;
 		for (String key : data.keySet()) {
@@ -23,8 +22,8 @@ public class AuthoringModeFactory {
 			case "Name":
 				name = data.get(key);
 				break;
-			case "LevelNames":
-				levelNames = getLevelNames(data.get(key));
+			case "Levels":
+				levelMap = getLevels(data.get(key));
 				break;
 			case "InitialLives":
 				initialLives = Integer.parseInt(data.get(key));
@@ -35,16 +34,19 @@ public class AuthoringModeFactory {
 				
 			}
 		}
-		return new AuthoringMode(name, initialLives, initialResources, levelNames);
+		return new AuthoringMode(name, initialLives, initialResources, levelMap);
 	}
 	
-	private Set<String> getLevelNames(String str) {
+	private Map<Integer, String> getLevels(String str) {
 		String[] names = str.split(" ");
-		Set<String> levelNames = new HashSet<String>();
-		for (int i = 0; i < names.length; i++) {
-			levelNames.add(names[i]);
+		Map<Integer, String> levelMap = new TreeMap<Integer, String>();
+		for (String name : names) {
+			String[] levelInfo = name.split(":");
+			int levelIndex = Integer.parseInt(levelInfo[0]);
+			String levelName = levelInfo[1];
+			levelMap.put(levelIndex, levelName);
 		}
-		return levelNames;
+		return levelMap;
 	}
 
 }

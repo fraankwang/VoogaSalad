@@ -11,13 +11,13 @@ import engine.backend.systems.GameClock;
 public class Spawn {
 
 	private String spawningEntityName;
-	private double spawningRate;
+	private int spawningRate;
 	private int waveIndex;
 	private int numEntities;
 	private double timer;
 	private double currentSecond;
 
-	public Spawn(String name, double rate, int index, int numEntities){
+	public Spawn(String name, int rate, int index, int numEntities){
 		setSpawningEntityName(name);
 		setSpawningRate(rate);
 		setWaveIndex(index);
@@ -28,7 +28,7 @@ public class Spawn {
 		return spawningRate;
 	}
 
-	public void setSpawningRate(double spawningRate) {
+	public void setSpawningRate(int spawningRate) {
 		this.spawningRate = spawningRate;
 	}
 
@@ -40,8 +40,9 @@ public class Spawn {
 		return timer;
 	}
 
-	public void resetTimer() {
-		timer = spawningRate;
+	
+	public void resetTimer(){
+		timer = spawningRate * 100;
 	}
 
 	public void setTimer(double currentSecond) {

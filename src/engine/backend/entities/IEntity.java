@@ -36,6 +36,8 @@ public interface IEntity {
 	public String getGenre();
 
 	public int getID();
+	
+	public EntityStatistics getStats();
 
-	public void applyAction(EntityAction action);
+	public void broadcastEntity();
 }

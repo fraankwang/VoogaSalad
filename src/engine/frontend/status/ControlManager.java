@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ControlManager {
 	private StatusPane myStatusPane;
 	
 	private Button play;
-	private Button nextwave;
-	private Button nextlevel;
-	private Button switchmode;
+	private Button nextWave;
+	private Button nextLevel;
+	private ComboBox<String> modeComboBox;
+	private Button modeButton;
 	
 	public ControlManager(StatusPane sp){
 		myStatusPane = sp;
@@ -25,9 +30,10 @@ public class ControlManager {
 		VBox vbox = new VBox();
 		
 		play = myStatusPane.createButton(myStatusPane.getMyResources().getString("PlayLabel"));
-		nextwave = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextWaveLabel"));
-		nextlevel = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextLevelLabel"));
-		switchmode = myStatusPane.createButton(myStatusPane.getMyResources().getString("SwitchModeLabel"));
+		nextWave = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextWaveLabel"));
+		nextLevel = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextLevelLabel"));
+		modeButton = myStatusPane.createButton(myStatusPane.getMyResources().getString("ModeTitleLabel"));
+		modeComboBox = new ComboBox<String>();
 		
 		play.setOnAction(e ->{
 			if(play.getText().equals(myStatusPane.getMyResources().getString("PlayLabel"))){
@@ -38,36 +44,50 @@ public class ControlManager {
 				play.setText(myStatusPane.getMyResources().getString("PlayLabel"));
 			}
 		});
-		
-		nextwave.setDisable(true);
-		nextwave.setOnAction(e ->{
-			
+	
+		nextWave.setDisable(true);
+		nextWave.setOnAction(e ->{
+			myStatusPane.getEngineView().getEngineController().nextWaveClicked();
+			nextWave.setDisable(true);
 		});
 		
-		nextlevel.setDisable(true);
-		nextlevel.setOnAction(e ->{
-			
+		nextLevel.setDisable(true);
+		nextLevel.setOnAction(e ->{
+			myStatusPane.getEngineView().getEngineController().nextLevelClicked();
+			nextLevel.setDisable(true);
 		});
 		
-		switchmode.setDisable(true);
-		switchmode.setOnAction(e ->{
-			List<String> choices = new ArrayList<>();
-			choices.add("a");
-			choices.add("b");
-			choices.add("c");
-
-			ChoiceDialog<String> dialog = new ChoiceDialog<>("b", choices);
-			dialog.setTitle(myStatusPane.getMyResources().getString("ModeTitleLabel"));
-			dialog.setHeaderText(myStatusPane.getMyResources().getString("ModeHeaderLabel"));
-			dialog.setContentText(myStatusPane.getMyResources().getString("ModeContentLabel"));
-			
-			Optional<String> result = dialog.showAndWait();
-			result.ifPresent(letter -> System.out.println("Your choice: " + letter));
-		});
+		modeComboBox.setDisable(true);
+		modeComboBox.setPromptText("Select Mode");
+		modeComboBox.getItems().addAll(myStatusPane.getEngineView().getEngineController().getGameWorld().getModes().keySet());
+		modeComboBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override 
+            public void changed(ObservableValue ov, String t, String t1) {
+                myStatusPane.getEngineView().getEngineController().getEventManager().getModeStatistics().setCurrentModeIndex(t1);
+                modeComboBox.setDisable(true);
+            }    
+        });
 		
-		vbox.getChildren().addAll(play, nextwave, nextlevel, switchmode);
+		modeComboBox.setMaxHeight(Double.MAX_VALUE);
+		modeComboBox.setMaxWidth(Double.MAX_VALUE);
+		VBox.setVgrow(modeComboBox, Priority.ALWAYS);
+		
+		vbox.getChildren().addAll(play, nextWave, nextLevel, modeComboBox);
 		vbox.minWidthProperty().bind(myStatusPane.getPane().widthProperty().divide(4));
 		return vbox;
 	}
+	
+	public void nextWaveEnable(){
+		nextWave.setDisable(false);
+	}
+
+	public void nextLevelEnable(){
+		nextWave.setDisable(false);
+	}
+	
+	public void switchModeEnable(){
+		modeComboBox.setDisable(false);
+	}
+	
 	
 }

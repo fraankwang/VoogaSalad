@@ -37,15 +37,17 @@ public class Level {
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
 	private int index;
+	private boolean sendNextWave;
 	
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
 		this.authoredEntities = authoredEntities;
+		this.entities = entities;
 	}
 	
 	/**
@@ -67,14 +69,27 @@ public class Level {
 		return myName;
 	}
 	
+	/**
+	 * 
+	 * @return A list of Rule objects that has the rules for the level.
+	 */
 	public List<Rule> getRuleAgenda(){
 		return ruleAgenda;
 	}
 	
+	/**
+	 * Sets the rules for the level.	
+	 * @param rules
+	 */
 	public void setRuleAgenda(List<Rule> rules){
 		ruleAgenda = rules;
 	}
 	
+	/**
+	 * Adds an action to the event map.
+	 * @param eventID
+	 * @param actions
+	 */
 	public void addActionToEventMap(String eventID, List<EntityAction> actions) {
 		myEventMap.put(eventID, actions);
 	}
@@ -123,13 +138,15 @@ public class Level {
 	}
 
 	public void removeEntites(Collection<IEntity> entitiesToRemove){
-		for(IEntity entity : entitiesToRemove){
-			entities.remove(entity.getID());
-		}
+		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
 	public IEntity getEntityWithID(int entityID) {
 		return entities.get(entityID);
+	}
+	
+	public void setWaveDelayTimer(double time){
+		waveDelayTimer = time;
 	}
 
 	public int getNumWaves() {
@@ -152,6 +169,10 @@ public class Level {
 		this.index = index;
 	}
 	
+	public void setNumWaves(int num){
+		numWaves = num;
+	}
+	
 	public double getWaveDelayTimer() {
 		return waveDelayTimer;
 	}
@@ -171,6 +192,18 @@ public class Level {
 
 	public void setShopItems(List<ShopItem> myShopItems) {
 		this.myShopItems = myShopItems;
+	}
+
+	public void setAuthoredEntities(List<IEntity> authoredEntities) {
+		this.authoredEntities = authoredEntities;
+	}
+
+	public boolean sendNextWave() {
+		return sendNextWave;
+	}
+	
+	public void setSendNextWave(boolean bool){
+		sendNextWave = bool;
 	}
 
 }

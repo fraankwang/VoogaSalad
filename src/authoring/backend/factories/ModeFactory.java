@@ -6,7 +6,7 @@ import java.util.Map;
 import authoring.backend.game_objects.AuthoringMode;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
-import engine.backend.game_object.ModeStatistics;
+import engine.backend.game_object.GameStatistics;
 
 public class ModeFactory {
 	
@@ -18,9 +18,9 @@ public class ModeFactory {
 		String name = authoringMode.getName();
 		int numLives = authoringMode.getInitialLives();
 		double resources = authoringMode.getInitialResources();
-		ModeStatistics modeStatistics = new ModeStatistics(numLives, resources);
+		GameStatistics modeStatistics = new GameStatistics(numLives, resources);
 		
-		Map<Integer, String> levelIndex = authoringMode.getLevelIndex();
+		Map<Integer, String> levelIndex = authoringMode.getLevels();
 		Map<Integer, Level> levels = new HashMap<Integer, Level>();
 		
 		for (int key : levelIndex.keySet()) {

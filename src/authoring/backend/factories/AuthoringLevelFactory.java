@@ -58,6 +58,7 @@ public class AuthoringLevelFactory {
 			case "SpawnEntities":
 				String spawnInfo = data.get(key);
 				spawnEntities = createSpawnEntities(spawnInfo);
+				break;
 			}
 		}
 		AuthoringLevel level = new AuthoringLevel(name, map, waveDelayTimer);
@@ -77,11 +78,11 @@ public class AuthoringLevelFactory {
 			String[] spawnObjectInfo = spawnInfo.get(key);
 			List<Spawn> spawns = new ArrayList<Spawn>();
 			for (String spawn : spawnObjectInfo) {
-				String[] list = spawn.split(".");
+				String[] list = spawn.split("\\.");
 				String entity = list[0];
 				int wave = Integer.parseInt(list[1]);
 				int numSpawn = Integer.parseInt(list[2]);
-				double rate = Double.parseDouble(list[3]);
+				int rate = Integer.parseInt(list[3]);
 				spawns.add(new Spawn(entity, rate, wave, numSpawn));
 			}
 			IComponent spawner = new SpawnerComponent(spawns, pathID);
@@ -135,5 +136,5 @@ public class AuthoringLevelFactory {
 		}
 		return new BezierCurve(points);
 	}
-
+	
 }

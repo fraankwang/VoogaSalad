@@ -1,7 +1,11 @@
 package authoring.parser;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+
+import authoring.frontend.editor_features.SpawnEntityRow;
 
 /**
  * 
@@ -9,7 +13,7 @@ import java.util.TreeMap;
  *
  */
 public class GlobalParser {
-	
+
 	public static Map<String, String[]> pathParse(String path) {
 		Map<String, String[]> map = new TreeMap<String, String[]>();
 		String[] paths = path.split("_");
@@ -19,10 +23,10 @@ public class GlobalParser {
 			String[] curves = pathInfo[1].split(" ");
 			map.put(pathID, curves);
 		}
-		
+
 		return map;
 	}
-	
+
 	public static String pathCompress(Map<String, String[]> path) {
 		StringBuilder sb = new StringBuilder();
 		for (String key : path.keySet()) {
@@ -37,10 +41,10 @@ public class GlobalParser {
 			sb.append("_");
 		}
 		sb.deleteCharAt(sb.length() - 1);
-		
+
 		return sb.toString();
 	}
-	
+
 	public static Map<String, String[]> spawnParse(String spawn) {
 		Map<String, String[]> spawns = new TreeMap<String, String[]>();
 		if (spawn.equals("0")) {
@@ -62,26 +66,63 @@ public class GlobalParser {
 		if (spawnEntities.equals("")) {
 			return spawnEntitiesMap;
 		}
-		
+
 		String[] allSpawnEntities = spawnEntities.split(",");
 		for (String entity : allSpawnEntities) {
-			String[] pathSplit = entity.split(":"); 
+			String[] pathSplit = entity.split(":");
 			String pathID = pathSplit[0];
 			String spawnObjects = pathSplit[1];
 			String[] spawnObjectsSplit = spawnObjects.split(" ");
 			for (String spawn : spawnObjectsSplit) {
 				spawnEntitiesMap.put(pathID, spawn);
-				
+
 			}
-			
+
 		}
-		
+
 		return spawnEntitiesMap;
 	}
-	
-	public static String spawnCompress(Map<String, String> spawnEntities) {
-		
-		return null;
+
+	/**
+	 * Takes unordered inputs and sorts them by pathID, then delineated (in no
+	 * order) by entity names, followed by wave order, number, and rate.
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public static String spawnCompress(TreeMap<String, SpawnEntityRow> map) {
+		String result = "";
+
+		Set<String> myIDs = new HashSet<String>();
+		for (String tag : map.keySet()) {
+			String[] split = tag.split(":");
+			String id = split[0];
+			myIDs.add(id);
+		}
+
+		for (String id : myIDs) {
+			String pathString = new String(id + ":");
+			for (String tag : map.keySet()) {
+				String[] split = tag.split(":");
+				String currentID = split[0];
+				if (currentID.equals(id)) {
+					String name = split[1];
+					String wave = split[2];
+					SpawnEntityRow row = map.get(tag);
+					String number = row.getMyNumber().getText();
+					String rate = row.getMyRate().getText();
+					String entityObject = new String(name + "." + wave + "." + number + "." + rate + " ");
+					pathString = pathString + entityObject;
+				}
+
+			}
+			pathString = pathString.substring(0, pathString.length() - 1);
+			result = result + pathString + ",";
+		}
+
+		result = result.substring(0, result.length() - 1);
+
+		return result;
 	}
-	
+
 }

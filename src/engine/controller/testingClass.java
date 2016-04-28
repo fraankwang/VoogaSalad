@@ -149,8 +149,10 @@ public class testingClass {
 		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
-		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 10);
+		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 10);
+		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
+
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
@@ -195,6 +197,7 @@ public class testingClass {
 				500, myBulletVector, 1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
+
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
 		mySimpleBullet.addComponent(new MovementComponent(10, 0));
@@ -215,7 +218,7 @@ public class testingClass {
 		
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
 		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
-		firingTest.setAuthoredEntities(authoredEntities);
+		//firingTest.setAuthoredEntities(authoredEntities);
 //		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
@@ -234,6 +237,10 @@ public class testingClass {
 		level.addEntityToMap(tempEntity2);
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
+		level.setCurrentWaveIndex(0);
+		level.setNumWaves(2);
+		level.setWaveDelayTimer(5);
+		level.setAuthoredEntities(authoredEntities);
 		mode.addLevel(level);
 		firingTest.addMode(mode);
 		return firingTest;

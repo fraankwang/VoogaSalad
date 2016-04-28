@@ -30,28 +30,13 @@ public class FiringSystem extends GameSystem {
 
 	@Override 
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
-		// TODO Auto-generated method stub
-		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
-		
-		for(IEntity shootingEntity : entities){
-
-			if(!shootingEntity.hasComponent(ComponentTagResources.firingComponentTag)){
-				continue;
-			}
-
-			for(IEntity targetEntity : entities){
-
-				//needs to check if it's something it can fire at, and if it's in range
-				if(isTarget(shootingEntity, targetEntity) && 
-						targetIsInRange(shootingEntity, targetEntity)){
-
-					updateFiring(shootingEntity, targetEntity, newEntities, currentSecond, myEntityFactory);
-				}
-
-			}
-
-		}
+		Collection<IEntity> shootingEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.firingComponentTag);
+		shootingEntities.stream()
+						.forEach(shootingEntity -> {
+							myLevel.getEntities().values().stream().filter(entity -> isTarget(shootingEntity, entity) && targetIsInRange(shootingEntity, entity))
+							.forEach(entity -> updateFiring(shootingEntity, entity, newEntities, currentSecond, myEntityFactory));;
+						});
 
 		sendAddEntityEvent(newEntities);
 
@@ -114,11 +99,6 @@ public class FiringSystem extends GameSystem {
 		Vector shootingPosVector = shootingPosComponent.getPositionVector();
 		Vector targetPosVector = targetPosComponent.getPositionVector();
 		return shootingPosVector.calculateDistance(targetPosVector) <= firingComponent.getEnemyInSightRange();
-	}
-
-	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
-		AddEntityEvent event = new AddEntityEvent(newEntities);
-		return event;
 	}
 
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, IEntity targetEntity, InGameEntityFactory myEntityFactory){

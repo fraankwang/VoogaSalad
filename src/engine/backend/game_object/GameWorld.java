@@ -6,21 +6,29 @@
 package engine.backend.game_object;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import engine.backend.entities.IEntity;
 
 public class GameWorld {
 
-	private List<IEntity> authoredEntities;
-	private Map<Integer, Mode> myModes;
+	private Map<String, Mode> myModes;
 	private String myGameType;
 	private GameStatistics myGameStatistics;
 	
+	/**
+	 * Authoring Environment Constructor
+	 */
+	public GameWorld(String gameType, GameStatistics gameStatistics, Map<String, Mode> modes) {
+		this.myGameType = gameType;
+		this.myGameStatistics = gameStatistics;
+		this.myModes = modes;
+	}
+	
+	/**
+	 * Engine Environment Testing.
+	 */
 	public GameWorld() {
 		this.myGameStatistics = new GameStatistics();
-		this.myModes = new HashMap<Integer, Mode>();
+		this.myModes = new HashMap<String, Mode>();
 	}
 
 	public GameStatistics getGameStatistics() {
@@ -40,12 +48,11 @@ public class GameWorld {
 	}
 	
 	public void addMode(Mode mode) {
-		myModes.put(mode.getIndex(), mode);
-		myGameStatistics.incrementNumModes();
+		myModes.put(mode.getName(), mode);
 	}
 
-	public Level getLevelWithId(int modeIndex, int levelIndex){
-		Mode mode = myModes.get(modeIndex);
+	public Level getLevelWithId(String modeString, int levelIndex){
+		Mode mode = myModes.get(modeString);
 		Level level = mode.getLevels().get(levelIndex);
 		return level;
 	}
@@ -54,13 +61,9 @@ public class GameWorld {
 		System.out.println("I am game object " + this.toString() + " and I have been created");
 		System.out.println("I have " + myModes.size() + " mode(s) and they are composed of " + myModes);
 	}
-
-	public List<IEntity> getAuthoredEntities() {
-		return  authoredEntities;
-	}
 	
-	public void setAuthoredEntities(List<IEntity> entities) {
-		authoredEntities = entities;
+	public Map<String, Mode> getModes(){
+		return myModes;
 	}
 
 }
