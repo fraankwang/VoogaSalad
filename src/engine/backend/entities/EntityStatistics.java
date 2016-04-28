@@ -1,18 +1,26 @@
 package engine.backend.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EntityStatistics {
 	
-	List<String> myEntityStats;
+	Map<String, String> myStatsMap;
 	
 	public EntityStatistics(){
-		myEntityStats = new ArrayList<String>();
+		myStatsMap = new HashMap<String, String>();
 	}
 	
 	public void addStat(String stat){
-		myEntityStats.add(stat);
+		String[] arr = stat.split(",");
+		for(String str : arr){
+			String[] newArr = str.split(":");
+			myStatsMap.put(newArr[0], newArr[1]);
+ 		}
+	}
+	
+	public Map<String, String> getStatsMap(){
+		return myStatsMap;
 	}
 	
 	public List<String> getList(){
