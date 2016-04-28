@@ -24,6 +24,7 @@ import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
+import engine.backend.systems.Events.ClickedLevelEvent;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.IEvent;
@@ -104,9 +105,17 @@ public class EventManager implements Observer {
 		if (myEvent instanceof NextWaveEvent) {
 			handleNextWaveEvent((NextWaveEvent) myEvent);
 		}
+		
+		if (myEvent instanceof ClickedLevelEvent) {
+			handleLevelClickedEvent();
+		}
 
 	}
 
+	private void handleLevelClickedEvent() {
+		
+	}
+	
 	private void handleWaveOverEvent(WaveOverEvent event) {
 		int index = getCurrentLevel().getCurrentWaveIndex();
 		// last wave, level is over, send whether level is won or not
