@@ -16,6 +16,7 @@ import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
 import engine.backend.game_object.GameWorld;
+import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.ModeStatistics;
 import engine.backend.rules.EntityAction;
@@ -33,7 +34,9 @@ import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
 
 public class EventManager implements Observer {
-
+	
+	private static final int ZERO = 0;
+	
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
 	ModeStatistics currentModeStatistics;
@@ -106,9 +109,10 @@ public class EventManager implements Observer {
 
 	private void handleWaveOverEvent(WaveOverEvent event) {
 		int index = getCurrentLevel().getCurrentWaveIndex();
-		// last wave
+		// last wave, level is over, send whether level is won or not
 		if (index == getCurrentLevel().getNumWaves() - 1) {
-			myEngineController.levelIsOver();
+			boolean won = currentModeStatistics.getCurrentNumLives() > ZERO;
+			myEngineController.levelIsOver(won);
 		} else {
 			myEngineController.waveIsOver();
 			getCurrentLevel().setCurrentWaveIndex(index + 1);
@@ -161,7 +165,7 @@ public class EventManager implements Observer {
 			if (a instanceof EntityAction) {
 
 				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
-					entity.applyAction((EntityAction) a);
+					((IModifiable) entity).applyAction((EntityAction) a);
 				}
 
 			} else if (a instanceof LevelAction) {
@@ -176,17 +180,13 @@ public class EventManager implements Observer {
 		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
 		for (IAction action : actions) {
 			if (action instanceof EntityAction) {
-//				for (IEntity e : myEntities) {
-//					if (((EntityAction) a).getEntityName().equals(e.getName())) {
-//						e.applyAction((EntityAction) a);
-//					}
-//				}
+
 				myEntities.stream()
 						  .filter(e -> ((EntityAction) action).getEntityName().equals(e.getName()))
-						  .forEach(e -> e.applyAction((EntityAction) action));
+						  .forEach(e -> ((IModifiable) e).applyAction(action));
 								  
 			} else if (action instanceof LevelAction) {
-				currentModeStatistics.applyAction((LevelAction) action);
+				currentModeStatistics.applyAction(action);
 			}
 		}
 
