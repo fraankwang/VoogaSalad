@@ -31,9 +31,6 @@ public class SystemsController {
 	private EventManager myEventManager;
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	private ResourceBundle myComponentTagResources;
-	private int myLevelIndex;
-	private int myModeIndex;
 
 	private GameClock myGameClock;
 
@@ -45,8 +42,6 @@ public class SystemsController {
 	 * @author == mario
 	 */
 	public SystemsController(int framesPerSecond, EventManager myEventManager) {
-
-		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
 
 		renderingSystem = new RenderingSystem(engineController);
 		mobilizationSystem = new MobilizeSystem();
