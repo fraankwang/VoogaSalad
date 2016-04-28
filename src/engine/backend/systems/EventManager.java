@@ -33,7 +33,9 @@ import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
 
 public class EventManager implements Observer {
-
+	
+	private static final int ZERO = 0;
+	
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
 	ModeStatistics currentModeStatistics;
@@ -106,9 +108,10 @@ public class EventManager implements Observer {
 
 	private void handleWaveOverEvent(WaveOverEvent event) {
 		int index = getCurrentLevel().getCurrentWaveIndex();
-		// last wave
+		// last wave, level is over, send whether level is won or not
 		if (index == getCurrentLevel().getNumWaves() - 1) {
-			myEngineController.levelIsOver();
+			boolean won = currentModeStatistics.getCurrentNumLives() > ZERO;
+			myEngineController.levelIsOver(won);
 		} else {
 			myEngineController.waveIsOver();
 			getCurrentLevel().setCurrentWaveIndex(index + 1);

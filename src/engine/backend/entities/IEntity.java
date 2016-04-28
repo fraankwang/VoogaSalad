@@ -37,5 +37,4 @@ public interface IEntity {
 
 	public int getID();
 
-	public void applyAction(EntityAction action);
 }

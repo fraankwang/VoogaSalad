@@ -154,7 +154,7 @@ public class EngineController implements IEngineController{
 		myEventManager.handleClickEvent(clickedEvent);
 	}
 	
-	public void levelIsOver(){
+	public void levelIsOver(boolean won){
 		
 	}
 	

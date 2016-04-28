@@ -8,16 +8,20 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
+import engine.backend.game_object.IModifiable;
 import engine.backend.rules.EntityAction;
+import engine.backend.rules.IAction;
 import engine.backend.utilities.ComponentTagResources;
 
-public class Entity implements IEntity {
-
+public class Entity implements IEntity, IModifiable {
+	
+	private static final String PREFIX = "set";
 	private String myName;
 	private String myGenre;
 	private int myID;
 	private Map<String, IComponent> myComponents;
 	private boolean hasBeenModified;
+	private EntityStatistics myStats;
 	
 	/**
 	 * Initializes an Entity without a unique ID. 
@@ -26,7 +30,8 @@ public class Entity implements IEntity {
 	public Entity(String myName, String myType, Map<String, IComponent> myComponents) {
 		this.myName = myName;
 		this.myGenre = myType;
-		this.myComponents = myComponents;		
+		this.myComponents = myComponents;
+		myStats = new EntityStatistics();
 	}
 
 	/**
@@ -128,12 +133,18 @@ public class Entity implements IEntity {
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
+	
+	public void getStats(){
+		for(IComponent component : myComponents.values()){
+			myStats.addStat(component.getComponentInfo());
+		}
+	}
 
 	@Override
-	public void applyAction(EntityAction action) {
-		String component = action.getComponentToModifiy();
-		String instanceVar = action.getValueInComponent();
-		String newVal = action.getNewValue();
+	public void applyAction(IAction action) {
+		String component = ((EntityAction) action).getComponentToModifiy();
+		String instanceVar = ((EntityAction) action).getValueInComponent();
+		String newVal = ((EntityAction) action).getNewValue();
 		Method setMethod;
 
 		String fullName = ComponentTagResources.getComponentTag(component);
@@ -145,7 +156,7 @@ public class Entity implements IEntity {
 			
 			componentClassInstance = componentClass.cast(getComponent(fullName));
 			// put in resource file!!!
-			String methodName = "set" + instanceVar;
+			String methodName = PREFIX + instanceVar;
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 
 			setMethod.invoke(componentClassInstance, newVal);
