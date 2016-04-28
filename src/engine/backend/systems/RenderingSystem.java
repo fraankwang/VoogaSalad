@@ -71,7 +71,7 @@ public class RenderingSystem extends GameSystem {
 			}
 			
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
-			
+			myEntity.broadcastEntity();
 			if(delete){
 				entitiesToRemove.add(myEntity);
 			}

@@ -3,6 +3,7 @@ package engine.frontend.board;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.backend.entities.Entity;
 import engine.frontend.overall.AbstractPane;
 import engine.frontend.overall.EngineView;
 import javafx.beans.binding.DoubleExpression;
@@ -77,4 +78,6 @@ public class BoardPane extends AbstractPane{
 		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
 
 	}
+	
+	
 }

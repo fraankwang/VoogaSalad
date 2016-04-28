@@ -22,5 +22,4 @@ public class EntityStatistics {
 	public Map<String, String> getStatsMap(){
 		return myStatsMap;
 	}
-	
 }
