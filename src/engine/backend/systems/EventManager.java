@@ -134,7 +134,6 @@ public class EventManager implements Observer {
 		double value = event.getEntityValue();
 		currentModeStatistics.setCurrentResources(Double.toString(value));
 		
-		
 		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
