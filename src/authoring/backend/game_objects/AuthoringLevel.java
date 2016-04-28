@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.backend.map.GameMap;
+import engine.backend.rules.Rule;
 
 public class AuthoringLevel {
 	
@@ -18,6 +19,7 @@ public class AuthoringLevel {
 	private Set<String> entities;
 	private Map<String, String> myInfo;
 	private List<AuthoringEntity> spawnEntities;
+	private List<Rule> ruleAgenda;
 	
 	public AuthoringLevel(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
@@ -101,6 +103,18 @@ public class AuthoringLevel {
 			sb.deleteCharAt(sb.length() - 1);
 			return sb.toString();
 		}
+	}
+	
+	public void setRuleAgenda(List<Rule> ruleAgenda) {
+		this.ruleAgenda = ruleAgenda;
+		String[] ruleAgendaInfo = getRuleAgendaInfo();
+		this.myInfo.put("Events", ruleAgendaInfo[0]);
+		this.myInfo.put("Actions", ruleAgendaInfo[1]);
+	}
+	
+	private String[] getRuleAgendaInfo() {
+		String[] info = new String[2];
+		return info;
 	}
 	
 	@Override

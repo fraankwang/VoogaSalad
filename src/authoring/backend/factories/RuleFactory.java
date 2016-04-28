@@ -1,6 +1,5 @@
 package authoring.backend.factories;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import engine.backend.rules.Rule;
