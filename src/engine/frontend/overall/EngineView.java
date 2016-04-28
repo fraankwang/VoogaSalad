@@ -27,6 +27,8 @@ public class EngineView extends ResourceUser{
 	 *  Small todos:
 	 *  While things are paused, do not allow towers to be placed
 	 *  Fix the gameplay cycle with scenes moving around
+	 *  scale outgoing points
+	 *  scale fonts/sizes of buttons etc.
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 	

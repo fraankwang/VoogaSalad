@@ -27,6 +27,7 @@ import utility.GameCapture;
 public class EngineController extends ResourceUser implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
+	private Timeline animation;
 
 	/*
 	 * Controls to implement:
@@ -58,14 +59,14 @@ public class EngineController extends ResourceUser implements IEngineController{
 		myMain = m;
 	}
 	
+	/**
+	 * Initializes the animation and starts the 
+	 */
 	public void start(){
-		myGameWorld = new GameWorld();
-		
-		myTestingClass = new testingClass();
-		myGameWorld = myTestingClass.testFiring();
-		
-		ModeStatistics stats = new ModeStatistics(10, 10);
-		myEventManager = new EventManager(this, myGameWorld, stats);
+		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
+		animation = new Timeline();
+		animation.setCycleCount(Animation.INDEFINITE);
+		animation.getKeyFrames().add(frame);
 		
 		initStage();
 		initStartView();
@@ -79,6 +80,15 @@ public class EngineController extends ResourceUser implements IEngineController{
 	}
 	
 	public void initStartView(){
+		animation.stop();
+		playing = false;
+		myGameWorld = new GameWorld();
+		myTestingClass = new testingClass();
+		myGameWorld = myTestingClass.testFiring();
+		
+		ModeStatistics stats = new ModeStatistics(10, 10);
+		myEventManager = new EventManager(this, myGameWorld, stats);
+		
 		StartView myStartView = new StartView(this);
 		myStage.setScene(myStartView.buildScene());
 		myStage.show();
@@ -93,19 +103,17 @@ public class EngineController extends ResourceUser implements IEngineController{
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-		
 		initEngineView();	
 	}
 	
+	/**
+	 * Creates the engineView, starts the game by playing the animation
+	 */
 	private void initEngineView(){
 		myEngineView = new EngineView(myStage, this);
 		myStage.setScene(myEngineView.buildScene()); 
 		myStage.show();
 		setupGameCapture();
-		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
-		Timeline animation = new Timeline();
-		animation.setCycleCount(Animation.INDEFINITE);
-		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
 	
@@ -154,12 +162,6 @@ public class EngineController extends ResourceUser implements IEngineController{
 	//backend endpoint 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
-		
-		// put statsobject and if the stats have changed in method call
-		//myEngineView.getShopPane().updateStatsObject(id, myStatsObject, hasChanged);
-		
-		//these points need to be scaled based on the ratio of the size of the board to the size of the map
-		//they need to be scaled dynamically
 	}
 	
 	public void updateShop(List<ShopItem> shoplist){
@@ -197,15 +199,17 @@ public class EngineController extends ResourceUser implements IEngineController{
 		NextWaveEvent nextWaveEvent = new NextWaveEvent();
 		myEventManager.handleNextWaveEvent(nextWaveEvent);
 	}
+	
+	public void switchModeClicked(){
+		initStartView();
+	}
 
 	public void waveIsOver(){
 		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
-		myEngineView.getStatusPane().getControlManager().switchModeEnable();
 	}
 	
 	public void levelIsOver(boolean won){
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
-		myEngineView.getStatusPane().getControlManager().switchModeEnable();
 	}
 	
 	public Main getMain(){

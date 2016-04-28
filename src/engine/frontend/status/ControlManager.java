@@ -8,32 +8,31 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class ControlManager extends ResourceUser{
+public class ControlManager extends ResourceUser {
 	private StatusPane myStatusPane;
 	private static final String RESOURCE_NAME = "status";
-	
+
 	private Button play;
 	private Button nextWave;
 	private Button nextLevel;
 	private ComboBox<String> modeComboBox;
 	private Button modeButton;
-	
-	public ControlManager(StatusPane sp){
+
+	public ControlManager(StatusPane sp) {
 		super(RESOURCE_NAME);
 		myStatusPane = sp;
 	}
-	
 
-	public VBox buildGameControls(){
+	public VBox buildGameControls() {
 		VBox vbox = new VBox();
-		
+
 		play = myStatusPane.createButton(loadStringResource("PlayLabel"));
 		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"));
 		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"));
 		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"));
-		
-		play.setOnAction(e ->{
-			if(play.getText().equals(loadStringResource("PlayLabel"))){
+
+		play.setOnAction(e -> {
+			if (play.getText().equals(loadStringResource("PlayLabel"))) {
 				myStatusPane.getEngineView().getEngineController().setPlaying(true);
 				play.setText(loadStringResource("PauseLabel"));
 			} else {
@@ -41,39 +40,35 @@ public class ControlManager extends ResourceUser{
 				play.setText(loadStringResource("PlayLabel"));
 			}
 		});
-	
+
 		nextWave.setDisable(true);
-		nextWave.setOnAction(e ->{
+		nextWave.setOnAction(e -> {
 			myStatusPane.getEngineView().getEngineController().nextWaveClicked();
 			nextWave.setDisable(true);
 		});
-		
+
 		nextLevel.setDisable(true);
-		nextLevel.setOnAction(e ->{
+		nextLevel.setOnAction(e -> {
 			myStatusPane.getEngineView().getEngineController().nextLevelClicked();
 			nextLevel.setDisable(true);
 		});
-		
-		modeButton.setDisable(true);
-		modeButton.setOnAction(e ->{
-			myStatusPane.getEngineView().getEngineController().nextLevelClicked();
-			modeButton.setDisable(true);
-		});
-		
-		vbox.getChildren().addAll(play, nextWave, nextLevel, modeComboBox);
+
+		modeButton.setOnAction(e -> myStatusPane.getEngineView().getEngineController().switchModeClicked());
+
+		vbox.getChildren().addAll(play, nextWave, nextLevel, modeButton);
 		vbox.minWidthProperty().bind(myStatusPane.getPane().widthProperty().divide(4));
 		return vbox;
 	}
-	
-	public void nextWaveEnable(){
+
+	public void nextWaveEnable() {
 		nextWave.setDisable(false);
 	}
 
-	public void nextLevelEnable(){
+	public void nextLevelEnable() {
 		nextWave.setDisable(false);
 	}
-	
-	public void switchModeEnable(){
+
+	public void switchModeEnable() {
 		modeComboBox.setDisable(false);
 	}
 }
