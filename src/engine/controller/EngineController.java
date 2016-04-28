@@ -159,7 +159,6 @@ public class EngineController extends ResourceUser implements IEngineController{
 		}
 	}
 	
-	//backend endpoint 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
@@ -172,14 +171,6 @@ public class EngineController extends ResourceUser implements IEngineController{
 		myEngineView.getShopPane().updateUpgrade(upgradelist);
 	}
 
-//	public void updateStatistics(Statistics statistics){
-//		myEngineView.getStatusPane().updateStatistics(statistics);
-//	}
-	
-//	public void statisticsClicked(String name){
-//		//call backend to say stat object clicked
-//	}
-	
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc, yLoc, type);
 		myEventManager.handleEntityDropEvent(event);
@@ -209,7 +200,7 @@ public class EngineController extends ResourceUser implements IEngineController{
 	}
 	
 	public void levelIsOver(boolean won){
-		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable(won);
 	}
 	
 	public Main getMain(){

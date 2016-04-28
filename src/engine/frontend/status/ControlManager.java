@@ -64,8 +64,9 @@ public class ControlManager extends ResourceUser {
 		nextWave.setDisable(false);
 	}
 
-	public void nextLevelEnable() {
-		nextWave.setDisable(false);
+	public void nextLevelEnable(boolean won) {
+		if(won)
+			nextWave.setDisable(false);
 	}
 
 	public void switchModeEnable() {

@@ -29,6 +29,7 @@ public class EngineView extends ResourceUser{
 	 *  Fix the gameplay cycle with scenes moving around
 	 *  scale outgoing points
 	 *  scale fonts/sizes of buttons etc.
+	 *  lose screen
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 	
