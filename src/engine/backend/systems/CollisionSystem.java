@@ -22,6 +22,7 @@ public class CollisionSystem extends GameSystem{
  
     @Override
     public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
+
     	Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.collisionComponentTag);
     	collidableEntities.stream().forEach(entity1 -> collidableEntities.stream()
     			.filter(entity2 -> checkIntersection(entity1, entity2))
@@ -35,7 +36,6 @@ public class CollisionSystem extends GameSystem{
     }
     
 	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){
-//		System.out.println("Collision Detected!");
 		CollisionEvent collisionEvent = new CollisionEvent(entity1.getID(), entity2.getID());
 		collisionEvent.setEventID(Arrays.asList(entity1.getName(), entity2.getName()));
 		return collisionEvent;

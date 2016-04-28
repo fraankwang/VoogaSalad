@@ -14,6 +14,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 /**
@@ -87,6 +88,12 @@ public abstract class ObjectToXMLWriter {
 	 */
 	public XStream getXstream() {
 		return xstream;
+	}
+	
+	public static void stringToDocument(String xml, String fileName) throws IOException {
+		java.io.FileWriter writer = new java.io.FileWriter(fileName);
+		writer.write(xml);
+		writer.close();
 	}
 
 }

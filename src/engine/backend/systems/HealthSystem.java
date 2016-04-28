@@ -32,7 +32,7 @@ public class HealthSystem extends GameSystem {
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.healthComponentTag);
 		for (IEntity entity : applicableEntities) {
-			HealthComponent healthComp = (HealthComponent) entity.getComponent(ComponentTagResources.healthComponentTag);
+			HealthComponent healthComp = (HealthComponent) entity.getComponent(ComponentTagResources.healthComponentTag);			
 			if(healthComp.getHealth() <= 0){
 				addToEventMap(myEventMap, getDeathEvent(entity), Arrays.asList(entity));
 				continue;
@@ -41,7 +41,7 @@ public class HealthSystem extends GameSystem {
 				addToEventMap(myEventMap, getCriticalHealthEvent(entity), entity);
 				continue;
 			}
-			
+		
 		}
 	}
 

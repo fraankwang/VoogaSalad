@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -9,22 +10,23 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import backend.xml_converting.GameWorldToXMLWriter;
+import backend.xml_converting.ObjectToXMLWriter;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
-import engine.backend.entities.EntityStatistics;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
-import engine.backend.game_object.ModeStatistics;
+import engine.backend.game_object.Mode;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
-import engine.backend.systems.Events.ClickedLevelEvent;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.IEvent;
@@ -40,16 +42,17 @@ public class EventManager implements Observer {
 	
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
-	ModeStatistics currentModeStatistics;
+	GameStatistics currentModeStatistics;
 	private List<Rule> myRuleAgenda;
 	InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
+	private Level originalLevel;
 
-	public EventManager(IEngineController engineController, GameWorld game, ModeStatistics stats) {
+	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
 		myGameWorld = game;
 		// pass in right values
-		currentModeStatistics = stats;
+		currentModeStatistics = game.getGameStatistics();
 		myGameShop = new GameShop();
 	}
 
@@ -64,6 +67,10 @@ public class EventManager implements Observer {
 	public Level getCurrentLevel() {
 		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
 				currentModeStatistics. getCurrentLevelIndex());
+	}
+	
+	public Mode getCurrentMode() {
+		return myGameWorld.getModes().get(currentModeStatistics.getCurrentMode());
 	}
 
 	public void updateGameShop() {
@@ -105,15 +112,40 @@ public class EventManager implements Observer {
 		if (myEvent instanceof NextWaveEvent) {
 			handleNextWaveEvent((NextWaveEvent) myEvent);
 		}
-		
-		if (myEvent instanceof ClickedLevelEvent) {
-			handleLevelClickedEvent();
-		}
 
 	}
 
-	private void handleLevelClickedEvent() {
-		
+	/**
+	 * Handles when a mode has been selected.
+	 * @param modeName
+	 */
+	public void handleModeClickedEvent(String modeName) {
+		currentModeStatistics.setCurrentMode(modeName);
+	}
+	
+	/**
+	 * Handles when a level has been selected.
+	 * @param Level
+	 */
+	public void handleLevelClickedEvent(int level) {
+		currentModeStatistics.setCurrentLevelIndex(level);
+	}
+	
+	/**
+	 * Handles when user goes to the next level.
+	 * @throws IOException 
+	 */
+	public void handleGoToNextLevelEvent() throws IOException {
+		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
+		serializeLevel(
+				myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
+						currentModeStatistics.getCurrentLevelIndex()),
+				myGameWorld.getGameType() + currentModeStatistics.getCurrentLevelIndex());
+	}
+	
+	private void serializeLevel(Object o, String fileName) throws IOException {
+		ObjectToXMLWriter serializer = new GameWorldToXMLWriter();
+		ObjectToXMLWriter.stringToDocument(serializer.getXMLfromObject(o), fileName);
 	}
 	
 	private void handleWaveOverEvent(WaveOverEvent event) {
@@ -139,6 +171,10 @@ public class EventManager implements Observer {
 	 * @param event
 	 */
 	public void handleEntityDropEvent(EntityDroppedEvent event) {
+		
+		double value = event.getEntityValue();
+		currentModeStatistics.setCurrentResources(Double.toString(value));
+		
 		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
@@ -250,7 +286,7 @@ public class EventManager implements Observer {
 
 	}
 
-	public ModeStatistics getModeStatistics() {
+	public GameStatistics getModeStatistics() {
 		return currentModeStatistics;
 	}
 

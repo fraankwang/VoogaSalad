@@ -23,6 +23,7 @@ public abstract class GameSystem extends Observable implements ISystem {
 		if (event != null) {
 			entities.forEach(e -> putEventInMap(myEventMap, event, e));
 		}
+		entities.forEach(e -> putEventInMap(myEventMap, event, e));
 	}
 	
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, IEntity entity) {
@@ -35,16 +36,12 @@ public abstract class GameSystem extends Observable implements ISystem {
 		if (myEventMap.containsKey(event.getEventID())) {
 			myEventMap.get(event.getEventID()).add(entity.getID());
 		} else {
-			myEventMap.put(event.getEventID(), new HashSet<Integer>(entity.getID()));
+			Set<Integer> set = new HashSet<Integer>();
+			set.add(entity.getID());
+			myEventMap.put(event.getEventID(), set);
 		}
 	}
-	
-	/**
-	 * Filters a collection by their component tag.
-	 * @param entities
-	 * @param tag
-	 * @return A list of IEntities that have the tag specified.
-	 */
+
 	public List<IEntity> getEntitiesWithTag(Collection<IEntity> entities, String tag) {
 		return entities.stream().filter(e -> e.hasComponent(tag)).collect(Collectors.toList());
 	}
