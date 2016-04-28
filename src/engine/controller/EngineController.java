@@ -1,6 +1,7 @@
 package engine.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.ShopItem;
@@ -138,6 +139,10 @@ public class EngineController implements IEngineController{
 	//backend endpoint 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
+		
+		// put statsobject and if the stats have changed in method call
+		//myEngineView.getShopPane().updateStatsObject(id, myStatsObject, hasChanged);
+		
 		//these points need to be scaled based on the ratio of the size of the board to the size of the map
 		//they need to be scaled dynamically
 	}
@@ -145,9 +150,19 @@ public class EngineController implements IEngineController{
 	public void updateShop(List<ShopItem> shoplist){
 		myEngineView.getShopPane().updateShop(shoplist);
 	}
+	
+	public void updateUpgrades(List<ShopItem> upgradelist){
+		myEngineView.getShopPane().updateUpgrade(upgradelist);
+	}
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
+	
+	public void updateShopStatistics(Map<Integer, Map<String, String>> shopStatistics, boolean hasChanged){
+		for( Integer i : shopStatistics.keySet()){
+			myEngineView.getShopPane().addStatsObject(i.intValue(), shopStatistics.get(i), hasChanged);
+		}
+	}
 	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
@@ -161,6 +176,7 @@ public class EngineController implements IEngineController{
 	public void entityClicked(int myID) {
 		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
 		myEventManager.handleClickEvent(clickedEvent);
+		myEngineView.getShopPane().updateCurrentView(myID);
 	}
 	
 	public void nextWaveClicked() {
