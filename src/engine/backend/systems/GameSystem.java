@@ -37,7 +37,9 @@ public abstract class GameSystem extends Observable implements ISystem {
 		if (myEventMap.containsKey(event.getEventID())) {
 			myEventMap.get(event.getEventID()).add(entity.getID());
 		} else {
-			myEventMap.put(event.getEventID(), new HashSet<Integer>(entity.getID()));
+			Set<Integer> set = new HashSet<Integer>();
+			set.add(entity.getID());
+			myEventMap.put(event.getEventID(), set);
 		}
 	}
 
