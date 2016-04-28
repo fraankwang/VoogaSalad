@@ -3,6 +3,7 @@ package engine.controller;
 import java.util.List;
 import java.util.Map;
 
+import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
@@ -154,15 +155,10 @@ public class EngineController implements IEngineController{
 	public void updateUpgrades(List<ShopItem> upgradelist){
 		myEngineView.getShopPane().updateUpgrade(upgradelist);
 	}
+
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
-	
-	public void updateShopStatistics(Map<Integer, Map<String, String>> shopStatistics, boolean hasChanged){
-		for( Integer i : shopStatistics.keySet()){
-			myEngineView.getShopPane().addStatsObject(i.intValue(), shopStatistics.get(i), hasChanged);
-		}
-	}
 	
 //	public void statisticsClicked(String name){
 //		//call backend to say stat object clicked
@@ -174,9 +170,8 @@ public class EngineController implements IEngineController{
 	}
 
 	public void entityClicked(int myID) {
-		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
+		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		myEventManager.handleClickEvent(clickedEvent);
-		myEngineView.getShopPane().updateCurrentView(myID);
 	}
 	
 	public void nextWaveClicked() {

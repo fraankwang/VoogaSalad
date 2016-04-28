@@ -32,7 +32,7 @@ public class ControlManager {
 		play = myStatusPane.createButton(myStatusPane.getMyResources().getString("PlayLabel"));
 		nextWave = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextWaveLabel"));
 		nextLevel = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextLevelLabel"));
-		modeButton = myStatusPane.createButton(myStatusPane.getMyResources().getString("ModeTitlwLabel"));
+		modeButton = myStatusPane.createButton(myStatusPane.getMyResources().getString("ModeTitleLabel"));
 		modeComboBox = new ComboBox<String>();
 		
 		play.setOnAction(e ->{

@@ -15,4 +15,8 @@ public class EntityStatistics {
 		myEntityStats.add(stat);
 	}
 	
+	public List<String> getList(){
+		return myEntityStats;
+	}
+	
 }
