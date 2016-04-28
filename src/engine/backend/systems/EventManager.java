@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
+import engine.backend.entities.EntityStatistics;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
@@ -140,14 +140,16 @@ public class EventManager implements Observer {
 
 		String identifier = getCurrentLevel().getEntityWithID(event.getClickedEntityID()).getName();
 		event.setEventID(identifier);
+		IEntity entity = getCurrentLevel().getEntityWithID(event.getClickedEntityID());
+		((Observable) entity).addObserver(event.getCurrentView());
 
 		for (Rule rule : myRuleAgenda) {
 			ArrayList<String> ruleEvents = (ArrayList<String>) rule.getEvents();
 			if (ruleEvents.size() == 1 && ruleEvents.get(0).equals(event.getEventID())) {
-				applyActions(getCurrentLevel().getEntityWithID(event.getClickedEntityID()), rule.getActions());
+				applyActions(entity, rule.getActions());
 			}
 		}
-
+		entity.broadcastEntity();
 	}
 
 	public void updateEntityFactory() {

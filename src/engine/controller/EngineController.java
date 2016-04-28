@@ -1,7 +1,9 @@
 package engine.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
@@ -10,6 +12,7 @@ import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
+import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.StartView;
 import javafx.animation.Animation;
@@ -26,6 +29,14 @@ public class EngineController implements IEngineController{
 	private Stage myStage;
 	private Main myMain;
 
+	/*
+	 * Controls to implement:
+	 * When switch mode is pressed, reshow startView scene, 
+	 * update start view scene's level combobox, and then
+	 * allow user to pick stuff, then recreate engineView and reshow new scene
+	 * ORGANIZE METHODS TO ALLOW FOR THIS  
+	 */
+	
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean playing;
 	
@@ -129,6 +140,10 @@ public class EngineController implements IEngineController{
 	//backend endpoint 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
+		
+		// put statsobject and if the stats have changed in method call
+		//myEngineView.getShopPane().updateStatsObject(id, myStatsObject, hasChanged);
+		
 		//these points need to be scaled based on the ratio of the size of the board to the size of the map
 		//they need to be scaled dynamically
 	}
@@ -136,6 +151,11 @@ public class EngineController implements IEngineController{
 	public void updateShop(List<ShopItem> shoplist){
 		myEngineView.getShopPane().updateShop(shoplist);
 	}
+	
+	public void updateUpgrades(List<ShopItem> upgradelist){
+		myEngineView.getShopPane().updateUpgrade(upgradelist);
+	}
+
 //	public void updateStatistics(Statistics statistics){
 //		myEngineView.getStatusPane().updateStatistics(statistics);
 //	}
@@ -150,16 +170,28 @@ public class EngineController implements IEngineController{
 	}
 
 	public void entityClicked(int myID) {
-		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
+		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		myEventManager.handleClickEvent(clickedEvent);
 	}
 	
-	public void levelIsOver(boolean won){
-		
+	public void nextWaveClicked() {
+		NextWaveEvent nextWaveEvent = new NextWaveEvent();
+		myEventManager.handleNextWaveEvent(nextWaveEvent);	
 	}
 	
+	public void nextLevelClicked() {
+		NextWaveEvent nextWaveEvent = new NextWaveEvent();
+		myEventManager.handleNextWaveEvent(nextWaveEvent);
+	}
+
 	public void waveIsOver(){
-		
+		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
+		myEngineView.getStatusPane().getControlManager().switchModeEnable();
+	}
+	
+	public void levelIsOver(boolean won){
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
+		myEngineView.getStatusPane().getControlManager().switchModeEnable();
 	}
 	
 	public Main getMain(){
@@ -181,6 +213,7 @@ public class EngineController implements IEngineController{
 	public EventManager getEventManager(){
 		return myEventManager;
 	}
+	
 	public GameCapture getGameCapture(){
 		return myGameCapture;
 	}
