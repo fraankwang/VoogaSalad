@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class GameWorld {
 
+	//myModes is a map of mode name to Mode object
 	private Map<String, Mode> myModes;
 	private String myName;
 	private GameStatistics myGameStatistics;

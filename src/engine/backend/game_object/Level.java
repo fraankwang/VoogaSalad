@@ -25,7 +25,7 @@ import engine.backend.rules.Rule;
  */
 public class Level {
 	
-	//put spawning entities in this map
+	//the initial IDs for spawn entities is 0 to n - 1, where n is the number of spawn entities.
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
 	private List<IEntity> authoredEntities;
