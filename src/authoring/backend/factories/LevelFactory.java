@@ -37,6 +37,7 @@ public class LevelFactory {
 			IEntity spawnEntity = entityFactory.createEntity(authoringEntity);
 			authoredEntities.add(spawnEntity);
 			entitiesMap.put(entityID, spawnEntity);
+			entityID++;
 		}
 		
 		return new Level(name, map, waveDelayTimer, authoredEntities, entitiesMap);
