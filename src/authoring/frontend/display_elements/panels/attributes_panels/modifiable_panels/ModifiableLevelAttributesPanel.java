@@ -38,7 +38,6 @@ import javafx.scene.text.Font;
 
 public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
-	private Button myAddSpawnButton;
 	private ObjectChooser myEntitySelector;
 	private ComboBox<String> myWaveSelector;
 	private String mySpawnEntitiesCompressed;
@@ -47,6 +46,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private GridPane mySpawnEntitiesGridPane;
 	private List<String> myWaves;
 	private int myMaxWave;
+	private Button myAddSpawnButton;
 	private Button myAddTowerButton;
 	private TitledPane mySpawnPane;
 	private TitledPane myTowersPane;
@@ -54,6 +54,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private Accordion myAccordion;
 	private Map<String, String> myTowers;
 	private ScrollPane myScrollPane;
+	private List<String> myLevelEntityNames;
 
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",
 			"Rate");
@@ -71,6 +72,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public ModifiableLevelAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
 		myPossibleEntities = new TreeMap<String, String>();
+		myTowers = new TreeMap<String, String>();
+		myLevelEntityNames = new ArrayList<String>();
 		myWaves = new ArrayList<String>();
 		myWaves.add("New");
 		myWaves.add("1");
@@ -97,7 +100,6 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAttributesGridPane = createAttributesGridPane();
 		mySpawnEntitiesGridPane = assembleEmptySpawnEntitiesGridPane();
 
-		myTowers = new TreeMap<String, String>();
 		myTowersListView = new ListView<Label>();
 		myTowersListView.setMaxWidth(MAX_SIZE);
 		myScrollPane = new ScrollPane();
@@ -196,6 +198,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				linkRow(row);
 
 			}
+			
+			if (!myLevelEntityNames.contains(selected)) {
+				myLevelEntityNames.add(selected);
+			}
 		});
 
 		myAddTowerButton.setOnAction(e -> {
@@ -211,6 +217,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				tower.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 				tower.setGraphic(towerView);
 				myTowersListView.getItems().add(tower);
+			}
+			if (!myLevelEntityNames.contains(selected)) {
+				myLevelEntityNames.add(selected);
 			}
 		});
 
@@ -325,7 +334,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
 		}
 
-		setMyPossibleEntities(myController.getEntities());
+		setMyPossibleEntities(myController.getEntityImages());
 		refreshAttributes();
 	}
 
@@ -454,6 +463,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myPossibleEntities = (TreeMap<String, String>) entities;
 		myEntitySelector.clear();
 		myEntitySelector.updateList(myPossibleEntities);
+	}
+
+	public List<String> getLevelEntities() {
+		return myLevelEntityNames;
 	}
 
 }

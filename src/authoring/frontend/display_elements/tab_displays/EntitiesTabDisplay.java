@@ -37,6 +37,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 	private TabPane myEntitiesTabPane;
 	private ObservableList<AuthoringEntity> myEntityList;
+	private Map<String, Map<String, String>> myEntities;
 
 	public EntitiesTabDisplay(int tabIndex, IAuthoringView controller) {
 		super(tabIndex, controller);
@@ -144,6 +145,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 			}
 		}
 
+		myEntities.clear();
+		for (Map<String, String> entity: data) {
+			myEntities.put(entity.get("Name"), entity);
+		}
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 	}
 
@@ -183,7 +188,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 	 * 
 	 * @return
 	 */
-	public Map<String, String> getEntities() {
+	public Map<String, String> getEntityImages() {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
 		Map<String, String> entities = new TreeMap<String, String>();
@@ -199,6 +204,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 		}
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 		return entities;
+	}
+
+	public Map<String, Map<String, String>> getEntities() {
+		return myEntities;
 	}
 
 }

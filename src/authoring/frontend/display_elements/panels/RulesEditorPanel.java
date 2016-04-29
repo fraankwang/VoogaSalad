@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableLevelAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import authoring.frontend.editor_features.EntityComponents;
 import javafx.beans.value.ChangeListener;
@@ -43,10 +45,12 @@ public class RulesEditorPanel extends Panel {
 	private ListView<String> myThenStatements;
 	private Stage myRulesStage;
 	private IAuthoringView myController;
+	private ModifiableAttributesPanel myAttributes;
 
-	public RulesEditorPanel(double height, double width, IAuthoringView controller) {
+	public RulesEditorPanel(double height, double width, IAuthoringView controller, ModifiableAttributesPanel attributes) {
 		super(height, width);
 		myController = controller;
+		myAttributes = attributes;
 	}
 
 	@Override
@@ -151,8 +155,8 @@ public class RulesEditorPanel extends Panel {
 		});
 		
 		// link the list of level entities to these combo boxes
-		entityChooser.getItems().addAll("bill", "bob", "joe");
-		entityChooser2.getItems().addAll("bill", "bob", "joe");
+		entityChooser.getItems().addAll(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities());
+		entityChooser2.getItems().addAll(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities());
 		
 		selectEventBox.getChildren().addAll(eventText, eventChooser);
 		selectEntitiesBox.getChildren().addAll(entityText, entityChooser, entityChooser2);
@@ -167,10 +171,8 @@ public class RulesEditorPanel extends Panel {
 		Text typeText = new Text("Select the type of the affected object:");
 		HBox selectEntityBox = new HBox();
 		Text entityText = new Text("Select the affected entity:");
-		HBox selectComponentBox = new HBox();
-		Text componentText = new Text("Select the component to update:");
-		HBox selectVariableBox = new HBox();
-		Text variableText = new Text("Select the variable to update:");
+		HBox selectAttributeBox = new HBox();
+		Text attributeText = new Text("Select the attribute to update:");
 		HBox selectNewValueBox = new HBox();
 		Text newValueText = new Text("Enter the new value:");
 		HBox selectLevelValueToModifyBox = new HBox();
@@ -187,8 +189,8 @@ public class RulesEditorPanel extends Panel {
 		ComboBox<String> typeChooser = new ComboBox<String>();
 		typeChooser.getItems().addAll("Level", "Entity");
 		ComboBox<String> entityChooser = new ComboBox<String>();
-		ComboBox<String> componentChooser = new ComboBox<String>();
-		ComboBox<String> variableChooser = new ComboBox<String>();
+		entityChooser.getItems().addAll(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities());
+		ComboBox<String> attributeChooser = new ComboBox<String>();
 		ComboBox<Label> newValueChooser = new ComboBox<Label>();
 		ComboBox<String> levelValueChooser = new ComboBox<String>();
 		TextField deltaValueField = new TextField();
@@ -215,36 +217,21 @@ public class RulesEditorPanel extends Panel {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				thenStatementBuilder.getChildren().clear();
 				thenStatementBuilder.getChildren().addAll(selectTypeBox, selectEntityBox);
-				componentChooser.getSelectionModel().clearSelection();
-				componentChooser.getItems().clear();
-				// Somehow access the entity's components
-				//componentChooser.getItems().addAll(c);
-				thenStatementBuilder.getChildren().add(selectComponentBox);
+				attributeChooser.getSelectionModel().clearSelection();
+				attributeChooser.getItems().clear();
+				attributeChooser.getItems().addAll(myController.getEntities().get(newValue).values());
+				thenStatementBuilder.getChildren().add(selectAttributeBox);
 			}
 			
 		});
 		
-		componentChooser.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				thenStatementBuilder.getChildren().clear();
-				thenStatementBuilder.getChildren().addAll(selectTypeBox, selectEntityBox, selectComponentBox);
-				variableChooser.getSelectionModel().clearSelection();
-				variableChooser.getItems().clear();
-				variableChooser.getItems().addAll(EntityComponents.getVariables(newValue));
-				thenStatementBuilder.getChildren().add(selectVariableBox);
-			}
-			
-		});
-		
-		variableChooser.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		attributeChooser.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				thenStatementBuilder.getChildren().clear();
 				thenStatementBuilder.getChildren().addAll(selectTypeBox, selectEntityBox,
-						selectComponentBox, selectVariableBox);
+						selectAttributeBox);
 				newValueChooser.getSelectionModel().clearSelection();
 				newValueChooser.getItems().clear();
 				deltaValueField.clear();
@@ -271,31 +258,11 @@ public class RulesEditorPanel extends Panel {
 				}
 			}
 			
-		});
-		
-		componentChooser.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				thenStatementBuilder.getChildren().clear();
-				thenStatementBuilder.getChildren().addAll(selectTypeBox, selectEntityBox, selectComponentBox);
-				variableChooser.getSelectionModel().clearSelection();
-				variableChooser.getItems().clear();
-				variableChooser.getItems().addAll(EntityComponents.getVariables(newValue));
-				thenStatementBuilder.getChildren().add(selectVariableBox);
-			}
-			
-		});
-		
-		
-		
-		entityChooser.getItems().addAll("bill", "bob", "joe");
-		
+		});		
 
 		selectTypeBox.getChildren().addAll(typeText, typeChooser);
 		selectEntityBox.getChildren().addAll(entityText, entityChooser);
-		selectComponentBox.getChildren().addAll(componentText, componentChooser);
-		selectVariableBox.getChildren().addAll(variableText, variableChooser);
+		selectAttributeBox.getChildren().addAll(attributeText, attributeChooser);
 		selectLevelValueToModifyBox.getChildren().addAll(levelValueText, levelValueChooser);
 		selectNewValueBox.getChildren().addAll(newValueText, newValueChooser);
 		enterDeltaValueBox.getChildren().addAll(deltaValueText, deltaValueField);
