@@ -163,14 +163,14 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 					gridPane.add(text, column, row);
 					column++;
 				}
-				
+
 				row++;
 			}
 
 			row++;
 		}
 		row = 1;
-		
+
 	}
 
 	@Override

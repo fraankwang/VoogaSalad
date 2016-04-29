@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.TreeMap;
@@ -36,8 +37,10 @@ public class ModesTabDisplay extends TabDisplay {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		@SuppressWarnings("unchecked")
+		List<Map<String, String>> data = (List<Map<String, String>>) arg;
+
+		((ModesTabGrid) myGrid).updateModesPrimaryDisplay(data);
 	}
 	
 	public String getName() {
@@ -48,6 +51,12 @@ public class ModesTabDisplay extends TabDisplay {
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
 		map.put("Mode", null);
+		map.put("LivesMultiplier", null);
+		map.put("ResourcesMultiplier", null);
+		
+		System.out.println("*****1. ModesTabDisplay: got default Modes attributes");
+		System.out.println(map);
+
 		return map;
 	}
 

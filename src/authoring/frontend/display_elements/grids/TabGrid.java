@@ -7,7 +7,11 @@ import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -27,10 +31,12 @@ public abstract class TabGrid extends Grid {
 	protected UnmodifiableAttributesPanel myUnmodifiableAttributesPanel;
 	protected TabDisplay myTabDisplay;
 
+	protected Map<String, String> currentInfo;
+
 	public TabGrid(IAuthoringView controller, TabDisplay tabDisplay) {
 		super(controller);
 		myTabDisplay = tabDisplay;
-
+		currentInfo = new TreeMap<String, String>();
 	}
 
 	@Override
@@ -54,17 +60,66 @@ public abstract class TabGrid extends Grid {
 		myUnmodifiableAttributesPanel.setAttributes(info);
 	}
 
+	/**
+	 * Takes current information exactly, replaces the name, and opens the
+	 * editor display with the new name.
+	 * 
+	 * @param info
+	 */
+	protected void duplicate(Map<String, String> info) {
+		Map<String, String> duplicateEntity = new TreeMap<String, String>();
+		for (String s : info.keySet()) {
+			duplicateEntity.put(s, info.get(s));
+		}
+
+		String newName = promptNewName();
+		if (!newName.equals("")) {
+			duplicateEntity.replace("Name", newName);
+			duplicateEntity.remove("Type");
+			myTabDisplay.openEditorDisplay(duplicateEntity);
+		}
+	}
+
+	/**
+	 * Takes current info and sends it to the backend to be deleted. After
+	 * deleting, this method clears the current info and updates the attributes
+	 * panel.
+	 * 
+	 * @param info
+	 * @param type
+	 */
+	protected void delete(Map<String, String> info, String type) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Delete " + type + " Warning");
+		alert.setContentText("Are you sure you want to delete this " + type);
+
+		ButtonType buttonTypeOK = new ButtonType("OK");
+		ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(buttonTypeOK, buttonTypeCancel);
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == buttonTypeOK) {
+			myController.deleteData(info);
+			currentInfo.clear();
+			setAttributesPanel(currentInfo);
+			alert.close();
+		} else if (result.get() == buttonTypeCancel) {
+			return;
+		}
+
+	}
+
 	public Map<String, String> getAttributesMap() {
 		return myUnmodifiableAttributesPanel.getAttributesMap();
 	}
-
 
 	public void initializeHotKeys() {
 		Button editorButton = myUnmodifiableAttributesPanel.getEditorButton();
 		Button duplicateButton = ((MainButtonDashboard) myButtonDashboard).getDuplicateButton();
 		Button deleteButton = ((MainButtonDashboard) myButtonDashboard).getDeleteButton();
 		Button addNewButton = ((GridViewPanel) myPrimaryDisplay).getMyAddNewButton();
-		
+
 		editorButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
@@ -73,22 +128,22 @@ public abstract class TabGrid extends Grid {
 					}
 				});
 
-		duplicateButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.D, KeyCombination.SHORTCUT_DOWN),
-				new Runnable() {
+		duplicateButton.getScene().getAccelerators()
+				.put(new KeyCodeCombination(KeyCode.D, KeyCombination.SHORTCUT_DOWN), new Runnable() {
 					@Override
 					public void run() {
 						duplicateButton.fire();
 					}
 				});
 
-		deleteButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.DELETE, KeyCombination.SHORTCUT_DOWN),
-				new Runnable() {
+		deleteButton.getScene().getAccelerators()
+				.put(new KeyCodeCombination(KeyCode.DELETE, KeyCombination.SHORTCUT_DOWN), new Runnable() {
 					@Override
 					public void run() {
 						deleteButton.fire();
 					}
 				});
-		
+
 		addNewButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
@@ -97,5 +152,5 @@ public abstract class TabGrid extends Grid {
 					}
 				});
 	}
-	
+
 }

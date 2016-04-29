@@ -90,31 +90,36 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
-			if (currentAttribute.equals("SpawnEntities")) {
-				Text text = new Text(currentAttribute);
-				text.setFont(new Font(FONT_SIZE));
-				TextField tf = new TextField();
-				tf.setEditable(false);
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			TextField tf = new TextField();
+			tf.setEditable(false);
 
-				myOutputMap.put(currentAttribute, tf);
-				myAttributesMap.put(currentAttribute, tf.getText());
-			}
+			myOutputMap.put(currentAttribute, tf);
+			myAttributesMap.put(currentAttribute, tf.getText());
 
 		}
 
 	}
 
+	/**
+	 * Takes given list of attributes and a mapping of controls to those
+	 * attributes and places them in the same row, adding new rows with each
+	 * additional attribute.
+	 * 
+	 * @param gridPane
+	 * @param attributes
+	 * @param outputMap
+	 * @return
+	 */
 	protected GridPane assembleEmptyOutputRows(GridPane gridPane, List<String> attributes,
 			Map<String, Control> outputMap) {
 		for (int i = 0; i < attributes.size(); i++) {
 			String currentAttribute = attributes.get(i);
-			if (currentAttribute.equals("SpawnEntities")) {
-
-				Text text = new Text(currentAttribute);
-				text.setFont(new Font(FONT_SIZE));
-				gridPane.add(text, 0, i);
-				gridPane.add(outputMap.get(currentAttribute), 1, i);
-			}
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			gridPane.add(text, 0, i);
+			gridPane.add(outputMap.get(currentAttribute), 1, i);
 		}
 
 		return gridPane;
