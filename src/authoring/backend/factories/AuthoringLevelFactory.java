@@ -15,6 +15,10 @@ import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
+import engine.backend.rules.EntityAction;
+import engine.backend.rules.IAction;
+import engine.backend.rules.LevelAction;
+import engine.backend.rules.Rule;
 
 public class AuthoringLevelFactory {
 	
@@ -26,6 +30,8 @@ public class AuthoringLevelFactory {
 		GameMap map = new GameMap();
 		Set<String> entities = new HashSet<String>();
 		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
+		String rawEvents = "";
+		String rawActions = "";
 		String name = "";
 		double waveDelayTimer = 0;
 		for (String key : data.keySet()) {
@@ -59,13 +65,85 @@ public class AuthoringLevelFactory {
 				String spawnInfo = data.get(key);
 				spawnEntities = createSpawnEntities(spawnInfo);
 				break;
+			case "Events":
+				rawEvents = data.get(key);
+				break;
+			case "Actions":
+				rawActions = data.get(key);
+				break;
 			}
 		}
 		AuthoringLevel level = new AuthoringLevel(name, map, waveDelayTimer);
 		level.setEntities(entities);
 		level.setSpawnEntities(spawnEntities);
-		
+		level.setEvents(parseReadEvents(rawEvents));
+		level.setRuleAgenda(createRules(rawEvents, rawActions));
 		return level;
+	}
+	
+	private List<Rule> createRules(String rawEvents, String rawActions) {
+		List<Rule> ruleAgenda = new ArrayList<Rule>();
+		String[] eventslist = rawEvents.split(" ");
+		String[] actionslist = rawActions.split(" ");
+		
+		for (int i = 0; i < eventslist.length; i++) {
+			List<IAction> actions = parseActions(actionslist[i]);
+			List<String> events = parseEvents(eventslist[i]);
+			Rule rule = new Rule(events, actions);
+			ruleAgenda.add(rule);
+		}
+		return ruleAgenda;
+	}
+	
+	private List<IAction> parseActions(String actions) {
+		List<IAction> actionAgenda = new ArrayList<IAction>();
+		String[] actionlist = actions.split(":");
+		for (String str : actionlist) {
+			String[] actionInfo = str.split("_");
+			String type = actionInfo[0];
+			if (type.equals("Entity")) {
+				IAction action = new EntityAction(actionInfo[1], actionInfo[2], actionInfo[3], actionInfo[4]);
+				actionAgenda.add(action);
+			} else if (type.equals("Level")) {
+				IAction action = new LevelAction(actionInfo[1], actionInfo[2]);
+				actionAgenda.add(action);
+			} else {
+				System.out.println("Error, type not recognized");
+				return null;
+			}
+			
+		}
+		return actionAgenda;
+	}
+	
+	private List<String> parseEvents(String events) {
+		List<String> eventAgenda = new ArrayList<String>();
+		String[] eventlist = events.split(":");
+		for (String str : eventlist) {
+			String[] eventInfo = str.split("_");
+			if (eventInfo.length == 2) {
+				String event = eventInfo[0] + eventInfo[1];
+				eventAgenda.add(event);
+			} else {
+				String event = eventInfo[1] + eventInfo[1] + eventInfo[2];
+				eventAgenda.add(event);
+			}
+		}
+		return eventAgenda;
+	}
+	
+	private List<List<String>> parseReadEvents(String rawEvents) {
+		List<List<String>> events = new ArrayList<List<String>>();
+		String[] eventlist = rawEvents.split(" ");
+		for (String str : eventlist) {
+			String[] eventInfo = str.split(":");
+			List<String> list = new ArrayList<String>();
+			for (String s : eventInfo) {
+				list.add(s);
+			}
+			events.add(list);
+		}
+		return events;
 	}
 	
 	private List<AuthoringEntity> createSpawnEntities(String info) {

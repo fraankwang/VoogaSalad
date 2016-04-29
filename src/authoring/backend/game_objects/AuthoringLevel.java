@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.backend.map.GameMap;
+import engine.backend.rules.IAction;
 import engine.backend.rules.Rule;
 
 public class AuthoringLevel {
@@ -20,6 +21,7 @@ public class AuthoringLevel {
 	private Map<String, String> myInfo;
 	private List<AuthoringEntity> spawnEntities;
 	private List<Rule> ruleAgenda;
+	private List<List<String>> events;
 	
 	public AuthoringLevel(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
@@ -114,7 +116,46 @@ public class AuthoringLevel {
 	
 	private String[] getRuleAgendaInfo() {
 		String[] info = new String[2];
+		info[0] = getEventsInfo();
+		info[1] = getActionsInfo();
 		return info;
+	}
+	
+	public void setEvents(List<List<String>> events) {
+		this.events = events;
+	}
+	
+	private String getEventsInfo() {
+		StringBuilder sb = new StringBuilder();
+		for (List<String> list : events) {
+			StringBuilder sb2 = new StringBuilder();
+			for (String s : list) {
+				sb2.append(s);
+				sb2.append(":");
+			}
+			sb2.deleteCharAt(sb2.length() - 1);
+			sb.append(sb2.toString());
+			sb.append(" ");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	}
+	
+	private String getActionsInfo() {
+		StringBuilder sb = new StringBuilder();
+		for (Rule rule : ruleAgenda) {
+			List<IAction> actions = (List<IAction>) rule.getActions();
+			StringBuilder sb2 = new StringBuilder();
+			for (IAction action : actions) {
+				sb2.append(action.toString());
+				sb2.append(":");
+			}
+			sb2.deleteCharAt(sb2.length() - 1);
+			sb.append(sb2.toString());
+			sb.append(" ");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
 	}
 	
 	@Override

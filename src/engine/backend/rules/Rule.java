@@ -10,6 +10,11 @@ public class Rule {
 	private Collection<IAction> myActions;
 	private int myID;
 	
+	public Rule(Collection<String> events, Collection<IAction> actions) {
+		this.myEvents = events;
+		this.myActions = actions;
+	}
+	
 	public Rule() {
 		myEvents = new ArrayList<String>();
 		myActions = new ArrayList<IAction>();

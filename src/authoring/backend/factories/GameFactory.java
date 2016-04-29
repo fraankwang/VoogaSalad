@@ -48,11 +48,9 @@ public class GameFactory {
 	public void setupGame() {
 		AuthoringGame authoringGame = myGlobalData.getGame();
 		int startLives = authoringGame.getStartLives();
-		int defeatLives = authoringGame.getNumLivesDefeat();
-		double gameTimer = authoringGame.getGameTimer();
 		double resources = authoringGame.getStartResources();
 		String gameType = authoringGame.getGameType();
-		GameStatistics gameStatistics = new GameStatistics(startLives, defeatLives, gameTimer, resources);
+		GameStatistics gameStatistics = new GameStatistics(startLives, resources);
 		this.myGame = new GameWorld(gameType, gameStatistics, modeMap);
 	}
 	

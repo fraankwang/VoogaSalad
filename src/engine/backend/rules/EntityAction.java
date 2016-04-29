@@ -28,6 +28,8 @@ public class EntityAction implements IAction{
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("Entity");
+		sb.append("_");
 		sb.append(entityName);
 		sb.append("_");
 		sb.append(componentToModifiy);

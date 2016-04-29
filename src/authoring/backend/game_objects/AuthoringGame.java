@@ -30,14 +30,6 @@ public class AuthoringGame extends Observable {
 		return Integer.parseInt(gameInfo.get("NumberOfStartingLives"));
 	}
 	
-	public int getNumLivesDefeat() {
-		return Integer.parseInt(gameInfo.get("NumberOfLivesForDefeat"));
-	}
-	
-	public double getGameTimer() {
-		return Double.parseDouble(gameInfo.get("GameTimer"));
-	}
-	
 	public double getStartResources() {
 		return Double.parseDouble(gameInfo.get("StartingResources"));
 	}
