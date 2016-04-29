@@ -34,7 +34,7 @@ public class PurchaseComponent extends Component {
 	}
 	
 	public String getComponentInfo() {
-		return myValue + "";
+		return "MyValue:" + myValue;
 	}
 
 	@Override
