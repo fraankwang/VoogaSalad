@@ -16,6 +16,7 @@ import javafx.beans.value.ObservableValue;
 import authoring.parser.GlobalParser;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 //import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,6 +24,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import javafx.scene.layout.GridPane;
@@ -47,15 +49,19 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private TreeMap<String, String> myEntities;
 	private TreeMap<String, SpawnEntityRow> mySpawnEntitiesInputMap;
 	private GridPane mySpawnEntitiesGridPane;
+	private List<String> myWaves;
+	private int myMaxWave;
+	private Button myAddTowerButton;
+	private TitledPane mySpawnPane;
+	private TitledPane myTowersPane;
+	private GridPane myTowersGrid;
+	private Accordion myAccordion;
+	private Map<String, String> myTowers;
+
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",
 			"Rate");
 	private static final List<String> LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("Name", "MapBackgroundImage",
 			"LevelTimer", "WaveDelayTimer", "MapWidth", "MapHeight");
-
-	private List<String> myWaves;
-	private int myMaxWave;
-	private Button myAddTowerButton;
-
 	private static final int SPAWN_ENTITIES_COLUMN_1 = 5;
 	private static final int SPAWN_ENTITIES_COLUMN_2 = 13;
 	private static final int SPAWN_ENTITIES_COLUMN_3 = 3;
@@ -94,9 +100,19 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAttributesGridPane = createAttributesGridPane();
 		mySpawnEntitiesGridPane = assembleEmptySpawnEntitiesGridPane();
 		mySpawnEntitiesGridPane.setMaxWidth(50);
+		mySpawnPane = new TitledPane("Waves", mySpawnEntitiesGridPane);
+		
+		myTowers = new TreeMap<String, String>();
+		List<Integer> towerConstraints = Arrays.asList(33, 33, 33);
+		myTowersGrid = createGridWrapper(towerConstraints, towerConstraints);
+		myTowersGrid.setMaxWidth(MAX_SIZE);
+		myTowersPane = new TitledPane("Towers", myTowersGrid);
 
-		myScrollPane = new ScrollPane();
-		myScrollPane.setContent(mySpawnEntitiesGridPane);
+		//myScrollPane = new ScrollPane();
+		//myScrollPane.setContent(mySpawnEntitiesGridPane);		
+		
+		myAccordion = new Accordion();
+		myAccordion.getPanes().addAll(mySpawnPane, myTowersPane);
 
 		assembleEmptyInputRows();
 	}
@@ -104,7 +120,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myAttributesGridPane, 0, 0);
-		myGridPane.add(myScrollPane, 0, 1);
+		myGridPane.add(myAccordion, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
@@ -158,7 +174,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAddTowerButton.setAlignment(Pos.BASELINE_LEFT);
 
 
-		myWaveSelector.setPrefSize(MAX_SIZE, MAX_SIZE);
+		myWaveSelector.setPrefSize(100, 50);
 		myWaveSelector.getItems().addAll(myWaves);
 		myWaveSelector.setPromptText("Select Wave");
 
@@ -183,6 +199,19 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				SpawnEntityRow row = new SpawnEntityRow(tag, selected, newImageView, wave, pathID);
 				linkRow(row);
 
+			}
+		});
+		
+		myAddTowerButton.setOnAction(e -> {
+			String selected = promptUserInput("Entity", entityTextField);
+			String selectedImagePath = myEntities.get(selected);
+			if (!myTowers.containsKey(selected)) {
+				myTowers.put(selected, selectedImagePath);
+				ImageView towerView = new ImageView(new Image(selectedImagePath));
+				towerView.setPreserveRatio(true);
+				towerView.setFitHeight(70);
+				towerView.setFitWidth(70);
+				myTowersGrid.add(towerView, (myTowers.size()-1) % 3, (myTowers.size()-1) / 3);
 			}
 		});
 
