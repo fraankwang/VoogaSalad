@@ -26,7 +26,7 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 	
 	public UnmodifiableModeAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
-		myDefaultAttributes = Arrays.asList("Name", "Starting Lives Multiplier", "Starting Resources Multiplier");
+		myDefaultAttributes = Arrays.asList("Name", "InitialLives", "InitialResources");
 	}
 
 	@Override

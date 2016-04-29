@@ -46,7 +46,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private GridPane mySpawnEntitiesGridPane;
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",
 			"Rate");
-	private static final List<String> LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("Name", "MapBackgroundImage",
+	private static final List<String> DEFAULT_LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("Name", "MapBackgroundImage",
 			"LevelTimer", "WaveDelayTimer", "MapWidth", "MapHeight");
 
 	private List<String> myWaves;
@@ -272,7 +272,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		myInputMap = new TreeMap<String, Control>();
 
-		for (String attribute : LEVEL_ATTRIBUTES) {
+		for (String attribute : DEFAULT_LEVEL_ATTRIBUTES) {
 			TextField tf = new TextField();
 			myInputMap.put(attribute, tf);
 

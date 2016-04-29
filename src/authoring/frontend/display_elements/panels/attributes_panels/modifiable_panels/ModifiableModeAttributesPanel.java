@@ -2,7 +2,6 @@ package authoring.frontend.display_elements.panels.attributes_panels.modifiable_
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,10 +11,7 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 /**
  * 
@@ -26,8 +22,7 @@ import javafx.scene.text.Text;
 public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 	private static final int MODE_DESCRIPTION_HEIGHT = 50;
-	private static final List<String> DEFAULT_MODE_OPTIONS = Arrays.asList("Easy", "Medium", "Hard", "God Mode", "Infinite Resources", "Custom");
-
+	private static final List<String> DEFAULT_MODE_ATTRIBUTES = Arrays.asList("Name", "InitialLives", "InitialResources");
 	
 	public ModifiableModeAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
@@ -50,7 +45,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		myAttributesMap = new TreeMap<String, String>();
 		myInputMap = new TreeMap<String, Control>();
-		myAttributes = (List<String>) Arrays.asList("Name", "Starting Lives Multiplier", "Starting Resources Multiplier");
+		myAttributes = DEFAULT_MODE_ATTRIBUTES;
 		assembleEmptyInputRows();
 
 	}
@@ -62,59 +57,37 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		myNode = myWrapper;
 	}
 	
-	@Override
-	protected void assembleEmptyInputRows() {
-		for (int i = 0; i < myAttributes.size(); i++) {
-			String currentAttribute = myAttributes.get(i);
-			Text text = new Text(currentAttribute);
-			text.setFont(new Font(FONT_SIZE));
-
-			if (currentAttribute.equals("Mode")) {
-				ComboBox<String> cb = new ComboBox<String>();
-				cb.setEditable(false);
-				cb.setPromptText("Pick a Mode");
-				cb.getItems().addAll(DEFAULT_MODE_OPTIONS);
-				myAttributesMap.put(currentAttribute, cb.getSelectionModel().getSelectedItem());
-				myInputMap.put(currentAttribute, cb);
-				
-			} else {
-				TextField tf = new TextField();
-				tf.setEditable(true);
-				myAttributesMap.put(currentAttribute, tf.getText());
-				myInputMap.put(currentAttribute, tf);
-				
-			}
-
-			myAttributesGridPane.add(text, 0, i);
-
-		}
-	}
 
 	@Override
 	public void updateAttributes(Map<String, String> info) {
 		myAttributesMap = info;
+		myAttributes.remove("Levels");
+		
+		for (String attribute : DEFAULT_MODE_ATTRIBUTES) {
+			TextField tf = new TextField();
+			myInputMap.put(attribute, tf);
+		}
+		
+		updateLevels();
+		
+		System.out.println(
+				"*****3. ModifiableModeAttrPanel: updated myAttributesMap and myAttributes set with given unmodifiableattributespanel outputs:");
+		System.out.println(myAttributesMap);
 		refreshAttributes();
+	}
+
+	private void updateLevels() {
+		System.out.println("levels updated");
 	}
 
 	@Override
 	protected void refreshAttributes() {
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
-				Control inputMethod = myInputMap.get(myAttributes.get(i));
-
-				if (inputMethod instanceof TextField) {
-					TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
-					tf.setText(myAttributesMap.get(myAttributes.get(i)));
-					tf.setEditable(true);
-					myInputMap.replace(myAttributes.get(i), tf);
-
-				} else if (inputMethod instanceof ComboBox<?>) {
-					@SuppressWarnings("unchecked")
-					ComboBox<String> cb = (ComboBox<String>) myInputMap.get(myAttributes.get(i));
-					cb.setValue(myAttributesMap.get(myAttributes.get(i)));
-					cb.setEditable(false);
-					myInputMap.replace(myAttributes.get(i), cb);
-				}
+				TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
+				tf.setText(myAttributesMap.get(myAttributes.get(i)));
+				tf.setEditable(true);
+				myInputMap.replace(myAttributes.get(i), tf);
 
 			}
 
