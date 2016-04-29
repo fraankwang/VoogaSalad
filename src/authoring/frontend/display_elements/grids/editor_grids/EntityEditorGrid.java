@@ -44,7 +44,7 @@ public class EntityEditorGrid extends EditorGrid {
 	public void setAttributesPanel(Map<String, String> info) {
 		super.setAttributesPanel(info);
 		if (info.get("DisplayComponent_Image") == null) {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("images/question_mark.png"));
+			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("resources/images/question_mark.png"));
 		} else {
 			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
 		}
@@ -55,7 +55,7 @@ public class EntityEditorGrid extends EditorGrid {
 		super.initializeHotKeys();
 		Button addComponentButton = ((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).getAddComponentButton();
 	
-		addComponentButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN),
+		addComponentButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {

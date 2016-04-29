@@ -9,11 +9,13 @@ import java.util.TreeMap;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.editor_features.SpawnEntityRow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import authoring.parser.GlobalParser;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 //import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -28,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -38,7 +41,7 @@ import javafx.scene.text.Font;
 public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	private Button myAddSpawnButton;
-	private ComboBox<String> myEntitySelector;
+	private ObjectChooser myEntitySelector;
 	private ComboBox<String> myWaveSelector;
 	private String mySpawnEntitiesCompressed;
 	private TreeMap<String, String> myEntities;
@@ -46,11 +49,12 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private GridPane mySpawnEntitiesGridPane;
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",
 			"Rate");
-	private static final List<String> LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("Name", "MapBackgroundImage",
+	private static final List<String> DEFAULT_LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("Name", "MapBackgroundImage",
 			"LevelTimer", "WaveDelayTimer", "MapWidth", "MapHeight");
 
 	private List<String> myWaves;
 	private int myMaxWave;
+	private Button myAddTowerButton;
 
 	private static final int SPAWN_ENTITIES_COLUMN_1 = 5;
 	private static final int SPAWN_ENTITIES_COLUMN_2 = 13;
@@ -134,26 +138,35 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	private void assembleAddSpawnOptions() {
 		myAddSpawnButton = new Button("Add Spawn");
-		myEntitySelector = new ComboBox<String>();
+		myAddTowerButton = new Button("Add Tower");
+		
+		myEntitySelector = new ObjectChooser();
+		myEntitySelector.initialize();
+		myEntitySelector.updateList(myEntities);
+		TextField entityTextField = new TextField("Select Entity");
+		entityTextField.setOnMouseClicked(e -> entityTextField.setText(myEntitySelector.openChooser()));
+		entityTextField.setEditable(false);
+		
 		myWaveSelector = new ComboBox<String>();
 
 		myAddSpawnButton.setPrefSize(MAX_SIZE, MAX_SIZE);
 		myAddSpawnButton.setFont(new Font(20));
 		myAddSpawnButton.setAlignment(Pos.BASELINE_LEFT);
-		GridPane.setColumnSpan(myAddSpawnButton, 2);
+		
+		myAddTowerButton.setPrefSize(MAX_SIZE, MAX_SIZE);
+		myAddTowerButton.setFont(new Font(20));
+		myAddTowerButton.setAlignment(Pos.BASELINE_LEFT);
 
-		myEntitySelector.setPrefSize(MAX_SIZE, MAX_SIZE);
-		myEntitySelector.getItems().addAll(myEntities.keySet());
-		myEntitySelector.setPromptText("Select Entity");
 
 		myWaveSelector.setPrefSize(MAX_SIZE, MAX_SIZE);
 		myWaveSelector.getItems().addAll(myWaves);
 		myWaveSelector.setPromptText("Select Wave");
 
 		myAddSpawnButton.setOnAction(e -> {
-			String selected = myEntitySelector.getSelectionModel().getSelectedItem();
+			
+			String selected = promptUserInput("Entity", entityTextField);
 			String selectedImagePath = myEntities.get(selected);
-			String wave = myWaveSelector.getSelectionModel().getSelectedItem();
+			String wave = promptUserInput("Wave", myWaveSelector);
 
 			if (wave.equals("New")) {
 				myMaxWave++;
@@ -173,10 +186,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			}
 		});
 
-		myAttributesGridPane.add(new Label("Create waves of entities:"), 0, myAttributes.size());
-		myAttributesGridPane.add(myEntitySelector, 0, myAttributes.size() + 1);
-		myAttributesGridPane.add(myWaveSelector, 1, myAttributes.size() + 1);
-		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size() + 2);
+		myAttributesGridPane.add(myAddSpawnButton, 0, myAttributes.size() + 1);
+		myAttributesGridPane.add(myAddTowerButton, 1, myAttributes.size() + 1);
 	}
 
 	private void linkRow(SpawnEntityRow row) {
@@ -272,7 +283,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		myInputMap = new TreeMap<String, Control>();
 
-		for (String attribute : LEVEL_ATTRIBUTES) {
+		for (String attribute : DEFAULT_LEVEL_ATTRIBUTES) {
 			TextField tf = new TextField();
 			myInputMap.put(attribute, tf);
 
@@ -282,7 +293,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
 		}
 
-		setMyEntities(myController.getEntities());
+		setMySelectableEntities(myController.getEntities());
 		refreshAttributes();
 	}
 
@@ -406,10 +417,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	}
 
-	public void setMyEntities(Map<String, String> entities) {
+	public void setMySelectableEntities(Map<String, String> entities) {
 		myEntities = (TreeMap<String, String>) entities;
-		myEntitySelector.getItems().clear();
-		myEntitySelector.getItems().setAll(entities.keySet());
+		myEntitySelector.clear();
+		myEntitySelector.updateList(myEntities);
 	}
 
 }

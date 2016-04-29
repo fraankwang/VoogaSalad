@@ -56,7 +56,7 @@ public class GridViewPanel extends Panel {
 		myImages = new ArrayList<ImageView>();
 		myAddNewButton = new Button("Add New");
 		myAddNewButton.setStyle(
-				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#000000,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
+				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#515D7B,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
 
 		myAddNewButton.setPrefSize(ADD_NEW_BUTTON_SIZE, ADD_NEW_BUTTON_SIZE);
 	}

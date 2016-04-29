@@ -51,7 +51,7 @@ public class AuthoringController implements IAuthoringController {
 			return;
 		}
 		if (type.equals("Game")) {
-			model.updateGame(command, data);
+			model.updateGame(data);
 			return;
 		}
 	}

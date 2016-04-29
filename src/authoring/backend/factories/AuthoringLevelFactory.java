@@ -15,23 +15,21 @@ import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
-import engine.backend.rules.EntityAction;
-import engine.backend.rules.IAction;
-import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 
 public class AuthoringLevelFactory {
 	
+	private RuleFactory ruleFactory;
+	
 	public AuthoringLevelFactory() {
-		
+		this.ruleFactory = new RuleFactory();
 	}
 	
 	public AuthoringLevel createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
 		Set<String> entities = new HashSet<String>();
 		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
-		String rawEvents = "";
-		String rawActions = "";
+		String ruleInfo = "";
 		String name = "";
 		double waveDelayTimer = 0;
 		for (String key : data.keySet()) {
@@ -65,83 +63,70 @@ public class AuthoringLevelFactory {
 				String spawnInfo = data.get(key);
 				spawnEntities = createSpawnEntities(spawnInfo);
 				break;
-			case "Events":
-				rawEvents = data.get(key);
-				break;
-			case "Actions":
-				rawActions = data.get(key);
+			case "Rules":
+				ruleInfo = data.get(key);
 				break;
 			}
 		}
 		AuthoringLevel level = new AuthoringLevel(name, map, waveDelayTimer);
 		level.setEntities(entities);
 		level.setSpawnEntities(spawnEntities);
-		level.setEvents(parseReadEvents(rawEvents));
-		level.setRuleAgenda(createRules(rawEvents, rawActions));
+		level.setRuleAgenda(createRules(ruleInfo), parseReadEvents(ruleInfo));
 		return level;
 	}
 	
-	private List<Rule> createRules(String rawEvents, String rawActions) {
-		List<Rule> ruleAgenda = new ArrayList<Rule>();
-		String[] eventslist = rawEvents.split(" ");
-		String[] actionslist = rawActions.split(" ");
-		
-		for (int i = 0; i < eventslist.length; i++) {
-			List<IAction> actions = parseActions(actionslist[i]);
-			List<String> events = parseEvents(eventslist[i]);
-			Rule rule = new Rule(events, actions);
-			ruleAgenda.add(rule);
+	private List<Rule> createRules(String rawRules) {
+		String[] rawRuleSet = rawRules.split(" ");
+		String[] events = new String[rawRuleSet.length];
+		String[] actions = new String[rawRuleSet.length];
+		List<Rule> rules = new ArrayList<Rule>();
+		for (int i = 0; i < rawRuleSet.length; i++) {
+			String rawRule = rawRuleSet[i];
+			String[] ruleParts = rawRule.split(":");
+			events[i] = ruleParts[0];
+			actions[i] = ruleParts[1];
 		}
-		return ruleAgenda;
+		for (int i = 0; i < events.length; i++) {
+			String eventInfo = events[i];
+			String actionInfo = actions[i];
+			rules.add(ruleFactory.createRule(parseEvents(eventInfo), parseActions(actionInfo)));
+		}
+		return rules;
 	}
 	
-	private List<IAction> parseActions(String actions) {
-		List<IAction> actionAgenda = new ArrayList<IAction>();
-		String[] actionlist = actions.split(":");
-		for (String str : actionlist) {
-			String[] actionInfo = str.split("_");
-			String type = actionInfo[0];
-			if (type.equals("Entity")) {
-				IAction action = new EntityAction(actionInfo[1], actionInfo[2], actionInfo[3], actionInfo[4]);
-				actionAgenda.add(action);
-			} else if (type.equals("Level")) {
-				IAction action = new LevelAction(actionInfo[1], actionInfo[2]);
-				actionAgenda.add(action);
-			} else {
-				System.out.println("Error, type not recognized");
-				return null;
+	private List<String> parseEvents(String eventInfo) {
+		String[] eventData = eventInfo.split("+");
+		List<String> events = new ArrayList<String>();
+		for (String event : eventData) {
+			String[] eventElements = event.split("_");
+			StringBuilder sb = new StringBuilder();
+			for (String str : eventElements) {
+				sb.append(str);
 			}
-			
+			events.add(sb.toString());
 		}
-		return actionAgenda;
+		return events;
 	}
 	
-	private List<String> parseEvents(String events) {
-		List<String> eventAgenda = new ArrayList<String>();
-		String[] eventlist = events.split(":");
-		for (String str : eventlist) {
-			String[] eventInfo = str.split("_");
-			if (eventInfo.length == 2) {
-				String event = eventInfo[0] + eventInfo[1];
-				eventAgenda.add(event);
-			} else {
-				String event = eventInfo[1] + eventInfo[1] + eventInfo[2];
-				eventAgenda.add(event);
+	private List<List<String>> parseActions(String actionInfo) {
+		String[] actionData = actionInfo.split("+");
+		List<List<String>> actions = new ArrayList<List<String>>();
+		for (String action : actionData) {
+			List<String> elements = new ArrayList<String>();
+			String[] actionElements = action.split("_");
+			for (String str : actionElements) {
+				elements.add(str);
 			}
+			actions.add(elements);
 		}
-		return eventAgenda;
+		return actions;
 	}
 	
-	private List<List<String>> parseReadEvents(String rawEvents) {
-		List<List<String>> events = new ArrayList<List<String>>();
-		String[] eventlist = rawEvents.split(" ");
-		for (String str : eventlist) {
-			String[] eventInfo = str.split(":");
-			List<String> list = new ArrayList<String>();
-			for (String s : eventInfo) {
-				list.add(s);
-			}
-			events.add(list);
+	private List<String> parseReadEvents(String ruleInfo) {
+		List<String> events = new ArrayList<String>();
+		for (String rulePair : ruleInfo.split(" ")) {
+			String eventSet = rulePair.split(":")[0];
+			events.add(eventSet);
 		}
 		return events;
 	}
