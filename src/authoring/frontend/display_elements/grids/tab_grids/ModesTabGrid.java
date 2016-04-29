@@ -93,7 +93,7 @@ public class ModesTabGrid extends TabGrid {
 		Label text = new Label(string);
 		text.setFont(new Font(70));
 
-		WritableImage snapshot = text.snapshot(new SnapshotParameters(), null);
+		WritableImage snapshot = myPrimaryDisplay.getNode().snapshot(new SnapshotParameters(), null);
 		return new ImageView(snapshot);
 	}
 
