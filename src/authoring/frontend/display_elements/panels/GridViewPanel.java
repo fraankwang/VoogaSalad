@@ -31,14 +31,14 @@ public class GridViewPanel extends Panel {
 
 	private final static int DEFAULT_NUM_GRID_COLUMNS = 2;
 	private final static int ADD_NEW_BUTTON_SIZE = 300;
-	private GridPane myGridPane;
-	private ScrollPane myScrollPane;
-	private PanelBar myPanelBar;
-	private Button myAddNewButton;
+	protected GridPane myGridPane;
+	protected ScrollPane myScrollPane;
+	protected PanelBar myPanelBar;
+	protected Button myAddNewButton;
 	private int numColumns;
-	private List<ImageView> myImages;
+	protected List<ImageView> myImages;
 	private ImageView myCurrImage;
-	private ITabDisplay myTabDisplay;
+	protected ITabDisplay myTabDisplay;
 
 	public GridViewPanel(double height, double width, ITabDisplay tab) {
 		super(height, width);

@@ -8,15 +8,15 @@ import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.ModesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
+import authoring.frontend.display_elements.panels.LevelGridViewPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
+import authoring.parser.GlobalParser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.text.Font;
 
 /**
  * 
@@ -65,7 +65,7 @@ public class ModesTabGrid extends TabGrid {
 
 		for (Map<String, String> info : data) {
 
-			ImageView iv = convertToImageView(info.get("Name"));
+			ImageView iv = convertToImageView(info.get("Levels"));
 
 			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
@@ -90,10 +90,11 @@ public class ModesTabGrid extends TabGrid {
 	 * @return
 	 */
 	private ImageView convertToImageView(String string) {
-		Label text = new Label(string);
-		text.setFont(new Font(70));
+		LevelGridViewPanel levels = new LevelGridViewPanel(500, 500, null);
+		levels.updatePossibleLevels(myController.getLevels());
+		levels.updateSelectedLevels(GlobalParser.parseLevels(string));
 
-		WritableImage snapshot = myPrimaryDisplay.getNode().snapshot(new SnapshotParameters(), null);
+		WritableImage snapshot = levels.getNode().snapshot(new SnapshotParameters(), null);
 		return new ImageView(snapshot);
 	}
 

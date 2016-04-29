@@ -108,7 +108,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		System.out.println(myAttributesMap);
 
 		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
-				(TreeMap<String, String[]>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
+				(TreeMap<String, String[]>) GlobalParser.spawnParse(myAttributesMap.get("SpawnEntities")));
 
 		for (String currentAttribute : myAttributesMap.keySet()) {
 			if (myOutputMap.containsKey(currentAttribute)) {

@@ -143,13 +143,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	}
 
-	
-	/**
-	 * Update image display based on attribute image name.
-	 * @param imageView
-	 */
-	public abstract void updateImageComponent(String imageName);
-	
+
 	
 	/**
 	 * Creates confirmation before allowing user to reset all input values.

@@ -1,13 +1,11 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.panels.LevelGridViewPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.parser.GlobalParser;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
@@ -21,11 +19,16 @@ import javafx.scene.layout.BorderPane;
 
 public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
-	private static final int MODE_DESCRIPTION_HEIGHT = 50;
+	private static final int MODE_DESCRIPTION_HEIGHT = 30;
 	private static final List<String> DEFAULT_MODE_ATTRIBUTES = Arrays.asList("Name", "InitialLives", "InitialResources");
+	
+	private LevelGridViewPanel myLevelSelector;
+	private Map<String, String> myPossibleLevels;
+	private Map<Integer, String> mySelectedLevels;
 	
 	public ModifiableModeAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
+		myPossibleLevels = new HashMap<String, String>();
 	}
 
 	@Override
@@ -42,7 +45,10 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
-
+		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null);
+		myLevelSelector.initialize();
+		mySelectedLevels = new HashMap<Integer, String>();
+		
 		myAttributesMap = new TreeMap<String, String>();
 		myInputMap = new TreeMap<String, Control>();
 		myAttributes = DEFAULT_MODE_ATTRIBUTES;
@@ -53,6 +59,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myAttributesGridPane, 0, 0);
+		myGridPane.add(myLevelSelector.getNode(), 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
@@ -61,14 +68,18 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	public void updateAttributes(Map<String, String> info) {
 		myAttributesMap = info;
-		myAttributes.remove("Levels");
+		myInputMap.clear();
 		
 		for (String attribute : DEFAULT_MODE_ATTRIBUTES) {
 			TextField tf = new TextField();
 			myInputMap.put(attribute, tf);
 		}
 		
-		updateLevels();
+		if (info.get("Levels") != null) {
+			List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
+			updateLevels(selectedLevels);
+			
+		}
 		
 		System.out.println(
 				"*****3. ModifiableModeAttrPanel: updated myAttributesMap and myAttributes set with given unmodifiableattributespanel outputs:");
@@ -76,9 +87,12 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		refreshAttributes();
 	}
 
-	private void updateLevels() {
-		System.out.println("levels updated");
+	private void updateLevels(List<String> selectedLevels) {
+		setMyPossibleLevels(myController.getLevels());
+		myLevelSelector.updatePossibleLevels(myPossibleLevels);
+		myLevelSelector.updateSelectedLevels(selectedLevels);
 	}
+	
 
 	@Override
 	protected void refreshAttributes() {
@@ -108,15 +122,22 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		}
 
+		String levelsCompressed = GlobalParser.compressLevels(mySelectedLevels);
+		
+		if (!myAttributesMap.containsKey("Levels")) {
+			myAttributesMap.put("Levels", levelsCompressed);
+		} else {
+			myAttributesMap.replace("Levels", levelsCompressed);
+		}
+		
 		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
 		return myAttributesMap;
 	}
-
-	@Override
-	public void updateImageComponent(String imageName) {
-		// null because no image component?
+	
+	public void setMyPossibleLevels(Map<String, String> levels) {
+		myPossibleLevels = levels;
 	}
 
 }
