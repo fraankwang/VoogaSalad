@@ -1,9 +1,6 @@
 package authoring.parser;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import authoring.frontend.editor_features.SpawnEntityRow;
 
@@ -61,30 +58,6 @@ public class GlobalParser {
 		}
 	}
 
-
-	public static Map<String, String[]> parseSpawnEntities(String spawnEntities) {
-		TreeMap<String, String[]> spawnEntitiesMap = new TreeMap<String, String[]>();
-		
-		if (spawnEntities == null) return null;
-		
-		if (spawnEntities.equals("")) {
-			return spawnEntitiesMap;
-		}
-
-		String[] allSpawnEntities = spawnEntities.split(",");
-		for (String entity : allSpawnEntities) {
-			String[] pathSplit = entity.split(":");
-			String pathID = pathSplit[0];
-			String spawnObjects = pathSplit[1];
-
-			String[] spawnObjectsSplit = spawnObjects.split("_");
-			spawnEntitiesMap.put(pathID, spawnObjectsSplit);
-
-		}
-
-		return spawnEntitiesMap;
-	}
-
 	/**
 	 * Takes unordered inputs and sorts them by pathID, then delineated (in no
 	 * order) by entity names, followed by wave order, number, and rate.
@@ -92,7 +65,7 @@ public class GlobalParser {
 	 * @param map
 	 * @return
 	 */
-	public static String spawnCompress(TreeMap<String, SpawnEntityRow> map) {
+	public static String compressSpawnsInputs(TreeMap<String, SpawnEntityRow> map) {
 		String result = "";
 
 		Set<String> myIDs = new HashSet<String>();
@@ -125,6 +98,34 @@ public class GlobalParser {
 
 		result = result.substring(0, result.length() - 1);
 		return result;
+	}
+
+	public static List<String> parseLevels(String string) {
+		List<String> sortedLevels = new ArrayList<String>();
+		String[] allLevels = string.split(" ");
+		for (String level : allLevels) {
+			String[] split = level.split(":");
+			sortedLevels.add(split[1]);
+		}
+		
+		return sortedLevels;
+		
+	}
+
+	public static String compressLevels(Map<Integer, String> levels) {
+		int[] indexes = new int[levels.size()];
+		for (int i = 0; i < levels.size(); i++) {
+			indexes[i] = Integer.parseInt(levels.get(i));
+		}
+
+		Arrays.sort(indexes);
+
+		String result = "";
+		for (int j : indexes) {
+			result += Integer.toString(j) + ":" + levels.get(j) + " ";
+		}
+		
+		return result.substring(0, result.length());
 	}
 
 }
