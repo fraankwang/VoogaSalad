@@ -4,7 +4,6 @@ import authoring.frontend.display_elements.panels.EditorViewPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
 /**
