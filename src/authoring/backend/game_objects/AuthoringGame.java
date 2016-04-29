@@ -1,45 +1,35 @@
 package authoring.backend.game_objects;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
 
-public class AuthoringGame extends Observable {
+public class AuthoringGame {
 	
-	private Map<String, String> gameInfo;
+	private Map<String, String> myInfo;
+	private String myName;
 	
-	public AuthoringGame() {
-		this.gameInfo = new HashMap<String, String>();
+	public AuthoringGame(String name) {
+		this.myName = name;
 	}
 	
-	public void update(Map<String, String> data) {
-		this.gameInfo = data;	
-		setChanged();
-		notifyObservers(getInfo());
+	public AuthoringGame() {
+		
+	}
+	
+	public void initializeInfo() {
+		this.myInfo.put("Name", myName);
+	}
+	
+	public void setName(String name) {
+		this.myName = name;
+		this.myInfo.put("Name", myName);
+	}
+	
+	public String getName() {
+		return myName;
 	}
 	
 	public Map<String, String> getInfo() {
-		return gameInfo;
-	}
-	
-	public String getGameType() {
-		return gameInfo.get("GameType");
-	}
-	
-	public int getStartLives() {
-		return Integer.parseInt(gameInfo.get("NumberOfStartingLives"));
-	}
-	
-	public int getNumLivesDefeat() {
-		return Integer.parseInt(gameInfo.get("NumberOfLivesForDefeat"));
-	}
-	
-	public double getGameTimer() {
-		return Double.parseDouble(gameInfo.get("GameTimer"));
-	}
-	
-	public double getStartResources() {
-		return Double.parseDouble(gameInfo.get("StartingResources"));
+		return myInfo;
 	}
 
 }

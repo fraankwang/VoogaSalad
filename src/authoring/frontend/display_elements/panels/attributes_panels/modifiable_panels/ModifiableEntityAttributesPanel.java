@@ -61,7 +61,10 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		});
 	}
 
-	@Override
+	/**
+	 * Update image display based on attribute image name.
+	 * @param imageView
+	 */
 	public void updateImageComponent(String imageName) {
 		myAttributesMap.replace("DisplayComponent_Image", imageName);
 		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");

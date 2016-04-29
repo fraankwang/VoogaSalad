@@ -26,12 +26,13 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected ITabDisplay myTabDisplay;
 	protected static final int COLUMN_1_PERCENTAGE = 50;
 	protected static final int COLUMN_2_PERCENTAGE = 50;
-	protected static final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
+	
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
 	protected static final int BUTTON_HEIGHT_PERCENTAGE = 8;
-	protected static final int TITLED_PANE_HEIGHT = 350;
 
+	protected List<String> myDefaultAttributes;
+	
 	protected Button myOpenEditorButton;
 
 	protected Map<String, Control> myOutputMap;
@@ -90,31 +91,36 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
-			if (currentAttribute.equals("SpawnEntities")) {
-				Text text = new Text(currentAttribute);
-				text.setFont(new Font(FONT_SIZE));
-				TextField tf = new TextField();
-				tf.setEditable(false);
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			TextField tf = new TextField();
+			tf.setEditable(false);
 
-				myOutputMap.put(currentAttribute, tf);
-				myAttributesMap.put(currentAttribute, tf.getText());
-			}
+			myOutputMap.put(currentAttribute, tf);
+			myAttributesMap.put(currentAttribute, tf.getText());
 
 		}
 
 	}
 
+	/**
+	 * Takes given list of attributes and a mapping of controls to those
+	 * attributes and places them in the same row, adding new rows with each
+	 * additional attribute.
+	 * 
+	 * @param gridPane
+	 * @param attributes
+	 * @param outputMap
+	 * @return
+	 */
 	protected GridPane assembleEmptyOutputRows(GridPane gridPane, List<String> attributes,
 			Map<String, Control> outputMap) {
 		for (int i = 0; i < attributes.size(); i++) {
 			String currentAttribute = attributes.get(i);
-			if (currentAttribute.equals("SpawnEntities")) {
-
-				Text text = new Text(currentAttribute);
-				text.setFont(new Font(FONT_SIZE));
-				gridPane.add(text, 0, i);
-				gridPane.add(outputMap.get(currentAttribute), 1, i);
-			}
+			Text text = new Text(currentAttribute);
+			text.setFont(new Font(FONT_SIZE));
+			gridPane.add(text, 0, i);
+			gridPane.add(outputMap.get(currentAttribute), 1, i);
 		}
 
 		return gridPane;
@@ -156,11 +162,6 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	 */
 	protected abstract void refreshDisplay();
 
-	public Map<String, String> getAttributesMap() {
-		System.out.println("UnmodifiableAttrPanel: got attributes used to populate editor");
-		return myAttributesMap;
-	}
-
 	/**
 	 * Creates Button that opens myTabDisplay. TabDisplay's openEditorDisplay
 	 * method must take in relevant data for whatever is being displayed in the
@@ -184,5 +185,13 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 
 	public Button getEditorButton() {
 		return myOpenEditorButton;
+	}
+
+	public Map<String, String> getAttributesMap() {
+		return myAttributesMap;
+	}
+	
+	public List<String> getDefaultAttributes() {
+		return myDefaultAttributes;
 	}
 }

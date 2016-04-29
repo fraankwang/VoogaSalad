@@ -33,7 +33,6 @@ public class ImageImporter {
 		File imageFolder = new File(IMAGE_FOLDER);
 		for (final File fileEntry : imageFolder.listFiles()) {
 
-			System.out.println(IMAGE_PATH + fileEntry.getName());
 			myChooser.updateList(IMAGE_PATH + fileEntry.getName(), IMAGE_PATH + fileEntry.getName());
 		}
 	}

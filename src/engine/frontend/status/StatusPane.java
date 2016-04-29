@@ -92,4 +92,8 @@ public class StatusPane extends AbstractPane{
 	public Pane getPane(){
 		return myPane;
 	}
+	
+	public ControlManager getControlManager(){
+		return myControlManager;
+	}
 }

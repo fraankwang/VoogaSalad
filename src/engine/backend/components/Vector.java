@@ -24,8 +24,13 @@ public class Vector {
 		myYComponent = v.getY();
 	}
 	
-	public Vector scale(double s){
-		return new Vector(myXComponent * s, myYComponent * s);
+	public void scale(double s){
+		myXComponent = myXComponent * s;
+		myYComponent = myYComponent * s;
+	}
+	
+	public Vector scaleVect(double s){
+		return new Vector(myXComponent * s,myYComponent * s );
 	}
 	
 	//calculate distance between this and vector v
@@ -58,13 +63,10 @@ public class Vector {
 		return myYComponent;
 	}
 	
-	public Vector normalize(){
+	public void normalize(){
 		double length = calculateMagnitude();
-		double val1 = myXComponent / length;
-		double val2 = myYComponent / length;
-		
-		return new Vector(val1, val2);
-				
+		myXComponent = myXComponent / length;
+		myYComponent = myYComponent / length;
 	}
 	
 

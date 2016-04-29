@@ -1,6 +1,5 @@
 package authoring.backend.factories;
 
-import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -46,14 +45,9 @@ public class GameFactory {
 	}
 	
 	public void setupGame() {
-		AuthoringGame authoringGame = myGlobalData.getGame();
-		int startLives = authoringGame.getStartLives();
-		int defeatLives = authoringGame.getNumLivesDefeat();
-		double gameTimer = authoringGame.getGameTimer();
-		double resources = authoringGame.getStartResources();
-		String gameType = authoringGame.getGameType();
-		GameStatistics gameStatistics = new GameStatistics(startLives, defeatLives, gameTimer, resources);
-		this.myGame = new GameWorld(gameType, gameStatistics, modeMap);
+		AuthoringGame authoringGame = myGlobalData.getGame();		
+		String name = authoringGame.getName();
+		this.myGame = new GameWorld(name, modeMap);
 	}
 	
 	private void setupEntityMap() {

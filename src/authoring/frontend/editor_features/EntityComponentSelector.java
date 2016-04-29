@@ -223,7 +223,7 @@ public class EntityComponentSelector {
 	}
 
 	/**
-	 * Creates a String ComboBox that populates given List of options.
+	 * Creates a String ComboBox that populates given Set of options.
 	 * 
 	 * @param set
 	 * @return

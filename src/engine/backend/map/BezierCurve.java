@@ -69,12 +69,12 @@ public class BezierCurve implements IBezierCurve{
 		double uuu = uu * u;
 		double ttt = tt * t;
 		
-		tangent = tangent.add(p0.scale(-3 * uu));
-		tangent = tangent.add(p1.scale(3 * uu));
-		tangent = tangent.add(p1.scale(-6 * t * u));
-		tangent = tangent.add(p2.scale(-3 * tt));
-		tangent = tangent.add(p2.scale(6 * t * u));
-		tangent = tangent.add(p3.scale(3 * tt));
+		tangent = tangent.add(p0.scaleVect(-3 * uu));
+		tangent = tangent.add(p1.scaleVect(3 * uu));
+		tangent = tangent.add(p1.scaleVect(-6 * t * u));
+		tangent = tangent.add(p2.scaleVect(-3 * tt));
+		tangent = tangent.add(p2.scaleVect(6 * t * u));
+		tangent = tangent.add(p3.scaleVect(3 * tt));
 		
 		return tangent;
 		
@@ -91,10 +91,10 @@ public class BezierCurve implements IBezierCurve{
 		double uuu = uu * u;
 		double ttt = tt * t;
 
-		p = p.add(p0.scale(uuu));
-		p = p.add(p1.scale(3 * uu * t));
-		p = p.add(p2.scale(3 * u * tt));
-		p = p.add(p3.scale(ttt));
+		p = p.add(p0.scaleVect(uuu));
+		p = p.add(p1.scaleVect(3 * uu * t));
+		p = p.add(p2.scaleVect(3 * u * tt));
+		p = p.add(p3.scaleVect(ttt));
 
 		return p;
 	}

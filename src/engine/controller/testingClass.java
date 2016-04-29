@@ -12,16 +12,16 @@ import engine.backend.components.FiringComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.MovementComponent;
-import engine.backend.components.MultiDirectionalFiringComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
-import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
+import engine.backend.game_features.GameShop;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -29,7 +29,6 @@ import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 import engine.backend.rules.EntityAction;
-import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 
 public class testingClass {
@@ -150,8 +149,10 @@ public class testingClass {
 		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 30);
-		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn), 0);
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 10);
+		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 10);
+		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
+
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
@@ -177,6 +178,11 @@ public class testingClass {
 		tempEntity.addComponent(tempHealth);
 		tempEntity.addComponent(pathComp);
 		
+		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
+		GameShop shop = new GameShop();
+		shop.addItem("tempEntity2", "DrumpfVader.png", 30);
+		
+		level.setShopItems(Arrays.asList(item));
 		
 		IEntity tempEntity2 = new Entity(-1, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
@@ -191,6 +197,7 @@ public class testingClass {
 				500, myBulletVector, 1);
 		
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
+
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
 		mySimpleBullet.addComponent(new MovementComponent(10, 0));
@@ -211,7 +218,7 @@ public class testingClass {
 		
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
 		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
-		firingTest.setAuthoredEntities(authoredEntities);
+		//firingTest.setAuthoredEntities(authoredEntities);
 //		firingTest.setEntityMap(myCreatableEntityMap);
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
@@ -230,6 +237,10 @@ public class testingClass {
 		level.addEntityToMap(tempEntity2);
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
+		level.setCurrentWaveIndex(0);
+		level.setNumWaves(2);
+		level.setWaveDelayTimer(5);
+		level.setAuthoredEntities(authoredEntities);
 		mode.addLevel(level);
 		firingTest.addMode(mode);
 		return firingTest;
