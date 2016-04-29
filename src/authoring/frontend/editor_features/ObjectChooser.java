@@ -1,5 +1,7 @@
 package authoring.frontend.editor_features;
 
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -52,9 +54,9 @@ public class ObjectChooser {
 		});
 	}
 
-	// public void updateList(Map<String, String> objects) {
-	// objects.keySet().forEach(action);
-	// }
+	public void updateList(Map<String, String> objects) {
+		objects.keySet().forEach(key -> updateList(objects.get(key), key));
+	}
 
 	public void updateList(String graphic, String name) {
 		Label label = new Label(name);
@@ -68,5 +70,13 @@ public class ObjectChooser {
 	public String openChooser() {
 		myStage.showAndWait();
 		return mySelection;
+	}
+
+	public ObservableList<Label> getList() {
+		return myObjects;
+	}
+	
+	public void clear() {
+		myObjects.clear();
 	}
 }

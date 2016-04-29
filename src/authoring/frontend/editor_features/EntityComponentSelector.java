@@ -160,19 +160,9 @@ public class EntityComponentSelector {
 				inputMap.put("HealthComponent_CriticalHealth", crit);
 				break;
 
-			case "RotationComponent":
-				ComboBox<String> rotate = createComboBox(booleanComboBox);
-				inputMap.put("RotationComponent", rotate);
-				break;
-
 			case "CostComponent":
 				TextField cost = new TextField();
 				inputMap.put("Cost", cost);
-				break;
-
-			case "BountyComponent":
-				TextField bounty = new TextField();
-				inputMap.put("Bounty", bounty);
 				break;
 
 			case "PathComponent":
@@ -201,10 +191,6 @@ public class EntityComponentSelector {
 				inputMap.put("MovementComponent_CanRotate", canRotate);
 				break;
 
-			case "DamageComponent":
-				TextField damage = new TextField();
-				inputMap.put("DamageComponent", damage);
-				break;
 
 			case "Cancel":
 				break;
@@ -237,7 +223,7 @@ public class EntityComponentSelector {
 	}
 
 	/**
-	 * Creates a String ComboBox that populates given List of options.
+	 * Creates a String ComboBox that populates given Set of options.
 	 * 
 	 * @param set
 	 * @return

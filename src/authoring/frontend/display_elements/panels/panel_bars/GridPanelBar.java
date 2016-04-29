@@ -20,6 +20,7 @@ public class GridPanelBar extends PanelBar {
 
 	private Label myDescription;
 	private HBox myGridBar;
+	private Label numColumnsLabel;
 	private Button myIncreaseColumnsButton;
 	private Button myDecreaseColumnsButton;
 	private GridViewPanel myGridView;
@@ -42,14 +43,14 @@ public class GridPanelBar extends PanelBar {
 		myGridBar = new HBox();
 		myGridBar.setAlignment(Pos.CENTER_LEFT);
 		myGridBar.setSpacing(10);
-		Label numColumns = new Label("# of columns");
-		numColumns.setFont(new Font(25));
+		numColumnsLabel = new Label("# of columns");
+		numColumnsLabel.setFont(new Font(25));
 		myDecreaseColumnsButton.setOnAction(e -> myGridView.decreaseGridSize());
 		myIncreaseColumnsButton.setOnAction(e -> myGridView.increaseGridSize());
 		HBox.setHgrow(myDecreaseColumnsButton, Priority.ALWAYS);
-		HBox.setHgrow(numColumns, Priority.ALWAYS);
+		HBox.setHgrow(numColumnsLabel, Priority.ALWAYS);
 		HBox.setHgrow(myIncreaseColumnsButton, Priority.ALWAYS);
-		HBox columnSelector = new HBox(myDecreaseColumnsButton, numColumns, myIncreaseColumnsButton);
+		HBox columnSelector = new HBox(myDecreaseColumnsButton, numColumnsLabel, myIncreaseColumnsButton);
 		myGridBar.getChildren().addAll(myDescription, columnSelector);
 		columnSelector.setAlignment(Pos.CENTER_RIGHT);
 		myNode = myGridBar;
@@ -58,5 +59,13 @@ public class GridPanelBar extends PanelBar {
 	public void setDescription(String description) {
 		myDescription.setText("You are currently viewing your " + description);
 	}
+	
+	public void setFontSize(int font) {
+		myDescription.setFont(new Font(font));
+		numColumnsLabel.setFont(new Font(font));
+	}
 
+	public void addButton(Button b) {
+		myGridBar.getChildren().add(b);
+	}
 }

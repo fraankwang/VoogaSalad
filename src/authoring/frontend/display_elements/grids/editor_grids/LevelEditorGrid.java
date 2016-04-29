@@ -41,7 +41,7 @@ public class LevelEditorGrid extends EditorGrid {
 		info.remove("Paths");
 		super.setAttributesPanel(info);
 		if (info.get("MapBackgroundImage") == null) {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("images/question_mark.png"));
+			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("resources/images/question_mark.png"));
 		} else {
 			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("MapBackgroundImage")));
 		}

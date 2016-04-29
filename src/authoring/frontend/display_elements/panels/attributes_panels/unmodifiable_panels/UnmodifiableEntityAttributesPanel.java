@@ -23,9 +23,10 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	private BorderPane myWrapper;
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
-
+	
 	public UnmodifiableEntityAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
+		myDefaultAttributes = Arrays.asList("Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image");
 	}
 
 	@Override
@@ -33,15 +34,14 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myWrapper = new BorderPane();
 
 		List<Integer> rowConstraints = new ArrayList<Integer>();
+		List<Integer> columnConstraints = new ArrayList<Integer>();
 		rowConstraints.add(BUTTON_HEIGHT_PERCENTAGE);
 		rowConstraints.add(100 - BUTTON_HEIGHT_PERCENTAGE);
-		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myGridPane.setMaxWidth(MAX_SIZE);
 
-		List<String> entityAttributes = (List<String>) Arrays.asList("Genre", "Name");
-		myAttributesGridPane = createAttributesGridPane(entityAttributes);
+		myAttributesGridPane = createAttributesGridPane(myDefaultAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 
 		myScrollPane = new ScrollPane();
@@ -96,4 +96,5 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 		myAttributesMap = updatedInfo;
 		refreshDisplay();
 	}
+
 }
