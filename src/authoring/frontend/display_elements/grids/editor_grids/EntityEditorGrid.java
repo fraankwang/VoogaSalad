@@ -44,7 +44,7 @@ public class EntityEditorGrid extends EditorGrid {
 	public void setAttributesPanel(Map<String, String> info) {
 		super.setAttributesPanel(info);
 		if (info.get("DisplayComponent_Image") == null) {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("images/question_mark.png"));
+			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("resources/images/question_mark.png"));
 		} else {
 			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
 		}

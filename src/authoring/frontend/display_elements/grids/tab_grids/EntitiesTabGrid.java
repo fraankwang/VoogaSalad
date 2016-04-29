@@ -63,6 +63,7 @@ public class EntitiesTabGrid extends TabGrid {
 
 		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
+				System.out.println(genre + " " + info.get("Genre"));
 				if (!myEntities.containsKey((info.get("Name")))) {
 					Image image = new Image(info.get("DisplayComponent_Image"));
 					ImageView iv = new ImageView(image);
@@ -83,6 +84,8 @@ public class EntitiesTabGrid extends TabGrid {
 				}
 			}
 		}
+		
+		gridView.resetGrid();
 	}
 
 	

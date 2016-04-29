@@ -8,6 +8,7 @@ import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableModeAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
+import javafx.scene.image.Image;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 
 /**
@@ -25,7 +26,7 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public RulesEditorPanel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE);
+		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController);
 		editorPanel.initialize();
 		return editorPanel;
 	}
@@ -34,6 +35,8 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		EditorViewPanel editorView = new EditorViewPanel(50, 50);
 		editorView.initialize();
+
+		editorView.setImage(new Image("resources/images/question_mark.png"));
 		return editorView;
 	}
 
