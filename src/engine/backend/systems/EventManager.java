@@ -137,7 +137,6 @@ public class EventManager implements Observer {
 	/**
 	 * Handles when user goes to the next level.
 	 * 
-	 * @throws IOException
 	 */
 	public void handleGoToNextLevelEvent() {
 		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
