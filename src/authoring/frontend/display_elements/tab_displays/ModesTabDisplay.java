@@ -71,4 +71,5 @@ public class ModesTabDisplay extends TabDisplay {
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
+	
 }
