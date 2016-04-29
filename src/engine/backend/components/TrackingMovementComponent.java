@@ -54,8 +54,8 @@ public class TrackingMovementComponent extends MovementComponent {
 		double xComp = targetPosVector.getX() - myCurrentPosition.getX();
 		double yComp = targetPosVector.getY() - myCurrentPosition.getY();
 		Vector updatedDirection = new Vector(xComp, yComp);
-		updatedDirection = updatedDirection.normalize();
-		updatedDirection = updatedDirection.scale(mySpeed);
+		updatedDirection.normalize();
+		updatedDirection.scale(mySpeed);
 		super.setCurrentVelocityVector(updatedDirection);
 	}
 

@@ -10,16 +10,16 @@ import java.util.Map;
 
 public class GameWorld {
 
+	//myModes is a map of mode name to Mode object
 	private Map<String, Mode> myModes;
-	private String myGameType;
+	private String myName;
 	private GameStatistics myGameStatistics;
 	
 	/**
 	 * Authoring Environment Constructor
 	 */
-	public GameWorld(String gameType, GameStatistics gameStatistics, Map<String, Mode> modes) {
-		this.myGameType = gameType;
-		this.myGameStatistics = gameStatistics;
+	public GameWorld(String name, Map<String, Mode> modes) {
+		this.myName = name;
 		this.myModes = modes;
 	}
 	
@@ -39,21 +39,20 @@ public class GameWorld {
 		this.myGameStatistics = gameStatistics;
 	}
 	
-	public void setGameType(String gameType) {
-		this.myGameType = gameType;
+	public void setGameType(String name) {
+		this.myName = name;
 	}
 
-	public String getGameType() {
-		return myGameType;
+	public String getName() {
+		return myName;
 	}
 	
 	public void addMode(Mode mode) {
 		myModes.put(mode.getName(), mode);
-		myGameStatistics.incrementNumModes();
 	}
 
-	public Level getLevelWithId(int modeIndex, int levelIndex){
-		Mode mode = myModes.get(modeIndex);
+	public Level getLevelWithId(String modeString, int levelIndex){
+		Mode mode = myModes.get(modeString);
 		Level level = mode.getLevels().get(levelIndex);
 		return level;
 	}
@@ -61,6 +60,10 @@ public class GameWorld {
 	public void printWhatIHave() {
 		System.out.println("I am game object " + this.toString() + " and I have been created");
 		System.out.println("I have " + myModes.size() + " mode(s) and they are composed of " + myModes);
+	}
+	
+	public Map<String, Mode> getModes(){
+		return myModes;
 	}
 
 }

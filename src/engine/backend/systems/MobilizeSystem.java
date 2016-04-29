@@ -162,8 +162,8 @@ public class MobilizeSystem extends GameSystem{
 		BezierCurve newCurve = path.getCurveFromTime(newBezTime);
 		newPos = newCurve.calculateNewBezierPoint(newBezTime - Math.floor(newBezTime));
 		newVel = newCurve.calculateNewBezierTangent(newBezTime - Math.floor(newBezTime));
-		newVel = newVel.normalize();
-		newVel = newVel.scale(speed);
+		newVel.normalize();
+		newVel.scale(speed);
 		
 		pathComponent.setCurveID((int) Math.floor(newBezTime));
 		posComponent.setPositionVector(newPos);

@@ -5,6 +5,7 @@ public class EntityDroppedEvent {
 	private double xPosition;
 	private double yPosition;
 	private String entityName;
+	private double entityValue;
 	
 	public EntityDroppedEvent(double x, double y, String name) {
 		setXCoordinate(x);
@@ -36,4 +37,11 @@ public class EntityDroppedEvent {
 		this.yPosition = yPosition;
 	}
 	
+	public void setEntityValue(double value){
+		entityValue = value;
+	}
+	
+	public double getEntityValue(){
+		return entityValue;
+	}
 }

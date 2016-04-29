@@ -214,10 +214,10 @@ public class FiringComponent extends Component{
 	}
 	
 	/**
-	 * Resets the timer to to the firing rate set.
+	 * Resets the timer to to the firing rate set. Will scale firing rate by appropriate factor.
 	 */
 	public void resetTimer(){
-		timer = myFiringRate;
+		timer = myFiringRate * 100;
 	}
 
 	/**

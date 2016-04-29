@@ -14,17 +14,17 @@ public class CollisionEvent extends EntityEvent {
 	private String eventID;
 
 	public CollisionEvent(int entityID1, int entityID2) {
-		this.entityID1 = entityID1;
-		this.entityID2 = entityID2;
+		super.addEntityID(entityID1);
+		super.addEntityID(entityID2);
 	}
 
-	@Override
-	public Collection<Integer> getEntityIDs() {
-		Collection<Integer> collidingEntities = new ArrayList<Integer>();
-		collidingEntities.add(entityID1);
-		collidingEntities.add(entityID2);
-		return collidingEntities;
-	}
+//	@Override
+//	public Collection<Integer> getEntityIDs() {
+//		Collection<Integer> collidingEntities = new ArrayList<Integer>();
+//		collidingEntities.add(entityID1);
+//		collidingEntities.add(entityID2);
+//		return collidingEntities;
+//	}
 
 	@Override 
 	public void setEventID(List<String> identifiers) {

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
-import engine.backend.rules.EntityAction;
+import engine.backend.rules.IAction;
 
 /**
  * 
@@ -36,6 +36,10 @@ public interface IEntity {
 	public String getGenre();
 
 	public int getID();
+	
+	public EntityStatistics getStats();
 
-	public void applyAction(EntityAction action);
+	public void broadcastEntity();
+	
+	public void applyAction(IAction action);
 }

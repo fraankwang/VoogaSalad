@@ -1,24 +1,18 @@
 package authoring.frontend.display_elements.panels.attributes_panels;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
+import java.util.*;
+
 import authoring.frontend.IAuthoringView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -42,7 +36,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	
 	protected Map<String, Control> myInputMap;
 
-	protected static final int RULES_HEIGHT_PERCENTAGE = 30;
 	protected static final int ATTRIBUTES_HEIGHT = 50;
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
@@ -81,7 +74,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myScrollPane, 0, 0);
-		// myGridPane.add(myRulesPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
@@ -123,7 +115,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	 * Assumes myAttributesMap is correctly populated. Iterates through
 	 * myInputMap to replace the input areas for each component (in
 	 * myAttributes) with the existing value in myAttributesMap. After
-	 * myInputMap is updated, this method calls refreshInputRows.
+	 * myInputMap is updated, this method calls refreshAttributeInputRows.
 	 */
 	protected abstract void refreshAttributes();
 
@@ -151,13 +143,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	}
 
-	
-	/**
-	 * Update image display based on attribute image name.
-	 * @param imageView
-	 */
-	public abstract void updateImageComponent(String imageName);
-	
+
 	
 	/**
 	 * Creates confirmation before allowing user to reset all input values.
@@ -224,26 +210,13 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	 */
 	public void updateAttributes(Map<String, String> info) {
 		myAttributesMap = info;
-		myAttributes = new ArrayList<String>();
+		myAttributes.clear();
 		myAttributes.addAll(myAttributesMap.keySet());
 		System.out.println(
-				"*****3. ModifiableAttrPanel: myAttributesMap set with given unmodifiableattributespanel outputs:");
+				"*****3. ModifiableAttrPanel: updated myAttributesMap and myAttributes set with given unmodifiableattributespanel outputs:");
 		System.out.println(myAttributesMap);
 		myInputMap.clear();
 
-	}
-
-	protected ListView<String> createRulesListView() {
-		ListView<String> lv = new ListView<String>();
-		lv.setCellFactory(TextFieldListCell.forListView());
-		ContextMenu cm = new ContextMenu();
-		cm.getItems().add(new MenuItem("context menu text"));
-		lv.setContextMenu(cm);
-		lv.setEditable(true);
-		lv.getItems().add("hello!");
-		lv.getItems().add("helloooo");
-
-		return lv;
 	}
 
 }

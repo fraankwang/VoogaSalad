@@ -3,8 +3,6 @@ package authoring.frontend.display_elements.panels.attributes_panels;
 import java.util.*;
 
 import authoring.frontend.display_elements.panels.Panel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

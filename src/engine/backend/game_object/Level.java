@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import engine.backend.entities.IEntity;
+import engine.backend.game_features.ShopItem;
 import engine.backend.map.GameMap;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.Rule;
@@ -24,10 +25,11 @@ import engine.backend.rules.Rule;
  */
 public class Level {
 	
-	//put spawning entities in this map
+	//the initial IDs for spawn entities is 0 to n - 1, where n is the number of spawn entities.
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
 	private List<IEntity> authoredEntities;
+	private List<ShopItem> myShopItems;
 	private String myName;
 	private GameMap map;
 	private double waveDelayTimer;
@@ -35,6 +37,7 @@ public class Level {
 	private int currentWaveIndex;
 	private List<Rule> ruleAgenda;
 	private int index;
+	private boolean sendNextWave;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -66,14 +69,27 @@ public class Level {
 		return myName;
 	}
 	
+	/**
+	 * 
+	 * @return A list of Rule objects that has the rules for the level.
+	 */
 	public List<Rule> getRuleAgenda(){
 		return ruleAgenda;
 	}
 	
+	/**
+	 * Sets the rules for the level.	
+	 * @param rules
+	 */
 	public void setRuleAgenda(List<Rule> rules){
 		ruleAgenda = rules;
 	}
 	
+	/**
+	 * Adds an action to the event map.
+	 * @param eventID
+	 * @param actions
+	 */
 	public void addActionToEventMap(String eventID, List<EntityAction> actions) {
 		myEventMap.put(eventID, actions);
 	}
@@ -122,13 +138,15 @@ public class Level {
 	}
 
 	public void removeEntites(Collection<IEntity> entitiesToRemove){
-		for(IEntity entity : entitiesToRemove){
-			entities.remove(entity.getID());
-		}
+		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
 	public IEntity getEntityWithID(int entityID) {
 		return entities.get(entityID);
+	}
+	
+	public void setWaveDelayTimer(double time){
+		waveDelayTimer = time;
 	}
 
 	public int getNumWaves() {
@@ -151,6 +169,10 @@ public class Level {
 		this.index = index;
 	}
 	
+	public void setNumWaves(int num){
+		numWaves = num;
+	}
+	
 	public double getWaveDelayTimer() {
 		return waveDelayTimer;
 	}
@@ -162,6 +184,26 @@ public class Level {
 	@Override
 	public String toString() {
 		return "Level [entities=" + entities + "] ";
+	}
+
+	public List<ShopItem> getShopItems() {
+		return myShopItems;
+	}
+
+	public void setShopItems(List<ShopItem> myShopItems) {
+		this.myShopItems = myShopItems;
+	}
+
+	public void setAuthoredEntities(List<IEntity> authoredEntities) {
+		this.authoredEntities = authoredEntities;
+	}
+
+	public boolean sendNextWave() {
+		return sendNextWave;
+	}
+	
+	public void setSendNextWave(boolean bool){
+		sendNextWave = bool;
 	}
 
 }

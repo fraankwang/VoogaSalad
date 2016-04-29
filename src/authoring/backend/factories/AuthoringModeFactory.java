@@ -30,8 +30,7 @@ public class AuthoringModeFactory {
 				break;
 			case "InitialResources":
 				initialResources = Integer.parseInt(data.get(key));
-				break;
-				
+				break;				
 			}
 		}
 		return new AuthoringMode(name, initialLives, initialResources, levelMap);

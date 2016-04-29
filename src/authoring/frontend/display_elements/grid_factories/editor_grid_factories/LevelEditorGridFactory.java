@@ -1,7 +1,5 @@
 package authoring.frontend.display_elements.grid_factories.editor_grid_factories;
 
-import java.io.File;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
@@ -12,10 +10,7 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableLevelAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
-import authoring.frontend.editor_features.ImageImporter;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * 
@@ -43,17 +38,12 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
-		editorView.setImage(new Image("resources/images/question_mark.png")); // set default
-																// image as
-																// question
-																// mark or
-																// something
-
+		editorView.setImage(new Image("resources/images/question_mark.png"));
+		
 		editorView.getPanelBar().addButton("Upload Map Image", e -> {
 			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();
 			editorView.setImage(new Image(newImage));
-			((ModifiableAttributesPanel) myEditorGrid.getAttributesPanel())
-					.updateImageComponent(newImage);
+			((ModifiableLevelAttributesPanel) myEditorGrid.getAttributesPanel()).updateImageComponent(newImage);
 		});
 
 		return editorView;
