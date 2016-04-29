@@ -38,6 +38,7 @@ public class Level {
 	private List<Rule> ruleAgenda;
 	private int index;
 	private boolean sendNextWave;
+	private String lastSerializedVersion;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -204,6 +205,22 @@ public class Level {
 	
 	public void setSendNextWave(boolean bool){
 		sendNextWave = bool;
+	}
+
+	/**
+	 * 
+	 * @return String of the xml of the last serialized version of this level.
+	 */
+	public String getLastSerializedVersion() {
+		return lastSerializedVersion;
+	}
+
+	/**
+	 * Sets the last serialized version of this level.
+	 * @param lastSerializedVersion
+	 */
+	public void setLastSerializedVersion(String lastSerializedVersion) {
+		this.lastSerializedVersion = lastSerializedVersion;
 	}
 
 }

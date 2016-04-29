@@ -46,7 +46,7 @@ public class EventManager implements Observer {
 	private List<Rule> myRuleAgenda;
 	InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
-	private Level originalLevel;
+
 
 	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
@@ -125,32 +125,36 @@ public class EventManager implements Observer {
 	
 	/**
 	 * Handles when a level has been selected.
+	 * 
 	 * @param Level
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void handleLevelClickedEvent(int level) throws IOException {
 		currentModeStatistics.setCurrentLevelIndex(level);
-		serializeLevel(
-				myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
-						currentModeStatistics.getCurrentLevelIndex()),
-				myGameWorld.getGameType() + currentModeStatistics.getCurrentLevelIndex());
+		serializeLevel();
 	}
-	
+
 	/**
 	 * Handles when user goes to the next level.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
-	public void handleGoToNextLevelEvent() throws IOException {
+	public void handleGoToNextLevelEvent() {
 		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
-		serializeLevel(
-				myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
-						currentModeStatistics.getCurrentLevelIndex()),
-				myGameWorld.getGameType() + currentModeStatistics.getCurrentLevelIndex());
+		serializeLevel();
+	}
+
+	private void serializeLevel() {
+		myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(), currentModeStatistics.getCurrentLevelIndex())
+				.setLastSerializedVersion(serializeLevel(
+						myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
+								currentModeStatistics.getCurrentLevelIndex()),
+						myGameWorld.getGameType() + currentModeStatistics.getCurrentLevelIndex()));
 	}
 	
-	private void serializeLevel(Object o, String fileName) throws IOException {
+	private String serializeLevel(Object o, String fileName) {
 		ObjectToXMLWriter serializer = new GameWorldToXMLWriter();
-		ObjectToXMLWriter.stringToDocument(serializer.getXMLfromObject(o), fileName);
+		return serializer.getXMLfromObject(o);
 	}
 	
 	private void handleWaveOverEvent(WaveOverEvent event) {
