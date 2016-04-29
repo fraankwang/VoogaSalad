@@ -103,6 +103,21 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		return myAttributesMap;
 	}
 
+	@Override
+	public void resetAttributes() {
+		myInputMap.clear();
+		myAttributes.clear();
+		myAttributes.add("DisplayComponent_Image");
+		myAttributes.add("Genre");
+		myAttributes.add("Name");
+		EntityComponentSelector selector = new EntityComponentSelector(myController);
+		selector.initialize();
+		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
+		
+		refreshAttributeInputRows();
+	}
+	
+	
 	protected void refreshAttributes() {
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
