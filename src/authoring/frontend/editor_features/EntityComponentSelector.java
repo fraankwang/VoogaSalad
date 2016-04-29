@@ -48,6 +48,7 @@ public class EntityComponentSelector {
 		mySelectedComponents = new ArrayList<String>();
 		myStage.setScene(myScene);
 
+		
 		for (String componentTag : EntityComponents.getComponentTags()) {
 			CheckBox cb = createCheckBox(componentTag);
 			myVBox.getChildren().add(cb);

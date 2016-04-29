@@ -49,10 +49,6 @@ public class ModesTabDisplay extends TabDisplay {
 		((ModesTabGrid) myGrid).updateModesPrimaryDisplay(data);
 	}
 	
-	public String getName() {
-		return "Modes";
-	}
-
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
@@ -66,6 +62,10 @@ public class ModesTabDisplay extends TabDisplay {
 		System.out.println(map);
 
 		return map;
+	}
+
+	public String getName() {
+		return "Modes";
 	}
 
 	public void initializeHotKeys() {

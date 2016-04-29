@@ -26,6 +26,15 @@ public class GameEditorGrid extends EditorGrid {
 	}
 
 	@Override
+	public void assembleGridComponents() {
+		super.assembleGridComponents();
+		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
+		myGrid.add(myRulesPanel.getNode(), 0, 1);
+		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
+		myGrid.add(myButtonDashboard.getNode(), 1, 1);
+	}
+	
+	@Override
 	protected void initializeGridFactory() {
 		myGridFactory = new GameEditorGridFactory(myController);
 
