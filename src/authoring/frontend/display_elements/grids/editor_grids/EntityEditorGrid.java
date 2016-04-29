@@ -55,7 +55,7 @@ public class EntityEditorGrid extends EditorGrid {
 		super.initializeHotKeys();
 		Button addComponentButton = ((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).getAddComponentButton();
 	
-		addComponentButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN),
+		addComponentButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {

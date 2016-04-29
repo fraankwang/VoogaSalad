@@ -1,6 +1,5 @@
 package authoring.frontend.display_elements.grid_factories.editor_grid_factories;
 
-import java.io.File;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
@@ -10,8 +9,6 @@ import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 
@@ -38,7 +35,6 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {
 			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();
-			System.out.println(newImage);
 			editorView.setImage(new Image(newImage));
 			((ModifiableAttributesPanel) myEditorGrid.getAttributesPanel())
 					.updateImageComponent(newImage);

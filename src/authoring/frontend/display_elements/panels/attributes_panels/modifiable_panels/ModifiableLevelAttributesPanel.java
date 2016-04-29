@@ -282,7 +282,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
 		}
 
-		setMyEntities(myController.getEntities());
+		setMySelectableEntities(myController.getEntities());
 		refreshAttributes();
 	}
 
@@ -406,7 +406,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	}
 
-	public void setMyEntities(Map<String, String> entities) {
+	public void setMySelectableEntities(Map<String, String> entities) {
 		myEntities = (TreeMap<String, String>) entities;
 		myEntitySelector.getItems().clear();
 		myEntitySelector.getItems().setAll(entities.keySet());

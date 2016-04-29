@@ -10,10 +10,8 @@ import authoring.frontend.display_elements.panels.attributes_panels.Unmodifiable
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import authoring.parser.GlobalParser;
 import javafx.scene.control.Label;
-//import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-//import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -38,11 +36,13 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private static final int SPAWN_ENTITIES_COLUMN_4 = 23;
 	private static final int SPAWN_ENTITIES_COLUMN_5 = 15;
 
-	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("PathID", "Name", "Wave", "Number",
+	private static final List<String> SPAWN_ENTITIES_COLUMN_NAMES = (List<String>) Arrays.asList("PathID", "Name", "Wave", "Number",
 			"Rate");
 
 	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
+		myDefaultAttributes = Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
+				"WaveDelayTimer", "MapWidth", "MapHeight");
 	}
 
 	@Override
@@ -61,10 +61,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myGridPane.setMaxWidth(MAX_SIZE);
 
-		List<String> levelAttributes = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
-				"WaveDelayTimer", "MapWidth", "MapHeight");
-
-		myAttributesGridPane = createAttributesGridPane(levelAttributes);
+		myAttributesGridPane = createAttributesGridPane(myDefaultAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 		mySpawnEntitiesGridPane = createSpawnEntitiesGridPane();
 
@@ -87,7 +84,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		columnConstraints.add(SPAWN_ENTITIES_COLUMN_5);
 
 		mySpawnEntitiesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
+		addColumnNames(SPAWN_ENTITIES_COLUMN_NAMES, mySpawnEntitiesGridPane);
 
 		return mySpawnEntitiesGridPane;
 	}
@@ -144,7 +141,7 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	 */
 	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String[]> map) {
 		gridPane.getChildren().clear();
-		addColumnNames(COLUMN_NAMES, gridPane);
+		addColumnNames(SPAWN_ENTITIES_COLUMN_NAMES, gridPane);
 
 		int row = 1;
 		for (String pathID : map.keySet()) {

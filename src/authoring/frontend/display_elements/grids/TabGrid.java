@@ -113,6 +113,10 @@ public abstract class TabGrid extends Grid {
 	public Map<String, String> getAttributesMap() {
 		return myUnmodifiableAttributesPanel.getAttributesMap();
 	}
+	
+	public List<String> getDefaultAttributes() {
+		return myUnmodifiableAttributesPanel.getDefaultAttributes();
+	}
 
 	public void initializeHotKeys() {
 		Button editorButton = myUnmodifiableAttributesPanel.getEditorButton();

@@ -16,7 +16,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 
 /**
  * 
@@ -90,11 +90,8 @@ public class ModesTabGrid extends TabGrid {
 	 * @return
 	 */
 	private ImageView convertToImageView(String string) {
-		StackPane stackPane = new StackPane();
 		Label text = new Label(string);
-		text.setStyle(
-				"-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#000000,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
-		stackPane.getChildren().addAll(text);
+		text.setFont(new Font(70));
 
 		WritableImage snapshot = text.snapshot(new SnapshotParameters(), null);
 		return new ImageView(snapshot);

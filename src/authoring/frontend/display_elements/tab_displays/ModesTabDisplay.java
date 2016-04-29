@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.TreeMap;
 
+import authoring.backend.data.ObservableList;
+import authoring.backend.game_objects.AuthoringMode;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
@@ -19,9 +21,13 @@ import authoring.frontend.display_elements.panels.GridViewPanel;
 
 public class ModesTabDisplay extends TabDisplay {
 
+	private ObservableList<AuthoringMode> myModesList;
+
 	public ModesTabDisplay(int tabIndex, IAuthoringView controller) {
 		super(tabIndex, controller);
 		myController = controller;
+		myModesList = myController.getModeList();
+		myModesList.addObserver(this);
 	}
 
 	@Override
@@ -50,9 +56,11 @@ public class ModesTabDisplay extends TabDisplay {
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		map.put("Mode", null);
-		map.put("LivesMultiplier", null);
-		map.put("ResourcesMultiplier", null);
+		
+		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+		for (String attribute : defaultAttributes) {
+			map.put(attribute, null);
+		}
 		
 		System.out.println("*****1. ModesTabDisplay: got default Modes attributes");
 		System.out.println(map);

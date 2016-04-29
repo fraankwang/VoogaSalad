@@ -1,10 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.TreeMap;
+import java.util.*;
 
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringLevel;
@@ -24,8 +20,6 @@ import authoring.frontend.display_elements.panels.GridViewPanel;
  */
 
 public class LevelsTabDisplay extends TabDisplay {
-
-	private static final List<String> DEFAULT_ATTRIBUTES = Arrays.asList("Name", "MapBackgroundImage", "LevelTimer", "WaveDelayTimer", "MapWidth", "MapHeight"); 
 	
 	private ObservableList<AuthoringLevel> myLevelList;
 
@@ -59,10 +53,11 @@ public class LevelsTabDisplay extends TabDisplay {
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
 		
-		for (String attribute : DEFAULT_ATTRIBUTES) {
+		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-
+		
 		System.out.println("*****1. LevelsTabDisplay: got default Levels attributes");
 		System.out.println(map);
 

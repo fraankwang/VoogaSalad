@@ -4,7 +4,6 @@ import authoring.frontend.display_elements.panels.EditorViewPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
 /**
@@ -18,32 +17,20 @@ import javafx.scene.layout.HBox;
 public class EditorPanelBar extends PanelBar {
 
 	private HBox myDescription;
-	private HBox myZoomControls;
-	private Button myZoomOutButton, myZoomInButton;
-	private EditorViewPanel myViewPanel;
 
 	public EditorPanelBar(double height, double width, EditorViewPanel view) {
 		super(height, width);
-		myViewPanel = view;
 	}
 
 	@Override
 	protected void initializeComponents() {
 		myDescription = new HBox();
-		myZoomControls = new HBox();
-		myZoomOutButton = new Button("-");
-		myZoomInButton = new Button("+");
 	}
 
 	@Override
 	protected void assembleComponents() {
 		HBox hbox = new HBox();
-		
-		// zooms don't work quite right yet
-//		myZoomOutButton.setOnAction(e -> myViewPanel.zoomOut());
-//		myZoomInButton.setOnAction(e -> myViewPanel.zoomIn());
-		myZoomControls.getChildren().addAll(myZoomOutButton, new Label("Zoom"),  myZoomInButton);
-		hbox.getChildren().addAll(myDescription, myZoomControls);
+		hbox.getChildren().add(myDescription);
 		myNode = hbox;
 	}
 	

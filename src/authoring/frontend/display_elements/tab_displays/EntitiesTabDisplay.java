@@ -33,8 +33,6 @@ import javafx.scene.control.TabPane;
 
 public class EntitiesTabDisplay extends TabDisplay {
 
-	private static final List<String> DEFAULT_ATTRIBUTES = Arrays.asList("Name", "Genre", "DisplayComponent_Image",
-			"DisplayComponent_CanBeShown");
 	private static final List<String> DEFAULT_GENRES = Arrays.asList("Tower", "Enemy", "Ammo");
 
 	private TabPane myEntitiesTabPane;
@@ -153,10 +151,11 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
 
-		for (String attribute : DEFAULT_ATTRIBUTES) {
+		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-
+		
 		System.out.println("*****1. EntitiesTabDisplay: got default entities attributes");
 		System.out.println(map);
 		return map;
