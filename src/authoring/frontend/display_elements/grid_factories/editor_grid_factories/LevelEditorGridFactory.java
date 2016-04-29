@@ -34,7 +34,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public RulesEditorPanel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE);
+		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController);
 		editorPanel.initialize();
 		return editorPanel;
 	}
