@@ -93,4 +93,5 @@ public class AuthoringView implements IAuthoringView {
 	public Map<String, String> getLevels() {
 		return ((LevelsTabDisplay) myAuthoringViewManager.getTabBarElement().getLevelsTabDisplay()).getLevels();
 	}
+	
 }
