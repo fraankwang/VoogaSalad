@@ -36,13 +36,12 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private static final int SPAWN_ENTITIES_COLUMN_4 = 23;
 	private static final int SPAWN_ENTITIES_COLUMN_5 = 15;
 
-	private static final List<String> SPAWN_ENTITIES_COLUMN_NAMES = (List<String>) Arrays.asList("PathID", "Name", "Wave", "Number",
-			"Rate");
+	private static final List<String> SPAWN_ENTITIES_COLUMN_NAMES = (List<String>) Arrays.asList("PathID", "Name",
+			"Wave", "Number", "Rate");
 
 	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
-		myDefaultAttributes = Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
-				"WaveDelayTimer", "MapWidth", "MapHeight");
+		myDefaultAttributes = Arrays.asList("Name", "MapBackgroundImage", "WaveDelayTimer", "MapWidth", "MapHeight");
 	}
 
 	@Override

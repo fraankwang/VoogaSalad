@@ -46,11 +46,6 @@ public abstract class EditorGrid extends Grid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 
-		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
-		myGrid.add(myRulesPanel.getNode(), 0, 1);
-		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
-		myGrid.add(myButtonDashboard.getNode(), 1, 1);
-
 		((EditorButtonDashboard) myButtonDashboard).getSaveButton()
 				.setOnAction(e -> sendData(saveAttributes()));
 

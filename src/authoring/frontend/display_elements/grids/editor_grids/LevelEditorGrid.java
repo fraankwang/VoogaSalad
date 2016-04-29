@@ -36,6 +36,16 @@ public class LevelEditorGrid extends EditorGrid {
 	}
 	
 	@Override
+	protected void assembleGridComponents() {
+		super.assembleGridComponents();
+		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
+		myGrid.add(myRulesPanel.getNode(), 0, 1);
+		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
+		myGrid.add(myButtonDashboard.getNode(), 1, 1);
+	}
+	
+	
+	@Override
 	public void setAttributesPanel(Map<String, String> info) {
 		((LevelEditorViewPanel) myPrimaryDisplay).setPaths(info.get("Paths"));
 		info.remove("Paths");

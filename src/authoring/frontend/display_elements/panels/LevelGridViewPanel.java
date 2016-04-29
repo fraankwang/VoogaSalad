@@ -76,8 +76,8 @@ public class LevelGridViewPanel extends GridViewPanel {
 	 * Specifications for a delete button and formatting.
 	 */
 	private void formatPanelBar() {
-		((GridPanelBar) myPanelBar).setDescription("Levels for this Mode");
-		((GridPanelBar) myPanelBar).setFontSize(15);
+		myPanelBar.setDescription("Levels for this Mode");
+		myPanelBar.setFontSize(15);
 
 		myDeleteButton = new Button("Delete");
 		myDeleteButton.setOnAction(e -> {
@@ -86,7 +86,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 			myCurrentImage = null;
 		});
 
-		((GridPanelBar) myPanelBar).addButton(myDeleteButton);
+		((GridPanelBar) myPanelBar).addButtonToBar(myDeleteButton);
 	}
 
 	/**

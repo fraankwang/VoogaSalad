@@ -1,10 +1,11 @@
 package authoring.frontend.display_elements.panels;
 
 import authoring.frontend.display_elements.panels.panel_bars.EditorPanelBar;
-import javafx.scene.Group;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -22,7 +23,7 @@ public class EditorViewPanel extends Panel {
 	protected ImageView myImageView;
 	protected ScrollPane myScrollPane;
 	protected EditorPanelBar myPanelBar;
-	protected Group myGroup;
+	protected StackPane myGroup;
 
 	public EditorViewPanel(double height, double width) {
 		super(height, width);
@@ -38,9 +39,10 @@ public class EditorViewPanel extends Panel {
 		myScrollPane.setCenterShape(false);
 		myScrollPane.setFitToHeight(true);
 		myScrollPane.setFitToWidth(true);
-		myGroup = new Group();
+		myGroup = new StackPane();
 		myPanelBar = new EditorPanelBar(50, 50, this);
 		myPanelBar.initialize();
+		myPanelBar.setFontSize(15);
 	}
 
 	@Override
@@ -48,6 +50,8 @@ public class EditorViewPanel extends Panel {
 		VBox vbox = new VBox();
 		myImageView.setPreserveRatio(true);
 		myGroup.getChildren().add(myImageView);
+		StackPane.setAlignment(myImageView, Pos.TOP_LEFT);
+		myGroup.setPrefWidth(300);
 		myScrollPane.setContent(myGroup);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
 		myNode = vbox;
@@ -65,20 +69,7 @@ public class EditorViewPanel extends Panel {
 		return myPanelBar;
 	}
 
-	public void zoomIn() {
-		myGroup.setScaleX(myGroup.getScaleX() * 11 / 10);
-		myGroup.setScaleY(myGroup.getScaleY() * 11 / 10);
-		myImageView.fitWidthProperty().set(myImageView.getFitWidth() * 11 / 10);
-		myImageView.fitHeightProperty().set(myImageView.getFitHeight() * 11 / 10);
-
+	public void setDescription(String description) {
+		myPanelBar.setDescription(description);
 	}
-
-	public void zoomOut() {
-		myGroup.setScaleX(myGroup.getScaleX() * 10 / 11);
-		myGroup.setScaleY(myGroup.getScaleY() * 10 / 11);
-		myImageView.fitWidthProperty().set(myImageView.getFitWidth() * 10 / 11);
-		myImageView.fitHeightProperty().set(myImageView.getFitHeight() * 10 / 11);
-
-	}
-
 }

@@ -2,7 +2,7 @@ package authoring.frontend.display_elements.grid_factories.editor_grid_factories
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
-import authoring.frontend.display_elements.panels.LevelGridViewPanel;
+import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
@@ -32,8 +32,9 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		LevelGridViewPanel levelView = new LevelGridViewPanel(50, 50, null);
+		EditorViewPanel levelView = new EditorViewPanel(50, 50);
 		levelView.initialize();
+		levelView.setDescription("Mode");
 		return levelView;
 	}
 

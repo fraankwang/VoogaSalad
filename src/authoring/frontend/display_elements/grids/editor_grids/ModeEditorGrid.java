@@ -1,11 +1,10 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
-import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.ModeEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableModeAttributesPanel;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -36,13 +35,12 @@ public class ModeEditorGrid extends EditorGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
+		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
+		GridPane.setColumnSpan(myPrimaryDisplay.getNode(), 2);
+		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
+		myGrid.add(myButtonDashboard.getNode(), 1, 1);
+
 		myPrimaryDisplay = ((ModifiableModeAttributesPanel) myModifiableAttributesPanel).getLevelSelector();
 	}
-	
-	@Override
-	public void setAttributesPanel(Map<String, String> info) {
-		super.setAttributesPanel(info);
-		
-	}
-	
+
 }

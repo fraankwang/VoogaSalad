@@ -18,8 +18,6 @@ import javafx.scene.text.Font;
 
 public class GridPanelBar extends PanelBar {
 
-	private Label myDescription;
-	private HBox myGridBar;
 	private Label numColumnsLabel;
 	private Button myIncreaseColumnsButton;
 	private Button myDecreaseColumnsButton;
@@ -32,40 +30,43 @@ public class GridPanelBar extends PanelBar {
 
 	@Override
 	protected void initializeComponents() {
-		myDescription = new Label();
-		myDescription.setFont(new Font(25));
+		super.initializeComponents();
+		numColumnsLabel = new Label("# of columns");
+		numColumnsLabel.setFont(new Font(25));
 		myIncreaseColumnsButton = new Button("+");
 		myDecreaseColumnsButton = new Button("-");
 	}
 
 	@Override
 	protected void assembleComponents() {
-		myGridBar = new HBox();
-		myGridBar.setAlignment(Pos.CENTER_LEFT);
-		myGridBar.setSpacing(10);
-		numColumnsLabel = new Label("# of columns");
-		numColumnsLabel.setFont(new Font(25));
 		myDecreaseColumnsButton.setOnAction(e -> myGridView.decreaseGridSize());
 		myIncreaseColumnsButton.setOnAction(e -> myGridView.increaseGridSize());
+
+		HBox selector = assembleColumnSelector();
+		selector.setAlignment(Pos.CENTER);
+		myGridBar.getChildren().addAll(myDescription, selector);
+		myNode = myGridBar;
+	}
+	
+	private HBox assembleColumnSelector() {
 		HBox.setHgrow(myDecreaseColumnsButton, Priority.ALWAYS);
 		HBox.setHgrow(numColumnsLabel, Priority.ALWAYS);
 		HBox.setHgrow(myIncreaseColumnsButton, Priority.ALWAYS);
 		HBox columnSelector = new HBox(myDecreaseColumnsButton, numColumnsLabel, myIncreaseColumnsButton);
-		myGridBar.getChildren().addAll(myDescription, columnSelector);
-		columnSelector.setAlignment(Pos.CENTER_RIGHT);
-		myNode = myGridBar;
+		return columnSelector;	
 	}
 	
-	public void setDescription(String description) {
-		myDescription.setText("You are currently viewing your " + description);
-	}
-	
+	@Override
 	public void setFontSize(int font) {
-		myDescription.setFont(new Font(font));
+		super.setFontSize(font);
 		numColumnsLabel.setFont(new Font(font));
 	}
+	
+	@Override
+	public void setDescription(String description) {
+		myDescription.setText("You are currently viewing your " + description);
 
-	public void addButton(Button b) {
-		myGridBar.getChildren().add(b);
 	}
+
+	
 }

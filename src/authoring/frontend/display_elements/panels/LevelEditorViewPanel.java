@@ -38,7 +38,7 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		myGroup.getChildren().addAll(myImageView);
 		myScrollPane.setContent(myGroup);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
-		myPanelBar.addButton("Create New Path", e -> {
+		myPanelBar.addButton("New Path", e -> {
 			createNewPath();
 		});
 		myNode = vbox;
@@ -49,7 +49,7 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		newPath.initialize();
 		newPath.setSize(myImageView.getImage().getWidth(), myImageView.getImage().getHeight());
 		myPathBuilders.add(newPath);
-		myPanelBar.addButton("Add to Path " + Integer.toString(pathIndexNumber + 1), f -> {
+		myPanelBar.addButton("Path " + Integer.toString(pathIndexNumber + 1), f -> {
 			newPath.createNewCurve(null);
 		});
 		myGroup.getChildren().add(newPath.getNode());
@@ -83,7 +83,7 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 	}
 
 	private void resetPaths() {
-		myPanelBar.removeButtons(2, 2 + myPathBuilders.size());
+		myPanelBar.removeButtons(3, 3 + myPathBuilders.size());
 		myPathBuilders.clear();
 		pathIndexNumber = 0;
 		myGroup.getChildren().clear();
