@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EntityComponents {
 
@@ -29,7 +30,7 @@ public class EntityComponents {
 		aMap.put("MovementComponent", Arrays.asList("MovementComponent_Velocity",
 												"MovementComponent_CanMove",
 												"MovementComponent_CanRotate"));
-		aMap.put("CostComponent", Arrays.asList("CostComponent_Cost"));
+		aMap.put("PurchaseComponent", Arrays.asList("PurchaseComponent_Value"));
 		
 		myComponents = Collections.unmodifiableMap(aMap);
 	}
@@ -56,7 +57,7 @@ public class EntityComponents {
 		bMap.put("MovementComponent_Velocity", "Numerical");
 		bMap.put("MovementComponent_CanMove", "Boolean");
 		bMap.put("MovementComponent_CanRotate", "Boolean");
-		bMap.put("CostComponent_Cost", "Numerical");
+		bMap.put("PurchaseComponent_Value", "Numerical");
 		
 		myVariableTypes = Collections.unmodifiableMap(bMap);
 	}
@@ -72,4 +73,7 @@ public class EntityComponents {
 		return myVariableTypes.get(variable);
 	}
 
+	public static Set<String> getComponentTags() {
+		return myComponents.keySet();
+	}
 }
