@@ -21,7 +21,6 @@ public class AuthoringLevel {
 	private Map<String, String> myInfo;
 	private List<AuthoringEntity> spawnEntities;
 	private List<Rule> ruleAgenda;
-	private List<String> events;
 	
 	public AuthoringLevel(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
@@ -107,12 +106,12 @@ public class AuthoringLevel {
 		}
 	}
 	
-	public void setRuleAgenda(List<Rule> ruleAgenda) {
+	public void setRuleAgenda(List<Rule> ruleAgenda, List<String> events) {
 		this.ruleAgenda = ruleAgenda;
-		this.myInfo.put("Rules", getRuleAgendaInfo());
+		this.myInfo.put("Rules", getRuleAgendaInfo(events));
 	}
 	
-	private String getRuleAgendaInfo() {
+	private String getRuleAgendaInfo(List<String> events) {
 		StringBuilder sb = new StringBuilder();
 		List<String> actions = new ArrayList<String>();
 		for (Rule rule : ruleAgenda) {
@@ -137,10 +136,6 @@ public class AuthoringLevel {
 		sb.deleteCharAt(sb.length() - 1);
 		
 		return sb.toString();
-	}
-	
-	public void setEvents(List<String> events) {
-		this.events = events;
 	}
 	
 	@Override

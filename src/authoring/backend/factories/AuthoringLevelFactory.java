@@ -71,8 +71,7 @@ public class AuthoringLevelFactory {
 		AuthoringLevel level = new AuthoringLevel(name, map, waveDelayTimer);
 		level.setEntities(entities);
 		level.setSpawnEntities(spawnEntities);
-		level.setRuleAgenda(createRules(ruleInfo));
-		level.setEvents(parseReadEvents(ruleInfo));
+		level.setRuleAgenda(createRules(ruleInfo), parseReadEvents(ruleInfo));
 		return level;
 	}
 	
