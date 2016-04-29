@@ -51,7 +51,6 @@ public class ModesTabGrid extends TabGrid {
 		super.assembleGridComponents();
 		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
 		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo, "Mode"));
-
 	}
 
 	public void updateModesPrimaryDisplay(List<Map<String, String>> data) {
@@ -84,7 +83,8 @@ public class ModesTabGrid extends TabGrid {
 	}
 
 	/**
-	 * Takes inputted String and converts to an ImageView
+	 * Takes inputted String of level information, parses it, takes a snapshot
+	 * of the constructed GridViewPanel and converts to an ImageView
 	 * 
 	 * @param string
 	 * @return
@@ -93,6 +93,7 @@ public class ModesTabGrid extends TabGrid {
 		LevelGridViewPanel levels = new LevelGridViewPanel(500, 500, null);
 		levels.updatePossibleLevels(myController.getLevels());
 		levels.updateSelectedLevels(GlobalParser.parseLevels(string));
+		levels.removeAddNewButton();
 
 		WritableImage snapshot = levels.getNode().snapshot(new SnapshotParameters(), null);
 		return new ImageView(snapshot);

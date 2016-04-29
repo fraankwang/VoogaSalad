@@ -59,7 +59,6 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myAttributesGridPane, 0, 0);
-		myGridPane.add(myLevelSelector.getNode(), 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
@@ -122,6 +121,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		}
 
+		mySelectedLevels = myLevelSelector.getSelectedLevels();
 		String levelsCompressed = GlobalParser.compressLevels(mySelectedLevels);
 		
 		if (!myAttributesMap.containsKey("Levels")) {
@@ -138,6 +138,10 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	
 	public void setMyPossibleLevels(Map<String, String> levels) {
 		myPossibleLevels = levels;
+	}
+
+	public LevelGridViewPanel getLevelSelector() {
+		return myLevelSelector;
 	}
 
 }
