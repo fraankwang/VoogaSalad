@@ -45,8 +45,5 @@ public class ModifiableGameAttributesPanel extends ModifiableAttributesPanel {
 		
 	}
 
-	@Override
-	public void updateImageComponent(String imageName) {
-		//update
-	}
+
 }

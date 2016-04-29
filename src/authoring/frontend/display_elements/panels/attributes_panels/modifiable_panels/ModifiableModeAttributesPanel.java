@@ -114,9 +114,4 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		return myAttributesMap;
 	}
 
-	@Override
-	public void updateImageComponent(String imageName) {
-		// null because no image component?
-	}
-
 }

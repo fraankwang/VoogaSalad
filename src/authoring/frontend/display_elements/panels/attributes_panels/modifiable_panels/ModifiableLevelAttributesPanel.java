@@ -228,7 +228,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		}
 	}
 
-	@Override
+	/**
+	 * Update image display based on attribute image name.
+	 * @param imageView
+	 */
 	public void updateImageComponent(String imageName) {
 		myAttributesMap.replace("MapBackgroundImage", imageName);
 		TextField tf = (TextField) myInputMap.get("MapBackgroundImage");
