@@ -6,11 +6,14 @@
 
 package engine.backend.game_object;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
@@ -77,6 +80,7 @@ public class Level {
 	public List<Rule> getRuleAgenda(){
 		return ruleAgenda;
 	}
+
 	
 	/**
 	 * Sets the rules for the level.	
@@ -85,6 +89,7 @@ public class Level {
 	public void setRuleAgenda(List<Rule> rules){
 		ruleAgenda = rules;
 	}
+
 	
 	/**
 	 * Adds an action to the event map.
@@ -130,6 +135,7 @@ public class Level {
 	public GameMap getMap() {
 		return map;
 	}
+
 	
 	/**
 	 * Engine Testing Method.
@@ -142,10 +148,7 @@ public class Level {
 		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
-	public IEntity getEntityWithID(int entityID) {
-		return entities.get(entityID);
-	}
-	
+
 	public void setWaveDelayTimer(double time){
 		waveDelayTimer = time;
 	}
@@ -153,6 +156,7 @@ public class Level {
 	public int getNumWaves() {
 		return numWaves;
 	}
+
 
 	public int getCurrentWaveIndex() {
 		return currentWaveIndex;
@@ -222,5 +226,10 @@ public class Level {
 	public void setLastSerializedVersion(String lastSerializedVersion) {
 		this.lastSerializedVersion = lastSerializedVersion;
 	}
+	
+	public IEntity getEntityWithID(int id){
+		return entities.get(id);
+	}
 
+	
 }

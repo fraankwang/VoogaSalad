@@ -18,6 +18,7 @@ public class EntityAction implements IAction{
 	private String valueInComponent;
 	private String newValue;
 
+
 	public EntityAction(String entityName, String componentToModify, String valueInComponent, String newValue) {
 		this.setEntityName(entityName);
 		this.setComponentToModifiy(componentToModify);
@@ -28,6 +29,7 @@ public class EntityAction implements IAction{
 	public String getNewValue() {
 		return newValue;
 	}
+
 
 	public void setNewValue(String newValue) {
 		this.newValue = newValue;
@@ -56,5 +58,6 @@ public class EntityAction implements IAction{
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
 	}
+
 
 }

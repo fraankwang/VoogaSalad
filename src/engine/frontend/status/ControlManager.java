@@ -1,5 +1,10 @@
+/**
+ * @author austinwu
+ */
 package engine.frontend.status;
 
+import engine.controller.EngineController;
+import engine.frontend.overall.EndView;
 import engine.frontend.overall.ResourceUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,7 +35,7 @@ public class ControlManager extends ResourceUser {
 		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
 		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
 		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
-
+		
 		play.setOnAction(e -> {
 			if (play.getText().equals(loadStringResource("PlayLabel"))) {
 				myStatusPane.getEngineView().getEngineController().setPlaying(true);
@@ -66,8 +71,14 @@ public class ControlManager extends ResourceUser {
 	}
 
 	public void nextLevelEnable(boolean won) {
-		if(won)
+		if(won){
 			nextWave.setDisable(false);
+		}else{
+			EngineController myController = myStatusPane.getEngineView().getEngineController();
+			EndView myEnd = new EndView(myController);
+			myController.getStage().setScene(myEnd.buildScene());
+		}
+		
 	}
 
 	public void switchModeEnable() {

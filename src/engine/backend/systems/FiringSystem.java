@@ -57,6 +57,7 @@ public class FiringSystem extends GameSystem {
 				}
 				else{
 					firedVelVector = calculateVelocityVector(shootingEntity, targetEntity);
+
 				}
 				IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), getEntityPositionVector(shootingEntity), firedVelVector,
 						firingComponent.getAmmunitionSpeed(), targetEntity, myEntityFactory);
@@ -80,6 +81,7 @@ public class FiringSystem extends GameSystem {
 		return new Vector(xComp, yComp);
 	}
 	
+
 	private Vector getEntityPositionVector(IEntity entity){
 		PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 		return posComponent.getPositionVector();

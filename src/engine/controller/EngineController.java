@@ -1,5 +1,7 @@
 package engine.controller;
-
+/**
+ * @author austinwu
+ */
 import java.io.IOException;
 import java.util.List;
 
@@ -51,6 +53,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
 	private testingClass myTestingClass;
+	private Integer lastEntityClickedID;
 
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
@@ -197,21 +200,24 @@ public class EngineController extends ResourceUser implements IEngineController 
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
 		//myEventManager.handleEntityDropEvent(event);
-		//mySystems.sendUserInputEvent(event);
+		mySystems.sendUserInputEvent(event);
 	}
 
-	public void keyPressed(int myID, String s){
+	public void keyPressed(String s){
 		//TODO do something with this string
-		IEvent keyPressedEvent = new KeyPressedEntityEvent(myID, s);
-		mySystems.sendUserInputEvent(keyPressedEvent);
-		
+		if(lastEntityClickedID != null){
+			IEvent keyPressedEvent = new KeyPressedEntityEvent(lastEntityClickedID, s);
+			System.out.println(s);
+			mySystems.sendUserInputEvent(keyPressedEvent);
+		}
 	}
 	
 	public void entityClicked(int myID) {
+		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
-		//System.out.println(clickedEvent.getEventID());
-		//myEventManager.handleClickEvent(clickedEvent);
 		mySystems.sendUserInputEvent(clickedEvent);
+		//test
+		levelIsOver(false);
 	}
 
 	public void nextWaveClicked() {
@@ -251,6 +257,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public GameWorld getGameWorld() {
 		return myGameWorld;
 	}
+
 
 	public EventManager getEventManager() {
 		return myEventManager;

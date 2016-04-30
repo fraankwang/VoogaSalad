@@ -5,6 +5,12 @@
  */
 package engine.backend.game_object;
 
+
+import engine.backend.entities.Entity;
+import engine.backend.entities.IEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +48,7 @@ public class GameWorld {
 	public void setGameType(String gameType) {
 		this.myGameType = gameType;
 	}
+
 
 	public String getGameType() {
 		return myGameType;

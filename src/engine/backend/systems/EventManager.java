@@ -53,6 +53,7 @@ public class EventManager implements Observer {
 	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
 		myGameWorld = game;
+
 		// pass in right values
 		currentModeStatistics = game.getGameStatistics();
 		myGameShop = new GameShop();
@@ -60,6 +61,7 @@ public class EventManager implements Observer {
 
 	public void setEntityFactory(InGameEntityFactory factory) {
 		myEntityFactory = factory;
+
 	}
 
 	public void setLevelRules(Level level) {
@@ -147,7 +149,7 @@ public class EventManager implements Observer {
 	 * Handles when user goes to the next level.
 	 * 
 	 */
-	private void handleGoToNextLevelEvent() {
+	public void handleGoToNextLevelEvent() {
 		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
 		serializeLevel();
 	}
@@ -215,6 +217,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void handleKeyPressedEvent(KeyPressedEntityEvent event) {
+		System.out.println(event.getKeyPressed() + " " + event.getFirstEntityID());
 		List<String> identifiers = new ArrayList<String>();
 		identifiers.add(event.getKeyPressed());
 		event.getEntityIDs().forEach(id -> identifiers.add(getCurrentLevel().getEntityWithID(id).getName()));
@@ -240,6 +243,7 @@ public class EventManager implements Observer {
 	private void applyActions(IEntity entity, Collection<IAction> actions) {
 		for (IAction a : actions) {
 			if (a instanceof EntityAction) {
+				System.out.println(((EntityAction) a).getEntityName());
 				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
 					((IModifiable) entity).applyAction((EntityAction) a);
 				}
@@ -252,20 +256,7 @@ public class EventManager implements Observer {
 	private void applyActions(Collection<Integer> entityIDs, Collection<IAction> actions) {
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
-
 		myEntities.forEach(entity -> applyActions(entity, actions));
-//		for (IAction action : actions) {
-//			if (action instanceof EntityAction) {
-//
-//				myEntities.stream()
-//						  .filter(e -> ((EntityAction) action).getEntityName().equals(e.getName()))
-//						  .forEach(e -> ((IModifiable) e).applyAction(action));
-//								  
-//			} else if (action instanceof LevelAction) {
-//				currentModeStatistics.applyAction(action);
-//			}
-//		}
-
 	}
 	
 	/**
@@ -276,6 +267,7 @@ public class EventManager implements Observer {
 		
 		for(IEvent event : events){
 			if(event instanceof EntityDroppedEvent){
+				System.out.println(event.getEventID());
 				handleEntityDropEvent((EntityDroppedEvent) event);
 			}
 			else if(event instanceof NextWaveEvent){
@@ -289,7 +281,6 @@ public class EventManager implements Observer {
 	public void handleGeneratedEvents(Map<String, Set<Integer>> generatedEventMap) {
 		
 		for (Rule rule : myRuleAgenda) {
-
 			List<Set<Integer>> myPossibleEntities = new ArrayList<Set<Integer>>();
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;

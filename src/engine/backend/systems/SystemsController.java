@@ -46,7 +46,7 @@ public class SystemsController {
 	 */
 	public SystemsController(int framesPerSecond, EventManager myEventManager) {
 
-		renderingSystem = new RenderingSystem(engineController);
+		renderingSystem = new RenderingSystem();
 		mobilizationSystem = new MobilizeSystem();
 		healthSystem = new HealthSystem();
 		firingSystem = new FiringSystem();
@@ -91,6 +91,7 @@ public class SystemsController {
 		}
 		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
 		myEventManager.handleNonMapEvents(nonMapEvents);
+		nonMapEvents.clear();
 		//handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
 		myEventManager.updateGameShop();

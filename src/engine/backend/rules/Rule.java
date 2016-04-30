@@ -1,15 +1,18 @@
 package engine.backend.rules;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import engine.backend.systems.Events.IEvent;
+
+
+
 
 public class Rule {
 
 	private Collection<String> myEvents;
 	private Collection<IAction> myActions;
 	private int myID;
-	
 	public Rule() {
 		myEvents = new ArrayList<String>();
 		myActions = new ArrayList<IAction>();
@@ -20,6 +23,7 @@ public class Rule {
 			myEvents.add(e);
 		}
 	}
+
 
 	public void addEvents(String event) {
 		myEvents.add(event);

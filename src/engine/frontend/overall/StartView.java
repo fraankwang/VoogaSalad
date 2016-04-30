@@ -1,5 +1,7 @@
 package engine.frontend.overall;
-
+/**
+ * @author austinwu
+ */
 import java.io.File;
 
 import engine.controller.EngineController;
@@ -29,6 +31,7 @@ public class StartView {
 	public StartView(EngineController ec) {
 		myController = ec;
 	}
+
 
 	public Scene buildScene() {
 		myVBox = new VBox();
