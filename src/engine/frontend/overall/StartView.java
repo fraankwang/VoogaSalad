@@ -19,104 +19,105 @@ public class StartView {
 	private EngineController myController;
 	private String selectedMode;
 	private Integer selectedLevel;
-	
+
 	private VBox myVBox;
 	private Button loadButton;
 	private ComboBox<String> modeComboBox;
 	private ComboBox<Integer> levelComboBox;
-	private Button startButton; 
-	
-	public StartView(EngineController ec){
+	private Button startButton;
+
+	public StartView(EngineController ec) {
 		myController = ec;
 	}
-	
-	public Scene buildScene(){
+
+	public Scene buildScene() {
 		myVBox = new VBox();
 		myScene = new Scene(myVBox, Color.WHEAT);
-		
+
 		buildGameChooser();
 		buildModePicker();
 		buildLevelPicker();
 		buildStartButton();
-		
+
 		myVBox.getChildren().addAll(loadButton, modeComboBox, levelComboBox, startButton);
-		
+
 		bindHeight(myVBox, myScene.heightProperty());
 		bindWidth(myVBox, myScene.widthProperty());
 		return myScene;
 	}
-	
-	private void buildGameChooser(){
-		loadButton  = new Button("Load Game");
+
+	private void buildGameChooser() {
+		loadButton = new Button("Load Game");
 		loadButton.setOnAction(e -> {
 			loadGamePressed();
 		});
 		bindHeight(loadButton, myScene.heightProperty().divide(4));
 		bindWidth(loadButton, myScene.widthProperty());
 	}
-	
-	private void loadGamePressed(){
+
+	private void loadGamePressed() {
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(myController.getStage());
-		if(file != null){
+		if (file != null) {
 			System.out.println("Do something with: " + file);
 			modeComboBox.setDisable(false);
 		}
 	}
-	
-	private void buildModePicker(){
+
+	private void buildModePicker() {
 		modeComboBox = new ComboBox<String>();
 		modeComboBox.setPromptText("Select Mode");
 		modeComboBox.setDisable(true);
-		
+
 		modeComboBox.getItems().addAll(myController.getGameWorld().getModes().keySet());
 		modeComboBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override 
-            public void changed(ObservableValue ov, String t, String t1) {
-            	levelComboBox.setDisable(false);
-            	selectedMode = t1;
-                levelComboBox.getItems().addAll(myController.getGameWorld().getModes().get(t1).getLevels().keySet());
-            }    
-        });
-		
+			@Override
+			public void changed(ObservableValue ov, String t, String t1) {
+				levelComboBox.setDisable(false);
+				selectedMode = t1;
+				// levelComboBox.getItems().addAll(myController.getGameWorld().getModes().get(t1).getLevels().keySet());
+				// need to change this to add the available ones only
+			}
+		});
+
 		bindHeight(modeComboBox, myScene.heightProperty().divide(4));
 		bindWidth(modeComboBox, myScene.widthProperty());
-		
+
 	}
-	
-	private void buildLevelPicker(){
+
+	private void buildLevelPicker() {
 		levelComboBox = new ComboBox<Integer>();
 		levelComboBox.setPromptText("Select Level");
 		levelComboBox.setDisable(true);
-		
+
 		levelComboBox.valueProperty().addListener(new ChangeListener<Integer>() {
-            @Override 
-            public void changed(ObservableValue ov, Integer t, Integer t1) {                
-                selectedLevel = t1;
-                startButton.setDisable(false);
-            }    
-        });
-		
+			@Override
+			public void changed(ObservableValue ov, Integer t, Integer t1) {
+				selectedLevel = t1;
+				startButton.setDisable(false);
+			}
+		});
+
 		bindHeight(levelComboBox, myScene.heightProperty().divide(4));
 		bindWidth(levelComboBox, myScene.widthProperty());
 	}
-	
-	private void buildStartButton(){
+
+	private void buildStartButton() {
 		startButton = new Button("START");
 		startButton.setDisable(true);
-			
+
 		startButton.setOnAction(e -> myController.startGame(selectedMode, selectedLevel));
 
 		bindHeight(startButton, myScene.heightProperty().divide(4));
 		bindWidth(startButton, myScene.widthProperty());
 	}
-	
-	public void bindWidth(Region region, DoubleExpression db){
+
+	public void bindWidth(Region region, DoubleExpression db) {
 		region.minWidthProperty().bind(db);
 		region.maxWidthProperty().bind(db);
 	}
-	
-	public void bindHeight(Region region, DoubleExpression db){
+
+	public void bindHeight(Region region, DoubleExpression db) {
 		region.minHeightProperty().bind(db);
 		region.maxHeightProperty().bind(db);
 	}

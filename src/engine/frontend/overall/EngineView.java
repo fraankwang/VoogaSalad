@@ -27,12 +27,12 @@ public class EngineView extends ResourceUser{
 	 * Figure out picking/choosing levels etc.- cant play a level unless its been already played
 	 * 
 	 *  Small todos:
-	 *  finish "load game" option for first screen 
+	 *  finish "load game" option for first screen- almost done 
 	 *  lose-the-game screen
 	 *  finish stats util
 	 *  Set up upgrades to send backend info when dropped on towers
 	 *  Respond to keyboard events with an entityID and the key pressed
-	 *  Timer within the next wave
+	 *  reorganize/javadoc code LAST
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 	

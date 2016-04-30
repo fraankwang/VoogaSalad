@@ -21,6 +21,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
@@ -41,7 +44,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
 	private testingClass myTestingClass;
-	
+
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
 
@@ -77,13 +80,20 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myGameWorld = new GameWorld();
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
-
+		
 		GameStatistics stats = new GameStatistics(10, 10);
 		myGameWorld.setGameStatistics(stats);
 		myEventManager = new EventManager(this, myGameWorld);
-
+		
 		StartView myStartView = new StartView(this);
-		myStage.setScene(myStartView.buildScene());
+		Scene scene = myStartView.buildScene();
+		myStage.setScene(scene);
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                keyPressed(event.getCharacter());
+            }
+        });
 		myStage.show();
 	}
 
@@ -175,6 +185,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myEventManager.handleEntityDropEvent(event);
 	}
 
+	public void keyPressed(String s){
+		//TODO do something with this string
+	}
+	
 	public void entityClicked(int myID) {
 		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		myEventManager.handleClickEvent(clickedEvent);
@@ -228,8 +242,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public EngineView getEngineView() {
 		return myEngineView;
 	}
-	
-	public Stage getStage(){
+
+	public Stage getStage() {
 		return myStage;
 	}
 }
