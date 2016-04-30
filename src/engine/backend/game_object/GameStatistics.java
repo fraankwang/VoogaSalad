@@ -6,6 +6,7 @@ import java.util.List;
 
 import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
+import utility.hud.Property;
 
 /**
  * 
@@ -17,18 +18,29 @@ public class GameStatistics implements IModifiable{
 	
 	private static final String PREFIX = "set";
 	private int initialNumLives;
-	private int currentNumLives;
 	private double initialResources;
-	private double currentResources;
+	private int initialLevel;
+	private String initialMode;
+	private int highestLevelUnlocked;
+	
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
-	private int currentLevelIndex;
-	private String currentMode;
+	
+	private Property currentNumLives;
+	private Property currentResources;
+	private Property currentLevelIndex;
+	private Property currentMode;
 
 	public GameStatistics(int numLives, double resources) {
 		setInitialNumLives(numLives);
-		setCurrentNumLives(numLives);
 		setInitialResources(resources);
+		
+		currentNumLives = new Property(initialNumLives, "lives");
+		currentResources = new Property(initialResources, "resources");
+		currentLevelIndex = new Property(initialLevel, "level");
+		currentMode = new Property((initialMode = new String()), "mode");
+		
+		setCurrentNumLives(numLives);	
 		setCurrentResources(resources);
 //		endOfLevelLives = new ArrayList<Integer>();
 //		endOfLevelResources = new ArrayList<Double>();
@@ -55,15 +67,20 @@ public class GameStatistics implements IModifiable{
 	}
 
 	public int getCurrentNumLives() {
-		return currentNumLives;
+		return (int) currentNumLives.getValue();
+	}
+	
+	public Property getCurrentLivesProperty(){
+		return this.currentNumLives;
 	}
 
 	public void setCurrentNumLives(int currentNumLives) {
-		this.currentNumLives = currentNumLives;
+		this.currentNumLives.setValue(currentNumLives);
 	}
 	
 	public void setCurrentNumLives(String deltaNumLives){
-		this.currentNumLives += Integer.parseInt(deltaNumLives);
+		int newValue = getCurrentNumLives() + Integer.parseInt(deltaNumLives);
+		setCurrentNumLives(newValue);
 	}
 
 	public double getInitialResources() {
@@ -75,42 +92,67 @@ public class GameStatistics implements IModifiable{
 	}
 
 	public double getCurrentResources() {
-		return currentResources;
+		return (double) currentResources.getValue();
+	}
+	
+	public Property getCurrentResourcesProperty(){
+		return this.currentResources;
 	}
 
 	public void setCurrentResources(double currentResources) {
-		this.currentResources = currentResources;
+		this.currentResources.setValue(currentResources);
 	}
 	
-
 	public void setCurrentResources(String delta){
-		this.currentNumLives += Double.parseDouble(delta);
+		double newValue = getCurrentResources() + Double.parseDouble(delta);
+		setCurrentResources(newValue);
 	}
 
 	public int getCurrentLevelIndex() {
 		checkEndOfGame();
-		return currentLevelIndex;
+		return (int) currentLevelIndex.getValue();
+	}
+	
+	private void updateHighestLevelUnlocked(){
+		if((int) currentLevelIndex.getValue() > highestLevelUnlocked){
+			highestLevelUnlocked = (int) currentLevelIndex.getValue();
+		}
+	}
+	
+	public int getHighestLevelUnlocke(){
+		return highestLevelUnlocked;
+	}
+	
+	public Property getCurrentLevelProperty(){
+		return this.currentLevelIndex;
 	}
 
-	public void setCurrentModeIndex(String c){
-		currentMode = c;
+
+	public void setCurrentMode(String c){
+		currentMode.setValue(c);
 	}
 
 	public String getCurrentMode() {
 		checkEndOfGame();
-		return currentMode;
+		return (String) currentMode.getValue();
+	}
+	
+	public Property getCurrentModeProperty(){
+		return this.currentMode;
 	}
 	
 	public void setCurrentLevelIndex(int currentLevelIndex) {
-		this.currentLevelIndex = currentLevelIndex;
+		this.currentLevelIndex.setValue(currentLevelIndex);
+		updateHighestLevelUnlocked();
 	}
 	
 	public void setCurrentLevelIndex(String delta){
-		this.currentLevelIndex = Integer.parseInt(delta);
+		this.currentLevelIndex.setValue(Integer.parseInt(delta));
+		updateHighestLevelUnlocked();
 	}
 	
 	private void checkEndOfGame(){
-		if(currentNumLives == 0){
+		if(getCurrentNumLives() == 0){
 			setCurrentLevelIndex(-1);
 		}
 	}
