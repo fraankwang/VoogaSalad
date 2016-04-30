@@ -9,7 +9,10 @@ import java.util.Set;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import engine.backend.components.DisplayComponent;
+import engine.backend.components.PathComponent;
 import engine.backend.components.PurchaseComponent;
+import engine.backend.components.Spawn;
+import engine.backend.components.SpawnerComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.Level;
@@ -36,10 +39,19 @@ public class LevelFactory {
 		List<AuthoringEntity> spawnEntities = authoringLevel.getSpawnEntities();
 		Map<Integer, IEntity> entitiesMap = new HashMap<Integer, IEntity>();
 		int entityID = 0;
-		for (AuthoringEntity authoringEntity : spawnEntities) {
-			IEntity spawnEntity = entityFactory.createEntity(authoringEntity);
-			authoredEntities.add(spawnEntity);
-			entitiesMap.put(entityID, spawnEntity);
+		for (AuthoringEntity spawnEntity : spawnEntities) {
+			SpawnerComponent component = (SpawnerComponent) spawnEntity.getComponent("SpawnerComponent");
+			for (Spawn spawn : component.getSpawns()) {
+				for (IEntity authoredEntity : authoredEntities) {
+					if (authoredEntity.getName().equals(spawn.getSpawningEntityName())) {
+						authoredEntity.addComponent(new PathComponent());
+					}
+				}
+			}
+			
+			IEntity entity = entityFactory.createEntity(spawnEntity);
+			authoredEntities.add(entity);
+			entitiesMap.put(entityID, entity);
 			entityID++;
 		}
 		List<ShopItem> shopItems = new ArrayList<ShopItem>();
