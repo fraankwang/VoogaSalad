@@ -6,7 +6,7 @@ import java.util.List;
 
 import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
-import voogasalad.util.hud.source.Property;
+import utility.hud.Property;
 
 /**
  * 
@@ -18,17 +18,24 @@ public class GameStatistics implements IModifiable{
 	
 	private static final String PREFIX = "set";
 	private int initialNumLives;
-	private Property currentNumLives;
 	private double initialResources;
-	private Property currentResources;
+	
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
+	
+	private Property currentNumLives;
+	private Property currentResources;
 	private Property currentLevelIndex;
 	private Property currentMode;
 
 	public GameStatistics(int numLives, double resources) {
+		currentNumLives = new Property(initialNumLives, "lives");
+		currentResources = new Property(initialResources, "resources");
+		currentLevelIndex = new Property(0, "level");
+		currentMode = new Property("", "mode");
+		
 		setInitialNumLives(numLives);
-		setCurrentNumLives(numLives);
+		setCurrentNumLives(numLives);	
 		setInitialResources(resources);
 		setCurrentResources(resources);
 //		endOfLevelLives = new ArrayList<Integer>();
@@ -106,7 +113,8 @@ public class GameStatistics implements IModifiable{
 		return this.currentLevelIndex;
 	}
 
-	public void setCurrentModeIndex(String c){
+
+	public void setCurrentMode(String c){
 		currentMode.setValue(c);
 	}
 

@@ -258,7 +258,6 @@ public class EventManager implements Observer {
 	}
 
 	private void applyActions(IEntity entity, Collection<IAction> actions) {
-
 		for (IAction a : actions) {
 			if (a instanceof EntityAction) {
 
@@ -287,7 +286,6 @@ public class EventManager implements Observer {
 				currentModeStatistics.applyAction(action);
 			}
 		}
-
 	}
 
 	// supposed to handle list of events generated in each loop iteration

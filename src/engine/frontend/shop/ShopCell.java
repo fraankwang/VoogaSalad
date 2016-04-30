@@ -24,7 +24,7 @@ public class ShopCell extends ListCell<ShopItem> {
 	private ImageView myImageView;
 	private Text myType;
 	private Text myCost;
-	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/shop_cell";
+	public static final String DEFAULT_RESOURCE = "engine/frontend/resources/shop_cell";
 	private ResourceBundle myResources;
 	
 	
@@ -68,7 +68,8 @@ public class ShopCell extends ListCell<ShopItem> {
 				myCost.setText(myResources.getString("ShopCostPrompt")+ String.valueOf(item.getItemValue()));
 			}
 						
-			if (myItem.isCanBuy()) {
+//			if (myItem.isCanBuy()) {
+			if(true){
 				setOnDragDetected(e -> selectTower(e));
 				setHBoxOpacity(getDoubleResource("YesOpacity"));
 				
@@ -92,7 +93,6 @@ public class ShopCell extends ListCell<ShopItem> {
 		content.putString(myItem.getItemName());
 		db.setContent(content);
 		e.consume();
-		
 	}
 	
 	private double getDoubleResource(String myString){
