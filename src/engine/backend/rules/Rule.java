@@ -8,7 +8,8 @@ public class Rule {
 
 	private Collection<String> myEvents;
 	private Collection<IAction> myActions;
-
+	private int myID;
+	
 	public Rule() {
 		myEvents = new ArrayList<String>();
 		myActions = new ArrayList<IAction>();

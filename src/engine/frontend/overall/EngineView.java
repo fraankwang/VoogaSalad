@@ -18,7 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Main;
-import utility.GameCapture;
+import utility.gamecapture.GameCapture;
 
 public class EngineView extends ResourceUser{
 
@@ -30,7 +30,7 @@ public class EngineView extends ResourceUser{
 	 *  finish "load game" option for first screen- almost done 
 	 *  lose-the-game screen
 	 *  finish stats util
-	 *  Set up upgrades to send backend info when dropped on towers
+	 *  Set up upgrades to send  backend info when dropped on towers
 	 *  Respond to keyboard events with an entityID and the key pressed
 	 *  reorganize/javadoc code LAST
 	 */

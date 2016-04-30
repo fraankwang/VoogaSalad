@@ -83,7 +83,7 @@ public class MovementComponent extends Component {
 	 */
 	public void setSpeed(String deltaSpeed) {
 		double delta = Double.parseDouble(deltaSpeed);
-		myCurrentVelocityVector = myCurrentVelocityVector.scale(delta);
+		myCurrentVelocityVector.scale(delta);
 	}
 
 	/**

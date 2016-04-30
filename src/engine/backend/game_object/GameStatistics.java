@@ -6,6 +6,7 @@ import java.util.List;
 
 import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
+import voogasalad.util.hud.source.Property;
 
 /**
  * 
@@ -17,13 +18,13 @@ public class GameStatistics implements IModifiable{
 	
 	private static final String PREFIX = "set";
 	private int initialNumLives;
-	private int currentNumLives;
+	private Property currentNumLives;
 	private double initialResources;
-	private double currentResources;
+	private Property currentResources;
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
-	private int currentLevelIndex;
-	private String currentMode;
+	private Property currentLevelIndex;
+	private Property currentMode;
 
 	public GameStatistics(int numLives, double resources) {
 		setInitialNumLives(numLives);
@@ -55,15 +56,20 @@ public class GameStatistics implements IModifiable{
 	}
 
 	public int getCurrentNumLives() {
-		return currentNumLives;
+		return (int) currentNumLives.getValue();
+	}
+	
+	public Property getCurrentLivesProperty(){
+		return this.currentNumLives;
 	}
 
 	public void setCurrentNumLives(int currentNumLives) {
-		this.currentNumLives = currentNumLives;
+		this.currentNumLives.setValue(currentNumLives);
 	}
 	
 	public void setCurrentNumLives(String deltaNumLives){
-		this.currentNumLives += Integer.parseInt(deltaNumLives);
+		int newValue = getCurrentNumLives() + Integer.parseInt(deltaNumLives);
+		setCurrentNumLives(newValue);
 	}
 
 	public double getInitialResources() {
@@ -75,42 +81,59 @@ public class GameStatistics implements IModifiable{
 	}
 
 	public double getCurrentResources() {
-		return currentResources;
+		return (double) currentResources.getValue();
+	}
+	
+	public Property getCurrentResourcesProperty(){
+		return this.currentResources;
 	}
 
 	public void setCurrentResources(double currentResources) {
-		this.currentResources = currentResources;
+		this.currentResources.setValue(currentResources);
 	}
 	
-
 	public void setCurrentResources(String delta){
-		this.currentNumLives += Double.parseDouble(delta);
+		double newValue = getCurrentResources() + Double.parseDouble(delta);
+		setCurrentResources(newValue);
 	}
 
 	public int getCurrentLevelIndex() {
 		checkEndOfGame();
-		return currentLevelIndex;
+		return (int) currentLevelIndex.getValue();
+	}
+	
+	public Property getCurrentLevelProperty(){
+		return this.currentLevelIndex;
 	}
 
+<<<<<<< HEAD
 	public void setCurrentMode(String modeName){
 		currentMode = modeName;
+=======
+	public void setCurrentModeIndex(String c){
+		currentMode.setValue(c);
+>>>>>>> 28dcacb532be4214a7c439577b4acb7cb4397c4d
 	}
 
 	public String getCurrentMode() {
 		checkEndOfGame();
-		return currentMode;
+		return (String) currentMode.getValue();
+	}
+	
+	public Property getCurrentModeProperty(){
+		return this.currentMode;
 	}
 	
 	public void setCurrentLevelIndex(int currentLevelIndex) {
-		this.currentLevelIndex = currentLevelIndex;
+		this.currentLevelIndex.setValue(currentLevelIndex);
 	}
 	
 	public void setCurrentLevelIndex(String delta){
-		this.currentLevelIndex = Integer.parseInt(delta);
+		this.currentLevelIndex.setValue(Integer.parseInt(delta));
 	}
 	
 	private void checkEndOfGame(){
-		if(currentNumLives == 0){
+		if(getCurrentNumLives() == 0){
 			setCurrentLevelIndex(-1);
 		}
 	}
