@@ -236,16 +236,19 @@ public class EventManager implements Observer {
 		myEntityFactory.setID(getCurrentLevel().getIndex());
 		return;
 	}
-
+	
+	/**
+	 * Applies actions to an entity if applicable, else sees if it is a level action then changes things
+	 * accordingly.
+	 * @param entity
+	 * @param actions
+	 */
 	private void applyActions(IEntity entity, Collection<IAction> actions) {
-
 		for (IAction a : actions) {
 			if (a instanceof EntityAction) {
-
 				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
 					((IModifiable) entity).applyAction((EntityAction) a);
 				}
-
 			} else if (a instanceof LevelAction) {
 				currentModeStatistics.applyAction((LevelAction) a);
 			}
@@ -253,20 +256,20 @@ public class EventManager implements Observer {
 	}
 
 	private void applyActions(Collection<Integer> entityIDs, Collection<IAction> actions) {
-
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
-		for (IAction action : actions) {
-			if (action instanceof EntityAction) {
-
-				myEntities.stream()
-						  .filter(e -> ((EntityAction) action).getEntityName().equals(e.getName()))
-						  .forEach(e -> ((IModifiable) e).applyAction(action));
-								  
-			} else if (action instanceof LevelAction) {
-				currentModeStatistics.applyAction(action);
-			}
-		}
+		myEntities.forEach(entity -> applyActions(entity, actions));
+//		for (IAction action : actions) {
+//			if (action instanceof EntityAction) {
+//
+//				myEntities.stream()
+//						  .filter(e -> ((EntityAction) action).getEntityName().equals(e.getName()))
+//						  .forEach(e -> ((IModifiable) e).applyAction(action));
+//								  
+//			} else if (action instanceof LevelAction) {
+//				currentModeStatistics.applyAction(action);
+//			}
+//		}
 
 	}
 
