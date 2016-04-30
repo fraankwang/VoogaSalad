@@ -24,6 +24,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+
 public class MenubarManager extends ResourceUser {
 	private EngineView myEngineView;
 	public static final String RESOURCE_NAME = "menubar";
@@ -136,7 +137,7 @@ public class MenubarManager extends ResourceUser {
 
 	/**
 	 * Builds the help menu UI
-	 * @return
+	 * @return Menu to populate help section of MenuBar
 	 */
 	private Menu buildHelpMenu() {
 		Menu menu = new Menu(loadStringResource("HelpPrompt"));

@@ -23,11 +23,19 @@ public class ControlManager extends ResourceUser {
 	private ComboBox<String> modeComboBox;
 	private Button modeButton;
 
+	/**
+	 * Instantiates Control Manager
+	 * @param sp - status pane that the control manager will become a child of
+	 */
 	public ControlManager(StatusPane sp) {
 		super(RESOURCE_NAME);
 		myStatusPane = sp;
 	}
 
+	/**
+	 * Instantiates the Game Control Buttons within a vbox
+	 * @return VBox containing Game Control buttons
+	 */
 	public VBox buildGameControls() {
 		VBox vbox = new VBox();
 
@@ -66,10 +74,18 @@ public class ControlManager extends ResourceUser {
 		return vbox;
 	}
 
+	
+	/**
+	 * Enables the nextwave button
+	 */
 	public void nextWaveEnable() {
 		nextWave.setDisable(false);
 	}
 
+	/**
+	 * Enables the next level button if level was won
+	 * @param won - boolean describing if level was won
+	 */
 	public void nextLevelEnable(boolean won) {
 		if(won){
 			nextWave.setDisable(false);
@@ -81,6 +97,9 @@ public class ControlManager extends ResourceUser {
 		
 	}
 
+	/**
+	 * Disables mode selection
+	 */
 	public void switchModeEnable() {
 		modeComboBox.setDisable(false);
 	}
