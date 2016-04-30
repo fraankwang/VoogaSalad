@@ -65,7 +65,7 @@ public class EventManager implements Observer {
 	public Level getCurrentLevel() {
 		String modeName = currentModeStatistics.getCurrentMode();
 		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
-		System.out.println(modeName + "  " + levelIndex);
+		System.out.println(levelIndex);
 		if (myGameWorld.getLevelWithId(modeName, levelIndex).shouldRevert()) {
 			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 			Level myLevel = (Level) serializer.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
@@ -198,6 +198,7 @@ public class EventManager implements Observer {
 	private void resetLevel(){
 		String modeName = currentModeStatistics.getCurrentMode();
 		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
+		System.out.println("fjdskalfj");
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
