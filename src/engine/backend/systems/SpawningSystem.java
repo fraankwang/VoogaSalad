@@ -78,7 +78,6 @@ public class SpawningSystem extends GameSystem {
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
 			newEntity.addComponent(newPositionComponent);
-			System.out.println(newEntity.getID());
 			if(newEntity.hasComponent(ComponentTagResources.pathComponentTag)){
 				PathComponent pathComp = (PathComponent) newEntity.getComponent(ComponentTagResources.pathComponentTag);
 				pathComp.setPathID(pathID);

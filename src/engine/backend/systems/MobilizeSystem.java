@@ -34,8 +34,10 @@ public class MobilizeSystem extends GameSystem{
 		
 		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.movementComponentTag);
 		for (IEntity entity : movableEntities) {
+			System.out.println(entity.getName());
 			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
 			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
+			System.out.println(movComponent.getVelocity());
 			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
 				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
 				addToEventMap(myEventMap, updatePositionOnPath(entity, posComponent, movComponent, pathComponent,
@@ -116,6 +118,7 @@ public class MobilizeSystem extends GameSystem{
 	 */
 	private IEvent updatePositionOnPath(IEntity entity, PositionComponent posComponent, MovementComponent movComponent, PathComponent pathComponent, Path path){
 		
+		System.out.println("Entity Mobilize Name: " + entity.getName());
 		double currBezTime = pathComponent.getBezierTime();
 
 		if((currBezTime >= path.numCurves() - 0.01 && pathComponent.movesWithTime())){
@@ -132,7 +135,7 @@ public class MobilizeSystem extends GameSystem{
 		Vector velVector = movComponent.getCurrentVelocityVector();
 		
 		BezierCurve currCurve = path.getCurveFromTime(currBezTime);
-		double speed = velVector.calculateMagnitude();
+		double speed = movComponent.getVelocity();
 		double bezTimeStep = ((pathComponent.movesWithTime()) ? 1 : -1 ) * speed / currCurve.getLength();
 		
 		double newBezTime = currBezTime + bezTimeStep;
@@ -147,7 +150,8 @@ public class MobilizeSystem extends GameSystem{
 		posComponent.setPositionVector(newPos);
 		pathComponent.setBezierTime(newBezTime);
 		movComponent.setCurrentVelocityVector(newVel);
-		
+		System.out.println("newPos: " + newPos.getX() + " " + newPos.getY());
+		System.out.println("Speed: " + speed);
 		return null;
 		
 	}

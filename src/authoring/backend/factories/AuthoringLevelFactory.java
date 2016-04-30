@@ -12,6 +12,7 @@ import authoring.backend.game_objects.AuthoringLevel;
 import authoring.parser.GlobalParser;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
+import engine.backend.components.PositionComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
@@ -170,6 +171,7 @@ public class AuthoringLevelFactory {
 			AuthoringEntity spawnEntity = new AuthoringEntity(entityName, genre);
 			spawnEntity.addComponent(spawner);
 			spawnEntity.addComponent(new DisplayComponent());
+			spawnEntity.addComponent(new PositionComponent());
 			spawnEntities.add(spawnEntity);
 		}
 		return spawnEntities;
