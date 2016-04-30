@@ -40,10 +40,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
-
-	// testing
 	private testingClass myTestingClass;
-
+	
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
 
@@ -188,7 +186,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void nextLevelClicked() {
-		
 		myEventManager.handleGoToNextLevelEvent();
 	}
 
@@ -230,5 +227,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public EngineView getEngineView() {
 		return myEngineView;
+	}
+	
+	public Stage getStage(){
+		return myStage;
 	}
 }

@@ -26,14 +26,13 @@ public class EngineView extends ResourceUser{
 	 * Big todos:
 	 * Figure out picking/choosing levels etc.- cant play a level unless its been already played
 	 * 
-	 * 
 	 *  Small todos:
-	 *  get "load game" option for first screen 
+	 *  finish "load game" option for first screen 
 	 *  lose-the-game screen
 	 *  finish stats util
 	 *  Set up upgrades to send backend info when dropped on towers
 	 *  Respond to keyboard events with an entityID and the key pressed
-	 *  Debug mode for stats in the menubar
+	 *  Timer within the next wave
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 	
