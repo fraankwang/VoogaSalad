@@ -196,7 +196,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
 		//myEventManager.handleEntityDropEvent(event);
-		//mySystems.sendUserInputEvent(event);
+		mySystems.sendUserInputEvent(event);
 	}
 
 	public void keyPressed(String s){
@@ -205,8 +205,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	
 	public void entityClicked(int myID) {
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
-		//System.out.println(clickedEvent.getEventID());
-		//myEventManager.handleClickEvent(clickedEvent);
 		mySystems.sendUserInputEvent(clickedEvent);
 	}
 

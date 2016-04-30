@@ -1,6 +1,6 @@
 package engine.backend.systems.Events;
 
-public class EntityDroppedEvent {
+public class EntityDroppedEvent implements IEvent{
 	
 	private double xPosition;
 	private double yPosition;
@@ -43,5 +43,11 @@ public class EntityDroppedEvent {
 	
 	public double getEntityValue(){
 		return entityValue;
+	}
+
+	@Override
+	public String getEventID() {
+		// TODO Auto-generated method stub
+		return entityName + this.getClass().getSimpleName();
 	}
 }

@@ -30,6 +30,7 @@ import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 import engine.backend.rules.EntityAction;
+import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 
 public class testingClass {
@@ -107,7 +108,7 @@ public class testingClass {
 		EntityAction action3 = new EntityAction("SimpleBullet", "Display", "CanBeShown", "false");
 		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
 		
-		//LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
+		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
 		
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action); 
@@ -133,7 +134,11 @@ public class testingClass {
 		rule4.addActions(Arrays.asList(action3, action5));
 		rule4.addEvents(Arrays.asList("SimpleBulletOutOfMapEvent"));
 		
-		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4));
+		Rule rule5 = new Rule();
+		rule5.addActions(Arrays.asList(levelAction, action));
+		rule5.addEvents(Arrays.asList("tempEntityEndOfPathEvent"));
+		
+		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4, rule5));
 		//level.addActionToEventMap(Arrays.asList("SimpleBullettempEntityCollisionEvent"), myActions);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);

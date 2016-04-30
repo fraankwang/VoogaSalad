@@ -53,10 +53,6 @@ public class UserInputSystem extends GameSystem{
 	 * @return A collection of IEvents that would not be within the map.
 	 */
 	public Collection<IEvent> getNonMapEvents() {
-		try {
 			return nonMapEvents;
-		} finally {
-			nonMapEvents.clear();			
-		}
 	}
 }

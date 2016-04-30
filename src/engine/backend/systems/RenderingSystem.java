@@ -33,24 +33,16 @@ import engine.controller.EngineController;
 
 public class RenderingSystem extends GameSystem {
 
-	private EngineController engineController;
-
-	public RenderingSystem(EngineController eController) {
-		this.engineController = eController;
-	}
-
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
-		// TODO Auto-generated method stub
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
-		//System.out.println(entities.size());
 		for(IEntity myEntity : entities){
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
-			double sizex = 200;
-			double sizey = 200;
+			double sizex = Integer.MIN_VALUE;
+			double sizey = Integer.MIN_VALUE;
 			boolean show = true;
 			boolean delete = false;
 
@@ -81,7 +73,6 @@ public class RenderingSystem extends GameSystem {
 		}
 		
 		myLevel.removeEntites(entitiesToRemove);
-		//entities.removeAll(entitiesToRemove);
 		
 	}
 	
