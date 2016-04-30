@@ -22,6 +22,7 @@ public class GameStatistics implements IModifiable{
 	private int initialLevel;
 	private String initialMode;
 	private int highestLevelUnlocked;
+	private int nextAvailableEntityID;
 	
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
@@ -42,6 +43,8 @@ public class GameStatistics implements IModifiable{
 		
 		setCurrentNumLives(numLives);	
 		setCurrentResources(resources);
+		
+		nextAvailableEntityID = 0;
 //		endOfLevelLives = new ArrayList<Integer>();
 //		endOfLevelResources = new ArrayList<Double>();
 	}
@@ -49,7 +52,7 @@ public class GameStatistics implements IModifiable{
 	public GameStatistics() {
 		
 	}
- 
+
 	public void addEndOfLevelLives(int numLives) {
 		endOfLevelLives.add(numLives);
 	}
@@ -64,6 +67,7 @@ public class GameStatistics implements IModifiable{
 
 	public void setInitialNumLives(int initialNumLives) {
 		this.initialNumLives = initialNumLives;
+		currentNumLives = new Property(initialNumLives, "currentNumLives");
 	}
 
 	public int getCurrentNumLives() {
@@ -89,6 +93,7 @@ public class GameStatistics implements IModifiable{
 
 	public void setInitialResources(double initialResources) {
 		this.initialResources = initialResources;
+		currentResources = new Property(initialResources, "currentResources");
 	}
 
 	public double getCurrentResources() {
@@ -155,6 +160,11 @@ public class GameStatistics implements IModifiable{
 		if(getCurrentNumLives() == 0){
 			setCurrentLevelIndex(-1);
 		}
+	}
+	
+	public int getNextAvailableID(){
+		nextAvailableEntityID++;
+		return nextAvailableEntityID;
 	}
 
 	@Override

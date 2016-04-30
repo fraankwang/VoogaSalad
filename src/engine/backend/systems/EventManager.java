@@ -158,6 +158,7 @@ public class EventManager implements Observer {
 	public void handleGoToNextLevelEvent() {
 		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
 		serializeLevel();
+		updateEntityFactory();
 	}
 
 	private void serializeLevel() {
