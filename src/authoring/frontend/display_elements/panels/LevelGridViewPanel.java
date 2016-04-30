@@ -110,7 +110,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 	 */
 	public void updatePossibleLevels(Map<String, String> possibleLevels) {
 		myPossibleLevels = possibleLevels;
-		myChooser.updateList(possibleLevels);
+		myChooser.addAll(possibleLevels);
 	}
 
 	/**
