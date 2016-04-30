@@ -52,7 +52,7 @@ public class ControlManager extends ResourceUser {
 		nextWave.setDisable(true);
 		nextWave.setOnMouseClicked(e -> {
 			myStatusPane.getEngineView().getEngineController().nextWaveClicked();
-			nextWave.setDisable(true);
+			resetNextWaveTimer();
 		});
 
 		nextLevel.setDisable(true);
@@ -76,17 +76,25 @@ public class ControlManager extends ResourceUser {
 	
 	private void startNextWaveTimer(double time){
 		clockTime = time;
-		KeyFrame frame = new KeyFrame(Duration.millis(100), e -> {
-			nextWave.setText(loadStringResource("NextWaveTimerLabel") + (clockTime - .1));
-		});
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
+		KeyFrame frame = new KeyFrame(Duration.millis(100), e -> {
+			if(clockTime > 0){
+				nextWave.setText(loadStringResource("NextWaveTimerLabel") + String.format("%.2g%n", (clockTime -= .1)));
+			} else {
+				resetNextWaveTimer();
+				animation.stop();
+			}
+		});
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
+	
+	private void resetNextWaveTimer(){
+		nextWave.setText(loadStringResource("NextWaveLabel"));
+		nextWave.setDisable(true);
+	}
 
-	
-	
 	public void nextLevelEnable() {
 		nextLevel.setDisable(false);
 	}

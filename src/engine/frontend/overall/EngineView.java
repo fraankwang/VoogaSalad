@@ -36,6 +36,7 @@ public class EngineView extends ResourceUser{
 	 *  Set up upgrades to send backend info when dropped on towers
 	 *  make sure game loop works when loading new maps with different aspect ratio map images
 	 *  reorganize/javadoc code LAST
+	 *  things that go off map go "under" the borders
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 
