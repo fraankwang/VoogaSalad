@@ -96,8 +96,9 @@ public class ShopPane extends AbstractPane {
 	 * @param list - list of shopItems - each shopItem contains shon name, image, cost, and if it's interactable
 	 */
 	public void updateShop(List<ShopItem> shoplist) {
-		myShopItems.clear();
-		myShopItems.addAll(shoplist);
+		for(ShopItem item : shoplist){
+//			if(myShopItems.)
+		}
 	}
 	
 	public void updateUpgrade(List<ShopItem> upgradelist) {
