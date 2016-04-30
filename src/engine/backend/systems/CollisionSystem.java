@@ -23,7 +23,12 @@ import engine.backend.utilities.ComponentTagResources;
 public class CollisionSystem extends GameSystem{
  
     @Override
-    public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
+    public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
+    	
+    	if(!playing){
+			return;
+		}
+    	
     	QuadTree quad = setUpQuadTree(myLevel);
     	Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.collisionComponentTag);
     	collidableEntities.forEach(entity -> quad.insert(entity));
