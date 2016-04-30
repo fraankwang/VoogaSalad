@@ -108,6 +108,24 @@ public class testingClass {
 		EntityAction action3 = new EntityAction("SimpleBullet", "Display", "CanBeShown", "false");
 		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
 		
+		EntityAction keyActionLeft = new EntityAction("tempEntity2", "Position", "XCoordinate", "-5");
+		EntityAction keyActionRight = new EntityAction("tempEntity2", "Position", "XCoordinate", "5");
+		EntityAction keyActionDown = new EntityAction("tempEntity2", "Position", "YCoordinate", "5");
+		EntityAction keyActionUp = new EntityAction("tempEntity2", "Position", "YCoordinate", "-5");
+		
+		Rule ruleKeyLeft = new Rule();
+		ruleKeyLeft.addActions(keyActionLeft);
+		ruleKeyLeft.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventLEFT"));
+		Rule ruleKeyRight = new Rule();
+		ruleKeyRight.addActions(keyActionRight);
+		ruleKeyRight.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventRIGHT"));
+		Rule ruleKeyUp = new Rule();
+		ruleKeyUp.addActions(keyActionUp);
+		ruleKeyUp.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventUP"));
+		Rule ruleKeyDown = new Rule();
+		ruleKeyDown.addActions(keyActionDown);
+		ruleKeyDown.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventDOWN"));
+		
 		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
 		LevelAction levelAction2 = new LevelAction("CurrentResources", "4");
 		
@@ -129,7 +147,7 @@ public class testingClass {
 		Rule rule3 = new Rule();
 		EntityAction shootAction = new EntityAction("tempEntity2", "Firing", "FireNow", "true");
 		rule3.addActions(Arrays.asList(shootAction));
-		rule3.addEvents(Arrays.asList("tempEntity2EntityClickedEvent"));
+		rule3.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventS"));
 		
 		Rule rule4 = new Rule();
 		rule4.addActions(Arrays.asList(action3, action5));
@@ -139,7 +157,7 @@ public class testingClass {
 		rule5.addActions(Arrays.asList(levelAction, action, action4, levelAction2));
 		rule5.addEvents(Arrays.asList("tempEntityEndOfPathEvent"));
 		
-		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4, rule5));
+		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4, rule5, ruleKeyUp, ruleKeyDown, ruleKeyLeft, ruleKeyRight));
 		//level.addActionToEventMap(Arrays.asList("SimpleBullettempEntityCollisionEvent"), myActions);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);

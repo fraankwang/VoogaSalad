@@ -241,6 +241,7 @@ public class EventManager implements Observer {
 	private void applyActions(IEntity entity, Collection<IAction> actions) {
 		for (IAction a : actions) {
 			if (a instanceof EntityAction) {
+				System.out.println(((EntityAction) a).getEntityName());
 				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
 					((IModifiable) entity).applyAction((EntityAction) a);
 				}
@@ -278,7 +279,6 @@ public class EventManager implements Observer {
 	public void handleGeneratedEvents(Map<String, Set<Integer>> generatedEventMap) {
 		
 		for (Rule rule : myRuleAgenda) {
-
 			List<Set<Integer>> myPossibleEntities = new ArrayList<Set<Integer>>();
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;

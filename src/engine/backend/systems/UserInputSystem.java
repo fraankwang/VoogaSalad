@@ -31,7 +31,6 @@ public class UserInputSystem extends GameSystem{
 		myMapEvents.forEach(event -> {
 			String identifier = myLevel.getEntityWithID(event.getFirstEntityID()).getName();
 			event.setEventID(identifier);
-			System.out.println(event.getEventID());
 			addToEventMap(myEventMap, event, event.getEntityIDs());});
 		myMapEvents.clear();
 	}
