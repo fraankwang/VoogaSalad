@@ -116,10 +116,21 @@ public class EventManager implements Observer {
 	}
 
 	/**
+	 * Handles setting the mode and level when clicked.
+	 * @param modeName
+	 * @param level
+	 * @throws IOException
+	 */
+	public void handleGameStartEvent(String modeName, int level) throws IOException {
+		handleModeClickedEvent(modeName);
+		handleLevelClickedEvent(level);
+	}
+	
+	/**
 	 * Handles when a mode has been selected.
 	 * @param modeName
 	 */
-	public void handleModeClickedEvent(String modeName) {
+	private void handleModeClickedEvent(String modeName) {
 		currentModeStatistics.setCurrentMode(modeName);
 	}
 	
@@ -129,7 +140,7 @@ public class EventManager implements Observer {
 	 * @param Level
 	 * @throws IOException
 	 */
-	public void handleLevelClickedEvent(int level) throws IOException {
+	private void handleLevelClickedEvent(int level) throws IOException {
 		currentModeStatistics.setCurrentLevelIndex(level);
 		serializeLevel();
 	}
