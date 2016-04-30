@@ -84,7 +84,7 @@ public class EventManager implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// System.out.println(arg.getClass().getName());
-		handleCustomEvent((IEvent) arg);
+		handleSystemEvent((IEvent) arg);
 	}
 
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
@@ -96,7 +96,7 @@ public class EventManager implements Observer {
 		this.myRuleAgenda = rules;
 	}
 
-	private void handleCustomEvent(IEvent myEvent) {
+	private void handleSystemEvent(IEvent myEvent) {
 
 		if (myEvent instanceof UpdateEntityEvent) {
 			sendUpdatedEntity((UpdateEntityEvent) myEvent);
@@ -110,33 +110,7 @@ public class EventManager implements Observer {
 		if (myEvent instanceof WaveOverEvent) {
 			handleWaveOverEvent((WaveOverEvent) myEvent);
 		}
-		
-		if (myEvent instanceof NextWaveEvent) {
-			handleNextWaveEvent((NextWaveEvent) myEvent);
-		}
-		
-		
-
-	}
 	
-	public void handleUserInputEvent(IEvent myEvent) {
-		
-		if(myEvent instanceof EntityClickedEvent){
-			handleClickEvent((EntityClickedEvent) myEvent);
-		}
-		
-		else if(myEvent instanceof KeyPressedEntityEvent){
-			handleKeyPressedEvent((KeyPressedEntityEvent) myEvent);
-		}
-		
-		else if(myEvent instanceof EntityDroppedEvent){
-			handleEntityDropEvent((EntityDroppedEvent) myEvent);
-		}
-		
-		else if(myEvent instanceof NextWaveEvent){
-			handleNextWaveEvent((NextWaveEvent) myEvent);
-		}
-		
 	}
 
 	/**
@@ -226,9 +200,9 @@ public class EventManager implements Observer {
 
 	private void handleClickEvent(EntityClickedEvent event) {
 
-		String identifier = getCurrentLevel().getEntityWithID(event.getClickedEntityID()).getName();
+		String identifier = getCurrentLevel().getEntityWithID(event.getFirstEntityID()).getName();
 		event.setEventID(identifier);
-		IEntity entity = getCurrentLevel().getEntityWithID(event.getClickedEntityID());
+		IEntity entity = getCurrentLevel().getEntityWithID(event.getFirstEntityID());
 		((Observable) entity).addObserver(event.getCurrentView());
 
 		for (Rule rule : myRuleAgenda) {
@@ -256,15 +230,19 @@ public class EventManager implements Observer {
 		myEntityFactory.setID(getCurrentLevel().getIndex());
 		return;
 	}
-
+	
+	/**
+	 * Applies actions to an entity if applicable, else sees if it is a level action then changes things
+	 * accordingly.
+	 * @param entity
+	 * @param actions
+	 */
 	private void applyActions(IEntity entity, Collection<IAction> actions) {
 		for (IAction a : actions) {
 			if (a instanceof EntityAction) {
-
 				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
 					((IModifiable) entity).applyAction((EntityAction) a);
 				}
-
 			} else if (a instanceof LevelAction) {
 				currentModeStatistics.applyAction((LevelAction) a);
 			}
@@ -272,25 +250,44 @@ public class EventManager implements Observer {
 	}
 
 	private void applyActions(Collection<Integer> entityIDs, Collection<IAction> actions) {
-
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
-		for (IAction action : actions) {
-			if (action instanceof EntityAction) {
 
-				myEntities.stream()
-						  .filter(e -> ((EntityAction) action).getEntityName().equals(e.getName()))
-						  .forEach(e -> ((IModifiable) e).applyAction(action));
-								  
-			} else if (action instanceof LevelAction) {
-				currentModeStatistics.applyAction(action);
+		myEntities.forEach(entity -> applyActions(entity, actions));
+//		for (IAction action : actions) {
+//			if (action instanceof EntityAction) {
+//
+//				myEntities.stream()
+//						  .filter(e -> ((EntityAction) action).getEntityName().equals(e.getName()))
+//						  .forEach(e -> ((IModifiable) e).applyAction(action));
+//								  
+//			} else if (action instanceof LevelAction) {
+//				currentModeStatistics.applyAction(action);
+//			}
+//		}
+
+	}
+	
+	/**
+	 * Takes in collection of non map user events generated, and handles them accordingly 
+	 * @param events
+	 */
+	public void handleNonMapEvents(Collection<IEvent> events) {
+		
+		for(IEvent event : events){
+			if(event instanceof EntityDroppedEvent){
+				handleEntityDropEvent((EntityDroppedEvent) event);
+			}
+			else if(event instanceof NextWaveEvent){
+				handleNextWaveEvent((NextWaveEvent) event);
 			}
 		}
+		
 	}
 
 	// supposed to handle list of events generated in each loop iteration
 	public void handleGeneratedEvents(Map<String, Set<Integer>> generatedEventMap) {
-
+		
 		for (Rule rule : myRuleAgenda) {
 
 			List<Set<Integer>> myPossibleEntities = new ArrayList<Set<Integer>>();

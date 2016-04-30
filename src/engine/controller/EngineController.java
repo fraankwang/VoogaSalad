@@ -13,6 +13,7 @@ import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.GameEvent;
+import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
@@ -194,7 +195,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
-		myEventManager.handleEntityDropEvent(event);
+		//myEventManager.handleEntityDropEvent(event);
+		//mySystems.sendUserInputEvent(event);
 	}
 
 	public void keyPressed(String s){
@@ -202,13 +204,16 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 	
 	public void entityClicked(int myID) {
-		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
-		myEventManager.handleClickEvent(clickedEvent);
+		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
+		//System.out.println(clickedEvent.getEventID());
+		//myEventManager.handleClickEvent(clickedEvent);
+		mySystems.sendUserInputEvent(clickedEvent);
 	}
 
 	public void nextWaveClicked() {
-		NextWaveEvent nextWaveEvent = new NextWaveEvent();
-		myEventManager.handleNextWaveEvent(nextWaveEvent);
+		IEvent nextWaveEvent = new NextWaveEvent();
+		//myEventManager.handleNextWaveEvent(nextWaveEvent);
+		mySystems.sendUserInputEvent(nextWaveEvent);
 	}
 
 	public void nextLevelClicked() {

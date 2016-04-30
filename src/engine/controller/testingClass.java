@@ -185,7 +185,7 @@ public class testingClass {
 		
 		level.setShopItems(Arrays.asList(item));
 		
-		IEntity tempEntity2 = new Entity(-1, "tempEntity2", "object2");
+		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
