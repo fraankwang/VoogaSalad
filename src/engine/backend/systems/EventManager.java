@@ -206,9 +206,9 @@ public class EventManager implements Observer {
 
 	public void handleClickEvent(EntityClickedEvent event) {
 
-		String identifier = getCurrentLevel().getEntityWithID(event.getClickedEntityID()).getName();
+		String identifier = getCurrentLevel().getEntityWithID(event.getFirstEntityID()).getName();
 		event.setEventID(identifier);
-		IEntity entity = getCurrentLevel().getEntityWithID(event.getClickedEntityID());
+		IEntity entity = getCurrentLevel().getEntityWithID(event.getFirstEntityID());
 		((Observable) entity).addObserver(event.getCurrentView());
 
 		for (Rule rule : myRuleAgenda) {

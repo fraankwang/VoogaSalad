@@ -6,6 +6,7 @@
 package engine.backend.systems;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import javax.swing.text.html.parser.Entity;
 
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
+import engine.backend.systems.Events.IEvent;
 import engine.controller.EngineController;
 
 public class SystemsController {
@@ -26,6 +28,7 @@ public class SystemsController {
 	private GameSystem firingSystem;
 	private GameSystem collisionSystem;
 	private GameSystem spawningSystem;
+	private GameSystem userInputSystem;
 	private List<ISystem> mySystems;
 	private EngineController engineController;
 	private EventManager myEventManager;
@@ -49,6 +52,7 @@ public class SystemsController {
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
 		spawningSystem = new SpawningSystem();
+		userInputSystem = new UserInputSystem();
 
 		this.myEventManager = myEventManager;
 
@@ -64,6 +68,7 @@ public class SystemsController {
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
+		mySystems.add(userInputSystem);
 		//mySystems.add(myEventManager);
 		//mySystems.add(renderingSystem);
 	
@@ -76,6 +81,7 @@ public class SystemsController {
 		for (ISystem system : mySystems) {
 			system.update(myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());			
 		}
+		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
 		//handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
 		//myEventManager.updateGameShop();
