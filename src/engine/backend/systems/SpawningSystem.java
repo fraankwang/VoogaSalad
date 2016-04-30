@@ -55,6 +55,7 @@ public class SpawningSystem extends GameSystem {
 
 			for(Spawn spawn : spawnerComponent.getSpawns()){
 				if(spawn.getWaveIndex() == currentWaveIndex && spawn.getNumEntities() > 0){
+					//System.out.println(spawn.getInfo());
 					waveIsOver = false;
 					updateSpawn(spawn, posComponent.getPositionVector(), newEntities, myEntityFactory, currentSecond, spawnerComponent.getPathID());
 				}

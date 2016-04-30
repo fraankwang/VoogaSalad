@@ -13,7 +13,6 @@ public class GameWorld {
 	//myModes is a map of mode name to Mode object
 	private Map<String, Mode> myModes;
 	private String myName;
-	private GameStatistics myGameStatistics;
 	
 	/**
 	 * Authoring Environment Constructor
@@ -27,16 +26,11 @@ public class GameWorld {
 	 * Engine Environment Testing.
 	 */
 	public GameWorld() {
-		this.myGameStatistics = new GameStatistics();
 		this.myModes = new HashMap<String, Mode>();
 	}
 
-	public GameStatistics getGameStatistics() {
-		return myGameStatistics;
-	}
-	
-	public void setGameStatistics(GameStatistics gameStatistics) {
-		this.myGameStatistics = gameStatistics;
+	public GameStatistics getGameStatistics(String mode) {
+		return myModes.get(mode).getGameStatistics();
 	}
 	
 	public void setGameType(String name) {

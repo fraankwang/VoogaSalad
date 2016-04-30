@@ -67,10 +67,10 @@ public class ShopCell extends ListCell<ShopItem> {
 			if(myCost == null){
 				myCost = new Text(myResources.getString("ShopCostPrompt")+ String.valueOf(item.getItemValue()));
 			} else {
-				String dummyString = myType.getText().substring(myResources.getString("ShopCostPrompt").length());
-				if(dummyString.equals(String.valueOf(item.getItemValue()))){
-					myCost.setText(myResources.getString("ShopCostPrompt")+ String.valueOf(item.getItemValue()));
-				}
+//				String dummyString = myType.getText().substring(myResources.getString("ShopCostPrompt").length());
+//				if(dummyString.equals(String.valueOf(item.getItemValue()))){
+//					myCost.setText(myResources.getString("ShopCostPrompt")+ String.valueOf(item.getItemValue()));
+//				}
 			}
 						
 //			if (myItem.isCanBuy()) {
