@@ -217,7 +217,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		mySystems.sendUserInputEvent(clickedEvent);
 		//test
-		levelIsOver(false);
+		//levelIsOver(false);
 	}
 
 	public void nextWaveClicked() {

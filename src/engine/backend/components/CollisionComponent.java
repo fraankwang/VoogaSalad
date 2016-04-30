@@ -38,16 +38,22 @@ public class CollisionComponent extends Component{
         isCollided = collided;
     }
 
-
+    
 	@Override
+	/**
+	 * Returns the boolean with its tag
+	 */
 	public String getComponentInfo() {
 		return "IsCollided:" + isCollided;
 	}
 
 	@Override
+	/**
+	 * Updates the value of the boolean
+	 */
 	public void update(String dataName, String data) {
 		if (dataName.equals("IsCollided")) {
-			if (data.equals("True") || data.equals("true") || data.equals("1") || data.equals("Yes") || data.equals("yes")) {
+			if (data.equalsIgnoreCase("true") || data.equals("1") || data.equalsIgnoreCase("yes")) {
 				isCollided = true;
 			} else {
 				isCollided = false;
