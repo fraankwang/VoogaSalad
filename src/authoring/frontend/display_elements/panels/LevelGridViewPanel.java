@@ -9,8 +9,6 @@ import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.editor_features.ObjectChooser;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

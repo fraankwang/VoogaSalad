@@ -394,6 +394,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
+		checkAllFilled();
 		return myAttributesMap;
 	}
 

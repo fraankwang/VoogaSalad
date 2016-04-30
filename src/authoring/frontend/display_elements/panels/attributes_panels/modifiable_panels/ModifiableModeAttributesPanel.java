@@ -134,6 +134,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
+		checkAllFilled();
 		return myAttributesMap;
 	}
 	
