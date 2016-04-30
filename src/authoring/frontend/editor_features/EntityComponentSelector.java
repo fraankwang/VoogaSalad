@@ -171,16 +171,6 @@ public class EntityComponentSelector {
 				inputMap.put("MovementComponent_CanTrack", canTrack);
 				break;
 
-			case "TrackingMovementComponent":
-				TextField velocityTracking = new TextField();
-				ComboBox<String> canMoveTracking = createComboBox(booleanComboBox);
-				ComboBox<String> canRotateTracking = createComboBox(booleanComboBox);
-				ComboBox<String> canTrackTracking = createComboBox(booleanComboBox);
-				inputMap.put("TrackingMovementComponent_Velocity", velocityTracking);
-				inputMap.put("TrackingMovementComponent_CanMove", canMoveTracking);
-				inputMap.put("TrackingMovementComponent_CanRotate", canRotateTracking);
-				inputMap.put("TrackingMovementComponent_CanTrack", canTrackTracking);
-
 			case "Cancel":
 				break;
 
