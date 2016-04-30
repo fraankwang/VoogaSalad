@@ -1,10 +1,6 @@
 package utility.hud;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +32,11 @@ public class HUDController implements Observer{
 	 */
 	
 	
-	public void init(String filename, Object dataSource, IValueFinder valueFinder) {
+	public void init(Object dataSource, IValueFinder valueFinder) {
 		setModel(new HUDModel());
 		valueFinder.setController(this);
 		valueFinder.setDataSource(dataSource);
-		List<String> fieldsToObserve = getFieldsToFollow(filename);
+		List<String> fieldsToObserve = getFieldsToFollow();
 		Map<Integer, String> rowToValueMap = new HashMap<>();
 		for (int i = 0; i<fieldsToObserve.size(); i++) {
 			Property myProperty = valueFinder.find(fieldsToObserve.get(i));
@@ -58,30 +54,9 @@ public class HUDController implements Observer{
 	 * @return
 	 */
 	
-	private List<String> getFieldsToFollow(String filename) {
-		List<String> params = new ArrayList<>();
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
-			String currentLine = bufferedReader.readLine();
-
-			while(currentLine != null) {
-				String trimmedWord = currentLine.trim();
-				if (trimmedWord.length() != 0) {
-					params.add(trimmedWord);
-				}
-				currentLine = bufferedReader.readLine();
-			}
-			bufferedReader.close();
-		} 
-		catch (IOException e) {
-			System.err.println("A error occured reading file: " + e);
-			e.printStackTrace();
-		}
-		return params;
+	private List<String> getFieldsToFollow() {
+		return Arrays.asList("lives", "mode", "level", "resources");
 	}
-	
-	
-	
 	
 	/**
 	 * Sets the model

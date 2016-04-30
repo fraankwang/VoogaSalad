@@ -26,6 +26,7 @@ public class StatusPane extends AbstractPane{
 		myHBox = new HBox();
 		myHBox.getChildren().add(buildRecordControls());
 		myHBox.getChildren().add(myControlManager.buildGameControls());
+		myHBox.getChildren().add(buildStatDisplay());
 		getPane().getChildren().add(myHBox);
 		return getPane();
 	}
@@ -68,8 +69,9 @@ public class StatusPane extends AbstractPane{
 	}
 	
 	
-	private Node buildStatDisplay(String name){
-		return null;
+	private Node buildStatDisplay(){
+		Node node = myEngineView.getEngineController().setupHUD();
+		return node;
 	}
 	
 	public Pane getPane(){

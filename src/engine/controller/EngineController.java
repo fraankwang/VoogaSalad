@@ -24,11 +24,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 import utility.gamecapture.GameCapture;
+import utility.hud.AbstractHUDScreen;
 import utility.hud.HUDController;
 
 public class EngineController extends ResourceUser implements IEngineController {
@@ -86,7 +88,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		GameStatistics stats = new GameStatistics(10, 10);
 		myGameWorld.setGameStatistics(stats);
 		myEventManager = new EventManager(this, myGameWorld);
-		setupHUD();
+		
 		StartView myStartView = new StartView(this);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);
@@ -118,11 +120,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 		initEngineView();
 	}
 	
-	private void setupHUD(){
-		HUDController HUD = new HUDController();
-		HUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
-	}
-
 	/**
 	 * Creates the engineView, starts the game by playing the animation
 	 */
@@ -132,6 +129,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.show();
 		setupGameCapture();
 		animation.play();
+	}
+	
+	public SubScene setupHUD(){
+		HUDController myHUD = new HUDController();
+		myHUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
+		AbstractHUDScreen myHUDScreen = myHUD.getView();
+		return myHUDScreen.getScene();
 	}
 
 	private void setupGameCapture() {

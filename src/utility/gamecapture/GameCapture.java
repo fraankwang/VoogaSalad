@@ -27,7 +27,7 @@ import javafx.scene.image.WritableImage;
 
 public class GameCapture implements IGameCapture {
 
-	public static final String DEFAULT_RESOURCE = "utility/gamecapture";
+	public static final String DEFAULT_RESOURCE = "utility/gamecapture/gamecapture";
 	private ResourceBundle myResources;
 	private IMediaWriter fileWriter;
 
