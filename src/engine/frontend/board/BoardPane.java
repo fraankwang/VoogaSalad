@@ -19,7 +19,7 @@ public class BoardPane extends AbstractPane{
 	private Map<Integer, EntityView> myEntityViewMap;
 	
 	public BoardPane(EngineView ev){
-		super(ev);
+		super(ev, null);
 		myEntityViewMap = new HashMap<Integer, EntityView>();
 	}
 	

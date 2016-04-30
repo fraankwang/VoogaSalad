@@ -3,6 +3,7 @@ package authoring.frontend.display_elements.grids.editor_grids;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.GameEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -29,7 +30,7 @@ public class GameEditorGrid extends EditorGrid {
 	public void assembleGridComponents() {
 		super.assembleGridComponents();
 		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
-		myGrid.add(myRulesPanel.getNode(), 0, 1);
+		GridPane.setRowSpan(myPrimaryDisplay.getNode(), 2);
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 	}

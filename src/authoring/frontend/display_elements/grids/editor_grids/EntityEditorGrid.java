@@ -45,7 +45,7 @@ public class EntityEditorGrid extends EditorGrid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
-		GridPane.setColumnSpan(myPrimaryDisplay.getNode(), 2);
+		GridPane.setRowSpan(myPrimaryDisplay.getNode(), 2);
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 		
@@ -53,12 +53,11 @@ public class EntityEditorGrid extends EditorGrid {
 	
 	@Override
 	public void setAttributesPanel(Map<String, String> info) {
-		super.setAttributesPanel(info);
 		if (info.get("DisplayComponent_Image") == null) {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("resources/images/question_mark.png"));
-		} else {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
+			info.put("DisplayComponent_Image", "resources/images/question_mark.png");
 		}
+		((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
+		super.setAttributesPanel(info);
 	}
 	
 	@Override

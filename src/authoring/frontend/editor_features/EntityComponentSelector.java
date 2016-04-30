@@ -121,9 +121,9 @@ public class EntityComponentSelector {
 
 			case "FiringComponent":
 				ComboBox<String> ammo = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
-						.getTabBarElement().getEntitiesTabDisplay()).getEntities().keySet());
+						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
 				ComboBox<String> targets = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
-						.getTabBarElement().getEntitiesTabDisplay()).getEntities().keySet());
+						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
 				TextField speed = new TextField();
 				TextField sightRange = new TextField();
 				TextField firingRate = new TextField();

@@ -22,6 +22,7 @@ import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_features.GameShop;
 import engine.backend.game_features.ShopItem;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -29,6 +30,7 @@ import engine.backend.map.BezierCurve;
 import engine.backend.map.GameMap;
 import engine.backend.map.Path;
 import engine.backend.rules.EntityAction;
+import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 
 public class testingClass {
@@ -106,7 +108,26 @@ public class testingClass {
 		EntityAction action3 = new EntityAction("SimpleBullet", "Display", "CanBeShown", "false");
 		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
 		
-		//LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
+		EntityAction keyActionLeft = new EntityAction("tempEntity2", "Position", "XCoordinate", "-5");
+		EntityAction keyActionRight = new EntityAction("tempEntity2", "Position", "XCoordinate", "5");
+		EntityAction keyActionDown = new EntityAction("tempEntity2", "Position", "YCoordinate", "5");
+		EntityAction keyActionUp = new EntityAction("tempEntity2", "Position", "YCoordinate", "-5");
+		
+		Rule ruleKeyLeft = new Rule();
+		ruleKeyLeft.addActions(keyActionLeft);
+		ruleKeyLeft.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventLEFT"));
+		Rule ruleKeyRight = new Rule();
+		ruleKeyRight.addActions(keyActionRight);
+		ruleKeyRight.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventRIGHT"));
+		Rule ruleKeyUp = new Rule();
+		ruleKeyUp.addActions(keyActionUp);
+		ruleKeyUp.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventUP"));
+		Rule ruleKeyDown = new Rule();
+		ruleKeyDown.addActions(keyActionDown);
+		ruleKeyDown.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventDOWN"));
+		
+		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
+		LevelAction levelAction2 = new LevelAction("CurrentResources", "4");
 		
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action); 
@@ -126,13 +147,17 @@ public class testingClass {
 		Rule rule3 = new Rule();
 		EntityAction shootAction = new EntityAction("tempEntity2", "Firing", "FireNow", "true");
 		rule3.addActions(Arrays.asList(shootAction));
-		rule3.addEvents(Arrays.asList("tempEntity2EntityClickedEvent"));
+		rule3.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventS"));
 		
 		Rule rule4 = new Rule();
 		rule4.addActions(Arrays.asList(action3, action5));
 		rule4.addEvents(Arrays.asList("SimpleBulletOutOfMapEvent"));
 		
-		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4));
+		Rule rule5 = new Rule();
+		rule5.addActions(Arrays.asList(levelAction, action, action4, levelAction2));
+		rule5.addEvents(Arrays.asList("tempEntityEndOfPathEvent"));
+		
+		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4, rule5, ruleKeyUp, ruleKeyDown, ruleKeyLeft, ruleKeyRight));
 		//level.addActionToEventMap(Arrays.asList("SimpleBullettempEntityCollisionEvent"), myActions);
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
@@ -184,7 +209,7 @@ public class testingClass {
 		
 		level.setShopItems(Arrays.asList(item));
 		
-		IEntity tempEntity2 = new Entity(-1, "tempEntity2", "object2");
+		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
@@ -235,6 +260,7 @@ public class testingClass {
 		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
 		level.addEntityToMap(tempEntity2);
+		
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
 		level.setCurrentWaveIndex(0);
@@ -243,6 +269,10 @@ public class testingClass {
 		level.setAuthoredEntities(authoredEntities);
 		mode.addLevel(level);
 		firingTest.addMode(mode);
+		
+		GameStatistics gameStats = new GameStatistics(50, 50);
+		firingTest.setGameStatistics(gameStats);
+
 		return firingTest;
 	}
 

@@ -14,6 +14,7 @@ import authoring.frontend.editor_features.SpawnEntityRow;
 import authoring.parser.GlobalParser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -38,7 +39,6 @@ import javafx.scene.text.Font;
 
 public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
-	private Button myAddSpawnButton;
 	private ObjectChooser myEntitySelector;
 	private ComboBox<String> myWaveSelector;
 	private String mySpawnEntitiesCompressed;
@@ -47,13 +47,17 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private GridPane mySpawnEntitiesGridPane;
 	private List<String> myWaves;
 	private int myMaxWave;
+	private Button myAddSpawnButton;
 	private Button myAddTowerButton;
 	private TitledPane mySpawnPane;
 	private TitledPane myTowersPane;
+	private TitledPane myRulesPane;
 	private ListView<Label> myTowersListView;
+	private ListView<String> myRulesListView;
 	private Accordion myAccordion;
 	private Map<String, String> myTowers;
 	private ScrollPane myScrollPane;
+	private List<Label> myLevelEntities;
 
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",
 			"Rate");
@@ -71,6 +75,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public ModifiableLevelAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
 		myPossibleEntities = new TreeMap<String, String>();
+		myTowers = new TreeMap<String, String>();
+		myLevelEntities = new ArrayList<Label>();
 		myWaves = new ArrayList<String>();
 		myWaves.add("New");
 		myWaves.add("1");
@@ -97,19 +103,22 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAttributesGridPane = createAttributesGridPane();
 		mySpawnEntitiesGridPane = assembleEmptySpawnEntitiesGridPane();
 
-		myTowers = new TreeMap<String, String>();
 		myTowersListView = new ListView<Label>();
 		myTowersListView.setMaxWidth(MAX_SIZE);
+		myRulesListView = new ListView<String>();
+		myRulesListView.setMaxWidth(MAX_SIZE);
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(mySpawnEntitiesGridPane);
 
 		mySpawnPane = new TitledPane("Waves", myScrollPane);
 		myTowersPane = new TitledPane("Towers", myTowersListView);
+		myRulesPane = new TitledPane("Rules", myRulesListView);
 		mySpawnPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
 		myTowersPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		myRulesPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
 
 		myAccordion = new Accordion();
-		myAccordion.getPanes().addAll(mySpawnPane, myTowersPane);
+		myAccordion.getPanes().addAll(mySpawnPane, myTowersPane, myRulesPane);
 
 		assembleEmptyInputRows();
 	}
@@ -195,6 +204,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				SpawnEntityRow row = new SpawnEntityRow(tag, selected, newImageView, wave, pathID);
 				linkRow(row);
 
+				Label spawnLabel = new Label(selected);
+				spawnLabel.setGraphic(newImageView);
+				myLevelEntities.add(spawnLabel);
 			}
 		});
 
@@ -211,6 +223,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				tower.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 				tower.setGraphic(towerView);
 				myTowersListView.getItems().add(tower);
+				if (!myLevelEntities.contains(tower)) {
+					myLevelEntities.add(tower);
+				}
 			}
 		});
 
@@ -325,7 +340,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
 		}
 
-		setMyPossibleEntities(myController.getEntities());
+		setMyPossibleEntities(myController.getEntityImages());
 		refreshAttributes();
 	}
 
@@ -450,6 +465,14 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myPossibleEntities = (TreeMap<String, String>) entities;
 		myEntitySelector.clear();
 		myEntitySelector.updateList(myPossibleEntities);
+	}
+
+	public List<Label> getLevelEntities() {
+		return myLevelEntities;
+	}
+
+	public void updateRulesView(ObservableList<String> rulesList) {
+		myRulesListView.setItems(rulesList);
 	}
 
 }

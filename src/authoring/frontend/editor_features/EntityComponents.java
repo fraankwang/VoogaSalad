@@ -25,8 +25,8 @@ public class EntityComponents {
 												"HealthComponent_CriticalHealth"));
 		aMap.put("PositionComponent", Arrays.asList("PositionComponent_XCoordinate",
 												"PositionComponent_YCoordinate"));
-//		aMap.put("PathComponent", Arrays.asList("PathComponent_PathID"));
-//		aMap.put("CollisionComponent", Arrays.asList("CollisionComponent_IsCollided"));
+		aMap.put("PathComponent", Arrays.asList("PathComponent_PathID"));
+		aMap.put("CollisionComponent", Arrays.asList("CollisionComponent_IsCollided"));
 		aMap.put("MovementComponent", Arrays.asList("MovementComponent_Velocity",
 												"MovementComponent_CanMove",
 												"MovementComponent_CanRotate"));
@@ -52,7 +52,7 @@ public class EntityComponents {
 		bMap.put("HealthComponent_CriticalHealth", "Numerical");
 		bMap.put("PositionComponent_XCoordinate", "Numerical");
 		bMap.put("PositionComponent_YCoordinate", "Numerical");
-		bMap.put("PathComponent_PathID", "Path");
+		bMap.put("PathComponent_PathID", "Numerical");
 		bMap.put("CollisionComponent_IsCollided", "Boolean");
 		bMap.put("MovementComponent_Velocity", "Numerical");
 		bMap.put("MovementComponent_CanMove", "Boolean");

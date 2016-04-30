@@ -37,8 +37,8 @@ public abstract class EditorGrid extends Grid {
 	@Override
 	protected void initializeGrid() {
 		super.initializeGrid();
-		myRulesPanel = ((EditorGridFactory) myGridFactory).createRulesPanel();
 		myModifiableAttributesPanel = ((EditorGridFactory) myGridFactory).createModifiableAttributesPanel();
+		myRulesPanel = ((EditorGridFactory) myGridFactory).createRulesPanel(myModifiableAttributesPanel);
 
 	}
 

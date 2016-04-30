@@ -1,5 +1,6 @@
 package authoring.frontend;
 
+import java.util.List;
 import java.util.Map;
 
 import authoring.backend.data.GlobalData;
@@ -86,7 +87,11 @@ public class AuthoringView implements IAuthoringView {
 		return myAuthoringViewManager;
 	}
 	
-	public Map<String, String> getEntities() {
+	public Map<String, String> getEntityImages() {
+		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntityImages();
+	}
+	
+	public Map<String, Map<String, String>> getEntities() {
 		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntities();
 	}
 

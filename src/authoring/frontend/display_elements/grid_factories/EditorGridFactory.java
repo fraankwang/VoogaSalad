@@ -22,7 +22,7 @@ public abstract class EditorGridFactory extends GridFactory {
 	/**
 	 * @return instantiated and formatted myRulesPanel
 	 */
-	public abstract RulesEditorPanel createRulesPanel();
+	public abstract RulesEditorPanel createRulesPanel(ModifiableAttributesPanel attributes);
 
 	/**
 	 * @return instantiated and formatted myModifiableAttributesPanel
