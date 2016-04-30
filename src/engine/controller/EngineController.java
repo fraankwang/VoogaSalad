@@ -1,5 +1,6 @@
 package engine.controller;
 import java.io.File;
+
 /**
  * @author austinwu
  */
@@ -25,6 +26,8 @@ import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
 import engine.frontend.overall.StartView;
 import engine.frontend.status.DrumpfHUDScreen;
+import exception.DrumpfTowerException;
+import exception.ExceptionLoader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -43,20 +46,21 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
+	private ExceptionLoader exceptionLoader;
 
 	private static final String RESOURCE_NAME = "stage";
+	private static final String INITGAME = "StartingGameEvent";
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean stepping;
 
 	private EventManager myEventManager;
 	private GameStatistics myGameStatistics;
+	private testingClass myTestingClass;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
-	private testingClass myTestingClass;
 	private Integer lastEntityClickedID;
-
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
 
@@ -64,6 +68,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		super(RESOURCE_NAME);
 		myStage = s;
 		myMain = m;
+		exceptionLoader = new ExceptionLoader();
 	}
 
 	/**
@@ -90,8 +95,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 		animation.stop();
 		stepping = false;
 		myTestingClass = new testingClass();
+		myTestingClass.testExceptions();
 		myGameWorld = myTestingClass.testFiring();
-		
+
 //		startGame("test firing", 0);
 		
 		StartView myStartView = new StartView(this);
@@ -120,8 +126,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			GameEvent e = new GameEvent(selectedMode, selectedLevel);
 			myEventManager.handleGameStartEvent(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new DrumpfTowerException(exceptionLoader.getString(INITGAME));
 		}
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
 				myEventManager.getCurrentLevel().getAuthoredEntities());
@@ -131,7 +136,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		initEngineView();
 		mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), false);
 	}
-	
+
 	/**
 	 * Creates the engineView, starts the game by playing the animation
 	 */
@@ -142,8 +147,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		setupGameCapture();
 		animation.play();
 	}
-	
-	public Region setupHUD(){
+
+	public Region setupHUD() {
 		HUDController myHUD = new HUDController();
 		myHUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
 		AbstractHUDScreen myHUDScreen = myHUD.getView();
@@ -217,7 +222,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			mySystems.sendUserInputEvent(keyPressedEvent);
 		}
 	}
-	
+
 	public void entityClicked(int myID) {
 		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
@@ -227,7 +232,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void nextWaveClicked() {
 		IEvent nextWaveEvent = new NextWaveEvent();
-		//myEventManager.handleNextWaveEvent(nextWaveEvent);
+		// myEventManager.handleNextWaveEvent(nextWaveEvent);
 		mySystems.sendUserInputEvent(nextWaveEvent);
 	}
 
