@@ -30,6 +30,11 @@ public class ShopCell extends ListCell<ShopItem> {
 	public ShopCell(ShopPane sp) {
 		myShopPane = sp;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
+		
+		itemImage = new String();
+		myImageView = new ImageView();
+		myType = new Text();
+		myCost = new Text();
 	}
 
 	@Override
@@ -39,6 +44,7 @@ public class ShopCell extends ListCell<ShopItem> {
 			myItem = item;
 			HBox hbox = new HBox();
 			hbox.setOnKeyPressed(null);
+		
 			if(itemImage == null){ 
 				myImageView = new ImageView(new Image(item.getItemImage()));
 				itemImage = item.getItemImage();
@@ -71,7 +77,6 @@ public class ShopCell extends ListCell<ShopItem> {
 			if(true){
 				setOnDragDetected(e -> selectTower(e));
 				setHBoxOpacity(getDoubleResource("YesOpacity"));
-				
 			} else {
 				setHBoxOpacity(getDoubleResource("NoOpacity"));
 				setOnDragDetected(null);

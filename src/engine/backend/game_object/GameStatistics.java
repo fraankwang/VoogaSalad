@@ -86,9 +86,7 @@ public class GameStatistics implements IModifiable{
 	public void setCurrentNumLives(String deltaNumLives){
 		int newValue = getCurrentNumLives() + Integer.parseInt(deltaNumLives);
 		setCurrentNumLives(newValue);
-		if(noMoreLives()){
-			levelLost = true;
-		}
+
 	}
 
 	public double getInitialResources() {

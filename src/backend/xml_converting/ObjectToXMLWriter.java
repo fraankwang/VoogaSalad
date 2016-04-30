@@ -116,8 +116,8 @@ public abstract class ObjectToXMLWriter {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String documentToString(String filePath) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+	public static String documentToString(File file) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(file));
 		String line;
 		StringBuilder sb = new StringBuilder();
 		while ((line = br.readLine()) != null) {

@@ -61,7 +61,7 @@ public class StartView {
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(myController.getStage());
 		if (file != null) {
-			System.out.println("Do something with: " + file);
+			myController.initGameWorld(file);
 			modeComboBox.setDisable(false);
 		}
 	}
