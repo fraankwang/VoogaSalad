@@ -17,13 +17,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class ShopPane extends AbstractPane {
+	public static final String RESOURCE_NAME = "shop";
+	
 	private VBox myVBox;
 	private ListView<ShopItem> myShopList;
 	private CurrentView myCurrentView;
 	private ListView<ShopItem> myUpgradeList;
+	
 
 	public ShopPane(EngineView ev) {
-		super(ev);
+		super(ev, RESOURCE_NAME);
 	}
 
 	/**
@@ -37,9 +40,8 @@ public class ShopPane extends AbstractPane {
 		myVBox = new VBox();
 		bindWidth(myVBox, myPane.widthProperty());
 		bindHeight(myVBox, myPane.heightProperty());
-		myVBox.setSpacing(getEngineView().loadDoubleResource("ShopSpacing"));
+		myVBox.setSpacing(loadDoubleResource("ShopSpacing"));
 		
-		ShopItem tester = new ShopItem("tempEntity2", "DrumpfVader.png", 10);
 		
 		myShopList = new ListView<ShopItem>();
 		myUpgradeList = new ListView<ShopItem>();
@@ -51,7 +53,6 @@ public class ShopPane extends AbstractPane {
 		
 		myPane.getChildren().add(myVBox);
 		
-		addShopObject(tester);
 		return myPane;
 	}
 	
@@ -61,6 +62,7 @@ public class ShopPane extends AbstractPane {
 	private void setupShopList(){
 		myShopList = new ListView<ShopItem>();
 		myShopList.setCellFactory(e -> {return new ShopCell(this);});
+		myShopList.setOnKeyPressed(null);
 		bindWidth(myShopList, myVBox.widthProperty());
 		bindHeight(myShopList, myVBox.heightProperty().multiply(.6));
 		myVBox.getChildren().add(myShopList);

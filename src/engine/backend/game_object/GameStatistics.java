@@ -6,7 +6,7 @@ import java.util.List;
 
 import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
-import voogasalad.util.hud.source.Property;
+import utility.hud.Property;
 
 /**
  * 
@@ -18,18 +18,29 @@ public class GameStatistics implements IModifiable{
 	
 	private static final String PREFIX = "set";
 	private int initialNumLives;
-	private Property currentNumLives;
 	private double initialResources;
-	private Property currentResources;
+	private int initialLevel;
+	private String initialMode;
+	private int highestLevelUnlocked;
+	
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
+	
+	private Property currentNumLives;
+	private Property currentResources;
 	private Property currentLevelIndex;
 	private Property currentMode;
 
 	public GameStatistics(int numLives, double resources) {
 		setInitialNumLives(numLives);
-		setCurrentNumLives(numLives);
 		setInitialResources(resources);
+		
+		currentNumLives = new Property(initialNumLives, "lives");
+		currentResources = new Property(initialResources, "resources");
+		currentLevelIndex = new Property(initialLevel, "level");
+		currentMode = new Property((initialMode = new String()), "mode");
+		
+		setCurrentNumLives(numLives);	
 		setCurrentResources(resources);
 //		endOfLevelLives = new ArrayList<Integer>();
 //		endOfLevelResources = new ArrayList<Double>();
@@ -104,11 +115,22 @@ public class GameStatistics implements IModifiable{
 		return (int) currentLevelIndex.getValue();
 	}
 	
+	private void updateHighestLevelUnlocked(){
+		if((int) currentLevelIndex.getValue() > highestLevelUnlocked){
+			highestLevelUnlocked = (int) currentLevelIndex.getValue();
+		}
+	}
+	
+	public int getHighestLevelUnlocke(){
+		return highestLevelUnlocked;
+	}
+	
 	public Property getCurrentLevelProperty(){
 		return this.currentLevelIndex;
 	}
 
-	public void setCurrentModeIndex(String c){
+
+	public void setCurrentMode(String c){
 		currentMode.setValue(c);
 	}
 
@@ -123,10 +145,12 @@ public class GameStatistics implements IModifiable{
 	
 	public void setCurrentLevelIndex(int currentLevelIndex) {
 		this.currentLevelIndex.setValue(currentLevelIndex);
+		updateHighestLevelUnlocked();
 	}
 	
 	public void setCurrentLevelIndex(String delta){
 		this.currentLevelIndex.setValue(Integer.parseInt(delta));
+		updateHighestLevelUnlocked();
 	}
 	
 	private void checkEndOfGame(){

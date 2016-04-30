@@ -1,9 +1,9 @@
 package engine.backend.game_features;
 
 import engine.backend.game_object.GameStatistics;
-import voogasalad.util.hud.source.HUDController;
-import voogasalad.util.hud.source.IValueFinder;
-import voogasalad.util.hud.source.Property;
+import utility.hud.HUDController;
+import utility.hud.IValueFinder;
+import utility.hud.Property;
 
 public class HUDValueFinder implements IValueFinder {
 	
@@ -29,6 +29,7 @@ public class HUDValueFinder implements IValueFinder {
 				break;
 			case "resources":
 				ret = data.getCurrentResourcesProperty();
+				break;
 			default:
 				ret = new Property("Value Not Found", key);
 				break;

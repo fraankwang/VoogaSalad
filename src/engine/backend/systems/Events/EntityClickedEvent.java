@@ -4,16 +4,11 @@ import engine.frontend.shop.CurrentView;
 
 public class EntityClickedEvent extends EntityEvent{
 	
-	private int entityID;
 	private CurrentView currentView;
 	
 	public EntityClickedEvent(int id, CurrentView cv){
-		this.entityID = id;
+		super.addEntityID(id);
 		this.currentView = cv;
-	}
-	
-	public int getClickedEntityID(){
-		return entityID;
 	}
 	
 	public CurrentView getCurrentView(){
