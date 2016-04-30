@@ -52,12 +52,12 @@ public class CurrentView extends ResourceUser implements Observer{
 
 	private Map<String, Boolean> showMap;
 
-	private boolean debug = true;
+	private boolean debug;
 	
 	public CurrentView(ShopPane sp) {
 		super(RESOURCE_NAME);
 		myShopPane = sp;
-		showMap = new HashMap<String, Boolean>(); 
+		showMap = new HashMap<String, Boolean>();
 		if(!debug){
 			addDefaultShows(showMap);
 		}
@@ -108,9 +108,13 @@ public class CurrentView extends ResourceUser implements Observer{
 			if (s.equals("Image") && !statMap.get("Image").equals(myImageName)) {
 				myImageView.setImage(new Image(statMap.get("Image")));
 				myImageName = statMap.get("Image");
-			} else if (showMap.get(s)){
+			} else if (showMap.get(s) || debug){
 				stats.add(loadStringResource(s) + ": " + statMap.get(s));
 			}
 		}
+	}
+
+	public void setDebug(boolean b){
+		debug = b;
 	}
 }

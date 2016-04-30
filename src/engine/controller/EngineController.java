@@ -31,13 +31,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Main myMain;
 	private Timeline animation;
 
-	/*
-	 * Controls to implement: When switch mode is pressed, reshow startView
-	 * scene, update start view scene's level combobox, and then allow user to
-	 * pick stuff, then recreate engineView and reshow new scene ORGANIZE
-	 * METHODS TO ALLOW FOR THIS
-	 */
-
 	private static final String RESOURCE_NAME = "stage";
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
