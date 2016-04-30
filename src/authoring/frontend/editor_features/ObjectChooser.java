@@ -1,6 +1,7 @@
 package authoring.frontend.editor_features;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,8 +24,9 @@ import javafx.stage.Stage;
 public class ObjectChooser {
 
 	public static final double IMAGE_SIZE = 100;
-	private ListView<Label> myList;
-	private ObservableList<Label> myObjects;
+	private ListView<Label> myListView;
+	private ObservableList<Label> myObjectsList;
+	private Map<String, String> myObjectsMap;
 	private Stage myStage;
 	private Scene myScene;
 	private String mySelection;
@@ -34,19 +36,20 @@ public class ObjectChooser {
 	}
 
 	public void initialize() {
-		myList = new ListView<Label>();
-		myObjects = FXCollections.observableArrayList();
-		myList.setItems(myObjects);
+		myListView = new ListView<Label>();
+		myObjectsList = FXCollections.observableArrayList();
+		myObjectsMap = new TreeMap<String, String>();
+		myListView.setItems(myObjectsList);
 		mySelection = "";
 		myStage = new Stage();
-		myScene = new Scene(myList, 600, 800, Color.WHITE);
+		myScene = new Scene(myListView, 600, 800, Color.WHITE);
 		myStage.setScene(myScene);
-		myList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		myListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
 				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
 					if (mouseEvent.getClickCount() == 2) {
-						mySelection = myList.getSelectionModel().getSelectedItem().getText();
+						mySelection = myListView.getSelectionModel().getSelectedItem().getText();
 						myStage.close();
 					}
 				}
@@ -54,29 +57,40 @@ public class ObjectChooser {
 		});
 	}
 
-	public void updateList(Map<String, String> objects) {
-		objects.keySet().forEach(key -> updateList(objects.get(key), key));
+	public void addAll(Map<String, String> objects) {
+		objects.keySet().forEach(key -> add(objects.get(key), key));
 	}
 
-	public void updateList(String graphic, String name) {
+	/**
+	 * Add an object to the List.
+	 */
+	public void add(String graphic, String name) {
 		Label label = new Label(name);
 		ImageView iv = new ImageView(new Image(graphic));
 		iv.setPreserveRatio(true);
 		iv.setFitHeight(IMAGE_SIZE);
 		label.setGraphic(iv);
-		myObjects.add(label);
+		myObjectsList.add(label);
+		myObjectsMap.put(name, graphic);
 	}
 
+	/**
+	 * Open chooser and return the selected element.
+	 */
 	public String openChooser() {
 		myStage.showAndWait();
 		return mySelection;
 	}
 
 	public ObservableList<Label> getList() {
-		return myObjects;
+		return myObjectsList;
 	}
 	
 	public void clear() {
-		myObjects.clear();
+		myObjectsList.clear();
+	}
+
+	public Map<String, String> getMap() {
+		return myObjectsMap;
 	}
 }
