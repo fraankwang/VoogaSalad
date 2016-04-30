@@ -147,7 +147,7 @@ public class EventManager implements Observer {
 	 * Handles when user goes to the next level.
 	 * 
 	 */
-	private void handleGoToNextLevelEvent() {
+	public void handleGoToNextLevelEvent() {
 		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
 		serializeLevel();
 	}

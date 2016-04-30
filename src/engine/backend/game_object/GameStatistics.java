@@ -21,6 +21,7 @@ public class GameStatistics implements IModifiable{
 	private double initialResources;
 	private int initialLevel;
 	private String initialMode;
+	private int highestLevelUnlocked;
 	
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
@@ -112,6 +113,16 @@ public class GameStatistics implements IModifiable{
 		return (int) currentLevelIndex.getValue();
 	}
 	
+	private void updateHighestLevelUnlocked(){
+		if((int) currentLevelIndex.getValue() > highestLevelUnlocked){
+			highestLevelUnlocked = (int) currentLevelIndex.getValue();
+		}
+	}
+	
+	public int getHighestLevelUnlocke(){
+		return highestLevelUnlocked;
+	}
+	
 	public Property getCurrentLevelProperty(){
 		return this.currentLevelIndex;
 	}
@@ -132,10 +143,12 @@ public class GameStatistics implements IModifiable{
 	
 	public void setCurrentLevelIndex(int currentLevelIndex) {
 		this.currentLevelIndex.setValue(currentLevelIndex);
+		updateHighestLevelUnlocked();
 	}
 	
 	public void setCurrentLevelIndex(String delta){
 		this.currentLevelIndex.setValue(Integer.parseInt(delta));
+		updateHighestLevelUnlocked();
 	}
 	
 	private void checkEndOfGame(){
