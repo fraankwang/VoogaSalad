@@ -90,7 +90,6 @@ public class EngineView extends ResourceUser{
 		myBorderPane.setBottom(myStatusPane.buildNode(myScene.widthProperty(),
 				myScene.heightProperty().subtract(boardHeight).subtract(myMenuBar.heightProperty())));
 
-		myScene.setOnDragExited(e -> handleEndMouseRelease(e));
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
@@ -120,10 +119,12 @@ public class EngineView extends ResourceUser{
 		if (e.getGestureSource() != myScene) {
 			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+				
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
+		e.consume();
 	}
 
 	private boolean isInBoardPane(double x, double y) {
