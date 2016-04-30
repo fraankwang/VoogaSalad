@@ -33,7 +33,7 @@ import engine.controller.EngineController;
 
 public class RenderingSystem extends GameSystem {
 
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();

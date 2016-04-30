@@ -28,6 +28,7 @@ public class Main extends Application {
 	 */
 	@Override
 	public void start(Stage stage) {
+		System.setProperty("glass.accessible.force", "false");
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Select Program");
 		alert.setHeaderText("Select Program");

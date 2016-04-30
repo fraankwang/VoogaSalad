@@ -237,4 +237,10 @@ public class Level {
 		return this.entities.keySet().size();
 	}
 
+	public boolean lastWaveOver() {
+		// TODO Auto-generated method stub
+		int index = getCurrentWaveIndex();		
+		return index == getNumWaves();
+	}
+
 }
