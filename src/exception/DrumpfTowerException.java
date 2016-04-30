@@ -25,7 +25,7 @@ public class DrumpfTowerException extends Exception {
 	 */
 	public DrumpfTowerException(String arg0) {
 		super(arg0);
-//		myErrorLoader = new ResourceLoader("error.properties");
+		myErrorLoader = new ResourceLoader("error.properties");
 		showErrorDialog(arg0);
 	}
 

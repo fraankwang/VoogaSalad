@@ -94,8 +94,8 @@ public class testingClass {
 		collisionTest.addMode(tempMode);
 		return collisionTest;
 	}
-	
-	public void testExceptions(){
+
+	public void testExceptions() {
 		DrumpfTowerException exc = new DrumpfTowerException("hello");
 	}
 

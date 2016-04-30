@@ -37,7 +37,7 @@ import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
 
 public class EventManager implements Observer {
-	
+
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
 	GameStatistics currentModeStatistics;
@@ -173,27 +173,25 @@ public class EventManager implements Observer {
 	private void handleWaveOverEvent(WaveOverEvent event) {
 		myEngineController.waveIsOver();
 	}
-	
+
 	public void handleLevelOver() {
-		
+
 		boolean noLives = currentModeStatistics.noMoreLives();
-		if(noLives){
+		if (noLives) {
 			myEngineController.levelIsLost();
 			resetLevel();
-		}
-		else{
-			if(getCurrentLevel().lastWaveOver()){
+		} else {
+			if (getCurrentLevel().lastWaveOver()) {
 				myEngineController.levelIsWon();
 				resetLevel();
-			}
-			else{
+			} else {
 				return;
 			}
 		}
-		
+
 	}
-	
-	private void resetLevel(){
+
+	private void resetLevel() {
 		String modeName = currentModeStatistics.getCurrentMode();
 		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
