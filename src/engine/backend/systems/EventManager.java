@@ -184,7 +184,7 @@ public class EventManager implements Observer {
 			myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 		} else {
 			myEngineController.waveIsOver();
-			getCurrentLevel().setCurrentWaveIndex(index + 1);
+			//getCurrentLevel().setCurrentWaveIndex(index + 1);
 		}
 
 	}

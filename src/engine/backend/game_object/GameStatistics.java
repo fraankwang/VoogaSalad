@@ -17,12 +17,15 @@ import utility.hud.Property;
 public class GameStatistics implements IModifiable{
 	
 	private static final String PREFIX = "set";
+	private static final int ZERO = 0;
+
 	private int initialNumLives;
 	private double initialResources;
 	private int initialLevel;
 	private String initialMode;
 	private int highestLevelUnlocked;
 	private int nextAvailableEntityID;
+	private boolean levelLost;
 	
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
@@ -44,6 +47,7 @@ public class GameStatistics implements IModifiable{
 		setCurrentNumLives(numLives);	
 		setCurrentResources(resources);
 		
+		levelLost = false;
 		nextAvailableEntityID = 0;
 //		endOfLevelLives = new ArrayList<Integer>();
 //		endOfLevelResources = new ArrayList<Double>();
@@ -85,6 +89,9 @@ public class GameStatistics implements IModifiable{
 	public void setCurrentNumLives(String deltaNumLives){
 		int newValue = getCurrentNumLives() + Integer.parseInt(deltaNumLives);
 		setCurrentNumLives(newValue);
+		if(noMoreLives()){
+			levelLost = true;
+		}
 	}
 
 	public double getInitialResources() {
@@ -114,7 +121,7 @@ public class GameStatistics implements IModifiable{
 	}
 
 	public int getCurrentLevelIndex() {
-		checkEndOfGame();
+		checkEndOfLevel();
 		return (int) currentLevelIndex.getValue();
 	}
 	
@@ -138,8 +145,12 @@ public class GameStatistics implements IModifiable{
 	}
 
 	public String getCurrentMode() {
-		checkEndOfGame();
+		//checkEndOfGame();
 		return (String) currentMode.getValue();
+	}
+	
+	public boolean noMoreLives() {
+		return getCurrentNumLives() <= ZERO;
 	}
 	
 	public Property getCurrentModeProperty(){
@@ -156,7 +167,7 @@ public class GameStatistics implements IModifiable{
 		updateHighestLevelUnlocked();
 	}
 	
-	private void checkEndOfGame(){
+	private void checkEndOfLevel(){
 		if(getCurrentNumLives() == 0){
 			setCurrentLevelIndex(-1);
 		}
