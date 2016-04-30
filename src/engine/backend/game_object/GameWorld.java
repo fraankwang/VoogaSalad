@@ -63,6 +63,17 @@ public class GameWorld {
 		Level level = mode.getLevels().get(levelIndex);
 		return level;
 	}
+	
+	//write the thing to set level here.
+	/**
+	 * Places a level in the map with the key being the level index.
+	 * @param modeString
+	 * @param levelIndex
+	 * @param level
+	 */
+	public void putLevelInMap(String modeString, int levelIndex, Level level) {
+		myModes.get(modeString).setLevelInMap(levelIndex, level);
+	}
 
 	public void printWhatIHave() {
 		System.out.println("I am game object " + this.toString() + " and I have been created");

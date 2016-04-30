@@ -20,17 +20,31 @@ public class ShopCell extends ListCell<ShopItem> {
 	private ShopPane myShopPane;
 	private ShopItem myItem;
 	private String itemImage;
-
+	private double myCost;
+	
+	private HBox myHBox;
 	private ImageView myImageView;
-	private Text myType;
-	private Text myCost;
+	private Text myName;
+	private Text myCostText;
 	public static final String DEFAULT_RESOURCE = "engine/frontend/resources/shop_cell";
 	private ResourceBundle myResources;
-	
-	
+
 	public ShopCell(ShopPane sp) {
+		super();
 		myShopPane = sp;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
+		
+		myHBox = new HBox();
+		
+		itemImage = new String();
+		myImageView = new ImageView();
+		myImageView.setPreserveRatio(true);
+		
+		myName = new Text();
+		myCostText = new Text();
+		
+		myHBox.getChildren().addAll(myImageView, myName, myCostText);
+		myHBox.setAlignment(Pos.CENTER_LEFT);
 	}
 
 	@Override
@@ -38,49 +52,30 @@ public class ShopCell extends ListCell<ShopItem> {
 		super.updateItem(item, empty);
 		if (item != null) {
 			myItem = item;
-			HBox hbox = new HBox();
-			myShopPane.bindHeight(hbox, super.getListView().heightProperty().multiply(getDoubleResource("TowerCellHeight")));
-			myShopPane.bindWidth(hbox, super.getListView().widthProperty());
-			hbox.spacingProperty().bind(hbox.widthProperty().multiply(getDoubleResource("TowerCellSpacing")));
-			
-			if(itemImage == null){ 
-				myImageView = new ImageView(new Image(item.getItemImage()));
+			myImageView.fitHeightProperty().bind(super.getListView().heightProperty().divide(5));
+			if(!itemImage.equals(item.getItemImage())){
 				itemImage = item.getItemImage();
-			}
-			if(itemImage != item.getItemImage()){
-				itemImage = item.getItemImage();
-			}
-			myImageView.fitHeightProperty().bind(hbox.heightProperty());
-			myImageView.setPreserveRatio(true);
-			
-			if(myType == null){
-				myType = new Text(item.getItemName());
-			}
-			if(myType.getText().equals(item.getItemName())){
-				myType.setText(item.getItemName());
+				myImageView.setImage(new Image(itemImage));
 			}
 			
-			if(myCost == null){
-				myCost = new Text(myResources.getString("ShopCostPrompt")+ String.valueOf(item.getItemValue()));
+			if(!myName.getText().equals(item.getItemName())){
+				myName.setText(item.getItemName());
 			}
-			String dummyString = myType.getText().substring(myResources.getString("ShopCostPrompt").length());
-			if(dummyString.equals(String.valueOf(item.getItemValue()))){
-				myCost.setText(myResources.getString("ShopCostPrompt")+ String.valueOf(item.getItemValue()));
+			
+			if(myCost != item.getItemValue()){
+				myCost = item.getItemValue();
+				myCostText.setText(myResources.getString("ShopCostPrompt") + myCost);
 			}
-						
+			
 //			if (myItem.isCanBuy()) {
 			if(true){
 				setOnDragDetected(e -> selectTower(e));
 				setHBoxOpacity(getDoubleResource("YesOpacity"));
-				
 			} else {
 				setHBoxOpacity(getDoubleResource("NoOpacity"));
-				setOnDragDetected(null);
 			}
 
-			hbox.getChildren().addAll(myImageView, myType, myCost);
-			hbox.setAlignment(Pos.CENTER_LEFT);
-			setGraphic(hbox);
+			setGraphic(myHBox);
 		}
 	}
 
@@ -95,14 +90,14 @@ public class ShopCell extends ListCell<ShopItem> {
 		db.setContent(content);
 		e.consume();
 	}
-	
-	private double getDoubleResource(String myString){
+
+	private double getDoubleResource(String myString) {
 		return Double.parseDouble(myResources.getString(myString));
 	}
-	
-	private void setHBoxOpacity(double value){
+
+	private void setHBoxOpacity(double value) {
 		myImageView.setOpacity(value);
-		myType.setOpacity(value);
-		myCost.setOpacity(value);
+		myName.setOpacity(value);
+		myCostText.setOpacity(value);
 	}
 }

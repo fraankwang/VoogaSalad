@@ -23,10 +23,15 @@ public class UpgradeCell extends ListCell<ShopItem> {
 	public static final String DEFAULT_RESOURCE = "engine/frontend/shop/shop_cell";
 	private ResourceBundle myResources;
 
+	/**
+	 * Instantiates an Upgrade Cell
+	 * @param sp - Parent node shop pane
+	 */
 	public UpgradeCell(ShopPane sp) {
 		myShopPane = sp;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 	}
+
 
 	@Override
 	public void updateItem(ShopItem item, boolean empty) {

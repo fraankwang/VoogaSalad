@@ -42,6 +42,7 @@ public class Level {
 	private int index;
 	private boolean sendNextWave;
 	private String lastSerializedVersion;
+	private boolean shouldRevert;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -52,6 +53,7 @@ public class Level {
 		this.waveDelayTimer = waveDelayTimer;
 		this.authoredEntities = authoredEntities;
 		this.entities = entities;
+		this.setShouldRevert(false);
 	}
 	
 	/**
@@ -231,5 +233,24 @@ public class Level {
 		return entities.get(id);
 	}
 
+
+	public boolean shouldRevert() {
+		return shouldRevert;
+	}
+
+	public void setShouldRevert(boolean shouldRevert) {
+		this.shouldRevert = shouldRevert;
+	}
 	
+	public int getNumEntities(){
+		return this.entities.keySet().size();
+	}
+
+	public boolean lastWaveOver() {
+		// TODO Auto-generated method stub
+		int index = getCurrentWaveIndex();		
+		return index == getNumWaves();
+	}
+
+
 }

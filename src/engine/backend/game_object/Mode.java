@@ -36,6 +36,11 @@ public class Mode {
 		return myLevels;
 	}
 
+	public void setLevelInMap(int levelIndex, Level level) {
+		myLevels.put(levelIndex, level);
+	}
+	
+	
 	public GameStatistics getModeStatistics(){
 		return myModeStatistics;
 	}
