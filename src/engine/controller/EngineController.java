@@ -3,6 +3,7 @@ package engine.controller;
 import java.io.IOException;
 import java.util.List;
 
+import authoring.backend.Testing;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.HUDValueFinder;
 import engine.backend.game_features.ShopItem;
@@ -87,7 +88,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		playing = false;
 		myGameWorld = new GameWorld();
 		myTestingClass = new testingClass();
-		myGameWorld = myTestingClass.testFiring();
+		Testing test = new Testing();
+		myGameWorld = test.test1();
 		
 		GameStatistics stats = new GameStatistics(10, 10);
 		myGameWorld.setGameStatistics(stats);
