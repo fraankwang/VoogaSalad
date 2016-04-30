@@ -66,6 +66,10 @@ public class Testing {
 		level1.put("MapWidth", "500");
 		level1.put("MapHeight", "500");
 		level1.put("Entities", "bullet1 tower1");
+		level1.put("Paths", "0:0-0,0-0,0-0,200-200 200-200,50-50,150-150,0-300 0-300,150-150,250-250,400-400");
+		level1.put("SpawnEntities", "0:balloon.0.10.2");
+		
+		dataContainer.updateData(level1);
 		
 		//Set up mode1
 		Map<String, String> mode1 = new HashMap<String, String>();
@@ -74,6 +78,8 @@ public class Testing {
 		mode1.put("InitialLives", "5");
 		mode1.put("InitialResources", "300");
 		mode1.put("Levels", "0:level1");
+		
+		dataContainer.updateData(mode1);
 		
 		GameWorld gameWorld = gameFactory.createGame();
 		
