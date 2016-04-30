@@ -52,7 +52,7 @@ public class ShopCell extends ListCell<ShopItem> {
 		super.updateItem(item, empty);
 		if (item != null) {
 			myItem = item;
-			myImageView.fitHeightProperty().bind(super.getListView().heightProperty().divide(5));
+			myImageView.fitHeightProperty().bind(super.getListView().heightProperty().divide(6));
 			if(!itemImage.equals(item.getItemImage())){
 				itemImage = item.getItemImage();
 				myImageView.setImage(new Image(itemImage));
@@ -67,8 +67,7 @@ public class ShopCell extends ListCell<ShopItem> {
 				myCostText.setText(myResources.getString("ShopCostPrompt") + myCost);
 			}
 			
-//			if (myItem.isCanBuy()) {
-			if(true){
+			if (myItem.isCanBuy()) {
 				setOnDragDetected(e -> selectTower(e));
 				setHBoxOpacity(getDoubleResource("YesOpacity"));
 			} else {
