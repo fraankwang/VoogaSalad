@@ -3,22 +3,28 @@ package authoring.frontend.display_elements.panels;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableLevelAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import authoring.frontend.editor_features.EntityComponents;
+import authoring.frontend.editor_features.ObjectChooser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,7 +47,10 @@ public class RulesEditorPanel extends Panel {
 	public static final int COLUMN_3_WIDTH_PERCENTAGE = 30;
 	public static final int COLUMN_4_WIDTH_PERCENTAGE = 15;
 	public static final int COLUMN_5_WIDTH_PERCENTAGE = 30;
-	public static final List<String> EDITABLE_LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("NumLives", "CurrentResources");
+	public static final List<String> MODIFIABLE_LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("NumLives", "CurrentResources");
+	public static final List<String> POSSIBLE_EVENTS = (List<String>) Arrays.asList("CollisionEvent", 
+			"CriticalHealthEvent", "CriticalPositionEvent", "EntityClickedEvent", "KeyPressedEvent");
+	public static final List<String> UNMODIFIABLE_ENTITY_ATTRIBUTES = (List<String>) Arrays.asList("Type", "Name", "Genre");
 	
 	private EditorButtonDashboard mySimpleButtonDashboard;
 	private Button myAddNewIfButton;
@@ -52,6 +61,7 @@ public class RulesEditorPanel extends Panel {
 	private IAuthoringView myController;
 	private ModifiableAttributesPanel myAttributes;
 	private ObservableList<String> myRules;
+	private String myKeyCode;
 
 	public RulesEditorPanel(double height, double width, IAuthoringView controller, ModifiableAttributesPanel attributes) {
 		super(height, width);
@@ -141,13 +151,24 @@ public class RulesEditorPanel extends Panel {
 		
 		HBox selectEventBox = new HBox();
 		Text eventText = new Text("Choose the type of event:");
+		HBox enterKeyBox = new HBox();
+		Text keyText = new Text("Enter key:");
 		HBox selectEntitiesBox = new HBox();
 		Text entityText = new Text();
 
 		ComboBox<String> eventChooser = new ComboBox<String>();
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
 		ComboBox<Label> entityChooser2 = new ComboBox<Label>();
+		Button keyField = new Button("Click and press desired key");
 		
+		keyField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+		    @Override
+		    public void handle(KeyEvent event) {
+		    	keyField.setText(event.getCode().getName());
+		    	event.consume();
+		    	
+		    }});
+				
 		Button saveButton = new Button("Create Event");
 		saveButton.setOnAction(e -> {
 			StringBuilder sb = new StringBuilder();
@@ -156,11 +177,14 @@ public class RulesEditorPanel extends Panel {
 				sb.append(entityChooser2.getSelectionModel().getSelectedItem().getText() + "_");
 			}
 			sb.append(eventChooser.getSelectionModel().getSelectedItem());
+			if (ifStatementBuilder.getChildren().contains(enterKeyBox)) {
+				sb.append(keyField.getText());
+			}
 			myIfStatements.getItems().add(sb.toString());
 			myRulesStage.close();
 		});
 		
-		eventChooser.getItems().addAll("CollisionEvent", "CriticalHealthEvent", "CriticalPositionEvent", "EntityClickedEvent");
+		eventChooser.getItems().addAll(POSSIBLE_EVENTS);
 		eventChooser.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -178,16 +202,21 @@ public class RulesEditorPanel extends Panel {
 				else {
 					entityText.setText("Choose the entity for this event:");
 				}
+				
+				if (newValue.equals("KeyPressedEvent")) {
+					ifStatementBuilder.getChildren().add(enterKeyBox);
+				}
 				ifStatementBuilder.getChildren().addAll(selectEntitiesBox, saveButton);
 			}
 			
 		});
 		
 		// link the list of level entities to these combo boxes
-		entityChooser.getItems().addAll(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities());
-		entityChooser2.getItems().addAll(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities());
+		entityChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+		entityChooser2.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 		
 		selectEventBox.getChildren().addAll(eventText, eventChooser);
+		enterKeyBox.getChildren().addAll(keyText, keyField);
 		selectEntitiesBox.getChildren().addAll(entityText, entityChooser, entityChooser2);
 		ifStatementBuilder.getChildren().add(selectEventBox);
 		return ifScene;
@@ -212,11 +241,11 @@ public class RulesEditorPanel extends Panel {
 		ComboBox<String> typeChooser = new ComboBox<String>();
 		typeChooser.getItems().addAll("Level", "Entity");
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
-		entityChooser.getItems().addAll(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities());
+		entityChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 		ComboBox<String> attributeChooser = new ComboBox<String>();
 		ComboBox<Label> newValueChooser = new ComboBox<Label>();
 		ComboBox<String> levelValueChooser = new ComboBox<String>();
-		levelValueChooser.getItems().addAll(EDITABLE_LEVEL_ATTRIBUTES);
+		levelValueChooser.getItems().addAll(MODIFIABLE_LEVEL_ATTRIBUTES);
 		TextField deltaValueField = new TextField();
 		
 		Button saveButton = new Button("Create Action");
@@ -271,6 +300,7 @@ public class RulesEditorPanel extends Panel {
 				attributeChooser.getSelectionModel().clearSelection();
 				attributeChooser.getItems().clear();
 				attributeChooser.getItems().addAll(myController.getEntities().get(newValue.getText()).keySet());
+				attributeChooser.getItems().removeAll(UNMODIFIABLE_ENTITY_ATTRIBUTES);
 				thenStatementBuilder.getChildren().add(selectAttributeBox);
 			}
 			
@@ -301,11 +331,11 @@ public class RulesEditorPanel extends Panel {
 					newValueChooser.getItems().addAll(new Label("true"), new Label("false"));
 				}
 				else if (EntityComponents.getVariableType(newValue).equals("Image")) {
-					newValueChooser.getItems().addAll(myController.getAuthoringViewManager().getImageChooser().getList());
+					newValueChooser.getItems().addAll(createLabelList(myController.getAuthoringViewManager().getImageChooser().getMap()));
 				}
 				else if (EntityComponents.getVariableType(newValue).equals("Entity")) {
 					// add all of the level entities
-					newValueChooser.getItems().addAll(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities());
+					newValueChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 				}
 				
 				thenStatementBuilder.getChildren().add(saveButton);
@@ -339,6 +369,13 @@ public class RulesEditorPanel extends Panel {
 		
 		thenStatementBuilder.getChildren().add(selectTypeBox);
 		return thenScene;
+	}
+
+	private List<Label> createLabelList(Map<String, String> map) {
+		ObjectChooser entityChooser = new ObjectChooser();
+		entityChooser.initialize();
+		entityChooser.addAll(map);
+		return entityChooser.getList();
 	}
 
 	public String getRules() {
