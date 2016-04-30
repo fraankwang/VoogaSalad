@@ -50,7 +50,6 @@ public class EventManager implements Observer {
 		myEngineController = engineController;
 		myGameWorld = game;
 		// pass in right values
-		currentModeStatistics = game.getGameStatistics();
 		myGameShop = new GameShop();
 	}
 
@@ -125,8 +124,13 @@ public class EventManager implements Observer {
 	 * @throws IOException
 	 */
 	public void handleGameStartEvent(GameEvent event) throws IOException {
+		currentModeStatistics = myGameWorld.getGameStatistics(event.getModeName());
 		handleModeClickedEvent(event.getModeName());
 		handleLevelClickedEvent(event.getLevel());
+	}
+	
+	public GameStatistics getCurrentGameStatistics(){
+		return currentModeStatistics;
 	}
 	
 	/**

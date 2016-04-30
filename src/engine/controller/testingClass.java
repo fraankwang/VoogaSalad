@@ -109,7 +109,7 @@ public class testingClass {
 		firingTest.addMode(mode);
 		
 		GameStatistics gameStats = new GameStatistics(50, 50);
-		firingTest.setGameStatistics(gameStats);
+		mode.setGameStatistics(gameStats);
 
 		return firingTest;
 	}
@@ -280,8 +280,7 @@ public class testingClass {
 		
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
 		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
-		//firingTest.setAuthoredEntities(authoredEntities);
-//		firingTest.setEntityMap(myCreatableEntityMap);
+
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);
@@ -296,7 +295,6 @@ public class testingClass {
 		
 		level.addEntityToMap(tempSpawn);
 		level.addEntityToMap(tempSpawn2);
-		System.out.println(level.getEntities().values().size());
 		level.addEntityToMap(tempEntity2);
 		
 		level.setCurrentWaveIndex(0);

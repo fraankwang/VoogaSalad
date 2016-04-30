@@ -12,14 +12,12 @@ public class GameWorld {
 
 	private Map<String, Mode> myModes;
 	private String myGameType;
-	private GameStatistics myGameStatistics;
 	
 	/**
 	 * Authoring Environment Constructor
 	 */
-	public GameWorld(String gameType, GameStatistics gameStatistics, Map<String, Mode> modes) {
+	public GameWorld(String gameType, Map<String, Mode> modes) {
 		this.myGameType = gameType;
-		this.myGameStatistics = gameStatistics;
 		this.myModes = modes;
 	}
 	
@@ -27,18 +25,13 @@ public class GameWorld {
 	 * Engine Environment Testing.
 	 */
 	public GameWorld() {
-		this.myGameStatistics = new GameStatistics();
 		this.myModes = new HashMap<String, Mode>();
 	}
 
-	public GameStatistics getGameStatistics() {
-		return myGameStatistics;
+	public GameStatistics getGameStatistics(String mode) {
+		return myModes.get(mode).getGameStatistics();
 	}
-	
-	public void setGameStatistics(GameStatistics gameStatistics) {
-		this.myGameStatistics = gameStatistics;
-	}
-	
+
 	public void setGameType(String gameType) {
 		this.myGameType = gameType;
 	}
