@@ -37,7 +37,7 @@ public class EngineView extends ResourceUser{
 	 *  reorganize/javadoc code LAST
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
-	
+
 	private Stage myStage;
 	private Scene myScene;
 
@@ -50,10 +50,9 @@ public class EngineView extends ResourceUser{
 	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
 	private DummyCursor myDummyCursor;
-	private int lastEntityID;
 
 	private DoubleProperty scalingFactor;
-	
+
 	public EngineView(Stage s, EngineController c) {
 		super(RESOURCE_NAME);
 		myStage = s;
@@ -62,7 +61,7 @@ public class EngineView extends ResourceUser{
 		myBoardPane = new BoardPane(this);
 		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
-		
+
 		myDummyCursor = new DummyCursor(this);
 		scalingFactor = new SimpleDoubleProperty(1);
 	}
@@ -82,7 +81,7 @@ public class EngineView extends ResourceUser{
 				myController.getEventManager().getCurrentLevel().getMap().getMapHeight());
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
-		
+
 		scalingFactor.bind(Bindings.min(getUsableBoardHeight().divide(mapHeight), getUsableBoardWidth().divide(mapWidth)));
 		DoubleExpression boardWidth = mapWidth.multiply(scalingFactor);
 		DoubleExpression boardHeight = mapHeight.multiply(scalingFactor);
@@ -102,10 +101,8 @@ public class EngineView extends ResourceUser{
 
 	private void handleKeyPress(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(lastEntityID >= 0){
-			myController.keyPressed(lastEntityID, e.getCode().toString());
-		}
-		
+		myController.keyPressed(e.getCode().toString());
+		e.consume();
 	}
 
 	private void handleDrop(DragEvent e) {
@@ -184,7 +181,7 @@ public class EngineView extends ResourceUser{
 	public BorderPane getBorderPane() {
 		return myBorderPane;
 	}
-	
+
 	public DoubleExpression getScalingFactor(){
 		return scalingFactor;
 	}

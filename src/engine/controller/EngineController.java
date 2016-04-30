@@ -51,6 +51,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
 	private testingClass myTestingClass;
+	private Integer lastEntityClickedID;
 
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
@@ -200,14 +201,16 @@ public class EngineController extends ResourceUser implements IEngineController 
 		mySystems.sendUserInputEvent(event);
 	}
 
-	public void keyPressed(int myID, String s){
+	public void keyPressed(String s){
 		//TODO do something with this string
-		IEvent keyPressedEvent = new KeyPressedEntityEvent(myID, s);
-		mySystems.sendUserInputEvent(keyPressedEvent);
-		
+		if(lastEntityClickedID != null){
+			IEvent keyPressedEvent = new KeyPressedEntityEvent(lastEntityClickedID, s);
+			mySystems.sendUserInputEvent(keyPressedEvent);
+		}
 	}
 	
 	public void entityClicked(int myID) {
+		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		mySystems.sendUserInputEvent(clickedEvent);
 	}

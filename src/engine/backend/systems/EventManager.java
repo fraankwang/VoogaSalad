@@ -215,6 +215,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void handleKeyPressedEvent(KeyPressedEntityEvent event) {
+		System.out.println(event.getKeyPressed() + " " + event.getFirstEntityID());
 		List<String> identifiers = new ArrayList<String>();
 		identifiers.add(event.getKeyPressed());
 		event.getEntityIDs().forEach(id -> identifiers.add(getCurrentLevel().getEntityWithID(id).getName()));
