@@ -26,7 +26,6 @@ public class GameStatistics implements IModifiable{
 	private String initialMode;
 	private int highestLevelUnlocked;
 	private int nextAvailableEntityID;
-	private boolean levelLost;
 	
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
@@ -46,7 +45,6 @@ public class GameStatistics implements IModifiable{
 		setCurrentNumLives(numLives);	
 		setCurrentResources(resources);
 		
-		levelLost = false;
 		nextAvailableEntityID = 0;
 		endOfLevelLives = new ArrayList<Integer>();
 		endOfLevelResources = new ArrayList<Double>();
