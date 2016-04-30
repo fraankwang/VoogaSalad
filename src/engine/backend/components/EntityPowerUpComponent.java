@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import engine.backend.game_features.EntityPowerUp;
+import engine.backend.rules.EntityAction;
 
 public class EntityPowerUpComponent extends Component{
 	
@@ -24,6 +25,9 @@ public class EntityPowerUpComponent extends Component{
 	}
 	
 	private void createRangePowerUp(){
+		int price = 100;
+		String applicableEntityName = "TOWER";
+		EntityAction increaseRange = new EntityAction(applicableEntityName, "Firing", "FiringRate", "999");
 		
 	}
 	

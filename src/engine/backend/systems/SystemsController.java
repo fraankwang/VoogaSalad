@@ -76,7 +76,7 @@ public class SystemsController {
 	}
 	
 	/**
-	 * recieves user input from frontend, sends it to UserInputSystem
+	 * Receives user input from frontend, sends it to UserInputSystem
 	 * @param event
 	 */
 	public void sendUserInputEvent(IEvent event){

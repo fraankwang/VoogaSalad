@@ -158,7 +158,7 @@ public class Entity extends Observable implements IEntity, IModifiable {
 			Object componentClassInstance = componentClass.newInstance();
 			
 			componentClassInstance = componentClass.cast(getComponent(fullName));
-			// put in resource file!!!
+			
 			String methodName = PREFIX + instanceVar;
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 

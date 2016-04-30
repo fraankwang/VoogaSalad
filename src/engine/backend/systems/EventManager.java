@@ -239,7 +239,7 @@ public class EventManager implements Observer {
 			return;
 		}
 		myEntityFactory.setEntities(getCurrentLevel().getAuthoredEntities());
-		myEntityFactory.setID(getCurrentLevel().getIndex());
+		myEntityFactory.setID(getCurrentLevel().getIndex()); 
 		myEntityFactory.setInitNumEntities(getCurrentLevel().getNumEntities());
 		return;
 	}
