@@ -35,7 +35,6 @@ public class EngineView extends ResourceUser{
 	 *  lose-the-game screen
 	 *  Set up upgrades to send backend info when dropped on towers
 	 *  make sure game loop works when loading new maps with different aspect ratio map images
-	 *  persist mode and not select new level when switchmode is called
 	 *  reorganize/javadoc code LAST
 	 */
 	public static final String RESOURCE_NAME = "engine_window";

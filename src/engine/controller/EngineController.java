@@ -240,6 +240,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void nextLevelClicked() {
 		myEventManager.handleGoToNextLevelEvent();
+		initEngineView();
 	}
 	
 	public List<Integer> currentLevelsUnlocked(String mode){
