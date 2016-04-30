@@ -43,8 +43,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
-	
-	private File myFile;
 
 	private static final String RESOURCE_NAME = "stage";
 
@@ -104,12 +102,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 	
 	public void initGameWorld(File file){
-		if(file != null){
-			myFile = file;
-		}
 		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
 		try {
-			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(myFile));
+			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(file));
 			myEventManager = new EventManager(this, myGameWorld);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block bad xml file error once its thrown
