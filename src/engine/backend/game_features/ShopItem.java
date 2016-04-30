@@ -6,7 +6,12 @@ public class ShopItem {
 	private String itemImage;
 	private double itemValue;
 	private boolean canBuy;
-	
+	/**
+	 * ShopItems are comprised of name, image and value that it costs to purchase
+	 * @param name
+	 * @param image
+	 * @param value
+	 */
 	public ShopItem(String name, String image, double value){
 		setItemName(name);
 		setItemImage(image);

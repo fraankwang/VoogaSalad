@@ -28,7 +28,9 @@ public class BezierCurve implements IBezierCurve{
 		this(points[0], points[1], points[2], points[3], points[4],
 				points[5], points[6], points[7]);
 	}
-	
+	/**
+	 * Bezier curves are defined by 4 vectors.  This intializes them from the first constructor
+	 */
 	private void addVectors() {
 		this.vectors = new Vector[4];
 		vectors[0] = startPointVector;
@@ -36,7 +38,9 @@ public class BezierCurve implements IBezierCurve{
 		vectors[2] = control2Vector;
 		vectors[3] = endPointVector;
 	}
-	
+	/**
+	 * Returns the vectors X-Y components and separated by a comma
+	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < vectors.length; i++) {
@@ -49,11 +53,15 @@ public class BezierCurve implements IBezierCurve{
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 	}
-	
+	/**
+	 * Calculates the new coordinate given a time value t over the bezier curve
+	 */
 	public Vector calculateNewBezierPoint(double t){
 		return calculateNewBezierPoint(t, startPointVector, control1Vector, control2Vector, endPointVector);
 	}
-	
+	/**
+	 * Calculates the new Tangent of the Bezier point given a time value t.
+	 */
 	public Vector calculateNewBezierTangent(double t){
 		return calculateNewBezierTangent(t, startPointVector, control1Vector, control2Vector, endPointVector);
 	}
@@ -98,12 +106,14 @@ public class BezierCurve implements IBezierCurve{
 
 		return p;
 	}
-	
+	/**
+	 * returns myLength
+	 */
 	public double getLength(){
 		return myLength;
 	}
 	
-	double calculateBezierLength(){
+	private double calculateBezierLength(){
 		
 		Vector q0 = calculateNewBezierPoint(0, startPointVector, control1Vector, 
 				control2Vector, endPointVector);
@@ -123,7 +133,10 @@ public class BezierCurve implements IBezierCurve{
 		return length;
 		
 	}
-	
+	/**
+	 * Given velocity, calculate distance of bezier curve, and then divide to find time
+	 * Since V = d/t, t = d/V, this is just a rough approximation. 
+	 */
 	public double calculateBezierTime(double velocity){
 		//since V = d/t, t = d/V, this is just a rough approximation. 
 		

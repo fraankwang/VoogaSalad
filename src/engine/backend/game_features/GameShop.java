@@ -19,7 +19,10 @@ public class GameShop {
 	public void setShopItems(List<ShopItem> items) {
 		this.myItems = items;
 	}
-	
+	/**
+	 * Iterates over shop items and depending on currentResources, updates what you can or cannot purchase
+	 * @param currentResources
+	 */
 	public void updateShop(double currentResources){
 		for(ShopItem item : myItems){
 			if(item.getItemValue() <= currentResources){
