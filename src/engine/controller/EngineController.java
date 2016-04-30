@@ -203,6 +203,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 		mySystems.sendUserInputEvent(event);
 	}
 
+	public void attemptUpgrade(int id, String type){
+		
+	}
+	
 	public void keyPressed(String s){
 		//TODO do something with this string
 		if(lastEntityClickedID != null){
