@@ -20,11 +20,16 @@ public abstract class GameSystem extends Observable implements ISystem {
 	 * @param entities
 	 */
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, Collection<IEntity> entities) {
+		if (event != null) {
+			entities.forEach(e -> putEventInMap(myEventMap, event, e));
+		}
 		entities.forEach(e -> putEventInMap(myEventMap, event, e));
 	}
 	
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, IEntity entity) {
-		putEventInMap(myEventMap, event, entity);
+		if (event != null) {
+			putEventInMap(myEventMap, event, entity);
+		}
 	}
 
 	private void putEventInMap(Map<String, Set<Integer>> myEventMap, IEvent event, IEntity entity) {

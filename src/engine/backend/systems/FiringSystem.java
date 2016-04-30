@@ -68,7 +68,7 @@ public class FiringSystem extends GameSystem {
 		}
 		
 		else{
-			firingComponent.decrementTimer();;
+			firingComponent.decrementTimer();
 		}
 	}
 	
@@ -98,9 +98,7 @@ public class FiringSystem extends GameSystem {
 
 		Vector shootingPosVector = shootingPosComponent.getPositionVector();
 		Vector targetPosVector = targetPosComponent.getPositionVector();
-
 		return shootingPosVector.calculateDistance(targetPosVector) <= firingComponent.getEnemyInSightRange();
-
 	}
 
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed, IEntity targetEntity, InGameEntityFactory myEntityFactory){
@@ -118,8 +116,8 @@ public class FiringSystem extends GameSystem {
 		}
 		
 		Vector velVector = new Vector(directionToFire);
-		velVector = velVector.normalize();
-		velVector = velVector.scale(speed);
+		velVector.normalize();
+		velVector.scale(speed);
 		firedMovComponent.setCurrentVelocityVector(velVector);
 		firedMovComponent.setDefaultVelocityVector(velVector);
 		return ammoEntity;		
