@@ -65,6 +65,7 @@ public class EventManager implements Observer {
 	public Level getCurrentLevel() {
 		String modeName = currentModeStatistics.getCurrentMode();
 		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
+		System.out.println(modeName + "  " + levelIndex);
 		if (myGameWorld.getLevelWithId(modeName, levelIndex).shouldRevert()) {
 			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 			Level myLevel = (Level) serializer.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
@@ -223,7 +224,8 @@ public class EventManager implements Observer {
 			return;
 		}
 		myEntityFactory.setEntities(getCurrentLevel().getAuthoredEntities());
-		myEntityFactory.setID(getCurrentLevel().getIndex());
+		myEntityFactory.setID(getCurrentLevel().getIndex()); 
+		myEntityFactory.setInitNumEntities(getCurrentLevel().getNumEntities());
 		return;
 	}
 	
@@ -236,7 +238,6 @@ public class EventManager implements Observer {
 	private void applyActions(IEntity entity, Collection<IAction> actions) {
 		for (IAction a : actions) {
 			if (a instanceof EntityAction) {
-				System.out.println(((EntityAction) a).getEntityName());
 				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
 					((IModifiable) entity).applyAction((EntityAction) a);
 				}
