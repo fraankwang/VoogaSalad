@@ -42,13 +42,9 @@ public class ShopPane extends AbstractPane {
 		bindHeight(myVBox, myPane.heightProperty());
 		myVBox.setSpacing(loadDoubleResource("ShopSpacing"));
 		
-		
-		myShopList = new ListView<ShopItem>();
-		myUpgradeList = new ListView<ShopItem>();
-		myCurrentView = new CurrentView(this);
-		
 		setupShopList();		
 		setupUpgradeList();
+		myCurrentView = new CurrentView(this);
 		myVBox.getChildren().add(myCurrentView.buildCurrentView(myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
 		
 		myPane.getChildren().add(myVBox);
@@ -62,6 +58,7 @@ public class ShopPane extends AbstractPane {
 	 */
 	private void setupShopList(){
 		myShopList = new ListView<ShopItem>();
+		myShopList = new ListView<ShopItem>();
 		myShopList.setCellFactory(e -> {return new ShopCell(this);});
 		myShopList.setOnKeyPressed(null);
 		bindWidth(myShopList, myVBox.widthProperty());
@@ -73,6 +70,7 @@ public class ShopPane extends AbstractPane {
 	 * instantiates the upgrade listView
 	 */
 	private void setupUpgradeList(){
+		myUpgradeList = new ListView<ShopItem>();
 		myUpgradeList = new ListView<ShopItem>();
 		myUpgradeList.setCellFactory(e -> {return new UpgradeCell(this);});
 		bindWidth(myUpgradeList, myVBox.widthProperty());
