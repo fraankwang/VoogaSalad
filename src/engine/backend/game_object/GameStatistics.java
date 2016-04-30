@@ -19,6 +19,8 @@ public class GameStatistics implements IModifiable{
 	private static final String PREFIX = "set";
 	private int initialNumLives;
 	private double initialResources;
+	private int initialLevel;
+	private String initialMode;
 	
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
@@ -31,8 +33,8 @@ public class GameStatistics implements IModifiable{
 	public GameStatistics(int numLives, double resources) {
 		currentNumLives = new Property(initialNumLives, "lives");
 		currentResources = new Property(initialResources, "resources");
-		currentLevelIndex = new Property(0, "level");
-		currentMode = new Property("", "mode");
+		currentLevelIndex = new Property(initialLevel, "level");
+		currentMode = new Property((initialMode = new String()), "mode");
 		
 		setInitialNumLives(numLives);
 		setCurrentNumLives(numLives);	
