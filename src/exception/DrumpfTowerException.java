@@ -24,6 +24,7 @@ public class DrumpfTowerException extends Exception {
 		myErrorLoader = new ResourceLoader("error.properties");
 		showErrorDialog(arg0);
 	}
+	
 
 	/**
 	 * @param instruction,

@@ -23,6 +23,7 @@ import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
 import engine.frontend.overall.StartView;
 import engine.frontend.status.DrumpfHUDScreen;
+import exception.DrumpfTowerException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -116,8 +117,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			GameEvent e = new GameEvent(selectedMode, selectedLevel);
 			myEventManager.handleGameStartEvent(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new DrumpfTowerException("Had problems initializing your start game");
 		}
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
 				myEventManager.getCurrentLevel().getAuthoredEntities());
