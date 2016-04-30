@@ -1,4 +1,5 @@
 package engine.controller;
+
 /**
  * @author austinwu
  */
@@ -88,21 +89,22 @@ public class EngineController extends ResourceUser implements IEngineController 
 		playing = false;
 		myGameWorld = new GameWorld();
 		myTestingClass = new testingClass();
+		myTestingClass.testExceptions();
 		myGameWorld = myTestingClass.testFiring();
-		
+
 		GameStatistics stats = new GameStatistics(10, 10);
 		myGameWorld.setGameStatistics(stats);
 		myEventManager = new EventManager(this, myGameWorld);
-		
+
 		StartView myStartView = new StartView(this);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                keyPressed(event.getCharacter());
-            }
-        });
+			@Override
+			public void handle(KeyEvent event) {
+				keyPressed(event.getCharacter());
+			}
+		});
 		myStage.show();
 	}
 
@@ -124,7 +126,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		initEngineView();
 	}
-	
+
 	/**
 	 * Creates the engineView, starts the game by playing the animation
 	 */
@@ -135,8 +137,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		setupGameCapture();
 		animation.play();
 	}
-	
-	public Region setupHUD(){
+
+	public Region setupHUD() {
 		HUDController myHUD = new HUDController();
 		myHUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
 		AbstractHUDScreen myHUDScreen = myHUD.getView();
@@ -198,19 +200,19 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
-		//myEventManager.handleEntityDropEvent(event);
+		// myEventManager.handleEntityDropEvent(event);
 		mySystems.sendUserInputEvent(event);
 	}
 
-	public void keyPressed(String s){
-		//TODO do something with this string
-		if(lastEntityClickedID != null){
+	public void keyPressed(String s) {
+		// TODO do something with this string
+		if (lastEntityClickedID != null) {
 			IEvent keyPressedEvent = new KeyPressedEntityEvent(lastEntityClickedID, s);
 			System.out.println(s);
 			mySystems.sendUserInputEvent(keyPressedEvent);
 		}
 	}
-	
+
 	public void entityClicked(int myID) {
 		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
@@ -219,7 +221,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void nextWaveClicked() {
 		IEvent nextWaveEvent = new NextWaveEvent();
-		//myEventManager.handleNextWaveEvent(nextWaveEvent);
+		// myEventManager.handleNextWaveEvent(nextWaveEvent);
 		mySystems.sendUserInputEvent(nextWaveEvent);
 	}
 
@@ -238,13 +240,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void levelIsOver(boolean won) {
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable(won);
 	}
-	
-	public void levelIsWon(){
-		
+
+	public void levelIsWon() {
+
 	}
-	
-	public void levelIsLost(){
-		
+
+	public void levelIsLost() {
+
 	}
 
 	public Main getMain() {

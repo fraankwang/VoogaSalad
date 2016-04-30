@@ -28,13 +28,12 @@ public class GameMap {
 	}
 
 	/* test code */
-	public GameMap(String image, String paths, double width, double height) {
+	public GameMap(String image, Path paths, double width, double height) {
 		this.myMapImage = image;
 		this.myMapWidth = width;
 		this.myMapHeight = height;
 		this.quadrants = new ArrayList<Quadrant>();
-		Path testPath = new Path();
-		Path[] testPaths = { testPath };
+		Path[] testPaths = { paths };
 		this.paths = testPaths;
 	}
 

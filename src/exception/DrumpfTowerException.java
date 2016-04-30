@@ -25,7 +25,7 @@ public class DrumpfTowerException extends Exception {
 	 */
 	public DrumpfTowerException(String arg0) {
 		super(arg0);
-		myErrorLoader = new ResourceLoader("error.properties");
+//		myErrorLoader = new ResourceLoader("error.properties");
 		showErrorDialog(arg0);
 	}
 
@@ -59,9 +59,7 @@ public class DrumpfTowerException extends Exception {
 		alert.getDialogPane().getButtonTypes().add(buttonTypeOk);
 
 		DialogPane dialogPane = alert.getDialogPane();
-		// Add a css file to make the dialog box look good
-		// dialogPane.getStylesheets().add(getClass().getResource("myDialog.css")
-		// .toExternalForm());
+		dialogPane.getStylesheets().add(getClass().getResource("myDialog.css").toExternalForm());
 		dialogPane.getStyleClass().add("myDialog");
 		alert.showAndWait();
 	}
