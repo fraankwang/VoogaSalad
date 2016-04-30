@@ -3,6 +3,8 @@
  */
 package engine.frontend.status;
 
+import engine.controller.EngineController;
+import engine.frontend.overall.EndView;
 import engine.frontend.overall.ResourceUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -69,8 +71,14 @@ public class ControlManager extends ResourceUser {
 	}
 
 	public void nextLevelEnable(boolean won) {
-		if(won)
+		if(won){
 			nextWave.setDisable(false);
+		}else{
+			EngineController myController = myStatusPane.getEngineView().getEngineController();
+			EndView myEnd = new EndView(myController);
+			myController.getStage().setScene(myEnd.buildScene());
+		}
+		
 	}
 
 	public void switchModeEnable() {
