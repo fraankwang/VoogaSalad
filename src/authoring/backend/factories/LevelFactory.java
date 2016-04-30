@@ -10,6 +10,7 @@ import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.PathComponent;
+import engine.backend.components.PositionComponent;
 import engine.backend.components.PurchaseComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
@@ -34,6 +35,7 @@ public class LevelFactory {
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
 		for (String key : entityNames) {
 			IEntity entity = entityMap.get(key);
+			entity.addComponent(new PositionComponent());
 			authoredEntities.add(entity);
 		}
 		List<AuthoringEntity> spawnEntities = authoringLevel.getSpawnEntities();
@@ -46,6 +48,7 @@ public class LevelFactory {
 				for (IEntity authoredEntity : authoredEntities) {
 					if (authoredEntity.getName().equals(spawn.getSpawningEntityName())) {
 						authoredEntity.addComponent(new PathComponent());
+						authoredEntity.addComponent(new PositionComponent());
 					}
 				}
 				int spawnWaves = spawn.getWaveIndex();
