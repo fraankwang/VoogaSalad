@@ -84,7 +84,7 @@ public class ControlManager extends ResourceUser {
 
 
 	/**
-	 * Enables advancement to the next level
+	 * Enables next level button
 	 */
 	public void nextLevelEnable() {
 		nextWave.setDisable(false);
