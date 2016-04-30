@@ -24,7 +24,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	
 	private LevelGridViewPanel myLevelSelector;
 	private Map<String, String> myPossibleLevels;
-	private Map<Integer, String> mySelectedLevels;
+	private Map<Integer, String> mySelectedLevelsMap;
 	
 	public ModifiableModeAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
@@ -47,7 +47,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
 		myLevelSelector.initialize();
-		mySelectedLevels = new HashMap<Integer, String>();
+		mySelectedLevelsMap = new HashMap<Integer, String>();
 		
 		myAttributesMap = new TreeMap<String, String>();
 		myInputMap = new TreeMap<String, Control>();
@@ -76,7 +76,8 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		
 		if (info.get("Levels") != null) {
 			List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
-			updateLevels(selectedLevels);
+//			System.out.println("***** new parsed levels: " + selectedLevels);
+			updateSelectedLevels(selectedLevels);
 			
 		}
 		
@@ -86,8 +87,8 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		refreshAttributes();
 	}
 
-	private void updateLevels(List<String> selectedLevels) {
-		setMyPossibleLevels(myController.getLevels());
+	public void updateSelectedLevels(List<String> selectedLevels) {
+		myPossibleLevels = myController.getLevels();
 		myLevelSelector.updatePossibleLevels(myPossibleLevels);
 		myLevelSelector.updateSelectedLevels(selectedLevels);
 	}
@@ -121,8 +122,8 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		}
 
-		mySelectedLevels = myLevelSelector.getSelectedLevels();
-		String levelsCompressed = GlobalParser.compressLevels(mySelectedLevels);
+		mySelectedLevelsMap = myLevelSelector.getSelectedLevels();
+		String levelsCompressed = GlobalParser.compressLevels(mySelectedLevelsMap);
 		
 		if (!myAttributesMap.containsKey("Levels")) {
 			myAttributesMap.put("Levels", levelsCompressed);
@@ -136,10 +137,6 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		return myAttributesMap;
 	}
 	
-	public void setMyPossibleLevels(Map<String, String> levels) {
-		myPossibleLevels = levels;
-	}
-
 	public LevelGridViewPanel getLevelSelector() {
 		return myLevelSelector;
 	}

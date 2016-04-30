@@ -1,6 +1,5 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,14 +25,12 @@ import authoring.frontend.editor_features.EntityComponentSelector;
 public class EntitiesTabGrid extends TabGrid {
 
 	private String myGenre;
-	private List<String> myComponentsTemplate;
 	private Map<String, String> currentInfo;
 	private Map<String, String> myEntities;
 
 	public EntitiesTabGrid(IAuthoringView controller, TabDisplay tab) {
 		super(controller, tab);
 		currentInfo = new TreeMap<String, String>();
-		myComponentsTemplate = new ArrayList<String>();
 		myGenre = "";
 	}
 

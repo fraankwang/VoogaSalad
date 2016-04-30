@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.ModesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
@@ -27,6 +28,7 @@ import javafx.scene.image.WritableImage;
 public class ModesTabGrid extends TabGrid {
 
 	private Map<String, String> currentInfo;
+	private LevelGridViewPanel currentGridViewPanel;
 
 	public ModesTabGrid(IAuthoringView controller, TabDisplay tabDisplay) {
 		super(controller, tabDisplay);
@@ -54,11 +56,10 @@ public class ModesTabGrid extends TabGrid {
 	}
 
 	public void updateModesPrimaryDisplay(List<Map<String, String>> data) {
-		((LevelGridViewPanel) myPrimaryDisplay).updatePossibleLevels(myController.getLevels());
-
+		
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
-
+		gridView.getNode().toBack();
 		if (data.isEmpty()) {
 			gridView.resetGrid();
 		}
@@ -66,15 +67,29 @@ public class ModesTabGrid extends TabGrid {
 		for (Map<String, String> info : data) {
 
 			ImageView iv = convertToImageView(info.get("Levels"));
-
+			iv.setOnMouseClicked(e -> iv.requestFocus());
 			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 						Boolean newValue) {
 					if (newValue) {
+						iv.setOpacity(1);
 						info.remove("Type");
 						setAttributesPanel(info);
 						currentInfo = info;
 						currentInfo.put("Type", "Mode");
+						
+						//TODO: update editor Grid's PrimaryDisplay
+						if (info.get("Levels") != null) {
+							List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
+							currentGridViewPanel = new LevelGridViewPanel(500, 500, null, myController);
+							currentGridViewPanel.initialize();
+							currentGridViewPanel.updateSelectedLevels(selectedLevels);
+							((ModeEditorDisplay) myTabDisplay.getEditor()).setPrimaryDisplay(currentGridViewPanel);
+						}
+						
+					} else {
+						iv.setOpacity(0.2);
+						
 					}
 				}
 			});
@@ -93,11 +108,12 @@ public class ModesTabGrid extends TabGrid {
 	 */
 	private ImageView convertToImageView(String string) {
 		LevelGridViewPanel levels = new LevelGridViewPanel(500, 500, null, myController);
+		levels.initialize();
 		levels.updatePossibleLevels(myController.getLevels());
 		levels.updateSelectedLevels(GlobalParser.parseLevels(string));
 		levels.removeAddNewButton();
-
-		WritableImage snapshot = levels.getNode().snapshot(new SnapshotParameters(), null);
+		levels.resetGrid();
+		WritableImage snapshot = levels.getMyGridPane().snapshot(new SnapshotParameters(), null);
 		return new ImageView(snapshot);
 	}
 

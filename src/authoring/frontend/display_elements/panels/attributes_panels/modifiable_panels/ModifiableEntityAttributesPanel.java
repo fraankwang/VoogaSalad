@@ -83,7 +83,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		super.updateAttributes(info);
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
-		
+
 		expandTracking(myInputMap, myAttributes);
 		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
 		refreshAttributes();
@@ -96,7 +96,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		myAttributesMap.put("Type", "Entity");
 
 		if (myAttributes.contains("MovementComponent_CanTrack")) {
-			condenseTracking(myInputMap, myAttributes);			
+			condenseTracking(myInputMap, myAttributes);
 		}
 
 		for (String s : myInputMap.keySet()) {
@@ -130,14 +130,12 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 				"MovementComponent_CanRotate");
 		String canTrack = "MovementComponent_CanTrack";
 
-		
 		String tracking = ((ComboBox<String>) myInputMap.get(canTrack)).getSelectionModel().getSelectedItem();
 
 		inputMap.remove(canTrack);
 		attributes.remove(canTrack);
 
 		if (tracking.equals("true")) {
-			System.out.println("tracking is true");
 			for (String movementComponent : movementComponents) {
 				attributes.remove(movementComponent);
 				attributes.add("Tracking" + movementComponent);
@@ -164,10 +162,9 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		List<String> trackingMovementComponents = Arrays.asList("TrackingMovementComponent_Velocity",
 				"TrackingMovementComponent_CanMove", "TrackingMovementComponent_CanRotate");
 
-		
 		if (attributes.contains("TrackingMovementComponent_Velocity")) {
 			myAttributesMap.put("MovementComponent_CanTrack", "true");
-			
+
 			if (!myAttributes.contains("MovementComponent_CanTrack")) {
 				myAttributes.add("MovementComponent_CanTrack");
 			}
@@ -179,19 +176,19 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 				myAttributesMap.remove(trackingComponent);
 				myAttributesMap.put(truncated, selected);
 			}
-			
+
 		} else if (attributes.contains("MovementComponent_Velocity")) {
 			if (!myAttributes.contains("MovementComponent_CanTrack")) {
 				myAttributes.add("MovementComponent_CanTrack");
 				myAttributesMap.put("MovementComponent_CanTrack", null);
 			} else {
 				myAttributesMap.put("MovementComponent_CanTrack", "false");
-				
+
 			}
 		}
-		
+
 		if (!myAttributes.contains("MovementComponent_CanTrack")) {
-			
+
 		}
 
 	}
