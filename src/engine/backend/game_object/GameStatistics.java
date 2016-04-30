@@ -2,6 +2,7 @@ package engine.backend.game_object;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import engine.backend.rules.IAction;
@@ -47,8 +48,8 @@ public class GameStatistics implements IModifiable{
 		
 		levelLost = false;
 		nextAvailableEntityID = 0;
-//		endOfLevelLives = new ArrayList<Integer>();
-//		endOfLevelResources = new ArrayList<Double>();
+		endOfLevelLives = new ArrayList<Integer>();
+		endOfLevelResources = new ArrayList<Double>();
 	}
 	
 	public GameStatistics() {

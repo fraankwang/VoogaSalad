@@ -209,6 +209,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		mySystems.sendUserInputEvent(clickedEvent);
+		
 	}
 
 	public void nextWaveClicked() {

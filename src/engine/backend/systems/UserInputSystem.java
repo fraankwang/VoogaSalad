@@ -3,11 +3,14 @@ package engine.backend.systems;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Set;
 
-
+import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
+import engine.backend.rules.Rule;
+import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityEvent;
 import engine.backend.systems.Events.IEvent;
 
@@ -31,6 +34,10 @@ public class UserInputSystem extends GameSystem{
 		myMapEvents.forEach(event -> {
 			String identifier = myLevel.getEntityWithID(event.getFirstEntityID()).getName();
 			event.setEventID(identifier);
+			if(event instanceof EntityClickedEvent){
+				IEntity entity = myLevel.getEntityWithID(event.getFirstEntityID());
+				setEntityAsObserved((EntityClickedEvent) event, entity);
+			}
 			addToEventMap(myEventMap, event, event.getEntityIDs());});
 		myMapEvents.clear();
 	}
@@ -42,10 +49,19 @@ public class UserInputSystem extends GameSystem{
 	 */
 	public void handleUserEvent(IEvent event) {
 		if (event instanceof EntityEvent) {
+			if(event instanceof EntityClickedEvent){
+				
+			}
 			myMapEvents.add((EntityEvent) event);
 		} else {
 			nonMapEvents.add(event);
 		}
+	}
+	
+	private void setEntityAsObserved(EntityClickedEvent event, IEntity entity){
+
+	        ((Observable) entity).addObserver(event.getCurrentView());
+	        entity.broadcastEntity();
 	}
 	
 	/**
