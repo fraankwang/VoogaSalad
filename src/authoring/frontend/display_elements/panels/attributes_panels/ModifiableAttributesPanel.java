@@ -129,6 +129,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
+			System.out.println("*******" + currentAttribute);
 			
 			if (!currentAttribute.equals("Type") && !currentAttribute.equals("SpawnEntities")){
 				Text text = new Text(currentAttribute);
