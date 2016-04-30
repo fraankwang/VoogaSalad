@@ -94,6 +94,8 @@ public class EventManager implements Observer {
 	}
 
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
+		System.out.println("image3: " + myEvent.getImage());
+		
 		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(),
 				myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}

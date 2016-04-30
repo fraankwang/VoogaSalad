@@ -92,10 +92,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 		stepping = false;
 		myTestingClass = new testingClass();
 		Testing test = new Testing();
-		myGameWorld = myTestingClass.testFiring();
+		myGameWorld = test.test1();
 		
         myEventManager = new EventManager(this, myGameWorld);
-        startGame("test firing", 0);
+        startGame("mode1", 0);
 				
 //		StartView myStartView = new StartView(this);
 //		Scene scene = myStartView.buildScene();
@@ -193,6 +193,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
 			boolean show) {
+		
+		System.out.println("image2: " + image);
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
 
