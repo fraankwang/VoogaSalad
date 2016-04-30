@@ -67,6 +67,14 @@ public class EventManager implements Observer {
 	}
 
 	public Level getCurrentLevel() {
+		String modeName = currentModeStatistics.getCurrentMode();
+		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
+		if (myGameWorld.getLevelWithId(modeName, levelIndex).shouldRevert()) {
+			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
+			Level myLevel = (Level) serializer.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
+			myLevel.setShouldRevert(false);
+			myGameWorld.putLevelInMap(modeName, levelIndex, myLevel);
+		}
 		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
 				currentModeStatistics. getCurrentLevelIndex());
 	}
@@ -153,14 +161,13 @@ public class EventManager implements Observer {
 	}
 
 	private void serializeLevel() {
-		myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(), currentModeStatistics.getCurrentLevelIndex())
-				.setLastSerializedVersion(serializeLevel(
-						myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
-								currentModeStatistics.getCurrentLevelIndex()),
-						myGameWorld.getGameType() + currentModeStatistics.getCurrentLevelIndex()));
+		String modeName = currentModeStatistics.getCurrentMode();
+		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
+		myGameWorld.getLevelWithId(modeName, levelIndex)
+				.setLastSerializedVersion(serializeLevel(myGameWorld.getLevelWithId(modeName, levelIndex)));
 	}
 	
-	private String serializeLevel(Object o, String fileName) {
+	private String serializeLevel(Object o) {
 		ObjectToXMLWriter serializer = new GameWorldToXMLWriter();
 		return serializer.getXMLfromObject(o);
 	}
@@ -171,6 +178,9 @@ public class EventManager implements Observer {
 		if (index == getCurrentLevel().getNumWaves() - 1) {
 			boolean won = currentModeStatistics.getCurrentNumLives() > ZERO;
 			myEngineController.levelIsOver(won);
+			String modeName = currentModeStatistics.getCurrentMode();
+			int levelIndex = currentModeStatistics.getCurrentLevelIndex();
+			myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 		} else {
 			myEngineController.waveIsOver();
 			getCurrentLevel().setCurrentWaveIndex(index + 1);
