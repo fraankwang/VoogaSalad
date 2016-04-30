@@ -98,12 +98,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 		StartView myStartView = new StartView(this);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                keyPressed(event.getCharacter());
-            }
-        });
 		myStage.show();
 	}
 
