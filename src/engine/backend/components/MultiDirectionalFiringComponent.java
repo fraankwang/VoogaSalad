@@ -12,12 +12,18 @@ public class MultiDirectionalFiringComponent extends FiringComponent{
 	
 	private List<Vector> myDirectionsToFire;
 	
-	public MultiDirectionalFiringComponent(FiringComponent component){
+	public MultiDirectionalFiringComponent(MultiDirectionalFiringComponent component){
 		super(component);
 		initializeDirectionVectors();
 	}
 	
 	public MultiDirectionalFiringComponent(){
+		initializeDirectionVectors();
+	}
+	
+	public MultiDirectionalFiringComponent(String myAmmunition, int myAmmunitionAmount, double myAmmunitionSpeed, 
+											double myEnemyInSightRange, Vector myDirectionToFire, double myFiringRate){
+		super(myAmmunition, myAmmunitionAmount, myAmmunitionSpeed, myEnemyInSightRange, myDirectionToFire, myFiringRate);
 		initializeDirectionVectors();
 	}
 	

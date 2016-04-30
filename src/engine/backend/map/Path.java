@@ -4,14 +4,6 @@ package engine.backend.map;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
-
-import engine.backend.components.DisplayComponent;
-import engine.backend.components.MovementComponent;
-import engine.backend.components.PathComponent;
-import engine.backend.components.PositionComponent;
-import engine.backend.components.Vector;
-import engine.backend.entities.IEntity;
 
 /**
  * 
@@ -24,13 +16,24 @@ public class Path implements IPath{
 	//This class should contain a list or array of Bezier Curves
 	
 	private List<BezierCurve> myCurves;
+	private int myID;
 	
-	public Path() {
-		myCurves = new ArrayList<BezierCurve>();
+	public Path(int ID) {
+		this.myCurves = new ArrayList<BezierCurve>();
+		this.myID = ID;
 	}
 	
-	public Path(List<BezierCurve> curves) {
+	public Path(List<BezierCurve> curves, int ID) {
 		this.myCurves = curves;
+		this.myID = ID;
+	}
+	
+	public Path() {
+		this.myCurves = new ArrayList<BezierCurve>();
+	}
+	
+	public int getID() {
+		return myID;
 	}
 	
 	public int numCurves(){
@@ -53,7 +56,18 @@ public class Path implements IPath{
 			return myCurves.get(0);
 		}
 		return myCurves.get(index); 
-		
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(myID);
+		sb.append(":");
+		for (BezierCurve curve : myCurves) {
+			sb.append(curve.toString());
+			sb.append(" ");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
 	}
 	
 }

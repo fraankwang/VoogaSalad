@@ -12,7 +12,6 @@ import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
-import engine.backend.rules.Action;
 import engine.backend.rules.EntityAction;
 
 public class BezierCurveTest {
@@ -64,7 +63,7 @@ public class BezierCurveTest {
 	@Test
 	public void testAction(){
 		EntityAction action = new EntityAction("name", "Health", "Health", "30");
-		IEntity testEntity = new Entity(1, null, null, error);
+		IEntity testEntity = new Entity(1, "entity", "Tower");
 		ResourceBundle myComponentTagResources;
 		String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
 		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
@@ -78,7 +77,7 @@ public class BezierCurveTest {
 		testEntity.addComponent(healthComponent);
 		
 		System.out.println(healthComponent.getHealth()); 
-		testEntity.applyAction(action, myComponentTagResources);
+		testEntity.applyAction(action);
 		System.out.println(healthComponent.getHealth());
 	}
 	

@@ -8,56 +8,62 @@ import engine.backend.components.Component;
  */
 public class UserInputComponent extends Component {
 
-    private boolean clicked, cursorOver, keyPressed;
-    private String keyValue;
+	private boolean clicked, cursorOver, keyPressed;
+	private String keyValue;
 
-    public UserInputComponent(){
-        clicked = false;
-        cursorOver = false;
-        keyPressed = false;
-        keyValue = "";
-    }
+	public UserInputComponent() {
+		clicked = false;
+		cursorOver = false;
+		keyPressed = false;
+		keyValue = "";
+	}
 
-    public boolean isClicked() {
-        return clicked;
-    }
+	public boolean isClicked() {
+		return clicked;
+	}
 
-    public boolean isCursorOver() {
-        return cursorOver;
-    }
+	public boolean isCursorOver() {
+		return cursorOver;
+	}
 
-    public void setClicked(boolean clicked) {
-        this.clicked = clicked;
-    }
+	public void setClicked(boolean clicked) {
+		this.clicked = clicked;
+	}
 
-    public void setCursorOver(boolean cursorOver) {
-        this.cursorOver = cursorOver;
-    }
+	public void setCursorOver(boolean cursorOver) {
+		this.cursorOver = cursorOver;
+	}
 
-    public boolean isKeyPressed() {
-        return keyPressed;
-    }
+	public boolean isKeyPressed() {
+		return keyPressed;
+	}
 
-    public String getKeyValue() {
-        return keyValue;
-    }
+	public String getKeyValue() {
+		return keyValue;
+	}
 
-    public void setKeyPressed(boolean keyPressed) {
-        this.keyPressed = keyPressed;
-    }
+	public void setKeyPressed(boolean keyPressed) {
+		this.keyPressed = keyPressed;
+	}
 
-    public void setKeyValue(String keyValue) {
-        this.keyValue = keyValue;
-    }
-
+	public void setKeyValue(String keyValue) {
+		this.keyValue = keyValue;
+	}
 
     @Override
     public String getTag(){
         return "UserInput";
     }
 
-    @Override
-    public void initWithParams(String[] params) {
+	@Override
+	public String getComponentInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    }
+	@Override
+	public void update(String dataName, String data) {
+		// TODO Auto-generated method stub
+		
+	}
 }

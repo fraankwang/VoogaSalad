@@ -27,33 +27,25 @@ import engine.controller.EngineController;
 
 /**
  * 
- * @author mario_oliver93
+ * @author Ragahv Kedia, mario_oliver93
  *
  */
 
 public class RenderingSystem extends GameSystem {
 
-	public RenderingSystem() {
-	}
-
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory,
-			double currentSecond) {
-		// TODO Auto-generated method stub
+	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
-		// System.out.println(entities.size());
-		for (IEntity myEntity : entities) {
+		for(IEntity myEntity : entities){
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
-			double sizex = 200;
-			double sizey = 200;
+			double sizex = Integer.MIN_VALUE;
+			double sizey = Integer.MIN_VALUE;
 			boolean show = true;
 			boolean delete = false;
-			if (!myEntity.hasBeenModified()) {
-				continue;
-			}
+
 			for (IComponent eachComponent : myEntity.getComponents()) {
 				if (eachComponent.getTag().equals(ComponentTagResources.displayComponentTag)) {
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
@@ -69,12 +61,10 @@ public class RenderingSystem extends GameSystem {
 					sizey = ((SizeComponent) eachComponent).getHeight();
 				}
 			}
-
-			// System.out.println("Name: " + myEntity.getName() +
-			// myEntity.getID());
+			
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
-
-			if (delete) {
+			myEntity.broadcastEntity();
+			if(delete){
 				entitiesToRemove.add(myEntity);
 			}
 
@@ -83,8 +73,6 @@ public class RenderingSystem extends GameSystem {
 		}
 
 		myLevel.removeEntites(entitiesToRemove);
-		// entities.removeAll(entitiesToRemove);
-
 	}
 
 	public void sendUpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey,

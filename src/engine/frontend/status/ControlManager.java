@@ -1,76 +1,77 @@
 package engine.frontend.status;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import engine.frontend.overall.ResourceUser;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class ControlManager {
+public class ControlManager extends ResourceUser {
 	private StatusPane myStatusPane;
-	
+	private static final String RESOURCE_NAME = "status";
+
 	private Button play;
-	private Button pause;
-	private Button nextwave;
-	private Button nextlevel;
-	private Button switchmode;
-	
-	public ControlManager(StatusPane sp){
+	private Button nextWave;
+	private Button nextLevel;
+	private ComboBox<String> modeComboBox;
+	private Button modeButton;
+
+	public ControlManager(StatusPane sp) {
+		super(RESOURCE_NAME);
 		myStatusPane = sp;
 	}
-	
 
-	public VBox buildGameControls(){
+	public VBox buildGameControls() {
 		VBox vbox = new VBox();
-		
-		Button play = myStatusPane.createButton(myStatusPane.getMyResources().getString("PlayLabel"));
-		Button pause = myStatusPane.createButton(myStatusPane.getMyResources().getString("PauseLabel"));
-		Button nextwave = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextWaveLabel"));
-		Button nextlevel = myStatusPane.createButton(myStatusPane.getMyResources().getString("NextLevelLabel"));
-		Button switchmode = myStatusPane.createButton(myStatusPane.getMyResources().getString("SwitchModeLabel"));
-		
-		play.setDisable(true);
-		play.setOnAction(e ->{
-			play.setDisable(true);
-			pause.setDisable(false);
-		});
-		
-		pause.setOnAction(e ->{
-			pause.setDisable(true);
-			play.setDisable(false);
-		});
-		
-		nextwave.setDisable(true);
-		nextwave.setOnAction(e ->{
-			
-		});
-		
-		nextlevel.setDisable(true);
-		nextlevel.setOnAction(e ->{
-			
-		});
-		
-		switchmode.setDisable(true);
-		switchmode.setOnAction(e ->{
-			List<String> choices = new ArrayList<>();
-			choices.add("a");
-			choices.add("b");
-			choices.add("c");
 
-			ChoiceDialog<String> dialog = new ChoiceDialog<>("b", choices);
-			dialog.setTitle(myStatusPane.getMyResources().getString("ModeTitleLabel"));
-			dialog.setHeaderText(myStatusPane.getMyResources().getString("ModeHeaderLabel"));
-			dialog.setContentText(myStatusPane.getMyResources().getString("ModeContentLabel"));
-			
-			Optional<String> result = dialog.showAndWait();
-			result.ifPresent(letter -> System.out.println("Your choice: " + letter));
-		});
+		play = myStatusPane.createButton(loadStringResource("PlayLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
+		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
+		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
+		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());		
 		
-		vbox.getChildren().addAll(play, pause, nextwave, nextlevel, switchmode);
-		vbox.minWidthProperty().bind(myStatusPane.getPane().widthProperty().divide(4));
+		play.setOnMouseClicked(e -> {
+			if (play.getText().equals(loadStringResource("PlayLabel"))) {
+				myStatusPane.getEngineView().getEngineController().setPlaying(true);
+				play.setText(loadStringResource("PauseLabel"));
+			} else {
+				myStatusPane.getEngineView().getEngineController().setPlaying(false);
+				play.setText(loadStringResource("PlayLabel"));
+			}
+		});
+
+		nextWave.setDisable(true);
+		nextWave.setOnMouseClicked(e -> {
+			myStatusPane.getEngineView().getEngineController().nextWaveClicked();
+			nextWave.setDisable(true);
+		});
+
+		nextLevel.setDisable(true);
+		nextLevel.setOnMouseClicked(e -> {
+			myStatusPane.getEngineView().getEngineController().nextLevelClicked();
+			nextLevel.setDisable(true);
+		});
+
+		modeButton.setOnMouseClicked(e -> myStatusPane.getEngineView().getEngineController().switchModeClicked());
+
+		vbox.getChildren().addAll(play, nextWave, nextLevel, modeButton);
+		myStatusPane.bindWidth(vbox, myStatusPane.getPane().widthProperty().divide(4));
+		myStatusPane.bindHeight(vbox, myStatusPane.getPane().heightProperty());
 		return vbox;
 	}
-	
+
+	public void nextWaveEnable() {
+		nextWave.setDisable(false);
+	}
+
+	public void nextLevelEnable(boolean won) {
+		if(won)
+			nextWave.setDisable(false);
+	}
+
+	public void switchModeEnable() {
+		modeComboBox.setDisable(false);
+	}
 }

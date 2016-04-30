@@ -13,7 +13,6 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
-import engine.backend.entities.Entity;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
@@ -25,24 +24,28 @@ import engine.backend.utilities.ComponentTagResources;
 
 public class SpawningSystem extends GameSystem {
 
-	public static final String TESTNAME = "tower";
-	public static final int TESTID = 1000;
+	private double delayTimer;
 
 	@Override
 	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory,
 			double currentSecond) {
-		// TODO Auto-generated method stub
+		if (myLevel.sendNextWave()) {
+			myLevel.setSendNextWave(false);
+			delayTimer = 0;
+		}
+
+		if (delayTimer > 0) {
+			delayTimer = delayTimer - GameClock.getTimePerLoop();
+			return;
+		}
 
 		int currentWaveIndex = myLevel.getCurrentWaveIndex();
 		boolean waveIsOver = true;
-		Collection<IEntity> entities = myLevel.getEntities().values();
+		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+				ComponentTagResources.spawnerComponentTag);
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 
-		for (IEntity entity : entities) {
-
-			if (!entity.hasComponent(ComponentTagResources.spawnerComponentTag)) {
-				continue;
-			}
+		for (IEntity entity : applicableEntities) {
 
 			SpawnerComponent spawnerComponent = (SpawnerComponent) entity
 					.getComponent(ComponentTagResources.spawnerComponentTag);
@@ -58,26 +61,20 @@ public class SpawningSystem extends GameSystem {
 			}
 
 			if (waveIsOver) {
-				// not sure what to do with wave over events
+				sendEvent(getWaveOverEvent());
+				delayTimer = 100 * myLevel.getWaveDelayTimer();
 			}
 
 		}
 
-		// System.out.println(newEntities.size());
-		sendAddEntityEvent(newEntities);
+		sendEvent(getAddEntityEvent(newEntities));
 
-		// addToEventMap(myEventMap, getAddEntityEvent(newEntities),
-		// newEntities);
 	}
 
 	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities,
 			InGameEntityFactory myEntityFactory, double currentSecond, int pathID) {
-
-		if (spawn.getTimer() == 0 && spawn.getNumEntities() > 0) {
-			// spawn
+		if (spawn.getTimer() <= 0 && spawn.getNumEntities() > 0) {
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
-			// System.out.println(newEntity.getName() + " " +
-			// newEntity.getID());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
 			newEntity.addComponent(newPositionComponent);
 
@@ -89,18 +86,20 @@ public class SpawningSystem extends GameSystem {
 			newEntities.add(newEntity);
 			spawn.resetTimer();
 		} else {
-			spawn.setTimer(currentSecond);
+			spawn.decrementTimer();
 		}
 
 	}
 
 	private IEvent getWaveOverEvent() {
-		IEvent event = new WaveOverEvent();
-		return event;
+		return new WaveOverEvent();
 	}
 
-	private void sendAddEntityEvent(Collection<IEntity> newEntities) {
-		AddEntityEvent event = new AddEntityEvent(newEntities);
+	private IEvent getAddEntityEvent(Collection<IEntity> newEntities) {
+		return new AddEntityEvent(newEntities);
+	}
+
+	private void sendEvent(IEvent event) {
 		setChanged();
 		notifyObservers(event);
 	}

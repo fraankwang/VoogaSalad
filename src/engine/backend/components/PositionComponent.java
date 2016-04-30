@@ -1,4 +1,3 @@
-
 package engine.backend.components;
 
 /**
@@ -12,12 +11,9 @@ public class PositionComponent extends Component {
 	private Vector myCriticalPosition;
 	private double range;
 	public static final int DEFAULTPOSITION = 50;
-	
+
 	public PositionComponent() {
-		double posX = DEFAULTPOSITION;
-		double posY = DEFAULTPOSITION;
-		
-		myPositionVector = new Vector(posX, posY);
+
 	}
 
 	public PositionComponent(PositionComponent posComp) {
@@ -27,13 +23,14 @@ public class PositionComponent extends Component {
 
 		myPositionVector = new Vector(posX, posY);
 	}
-	
+
 	/**
 	 * 
-	 *  Returns the firing range of the entity
-	 * @return range 
+	 * Returns the firing range of the entity
+	 * 
+	 * @return range
 	 */
-	public double getRange(){
+	public double getRange() {
 		return range;
 	}
 
@@ -80,12 +77,6 @@ public class PositionComponent extends Component {
 		return myPositionVector.getY();
 	}
 
-	@Override
-	public void initWithParams(String[] params) {
-		// x is 1, y is 2
-		myPositionVector = new Vector(Double.parseDouble(params[0]), Double.parseDouble(params[1]));
-	}
-
 	/**
 	 * 
 	 * @return A vector representing a critical position.
@@ -96,10 +87,49 @@ public class PositionComponent extends Component {
 
 	/**
 	 * Sets a critical position for the entity with this component.
+	 * 
 	 * @param myCriticalPosition
 	 */
 	public void setCriticalPosition(Vector myCriticalPosition) {
 		this.myCriticalPosition = myCriticalPosition;
+	}
+
+	@Override
+	public String getComponentInfo() {
+		return "XCoordinate:" + myPositionVector.getX() + "," + "YCoordinate:" + myPositionVector.getY();
+	}
+
+	public void setXCoordinate(String deltaX) {
+		double xdelta = Double.parseDouble(deltaX);
+		myPositionVector = new Vector(getX() + xdelta, getY());
+	}
+
+	public void setYCoordinate(String deltaY) {
+		double ydelta = Double.parseDouble(deltaY);
+		myPositionVector = new Vector(getX(), getY() + ydelta);
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+
+		case "XCoordinate":
+			double x = Double.parseDouble(data);
+			double y = 0;
+			if (myPositionVector != null) {
+				y = myPositionVector.getY();
+			}
+			this.myPositionVector = new Vector(x, y);
+			return;
+		case "YCoordinate":
+			double y2 = Double.parseDouble(data);
+			double x2 = 0;
+			if (myPositionVector != null) {
+				x2 = myPositionVector.getX();
+			}
+			this.myPositionVector = new Vector(x2, y2);
+			return;
+		}
 	}
 
 }

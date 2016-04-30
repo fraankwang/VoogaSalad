@@ -1,168 +1,271 @@
 package engine.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.io.IOException;
+import java.util.List;
 
-import engine.backend.components.DisplayComponent;
-import engine.backend.components.IComponent;
-import engine.backend.components.MovementComponent;
-import engine.backend.components.PathComponent;
-import engine.backend.components.PositionComponent;
-import engine.backend.components.SizeComponent;
-import engine.backend.components.Spawn;
-import engine.backend.components.SpawnerComponent;
-import engine.backend.entities.Entity;
-import engine.backend.entities.IEntity;
-import engine.backend.game_object.GameWorld;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
-import engine.backend.map.BezierCurve;
-import engine.backend.map.GameMap;
-import engine.backend.map.Path;
 import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_features.HUDValueFinder;
+import engine.backend.game_features.ShopItem;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
-import engine.backend.game_object.ModeStatistics;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
+import engine.backend.systems.Events.GameEvent;
+import engine.backend.systems.Events.IEvent;
+import engine.backend.systems.Events.KeyPressedEntityEvent;
+import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
+import engine.frontend.overall.ResourceUser;
+import engine.frontend.overall.StartView;
+import engine.frontend.status.DrumpfHUDScreen;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
+import utility.gamecapture.GameCapture;
+import utility.hud.AbstractHUDScreen;
+import utility.hud.HUDController;
 
-/*
- * Todos:
- * Scaling- for pixel amounts coming in from backend, only endpoint is EngineController.updateEntity, scale points
- * 		  - for pixel amounts going to backend, may be multiple endpoints, the various click events all need to be 
- * 		  backscaled before they go to the backend
- * 		Bind the width/height/x/y property of everything on the map to the current size
- * 
- *  Want to scale everything based on the size of the 
- */
-
-
-public class EngineController implements IEngineController{
+public class EngineController extends ResourceUser implements IEngineController {
 	private Stage myStage;
 	private Main myMain;
+	private Timeline animation;
+
+	private static final String RESOURCE_NAME = "stage";
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean playing;
-	
+
 	private EventManager myEventManager;
 	private TestingClass myTestingClass;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
-	
+	private Integer lastEntityClickedID;
 	private EngineView myEngineView;
+	private GameCapture myGameCapture;
 
 	public EngineController(Stage s, Main m) {
+		super(RESOURCE_NAME);
 		myStage = s;
 		myMain = m;
 	}
-	
-	public void start(){
+
+	/**
+	 * Initializes the animation and starts the
+	 */
+	public void start() {
+		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
+		animation = new Timeline();
+		animation.setCycleCount(Animation.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+
+		initStage();
+		initStartView();
+	}
+
+	private void initStage() {
+		myStage.setMinWidth(loadIntResource("StageMinWidth"));
+		myStage.setMinHeight(loadIntResource("StageMinHeight"));
+		myStage.setX(loadIntResource("StartX"));
+		myStage.setY(loadIntResource("StartY"));
+	}
+
+	public void initStartView() {
+		animation.stop();
+		playing = false;
 		myGameWorld = new GameWorld();
 		myTestingClass = new TestingClass();
 		myGameWorld = myTestingClass.testFiring();
 		
-		ModeStatistics stats = new ModeStatistics(10, 10);
+		GameStatistics stats = new GameStatistics(10, 10);
+		myGameWorld.setGameStatistics(stats);
+		myEventManager = new EventManager(this, myGameWorld);
 		
-		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myGameWorld.getEntityMap());
-		
-		myEventManager = new EventManager(this, myGameWorld, stats, myEntityFactory);
-		
-		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-		playing = true;
-		
-		myEngineView = new EngineView(myStage, this);
-		buildStage();
-		
-		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
-		Timeline animation = new Timeline();
-		animation.setCycleCount(Animation.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-	}
-
-	private void buildStage(){
-		myStage.setMinWidth(myEngineView.loadIntResource("StageMinWidth"));
-		myStage.setMinHeight(myEngineView.loadIntResource("StageMinHeight"));
-		myStage.setX(0);
-		myStage.setY(0);
-		
-		Scene scene = myEngineView.buildScene();
-		myStage.setScene(scene); 
+		StartView myStartView = new StartView(this);
+		Scene scene = myStartView.buildScene();
+		myStage.setScene(scene);
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                keyPressed(event.getCharacter());
+            }
+        });
 		myStage.show();
 	}
-	
-	public void step() {
-		if(playing){
-			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
-		}
 
+	/**
+	 * Starts a game after the intial scene sets the stage and
+	 */
+	public void startGame(String selectedMode, Integer selectedLevel) {
+		try {
+			GameEvent e = new GameEvent(selectedMode, selectedLevel);
+			myEventManager.handleGameStartEvent(e);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
+				myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEventManager.setEntityFactory(myEntityFactory);
+		myEventManager.initializeRules();
+		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
+		initEngineView();
 	}
 	
-	private void setupStage(){
-		myStage.setWidth(myEngineView.loadIntResource("WindowWidth"));
-		myStage.setHeight(myEngineView.loadIntResource("WindowHeight"));
-		myStage.setX(0);
-		myStage.setY(0);
+	/**
+	 * Creates the engineView, starts the game by playing the animation
+	 */
+	private void initEngineView() {
+		myEngineView = new EngineView(myStage, this);
 		myStage.setScene(myEngineView.buildScene());
 		myStage.show();
+		setupGameCapture();
+		animation.play();
 	}
 	
-	//backend endpoint 
-	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
-		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
-		//these points need to be scaled based on the ratio of the size of the board to the size of the map
-		//they need to be scaled dynamically
-	}
-	
-//	public void updateShop(Shop shop){
-//		myEngineView.getShopPane().updateShop(shop);
-//	}
-//	public void updateStatistics(Statistics statistics){
-//		myEngineView.getStatusPane().updateStatistics(statistics);
-//	}
-	public void shopClicked(String name){
-		//call backend to say shop object clicked
-	}
-//	public void statisticsClicked(String name){
-//		//call backend to say stat object clicked
-//	}
-	
-	public void attemptTower(double xLoc, double yLoc, String type) {
-		// TODO Auto-generated method stub
-		EntityDroppedEvent event = new EntityDroppedEvent(xLoc, yLoc, type);
-		myEventManager.handleEntityDropEvent(event);
+	public Region setupHUD(){
+		HUDController myHUD = new HUDController();
+		myHUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
+		AbstractHUDScreen myHUDScreen = myHUD.getView();
+		return ((DrumpfHUDScreen) myHUDScreen).getBody();
 	}
 
-	public void entityClicked(int myID) {
-		// TODO Auto-generated method stub
-		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID);
-		myEventManager.handleClickEvent(clickedEvent);
+	private void setupGameCapture() {
+		myGameCapture = new GameCapture(loadIntResource("StartX"), loadIntResource("StartY"),
+				loadIntResource("StageMinWidth"), loadIntResource("StageMinHeight"));
+
+		myStage.xProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureX(newValue.intValue());
+			}
+		});
+
+		myStage.yProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureY(newValue.intValue());
+			}
+		});
+
+		myStage.widthProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureWidth(newValue.intValue());
+			}
+		});
+
+		myStage.heightProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				myGameCapture.setCaptureHeight(newValue.intValue());
+			}
+		});
+	}
+
+	public void step() {
+		if (playing) {
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());
+		}
+	}
+
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
+			boolean show) {
+		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
+	}
+
+	public void updateShop(List<ShopItem> shoplist) {
+		myEngineView.getShopPane().updateShop(shoplist);
+	}
+
+	public void updateUpgrades(List<ShopItem> upgradelist) {
+		myEngineView.getShopPane().updateUpgrade(upgradelist);
+	}
+
+	public void attemptTower(double xLoc, double yLoc, String type) {
+		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
+				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
+		//myEventManager.handleEntityDropEvent(event);
+		mySystems.sendUserInputEvent(event);
+	}
+
+	public void keyPressed(String s){
+		//TODO do something with this string
+		if(lastEntityClickedID != null){
+			IEvent keyPressedEvent = new KeyPressedEntityEvent(lastEntityClickedID, s);
+			System.out.println(s);
+			mySystems.sendUserInputEvent(keyPressedEvent);
+		}
 	}
 	
-	public Main getMain(){
+	public void entityClicked(int myID) {
+		lastEntityClickedID = myID;
+		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
+		mySystems.sendUserInputEvent(clickedEvent);
+	}
+
+	public void nextWaveClicked() {
+		IEvent nextWaveEvent = new NextWaveEvent();
+		//myEventManager.handleNextWaveEvent(nextWaveEvent);
+		mySystems.sendUserInputEvent(nextWaveEvent);
+	}
+
+	public void nextLevelClicked() {
+		myEventManager.handleGoToNextLevelEvent();
+	}
+
+	public void switchModeClicked() {
+		initStartView();
+	}
+
+	public void waveIsOver() {
+		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
+	}
+
+	public void levelIsOver(boolean won) {
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable(won);
+	}
+
+	public Main getMain() {
 		return myMain;
 	}
 
-	public String getBackgroundImageFile(){
+	public void setPlaying(boolean b) {
+		playing = b;
+	}
+
+	public String getBackgroundImageFile() {
 		return myEventManager.getCurrentLevel().getMap().getMapImage();
 	}
 
-	public GameWorld getGameWorld(){
+	public GameWorld getGameWorld() {
 		return myGameWorld;
 	}
-	
-	public EventManager getEventManager(){
+
+	public EventManager getEventManager() {
 		return myEventManager;
+	}
+
+	public GameCapture getGameCapture() {
+		return myGameCapture;
+	}
+
+	public EngineView getEngineView() {
+		return myEngineView;
+	}
+
+	public Stage getStage() {
+		return myStage;
 	}
 }

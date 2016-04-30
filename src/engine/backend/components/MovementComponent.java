@@ -6,9 +6,9 @@ package engine.backend.components;
  *
  */
 
-public class MovementComponent extends Component implements IComponent {
-
-	// private double myVelocity;
+public class MovementComponent extends Component {
+	
+	private double myVelocity;
 	// private double myAcceleration;
 	private Vector myCurrentVelocityVector;
 	private Vector myDefaultVelocityVector;
@@ -49,25 +49,7 @@ public class MovementComponent extends Component implements IComponent {
 		setCurrentVelocityVector(new Vector(xspeed, yspeed));
 	}
 	
-	public MovementComponent(){
-		
-	}
-
-	@Override
-	public void initWithParams(String[] params) {
-		// 0 is velocity, 1 is theta, 2 is omega
-		myCurrentVelocityVector = new Vector(Double.parseDouble(params[0]), 0);
-		myDefaultVelocityVector = new Vector(Double.parseDouble(params[0]), 0);
-		myTheta = Double.parseDouble(params[1]);
-		myCurrentOmega = Double.parseDouble(params[2]);
-	}
-
-	/**
-	 * 
-	 * @return The vector with the current velocity of the entity with this
-	 *         component.
-	 */
-	public Vector getCurrentVelocityVector() {
+	public Vector getCurrentVelocityVector(){
 		return myCurrentVelocityVector;
 	}
 
@@ -101,7 +83,7 @@ public class MovementComponent extends Component implements IComponent {
 	 */
 	public void setSpeed(String deltaSpeed) {
 		double delta = Double.parseDouble(deltaSpeed);
-		myCurrentVelocityVector = myCurrentVelocityVector.scale(delta);
+		myCurrentVelocityVector.scale(delta);
 	}
 
 	/**
@@ -166,5 +148,40 @@ public class MovementComponent extends Component implements IComponent {
 	 */
 	public void setCanRotate(boolean bool) {
 		canRotate = bool;
+	}
+	
+	public double getVelocity() {
+		return myVelocity;
+	}
+
+	@Override
+	public String getComponentInfo() {
+		return "Velocity:" + myVelocity + "," + "CanMove:" + canMove + "," + "CanRotate:" + canRotate;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		switch (dataName) {
+		
+		case "Velocity":
+			this.myVelocity = Double.parseDouble(data);
+			return;
+		case "CanMove":
+			if (data.equals("True")) {
+				this.canMove = true;
+				return;
+			} else {
+				this.canMove = false;
+				return;
+			}
+		case "CanRotate":
+			if (data.equals("True")) {
+				this.canRotate = true;
+				return;
+			} else {
+				this.canRotate = false;
+				return;
+			}
+		}
 	}
 }
