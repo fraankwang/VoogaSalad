@@ -5,12 +5,13 @@ import java.util.List;
 
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.ShopItem;
-import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.GameStatistics;
+import engine.backend.game_object.GameWorld;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
+import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
@@ -100,7 +101,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 */
 	public void startGame(String selectedMode, Integer selectedLevel) {
 		try {
-			myEventManager.handleGameStartEvent(selectedMode, selectedLevel);
+			GameEvent e = new GameEvent(selectedMode, selectedLevel);
+			myEventManager.handleGameStartEvent(e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
