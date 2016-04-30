@@ -178,7 +178,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void handleWaveOverEvent(WaveOverEvent event) {
-		myEngineController.waveIsOver();
+		myEngineController.waveIsOver(event.getTimerLength());
 	}
 	
 	public void handleLevelOver() {
@@ -205,7 +205,6 @@ public class EventManager implements Observer {
 	private void resetLevel(){
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
-//		System.out.println("fjdskalfj");
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 

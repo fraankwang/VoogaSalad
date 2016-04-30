@@ -22,6 +22,7 @@ public class ControlManager extends ResourceUser {
 
 	private Button play;
 	private Button nextWave;
+	private double clockTime;
 	private Button nextLevel;
 	private ComboBox<String> modeComboBox;
 	private Button modeButton;
@@ -69,21 +70,19 @@ public class ControlManager extends ResourceUser {
 	}
 
 	public void nextWaveEnable(double time) {
-		startNextWaveTimer(time);
 		nextWave.setDisable(false);
+		startNextWaveTimer(time);
 	}
 	
 	private void startNextWaveTimer(double time){
-		double clockTime = time;
+		clockTime = time;
 		KeyFrame frame = new KeyFrame(Duration.millis(100), e -> {
-			
+			nextWave.setText(loadStringResource("NextWaveTimerLabel") + (clockTime - .1));
 		});
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-		
-		nextWave.setText(loadStringResource("NextWaveLabel"));
-		
+		animation.play();
 	}
 
 	
