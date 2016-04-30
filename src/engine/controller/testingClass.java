@@ -22,6 +22,7 @@ import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_features.GameShop;
 import engine.backend.game_features.ShopItem;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
@@ -184,7 +185,7 @@ public class testingClass {
 		
 		level.setShopItems(Arrays.asList(item));
 		
-		IEntity tempEntity2 = new Entity(-1, "tempEntity2", "object2");
+		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
@@ -235,6 +236,7 @@ public class testingClass {
 		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
 		level.addEntityToMap(tempEntity2);
+		
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
 		level.setCurrentWaveIndex(0);
@@ -243,6 +245,10 @@ public class testingClass {
 		level.setAuthoredEntities(authoredEntities);
 		mode.addLevel(level);
 		firingTest.addMode(mode);
+		
+		GameStatistics gameStats = new GameStatistics(50, 50);
+		firingTest.setGameStatistics(gameStats);
+
 		return firingTest;
 	}
 
