@@ -33,7 +33,6 @@ public class CollisionSystem extends GameSystem{
     				entitySet.add(entity2);
     				addToEventMap(myEventMap, event, entitySet);
     			}));
-    	
     }
     
 	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){

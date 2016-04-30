@@ -92,8 +92,8 @@ public class GameStatistics implements IModifiable{
 		return currentLevelIndex;
 	}
 
-	public void setCurrentModeIndex(String c){
-		currentMode = c;
+	public void setCurrentMode(String modeName){
+		currentMode = modeName;
 	}
 
 	public String getCurrentMode() {

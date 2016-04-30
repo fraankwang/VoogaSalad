@@ -1,5 +1,6 @@
 package engine.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import engine.backend.entities.InGameEntityFactory;
@@ -98,11 +99,17 @@ public class EngineController extends ResourceUser implements IEngineController{
 	/**
 	 * Starts a game after the intial scene sets the stage and 
 	 */
-	public void startGame(){
+	public void startGame(String selectedMode, Integer level){
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
 				myEventManager.getCurrentLevel().getAuthoredEntities());
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
+		try {
+			myEventManager.handleGameStartEvent(selectedMode, level);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		initEngineView();	
 	}

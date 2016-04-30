@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -9,15 +10,17 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import backend.xml_converting.GameWorldToXMLWriter;
+import backend.xml_converting.ObjectToXMLWriter;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
-import engine.backend.entities.EntityStatistics;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
+import engine.backend.game_object.Mode;
 import engine.backend.game_object.GameStatistics;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.IAction;
@@ -44,6 +47,7 @@ public class EventManager implements Observer {
 	InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
 
+
 	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
 		myGameWorld = game;
@@ -63,6 +67,10 @@ public class EventManager implements Observer {
 	public Level getCurrentLevel() {
 		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
 				currentModeStatistics. getCurrentLevelIndex());
+	}
+	
+	public Mode getCurrentMode() {
+		return myGameWorld.getModes().get(currentModeStatistics.getCurrentMode());
 	}
 
 	public void updateGameShop() {
@@ -107,6 +115,58 @@ public class EventManager implements Observer {
 
 	}
 
+	/**
+	 * Handles setting the mode and level when clicked.
+	 * @param modeName
+	 * @param level
+	 * @throws IOException
+	 */
+	public void handleGameStartEvent(String modeName, int level) throws IOException {
+		handleModeClickedEvent(modeName);
+		handleLevelClickedEvent(level);
+	}
+	
+	/**
+	 * Handles when a mode has been selected.
+	 * @param modeName
+	 */
+	private void handleModeClickedEvent(String modeName) {
+		currentModeStatistics.setCurrentMode(modeName);
+	}
+	
+	/**
+	 * Handles when a level has been selected.
+	 * 
+	 * @param Level
+	 * @throws IOException
+	 */
+	private void handleLevelClickedEvent(int level) throws IOException {
+		currentModeStatistics.setCurrentLevelIndex(level);
+		serializeLevel();
+	}
+
+	/**
+	 * Handles when user goes to the next level.
+	 * 
+	 */
+	public void handleGoToNextLevelEvent() {
+		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
+		serializeLevel();
+	}
+
+	private void serializeLevel() {
+		myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(), currentModeStatistics.getCurrentLevelIndex())
+				.setLastSerializedVersion(serializeLevel(
+						myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
+								currentModeStatistics.getCurrentLevelIndex()),
+						myGameWorld.getGameType() + currentModeStatistics.getCurrentLevelIndex()));
+	}
+	
+	private String serializeLevel(Object o, String fileName) {
+		ObjectToXMLWriter serializer = new GameWorldToXMLWriter();
+		return serializer.getXMLfromObject(o);
+	}
+	
 	private void handleWaveOverEvent(WaveOverEvent event) {
 		int index = getCurrentLevel().getCurrentWaveIndex();
 		// last wave, level is over, send whether level is won or not
