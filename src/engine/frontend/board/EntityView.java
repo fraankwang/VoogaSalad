@@ -74,7 +74,9 @@ public class EntityView {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getDragboard().hasString()) {
 			myController.attemptUpgrade(myID, e.getDragboard().getString());
+
 		}
+		e.consume();
 		
 	}
 }

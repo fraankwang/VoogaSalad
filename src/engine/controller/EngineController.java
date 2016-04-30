@@ -21,6 +21,7 @@ import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
+import engine.backend.systems.Events.PowerUpDroppedEvent;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
@@ -126,8 +127,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
@@ -215,7 +215,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void attemptUpgrade(int id, String type){
-		
+		PowerUpDroppedEvent event = new PowerUpDroppedEvent(type, id);
+		mySystems.sendUserInputEvent(event);
+		System.out.println("My ID: " + id + "Upgrade type: " + type);
 	}
 	
 	public void keyPressed(String s){
