@@ -98,12 +98,24 @@ public abstract class ObjectToXMLWriter {
 		return xstream;
 	}
 	
+	/**
+	 * Converts a string to a document with the given file name.
+	 * @param xml
+	 * @param fileName
+	 * @throws IOException
+	 */
 	public static void stringToDocument(String xml, String fileName) throws IOException {
 		PrintWriter out = new PrintWriter(fileName);
 		out.println(xml);
 		out.close();
 	}
 	
+	/**
+	 * Converts a document given its file path to a string.
+	 * @param filePath
+	 * @return
+	 * @throws IOException
+	 */
 	public static String documentToString(String filePath) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
 		String line;
