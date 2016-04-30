@@ -1,3 +1,6 @@
+/**
+ * @author austinwu
+ */
 package engine.frontend.status;
 
 import engine.frontend.overall.ResourceUser;

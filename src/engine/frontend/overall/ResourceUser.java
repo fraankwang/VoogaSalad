@@ -1,5 +1,7 @@
 package engine.frontend.overall;
-
+/**
+ * @author austinwu
+ */
 import java.util.ResourceBundle;
 
 public abstract class ResourceUser {

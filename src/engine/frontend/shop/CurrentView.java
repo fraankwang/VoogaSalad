@@ -1,3 +1,6 @@
+/**
+ * @author austinwu
+ */
 package engine.frontend.shop;
 
 import java.util.HashMap;

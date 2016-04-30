@@ -1,4 +1,7 @@
 package engine.frontend.overall;
+/**
+ * @author austinwu
+ */
 
 import engine.controller.EngineController;
 import engine.frontend.board.BoardPane;
@@ -29,9 +32,8 @@ public class EngineView extends ResourceUser{
 	 *  Small todos:
 	 *  finish "load game" option for first screen- almost done 
 	 *  lose-the-game screen
-	 *  finish stats util
-	 *  Set up upgrades to send  backend info when dropped on towers
-	 *  make sure game looop works when loading new maps with different aspect ratio map images
+	 *  Set up upgrades to send backend info when dropped on towers
+	 *  make sure game loop works when loading new maps with different aspect ratio map images
 	 *  Respond to keyboard events with an entityID and the key pressed
 	 *  reorganize/javadoc code LAST
 	 */
