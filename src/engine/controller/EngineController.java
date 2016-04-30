@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 import utility.gamecapture.GameCapture;
-import voogasalad.util.hud.source.HUDController;
+import utility.hud.HUDController;
 
 public class EngineController extends ResourceUser implements IEngineController {
 	private Stage myStage;
