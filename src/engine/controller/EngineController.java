@@ -49,7 +49,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private boolean playing;
 
 	private EventManager myEventManager;
-	private TestingClass myTestingClass;
+	private testingClass myTestingClass;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
@@ -87,7 +87,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		animation.stop();
 		playing = false;
 		myGameWorld = new GameWorld();
-		myTestingClass = new TestingClass();
+		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		
 		GameStatistics stats = new GameStatistics(10, 10);

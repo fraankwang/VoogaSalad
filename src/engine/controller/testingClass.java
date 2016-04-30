@@ -33,9 +33,9 @@ import engine.backend.rules.EntityAction;
 import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 
-public class TestingClass {
+public class testingClass {
 	
-	public TestingClass() {
+	public testingClass() {
 		
 	}
 	public GameWorld initTestGame(GameWorld myGameWorld) {
