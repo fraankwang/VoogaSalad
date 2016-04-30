@@ -29,6 +29,7 @@ import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
+import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
@@ -121,9 +122,9 @@ public class EventManager implements Observer {
 	 * @param level
 	 * @throws IOException
 	 */
-	public void handleGameStartEvent(String modeName, int level) throws IOException {
-		handleModeClickedEvent(modeName);
-		handleLevelClickedEvent(level);
+	public void handleGameStartEvent(GameEvent event) throws IOException {
+		handleModeClickedEvent(event.getModeName());
+		handleLevelClickedEvent(event.getLevel());
 	}
 	
 	/**
