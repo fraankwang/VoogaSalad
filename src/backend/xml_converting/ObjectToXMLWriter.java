@@ -3,6 +3,10 @@ package backend.xml_converting;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+
+import exception.DrumpfTowerException;
+import exception.ExceptionLoader;
+
 import org.xml.sax.InputSource;
 
 import javax.xml.transform.OutputKeys;
@@ -25,9 +29,12 @@ import java.io.OutputStreamWriter;
  */
 public abstract class ObjectToXMLWriter {
 	private XStream xstream;
+	private ExceptionLoader exceptionLoader;
+	private static final String FORMATTING_ERROR = "XMLFormattingError";
 
 	public ObjectToXMLWriter() {
 		xstream = new XStream(new StaxDriver());
+		exceptionLoader = new ExceptionLoader();
 	}
 
 	/**
@@ -36,7 +43,7 @@ public abstract class ObjectToXMLWriter {
 	 * @return A String with a formatted XML.
 	 */
 	public static String formatXml(String xml) {
-
+		ExceptionLoader exceptionLoader = new ExceptionLoader();
 		try {
 			Transformer serializer = SAXTransformerFactory.newInstance().newTransformer();
 
@@ -51,7 +58,8 @@ public abstract class ObjectToXMLWriter {
 			return new String(((ByteArrayOutputStream) res.getOutputStream()).toByteArray());
 
 		} catch (Exception e) {
-			return xml;
+			new DrumpfTowerException(exceptionLoader.getString(FORMATTING_ERROR));
+			return null;
 		}
 	}
 
