@@ -96,6 +96,7 @@ public class SystemsController {
 		myEventManager.handleGeneratedEvents(myEventMap);
 		myEventManager.updateGameShop();
 		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
+		myEventManager.handleLevelOver();
 		myGameClock.updateLoopIteration();
 		
 	}

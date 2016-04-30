@@ -238,8 +238,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
 	}
 
-	public void levelIsOver(boolean won) {
-		myEngineView.getStatusPane().getControlManager().nextLevelEnable(won);
+	public void levelIsWon(){
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
+	}
+	
+	public void levelIsLost(){
+//		initLoseView();
+		System.out.println("lost");
 	}
 
 	public Main getMain() {
