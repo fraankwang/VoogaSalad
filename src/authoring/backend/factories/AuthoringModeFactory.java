@@ -15,7 +15,7 @@ public class AuthoringModeFactory {
 		String name = "";
 		Map<Integer, String> levelMap = new TreeMap<Integer, String>();
 		int initialLives = 0;
-		int initialResources = 0;
+		double initialResources = 0;
 		for (String key : data.keySet()) {
 			switch (key) {
 			
@@ -29,7 +29,7 @@ public class AuthoringModeFactory {
 				initialLives = Integer.parseInt(data.get(key));
 				break;
 			case "InitialResources":
-				initialResources = Integer.parseInt(data.get(key));
+				initialResources = Double.parseDouble(data.get(key));
 				break;				
 			}
 		}

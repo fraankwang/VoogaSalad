@@ -16,6 +16,7 @@ public class AuthoringGame {
 	}
 	
 	public void initializeInfo() {
+		this.myInfo.put("Type", "Game");
 		this.myInfo.put("Name", myName);
 	}
 	

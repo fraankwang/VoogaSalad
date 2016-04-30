@@ -80,6 +80,7 @@ public class ModesTabGrid extends TabGrid {
 			gridView.addImage(iv);
 		}
 
+		gridView.resetGrid();
 	}
 
 	/**

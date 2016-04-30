@@ -24,6 +24,8 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 	
 	public UnmodifiableGameAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
+		myDefaultAttributes = Arrays.asList("Game Type");
+
 	}
 
 	@Override
@@ -37,9 +39,7 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 
-		List<String> gameAttributes = (List<String>) Arrays.asList("Game Type", "Number of Players", "Number of Starting Lives",
-				"Number of Lives for Defeat", "Game Timer", "Starting Resources");
-		myAttributesGridPane = createAttributesGridPane(gameAttributes);
+		myAttributesGridPane = createAttributesGridPane(myDefaultAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 
 	}
