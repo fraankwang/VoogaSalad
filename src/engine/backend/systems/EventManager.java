@@ -31,6 +31,7 @@ import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.IEvent;
+import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.backend.systems.Events.WaveOverEvent;
@@ -113,6 +114,8 @@ public class EventManager implements Observer {
 		if (myEvent instanceof NextWaveEvent) {
 			handleNextWaveEvent((NextWaveEvent) myEvent);
 		}
+		
+		
 
 	}
 	
@@ -238,6 +241,14 @@ public class EventManager implements Observer {
 			}
 		}
 		entity.broadcastEntity();
+	}
+	
+	private void handleKeyPressedEvent(KeyPressedEntityEvent event) {
+		List<String> identifiers = new ArrayList<String>();
+		identifiers.add(event.getKeyPressed());
+		event.getEntityIDs().forEach(id -> identifiers.add(getCurrentLevel().getEntityWithID(id).getName()));
+		event.setEventID(identifiers);
+		//handle finding rule...
 	}
 
 	public void updateEntityFactory() {
