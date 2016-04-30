@@ -93,7 +93,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	public Map<String, String> saveAttributes() {
 		myAttributesMap.clear();
 		myAttributesMap.put("Type", "Entity");
-		
+
 		condenseTracking(myInputMap, myAttributes);
 
 		for (String s : myInputMap.keySet()) {
@@ -128,9 +128,6 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		@SuppressWarnings("unchecked")
 		String tracking = ((ComboBox<String>) myInputMap.get(canTrack)).getSelectionModel().getSelectedItem();
 
-		System.out.println("user selected tracking to be: " + tracking);
-		
-		
 		inputMap.remove(canTrack);
 		attributes.remove(canTrack);
 
@@ -147,8 +144,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
 		myAttributes = attributes;
 		myInputMap = inputMap;
-		System.out.println("****** " + myAttributes);
-		System.out.println("****** " + myInputMap.keySet());
+
 	}
 
 	/**
@@ -166,12 +162,16 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		if (attributes.contains("TrackingMovementComponent_Velocity")) {
 			myAttributesMap.put("MovementComponent_CanTrack", "true");
 			for (String trackingComponent : trackingMovementComponents) {
+				String truncated = trackingComponent.substring(8);
 				attributes.remove(trackingComponent);
-				attributes.add(trackingComponent.substring(8));
+				attributes.add(truncated);
+				String selected = myAttributesMap.get(trackingComponent);
+				myAttributesMap.replace(truncated, selected);
 			}
 		} else if (attributes.contains("MovementComponent_Velocity")) {
 			myAttributesMap.put("MovementComponent_CanTrack", "false");
 		}
+		System.out.println("***** " + attributes);
 
 	}
 
