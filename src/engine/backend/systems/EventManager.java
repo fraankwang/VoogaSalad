@@ -2,6 +2,7 @@ package engine.backend.systems;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,7 @@ import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
+import engine.backend.systems.Events.PowerUpDroppedEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.backend.systems.Events.WaveOverEvent;
 import engine.backend.utilities.ComponentTagResources;
@@ -199,10 +201,9 @@ public class EventManager implements Observer {
 	 * @param event
 	 */
 	private void handleEntityDropEvent(EntityDroppedEvent event) {
-		
 		double value = event.getEntityValue();
 		currentModeStatistics.setCurrentResources(Double.toString(value));
-		
+
 		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
@@ -283,8 +284,18 @@ public class EventManager implements Observer {
 			else if(event instanceof NextWaveEvent){
 				handleNextWaveEvent((NextWaveEvent) event);
 			}
+			else if(event instanceof PowerUpDroppedEvent){
+				handlePowerUpDroppedEvent((PowerUpDroppedEvent) event);
+			}
 		}
 		
+	}
+	
+	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
+		Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
+		Collection<IAction> actions = event.getPowerUp().getActions();
+		applyActions(affectedEntities, actions);
+		currentModeStatistics.setCurrentResources(currentModeStatistics.getCurrentResources() - event.getPowerUp().getPrice()); 
 	}
 
 	// supposed to handle list of events generated in each loop iteration

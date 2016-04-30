@@ -1,30 +1,34 @@
 package engine.backend.game_features;
 
 import java.util.List;
-
-import engine.backend.rules.EntityAction;
+import engine.backend.rules.IAction;
 
 public class EntityPowerUp {
-	private double price;
-	private List<EntityAction> actions;
+	private int price;
+	private List<IAction> actions;
 	
 	public EntityPowerUp() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setActions(List<EntityAction> actions){
+	public EntityPowerUp(int price, List<IAction> actions){
+		this.price = price;
 		this.actions = actions;
 	}
 	
-	public List<EntityAction> getActions(){
+	public void setActions(List<IAction> actions){
+		this.actions = actions;
+	}
+	
+	public List<IAction> getActions(){
 		return this.actions;
 	}
 	
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	
