@@ -27,11 +27,9 @@ import engine.backend.rules.IAction;
 import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
-import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.IEvent;
-import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.backend.systems.Events.WaveOverEvent;
@@ -39,8 +37,6 @@ import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
 
 public class EventManager implements Observer {
-	
-	private static final int ZERO = 0;
 	
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
@@ -174,19 +170,32 @@ public class EventManager implements Observer {
 	}
 	
 	private void handleWaveOverEvent(WaveOverEvent event) {
-		int index = getCurrentLevel().getCurrentWaveIndex();
-		// last wave, level is over, send whether level is won or not
-		if (index == getCurrentLevel().getNumWaves() - 1) {
-			boolean won = currentModeStatistics.getCurrentNumLives() > ZERO;
-			myEngineController.levelIsOver(won);
-			String modeName = currentModeStatistics.getCurrentMode();
-			int levelIndex = currentModeStatistics.getCurrentLevelIndex();
-			myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
-		} else {
-			myEngineController.waveIsOver();
-			//getCurrentLevel().setCurrentWaveIndex(index + 1);
+		myEngineController.waveIsOver();
+	}
+	
+	public void handleLevelOver() {
+		
+		boolean noLives = currentModeStatistics.noMoreLives();
+		if(noLives){
+			myEngineController.levelIsLost();
+			resetLevel();
 		}
-
+		else{
+			if(getCurrentLevel().lastWaveOver()){
+				myEngineController.levelIsWon();
+				resetLevel();
+			}
+			else{
+				return;
+			}
+		}
+		
+	}
+	
+	private void resetLevel(){
+		String modeName = currentModeStatistics.getCurrentMode();
+		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
+		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
 	private void handleNextWaveEvent(NextWaveEvent event) {
@@ -207,31 +216,6 @@ public class EventManager implements Observer {
 		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
 		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
 		getCurrentLevel().addEntityToMap(newEntity);
-	}
-
-	private void handleClickEvent(EntityClickedEvent event) {
-
-		String identifier = getCurrentLevel().getEntityWithID(event.getFirstEntityID()).getName();
-		event.setEventID(identifier);
-		IEntity entity = getCurrentLevel().getEntityWithID(event.getFirstEntityID());
-		((Observable) entity).addObserver(event.getCurrentView());
-
-		for (Rule rule : myRuleAgenda) {
-			ArrayList<String> ruleEvents = (ArrayList<String>) rule.getEvents();
-			if (ruleEvents.size() == 1 && ruleEvents.get(0).equals(event.getEventID())) {
-				applyActions(entity, rule.getActions());
-			}
-		}
-		entity.broadcastEntity();
-	}
-	
-	private void handleKeyPressedEvent(KeyPressedEntityEvent event) {
-		System.out.println(event.getKeyPressed() + " " + event.getFirstEntityID());
-		List<String> identifiers = new ArrayList<String>();
-		identifiers.add(event.getKeyPressed());
-		event.getEntityIDs().forEach(id -> identifiers.add(getCurrentLevel().getEntityWithID(id).getName()));
-		event.setEventID(identifiers);
-		//handle finding rule...
 	}
 
 	public void updateEntityFactory() {
@@ -321,10 +305,6 @@ public class EventManager implements Observer {
 	private void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
 		getCurrentLevel().addEntityToMap(event.getNewEntities());
-	}
-
-	private void handleEnemyMissed() {
-
 	}
 
 	public GameWorld getGameWorld() {

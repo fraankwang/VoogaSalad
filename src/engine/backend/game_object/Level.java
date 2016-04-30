@@ -233,4 +233,10 @@ public class Level {
 		this.shouldRevert = shouldRevert;
 	}
 
+	public boolean lastWaveOver() {
+		// TODO Auto-generated method stub
+		int index = getCurrentWaveIndex();		
+		return index == getNumWaves();
+	}
+
 }
