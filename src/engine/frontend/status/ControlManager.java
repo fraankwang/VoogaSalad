@@ -5,6 +5,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -29,9 +30,9 @@ public class ControlManager extends ResourceUser {
 		play = myStatusPane.createButton(loadStringResource("PlayLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
 		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
 		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
-		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
-
-		play.setOnAction(e -> {
+		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());		
+		
+		play.setOnMouseClicked(e -> {
 			if (play.getText().equals(loadStringResource("PlayLabel"))) {
 				myStatusPane.getEngineView().getEngineController().setPlaying(true);
 				play.setText(loadStringResource("PauseLabel"));
@@ -42,18 +43,18 @@ public class ControlManager extends ResourceUser {
 		});
 
 		nextWave.setDisable(true);
-		nextWave.setOnAction(e -> {
+		nextWave.setOnMouseClicked(e -> {
 			myStatusPane.getEngineView().getEngineController().nextWaveClicked();
 			nextWave.setDisable(true);
 		});
 
 		nextLevel.setDisable(true);
-		nextLevel.setOnAction(e -> {
+		nextLevel.setOnMouseClicked(e -> {
 			myStatusPane.getEngineView().getEngineController().nextLevelClicked();
 			nextLevel.setDisable(true);
 		});
 
-		modeButton.setOnAction(e -> myStatusPane.getEngineView().getEngineController().switchModeClicked());
+		modeButton.setOnMouseClicked(e -> myStatusPane.getEngineView().getEngineController().switchModeClicked());
 
 		vbox.getChildren().addAll(play, nextWave, nextLevel, modeButton);
 		myStatusPane.bindWidth(vbox, myStatusPane.getPane().widthProperty().divide(4));

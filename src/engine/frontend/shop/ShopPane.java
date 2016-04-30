@@ -52,6 +52,7 @@ public class ShopPane extends AbstractPane {
 		myVBox.getChildren().add(myCurrentView.buildCurrentView(myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
 		
 		myPane.getChildren().add(myVBox);
+		myPane.setOnKeyPressed(null);
 		
 		return myPane;
 	}
