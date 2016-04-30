@@ -224,7 +224,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
-		if (isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
+		if (event.getPowerUp() != null && isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
 			Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
 			Collection<IAction> actions = event.getPowerUp().getActions();
 			applyActions(affectedEntities, actions);
