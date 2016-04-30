@@ -17,10 +17,12 @@ public class InGameEntityFactory {
 	private GameStatistics myStats;
 	private Map<String, Map<String, IEntity>> myEntityMap;
 	private int currentLevelId;
+	private int initNumEntities;
 
 	public InGameEntityFactory(GameStatistics stats, List<IEntity> entities) {
 		this.myStats = stats;
 		this.myEntityMap = createMap(entities);
+		//initNumEntities = 0;
 	}
 	
 	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities)
@@ -48,7 +50,7 @@ public class InGameEntityFactory {
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
 
-		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getGenre());
+		IEntity newEntity = new Entity(initNumEntities + myStats.getNextAvailableID(), templateEntity.getName(), templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
 	}
@@ -113,6 +115,10 @@ public class InGameEntityFactory {
 	
 	public void setID(int id){
 		this.currentLevelId = id;
+	}
+	
+	public void setInitNumEntities(int num){
+		this.initNumEntities = num;
 	}
 
 }
