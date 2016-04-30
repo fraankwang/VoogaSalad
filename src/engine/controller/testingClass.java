@@ -109,6 +109,7 @@ public class testingClass {
 		EntityAction action5 = new EntityAction("SimpleBullet", "Display", "Delete", "true");
 		
 		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
+		LevelAction levelAction2 = new LevelAction("CurrentResources", "4");
 		
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action); 
@@ -135,7 +136,7 @@ public class testingClass {
 		rule4.addEvents(Arrays.asList("SimpleBulletOutOfMapEvent"));
 		
 		Rule rule5 = new Rule();
-		rule5.addActions(Arrays.asList(levelAction, action));
+		rule5.addActions(Arrays.asList(levelAction, action, action4, levelAction2));
 		rule5.addEvents(Arrays.asList("tempEntityEndOfPathEvent"));
 		
 		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4, rule5));
