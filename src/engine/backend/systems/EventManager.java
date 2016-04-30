@@ -2,6 +2,7 @@ package engine.backend.systems;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -31,6 +32,7 @@ import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.NextWaveEvent;
+import engine.backend.systems.Events.PowerUpDroppedEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.backend.systems.Events.WaveOverEvent;
 import engine.backend.utilities.ComponentTagResources;
@@ -213,14 +215,28 @@ public class EventManager implements Observer {
 	 * @param event
 	 */
 	private void handleEntityDropEvent(EntityDroppedEvent event) {
-		
-		double value = event.getEntityValue();
-		currentModeStatistics.setCurrentResources(Double.toString(value));
-		
-		IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
-		PositionComponent posComp = (PositionComponent) newEntity.getComponent(ComponentTagResources.positionComponentTag);
-		posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
-		getCurrentLevel().addEntityToMap(newEntity);
+		if (currentModeStatistics.getCurrentResources() >= event.getEntityValue()) {
+			subtractFromResources(event.getEntityValue());
+			IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
+			PositionComponent posComp = (PositionComponent) newEntity
+					.getComponent(ComponentTagResources.positionComponentTag);
+			posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
+			getCurrentLevel().addEntityToMap(newEntity);
+		}
+	}
+	
+	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
+		if (isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
+			Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
+			Collection<IAction> actions = event.getPowerUp().getActions();
+			applyActions(affectedEntities, actions);
+			subtractFromResources(event.getPowerUp().getPrice()); 
+		} 
+	}
+	
+	private boolean isPowerUpApplicable(int entityID, String applicableName){
+		IEntity entity = getCurrentLevel().getEntityWithID(entityID);
+		return entity.getName().equals(applicableName);
 	}
 
 	public void updateEntityFactory() {
@@ -271,8 +287,10 @@ public class EventManager implements Observer {
 			else if(event instanceof NextWaveEvent){
 				handleNextWaveEvent((NextWaveEvent) event);
 			}
+			else if(event instanceof PowerUpDroppedEvent){
+				handlePowerUpDroppedEvent((PowerUpDroppedEvent) event);
+			}
 		}
-		
 	}
 
 	// supposed to handle list of events generated in each loop iteration
@@ -327,6 +345,10 @@ public class EventManager implements Observer {
 
 	public void initializeRules() {
 		myRuleAgenda = getCurrentLevel().getRuleAgenda();
+	}
+	
+	private void subtractFromResources(double value){
+		currentModeStatistics.setCurrentResources(currentModeStatistics.getCurrentResources() - value); 
 	}
 
 }

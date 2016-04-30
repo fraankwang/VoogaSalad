@@ -50,13 +50,14 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 
+		
 		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 600, 400);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object");
 		IComponent tempPosition = new PositionComponent(0, 60);
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent tempCollision = new CollisionComponent();
-		IComponent pathComp = new PathComponent(0, 0);
+		IComponent pathComp = new PathComponent(0, 0);r
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
 		tempEntity.addComponent(tempDisplay);
@@ -168,9 +169,17 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 		
-		Path[] pathArray = new Path[1];
-		pathArray[0] = tempPath;
+		Path tempPath1 = new Path();
+		BezierCurve tempCurve4 = new BezierCurve(600, 4, 0, 0, 0, 0, 2, 100);
+		BezierCurve tempCurve5 = new BezierCurve(250, 200, 50, 50, 250, 450, 0, 200);
+		BezierCurve tempCurve6 = new BezierCurve(0, 300, 950, 50, 250, 250, 200, 400);
+		tempPath1.addCurve(tempCurve4);
+		tempPath1.addCurve(tempCurve6);
+		tempPath1.addCurve(tempCurve5);
 		
+		Path[] pathArray = new Path[2];
+		pathArray[0] = tempPath;
+		pathArray[1] = tempPath1;
 		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
@@ -178,6 +187,12 @@ public class testingClass {
 		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 2);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
 
+		IEntity tempSpawn2  = new Entity(-40, "tempSpawn2", "spawner");
+		Spawn spawn3 = new Spawn("tempEntity", 1, 0, 10);
+		Spawn spawn4 = new Spawn("tempEntity", 1, 1, 10);
+		IComponent tempSpawner1 = new SpawnerComponent(Arrays.asList(spawn3, spawn4), 1);
+
+		
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
@@ -185,6 +200,14 @@ public class testingClass {
 		tempSpawn.addComponent(tempSpawner);
 		tempSpawn.addComponent(tempPosition4);
 		tempSpawn.addComponent(tempDisplay4);
+		
+		IComponent tempPosition5 = new PositionComponent(0, 100);
+		IComponent tempDisplay5 = new DisplayComponent(false);
+		IComponent tempSize5 = new SizeComponent();
+		tempSpawn2.addComponent(tempSize5);
+		tempSpawn2.addComponent(tempSpawner1);
+		tempSpawn2.addComponent(tempPosition5);
+		tempSpawn2.addComponent(tempDisplay5);
 		
 		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns");
 		IComponent tempPosition = new PositionComponent(0, 100);
@@ -258,6 +281,7 @@ public class testingClass {
 		myCreatableEntityMap.put("Towers", createdTowers);
 		
 		level.addEntityToMap(tempSpawn);
+		level.addEntityToMap(tempSpawn2);
 		System.out.println(level.getEntities().values().size());
 		level.addEntityToMap(tempEntity2);
 		

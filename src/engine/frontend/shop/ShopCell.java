@@ -71,12 +71,13 @@ public class ShopCell extends ListCell<ShopItem> {
 				myName.setText(item.getItemName());
 			}
 			
+
 			if(myCost != item.getItemValue()){
 				myCost = item.getItemValue();
 				myCostText.setText(myResources.getString("ShopCostPrompt") + myCost);
+
 			}
-			
-//			if (myItem.isCanBuy()) {
+			//if (myItem.isCanBuy()) {
 			if(true){
 				setOnDragDetected(e -> selectTower(e));
 				setHBoxOpacity(getDoubleResource("YesOpacity"));
