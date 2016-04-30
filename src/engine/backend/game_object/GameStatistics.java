@@ -31,14 +31,15 @@ public class GameStatistics implements IModifiable{
 	private Property currentMode;
 
 	public GameStatistics(int numLives, double resources) {
+		setInitialNumLives(numLives);
+		setInitialResources(resources);
+		
 		currentNumLives = new Property(initialNumLives, "lives");
 		currentResources = new Property(initialResources, "resources");
 		currentLevelIndex = new Property(initialLevel, "level");
 		currentMode = new Property((initialMode = new String()), "mode");
 		
-		setInitialNumLives(numLives);
 		setCurrentNumLives(numLives);	
-		setInitialResources(resources);
 		setCurrentResources(resources);
 //		endOfLevelLives = new ArrayList<Integer>();
 //		endOfLevelResources = new ArrayList<Double>();
