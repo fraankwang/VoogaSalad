@@ -6,6 +6,9 @@ package engine.frontend.status;
 import engine.controller.EngineController;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.ResourceUser;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
@@ -13,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class ControlManager extends ResourceUser {
 	private StatusPane myStatusPane;
@@ -20,6 +24,7 @@ public class ControlManager extends ResourceUser {
 
 	private Button play;
 	private Button nextWave;
+	private double clockTime;
 	private Button nextLevel;
 	private ComboBox<String> modeComboBox;
 	private Button modeButton;
@@ -78,9 +83,22 @@ public class ControlManager extends ResourceUser {
 	/**
 	 * Enables the nextwave button
 	 */
-	public void nextWaveEnable() {
+	public void nextWaveEnable(double time) {
 		nextWave.setDisable(false);
+		startNextWaveTimer(time);
 	}
+	
+	private void startNextWaveTimer(double time){
+		clockTime = time;
+		KeyFrame frame = new KeyFrame(Duration.millis(100), e -> {
+			nextWave.setText(loadStringResource("NextWaveTimerLabel") + (clockTime - .1));
+		});
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Animation.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+	}
+
 
 
 	/**
@@ -88,7 +106,6 @@ public class ControlManager extends ResourceUser {
 	 */
 	public void nextLevelEnable() {
 		nextWave.setDisable(false);
-
 	}
 
 	/**

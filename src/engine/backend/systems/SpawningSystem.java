@@ -56,6 +56,7 @@ public class SpawningSystem extends GameSystem {
 
 			for(Spawn spawn : spawnerComponent.getSpawns()){
 				if(spawn.getWaveIndex() == currentWaveIndex && spawn.getNumEntities() > 0){
+					//System.out.println(spawn.getInfo());
 					waveIsOver = false;
 					updateSpawn(spawn, posComponent.getPositionVector(), newEntities, myEntityFactory, currentSecond, spawnerComponent.getPathID());
 				}
@@ -63,7 +64,7 @@ public class SpawningSystem extends GameSystem {
 
 			if(waveIsOver){
 				myLevel.setCurrentWaveIndex(currentWaveIndex + 1);
-				sendEvent(getWaveOverEvent());
+				sendEvent(getWaveOverEvent(myLevel.getWaveDelayTimer()));
 				delayTimer = 100 * myLevel.getWaveDelayTimer();
 			}
 
@@ -93,8 +94,8 @@ public class SpawningSystem extends GameSystem {
 
 	}
 
-	private IEvent getWaveOverEvent(){
-		return new WaveOverEvent();
+	private IEvent getWaveOverEvent(double timer){
+		return new WaveOverEvent(timer);
 	}
 
 	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){

@@ -68,7 +68,7 @@ public class EndView {
 	}
 	
 	private void restart(){
-		myController.initStartView();
+		myController.initStartView(false);
 	}
 }
 

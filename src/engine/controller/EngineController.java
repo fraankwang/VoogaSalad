@@ -45,6 +45,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
+	
+	private File myFile;
 
 	private static final String RESOURCE_NAME = "stage";
 
@@ -52,12 +54,12 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private boolean stepping;
 
 	private EventManager myEventManager;
-	private GameStatistics myGameStatistics;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
 	private testingClass myTestingClass;
 	private Integer lastEntityClickedID;
+
 
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
@@ -78,7 +80,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		animation.getKeyFrames().add(frame);
 
 		initStage();
-		initStartView();
+		initStartView(true);
 	}
 
 	private void initStage() {
@@ -88,27 +90,29 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.setY(loadIntResource("StartY"));
 	}
 
-	public void initStartView() {
+	public void initStartView(boolean firsttime) {
 		animation.stop();
 		stepping = false;
 
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
-		myGameStatistics = myGameWorld.getGameStatistics();
+		//myGameStatistics = myGameWorld.getGameStatistics();
 		myEventManager = new EventManager(this, myGameWorld);
 		startGame("test firing", 0);
 		
-//		StartView myStartView = new StartView(this);
+//		StartView myStartView = new StartView(this, firsttime);
 //		Scene scene = myStartView.buildScene();
 //		myStage.setScene(scene);
 //		myStage.show();
 	}
 	
 	public void initGameWorld(File file){
+		if(file != null){
+			myFile = file;
+		}
 		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
 		try {
-			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(file));
-			myGameStatistics = myGameWorld.getGameStatistics();
+			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(myFile));
 			myEventManager = new EventManager(this, myGameWorld);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block bad xml file error once its thrown
@@ -148,7 +152,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	
 	public Region setupHUD(){
 		HUDController myHUD = new HUDController();
-		myHUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
+		myHUD.init(myEventManager.getCurrentGameStatistics(), new HUDValueFinder());
 		AbstractHUDScreen myHUDScreen = myHUD.getView();
 		return ((DrumpfHUDScreen) myHUDScreen).getBody();
 	}
@@ -242,23 +246,25 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void nextLevelClicked() {
 		myEventManager.handleGoToNextLevelEvent();
+		initEngineView();
 	}
 	
 	public List<Integer> currentLevelsUnlocked(String mode){
 		List<Integer> list = new ArrayList<Integer>();
 		for(Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()){
-			if(i <= myGameStatistics.getHighestLevelUnlocked());
-			list.add(i);
+			if(i <= myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked()){
+				list.add(i);
+			}
 		}
 		return list;
 	}
 
 	public void switchModeClicked() {
-		initStartView();
+		initStartView(false);
 	}
 
-	public void waveIsOver() {
-		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
+	public void waveIsOver(double delaytime) {
+		myEngineView.getStatusPane().getControlManager().nextWaveEnable(delaytime);
 	}
 
 	public void levelIsWon(){
@@ -305,4 +311,5 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public Stage getStage() {
 		return myStage;
 	}
+
 }
