@@ -32,6 +32,8 @@ public class EngineView extends ResourceUser{
 	 *  lose-the-game screen
 	 *  finish stats util
 	 *  Set up upgrades to send backend info when dropped on towers
+	 *  Respond to keyboard events with an entityID and the key pressed
+	 *  Debug mode for stats in the menubar
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 	

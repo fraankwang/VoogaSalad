@@ -13,6 +13,9 @@ import javafx.scene.paint.Color;
 
 public class StartView {
 	private EngineController myController;
+	private String selectedMode;
+	private Integer selectedLevel;
+	
 	public StartView(EngineController ec){
 		myController = ec;
 	}
@@ -34,7 +37,7 @@ public class StartView {
             @Override 
             public void changed(ObservableValue ov, String t, String t1) {
             	levelComboBox.setDisable(false);
-                myController.getEventManager().getModeStatistics().setCurrentMode(t1);
+            	selectedMode = t1;
                 levelComboBox.getItems().addAll(myController.getGameWorld().getModes().get(t1).getLevels().keySet());
             }    
         });
@@ -42,12 +45,12 @@ public class StartView {
 		levelComboBox.valueProperty().addListener(new ChangeListener<Integer>() {
             @Override 
             public void changed(ObservableValue ov, Integer t, Integer t1) {                
-                myController.getEventManager().getModeStatistics().setCurrentLevelIndex(t1);
+                selectedLevel = t1;
                 button.setDisable(false);
             }    
         });
 		
-		button.setOnAction(e -> myController.startGame());
+		button.setOnAction(e -> myController.startGame(selectedMode, selectedLevel));
 		
 		bindHeight(modeComboBox, scene.heightProperty().divide(3));
 		bindWidth(modeComboBox, scene.widthProperty());

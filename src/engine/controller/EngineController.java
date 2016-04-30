@@ -25,30 +25,29 @@ import javafx.util.Duration;
 import main.Main;
 import utility.GameCapture;
 
-public class EngineController extends ResourceUser implements IEngineController{
+public class EngineController extends ResourceUser implements IEngineController {
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
 
 	/*
-	 * Controls to implement:
-	 * When switch mode is pressed, reshow startView scene, 
-	 * update start view scene's level combobox, and then
-	 * allow user to pick stuff, then recreate engineView and reshow new scene
-	 * ORGANIZE METHODS TO ALLOW FOR THIS  
+	 * Controls to implement: When switch mode is pressed, reshow startView
+	 * scene, update start view scene's level combobox, and then allow user to
+	 * pick stuff, then recreate engineView and reshow new scene ORGANIZE
+	 * METHODS TO ALLOW FOR THIS
 	 */
-	
+
 	private static final String RESOURCE_NAME = "stage";
-	
+
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean playing;
-	
+
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
-	
-	//testing
+
+	// testing
 	private testingClass myTestingClass;
 
 	private EngineView myEngineView;
@@ -59,128 +58,127 @@ public class EngineController extends ResourceUser implements IEngineController{
 		myStage = s;
 		myMain = m;
 	}
-	
+
 	/**
-	 * Initializes the animation and starts the 
+	 * Initializes the animation and starts the
 	 */
-	public void start(){
+	public void start() {
 		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
 		animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-		
+
 		initStage();
 		initStartView();
 	}
-	
-	private void initStage(){
+
+	private void initStage() {
 		myStage.setMinWidth(loadIntResource("StageMinWidth"));
 		myStage.setMinHeight(loadIntResource("StageMinHeight"));
 		myStage.setX(loadIntResource("StartX"));
 		myStage.setY(loadIntResource("StartY"));
 	}
-	
-	public void initStartView(){
+
+	public void initStartView() {
 		animation.stop();
 		playing = false;
 		myGameWorld = new GameWorld();
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
-		
+
 		GameStatistics stats = new GameStatistics(10, 10);
 		myGameWorld.setGameStatistics(stats);
 		myEventManager = new EventManager(this, myGameWorld);
-		
+
 		StartView myStartView = new StartView(this);
 		myStage.setScene(myStartView.buildScene());
 		myStage.show();
 	}
-	
+
 	/**
-	 * Starts a game after the intial scene sets the stage and 
+	 * Starts a game after the intial scene sets the stage and
 	 */
-	public void startGame(String selectedMode, Integer level){
-		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myEventManager.getCurrentLevel().getAuthoredEntities());
-		myEventManager.setEntityFactory(myEntityFactory);
-		myEventManager.initializeRules();
+	public void startGame(String selectedMode, Integer selectedLevel) {
 		try {
-			myEventManager.handleGameStartEvent(selectedMode, level);
+			myEventManager.handleGameStartEvent(selectedMode, selectedLevel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
+				myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEventManager.setEntityFactory(myEntityFactory);
+		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-		initEngineView();	
+		initEngineView();
 	}
-	
+
 	/**
 	 * Creates the engineView, starts the game by playing the animation
 	 */
-	private void initEngineView(){
+	private void initEngineView() {
 		myEngineView = new EngineView(myStage, this);
-		myStage.setScene(myEngineView.buildScene()); 
+		myStage.setScene(myEngineView.buildScene());
 		myStage.show();
 		setupGameCapture();
 		animation.play();
 	}
-	
-	private void setupGameCapture(){
-		myGameCapture = new GameCapture( 
-				loadIntResource("StartX"), 
-				loadIntResource("StartY"),
-				loadIntResource("StageMinWidth"),
-				loadIntResource("StageMinHeight"));
-		
-		myStage.xProperty().addListener(new ChangeListener<Number>(){
+
+	private void setupGameCapture() {
+		myGameCapture = new GameCapture(loadIntResource("StartX"), loadIntResource("StartY"),
+				loadIntResource("StageMinWidth"), loadIntResource("StageMinHeight"));
+
+		myStage.xProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				myGameCapture.setCaptureX(newValue.intValue());
 			}
 		});
-		
-		myStage.yProperty().addListener(new ChangeListener<Number>(){
+
+		myStage.yProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				myGameCapture.setCaptureY(newValue.intValue());
 			}
 		});
-		
-		myStage.widthProperty().addListener(new ChangeListener<Number>(){
+
+		myStage.widthProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				myGameCapture.setCaptureWidth(newValue.intValue());
 			}
 		});
-		
-		myStage.heightProperty().addListener(new ChangeListener<Number>(){
+
+		myStage.heightProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				myGameCapture.setCaptureHeight(newValue.intValue());
 			}
 		});
 	}
-	
+
 	public void step() {
-		if(playing){
-			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());			
+		if (playing) {
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());
 		}
 	}
-	
-	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
+
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
+			boolean show) {
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
-	
-	public void updateShop(List<ShopItem> shoplist){
+
+	public void updateShop(List<ShopItem> shoplist) {
 		myEngineView.getShopPane().updateShop(shoplist);
 	}
-	
-	public void updateUpgrades(List<ShopItem> upgradelist){
+
+	public void updateUpgrades(List<ShopItem> upgradelist) {
 		myEngineView.getShopPane().updateUpgrade(upgradelist);
 	}
 
 	public void attemptTower(double xLoc, double yLoc, String type) {
-		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(), yLoc / myEngineView.getScalingFactor().doubleValue(), type);
+		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
+				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
 		myEventManager.handleEntityDropEvent(event);
 	}
 
@@ -188,54 +186,54 @@ public class EngineController extends ResourceUser implements IEngineController{
 		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		myEventManager.handleClickEvent(clickedEvent);
 	}
-	
+
 	public void nextWaveClicked() {
-		NextWaveEvent nextWaveEvent = new NextWaveEvent();
-		myEventManager.handleNextWaveEvent(nextWaveEvent);	
-	}
-	
-	public void nextLevelClicked() {
 		NextWaveEvent nextWaveEvent = new NextWaveEvent();
 		myEventManager.handleNextWaveEvent(nextWaveEvent);
 	}
-	
-	public void switchModeClicked(){
+
+	public void nextLevelClicked() {
+		
+		myEventManager.handleGoToNextLevelEvent();
+	}
+
+	public void switchModeClicked() {
 		initStartView();
 	}
 
-	public void waveIsOver(){
+	public void waveIsOver() {
 		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
 	}
-	
-	public void levelIsOver(boolean won){
+
+	public void levelIsOver(boolean won) {
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable(won);
 	}
-	
-	public Main getMain(){
+
+	public Main getMain() {
 		return myMain;
 	}
-	
-	public void setPlaying(boolean b){
+
+	public void setPlaying(boolean b) {
 		playing = b;
 	}
 
-	public String getBackgroundImageFile(){
+	public String getBackgroundImageFile() {
 		return myEventManager.getCurrentLevel().getMap().getMapImage();
 	}
 
-	public GameWorld getGameWorld(){
+	public GameWorld getGameWorld() {
 		return myGameWorld;
 	}
-	
-	public EventManager getEventManager(){
+
+	public EventManager getEventManager() {
 		return myEventManager;
 	}
-	
-	public GameCapture getGameCapture(){
+
+	public GameCapture getGameCapture() {
 		return myGameCapture;
 	}
-	
-	public EngineView getEngineView(){
+
+	public EngineView getEngineView() {
 		return myEngineView;
 	}
 }
