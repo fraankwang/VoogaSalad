@@ -164,9 +164,13 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		List<String> trackingMovementComponents = Arrays.asList("TrackingMovementComponent_Velocity",
 				"TrackingMovementComponent_CanMove", "TrackingMovementComponent_CanRotate");
 
+		
 		if (attributes.contains("TrackingMovementComponent_Velocity")) {
 			myAttributesMap.put("MovementComponent_CanTrack", "true");
-			myAttributes.add("MovementComponent_CanTrack");
+			
+			if (!myAttributes.contains("MovementComponent_CanTrack")) {
+				myAttributes.add("MovementComponent_CanTrack");
+			}
 			for (String trackingComponent : trackingMovementComponents) {
 				String truncated = trackingComponent.substring(8);
 				attributes.remove(trackingComponent);
@@ -177,10 +181,18 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 			}
 			
 		} else if (attributes.contains("MovementComponent_Velocity")) {
-			myAttributesMap.put("MovementComponent_CanTrack", "false");
-			myAttributes.add("MovementComponent_CanTrack");
+			if (!myAttributes.contains("MovementComponent_CanTrack")) {
+				myAttributes.add("MovementComponent_CanTrack");
+				myAttributesMap.put("MovementComponent_CanTrack", null);
+			} else {
+				myAttributesMap.put("MovementComponent_CanTrack", "false");
+				
+			}
 		}
 		
+		if (!myAttributes.contains("MovementComponent_CanTrack")) {
+			
+		}
 
 	}
 
