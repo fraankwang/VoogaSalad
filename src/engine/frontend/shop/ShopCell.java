@@ -42,6 +42,7 @@ public class ShopCell extends ListCell<ShopItem> {
 			myShopPane.bindHeight(hbox, super.getListView().heightProperty().multiply(getDoubleResource("TowerCellHeight")));
 			myShopPane.bindWidth(hbox, super.getListView().widthProperty());
 			hbox.spacingProperty().bind(hbox.widthProperty().multiply(getDoubleResource("TowerCellSpacing")));
+			hbox.setOnKeyPressed(null);
 			
 			if(itemImage == null){ 
 				myImageView = new ImageView(new Image(item.getItemImage()));

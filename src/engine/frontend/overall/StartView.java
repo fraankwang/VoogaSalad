@@ -77,8 +77,7 @@ public class StartView {
 			public void changed(ObservableValue ov, String t, String t1) {
 				levelComboBox.setDisable(false);
 				selectedMode = t1;
-				 levelComboBox.getItems().addAll(myController.getGameWorld().getModes().get(t1).getLevels().keySet());
-				// need to change this to add the available ones only
+				levelComboBox.getItems().addAll(myController.currentLevelsUnlocked(selectedMode));
 			}
 		});
 

@@ -3,6 +3,7 @@ package engine.controller;
  * @author austinwu
  */
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import engine.backend.entities.InGameEntityFactory;
@@ -27,9 +28,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -49,6 +48,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private boolean playing;
 
 	private EventManager myEventManager;
+	private GameStatistics myGameStatistics;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
@@ -91,8 +91,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		
-		GameStatistics stats = new GameStatistics(10, 10);
-		myGameWorld.setGameStatistics(stats);
+		myGameStatistics = new GameStatistics(10, 10);
+		myGameWorld.setGameStatistics(myGameStatistics);
 		myEventManager = new EventManager(this, myGameWorld);
 		
 		StartView myStartView = new StartView(this);
@@ -193,7 +193,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
-		//myEventManager.handleEntityDropEvent(event);
 		mySystems.sendUserInputEvent(event);
 	}
 
@@ -220,6 +219,15 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void nextLevelClicked() {
 		myEventManager.handleGoToNextLevelEvent();
+	}
+	
+	public List<Integer> currentLevelsUnlocked(String mode){
+		List<Integer> list = new ArrayList<Integer>();
+		for(Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()){
+			if(i <= myGameStatistics.getHighestLevelUnlocked());
+			list.add(i);
+		}
+		return list;
 	}
 
 	public void switchModeClicked() {
