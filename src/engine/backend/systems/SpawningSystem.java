@@ -61,6 +61,7 @@ public class SpawningSystem extends GameSystem {
 			}
 
 			if (waveIsOver) {
+				myLevel.setCurrentWaveIndex(currentWaveIndex + 1);
 				sendEvent(getWaveOverEvent());
 				delayTimer = 100 * myLevel.getWaveDelayTimer();
 			}

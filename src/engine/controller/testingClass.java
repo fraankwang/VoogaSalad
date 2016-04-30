@@ -257,7 +257,7 @@ public class TestingClass {
 		createdTowers.put("tempEntity2", tempEntity2);
 		myCreatableEntityMap.put("Towers", createdTowers);
 		
-		//level.addEntityToMap(tempSpawn);
+		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
 		level.addEntityToMap(tempEntity2);
 		

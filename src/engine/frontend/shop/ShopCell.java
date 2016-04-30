@@ -39,7 +39,7 @@ public class ShopCell extends ListCell<ShopItem> {
 		if (item != null) {
 			myItem = item;
 			HBox hbox = new HBox();
-			myShopPane.bindHeight(hbox, super.getListView().heightProperty().multiply(getDoubleResource("TowerCellWidth")));
+			myShopPane.bindHeight(hbox, super.getListView().heightProperty().multiply(getDoubleResource("TowerCellHeight")));
 			myShopPane.bindWidth(hbox, super.getListView().widthProperty());
 			hbox.spacingProperty().bind(hbox.widthProperty().multiply(getDoubleResource("TowerCellSpacing")));
 			hbox.setOnKeyPressed(null);

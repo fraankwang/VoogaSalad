@@ -1,5 +1,7 @@
 package engine.controller;
-
+/**
+ * @author austinwu
+ */
 import java.io.IOException;
 import java.util.List;
 
@@ -235,6 +237,14 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void levelIsOver(boolean won) {
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable(won);
+	}
+	
+	public void levelIsWon(){
+		
+	}
+	
+	public void levelIsLost(){
+		
 	}
 
 	public Main getMain() {
