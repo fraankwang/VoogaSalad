@@ -73,17 +73,17 @@ public class EventManager implements Observer {
 	 * @return The current level.
 	 */
 	public Level getCurrentLevel() {
-		revertLevelIfNeeded();
-		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
-				currentModeStatistics.getCurrentLevelIndex());
+		String modeName = currentModeStatistics.getCurrentMode();
+		int levelIndex = currentModeStatistics.getCurrentLevelIndex();		
+		Level myLevel = myGameWorld.getLevelWithId(modeName, levelIndex);
+		revertLevelIfNeeded(myLevel, modeName, levelIndex);
+		return myLevel;
 	}
 
-	private void revertLevelIfNeeded() {
-		String modeName = currentModeStatistics.getCurrentMode();
-		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
-		if (myGameWorld.getLevelWithId(modeName, levelIndex).shouldRevert()) {
+	private void revertLevelIfNeeded(Level myLevel, String modeName, int levelIndex) {
+		if (myLevel.shouldRevert()) {
 			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
-			Level myLevel = (Level) serializer
+			myLevel = (Level) serializer
 					.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
 			myLevel.setShouldRevert(false);
 			myGameWorld.putLevelInMap(modeName, levelIndex, myLevel);
@@ -192,6 +192,7 @@ public class EventManager implements Observer {
 	}
 
 	private void serializeLevel() {
+		System.out.println("level serialized");
 		String modeName = currentModeStatistics.getCurrentMode();
 		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
 		myGameWorld.getLevelWithId(modeName, levelIndex)
