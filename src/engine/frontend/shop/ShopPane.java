@@ -31,18 +31,22 @@ public class ShopPane extends AbstractPane {
 	
 	private ShopPane raghav;
 	
+	/**
+	 * Instantiates ShopPane
+	 * @param ev - EngineView - parent of Shop Pane
+	 */
 	public ShopPane(EngineView ev) {
 		super(ev, RESOURCE_NAME);
 		raghav = this;
 	}
 
 	/**
-	 * Instantiates the node binding and attaching all underlying children
+	 * Initializes shop pane by binding nodes and attaching all underlying children
 	 */
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
 		super.buildNode(widthBinding, heightBinding);
 		Pane myPane = super.getPane();
-		myPane.setStyle("-fx-border-color: black");
+		myPane.setStyle(loadStringResource("ShopStyle"));
 
 		myVBox = new VBox();
 		bindWidth(myVBox, myPane.widthProperty());
@@ -93,7 +97,7 @@ public class ShopPane extends AbstractPane {
 	
 	/**
 	 * Updates the shop given a list of shopItems
-	 * @param list - list of shopItems - each shopItem contains shon name, image, cost, and if it's interactable
+	 * @param list - list of shopItems - each shopItem contains name, image, cost, and if it's interactable
 	 */
 	public void updateShop(List<ShopItem> shoplist) {
 		for(ShopItem item : shoplist){
@@ -101,11 +105,19 @@ public class ShopPane extends AbstractPane {
 		}
 	}
 	
+	/**
+	 * Updates the upgrade list given a list of shopItems
+	 * @param upgradelist - list of upgrades as shopItems - each shop Item contains name, image, cost, and if it's interactable
+	 */
 	public void updateUpgrade(List<ShopItem> upgradelist) {
 		myUpgradeItems.clear();
 		myUpgradeItems.addAll(upgradelist);
 	}
 	
+	/**
+	 * Returns the current view
+	 * @return - returns shop pane's currentView
+	 */
 	public CurrentView getCurrentView(){
 		return myCurrentView;
 	}
