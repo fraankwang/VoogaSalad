@@ -120,7 +120,6 @@ public class EngineView extends ResourceUser{
 		if (e.getGestureSource() != myScene) {
 			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
-				
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);

@@ -13,8 +13,8 @@ public class testSerialize {
 		GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 		String xml = serializer.getXMLfromObject(g);
 		GameWorldToXMLWriter.stringToDocument(xml, "testFiring04302016.xml");
-		String loadedString = GameWorldToXMLWriter.documentToString("C:/Users/Yoga2785/Documents/GitHub/voogasalad_DrumpfTower/testFiring04302016.xml");
-		GameWorld newg = (GameWorld) serializer.xMLToObject(loadedString);
+		//String loadedString = GameWorldToXMLWriter.documentToString("C:/Users/Yoga2785/Documents/GitHub/voogasalad_DrumpfTower/testFiring04302016.xml");
+		//GameWorld newg = (GameWorld) serializer.xMLToObject(loadedString);
 		System.out.println("hi");
 	}
 	
