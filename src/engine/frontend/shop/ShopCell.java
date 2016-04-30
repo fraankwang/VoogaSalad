@@ -85,6 +85,7 @@ public class ShopCell extends ListCell<ShopItem> {
 	}
 
 	private void selectTower(MouseEvent e) {
+
 		myShopPane.getEngineView().getDummyCursor().changePic(myImageView.getImage());
 		myShopPane.getEngineView().getStage().getScene().setCursor(Cursor.NONE);
 		Dragboard db = this.startDragAndDrop(TransferMode.ANY);

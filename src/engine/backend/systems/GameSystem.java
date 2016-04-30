@@ -17,27 +17,50 @@ public abstract class GameSystem extends Observable implements ISystem {
 	 * Adds an event to the map of eventIDs to entities with those events.
 	 * @param myEventMap
 	 * @param event
-	 * @param entities
+	 * @param collection
 	 */
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, Collection<IEntity> entities) {
 		if (event != null) {
-			entities.forEach(e -> putEventInMap(myEventMap, event, e));
+			entities.forEach(e -> putEventInMap(myEventMap, event, e.getID()));
 		}
-		entities.forEach(e -> putEventInMap(myEventMap, event, e));
 	}
 	
+	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, List<Integer> entityIDs) {
+		if (event != null) {
+			entityIDs.forEach(id -> putEventInMap(myEventMap, event, id));
+		}
+	}
+	
+	/**
+	 * Adds an event to the map of eventIDs to entities with those events.
+	 * @param myEventMap The map to put the event into.
+	 * @param event 
+	 * @param entityID The entity ID corresponding with the event.
+	 */
+	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, int entityID) {
+		if (event != null) {
+			putEventInMap(myEventMap, event, entityID);
+		}
+	}
+	
+	/**
+	 * Adds an event to the map of eventIDs to entities with those events.
+	 * @param myEventMap
+	 * @param event
+	 * @param entity
+	 */
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, IEntity entity) {
 		if (event != null) {
-			putEventInMap(myEventMap, event, entity);
+			putEventInMap(myEventMap, event, entity.getID());
 		}
 	}
 
-	private void putEventInMap(Map<String, Set<Integer>> myEventMap, IEvent event, IEntity entity) {
+	private void putEventInMap(Map<String, Set<Integer>> myEventMap, IEvent event, int entityID) {
 		if (myEventMap.containsKey(event.getEventID())) {
-			myEventMap.get(event.getEventID()).add(entity.getID());
+			myEventMap.get(event.getEventID()).add(entityID);
 		} else {
 			Set<Integer> set = new HashSet<Integer>();
-			set.add(entity.getID());
+			set.add(entityID);
 			myEventMap.put(event.getEventID(), set);
 		}
 	}

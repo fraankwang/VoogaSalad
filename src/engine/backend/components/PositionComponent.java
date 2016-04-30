@@ -84,6 +84,16 @@ public class PositionComponent extends Component {
 	public String getComponentInfo() {
 		return "XCoordinate:" + myPositionVector.getX() + "," + "YCoordinate:" + myPositionVector.getY();
 	}
+	
+	public void setXCoordinate(String deltaX){
+		double xdelta = Double.parseDouble(deltaX);
+		myPositionVector = new Vector(getX() + xdelta, getY());
+	}
+	
+	public void setYCoordinate(String deltaY){
+		double ydelta = Double.parseDouble(deltaY);
+		myPositionVector = new Vector(getX(), getY() + ydelta);
+	}
 
 	@Override
 	public void update(String dataName, String data) {
