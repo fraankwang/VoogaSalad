@@ -173,7 +173,7 @@ public class EngineController extends ResourceUser implements IEngineController{
 	}
 
 	public void attemptTower(double xLoc, double yLoc, String type) {
-		EntityDroppedEvent event = new EntityDroppedEvent(xLoc, yLoc, type);
+		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(), yLoc / myEngineView.getScalingFactor().doubleValue(), type);
 		myEventManager.handleEntityDropEvent(event);
 	}
 

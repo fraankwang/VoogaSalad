@@ -4,8 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ResourceBundle;
 
+import engine.backend.components.ArmorComponent;
+import engine.backend.components.CollisionComponent;
+import engine.backend.components.DamageComponent;
+import engine.backend.components.DisplayComponent;
+import engine.backend.components.FiringComponent;
+import engine.backend.components.HealthComponent;
+import engine.backend.components.IComponent;
+import engine.backend.components.MouseComponent;
+import engine.backend.components.MovementComponent;
+import engine.backend.components.MultiDirectionalFiringComponent;
+import engine.backend.components.PathComponent;
+import engine.backend.components.PositionComponent;
+import engine.backend.components.PurchaseComponent;
+import engine.backend.components.RotationComponent;
+import engine.backend.components.SizeComponent;
+import engine.backend.components.SpawnerComponent;
+import engine.backend.components.TrackingMovementComponent;
+import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.frontend.overall.ResourceUser;
 import javafx.beans.binding.DoubleExpression;
@@ -85,11 +102,14 @@ public class CurrentView extends ResourceUser implements Observer{
 		Map<String, String> statMap = entity.getStats().getStatsMap();
 		stats.clear();
 		for (String s : statMap.keySet()) {
+			if(!showMap.containsKey(s)){
+				showMap.put(s, true);
+			}
 			if (s.equals("Image") && !statMap.get("Image").equals(myImageName)) {
 				myImageView.setImage(new Image(statMap.get("Image")));
 				myImageName = statMap.get("Image");
 			} else if (showMap.get(s)){
-//				stats.add(loadStringResource(s) + ": " + statMap.get(s));
+				stats.add(loadStringResource(s) + ": " + statMap.get(s));
 			}
 		}
 	}

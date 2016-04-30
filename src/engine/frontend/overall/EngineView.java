@@ -23,13 +23,15 @@ import utility.GameCapture;
 public class EngineView extends ResourceUser{
 
 	/*
-	 * Future Big Items: Dynamic window resizing- make EVERYTHING relative and
-	 * in terms of ratios Resizing/rearranging Panes
+	 * Big todos:
+	 * Figure out picking/choosing levels etc.- cant play a level unless its been already played
+	 * 
 	 * 
 	 *  Small todos:
-	 *  scale outgoing points
-	 *  scale fonts/sizes of buttons etc.
-	 *  lose screen
+	 *  get "load game" option for first screen 
+	 *  lose-the-game screen
+	 *  finish stats util
+	 *  Set up upgrades to send backend info when dropped on towers
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 	
@@ -76,7 +78,6 @@ public class EngineView extends ResourceUser{
 				myController.getEventManager().getCurrentLevel().getMap().getMapHeight());
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
-
 		
 		scalingFactor.bind(Bindings.min(getUsableBoardHeight().divide(mapHeight), getUsableBoardWidth().divide(mapWidth)));
 		DoubleExpression boardWidth = mapWidth.multiply(scalingFactor);
