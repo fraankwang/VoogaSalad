@@ -36,6 +36,7 @@ public class MovementComponent extends Component {
 		this.myInitialOmega = component.getInitialOmega();
 		this.canMove = component.canMove();
 		this.canRotate = component.canRotate();
+		this.myVelocity = component.getVelocity();
 	}
 
 	// for demo purposes
@@ -50,7 +51,7 @@ public class MovementComponent extends Component {
 	}
 	
 	public MovementComponent() {
-		
+		setCurrentVelocityVector(new Vector(0, 0));
 	}
 	
 	public Vector getCurrentVelocityVector(){
@@ -156,6 +157,11 @@ public class MovementComponent extends Component {
 	
 	public double getVelocity() {
 		return myVelocity;
+	}
+	
+	@Override
+	public String toString() {
+		return "Velocity: " + myVelocity;
 	}
 
 	@Override

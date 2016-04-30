@@ -52,7 +52,9 @@ public class Testing {
 		balloon1.put("DisplayComponent_Image", "DrumpfVader.png");
 		balloon1.put("SizeComponent_Width", "30");
 		balloon1.put("SizeComponent_Height", "30");
-		balloon1.put("MovementComponent_Velocity", "6");
+		balloon1.put("MovementComponent_Velocity", "10");
+		balloon1.put("MovementComponent_CanMove", "True");
+		balloon1.put("MovementComponent_CanRotate", "False");
 		
 		dataContainer.updateData(bullet1);
 		dataContainer.updateData(tower1);

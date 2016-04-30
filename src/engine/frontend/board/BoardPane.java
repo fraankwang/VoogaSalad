@@ -56,9 +56,7 @@ public class BoardPane extends AbstractPane{
 		}
 		if(myEntityViewMap.containsKey(id)){
 			myEntityViewMap.get(id).update(xCoord, yCoord, image, width, height);
-		} else {
-			System.out.println("image1: " + image);
-			
+		} else {			
 			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
 			myEntityViewMap.put(id, ev);
 			myPane.getChildren().add(ev.getNode());

@@ -18,6 +18,7 @@ import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.Level;
 import engine.backend.map.GameMap;
+import engine.backend.utilities.ComponentTagResources;
 
 public class LevelFactory {
 	
@@ -66,11 +67,13 @@ public class LevelFactory {
 		List<ShopItem> shopItems = new ArrayList<ShopItem>();
 		for (IEntity entity : authoredEntities) {
 			if (entity.hasComponent("PurchaseComponent")) {
-				System.out.println("added new shopitem");
 				DisplayComponent displayComponent = (DisplayComponent) entity.getComponent("DisplayComponent");
 				PurchaseComponent purchaseComponent = (PurchaseComponent) entity.getComponent("PurchaseComponent");
 				ShopItem item = new ShopItem(entity.getName(), displayComponent.getImage(), purchaseComponent.getValue());
 				shopItems.add(item);		
+			}
+			if (entity.hasComponent("MovementComponent")) {
+				System.out.println(entity.getComponent("MovementComponent").getComponentInfo());
 			}
 		}
 		
