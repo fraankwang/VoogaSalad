@@ -27,7 +27,12 @@ public class SpawningSystem extends GameSystem {
 	private double delayTimer;
 
 	@Override
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {		
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {		
+		
+		if(!playing){
+			return;
+		}
+		
 		if(myLevel.sendNextWave()){
 			myLevel.setSendNextWave(false);
 			delayTimer = 0;

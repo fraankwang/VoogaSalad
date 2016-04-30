@@ -29,7 +29,7 @@ public class UserInputSystem extends GameSystem{
 	}
 	
 	@Override
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory,
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory,
 			double currentSecond) {
 		myMapEvents.forEach(event -> {
 			String identifier = myLevel.getEntityWithID(event.getFirstEntityID()).getName();
