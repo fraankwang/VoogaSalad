@@ -1,6 +1,7 @@
 package authoring.backend.factories;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -100,10 +101,22 @@ public class AuthoringLevelFactory {
 		for (String event : eventData) {
 			String[] eventElements = event.split("_");
 			StringBuilder sb = new StringBuilder();
-			for (String str : eventElements) {
-				sb.append(str);
-			}
-			events.add(sb.toString());
+			if (eventElements.length > 2) {
+				String[] eventEntities = new String[2];
+				eventEntities[0] = eventElements[0];
+				eventEntities[1] = eventElements[1];
+				Arrays.sort(eventEntities);
+				for (String str : eventEntities) {
+					sb.append(str);
+				}
+				sb.append(eventElements[2]);
+				events.add(sb.toString());
+			} else {
+				for (String str : eventElements) {
+					sb.append(str);
+				}
+				events.add(sb.toString());
+			}			
 		}
 		return events;
 	}

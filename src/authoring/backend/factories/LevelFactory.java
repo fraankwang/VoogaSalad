@@ -39,6 +39,7 @@ public class LevelFactory {
 		List<AuthoringEntity> spawnEntities = authoringLevel.getSpawnEntities();
 		Map<Integer, IEntity> entitiesMap = new HashMap<Integer, IEntity>();
 		int entityID = 0;
+		int numWaves = 0;
 		for (AuthoringEntity spawnEntity : spawnEntities) {
 			SpawnerComponent component = (SpawnerComponent) spawnEntity.getComponent("SpawnerComponent");
 			for (Spawn spawn : component.getSpawns()) {
@@ -47,9 +48,14 @@ public class LevelFactory {
 						authoredEntity.addComponent(new PathComponent());
 					}
 				}
+				int spawnWaves = spawn.getWaveIndex();
+				if (spawnWaves > numWaves) {
+					numWaves = spawnWaves;
+				}
 			}
 			
 			IEntity entity = entityFactory.createEntity(spawnEntity);
+			entity.setID(entityID);
 			authoredEntities.add(entity);
 			entitiesMap.put(entityID, entity);
 			entityID++;
@@ -64,7 +70,7 @@ public class LevelFactory {
 			}
 		}
 		
-		return new Level(name, map, waveDelayTimer, shopItems, authoredEntities, entitiesMap);
+		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, entitiesMap);
 	}
 
 }
