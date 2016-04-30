@@ -53,6 +53,7 @@ public class GameStatistics implements IModifiable{
 
 	public void setInitialNumLives(int initialNumLives) {
 		this.initialNumLives = initialNumLives;
+		currentNumLives = new Property(initialNumLives, "currentNumLives");
 	}
 
 	public int getCurrentNumLives() {
@@ -78,6 +79,7 @@ public class GameStatistics implements IModifiable{
 
 	public void setInitialResources(double initialResources) {
 		this.initialResources = initialResources;
+		currentResources = new Property(initialResources, "currentResources");
 	}
 
 	public double getCurrentResources() {
