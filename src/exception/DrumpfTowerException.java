@@ -9,10 +9,6 @@ import javafx.scene.control.TextInputDialog;
 
 public class DrumpfTowerException extends Exception {
 
-	public DrumpfTowerException() {
-		// TODO Auto-generated constructor stub
-	}
-
 	private static final long serialVersionUID = 1L;
 	private ResourceLoader myErrorLoader;
 	private Optional<String> unresolvedException;

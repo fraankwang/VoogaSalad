@@ -96,7 +96,7 @@ public class testingClass {
 	}
 
 	public void testExceptions() {
-		DrumpfTowerException exc = new DrumpfTowerException("hello");
+		DrumpfTowerException exc = new DrumpfTowerException("Throwing an example exception");
 	}
 
 	public GameWorld testFiring() {
