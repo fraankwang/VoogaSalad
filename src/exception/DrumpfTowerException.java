@@ -10,7 +10,8 @@ import javafx.scene.control.TextInputDialog;
 public class DrumpfTowerException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-	private ResourceLoader myErrorLoader;
+	private static final String ERRORS = "error.properties";
+	private ExceptionLoader myErrorLoader;
 	private Optional<String> unresolvedException;
 
 	/**
@@ -21,7 +22,7 @@ public class DrumpfTowerException extends Exception {
 	 */
 	public DrumpfTowerException(String arg0) {
 		super(arg0);
-		myErrorLoader = new ResourceLoader("error.properties");
+		myErrorLoader = new ExceptionLoader(ERRORS);
 		showErrorDialog(arg0);
 	}
 	

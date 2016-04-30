@@ -24,6 +24,7 @@ import engine.frontend.overall.ResourceUser;
 import engine.frontend.overall.StartView;
 import engine.frontend.status.DrumpfHUDScreen;
 import exception.DrumpfTowerException;
+import exception.ExceptionLoader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -44,8 +45,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
+	private ExceptionLoader exceptionLoader;
 
 	private static final String RESOURCE_NAME = "stage";
+	private static final String INITGAME = "StartingGameEvent";
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean playing;
@@ -63,6 +66,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		super(RESOURCE_NAME);
 		myStage = s;
 		myMain = m;
+		exceptionLoader = new ExceptionLoader();
 	}
 
 	/**
@@ -117,7 +121,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			GameEvent e = new GameEvent(selectedMode, selectedLevel);
 			myEventManager.handleGameStartEvent(e);
 		} catch (IOException e) {
-			new DrumpfTowerException("Had problems initializing your start game");
+			new DrumpfTowerException(exceptionLoader.getString(INITGAME));
 		}
 		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
 				myEventManager.getCurrentLevel().getAuthoredEntities());

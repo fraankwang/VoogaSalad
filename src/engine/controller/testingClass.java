@@ -33,6 +33,7 @@ import engine.backend.rules.EntityAction;
 import engine.backend.rules.LevelAction;
 import engine.backend.rules.Rule;
 import exception.DrumpfTowerException;
+import exception.ExceptionLoader;
 
 public class testingClass {
 
@@ -96,7 +97,8 @@ public class testingClass {
 	}
 
 	public void testExceptions() {
-		DrumpfTowerException exc = new DrumpfTowerException("Throwing an example exception");
+		ExceptionLoader exceptionLoader = new ExceptionLoader();
+		new DrumpfTowerException(exceptionLoader.getString("WelcomeLabel"));
 	}
 
 	public GameWorld testFiring() {

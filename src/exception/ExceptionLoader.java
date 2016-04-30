@@ -1,16 +1,16 @@
 package exception;
 
-public class ResourceLoader extends FileLoader {
+public class ExceptionLoader extends FileLoader {
 
 	private static final String RESOURCE_PATH = "exception_resources";
-	private static final String RESOURCE_EXTENSION = "error.properties";
+	private static final String RESOURCE_EXTENSION = "messages.properties";
 	private static final String NON_MATCH_MESSAGE = "Non-match exists in resource file";
 
 	/**
 	 * Default constructor
 	 * 
 	 */
-	public ResourceLoader() {
+	public ExceptionLoader() {
 		try {
 			super.load(RESOURCE_PATH, RESOURCE_EXTENSION);
 		} catch (DrumpfTowerException e) {
@@ -24,7 +24,7 @@ public class ResourceLoader extends FileLoader {
 	 * @param filename
 	 * @throws DrumpfTowerException
 	 */
-	public ResourceLoader(String filename) {
+	public ExceptionLoader(String filename) {
 		try {
 			super.load(RESOURCE_PATH, filename);
 		} catch (DrumpfTowerException e) {
