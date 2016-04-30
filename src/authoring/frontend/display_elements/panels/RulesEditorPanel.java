@@ -10,6 +10,7 @@ import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAt
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableLevelAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import authoring.frontend.editor_features.EntityComponents;
+import authoring.frontend.editor_features.LabelCell;
 import authoring.frontend.editor_features.ObjectChooser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,8 +23,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -61,7 +60,6 @@ public class RulesEditorPanel extends Panel {
 	private IAuthoringView myController;
 	private ModifiableAttributesPanel myAttributes;
 	private ObservableList<String> myRules;
-	private String myKeyCode;
 
 	public RulesEditorPanel(double height, double width, IAuthoringView controller, ModifiableAttributesPanel attributes) {
 		super(height, width);
@@ -112,6 +110,11 @@ public class RulesEditorPanel extends Panel {
 			myThenStatements.getItems().clear();
 		});
 
+		mySimpleButtonDashboard.getResetButton().setOnAction(e -> {
+			myIfStatements.getItems().clear();
+			myThenStatements.getItems().clear();
+		});
+		
 		grid.add(mySimpleButtonDashboard.getNode(), 0, 0);
 		grid.add(ifbox, 1, 0);
 		grid.add(myIfStatements, 2, 0);
@@ -158,7 +161,13 @@ public class RulesEditorPanel extends Panel {
 
 		ComboBox<String> eventChooser = new ComboBox<String>();
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
+		entityChooser.setCellFactory(listview -> new LabelCell(myController));
+		entityChooser.setButtonCell(new LabelCell(myController)); 
+		entityChooser.setPrefWidth(400);
 		ComboBox<Label> entityChooser2 = new ComboBox<Label>();
+		entityChooser2.setCellFactory(listview -> new LabelCell(myController));
+		entityChooser2.setButtonCell(new LabelCell(myController));
+		entityChooser2.setPrefWidth(400);
 		Button keyField = new Button("Click and press desired key");
 		
 		keyField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -170,6 +179,7 @@ public class RulesEditorPanel extends Panel {
 		    }});
 				
 		Button saveButton = new Button("Create Event");
+
 		saveButton.setOnAction(e -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append(entityChooser.getSelectionModel().getSelectedItem().getText() + "_");
@@ -214,6 +224,7 @@ public class RulesEditorPanel extends Panel {
 		// link the list of level entities to these combo boxes
 		entityChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 		entityChooser2.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+
 		
 		selectEventBox.getChildren().addAll(eventText, eventChooser);
 		enterKeyBox.getChildren().addAll(keyText, keyField);
@@ -242,8 +253,14 @@ public class RulesEditorPanel extends Panel {
 		typeChooser.getItems().addAll("Level", "Entity");
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
 		entityChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+		entityChooser.setCellFactory(listview -> new LabelCell(myController));
+		entityChooser.setButtonCell(new LabelCell(myController)); 
+		entityChooser.setPrefWidth(400);
 		ComboBox<String> attributeChooser = new ComboBox<String>();
 		ComboBox<Label> newValueChooser = new ComboBox<Label>();
+		newValueChooser.setCellFactory(listview -> new LabelCell(myController));
+		newValueChooser.setButtonCell(new LabelCell(myController)); 
+		newValueChooser.setPrefWidth(400);
 		ComboBox<String> levelValueChooser = new ComboBox<String>();
 		levelValueChooser.getItems().addAll(MODIFIABLE_LEVEL_ATTRIBUTES);
 		TextField deltaValueField = new TextField();
@@ -332,10 +349,15 @@ public class RulesEditorPanel extends Panel {
 				}
 				else if (EntityComponents.getVariableType(newValue).equals("Image")) {
 					newValueChooser.getItems().addAll(createLabelList(myController.getAuthoringViewManager().getImageChooser().getMap()));
+//					newValueChooser.setCellFactory(listview -> new LabelCell(myController));
+//					newValueChooser.setButtonCell(new LabelCell(myController));
+				
 				}
 				else if (EntityComponents.getVariableType(newValue).equals("Entity")) {
 					// add all of the level entities
 					newValueChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+//					newValueChooser.setCellFactory(listview -> new LabelCell(myController));
+//					newValueChooser.setButtonCell(new LabelCell(myController));
 				}
 				
 				thenStatementBuilder.getChildren().add(saveButton);
