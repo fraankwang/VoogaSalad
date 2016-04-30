@@ -11,7 +11,6 @@ import java.util.Set;
 
 import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
-import engine.backend.entities.EntityStatistics;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
