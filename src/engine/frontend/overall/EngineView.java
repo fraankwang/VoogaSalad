@@ -13,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -49,6 +50,7 @@ public class EngineView extends ResourceUser{
 	private ShopPane myShopPane;
 	private StatusPane myStatusPane;
 	private DummyCursor myDummyCursor;
+	private int lastEntityID;
 
 	private DoubleProperty scalingFactor;
 	
@@ -94,7 +96,16 @@ public class EngineView extends ResourceUser{
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
+		myScene.setOnKeyPressed(e -> handleKeyPress(e));
 		return myScene;
+	}
+
+	private void handleKeyPress(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(lastEntityID >= 0){
+			myController.keyPressed(lastEntityID, e.getCode().toString());
+		}
+		
 	}
 
 	private void handleDrop(DragEvent e) {
@@ -116,7 +127,6 @@ public class EngineView extends ResourceUser{
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-
 	}
 
 	private boolean isInBoardPane(double x, double y) {

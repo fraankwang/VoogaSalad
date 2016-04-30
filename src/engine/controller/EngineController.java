@@ -14,6 +14,7 @@ import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.IEvent;
+import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
@@ -199,8 +200,11 @@ public class EngineController extends ResourceUser implements IEngineController 
 		mySystems.sendUserInputEvent(event);
 	}
 
-	public void keyPressed(String s){
+	public void keyPressed(int myID, String s){
 		//TODO do something with this string
+		IEvent keyPressedEvent = new KeyPressedEntityEvent(myID, s);
+		mySystems.sendUserInputEvent(keyPressedEvent);
+		
 	}
 	
 	public void entityClicked(int myID) {
