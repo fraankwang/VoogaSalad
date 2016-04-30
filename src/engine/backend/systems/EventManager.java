@@ -177,7 +177,9 @@ public class EventManager implements Observer {
 	public void handleLevelOver() {
 		
 		boolean noLives = currentModeStatistics.noMoreLives();
+		System.out.println(noLives);
 		if(noLives){
+			System.out.println("HIT");
 			myEngineController.levelIsLost();
 			resetLevel();
 		}

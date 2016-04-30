@@ -33,10 +33,8 @@ public class ControlManager extends ResourceUser {
 		play = myStatusPane.createButton(loadStringResource("PlayLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
 		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
 		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
-
-		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
-		
-		play.setOnAction(e -> {
+		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());		
+		play.setOnMouseClicked(e -> {
 			if (play.getText().equals(loadStringResource("PlayLabel"))) {
 				myStatusPane.getEngineView().getEngineController().setPlaying(true);
 				play.setText(loadStringResource("PauseLabel"));
@@ -70,9 +68,8 @@ public class ControlManager extends ResourceUser {
 		nextWave.setDisable(false);
 	}
 
-	public void nextLevelEnable(boolean won) {
-		if(won)
-			nextWave.setDisable(false);
+	public void nextLevelEnable() {
+		nextWave.setDisable(false);
 	}
 
 	public void switchModeEnable() {

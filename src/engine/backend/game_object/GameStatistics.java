@@ -119,7 +119,7 @@ public class GameStatistics implements IModifiable{
 	}
 
 	public int getCurrentLevelIndex() {
-		checkEndOfLevel();
+		//checkEndOfLevel();
 		return (int) currentLevelIndex.getValue();
 	}
 	
@@ -129,7 +129,7 @@ public class GameStatistics implements IModifiable{
 		}
 	}
 	
-	public int getHighestLevelUnlocke(){
+	public int getHighestLevelUnlocked(){
 		return highestLevelUnlocked;
 	}
 	
@@ -165,11 +165,11 @@ public class GameStatistics implements IModifiable{
 		updateHighestLevelUnlocked();
 	}
 	
-	private void checkEndOfLevel(){
-		if(getCurrentNumLives() == 0){
-			setCurrentLevelIndex(-1);
-		}
-	}
+//	private void checkEndOfLevel(){
+//		if(getCurrentNumLives() == 0){
+//			setCurrentLevelIndex(-1);
+//		}
+//	}
 	
 	public int getNextAvailableID(){
 		nextAvailableEntityID++;

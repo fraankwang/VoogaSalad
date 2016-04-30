@@ -3,6 +3,7 @@ package engine.controller;
  * @author austinwu
  */
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import engine.backend.entities.InGameEntityFactory;
@@ -27,9 +28,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -49,6 +48,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private boolean playing;
 
 	private EventManager myEventManager;
+	private GameStatistics myGameStatistics;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
@@ -91,19 +91,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		
-		GameStatistics stats = new GameStatistics(10, 10);
-		myGameWorld.setGameStatistics(stats);
+		myGameStatistics = new GameStatistics(10, 10);
+		myGameWorld.setGameStatistics(myGameStatistics);
 		myEventManager = new EventManager(this, myGameWorld);
 		
 		StartView myStartView = new StartView(this);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                keyPressed(event.getCharacter());
-            }
-        });
 		myStage.show();
 	}
 
@@ -199,7 +193,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
-		//myEventManager.handleEntityDropEvent(event);
 		mySystems.sendUserInputEvent(event);
 	}
 
@@ -227,6 +220,15 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void nextLevelClicked() {
 		myEventManager.handleGoToNextLevelEvent();
 	}
+	
+	public List<Integer> currentLevelsUnlocked(String mode){
+		List<Integer> list = new ArrayList<Integer>();
+		for(Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()){
+			if(i <= myGameStatistics.getHighestLevelUnlocked());
+			list.add(i);
+		}
+		return list;
+	}
 
 	public void switchModeClicked() {
 		initStartView();
@@ -236,16 +238,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
 	}
 
-	public void levelIsOver(boolean won) {
-		myEngineView.getStatusPane().getControlManager().nextLevelEnable(won);
-	}
-	
 	public void levelIsWon(){
-		
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 	}
 	
 	public void levelIsLost(){
-		
+//		initLoseView();
+		System.out.println("lost");
 	}
 
 	public Main getMain() {
