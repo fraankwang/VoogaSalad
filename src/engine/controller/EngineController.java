@@ -95,10 +95,12 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myGameWorld.setGameStatistics(myGameStatistics);
 		myEventManager = new EventManager(this, myGameWorld);
 		
-		StartView myStartView = new StartView(this);
-		Scene scene = myStartView.buildScene();
-		myStage.setScene(scene);
-		myStage.show();
+		startGame("test firing", 0);
+		
+//		StartView myStartView = new StartView(this);
+//		Scene scene = myStartView.buildScene();
+//		myStage.setScene(scene);
+//		myStage.show();
 	}
 
 	/**

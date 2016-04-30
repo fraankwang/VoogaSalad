@@ -58,9 +58,7 @@ public class ShopPane extends AbstractPane {
 	 */
 	private void setupShopList(){
 		myShopList = new ListView<ShopItem>();
-		myShopList = new ListView<ShopItem>();
 		myShopList.setCellFactory(e -> {return new ShopCell(this);});
-		myShopList.setOnKeyPressed(null);
 		bindWidth(myShopList, myVBox.widthProperty());
 		bindHeight(myShopList, myVBox.heightProperty().multiply(.6));
 		myVBox.getChildren().add(myShopList);
