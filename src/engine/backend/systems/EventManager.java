@@ -119,12 +119,9 @@ public class EventManager implements Observer {
 
 	}
 	
-	public void handleUserInputEvent(IEvent myEvent){
+	public void handleUserInputEvent(IEvent myEvent) {
 		
-		if(myEvent instanceof GameEvent){
-			handleGameStartEvent((GameEvent) myEvent);
-		}
-		else if(myEvent instanceof EntityClickedEvent){
+		if(myEvent instanceof EntityClickedEvent){
 			handleClickEvent((EntityClickedEvent) myEvent);
 		}
 		
