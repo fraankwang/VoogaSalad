@@ -36,11 +36,13 @@ import javafx.stage.Stage;
 
 public class RulesEditorPanel extends Panel {
 
-	private final int COLUMN_1_WIDTH_PERCENTAGE = 10;
-	private final int COLUMN_2_WIDTH_PERCENTAGE = 15;
-	private final int COLUMN_3_WIDTH_PERCENTAGE = 30;
-	private final int COLUMN_4_WIDTH_PERCENTAGE = 15;
-	private final int COLUMN_5_WIDTH_PERCENTAGE = 30;
+	public static final int COLUMN_1_WIDTH_PERCENTAGE = 10;
+	public static final int COLUMN_2_WIDTH_PERCENTAGE = 15;
+	public static final int COLUMN_3_WIDTH_PERCENTAGE = 30;
+	public static final int COLUMN_4_WIDTH_PERCENTAGE = 15;
+	public static final int COLUMN_5_WIDTH_PERCENTAGE = 30;
+	public static final List<String> EDITABLE_LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("NumLives", "CurrentResources");
+	
 	private EditorButtonDashboard mySimpleButtonDashboard;
 	private Button myAddNewIfButton;
 	private Button myAddNewThenButton;
@@ -163,6 +165,11 @@ public class RulesEditorPanel extends Panel {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				ifStatementBuilder.getChildren().clear();
+				ifStatementBuilder.getChildren().add(selectEventBox);
+				
+				if (newValue == null) return;
+				
 				entityChooser2.setVisible(false);
 				if (newValue.equals("CollisionEvent")) {
 					entityText.setText("Choose the entities for this event:");
@@ -209,6 +216,7 @@ public class RulesEditorPanel extends Panel {
 		ComboBox<String> attributeChooser = new ComboBox<String>();
 		ComboBox<Label> newValueChooser = new ComboBox<Label>();
 		ComboBox<String> levelValueChooser = new ComboBox<String>();
+		levelValueChooser.getItems().addAll(EDITABLE_LEVEL_ATTRIBUTES);
 		TextField deltaValueField = new TextField();
 		
 		Button saveButton = new Button("Create Action");
@@ -223,7 +231,7 @@ public class RulesEditorPanel extends Panel {
 			else {
 				sb.append(levelValueChooser.getSelectionModel().getSelectedItem() + "_");
 			}
-			if (thenStatementBuilder.getChildren().contains(selectLevelValueToModifyBox)) {
+			if (thenStatementBuilder.getChildren().contains(selectNewValueBox)) {
 				sb.append(newValueChooser.getSelectionModel().getSelectedItem());
 			}
 			else {
@@ -304,17 +312,7 @@ public class RulesEditorPanel extends Panel {
 			}
 			
 		});	
-		
-		newValueChooser.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Label>() {
 
-			@Override
-			public void changed(ObservableValue<? extends Label> observable, Label oldValue, Label newValue) {
-				if (newValue != null) {
-					thenStatementBuilder.getChildren().add(saveButton);
-				}
-			}
-			
-		});
 		
 		levelValueChooser.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
