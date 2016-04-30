@@ -39,6 +39,7 @@ public class Level {
 	private int index;
 	private boolean sendNextWave;
 	private String lastSerializedVersion;
+	private boolean shouldRevert;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -52,6 +53,7 @@ public class Level {
 		this.authoredEntities = authoredEntities;
 		this.entities = entities;
 		this.currentWaveIndex = 0;
+		this.setShouldRevert(false);
 	}
 	
 	/**
@@ -224,6 +226,14 @@ public class Level {
 	 */
 	public void setLastSerializedVersion(String lastSerializedVersion) {
 		this.lastSerializedVersion = lastSerializedVersion;
+	}
+
+	public boolean shouldRevert() {
+		return shouldRevert;
+	}
+
+	public void setShouldRevert(boolean shouldRevert) {
+		this.shouldRevert = shouldRevert;
 	}
 
 }

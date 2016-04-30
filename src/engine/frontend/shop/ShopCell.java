@@ -42,6 +42,7 @@ public class ShopCell extends ListCell<ShopItem> {
 			myShopPane.bindHeight(hbox, super.getListView().heightProperty().multiply(getDoubleResource("TowerCellWidth")));
 			myShopPane.bindWidth(hbox, super.getListView().widthProperty());
 			hbox.spacingProperty().bind(hbox.widthProperty().multiply(getDoubleResource("TowerCellSpacing")));
+			hbox.setOnKeyPressed(null);
 			
 			if(itemImage == null){ 
 				myImageView = new ImageView(new Image(item.getItemImage()));
@@ -85,6 +86,7 @@ public class ShopCell extends ListCell<ShopItem> {
 	}
 
 	private void selectTower(MouseEvent e) {
+
 		myShopPane.getEngineView().getDummyCursor().changePic(myImageView.getImage());
 		myShopPane.getEngineView().getStage().getScene().setCursor(Cursor.NONE);
 		Dragboard db = this.startDragAndDrop(TransferMode.ANY);
