@@ -10,6 +10,9 @@ public class Rule {
 	private Collection<IAction> myActions;
 	private int myID;
 	
+	/**
+	 * Creates a new rule with empty events and actions
+	 */
 	public Rule() {
 		myEvents = new ArrayList<String>();
 		myActions = new ArrayList<IAction>();
