@@ -1,6 +1,8 @@
 package authoring.frontend.display_elements.panels;
 
 import java.util.*;
+
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.editor_features.ObjectChooser;
@@ -27,8 +29,8 @@ public class LevelGridViewPanel extends GridViewPanel {
 
 	private String myCurrentImage;
 
-	public LevelGridViewPanel(double height, double width, TabDisplay tabDisplay) {
-		super(height, width, tabDisplay);
+	public LevelGridViewPanel(double height, double width, TabDisplay tabDisplay, IAuthoringView controller) {
+		super(height, width, tabDisplay, controller);
 		myDeleteButton = new Button("Reset");
 		mySelectedLevels = new ArrayList<String>();
 		myPossibleLevels = new HashMap<String, String>();
@@ -44,7 +46,8 @@ public class LevelGridViewPanel extends GridViewPanel {
 
 		myAddNewButton.setPrefSize(300, 300);
 		myAddNewButton.setOnAction(e -> {
-
+			myChooser.clear();
+			updatePossibleLevels(myController.getLevels());
 			String chosen = myChooser.openChooser();
 			mySelectedLevels.add(chosen);
 
@@ -99,6 +102,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 	public void updatePossibleLevels(Map<String, String> possibleLevels) {
 		myPossibleLevels = possibleLevels;
 		myChooser.updateList(possibleLevels);
+		System.out.println(possibleLevels);
 	}
 
 	/**

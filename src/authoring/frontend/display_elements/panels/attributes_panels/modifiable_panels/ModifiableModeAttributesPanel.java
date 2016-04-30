@@ -45,7 +45,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
-		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null);
+		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
 		myLevelSelector.initialize();
 		mySelectedLevels = new HashMap<Integer, String>();
 		

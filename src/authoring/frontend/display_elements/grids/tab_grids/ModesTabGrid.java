@@ -54,6 +54,7 @@ public class ModesTabGrid extends TabGrid {
 	}
 
 	public void updateModesPrimaryDisplay(List<Map<String, String>> data) {
+		((LevelGridViewPanel) myPrimaryDisplay).updatePossibleLevels(myController.getLevels());
 
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
@@ -91,7 +92,7 @@ public class ModesTabGrid extends TabGrid {
 	 * @return
 	 */
 	private ImageView convertToImageView(String string) {
-		LevelGridViewPanel levels = new LevelGridViewPanel(500, 500, null);
+		LevelGridViewPanel levels = new LevelGridViewPanel(500, 500, null, myController);
 		levels.updatePossibleLevels(myController.getLevels());
 		levels.updateSelectedLevels(GlobalParser.parseLevels(string));
 		levels.removeAddNewButton();

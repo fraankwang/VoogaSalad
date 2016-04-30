@@ -3,6 +3,8 @@ package authoring.frontend.display_elements.panels;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -39,11 +41,13 @@ public class GridViewPanel extends Panel {
 	protected List<ImageView> myImages;
 	private ImageView myCurrImage;
 	protected ITabDisplay myTabDisplay;
+	protected IAuthoringView myController;
 
-	public GridViewPanel(double height, double width, ITabDisplay tab) {
+	public GridViewPanel(double height, double width, ITabDisplay tab, IAuthoringView controller) {
 		super(height, width);
 		myTabDisplay = tab;
 		numColumns = DEFAULT_NUM_GRID_COLUMNS;
+		myController = controller;
 	}
 
 	@Override
