@@ -29,6 +29,7 @@ public class HUDValueFinder implements IValueFinder {
 				break;
 			case "resources":
 				ret = data.getCurrentResourcesProperty();
+				break;
 			default:
 				ret = new Property("Value Not Found", key);
 				break;

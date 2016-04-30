@@ -68,7 +68,6 @@ public class StatusPane extends AbstractPane{
 		return button;
 	}
 	
-	
 	private Region buildStatDisplay(){
 		Region region = myEngineView.getEngineController().setupHUD();
 		bindHeight(region, myPane.heightProperty());
