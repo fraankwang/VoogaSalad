@@ -54,6 +54,10 @@ public class EventManager implements Observer {
 		myGameShop = new GameShop();
 	}
 
+	/**
+	 * Sets the in game entity factory creator to the given factory.
+	 * @param factory
+	 */
 	public void setEntityFactory(InGameEntityFactory factory) {
 		myEntityFactory = factory;
 	}
