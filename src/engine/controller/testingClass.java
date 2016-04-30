@@ -101,6 +101,20 @@ public class testingClass {
 	public GameWorld testFiring() {
 		GameWorld firingTest = new GameWorld();
 		Mode mode = new Mode("test firing");
+		Level level = getLevel();
+		Level level2 = getLevel();
+		level2.setIndex(1);
+		mode.addLevel(level);
+		mode.addLevel(level2);
+		firingTest.addMode(mode);
+		
+		GameStatistics gameStats = new GameStatistics(50, 50);
+		mode.setGameStatistics(gameStats);
+
+		return firingTest;
+	}
+	
+	private Level getLevel(){
 		Level level = new Level("blah");
 		level.setIndex(0);
 		EntityAction action = new EntityAction("tempEntity", "Display", "Delete", "true");
@@ -127,7 +141,7 @@ public class testingClass {
 		ruleKeyDown.addActions(keyActionDown);
 		ruleKeyDown.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventDOWN"));
 		
-		LevelAction levelAction = new LevelAction("CurrentNumLives", "-10");
+		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
 		LevelAction levelAction2 = new LevelAction("CurrentResources", "4");
 		
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
@@ -188,8 +202,8 @@ public class testingClass {
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
 
 		IEntity tempSpawn2  = new Entity(-40, "tempSpawn2", "spawner");
-		Spawn spawn3 = new Spawn("tempEntity", 1, 0, 10);
-		Spawn spawn4 = new Spawn("tempEntity", 1, 1, 10);
+		Spawn spawn3 = new Spawn("tempEntity", 1, 0, 2);
+		Spawn spawn4 = new Spawn("tempEntity", 1, 1, 2);
 		IComponent tempSpawner1 = new SpawnerComponent(Arrays.asList(spawn3, spawn4), 1);
 
 		
@@ -266,8 +280,7 @@ public class testingClass {
 		
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
 		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
-		//firingTest.setAuthoredEntities(authoredEntities);
-//		firingTest.setEntityMap(myCreatableEntityMap);
+
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);
@@ -282,7 +295,6 @@ public class testingClass {
 		
 		level.addEntityToMap(tempSpawn);
 		level.addEntityToMap(tempSpawn2);
-		System.out.println(level.getEntities().values().size());
 		level.addEntityToMap(tempEntity2);
 		
 		level.setCurrentWaveIndex(0);
@@ -291,13 +303,8 @@ public class testingClass {
 		level.setNumWaves(2);
 		level.setWaveDelayTimer(5);
 		level.setAuthoredEntities(authoredEntities);
-		mode.addLevel(level);
-		firingTest.addMode(mode);
 		
-		GameStatistics gameStats = new GameStatistics(50, 50);
-		firingTest.setGameStatistics(gameStats);
-
-		return firingTest;
+		return level;
 	}
 
 	public GameWorld testCollision() {

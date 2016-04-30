@@ -67,6 +67,10 @@ public class AuthoringEntity {
 		return myComponents;
 	}
 	
+	public IComponent getComponent(String name) {
+		return myComponents.get(name);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AuthoringEntity) {

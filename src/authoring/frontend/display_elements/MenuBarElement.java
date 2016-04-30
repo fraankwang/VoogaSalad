@@ -1,5 +1,7 @@
 package authoring.frontend.display_elements;
 
+import authoring.frontend.editor_features.ImageImporter;
+import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
 import javafx.scene.Group;
@@ -24,9 +26,11 @@ public class MenuBarElement implements IMenuBarElement {
 
 	private MenuBar myMenuBar;
 	private ITabBarElement myTabBar;
+	private ObjectChooser myImageChooser;
+	private ImageImporter myImageImporter;
 
-	public MenuBarElement() {
-
+	public MenuBarElement(ObjectChooser ic) {
+		myImageChooser = ic;
 	}
 
 	@Override
@@ -40,13 +44,18 @@ public class MenuBarElement implements IMenuBarElement {
 		Menu file = createFileMenu();
 		Menu create = new Menu("Create");
 		Menu help = createHelpMenu();
+		myImageImporter = new ImageImporter(myImageChooser);
+		myImageImporter.initialize();
 
 		myMenuBar.getMenus().addAll(file, create, help);
 	}
 
 	private Menu createFileMenu() {
 		Menu file = new Menu("File");
-
+		
+		MenuItem importImages = new MenuItem("Import Images...");
+		importImages.setOnAction(e -> myImageImporter.openImporter());
+		
 		Menu open = new Menu("Open in separate window");
 		MenuItem openGame = new MenuItem("Open Game Tab");
 		openGame.setOnAction(e -> myTabBar.show(myTabBar.getGameTabDisplay()));
@@ -57,7 +66,7 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem openEntities = new MenuItem("Open Entities Tab");
 		openEntities.setOnAction(e -> myTabBar.show(myTabBar.getEntitiesTabDisplay()));
 
-		file.getItems().add(open);
+		file.getItems().addAll(open, importImages);
 		open.getItems().addAll(openGame, openModes, openLevels, openEntities);
 		return file;
 	}

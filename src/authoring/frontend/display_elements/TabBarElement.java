@@ -81,15 +81,13 @@ public class TabBarElement implements ITabBarElement {
 		Tab t = new Tab(name, content);
 		t.setClosable(false);
 		t.setStyle("-fx-font-size: 24px;" + "-fx-font-weight: bold;");
-
-		// set listeners to change tab stuff?
 		return t;
 	}
 
 	private void removeTab(ITabDisplay tabDisplay) {
 		if (!tabRemoved) {
 			myTabPane.getTabs().remove(tabDisplay.getTabIndex());
-
+			tabRemoved = true;
 		}
 	}
 
@@ -97,7 +95,7 @@ public class TabBarElement implements ITabBarElement {
 		if (tabRemoved) {
 			Tab tab = createTab(tabDisplay.getName(), tabDisplay.getNode());
 			myTabPane.getTabs().add(tabDisplay.getTabIndex(), tab);
-
+			tabRemoved = false;
 		}
 	}
 
@@ -137,11 +135,9 @@ public class TabBarElement implements ITabBarElement {
 	}
 
 	public void initializeHotKeys() {
-//		List<TabDisplay> myTabDisplays = Arrays.asList(myGameTabDisplay, myModesTabDisplay, myLevelsTabDisplay,
-//				myEntitiesTabDisplay);
-		//removed ModesTabDisplay cause not working yet
-		List<TabDisplay> myTabDisplays = Arrays.asList(myGameTabDisplay, myLevelsTabDisplay,
+		List<TabDisplay> myTabDisplays = Arrays.asList(myGameTabDisplay, myModesTabDisplay, myLevelsTabDisplay,
 				myEntitiesTabDisplay);
+
 		
 		myEntitiesTabDisplay.getNode().getScene().getAccelerators()
 				.put(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN), new Runnable() {
@@ -179,7 +175,7 @@ public class TabBarElement implements ITabBarElement {
 			@Override
 			public void run() {
 				int currentIndex = myTabPane.getSelectionModel().getSelectedIndex();
-				if (currentIndex < 2) { //TODO: change to 3 later
+				if (currentIndex < 3) { //TODO: 
 					myTabPane.getSelectionModel().select(currentIndex + 1);
 				} else {
 					myTabPane.getSelectionModel().select(0);

@@ -42,7 +42,7 @@ public class EventManager implements Observer {
 	
 	IEngineController myEngineController;
 	GameWorld myGameWorld;
-	GameStatistics currentModeStatistics;
+	GameStatistics currentGameStatistics;
 	private List<Rule> myRuleAgenda;
 	InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
@@ -51,8 +51,8 @@ public class EventManager implements Observer {
 	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
 		myGameWorld = game;
+		currentGameStatistics = new GameStatistics();
 		// pass in right values
-		currentModeStatistics = game.getGameStatistics();
 		myGameShop = new GameShop();
 	}
 
@@ -65,36 +65,37 @@ public class EventManager implements Observer {
 	}
 
 	public Level getCurrentLevel() {
-		String modeName = currentModeStatistics.getCurrentMode();
-		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
-		System.out.println(modeName + "  " + levelIndex);
+		String modeName = currentGameStatistics.getCurrentMode();
+		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
+//		System.out.println(levelIndex);
 		if (myGameWorld.getLevelWithId(modeName, levelIndex).shouldRevert()) {
 			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 			Level myLevel = (Level) serializer.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
 			myLevel.setShouldRevert(false);
 			myGameWorld.putLevelInMap(modeName, levelIndex, myLevel);
 		}
-		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
-				currentModeStatistics. getCurrentLevelIndex());
+		return myGameWorld.getLevelWithId(currentGameStatistics.getCurrentMode(),
+				currentGameStatistics. getCurrentLevelIndex());
 	}
 	
 	public Mode getCurrentMode() {
-		return myGameWorld.getModes().get(currentModeStatistics.getCurrentMode());
+		return myGameWorld.getModes().get(currentGameStatistics.getCurrentMode());
 	}
 
 	public void updateGameShop() {
 		myGameShop.setShopItems(getCurrentLevel().getShopItems());
-		myGameShop.updateShop(currentModeStatistics.getCurrentResources());
+		myGameShop.updateShop(currentGameStatistics.getCurrentResources());
 		myEngineController.updateShop(myGameShop.getShopItems());
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// System.out.println(arg.getClass().getName());
 		handleSystemEvent((IEvent) arg);
 	}
 
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
+		System.out.println("image3: " + myEvent.getImage());
+		
 		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(),
 				myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}
@@ -127,8 +128,13 @@ public class EventManager implements Observer {
 	 * @throws IOException
 	 */
 	public void handleGameStartEvent(GameEvent event) throws IOException {
+		currentGameStatistics = myGameWorld.getGameStatistics(event.getModeName());
 		handleModeClickedEvent(event.getModeName());
 		handleLevelClickedEvent(event.getLevel());
+	}
+	
+	public GameStatistics getCurrentGameStatistics(){
+		return currentGameStatistics;
 	}
 	
 	/**
@@ -136,7 +142,7 @@ public class EventManager implements Observer {
 	 * @param modeName
 	 */
 	private void handleModeClickedEvent(String modeName) {
-		currentModeStatistics.setCurrentMode(modeName);
+		currentGameStatistics.setCurrentMode(modeName);
 	}
 	
 	/**
@@ -146,7 +152,7 @@ public class EventManager implements Observer {
 	 * @throws IOException
 	 */
 	private void handleLevelClickedEvent(int level) throws IOException {
-		currentModeStatistics.setCurrentLevelIndex(level);
+		currentGameStatistics.setCurrentLevelIndex(level);
 		serializeLevel();
 	}
 
@@ -155,14 +161,14 @@ public class EventManager implements Observer {
 	 * 
 	 */
 	public void handleGoToNextLevelEvent() {
-		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
+		currentGameStatistics.setCurrentLevelIndex(currentGameStatistics.getCurrentLevelIndex() + 1);
 		serializeLevel();
 		updateEntityFactory();
 	}
 
 	private void serializeLevel() {
-		String modeName = currentModeStatistics.getCurrentMode();
-		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
+		String modeName = currentGameStatistics.getCurrentMode();
+		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
 		myGameWorld.getLevelWithId(modeName, levelIndex)
 				.setLastSerializedVersion(serializeLevel(myGameWorld.getLevelWithId(modeName, levelIndex)));
 	}
@@ -173,20 +179,20 @@ public class EventManager implements Observer {
 	}
 	
 	private void handleWaveOverEvent(WaveOverEvent event) {
-		myEngineController.waveIsOver();
+		myEngineController.waveIsOver(event.getTimerLength());
 	}
 	
 	public void handleLevelOver() {
 		
-		boolean noLives = currentModeStatistics.noMoreLives();
+		boolean noLives = currentGameStatistics.noMoreLives();
 		if(noLives){
 			myEngineController.levelIsLost();
 			resetLevel();
 		}
 		else{
 			if(getCurrentLevel().lastWaveOver()){
-				currentModeStatistics.addEndOfLevelLives(currentModeStatistics.getCurrentNumLives());
-				currentModeStatistics.addEndOfLevelResources(currentModeStatistics.getCurrentResources());
+				currentGameStatistics.addEndOfLevelLives(currentGameStatistics.getCurrentNumLives());
+				currentGameStatistics.addEndOfLevelResources(currentGameStatistics.getCurrentResources());
 				myEngineController.levelIsWon();
 				resetLevel();
 			}
@@ -198,8 +204,8 @@ public class EventManager implements Observer {
 	}
 	
 	private void resetLevel(){
-		String modeName = currentModeStatistics.getCurrentMode();
-		int levelIndex = currentModeStatistics.getCurrentLevelIndex();
+		String modeName = currentGameStatistics.getCurrentMode();
+		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
@@ -213,7 +219,7 @@ public class EventManager implements Observer {
 	 * @param event
 	 */
 	private void handleEntityDropEvent(EntityDroppedEvent event) {
-		if (currentModeStatistics.getCurrentResources() >= event.getEntityValue()) {
+		if (currentGameStatistics.getCurrentResources() >= event.getEntityValue()) {
 			subtractFromResources(event.getEntityValue());
 			IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
 			PositionComponent posComp = (PositionComponent) newEntity
@@ -260,7 +266,7 @@ public class EventManager implements Observer {
 					((IModifiable) entity).applyAction((EntityAction) a);
 				}
 			} else if (a instanceof LevelAction) {
-				currentModeStatistics.applyAction((LevelAction) a);
+				currentGameStatistics.applyAction((LevelAction) a);
 			}
 		}
 	}
@@ -279,7 +285,7 @@ public class EventManager implements Observer {
 		
 		for(IEvent event : events){
 			if(event instanceof EntityDroppedEvent){
-				System.out.println(event.getEventID());
+//				System.out.println(event.getEventID());
 				handleEntityDropEvent((EntityDroppedEvent) event);
 			}
 			else if(event instanceof NextWaveEvent){
@@ -334,7 +340,7 @@ public class EventManager implements Observer {
 	}
 
 	public GameStatistics getModeStatistics() {
-		return currentModeStatistics;
+		return currentGameStatistics;
 	}
 
 	public InGameEntityFactory getEntityFactory() {
@@ -346,7 +352,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void subtractFromResources(double value){
-		currentModeStatistics.setCurrentResources(currentModeStatistics.getCurrentResources() - value); 
+		currentGameStatistics.setCurrentResources(currentGameStatistics.getCurrentResources() - value); 
 	}
 
 }
