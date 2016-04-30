@@ -20,14 +20,16 @@ import engine.backend.utilities.ComponentTagResources;
 /**
  * Created by colinduffy on 4/10/16., raghav kedia, Christine Zhou
  */
-public class CollisionSystem extends GameSystem{
- 
-    @Override
-    public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
-    	QuadTree quad = setUpQuadTree(myLevel);
-    	Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.collisionComponentTag);
-    	collidableEntities.forEach(entity -> quad.insert(entity));
-    	Collection<IEntity> retrievedCollidables = new ArrayList<IEntity>();
+public class CollisionSystem extends GameSystem {
+
+	@Override
+	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory,
+			double currentSecond) {
+		QuadTree quad = setUpQuadTree(myLevel);
+		Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+				ComponentTagResources.collisionComponentTag);
+		collidableEntities.forEach(entity -> quad.insert(entity));
+		Collection<IEntity> retrievedCollidables = new ArrayList<IEntity>();
 		collidableEntities.stream().forEach(entity1 -> {
 			retrievedCollidables.clear();
 			quad.retrieve(retrievedCollidables, entity1);
@@ -39,31 +41,33 @@ public class CollisionSystem extends GameSystem{
 				addToEventMap(myEventMap, event, entitySet);
 			});
 		});
-    					 
-    }
+
+	}
 
 	private QuadTree setUpQuadTree(Level myLevel) {
-		Rectangle r =new Rectangle();
-    	r.setBounds(0, 0, (int) myLevel.getMap().getMapWidth(), (int) myLevel.getMap().getMapHeight());
-    	QuadTree quad = new QuadTree(0, r);
+		Rectangle r = new Rectangle();
+		r.setBounds(0, 0, (int) myLevel.getMap().getMapWidth(), (int) myLevel.getMap().getMapHeight());
+		QuadTree quad = new QuadTree(0, r);
 		return quad;
 	}
-    
-	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){
+
+	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2) {
 		CollisionEvent collisionEvent = new CollisionEvent(entity1.getID(), entity2.getID());
 		collisionEvent.setEventID(Arrays.asList(entity1.getName(), entity2.getName()));
 		return collisionEvent;
 	}
-    
-    private boolean checkIntersection(IEntity entity1, IEntity entity2){
-    	PositionComponent positionOne = (PositionComponent) entity1.getComponent(ComponentTagResources.positionComponentTag);
-    	PositionComponent positionTwo = (PositionComponent) entity2.getComponent(ComponentTagResources.positionComponentTag);
-    	SizeComponent sizeOne = (SizeComponent) entity1.getComponent(ComponentTagResources.sizeComponentTag);
-    	SizeComponent sizeTwo = (SizeComponent) entity2.getComponent(ComponentTagResources.sizeComponentTag);
-    	
-    	return  positionOne.getX() < positionTwo.getX() + sizeTwo.getWidth() &&
-    			positionOne.getX() + sizeOne.getWidth() > positionTwo.getX() &&
-    			positionOne.getY() < positionTwo.getY() + sizeTwo.getHeight() &&
-    			positionOne.getY() + sizeOne.getHeight() > positionTwo.getY();
-    }
+
+	private boolean checkIntersection(IEntity entity1, IEntity entity2) {
+		PositionComponent positionOne = (PositionComponent) entity1
+				.getComponent(ComponentTagResources.positionComponentTag);
+		PositionComponent positionTwo = (PositionComponent) entity2
+				.getComponent(ComponentTagResources.positionComponentTag);
+		SizeComponent sizeOne = (SizeComponent) entity1.getComponent(ComponentTagResources.sizeComponentTag);
+		SizeComponent sizeTwo = (SizeComponent) entity2.getComponent(ComponentTagResources.sizeComponentTag);
+
+		return positionOne.getX() < positionTwo.getX() + sizeTwo.getWidth()
+				&& positionOne.getX() + sizeOne.getWidth() > positionTwo.getX()
+				&& positionOne.getY() < positionTwo.getY() + sizeTwo.getHeight()
+				&& positionOne.getY() + sizeOne.getHeight() > positionTwo.getY();
+	}
 }

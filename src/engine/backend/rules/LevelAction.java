@@ -1,7 +1,7 @@
 package engine.backend.rules;
 
-public class LevelAction implements IAction{
-	
+public class LevelAction implements IAction {
+
 	private String variableToModify;
 	private String deltaValue;
 

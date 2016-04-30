@@ -5,18 +5,18 @@ import java.util.List;
 
 import engine.backend.entities.IEntity;
 
-public class AddEntityEvent extends EntityEvent{
-	
+public class AddEntityEvent extends EntityEvent {
+
 	private Collection<IEntity> newEntities;
-	
-	public AddEntityEvent(Collection<IEntity> newEntities){
+
+	public AddEntityEvent(Collection<IEntity> newEntities) {
 		this.newEntities = newEntities;
 	}
-	
-	public Collection<IEntity> getNewEntities(){
+
+	public Collection<IEntity> getNewEntities() {
 		return newEntities;
 	}
-	
+
 	@Override
 	public String getEventID() {
 		// TODO Auto-generated method stub

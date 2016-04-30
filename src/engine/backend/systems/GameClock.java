@@ -18,6 +18,12 @@ public class GameClock {
 		return currentLoopIteration / (double) fps;
 	}
 
+	/**
+	 * sets the iteration for the current loop and converts the loop iteration
+	 * to the current seconds
+	 * 
+	 * @param currentLoopIteration
+	 */
 	public void setCurrentLoopIteration(int currentLoopIteration) {
 		this.currentLoopIteration = currentLoopIteration;
 		currentSecond = convertLoopIterationToSeconds();
@@ -44,14 +50,7 @@ public class GameClock {
 	 * @return The time in seconds for each loop iteration.
 	 */
 	public static double getTimePerLoop() {
-		return (int) Math.floor((1.0/fps) * 100);
+		return (int) Math.floor((1.0 / fps) * 100);
 	}
 
-//	public static double round(double value, int places) {
-//	    if (places < 0) throw new IllegalArgumentException();
-//
-//	    BigDecimal bd = new BigDecimal(value);
-//	    bd = bd.setScale(places, RoundingMode.HALF_UP);
-//	    return bd.doubleValue();
-//	}
 }

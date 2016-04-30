@@ -12,7 +12,7 @@ import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.utilities.ComponentTagResources;
 
-public class RangeSystem extends GameSystem{
+public class RangeSystem extends GameSystem {
 
 	public RangeSystem() {
 		// TODO Auto-generated constructor stub
@@ -25,13 +25,13 @@ public class RangeSystem extends GameSystem{
 		double range = -1.0;
 		double myY = Integer.MIN_VALUE;
 		double myX = Integer.MIN_VALUE;
-		for(IEntity myEntity: entities){
-			for(IComponent eachComponent: myEntity.getComponents()){
-				if(eachComponent.getTag().equals(ComponentTagResources.positionComponentTag)){
+		for (IEntity myEntity : entities) {
+			for (IComponent eachComponent : myEntity.getComponents()) {
+				if (eachComponent.getTag().equals(ComponentTagResources.positionComponentTag)) {
 					myY = ((PositionComponent) eachComponent).getY();
 					myX = ((PositionComponent) eachComponent).getX();
-				} 
-				if(eachComponent.getTag().equals(ComponentTagResources.firingComponentTag)){
+				}
+				if (eachComponent.getTag().equals(ComponentTagResources.firingComponentTag)) {
 					range = ((FiringComponent) eachComponent).getEnemyInSightRange();
 				}
 			}

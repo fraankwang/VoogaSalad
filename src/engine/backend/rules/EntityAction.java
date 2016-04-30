@@ -11,7 +11,7 @@ package engine.backend.rules;
  * much and which method it needs to execute
  */
 
-public class EntityAction implements IAction{
+public class EntityAction implements IAction {
 
 	private String entityName;
 	private String componentToModifiy;

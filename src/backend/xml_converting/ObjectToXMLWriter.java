@@ -56,6 +56,7 @@ public abstract class ObjectToXMLWriter {
 
 	/**
 	 * Converts a XML to an object.
+	 * 
 	 * @param xml
 	 * @return
 	 */
@@ -68,7 +69,7 @@ public abstract class ObjectToXMLWriter {
 	public XStream getXstream() {
 		return xstream;
 	}
-	
+
 	public static void stringToDocument(String xml, String fileName) throws IOException {
 		java.io.FileWriter writer = new java.io.FileWriter(fileName);
 		writer.write(xml);
