@@ -4,6 +4,7 @@ import java.util.Map;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.GridFactory;
 import authoring.frontend.display_elements.panels.Panel;
+import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.interfaces.display_element_interfaces.IGrid;
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
@@ -27,7 +28,7 @@ public abstract class Grid implements IGrid {
 	protected GridFactory myGridFactory;
 	protected GridPane myGrid;
 	protected Panel myPrimaryDisplay;
-	protected Panel myButtonDashboard;
+	protected ButtonDashboard myButtonDashboard;
 
 	/**
 	 * Upon instantiation of a Grid, the grid components are initialized and
@@ -84,6 +85,18 @@ public abstract class Grid implements IGrid {
 		return myPrimaryDisplay;
 	}
 
+	/**
+	 * Sets the Editor attribute panel information with information from the
+	 * selected item just opened, or updates Unmodifiable attributes information
+	 * with updated backend information.
+	 * 
+	 * @param info
+	 */
 	public abstract void setAttributesPanel(Map<String, String> info);
+
+	/**
+	 * Pulls various buttons from the grids and assigns hotkeys.
+	 */
+	public abstract void initializeHotKeys();
 
 }

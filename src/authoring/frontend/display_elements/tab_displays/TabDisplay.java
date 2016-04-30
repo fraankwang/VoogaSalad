@@ -1,13 +1,9 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;
-import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.Node;
 
@@ -41,7 +37,7 @@ public abstract class TabDisplay implements ITabDisplay {
 
 	@Override
 	public void openEditorDisplay(Map<String, String> info) {
-		System.out.println("*****1. TabDisplay: Editor opened with empty attribute data:");
+		System.out.println("*****2. TabDisplay: Editor opened with default attribute data:");
 		System.out.println(info);
 		myEditorDisplay.edit(info);
 	}
@@ -50,15 +46,11 @@ public abstract class TabDisplay implements ITabDisplay {
 		return myTabIndex;
 	}
 	
-	@Override
-	public void update(Observable o, Object arg) {
-		@SuppressWarnings("unchecked")
-		List<Map<String, String>> data = (List<Map<String, String>>) arg;
-		myGrid.setAttributesPanel(data.get(0));
+	/**
+	 * Default attributes are defined by each TabDisplay.
+	 * @return
+	 */
+	public abstract Map<String, String> getDefaultAttributesMap();
 
-	}
-	
-	public Map<String, String> getAttributesMap() {
-		return ((TabGrid) myGrid).getAttributesMap();
-	}
+	public abstract void initializeHotKeys();
 }

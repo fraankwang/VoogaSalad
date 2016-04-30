@@ -3,7 +3,7 @@ package authoring.frontend.display_elements.panels;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
+import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -25,7 +25,7 @@ public class RulesEditorPanel extends Panel {
 	private final int COLUMN_3_WIDTH_PERCENTAGE = 30;
 	private final int COLUMN_4_WIDTH_PERCENTAGE = 15;
 	private final int COLUMN_5_WIDTH_PERCENTAGE = 30;
-	private SimpleButtonDashboard mySimpleButtonDashboard;
+	private EditorButtonDashboard mySimpleButtonDashboard;
 	private Button myAddNewIfButton;
 	private Button myAddNewThenButton;
 	private ListView<String> myIfStatements;
@@ -37,7 +37,7 @@ public class RulesEditorPanel extends Panel {
 
 	@Override
 	protected void initializeComponents() {
-		mySimpleButtonDashboard = new SimpleButtonDashboard(MAX_SIZE, MAX_SIZE);
+		mySimpleButtonDashboard = new EditorButtonDashboard(MAX_SIZE, MAX_SIZE);
 		mySimpleButtonDashboard.initialize();
 		myAddNewIfButton = new Button("Add New If");
 		myAddNewThenButton = new Button("Add New Then");

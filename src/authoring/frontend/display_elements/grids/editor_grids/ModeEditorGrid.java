@@ -30,10 +30,4 @@ public class ModeEditorGrid extends EditorGrid {
 
 	}
 
-	@Override
-	protected void assembleGridComponents() {
-		super.assembleGridComponents();
-
-	}
-
 }

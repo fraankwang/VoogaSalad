@@ -18,12 +18,18 @@ public class Path implements IPath{
 	private List<BezierCurve> myCurves;
 	private int myID;
 	
-	public Path() {
+	public Path(int ID) {
 		this.myCurves = new ArrayList<BezierCurve>();
+		this.myID = ID;
 	}
 	
 	public Path(List<BezierCurve> curves, int ID) {
 		this.myCurves = curves;
+		this.myID = ID;
+	}
+	
+	public Path() {
+		this.myCurves = new ArrayList<BezierCurve>();
 	}
 	
 	public int getID() {
@@ -50,7 +56,18 @@ public class Path implements IPath{
 			return myCurves.get(0);
 		}
 		return myCurves.get(index); 
-		
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(myID);
+		sb.append(":");
+		for (BezierCurve curve : myCurves) {
+			sb.append(curve.toString());
+			sb.append(" ");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
 	}
 	
 }

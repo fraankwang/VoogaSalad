@@ -5,78 +5,63 @@
  */
 package engine.backend.game_object;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Mode {
 
+	private Map<Integer, Level> myLevels;
 	private String myName;
-	private Set<String> levelNames;
-	private List<Level> levels;
-	private Map<String, String> modeInfo;
-	private ModeStatistics myModeStatistics;
+	private GameStatistics myModeStatistics;
+	private int index;
 	
-	public Mode(String name, Set<String> levelNames) {
-		this.levels = new ArrayList<Level>();
-		this.levelNames = levelNames;
+	/**
+	 * Authoring Environment Constructor.
+	 */
+	public Mode(String myName, GameStatistics modeStatistics, Map<Integer, Level> levels) {
+		this.myName = myName;
+		this.myModeStatistics = modeStatistics;		
+		this.myLevels = levels;
+	}
+	
+	/**
+	 * Engine Testing Constructor.
+	 */
+	public Mode(String name) {
 		this.myName = name;
-		this.modeInfo = new HashMap<String, String>();
-		initializeInfo();
+		this.myLevels = new HashMap<Integer, Level>();
 	}
-	
-	public void initializeInfo() {
-		modeInfo.put("Type", "Mode");
-		modeInfo.put("Difficulty", myName);
+		
+	public Map<Integer, Level> getLevels() {
+		return myLevels;
 	}
 
-	public List<Level> getLevels() {
-		return levels;
-	}
-	
-	public Set<String> getLevelNames() {
-		return levelNames;
-	}
-	
-	public Map<String, String> getInfo() {
-		return modeInfo;
-	}
-
-	public ModeStatistics getModeStatistics(){
+	public GameStatistics getModeStatistics(){
 		return myModeStatistics;
 	}
 	
 	public String getName(){
 		return this.myName;
 	}
-
+	
+	/**
+	 * Engine Testing Method
+	 */
 	public void addLevel(Level level) {
-		levels.add(level);
+		this.myLevels.put(level.getIndex(), level);
 	}
 	
-	public void addLevelName(String name) {
-		levelNames.add(name);
+	public int getIndex() {
+		return index;
 	}
-
+	
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	
 	@Override
 	public String toString() {
-		return "Mode [levels=" + levels + "]";
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Mode) {
-			Mode temp = (Mode) o;
-			if (this.myName.equals(temp.myName)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+		return "Mode [levels=" + myLevels + "]";
 	}
 
 }

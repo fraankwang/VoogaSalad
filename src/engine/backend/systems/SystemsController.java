@@ -6,15 +6,18 @@
 package engine.backend.systems;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.swing.text.html.parser.Entity;
 
 import engine.backend.entities.InGameEntityFactory;
-import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
+import engine.backend.systems.Events.IEvent;
 import engine.controller.EngineController;
 
 public class SystemsController {
@@ -24,18 +27,13 @@ public class SystemsController {
 	private GameSystem healthSystem;
 	private GameSystem firingSystem;
 	private GameSystem collisionSystem;
-
+	private GameSystem spawningSystem;
+	private UserInputSystem userInputSystem;
 	private List<ISystem> mySystems;
 	private EngineController engineController;
 	private EventManager myEventManager;
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	private ResourceBundle myComponentTagResources;
-
-	private InGameEntityFactory myEntityFactory;
-
-	private int myLevelIndex;
-	private int myModeIndex;
 
 	private GameClock myGameClock;
 
@@ -47,16 +45,14 @@ public class SystemsController {
 	 * @author == mario
 	 */
 	public SystemsController(int framesPerSecond, EventManager myEventManager) {
-		myEntityFactory = new InGameEntityFactory(myEventManager.getGameWorld().getGameStatistics(),
-				myEventManager.getGameWorld().getEntityMap());
 
-		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
-
-		renderingSystem = new RenderingSystem(engineController);
+		renderingSystem = new RenderingSystem();
 		mobilizationSystem = new MobilizeSystem();
 		healthSystem = new HealthSystem();
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
+		spawningSystem = new SpawningSystem();
+		userInputSystem = new UserInputSystem();
 
 		this.myEventManager = myEventManager;
 
@@ -64,29 +60,46 @@ public class SystemsController {
 		firingSystem.addObserver(myEventManager);
 		collisionSystem.addObserver(myEventManager);
 		renderingSystem.addObserver(myEventManager);
+		spawningSystem.addObserver(myEventManager);
 
 		mySystems = new ArrayList<ISystem>();
+		mySystems.add(spawningSystem);
 		mySystems.add(firingSystem);
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
-		mySystems.add(renderingSystem);
-
+		mySystems.add(userInputSystem);
+		//mySystems.add(myEventManager);
+		//mySystems.add(renderingSystem);
+	
 		myGameClock = new GameClock(framesPerSecond);
+	}
+	
+	/**
+	 * recieves user input from frontend, sends it to UserInputSystem
+	 * @param event
+	 */
+	public void sendUserInputEvent(IEvent event){
+		userInputSystem.handleUserEvent(event);
 	}
 
 	public void iterateThroughSystems(Level level) {
-		for (ISystem system : mySystems) {
-			long startTime = System.currentTimeMillis();
-			system.update(myEventManager.getCurrentLevel(), myEntityFactory, myGameClock.getCurrentSecond(),
-					myComponentTagResources);
-			long endTime = System.currentTimeMillis();
-			long totalTime = endTime - startTime;
-			// System.out.println(myGameClock.getCurrentSecond());
-			// System.out.println(system.getClass().getSimpleName() + ": " +
-			// totalTime);
-		}
-		myGameClock.updateLoopIteration();
-	}
+		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
 
+		for (ISystem system : mySystems) {
+			system.update(myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());			
+		}
+		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
+		myEventManager.handleNonMapEvents(nonMapEvents);
+		nonMapEvents.clear();
+		//handle all the generate events
+		myEventManager.handleGeneratedEvents(myEventMap);
+		myEventManager.updateGameShop();
+		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
+		myGameClock.updateLoopIteration();
+		
+	}
+	
+	
+	
 }

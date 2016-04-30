@@ -1,42 +1,34 @@
 package authoring.backend.factories;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
+import authoring.backend.game_objects.AuthoringMode;
+import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
+import engine.backend.game_object.GameStatistics;
 
 public class ModeFactory {
-
+	
 	public ModeFactory() {
+	
+	}
+	
+	public Mode createMode(AuthoringMode authoringMode, Map<String, Level> levelMap) {
+		String name = authoringMode.getName();
+		int numLives = authoringMode.getInitialLives();
+		double resources = authoringMode.getInitialResources();
+		GameStatistics modeStatistics = new GameStatistics(numLives, resources);
 		
-	}
-	
-	public Mode createMode(Map<String, String> data){
-		//setUpMode(newMode, info);
-		String name = null;
-		Set<String> levelNames = new HashSet<String>();
-		for (String key : data.keySet()) {
-			if (key.equals("ModeName")) {
-				name = data.get(key);
-			}
-			if (key.equals("Levels")) {
-				levelNames = getLevelNames(data.get(key));
-			}
+		Map<Integer, String> levelIndex = authoringMode.getLevels();
+		Map<Integer, Level> levels = new HashMap<Integer, Level>();
+		
+		for (int key : levelIndex.keySet()) {
+			String levelName = levelIndex.get(key);
+			Level level = levelMap.get(levelName);
+			levels.put(key, level);
 		}
-		return new Mode(name, levelNames);
-	}
-	
-	private Set<String> getLevelNames(String str) {
-		String[] names = str.split(" ");
-		Set<String> levelNames = new HashSet<String>();
-		for (int i = 0; i < names.length; i++) {
-			levelNames.add(names[i]);
-		}
-		return levelNames;
-	}
-	
-	private void setUpMode(Mode mode, Object info){
-		//do other shit with string
+		
+		return new Mode(name, modeStatistics, levels);
 	}
 }

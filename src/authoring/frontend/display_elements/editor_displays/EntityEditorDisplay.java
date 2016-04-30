@@ -5,7 +5,7 @@ import authoring.frontend.display_elements.grids.editor_grids.EntityEditorGrid;
 
 /**
  * 
- * @author benchesnut
+ * @author Frank, benchesnut
  *
  */
 

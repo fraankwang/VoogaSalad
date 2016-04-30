@@ -1,19 +1,22 @@
 package authoring.frontend;
 
 import java.util.Map;
+
 import authoring.backend.data.GlobalData;
 import authoring.backend.data.ObservableList;
+import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringMode;
+import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.interfaces.IViewManager;
-import engine.backend.entities.Entity;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
  * This class contains the link to the backend through GlobalData, the link to
  * the frontend through myAuthoringViewManager, and acts as a universal
- * referencing point to the primary stage and scene. 
+ * referencing point to the primary stage and scene.
  * 
  * @author Frank, benchesnut
  *
@@ -39,20 +42,24 @@ public class AuthoringView implements IAuthoringView {
 	@Override
 	public void writeData(Map<String, String> data) {
 		myGlobalData.updateData(data);
-
 	}
 
-	public ObservableList<Entity> getEntityList() {
+	@Override
+	public void deleteData(Map<String, String> data) {
+		myGlobalData.deleteData(data);
+	}
+
+	public ObservableList<AuthoringEntity> getEntityList() {
 		return myGlobalData.getEntities();
 	}
 
 	@Override
-	public ObservableList<Level> getLevelList() {
+	public ObservableList<AuthoringLevel> getLevelList() {
 		return myGlobalData.getLevels();
 	}
 
 	@Override
-	public ObservableList<Mode> getModeList() {
+	public ObservableList<AuthoringMode> getModeList() {
 		return myGlobalData.getModes();
 	}
 
@@ -72,6 +79,15 @@ public class AuthoringView implements IAuthoringView {
 		myPrimaryStage.setScene(myPrimaryScene);
 		myPrimaryStage.show();
 
+	}
+
+	@Override
+	public IViewManager getAuthoringViewManager() {
+		return myAuthoringViewManager;
+	}
+	
+	public Map<String, Image> getEntities() {
+		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntities();
 	}
 
 }

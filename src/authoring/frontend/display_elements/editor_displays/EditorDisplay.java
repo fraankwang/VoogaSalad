@@ -53,5 +53,7 @@ public abstract class EditorDisplay implements IEditorDisplay {
 		Scene editorScene = new Scene(root, EDITOR_SCENE_WIDTH, EDITOR_SCENE_HEIGHT, Color.WHITE);
 		myEditorStage.setScene(editorScene);
 		myEditorStage.show();
+		myGrid.initializeHotKeys();
 	}
+
 }

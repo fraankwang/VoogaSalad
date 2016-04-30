@@ -2,6 +2,7 @@ package authoring.frontend.display_elements.grid_factories;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.Panel;
+import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 
 /**
  * The GridFactory superclass is responsible for creating the UI elements within
@@ -15,7 +16,7 @@ import authoring.frontend.display_elements.panels.Panel;
 
 public abstract class GridFactory {
 
-	private IAuthoringView myController;
+	protected IAuthoringView myController;
 	protected final int MAX_SIZE = Integer.MAX_VALUE;
 
 	public GridFactory(IAuthoringView controller) {
@@ -24,6 +25,6 @@ public abstract class GridFactory {
 
 	public abstract Panel createPrimaryDisplay();
 
-	public abstract Panel createButtonDashboard();
+	public abstract ButtonDashboard createButtonDashboard();
 
 }

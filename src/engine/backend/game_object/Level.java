@@ -6,105 +6,230 @@
 
 package engine.backend.game_object;
 
-import engine.backend.entities.IEntity;
-import engine.backend.map.GameMap;
-import engine.backend.rules.EntityAction;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+
+import engine.backend.entities.IEntity;
+import engine.backend.game_features.ShopItem;
+import engine.backend.map.GameMap;
+import engine.backend.rules.EntityAction;
+import engine.backend.rules.Rule;
+
+/**
+ * 
+ * @author 
+ *
+ */
 public class Level {
-
-	private int myID;
-	private String myParentModeName;
-	private GameMap map;
+	
+	//put spawning entities in this map
 	private Map<Integer, IEntity> entities;
-	private Set<String> entityNames;
-	private Map<String, String> levelInfo;
-	private double levelTimer;
+	private Map<String, List<EntityAction>> myEventMap;
+	private List<IEntity> authoredEntities;
+	private List<ShopItem> myShopItems;
+	private String myName;
+	private GameMap map;
 	private double waveDelayTimer;
-	private double timer;
-
-
-	public Level(int myID, GameMap map) {
-		this.myID = myID;
-		this.map = map;
-		initializeInfo();
+	private int numWaves;
+	private int currentWaveIndex;
+	private List<Rule> ruleAgenda;
+	private int index;
+	private boolean sendNextWave;
+	private String lastSerializedVersion;
+	
+	/**
+	 * Authoring Environment Constructor.
+	 */
+	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+		this.myName = myName;
+		this.map = myMap;
+		this.waveDelayTimer = waveDelayTimer;
+		this.authoredEntities = authoredEntities;
+		this.entities = entities;
 	}
 	
-	private void initializeInfo() {
-		levelInfo.put("Type", "Level");
-		levelInfo.put("MapBackgroundImage", map.getMapImage());
-		levelInfo.put("LevelTimer", levelTimer + "");
-		levelInfo.put("WaveDelayTimer", waveDelayTimer + "");
-	}
+	/**
+	 * Engine Testing Constructor.
+	 */
+	public Level(String name) {
+        this.authoredEntities = new ArrayList<IEntity>();
+        this.entities = new HashMap<Integer, IEntity>();
+        this.myName = name;
+        this.myEventMap = new HashMap<String, List<EntityAction>>();
+        ruleAgenda = new ArrayList<Rule>();
+    }
 
+	/**
+	 * 
+	 * @return The unique identifier for the level.
+	 */
+	public String getName() {
+		return myName;
+	}
+	
+	/**
+	 * 
+	 * @return A list of Rule objects that has the rules for the level.
+	 */
+	public List<Rule> getRuleAgenda(){
+		return ruleAgenda;
+	}
 
 	
+	/**
+	 * Sets the rules for the level.	
+	 * @param rules
+	 */
+	public void setRuleAgenda(List<Rule> rules){
+		ruleAgenda = rules;
+	}
 
 	
-	public Set<String> getEntityNames() {
-		return entityNames;
+	/**
+	 * Adds an action to the event map.
+	 * @param eventID
+	 * @param actions
+	 */
+	public void addActionToEventMap(String eventID, List<EntityAction> actions) {
+		myEventMap.put(eventID, actions);
 	}
 
-	public Level(int myID) {
-		this.entities = new HashMap<Integer, IEntity>();
-		this.myID = myID;
-	}
-
-	public int getId() {
-		return myID;
-	}
-
+	/**
+	 * 
+	 * @return The entities currently on the game screen.
+	 */
 	public Map<Integer, IEntity> getEntities() {
 		return entities;
 	}
 
+	/**
+	 * Adds an entity created to the map that stores the entities on the game
+	 * screen.
+	 * 
+	 * @param entity
+	 */
+	public void addEntityToMap(IEntity entity) {
+		entities.put(entity.getID(), entity);
+	}
+
+	/**
+	 * Adds a collection of entities to the map that stores the entities on the
+	 * game screen.
+	 * 
+	 * @param entities
+	 */
+	public void addEntityToMap(Collection<IEntity> entities) {
+		entities.stream().forEach(e -> addEntityToMap(e));
+	}
+
+	/**
+	 * 
+	 * @return The instance of GameMap for the level.
+	 */
 	public GameMap getMap() {
 		return map;
 	}
 
-
-	public Map<String, String> getInfo() {
-		return levelInfo;
-	}
-
-
-	public void setMap(GameMap map){
+	
+	/**
+	 * Engine Testing Method.
+	 */
+	public void setMap(GameMap map) {
 		this.map = map;
 	}
+
+	public void removeEntites(Collection<IEntity> entitiesToRemove){
+		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
+	}
+
+
+	public void setWaveDelayTimer(double time){
+		waveDelayTimer = time;
+	}
+
+	public int getNumWaves() {
+		return numWaves;
+	}
+
+
+	public int getCurrentWaveIndex() {
+		return currentWaveIndex;
+	}
+
+	public void setCurrentWaveIndex(int currentWaveIndex) {
+		this.currentWaveIndex = currentWaveIndex;
+	}
 	
-
-	public void addToEntities(IEntity entity) {
-		entity.setLevelID(myID);
-		entities.put(entity.getID(), entity);
+	public int getIndex() {
+		return index;
 	}
-
-	public void setModeName(String modeID) {
-		this.myParentModeName = modeID;
+	
+	public void setIndex(int index) {
+		this.index = index;
 	}
-
-	public String getModeID() {
-		return myParentModeName;
-
+	
+	public void setNumWaves(int num){
+		numWaves = num;
 	}
-
+	
+	public double getWaveDelayTimer() {
+		return waveDelayTimer;
+	}
+	
+	public List<IEntity> getAuthoredEntities() {
+		return authoredEntities;
+	}
+	
 	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Level) {
-			Level temp = (Level) o;
-			if (this.getId() == temp.getId()) {
-				return true;
-			} else return false;
-		}else return false;
+	public String toString() {
+		return "Level [entities=" + entities + "] ";
 	}
 
-	public Map<String, List<EntityAction>> getCustomEvents() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ShopItem> getShopItems() {
+		return myShopItems;
 	}
 
+	public void setShopItems(List<ShopItem> myShopItems) {
+		this.myShopItems = myShopItems;
+	}
 
+	public void setAuthoredEntities(List<IEntity> authoredEntities) {
+		this.authoredEntities = authoredEntities;
+	}
+
+	public boolean sendNextWave() {
+		return sendNextWave;
+	}
+	
+	public void setSendNextWave(boolean bool){
+		sendNextWave = bool;
+	}
+
+	/**
+	 * 
+	 * @return String of the xml of the last serialized version of this level.
+	 */
+	public String getLastSerializedVersion() {
+		return lastSerializedVersion;
+	}
+
+	/**
+	 * Sets the last serialized version of this level.
+	 * @param lastSerializedVersion
+	 */
+	public void setLastSerializedVersion(String lastSerializedVersion) {
+		this.lastSerializedVersion = lastSerializedVersion;
+	}
+	
+	public IEntity getEntityWithID(int id){
+		return entities.get(id);
+	}
+
+	
 }

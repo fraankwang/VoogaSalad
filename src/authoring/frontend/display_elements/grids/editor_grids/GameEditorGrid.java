@@ -31,9 +31,4 @@ public class GameEditorGrid extends EditorGrid {
 
 	}
 
-	@Override
-	protected void assembleGridComponents() {
-		super.assembleGridComponents();
-	}
-
 }

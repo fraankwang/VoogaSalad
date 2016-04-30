@@ -1,13 +1,10 @@
 package engine.backend.systems;
 
-<<<<<<< HEAD
-import engine.backend.components.UserInputComponent;
-=======
+
 import java.util.List;
 import java.util.ResourceBundle;
 
 import engine.backend.components.MouseComponent;
->>>>>>> origin/authoring_backend
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
@@ -36,13 +33,10 @@ public class MouseSystem implements ISystem {
 
     }
 
-<<<<<<< HEAD
-    private void updateMouseClickedComponent(IEntity iEntity, boolean update){
-        UserInputComponent toChange  = (UserInputComponent) iEntity.getComponent(getComponentTagResources().getString("UserInput"));
-=======
+
     private void updateMouseClickedComponent(IEntity iEntity, boolean update, ResourceBundle myComponentTagResources){
         MouseComponent toChange  = (MouseComponent)iEntity.getComponent(myComponentTagResources.getString("Mouse"));
->>>>>>> origin/authoring_backend
+
         toChange.setClicked(update);
     }
 }

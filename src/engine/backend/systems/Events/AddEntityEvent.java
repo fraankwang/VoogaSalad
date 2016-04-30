@@ -1,6 +1,7 @@
 package engine.backend.systems.Events;
 
 import java.util.Collection;
+import java.util.List;
 
 import engine.backend.entities.IEntity;
 
@@ -12,7 +13,14 @@ public class AddEntityEvent extends EntityEvent{
 		this.newEntities = newEntities;
 	}
 	
-	public Collection<IEntity> getNewEntity(){
+	public Collection<IEntity> getNewEntities(){
 		return newEntities;
 	}
+	
+	@Override
+	public String getEventID() {
+		// TODO Auto-generated method stub
+		return this.getClass().getSimpleName();
+	}
+
 }

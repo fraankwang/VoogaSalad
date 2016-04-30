@@ -1,9 +1,11 @@
 /**
  * 
- * @author mario_oliver93
+ * @author mario_oliver93, raghav kedia
  * 
  */
 package engine.backend.components;
+
+
 
 
 public class SizeComponent extends Component implements IComponent {
@@ -17,6 +19,11 @@ public class SizeComponent extends Component implements IComponent {
 	public SizeComponent() {
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
+	}
+	
+	public SizeComponent(SizeComponent component) {
+		this.width = component.getWidth();
+		this.height = component.getHeight();
 	}
 
 	@Override
@@ -57,6 +64,7 @@ public class SizeComponent extends Component implements IComponent {
 		if (dataName.equals("Height")) {
 			this.height = Double.parseDouble(data);
 			return;
+
 		}
 	}
 	public void initWithParams(String[] params) {

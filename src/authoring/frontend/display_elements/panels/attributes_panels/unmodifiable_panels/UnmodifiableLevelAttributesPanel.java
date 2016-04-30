@@ -1,20 +1,21 @@
 package authoring.frontend.display_elements.panels.attributes_panels.unmodifiable_panels;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
+import java.util.TreeMap;
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import authoring.parser.GlobalParser;
+//import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.control.TextField;
+//import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * 
@@ -25,15 +26,18 @@ import javafx.scene.layout.GridPane;
 public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPanel {
 
 	private BorderPane myWrapper;
-	private TitledPane myEntityTitledPane;
-	private TitledPane myPiecesTitledPane;
-	private TitledPane myRulesTitledPane;
 	private GridPane myGridPane;
-	private ListView<String> myRulesListView;
-	private ListView<String> myPiecesListView;
-	private ListView<String> myEntityListView;
-	private GridPane titledPanesGridPane;
 	private ScrollPane myScrollPane;
+	private GridPane mySpawnEntitiesGridPane;
+
+	private static final int SPAWN_ENTITIES_COLUMN_1 = 18;
+	private static final int SPAWN_ENTITIES_COLUMN_2 = 50;
+	private static final int SPAWN_ENTITIES_COLUMN_3 = 18;
+	private static final int SPAWN_ENTITIES_COLUMN_4 = 23;
+	private static final int SPAWN_ENTITIES_COLUMN_5 = 15;
+
+	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("PathID", "Name", "Wave", "Number",
+			"Rate");
 
 	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
@@ -46,63 +50,135 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		rowConstraints.add(BUTTON_HEIGHT_PERCENTAGE);
-		rowConstraints.add(100 - BUTTON_HEIGHT_PERCENTAGE);
+		int attributesHeight = (100 - BUTTON_HEIGHT_PERCENTAGE) / 2;
+		int spawnEntitiesHeight = (100 - BUTTON_HEIGHT_PERCENTAGE) / 2;
+		rowConstraints.add(attributesHeight);
+		rowConstraints.add(spawnEntitiesHeight);
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myOpenEditorButton = new Button("hi");
+		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
+		
+		List<String> levelAttributes = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
+				"WaveDelayTimer", "MapWidth", "MapHeight");
 
-		myEntityListView = createModeRulesListView();
-		myEntityTitledPane = new TitledPane("Entities", myEntityListView);
-		myEntityTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
-		myPiecesListView = createModeRulesListView();
-		myPiecesTitledPane = new TitledPane("Grid Pieces", myPiecesListView);
-		myPiecesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
-		myRulesListView = createModeRulesListView();
-		myRulesTitledPane = new TitledPane("Rules", myRulesListView);
-		myRulesTitledPane.setPrefHeight(TITLED_PANE_HEIGHT);
-
-		titledPanesGridPane = new GridPane();
-		titledPanesGridPane.add(myEntityTitledPane, 0, 0);
-		titledPanesGridPane.add(myPiecesTitledPane, 0, 1);
-		titledPanesGridPane.add(myRulesTitledPane, 0, 2);
-		titledPanesGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		myAttributesGridPane = createAttributesGridPane(levelAttributes);
+		myOpenEditorButton = createOpenEditorButton();
+		mySpawnEntitiesGridPane = createSpawnEntitiesGridPane();
 
 		myScrollPane = new ScrollPane();
-		myScrollPane.setContent(titledPanesGridPane);
+		myScrollPane.setContent(mySpawnEntitiesGridPane);
+		myScrollPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 	}
+
+	/**
+	 * Assembles initial Grid set up for displaying Spawn Entities
+	 * 
+	 * @return
+	 */
+	private GridPane createSpawnEntitiesGridPane() {
+		List<Integer> rowConstraints = new ArrayList<Integer>();
+		List<Integer> columnConstraints = new ArrayList<Integer>();
+		columnConstraints.add(SPAWN_ENTITIES_COLUMN_1);
+		columnConstraints.add(SPAWN_ENTITIES_COLUMN_2);
+		columnConstraints.add(SPAWN_ENTITIES_COLUMN_3);
+		columnConstraints.add(SPAWN_ENTITIES_COLUMN_4);
+		columnConstraints.add(SPAWN_ENTITIES_COLUMN_5);
+
+		mySpawnEntitiesGridPane = createGridWrapper(rowConstraints, columnConstraints);
+		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
+
+		return mySpawnEntitiesGridPane;
+	}
+
+
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
-		myGridPane.add(myScrollPane, 0, 1);
+		myGridPane.add(myAttributesGridPane, 0, 1);
+		myGridPane.add(myScrollPane, 0, 2);
+		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
 	}
 
-	private ListView<String> createModeRulesListView() {
-		ListView<String> lv = new ListView<String>();
-		lv.setCellFactory(TextFieldListCell.forListView());
-		ContextMenu cm = new ContextMenu();
-		cm.getItems().add(new MenuItem("context menu text"));
-		lv.setContextMenu(cm);
-		lv.setEditable(true);
-		lv.getItems().add("Waves");
-		lv.getItems().add("Timer");
-		myAttributesMap.put("Waves", "");
-		myAttributesMap.put("Timer", "");
+	@Override
+	protected void refreshDisplay() {
+		myAttributesGridPane.getChildren().clear();
 
+		System.out.println(
+				"*****7. UnmodifiableLevelAttributesPanel: Levels display refreshed with updated myAttributesMap");
+		System.out.println(myAttributesMap);
 
+		for (String currentAttribute : myAttributesMap.keySet()) {
+			if (!currentAttribute.equals("SpawnEntities")) {
+				if (myOutputMap.containsKey(currentAttribute)) {
+					TextField tf = (TextField) myOutputMap.get(currentAttribute);
+					tf.setText(myAttributesMap.get(currentAttribute));
+					tf.setEditable(false);
+					myOutputMap.replace(currentAttribute, tf);
+					
+				}
+				
+				else {
+					TextField tf = new TextField();
+					tf.setText(myAttributesMap.get(currentAttribute));
+					tf.setEditable(false);
+					myOutputMap.put(currentAttribute, tf);
+				}
+				
+			}
 
-		return lv;
+		}
+
+		mySpawnEntitiesGridPane.getChildren().clear();
+
+		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
+				(TreeMap<String, String>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
+
+		refreshRows();
+		myGridPane.getChildren().clear();
+		assembleComponents();
+	}
+
+	/**
+	 * Helper method that takes a GridPane and parses Spawn Entities to fill it.
+	 * 
+	 * @param gridPane
+	 * @param map
+	 */
+	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String> map) {
+		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
+
+		int row = 1; // row 0 is filled by addColumnNames
+		for (String pathID : map.keySet()) {
+			Text ID = new Text(pathID);
+			ID.setFont(new Font(FONT_SIZE));
+
+			gridPane.add(ID, 0, row);
+			String compressed = map.get(pathID);
+			String[] components = compressed.split(".");
+			int column = 1;
+			for (String component : components) {
+				Text text = new Text(component);
+				text.setFont(new Font(FONT_SIZE));
+				gridPane.add(text, column, row);
+				column++;
+			}
+
+			row++;
+		}
 	}
 
 	@Override
-	protected void refreshDisplay() {
-		// TODO Auto-generated method stub
-		
+	public void setAttributes(Map<String, String> updatedInfo) {
+		System.out.println("*****6: UnmodifiableAttrPanel: updated output info from updated backend");
+		System.out.println(updatedInfo);
+		myAttributesMap = updatedInfo;
+		refreshDisplay();
+		myAttributesMap.put("Type", "Level");
 	}
-
 
 }

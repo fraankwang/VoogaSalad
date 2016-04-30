@@ -40,17 +40,23 @@ public class EditorPanelBar extends PanelBar {
 		HBox hbox = new HBox();
 		
 		// zooms don't work quite right yet
-		//myZoomOutButton.setOnAction(e -> myViewPanel.zoomOut());
-		//myZoomInButton.setOnAction(e -> myViewPanel.zoomIn());
+//		myZoomOutButton.setOnAction(e -> myViewPanel.zoomOut());
+//		myZoomInButton.setOnAction(e -> myViewPanel.zoomIn());
 		myZoomControls.getChildren().addAll(myZoomOutButton, new Label("Zoom"),  myZoomInButton);
 		hbox.getChildren().addAll(myDescription, myZoomControls);
 		myNode = hbox;
 	}
 	
-	public void addButton(String label, EventHandler<ActionEvent> action) {
+	@Override
+	public Button addButton(String label, EventHandler<ActionEvent> action) {
 		Button b = new Button(label);
 		b.setOnAction(action);
 		myDescription.getChildren().add(b);
+		return b;
+	}
+	
+	public void removeButtons(int from, int to) {
+		myDescription.getChildren().remove(from, to);
 	}
 
 }

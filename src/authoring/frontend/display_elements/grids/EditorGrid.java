@@ -1,13 +1,16 @@
 package authoring.frontend.display_elements.grids;
 
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.Panel;
+import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
-import authoring.frontend.display_elements.panels.button_dashboards.SimpleButtonDashboard;
+import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**
@@ -22,7 +25,7 @@ import javafx.stage.Stage;
 
 public abstract class EditorGrid extends Grid {
 
-	protected Panel myRulesPanel;
+	protected RulesEditorPanel myRulesPanel;
 	protected ModifiableAttributesPanel myModifiableAttributesPanel;
 	protected Stage myEditorStage;
 
@@ -48,10 +51,10 @@ public abstract class EditorGrid extends Grid {
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
-		((ButtonDashboard) myButtonDashboard).getSaveButton()
-				.setOnAction(e -> sendData(((ModifiableAttributesPanel) myModifiableAttributesPanel).saveAttributes()));
+		((EditorButtonDashboard) myButtonDashboard).getSaveButton()
+				.setOnAction(e -> sendData(saveAttributes()));
 
-		((SimpleButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
+		((EditorButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
 
 	}
 
@@ -61,11 +64,15 @@ public abstract class EditorGrid extends Grid {
 	 * @param map
 	 */
 	protected void sendData(Map<String, String> map) {
-		System.out.println("*****4. EditorGrid: saved myAttributesMap written to backend:");
+		System.out.println("*****5. EditorGrid: saved myAttributesMap written to backend:");
 		System.out.println(map);
 		myController.writeData(map);
 		myEditorStage.close();
 
+	}
+	
+	protected Map<String, String> saveAttributes() {
+		return myModifiableAttributesPanel.saveAttributes();
 	}
 
 	/**
@@ -85,7 +92,30 @@ public abstract class EditorGrid extends Grid {
 	}
 
 	public void setAttributesPanel(Map<String, String> info) {
-		myModifiableAttributesPanel.setAttributes(info);
+		((ModifiableAttributesPanel) myModifiableAttributesPanel).updateAttributes(info);
+	}
+
+	@Override
+	public void initializeHotKeys() {
+		Button saveButton = ((EditorButtonDashboard) myButtonDashboard).getSaveButton();
+		Button resetButton = ((EditorButtonDashboard) myButtonDashboard).getResetButton();
+
+		saveButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN),
+				new Runnable() {
+					@Override
+					public void run() {
+						saveButton.fire();
+					}
+				});
+
+		resetButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN),
+				new Runnable() {
+					@Override
+					public void run() {
+						resetButton.fire();
+					}
+				});
+		
 	}
 
 }

@@ -1,10 +1,8 @@
 package authoring.frontend.display_elements.panels;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -14,7 +12,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -26,14 +23,14 @@ import javafx.scene.layout.VBox;
  * GridView contains a scrollable GridPane that shows all the existing game
  * sprites (or levels/modes) created. The PanelBar allows
  * 
- * @author Frank
+ * @author Ben
  *
  */
 
 public class GridViewPanel extends Panel {
 
 	private final static int DEFAULT_NUM_GRID_COLUMNS = 2;
-
+	private final static int ADD_NEW_BUTTON_SIZE = 300;
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
 	private PanelBar myPanelBar;
@@ -53,13 +50,18 @@ public class GridViewPanel extends Panel {
 	protected void initializeComponents() {
 		myGridPane = new GridPane();
 		myScrollPane = new ScrollPane();
-		myPanelBar = new GridPanelBar(50, 50, this);
+		myPanelBar = new GridPanelBar(MAX_SIZE, MAX_SIZE, this);
 		myPanelBar.initialize();
+		
 		myImages = new ArrayList<ImageView>();
-		myAddNewButton = new Button("Add New...");
+		myAddNewButton = new Button("Add New");
+		myAddNewButton.setStyle(
+				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#000000,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
+
+		myAddNewButton.setPrefSize(ADD_NEW_BUTTON_SIZE, ADD_NEW_BUTTON_SIZE);
 	}
 
-	private void resetGrid() {
+	public void resetGrid() {
 		myGridPane.getChildren().clear();
 		myGridPane.getColumnConstraints().clear();
 		double gridCellSize = (myScrollPane.getViewportBounds().getWidth() - 20) / numColumns;
@@ -100,12 +102,11 @@ public class GridViewPanel extends Panel {
 	@Override
 	protected void assembleComponents() {
 		VBox vbox = new VBox();
-		myGridPane.setGridLinesVisible(true);
 		myAddNewButton.setOnAction(e -> {
-			myTabDisplay.openEditorDisplay(((TabDisplay) myTabDisplay).getAttributesMap()); //get data
-//			myTabDisplay.openEditorDisplay(new ImageView("question_mark.png"), new HashMap<String, String>());
+			Map<String, String> defaultAttributesMap = ((TabDisplay) myTabDisplay).getDefaultAttributesMap();
+			myTabDisplay.openEditorDisplay(defaultAttributesMap);
 		});
-		
+
 		myScrollPane.setContent(myGridPane);
 		VBox.setVgrow(myGridPane, Priority.ALWAYS);
 		vbox.getChildren().addAll(myPanelBar.getNode(), myScrollPane);
@@ -125,16 +126,26 @@ public class GridViewPanel extends Panel {
 					myCurrImage = iv;
 					return;
 				}
-				iv.setOpacity(0.5);
-				//update the UnmodifiableAttributesPanel
+				iv.setOpacity(0.2);
 			}
 		});
 		myImages.add(iv);
 		resetGrid();
 	}
-	
-	public ImageView getImage() {
+
+	public ImageView getCurrentImage() {
 		return myCurrImage;
 	}
 
+	public void clearImages() {
+		myImages.clear();
+	}
+
+	public Button getMyAddNewButton() {
+		return myAddNewButton;
+	}
+	
+	public void setPanelBarDescription(String description) { 
+		((GridPanelBar) myPanelBar).setDescription(description);
+	}
 }
