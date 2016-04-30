@@ -51,7 +51,6 @@ public class RenderingSystem extends GameSystem {
 			for (IComponent eachComponent : myEntity.getComponents()) {
 				if (eachComponent.getTag().equals(ComponentTagResources.displayComponentTag)) {
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
-					System.out.println(imageToDisplay);
 					show = ((DisplayComponent) eachComponent).shouldBeShown();
 					delete = ((DisplayComponent) eachComponent).getDelete();
 				}
@@ -82,7 +81,6 @@ public class RenderingSystem extends GameSystem {
 	public void sendUpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show){
 		UpdateEntityEvent event = new UpdateEntityEvent(x, y, image, id, sizex, sizey, show);
 		this.setChanged();
-		System.out.println("image5: " + event.getImage());
 		notifyObservers(event);
 	}
 

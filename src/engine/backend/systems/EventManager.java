@@ -67,7 +67,7 @@ public class EventManager implements Observer {
 	public Level getCurrentLevel() {
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
-		System.out.println(levelIndex);
+//		System.out.println(levelIndex);
 		if (myGameWorld.getLevelWithId(modeName, levelIndex).shouldRevert()) {
 			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 			Level myLevel = (Level) serializer.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
@@ -179,7 +179,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void handleWaveOverEvent(WaveOverEvent event) {
-		myEngineController.waveIsOver();
+		myEngineController.waveIsOver(event.getTimerLength());
 	}
 	
 	public void handleLevelOver() {
@@ -206,7 +206,6 @@ public class EventManager implements Observer {
 	private void resetLevel(){
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
-		System.out.println("fjdskalfj");
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
@@ -286,7 +285,7 @@ public class EventManager implements Observer {
 		
 		for(IEvent event : events){
 			if(event instanceof EntityDroppedEvent){
-				System.out.println(event.getEventID());
+//				System.out.println(event.getEventID());
 				handleEntityDropEvent((EntityDroppedEvent) event);
 			}
 			else if(event instanceof NextWaveEvent){

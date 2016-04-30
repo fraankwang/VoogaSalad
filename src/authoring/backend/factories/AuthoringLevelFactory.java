@@ -10,6 +10,7 @@ import java.util.Set;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.parser.GlobalParser;
+import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
@@ -168,6 +169,7 @@ public class AuthoringLevelFactory {
 			IComponent spawner = new SpawnerComponent(spawns, pathID);
 			AuthoringEntity spawnEntity = new AuthoringEntity(entityName, genre);
 			spawnEntity.addComponent(spawner);
+			spawnEntity.addComponent(new DisplayComponent());
 			spawnEntities.add(spawnEntity);
 		}
 		return spawnEntities;
