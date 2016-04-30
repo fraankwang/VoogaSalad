@@ -126,7 +126,7 @@ public class testingClass {
 		ruleKeyDown.addActions(keyActionDown);
 		ruleKeyDown.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventDOWN"));
 		
-		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
+		LevelAction levelAction = new LevelAction("CurrentNumLives", "-10");
 		LevelAction levelAction2 = new LevelAction("CurrentResources", "4");
 		
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
@@ -174,8 +174,8 @@ public class testingClass {
 		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 10);
-		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 10);
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 2);
+		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 2);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
 
 		IComponent tempPosition4 = new PositionComponent(0, 100);
@@ -257,7 +257,7 @@ public class testingClass {
 		createdTowers.put("tempEntity2", tempEntity2);
 		myCreatableEntityMap.put("Towers", createdTowers);
 		
-		//level.addEntityToMap(tempSpawn);
+		level.addEntityToMap(tempSpawn);
 		System.out.println(level.getEntities().values().size());
 		level.addEntityToMap(tempEntity2);
 		

@@ -66,6 +66,7 @@ public class LevelFactory {
 		List<ShopItem> shopItems = new ArrayList<ShopItem>();
 		for (IEntity entity : authoredEntities) {
 			if (entity.hasComponent("PurchaseComponent")) {
+				System.out.println("added new shopitem");
 				DisplayComponent displayComponent = (DisplayComponent) entity.getComponent("DisplayComponent");
 				PurchaseComponent purchaseComponent = (PurchaseComponent) entity.getComponent("PurchaseComponent");
 				ShopItem item = new ShopItem(entity.getName(), displayComponent.getImage(), purchaseComponent.getValue());

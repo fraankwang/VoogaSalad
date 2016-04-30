@@ -27,7 +27,12 @@ public class SpawningSystem extends GameSystem {
 	private double delayTimer;
 
 	@Override
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {		
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {		
+		
+		if(!playing){
+			return;
+		}
+		
 		if(myLevel.sendNextWave()){
 			myLevel.setSendNextWave(false);
 			delayTimer = 0;
@@ -56,6 +61,7 @@ public class SpawningSystem extends GameSystem {
 			}
 
 			if(waveIsOver){
+				myLevel.setCurrentWaveIndex(currentWaveIndex + 1);
 				sendEvent(getWaveOverEvent());
 				delayTimer = 100 * myLevel.getWaveDelayTimer();
 			}
@@ -71,7 +77,7 @@ public class SpawningSystem extends GameSystem {
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
 			newEntity.addComponent(newPositionComponent);
-
+			System.out.println(newEntity.getID());
 			if(newEntity.hasComponent(ComponentTagResources.pathComponentTag)){
 				PathComponent pathComp = (PathComponent) newEntity.getComponent(ComponentTagResources.pathComponentTag);
 				pathComp.setPathID(pathID);

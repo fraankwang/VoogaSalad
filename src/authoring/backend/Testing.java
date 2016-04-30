@@ -62,7 +62,7 @@ public class Testing {
 		level1.put("Type", "Level");
 		level1.put("Name", "level1");
 		level1.put("WaveDelayTimer", "5");
-		level1.put("MapBackgroundImage", "Park_Path.png");
+		level1.put("MapBackgroundImage", "Park_Path2.png");
 		level1.put("MapWidth", "500");
 		level1.put("MapHeight", "500");
 		level1.put("Entities", "bullet1 tower1");
@@ -82,7 +82,8 @@ public class Testing {
 		dataContainer.updateData(mode1);
 		
 		GameWorld gameWorld = gameFactory.createGame();
-		
+		gameWorld.setGameStatistics(gameWorld.getModes().get("mode1").getModeStatistics());
+				
 		return gameWorld;
 	}
 

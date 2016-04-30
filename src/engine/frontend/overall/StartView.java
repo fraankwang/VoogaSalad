@@ -1,5 +1,7 @@
 package engine.frontend.overall;
-
+/**
+ * @author austinwu
+ */
 import java.io.File;
 
 import engine.controller.EngineController;
@@ -59,7 +61,7 @@ public class StartView {
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(myController.getStage());
 		if (file != null) {
-			System.out.println("Do something with: " + file);
+			myController.initGameWorld(file);
 			modeComboBox.setDisable(false);
 		}
 	}
@@ -75,8 +77,7 @@ public class StartView {
 			public void changed(ObservableValue ov, String t, String t1) {
 				levelComboBox.setDisable(false);
 				selectedMode = t1;
-				 levelComboBox.getItems().addAll(myController.getGameWorld().getModes().get(t1).getLevels().keySet());
-				// need to change this to add the available ones only
+				levelComboBox.getItems().addAll(myController.currentLevelsUnlocked(selectedMode));
 			}
 		});
 

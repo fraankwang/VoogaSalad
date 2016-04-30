@@ -33,7 +33,7 @@ import engine.controller.EngineController;
 
 public class RenderingSystem extends GameSystem {
 
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
@@ -79,6 +79,7 @@ public class RenderingSystem extends GameSystem {
 	public void sendUpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show){
 		UpdateEntityEvent event = new UpdateEntityEvent(x, y, image, id, sizex, sizey, show);
 		this.setChanged();
+		System.out.println(event.getImage());
 		notifyObservers(event);
 	}
 
