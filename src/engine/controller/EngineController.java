@@ -17,6 +17,7 @@ import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
 import engine.frontend.overall.StartView;
+import engine.frontend.status.DrumpfHUDScreen;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,8 +25,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
@@ -131,11 +132,11 @@ public class EngineController extends ResourceUser implements IEngineController 
 		animation.play();
 	}
 	
-	public SubScene setupHUD(){
+	public Region setupHUD(){
 		HUDController myHUD = new HUDController();
 		myHUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
 		AbstractHUDScreen myHUDScreen = myHUD.getView();
-		return myHUDScreen.getScene();
+		return ((DrumpfHUDScreen) myHUDScreen).getBody();
 	}
 
 	private void setupGameCapture() {

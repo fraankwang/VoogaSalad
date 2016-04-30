@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import engine.frontend.status.DrumpfHUDScreen;
+
 /**
  * Main Controller class for the HUD package.
  * Contains a HUDModel, an implementation of an
@@ -43,7 +45,7 @@ public class HUDController implements Observer{
 			model.getData().put(myProperty.getFieldName(), myProperty);
 			rowToValueMap.put(i, myProperty.getFieldName());
 		}
-		setView(new HUDScreen(model.getData(), rowToValueMap));
+		setView(new DrumpfHUDScreen(model.getData(), rowToValueMap));
 	}
 	
 	

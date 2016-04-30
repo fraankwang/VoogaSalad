@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class StatusPane extends AbstractPane{
@@ -69,9 +69,11 @@ public class StatusPane extends AbstractPane{
 	}
 	
 	
-	private Node buildStatDisplay(){
-		Node node = myEngineView.getEngineController().setupHUD();
-		return node;
+	private Region buildStatDisplay(){
+		Region region = myEngineView.getEngineController().setupHUD();
+		bindHeight(region, myPane.heightProperty());
+		bindWidth(region, myPane.widthProperty().divide(2));
+		return region;
 	}
 	
 	public Pane getPane(){
