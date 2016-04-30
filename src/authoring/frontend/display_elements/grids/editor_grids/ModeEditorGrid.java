@@ -41,12 +41,18 @@ public class ModeEditorGrid extends EditorGrid {
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
-		myPrimaryDisplay = ((ModifiableModeAttributesPanel) myModifiableAttributesPanel).getLevelSelector();
+		setPrimaryDisplay(((ModifiableModeAttributesPanel) myModifiableAttributesPanel).getLevelSelector());
 	}
 
 	public void setPrimaryDisplay(LevelGridViewPanel currentGridViewPanel) {
 		myPrimaryDisplay = currentGridViewPanel;
+		((ModifiableModeAttributesPanel) myModifiableAttributesPanel).setLevelSelector(currentGridViewPanel);
 		
+		myGrid.getChildren().clear();
+		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
+		GridPane.setRowSpan(myPrimaryDisplay.getNode(), 2);
+		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
+		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 	}
 
 }

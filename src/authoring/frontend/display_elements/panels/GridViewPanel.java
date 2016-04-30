@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
+import authoring.frontend.display_elements.tab_displays.ModesTabDisplay;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.beans.value.ChangeListener;

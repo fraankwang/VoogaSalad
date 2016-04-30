@@ -45,8 +45,10 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
+		
 		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
 		myLevelSelector.initialize();
+		
 		mySelectedLevelsMap = new HashMap<Integer, String>();
 		
 		myAttributesMap = new TreeMap<String, String>();
@@ -131,7 +133,7 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 			myAttributesMap.replace("Levels", levelsCompressed);
 		}
 		
-		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
+		System.out.println("*****4. ModifiableModeAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
 		return myAttributesMap;
@@ -139,6 +141,10 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	
 	public LevelGridViewPanel getLevelSelector() {
 		return myLevelSelector;
+	}
+
+	public void setLevelSelector(LevelGridViewPanel currentGridViewPanel) {
+		myLevelSelector = currentGridViewPanel;
 	}
 
 }
