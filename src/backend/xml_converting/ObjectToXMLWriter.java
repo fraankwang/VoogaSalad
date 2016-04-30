@@ -29,38 +29,9 @@ import java.io.OutputStreamWriter;
  */
 public abstract class ObjectToXMLWriter {
 	private XStream xstream;
-	private ExceptionLoader exceptionLoader;
-	private static final String FORMATTING_ERROR = "XMLFormattingError";
 
 	public ObjectToXMLWriter() {
 		xstream = new XStream(new StaxDriver());
-		exceptionLoader = new ExceptionLoader();
-	}
-
-	/**
-	 * 
-	 * @param xml
-	 * @return A String with a formatted XML.
-	 */
-	public static String formatXml(String xml) {
-		ExceptionLoader exceptionLoader = new ExceptionLoader();
-		try {
-			Transformer serializer = SAXTransformerFactory.newInstance().newTransformer();
-
-			serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-			serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-
-			Source xmlSource = new SAXSource(new InputSource(new ByteArrayInputStream(xml.getBytes())));
-			StreamResult res = new StreamResult(new ByteArrayOutputStream());
-
-			serializer.transform(xmlSource, res);
-
-			return new String(((ByteArrayOutputStream) res.getOutputStream()).toByteArray());
-
-		} catch (Exception e) {
-			new DrumpfTowerException(exceptionLoader.getString(FORMATTING_ERROR));
-			return null;
-		}
 	}
 
 	/**
