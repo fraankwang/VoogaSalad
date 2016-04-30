@@ -30,8 +30,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected GridPane myGridPane;
 	protected GridPane myAttributesGridPane;
 	protected ScrollPane myScrollPane;
-	protected TitledPane myRulesPane;
-	protected ListView<String> myRulesListView;
 	protected IAuthoringView myController;
 	
 	protected Map<String, Control> myInputMap;

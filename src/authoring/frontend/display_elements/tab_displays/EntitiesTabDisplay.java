@@ -50,6 +50,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEntitiesTabPane = new TabPane(); // tab of entity types
 		myEditorDisplay = new EntityEditorDisplay(myController);
 		myEditorDisplay.initialize();
+		myEntities = new TreeMap<String, Map<String, String>>();
 
 		for (String genre : DEFAULT_GENRES) {
 			createNewTab(genre, false);
