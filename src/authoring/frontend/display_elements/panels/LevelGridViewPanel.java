@@ -7,8 +7,8 @@ import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
-import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.editor_features.ObjectChooser;
+import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,15 +30,10 @@ public class LevelGridViewPanel extends GridViewPanel {
 
 	private String myCurrentImage;
 
-	public LevelGridViewPanel(double height, double width, TabDisplay tabDisplay, IAuthoringView controller) {
+	public LevelGridViewPanel(double height, double width, ITabDisplay tabDisplay, IAuthoringView controller) {
 		super(height, width, tabDisplay, controller);
 		myDeleteButton = new Button("Reset");
 		mySelectedLevels = new ArrayList<String>();
-		mySelectedLevels.add("level1");
-		mySelectedLevels.add("level2");
-		mySelectedLevels.add("level3");
-		mySelectedLevels.add("level4");
-		mySelectedLevels.add("level5");
 		myPossibleLevels = new HashMap<String, String>();
 		myChooser = new ObjectChooser();
 		myChooser.initialize();
@@ -125,6 +120,9 @@ public class LevelGridViewPanel extends GridViewPanel {
 			ImageView iv = new ImageView(new Image(myPossibleLevels.get(level)));
 			myImages.add(iv);
 		}
+		mySelectedLevels = selectedLevels;
+		System.out.println("******* mySelectedLevels: " + mySelectedLevels);
+
 		resetGrid();
 	}
 
