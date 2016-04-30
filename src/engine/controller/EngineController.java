@@ -236,7 +236,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public List<Integer> currentLevelsUnlocked(String mode){
 		List<Integer> list = new ArrayList<Integer>();
 		for(Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()){
-			if(i <= myGameStatistics.getHighestLevelUnlocked());
+			if(i <= myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked());
 			list.add(i);
 		}
 		return list;
