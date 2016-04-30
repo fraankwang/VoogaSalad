@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EntityComponents {
 
@@ -24,12 +25,12 @@ public class EntityComponents {
 												"HealthComponent_CriticalHealth"));
 		aMap.put("PositionComponent", Arrays.asList("PositionComponent_XCoordinate",
 												"PositionComponent_YCoordinate"));
-		aMap.put("PathComponent", Arrays.asList("PathComponent_PathID"));
-		aMap.put("CollisionComponent", Arrays.asList("CollisionComponent_IsCollided"));
+//		aMap.put("PathComponent", Arrays.asList("PathComponent_PathID"));
+//		aMap.put("CollisionComponent", Arrays.asList("CollisionComponent_IsCollided"));
 		aMap.put("MovementComponent", Arrays.asList("MovementComponent_Velocity",
 												"MovementComponent_CanMove",
 												"MovementComponent_CanRotate"));
-		aMap.put("CostComponent", Arrays.asList("CostComponent_Cost"));
+		aMap.put("PurchaseComponent", Arrays.asList("PurchaseComponent_Value"));
 		
 		myComponents = Collections.unmodifiableMap(aMap);
 	}
@@ -51,12 +52,12 @@ public class EntityComponents {
 		bMap.put("HealthComponent_CriticalHealth", "Numerical");
 		bMap.put("PositionComponent_XCoordinate", "Numerical");
 		bMap.put("PositionComponent_YCoordinate", "Numerical");
-		bMap.put("PathComponent_PathID", "Path");
+		bMap.put("PathComponent_PathID", "Numerical");
 		bMap.put("CollisionComponent_IsCollided", "Boolean");
 		bMap.put("MovementComponent_Velocity", "Numerical");
 		bMap.put("MovementComponent_CanMove", "Boolean");
 		bMap.put("MovementComponent_CanRotate", "Boolean");
-		bMap.put("CostComponent_Cost", "Numerical");
+		bMap.put("PurchaseComponent_Value", "Numerical");
 		
 		myVariableTypes = Collections.unmodifiableMap(bMap);
 	}
@@ -72,4 +73,7 @@ public class EntityComponents {
 		return myVariableTypes.get(variable);
 	}
 
+	public static Set<String> getComponentTags() {
+		return myComponents.keySet();
+	}
 }

@@ -20,7 +20,7 @@ import authoring.frontend.display_elements.panels.GridViewPanel;
  */
 
 public class LevelsTabDisplay extends TabDisplay {
-	
+
 	private ObservableList<AuthoringLevel> myLevelList;
 
 	public LevelsTabDisplay(int tabIndex, IAuthoringView controller) {
@@ -48,32 +48,32 @@ public class LevelsTabDisplay extends TabDisplay {
 		((LevelsTabGrid) myGrid).updateLevelsPrimaryDisplay(data);
 	}
 
-
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		
+
 		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-		
+
 		System.out.println("*****1. LevelsTabDisplay: got default Levels attributes");
 		System.out.println(map);
 
 		return map;
 	}
 
+	public Map<String, String> getLevels() {
+		return ((LevelsTabGrid) myGrid).getLevels();
+	}
+
+	public String getName() {
+		return "Levels";
+	}
+
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
 
-	@Override
-	public String getName() {
-		return "Levels";
-	}
-	
-	public Map<String, String> getLevels() {
-		return ((LevelsTabGrid) myGrid).getLevels();
-	}
+
 }

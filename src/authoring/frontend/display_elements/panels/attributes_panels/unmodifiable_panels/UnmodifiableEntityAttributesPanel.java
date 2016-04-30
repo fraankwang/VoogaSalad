@@ -26,7 +26,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	
 	public UnmodifiableEntityAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
-		myDefaultAttributes = Arrays.asList("Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image");
+		myDefaultAttributes = Arrays.asList("Genre", "Name", "DisplayComponent_Image");
 	}
 
 	@Override

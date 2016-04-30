@@ -1,4 +1,4 @@
-package utility;
+package utility.gamecapture;
 
 /**
  * @author austinwu
@@ -20,7 +20,6 @@ import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
 
-import engine.frontend.overall.EngineView;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
@@ -28,7 +27,7 @@ import javafx.scene.image.WritableImage;
 
 public class GameCapture implements IGameCapture {
 
-	public static final String DEFAULT_RESOURCE = "utility/gamecapture";
+	public static final String DEFAULT_RESOURCE = "utility/gamecapture/gamecapture";
 	private ResourceBundle myResources;
 	private IMediaWriter fileWriter;
 

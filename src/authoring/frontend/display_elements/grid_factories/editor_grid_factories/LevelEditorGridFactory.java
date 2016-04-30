@@ -28,8 +28,8 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	}
 
 	@Override
-	public RulesEditorPanel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController);
+	public RulesEditorPanel createRulesPanel(ModifiableAttributesPanel attributes) {
+		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController, attributes);
 		editorPanel.initialize();
 		return editorPanel;
 	}
@@ -39,6 +39,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
 		editorView.setImage(new Image("resources/images/question_mark.png"));
+		editorView.setDescription("Level");
 		
 		editorView.getPanelBar().addButton("Upload Map Image", e -> {
 			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();

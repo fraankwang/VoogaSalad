@@ -63,8 +63,8 @@ public class EntitiesTabGrid extends TabGrid {
 
 		for (Map<String, String> info : data) {
 			if (info.get("Genre").equals(genre)) {
-				System.out.println(genre + " " + info.get("Genre"));
 				if (!myEntities.containsKey((info.get("Name")))) {
+					info.remove("DisplayComponent_Delete");
 					Image image = new Image(info.get("DisplayComponent_Image"));
 					ImageView iv = new ImageView(image);
 					myEntities.put(info.get("Name"), info.get("DisplayComponent_Image"));

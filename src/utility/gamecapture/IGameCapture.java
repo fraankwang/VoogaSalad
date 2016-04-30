@@ -1,4 +1,4 @@
-package utility;
+package utility.gamecapture;
 
 import java.awt.Event;
 import java.io.File;

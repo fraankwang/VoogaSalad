@@ -1,5 +1,6 @@
 package engine.backend.systems;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -9,15 +10,17 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import backend.xml_converting.GameWorldToXMLWriter;
+import backend.xml_converting.ObjectToXMLWriter;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
-import engine.backend.entities.EntityStatistics;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
+import engine.backend.game_object.Mode;
 import engine.backend.game_object.GameStatistics;
 import engine.backend.rules.EntityAction;
 import engine.backend.rules.IAction;
@@ -26,7 +29,9 @@ import engine.backend.rules.Rule;
 import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
+import engine.backend.systems.Events.GameEvent;
 import engine.backend.systems.Events.IEvent;
+import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.backend.systems.Events.WaveOverEvent;
@@ -43,6 +48,7 @@ public class EventManager implements Observer {
 	private List<Rule> myRuleAgenda;
 	InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
+
 
 	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
@@ -64,6 +70,10 @@ public class EventManager implements Observer {
 		return myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
 				currentModeStatistics. getCurrentLevelIndex());
 	}
+	
+	public Mode getCurrentMode() {
+		return myGameWorld.getModes().get(currentModeStatistics.getCurrentMode());
+	}
 
 	public void updateGameShop() {
 		myGameShop.setShopItems(getCurrentLevel().getShopItems());
@@ -74,7 +84,7 @@ public class EventManager implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// System.out.println(arg.getClass().getName());
-		handleCustomEvent((IEvent) arg);
+		handleSystemEvent((IEvent) arg);
 	}
 
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
@@ -86,7 +96,7 @@ public class EventManager implements Observer {
 		this.myRuleAgenda = rules;
 	}
 
-	private void handleCustomEvent(IEvent myEvent) {
+	private void handleSystemEvent(IEvent myEvent) {
 
 		if (myEvent instanceof UpdateEntityEvent) {
 			sendUpdatedEntity((UpdateEntityEvent) myEvent);
@@ -100,13 +110,61 @@ public class EventManager implements Observer {
 		if (myEvent instanceof WaveOverEvent) {
 			handleWaveOverEvent((WaveOverEvent) myEvent);
 		}
-		
-		if (myEvent instanceof NextWaveEvent) {
-			handleNextWaveEvent((NextWaveEvent) myEvent);
-		}
-
+	
 	}
 
+	/**
+	 * Handles setting the mode and level when clicked.
+	 * @param modeName
+	 * @param level
+	 * @throws IOException
+	 */
+	public void handleGameStartEvent(GameEvent event) throws IOException {
+		handleModeClickedEvent(event.getModeName());
+		handleLevelClickedEvent(event.getLevel());
+	}
+	
+	/**
+	 * Handles when a mode has been selected.
+	 * @param modeName
+	 */
+	private void handleModeClickedEvent(String modeName) {
+		currentModeStatistics.setCurrentMode(modeName);
+	}
+	
+	/**
+	 * Handles when a level has been selected.
+	 * 
+	 * @param Level
+	 * @throws IOException
+	 */
+	private void handleLevelClickedEvent(int level) throws IOException {
+		currentModeStatistics.setCurrentLevelIndex(level);
+		serializeLevel();
+	}
+
+	/**
+	 * Handles when user goes to the next level.
+	 * 
+	 */
+	public void handleGoToNextLevelEvent() {
+		currentModeStatistics.setCurrentLevelIndex(currentModeStatistics.getCurrentLevelIndex() + 1);
+		serializeLevel();
+	}
+
+	private void serializeLevel() {
+		myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(), currentModeStatistics.getCurrentLevelIndex())
+				.setLastSerializedVersion(serializeLevel(
+						myGameWorld.getLevelWithId(currentModeStatistics.getCurrentMode(),
+								currentModeStatistics.getCurrentLevelIndex()),
+						myGameWorld.getGameType() + currentModeStatistics.getCurrentLevelIndex()));
+	}
+	
+	private String serializeLevel(Object o, String fileName) {
+		ObjectToXMLWriter serializer = new GameWorldToXMLWriter();
+		return serializer.getXMLfromObject(o);
+	}
+	
 	private void handleWaveOverEvent(WaveOverEvent event) {
 		int index = getCurrentLevel().getCurrentWaveIndex();
 		// last wave, level is over, send whether level is won or not
@@ -120,7 +178,7 @@ public class EventManager implements Observer {
 
 	}
 
-	public void handleNextWaveEvent(NextWaveEvent event) {
+	private void handleNextWaveEvent(NextWaveEvent event) {
 		getCurrentLevel().setSendNextWave(true);
 	}
 
@@ -129,7 +187,7 @@ public class EventManager implements Observer {
 	 * entity to screen map.
 	 * @param event
 	 */
-	public void handleEntityDropEvent(EntityDroppedEvent event) {
+	private void handleEntityDropEvent(EntityDroppedEvent event) {
 		
 		double value = event.getEntityValue();
 		currentModeStatistics.setCurrentResources(Double.toString(value));
@@ -140,11 +198,11 @@ public class EventManager implements Observer {
 		getCurrentLevel().addEntityToMap(newEntity);
 	}
 
-	public void handleClickEvent(EntityClickedEvent event) {
+	private void handleClickEvent(EntityClickedEvent event) {
 
-		String identifier = getCurrentLevel().getEntityWithID(event.getClickedEntityID()).getName();
+		String identifier = getCurrentLevel().getEntityWithID(event.getFirstEntityID()).getName();
 		event.setEventID(identifier);
-		IEntity entity = getCurrentLevel().getEntityWithID(event.getClickedEntityID());
+		IEntity entity = getCurrentLevel().getEntityWithID(event.getFirstEntityID());
 		((Observable) entity).addObserver(event.getCurrentView());
 
 		for (Rule rule : myRuleAgenda) {
@@ -155,6 +213,15 @@ public class EventManager implements Observer {
 		}
 		entity.broadcastEntity();
 	}
+	
+	private void handleKeyPressedEvent(KeyPressedEntityEvent event) {
+		System.out.println(event.getKeyPressed() + " " + event.getFirstEntityID());
+		List<String> identifiers = new ArrayList<String>();
+		identifiers.add(event.getKeyPressed());
+		event.getEntityIDs().forEach(id -> identifiers.add(getCurrentLevel().getEntityWithID(id).getName()));
+		event.setEventID(identifiers);
+		//handle finding rule...
+	}
 
 	public void updateEntityFactory() {
 		if (myEntityFactory.isCurrent(getCurrentLevel().getIndex())) {
@@ -164,16 +231,20 @@ public class EventManager implements Observer {
 		myEntityFactory.setID(getCurrentLevel().getIndex());
 		return;
 	}
-
+	
+	/**
+	 * Applies actions to an entity if applicable, else sees if it is a level action then changes things
+	 * accordingly.
+	 * @param entity
+	 * @param actions
+	 */
 	private void applyActions(IEntity entity, Collection<IAction> actions) {
-
 		for (IAction a : actions) {
 			if (a instanceof EntityAction) {
-
+				System.out.println(((EntityAction) a).getEntityName());
 				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
 					((IModifiable) entity).applyAction((EntityAction) a);
 				}
-
 			} else if (a instanceof LevelAction) {
 				currentModeStatistics.applyAction((LevelAction) a);
 			}
@@ -181,28 +252,33 @@ public class EventManager implements Observer {
 	}
 
 	private void applyActions(Collection<Integer> entityIDs, Collection<IAction> actions) {
-
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
-		for (IAction action : actions) {
-			if (action instanceof EntityAction) {
-
-				myEntities.stream()
-						  .filter(e -> ((EntityAction) action).getEntityName().equals(e.getName()))
-						  .forEach(e -> ((IModifiable) e).applyAction(action));
-								  
-			} else if (action instanceof LevelAction) {
-				currentModeStatistics.applyAction(action);
+		myEntities.forEach(entity -> applyActions(entity, actions));
+	}
+	
+	/**
+	 * Takes in collection of non map user events generated, and handles them accordingly 
+	 * @param events
+	 */
+	public void handleNonMapEvents(Collection<IEvent> events) {
+		
+		for(IEvent event : events){
+			if(event instanceof EntityDroppedEvent){
+				System.out.println(event.getEventID());
+				handleEntityDropEvent((EntityDroppedEvent) event);
+			}
+			else if(event instanceof NextWaveEvent){
+				handleNextWaveEvent((NextWaveEvent) event);
 			}
 		}
-
+		
 	}
 
 	// supposed to handle list of events generated in each loop iteration
 	public void handleGeneratedEvents(Map<String, Set<Integer>> generatedEventMap) {
-
+		
 		for (Rule rule : myRuleAgenda) {
-
 			List<Set<Integer>> myPossibleEntities = new ArrayList<Set<Integer>>();
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
@@ -231,12 +307,12 @@ public class EventManager implements Observer {
 		}
 	}
 
-	public void handleAddEntityEvent(IEvent myEvent) {
+	private void handleAddEntityEvent(IEvent myEvent) {
 		AddEntityEvent event = (AddEntityEvent) myEvent;
 		getCurrentLevel().addEntityToMap(event.getNewEntities());
 	}
 
-	public void handleEnemyMissed() {
+	private void handleEnemyMissed() {
 
 	}
 

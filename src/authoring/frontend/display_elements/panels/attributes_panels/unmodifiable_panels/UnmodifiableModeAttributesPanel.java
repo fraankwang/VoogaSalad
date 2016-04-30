@@ -8,7 +8,6 @@ import java.util.Map;
 
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -22,7 +21,6 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 
 	private BorderPane myWrapper;
 	private GridPane myGridPane;
-	private Button myOpenEditorButton;
 	
 	public UnmodifiableModeAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);

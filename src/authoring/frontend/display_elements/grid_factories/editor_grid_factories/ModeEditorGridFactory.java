@@ -11,7 +11,7 @@ import authoring.frontend.display_elements.panels.button_dashboards.EditorButton
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 
 /**
- * 
+ * The Mode editor uses a LevelEditorGridPanel as the primary display.
  * @author Frank
  *
  */
@@ -24,10 +24,11 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 	}
 
 	@Override
-	public RulesEditorPanel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController);
-		editorPanel.initialize();
-		return editorPanel;
+	public RulesEditorPanel createRulesPanel(ModifiableAttributesPanel attributes) {
+//		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController, attributes);
+//		editorPanel.initialize();
+//		return editorPanel;
+		return null;
 	}
 
 	@Override
