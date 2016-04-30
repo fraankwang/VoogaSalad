@@ -180,7 +180,15 @@ public class EntityComponentSelector {
 
 		}
 
+		checkTracking(inputMap);
 		return inputMap;
+	}
+
+	private void checkTracking(Map<String, Control> inputMap) {
+		if (inputMap.containsKey("MovementComponent_CanTrack")) {
+			
+		}
+		
 	}
 
 	/**

@@ -1,7 +1,5 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;

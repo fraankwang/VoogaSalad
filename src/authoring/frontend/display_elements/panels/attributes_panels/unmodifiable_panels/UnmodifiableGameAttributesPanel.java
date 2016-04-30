@@ -24,7 +24,7 @@ public class UnmodifiableGameAttributesPanel extends UnmodifiableAttributesPanel
 	
 	public UnmodifiableGameAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
-		myDefaultAttributes = Arrays.asList("Game Type");
+		myDefaultAttributes = Arrays.asList("Name");
 
 	}
 

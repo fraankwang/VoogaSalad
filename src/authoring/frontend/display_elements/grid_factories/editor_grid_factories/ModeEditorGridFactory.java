@@ -2,7 +2,7 @@ package authoring.frontend.display_elements.grid_factories.editor_grid_factories
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
-import authoring.frontend.display_elements.panels.EditorViewPanel;
+import authoring.frontend.display_elements.panels.LevelGridViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
@@ -11,7 +11,7 @@ import authoring.frontend.display_elements.panels.button_dashboards.EditorButton
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 
 /**
- * 
+ * The Mode editor uses a LevelEditorGridPanel as the primary display.
  * @author Frank
  *
  */
@@ -33,9 +33,8 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel levelView = new EditorViewPanel(50, 50);
+		LevelGridViewPanel levelView = new LevelGridViewPanel(50, 50, null);
 		levelView.initialize();
-		levelView.setDescription("Mode");
 		return levelView;
 	}
 

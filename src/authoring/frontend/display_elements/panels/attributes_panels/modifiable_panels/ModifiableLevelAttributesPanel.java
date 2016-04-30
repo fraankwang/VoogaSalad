@@ -376,24 +376,20 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 	@SuppressWarnings("unchecked")
 	public Map<String, String> saveAttributes() {
+		myAttributesMap.clear();
 		myAttributesMap.put("Type", "Level");
 
 		for (String s : myInputMap.keySet()) {
 			if (myInputMap.get(s) instanceof TextField) {
-				myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
+				myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
 			} else if (myInputMap.get(s) instanceof ComboBox<?>) {
-				myAttributesMap.replace(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
+				myAttributesMap.put(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
 			}
 
 		}
 
 		mySpawnEntitiesCompressed = GlobalParser.compressSpawnsInputs(mySpawnEntitiesInputMap);
-
-		if (!myAttributesMap.containsKey("SpawnEntities")) {
-			myAttributesMap.put("SpawnEntities", mySpawnEntitiesCompressed);
-		} else {
-			myAttributesMap.replace("SpawnEntities", mySpawnEntitiesCompressed);
-		}
+		myAttributesMap.put("SpawnEntities", mySpawnEntitiesCompressed);
 
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);

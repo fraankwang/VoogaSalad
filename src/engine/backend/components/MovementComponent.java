@@ -49,6 +49,10 @@ public class MovementComponent extends Component {
 		setCurrentVelocityVector(new Vector(xspeed, yspeed));
 	}
 	
+	public MovementComponent() {
+		
+	}
+	
 	public Vector getCurrentVelocityVector(){
 		return myCurrentVelocityVector;
 	}

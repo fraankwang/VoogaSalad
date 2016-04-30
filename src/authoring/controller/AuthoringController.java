@@ -38,6 +38,7 @@ public class AuthoringController implements IAuthoringController {
 		Map<String, String> data = processData(input);
 		String type = data.get("Type");
 		String command = data.get("Command");
+		data.remove("Command");
 		if (type.equals("Entity")) {
 			model.updateEntities(command, data);
 			return;
