@@ -43,6 +43,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
+	
+	private File myFile;
 
 	private static final String RESOURCE_NAME = "stage";
 
@@ -76,7 +78,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		animation.getKeyFrames().add(frame);
 
 		initStage();
-		initStartView();
+		initStartView(true);
 	}
 
 	private void initStage() {
@@ -86,26 +88,29 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.setY(loadIntResource("StartY"));
 	}
 
-	public void initStartView() {
+	public void initStartView(boolean firsttime) {
 		animation.stop();
 		stepping = false;
 
-		myTestingClass = new testingClass();
-		myGameWorld = myTestingClass.testFiring();
-		myGameStatistics = myGameWorld.getGameStatistics();
-		myEventManager = new EventManager(this, myGameWorld);
-		startGame("test firing", 0);
+//		myTestingClass = new testingClass();
+//		myGameWorld = myTestingClass.testFiring();
+//		myGameStatistics = myGameWorld.getGameStatistics();
+//		myEventManager = new EventManager(this, myGameWorld);
+//		startGame("test firing", 0);
 		
-//		StartView myStartView = new StartView(this);
-//		Scene scene = myStartView.buildScene();
-//		myStage.setScene(scene);
-//		myStage.show();
+		StartView myStartView = new StartView(this, firsttime);
+		Scene scene = myStartView.buildScene();
+		myStage.setScene(scene);
+		myStage.show();
 	}
 	
 	public void initGameWorld(File file){
+		if(file != null){
+			myFile = file;
+		}
 		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
 		try {
-			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(file));
+			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(myFile));
 			myGameStatistics = myGameWorld.getGameStatistics();
 			myEventManager = new EventManager(this, myGameWorld);
 		} catch (IOException e) {
@@ -247,7 +252,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void switchModeClicked() {
-		initStartView();
+		initStartView(false);
 	}
 
 	public void waveIsOver() {
