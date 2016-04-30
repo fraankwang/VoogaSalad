@@ -18,7 +18,7 @@ import engine.backend.systems.Events.IEvent;
 import engine.backend.utilities.ComponentTagResources;
 
 /**
- * Created by colinduffy on 4/10/16., raghav kedia
+ * Created by colinduffy on 4/10/16., raghav kedia, Christine Zhou
  */
 public class CollisionSystem extends GameSystem{
  
@@ -40,16 +40,6 @@ public class CollisionSystem extends GameSystem{
 			});
 		});
     					 
-    
-//    	collidableEntities.stream().forEach(entity1 -> collidableEntities.stream()
-//    			.filter(entity2 -> checkIntersection(entity1, entity2))
-//    			.forEach(entity2 -> {
-//    				IEvent event = getCollisionEvent(entity1, entity2);
-//    				Set<IEntity> entitySet = new HashSet<IEntity>();
-//    				entitySet.add(entity1);
-//    				entitySet.add(entity2);
-//    				addToEventMap(myEventMap, event, entitySet);
-//    			}));
     }
 
 	private QuadTree setUpQuadTree(Level myLevel) {

@@ -263,6 +263,7 @@ public class EventManager implements Observer {
 		
 		for(IEvent event : events){
 			if(event instanceof EntityDroppedEvent){
+				System.out.println(event.getEventID());
 				handleEntityDropEvent((EntityDroppedEvent) event);
 			}
 			else if(event instanceof NextWaveEvent){
