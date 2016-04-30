@@ -252,20 +252,7 @@ public class EventManager implements Observer {
 	private void applyActions(Collection<Integer> entityIDs, Collection<IAction> actions) {
 		Collection<IEntity> myEntities = new ArrayList<IEntity>();
 		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
-
 		myEntities.forEach(entity -> applyActions(entity, actions));
-//		for (IAction action : actions) {
-//			if (action instanceof EntityAction) {
-//
-//				myEntities.stream()
-//						  .filter(e -> ((EntityAction) action).getEntityName().equals(e.getName()))
-//						  .forEach(e -> ((IModifiable) e).applyAction(action));
-//								  
-//			} else if (action instanceof LevelAction) {
-//				currentModeStatistics.applyAction(action);
-//			}
-//		}
-
 	}
 	
 	/**
