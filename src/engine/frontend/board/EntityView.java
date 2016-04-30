@@ -40,6 +40,7 @@ public class EntityView {
 	}
 	
 	public void handleClick(){
+		myImageView.requestFocus();
 		myController.entityClicked(myID);
 	}
 		
