@@ -1,5 +1,7 @@
 package engine.controller;
-
+/**
+ * @author austinwu
+ */
 import java.io.IOException;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import engine.backend.systems.SystemsController;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityDroppedEvent;
 import engine.backend.systems.Events.GameEvent;
+import engine.backend.systems.Events.IEvent;
+import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
@@ -49,6 +53,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
 	private testingClass myTestingClass;
+	private Integer lastEntityClickedID;
 
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
@@ -194,21 +199,29 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
-		myEventManager.handleEntityDropEvent(event);
+		//myEventManager.handleEntityDropEvent(event);
+		mySystems.sendUserInputEvent(event);
 	}
 
 	public void keyPressed(String s){
 		//TODO do something with this string
+		if(lastEntityClickedID != null){
+			IEvent keyPressedEvent = new KeyPressedEntityEvent(lastEntityClickedID, s);
+			System.out.println(s);
+			mySystems.sendUserInputEvent(keyPressedEvent);
+		}
 	}
 	
 	public void entityClicked(int myID) {
-		EntityClickedEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
-		myEventManager.handleClickEvent(clickedEvent);
+		lastEntityClickedID = myID;
+		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
+		mySystems.sendUserInputEvent(clickedEvent);
 	}
 
 	public void nextWaveClicked() {
-		NextWaveEvent nextWaveEvent = new NextWaveEvent();
-		myEventManager.handleNextWaveEvent(nextWaveEvent);
+		IEvent nextWaveEvent = new NextWaveEvent();
+		//myEventManager.handleNextWaveEvent(nextWaveEvent);
+		mySystems.sendUserInputEvent(nextWaveEvent);
 	}
 
 	public void nextLevelClicked() {

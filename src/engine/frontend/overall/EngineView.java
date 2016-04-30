@@ -1,4 +1,7 @@
 package engine.frontend.overall;
+/**
+ * @author austinwu
+ */
 
 import engine.controller.EngineController;
 import engine.frontend.board.BoardPane;
@@ -13,6 +16,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -29,14 +33,13 @@ public class EngineView extends ResourceUser{
 	 *  Small todos:
 	 *  finish "load game" option for first screen- almost done 
 	 *  lose-the-game screen
-	 *  finish stats util
-	 *  Set up upgrades to send  backend info when dropped on towers
-	 *  make sure game looop works when loading new maps with different aspect ratio map images
+	 *  Set up upgrades to send backend info when dropped on towers
+	 *  make sure game loop works when loading new maps with different aspect ratio map images
 	 *  Respond to keyboard events with an entityID and the key pressed
 	 *  reorganize/javadoc code LAST
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
-	
+
 	private Stage myStage;
 	private Scene myScene;
 
@@ -51,7 +54,7 @@ public class EngineView extends ResourceUser{
 	private DummyCursor myDummyCursor;
 
 	private DoubleProperty scalingFactor;
-	
+
 	public EngineView(Stage s, EngineController c) {
 		super(RESOURCE_NAME);
 		myStage = s;
@@ -60,7 +63,7 @@ public class EngineView extends ResourceUser{
 		myBoardPane = new BoardPane(this);
 		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
-		
+
 		myDummyCursor = new DummyCursor(this);
 		scalingFactor = new SimpleDoubleProperty(1);
 	}
@@ -80,7 +83,7 @@ public class EngineView extends ResourceUser{
 				myController.getEventManager().getCurrentLevel().getMap().getMapHeight());
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
-		
+
 		scalingFactor.bind(Bindings.min(getUsableBoardHeight().divide(mapHeight), getUsableBoardWidth().divide(mapWidth)));
 		DoubleExpression boardWidth = mapWidth.multiply(scalingFactor);
 		DoubleExpression boardHeight = mapHeight.multiply(scalingFactor);
@@ -89,12 +92,18 @@ public class EngineView extends ResourceUser{
 		myBorderPane.setBottom(myStatusPane.buildNode(myScene.widthProperty(),
 				myScene.heightProperty().subtract(boardHeight).subtract(myMenuBar.heightProperty())));
 
-		myScene.setOnDragExited(e -> handleEndMouseRelease(e));
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
+		myScene.setOnKeyPressed(e -> handleKeyPress(e));
 		return myScene;
+	}
+
+	private void handleKeyPress(KeyEvent e) {
+		// TODO Auto-generated method stub
+		myController.keyPressed(e.getCode().toString());
+		e.consume();
 	}
 
 	private void handleDrop(DragEvent e) {
@@ -112,11 +121,12 @@ public class EngineView extends ResourceUser{
 		if (e.getGestureSource() != myScene) {
 			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+				
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-
+		e.consume();
 	}
 
 	private boolean isInBoardPane(double x, double y) {
@@ -174,7 +184,7 @@ public class EngineView extends ResourceUser{
 	public BorderPane getBorderPane() {
 		return myBorderPane;
 	}
-	
+
 	public DoubleExpression getScalingFactor(){
 		return scalingFactor;
 	}

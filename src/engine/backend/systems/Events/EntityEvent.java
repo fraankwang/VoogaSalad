@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class EntityEvent implements IEvent {
 
-	private Collection<Integer> entityIDs = new ArrayList<Integer>();
+	private List<Integer> entityIDs = new ArrayList<Integer>();
 	private String eventID;
 
 	/**
@@ -32,8 +32,16 @@ public abstract class EntityEvent implements IEvent {
 	 * @return A collection of entity IDs of entities associated with this
 	 *         event.
 	 */
-	public Collection<Integer> getEntityIDs() {
+	public List<Integer> getEntityIDs() {
 		return entityIDs;
+	}
+	
+	/**
+	 * 
+	 * @return First entity in list if the list is not empty, otherwise returns -1;
+	 */
+	public int getFirstEntityID() {
+		return entityIDs.size() != 0 ? entityIDs.get(0) : -1;
 	}
 
 	/**
