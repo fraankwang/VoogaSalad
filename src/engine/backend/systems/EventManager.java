@@ -237,10 +237,17 @@ public class EventManager implements Observer {
 	}
 	
 	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
-		Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
-		Collection<IAction> actions = event.getPowerUp().getActions();
-		applyActions(affectedEntities, actions);
-		subtractFromResources(event.getPowerUp().getPrice()); 
+		if (isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
+			Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
+			Collection<IAction> actions = event.getPowerUp().getActions();
+			applyActions(affectedEntities, actions);
+			subtractFromResources(event.getPowerUp().getPrice()); 
+		} 
+	}
+	
+	private boolean isPowerUpApplicable(int entityID, String applicableName){
+		IEntity entity = getCurrentLevel().getEntityWithID(entityID);
+		return entity.getName().equals(applicableName);
 	}
 
 	public void updateEntityFactory() {
