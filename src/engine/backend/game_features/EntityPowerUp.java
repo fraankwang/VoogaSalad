@@ -28,6 +28,4 @@ public class EntityPowerUp {
 		this.price = price;
 	}
 	
-	
-
 }

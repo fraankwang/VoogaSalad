@@ -232,5 +232,9 @@ public class Level {
 	public void setShouldRevert(boolean shouldRevert) {
 		this.shouldRevert = shouldRevert;
 	}
+	
+	public int getNumEntities(){
+		return this.entities.keySet().size();
+	}
 
 }
