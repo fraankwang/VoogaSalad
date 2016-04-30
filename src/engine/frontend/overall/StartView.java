@@ -34,7 +34,7 @@ public class StartView {
             @Override 
             public void changed(ObservableValue ov, String t, String t1) {
             	levelComboBox.setDisable(false);
-                myController.getEventManager().getModeStatistics().setCurrentModeIndex(t1);
+                myController.getEventManager().getModeStatistics().setCurrentMode(t1);
                 levelComboBox.getItems().addAll(myController.getGameWorld().getModes().get(t1).getLevels().keySet());
             }    
         });
