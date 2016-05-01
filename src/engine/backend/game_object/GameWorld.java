@@ -33,7 +33,7 @@ public class GameWorld {
 		return myModes.get(mode).getGameStatistics();
 	}
 	
-	public void setGameType(String name) {
+	public void setGameName(String name) {
 		this.myName = name;
 	}
 
