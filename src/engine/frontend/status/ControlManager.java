@@ -36,6 +36,8 @@ public class ControlManager extends ResourceUser {
 	public ControlManager(StatusPane sp) {
 		super(RESOURCE_NAME);
 		myStatusPane = sp;
+		timerAnimation = new Timeline();
+		timerAnimation.setCycleCount(Animation.INDEFINITE);
 	}
 
 	/**
@@ -84,6 +86,7 @@ public class ControlManager extends ResourceUser {
 		} else {
 			play.setText(loadStringResource("PlayLabel"));
 		}
+		timerAnimation.stop();
 	}
 
 	/**
@@ -96,8 +99,6 @@ public class ControlManager extends ResourceUser {
 
 	private void startNextWaveTimer(double time) {
 		clockTime = time;
-		timerAnimation = new Timeline();
-		timerAnimation.setCycleCount(Animation.INDEFINITE);
 		KeyFrame frame = new KeyFrame(Duration.millis(100), e -> {
 			if (clockTime > 0) {
 				DecimalFormat df = new DecimalFormat("#.##");
