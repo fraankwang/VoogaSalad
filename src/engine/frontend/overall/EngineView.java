@@ -140,7 +140,6 @@ public class EngineView extends ResourceUser {
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-
 	}
 
 

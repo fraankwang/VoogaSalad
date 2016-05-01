@@ -123,13 +123,13 @@ public class CurrentView extends ResourceUser implements Observer {
 		stats.clear();
 		for (String s : statMap.keySet()) {
 			if (!showMap.containsKey(s)) {
-				showMap.put(s, true);
+				showMap.put(s, false);
 			}
 			if (s.equals("Image") && !statMap.get("Image").equals(myImageName)) {
 				myImageView.setImage(new Image(statMap.get("Image")));
 				myImageName = statMap.get("Image");
 			} else if (showMap.get(s) || debug) {
-				stats.add(loadStringResource(s) + ": " + statMap.get(s));
+				stats.add(s + ": " + statMap.get(s));
 			}
 		}
 	}
