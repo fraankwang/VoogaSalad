@@ -9,7 +9,6 @@ import java.util.Map;
 
 import engine.backend.components.EmptyComponent;
 import engine.backend.components.IComponent;
-import engine.backend.game_object.GameStatistics;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
 
@@ -57,7 +56,6 @@ public class InGameEntityFactory {
 	 */
 
 	public IEntity createEntity(String entityName) {
-		System.out.println(entityName);
 		IEntity templateEntity = findInMap(entityName);
 		if(templateEntity == null) new DrumpfTowerException(myExceptionLoader.getString(ENTITY_DNE));
 

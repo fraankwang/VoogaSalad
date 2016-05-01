@@ -1,10 +1,10 @@
 package authoring.main;
 
-import javafx.stage.Stage;
-import main.Main;
 import authoring.backend.data.GlobalData;
 import authoring.controller.AuthoringController;
 import authoring.frontend.AuthoringView;
+import javafx.stage.Stage;
+import main.Main;
 
 /**
  * @author: Jonathan Ma, Frank

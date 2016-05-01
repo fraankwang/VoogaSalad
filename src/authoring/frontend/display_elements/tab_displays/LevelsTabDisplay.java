@@ -1,6 +1,9 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.TreeMap;
 
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringLevel;

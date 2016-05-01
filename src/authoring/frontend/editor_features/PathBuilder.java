@@ -2,6 +2,7 @@ package authoring.frontend.editor_features;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.scene.Group;
 import javafx.scene.Node;

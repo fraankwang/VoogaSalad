@@ -1,6 +1,7 @@
 package authoring.frontend;
 
 import java.util.Map;
+
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;

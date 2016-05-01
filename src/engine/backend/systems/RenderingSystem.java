@@ -8,9 +8,7 @@ package engine.backend.systems;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import engine.backend.components.DisplayComponent;
@@ -20,10 +18,8 @@ import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
-import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.backend.utilities.ComponentTagResources;
-import engine.controller.EngineController;
 
 /**
  * 

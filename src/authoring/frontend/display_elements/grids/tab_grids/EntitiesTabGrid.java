@@ -11,12 +11,12 @@ import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
+import authoring.frontend.editor_features.EntityComponentSelector;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import authoring.frontend.editor_features.EntityComponentSelector;
 
 /**
  * 

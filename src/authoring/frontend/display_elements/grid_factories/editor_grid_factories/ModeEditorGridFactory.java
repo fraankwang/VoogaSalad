@@ -7,8 +7,8 @@ import authoring.frontend.display_elements.panels.LevelGridViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableModeAttributesPanel;
-import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
+import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 
 /**
  * 

@@ -2,9 +2,6 @@ package engine.backend.components;
 
 import java.util.List;
 
-
-import engine.backend.entities.IEntity;
-
 public class SpawnerComponent extends Component implements IComponent {
 
 /**

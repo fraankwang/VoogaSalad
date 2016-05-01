@@ -1,6 +1,11 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.LevelGridViewPanel;

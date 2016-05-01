@@ -8,7 +8,7 @@ import java.util.List;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
-import engine.backend.utilities.*;
+import engine.backend.utilities.ComponentTagResources;
 
 /**
  * Quad collision detection

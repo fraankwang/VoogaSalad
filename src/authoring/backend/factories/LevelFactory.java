@@ -20,7 +20,6 @@ import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.Level;
 import engine.backend.map.GameMap;
 import engine.backend.rules.Rule;
-import engine.backend.utilities.ComponentTagResources;
 
 public class LevelFactory {
 

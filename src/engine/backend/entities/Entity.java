@@ -12,14 +12,6 @@ import java.util.Set;
 import engine.backend.components.IComponent;
 import engine.backend.game_object.IModifiable;
 import engine.backend.rules.EntityAction;
-
-import engine.backend.rules.Rule;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.*;
-
-
 import engine.backend.rules.IAction;
 import engine.backend.utilities.ComponentTagResources;
 import exception.DrumpfTowerException;

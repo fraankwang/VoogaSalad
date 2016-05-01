@@ -1,5 +1,6 @@
 package authoring.backend;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,8 +8,8 @@ import authoring.backend.data.DataContainer;
 import authoring.backend.data.GlobalData;
 import authoring.backend.factories.GameFactory;
 import authoring.controller.AuthoringController;
+import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.game_object.GameWorld;
-import engine.backend.game_object.Mode;
 
 public class Testing {
 
@@ -94,6 +95,15 @@ public class Testing {
 		GameWorld gameWorld = gameFactory.createGame();
 
 		return gameWorld;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
+		Testing test = new Testing();
+		GameWorld game = test.test1();
+		String xml = writer.getXMLfromObject(game);
+		writer.stringToDocument(xml, "gameauthoringtest2.xml");
+		System.out.println("done");
 	}
 
 }

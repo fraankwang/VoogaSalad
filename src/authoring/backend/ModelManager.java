@@ -2,7 +2,6 @@ package authoring.backend;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
 import backend.xml_converting.GameWorldToXMLWriter;
 import backend.xml_converting.ObjectToXMLWriter;
-import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
@@ -89,7 +87,7 @@ public class ModelManager implements IModel {
 		GameWorld game = gameFactory.createGame();
 		GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
 		String raw = writer.getXMLfromObject(game);
-		ObjectToXMLWriter.stringToDocument(raw, url);
+		ObjectToXMLWriter.stringToDocument(raw, "game1.xml");
 	}
 	
 	public void reloadGame(String url) throws IOException {

@@ -153,7 +153,6 @@ public class MobilizeSystem extends GameSystem {
 		newVel.scale(speed);
 
 		pathComponent.setCurveID((int) Math.floor(newBezTime));
-		System.out.println(entity.getName() + "  " + newPos.getX() + " " + newPos.getY());
 		posComponent.setPositionVector(newPos);
 		pathComponent.setBezierTime(newBezTime);
 		movComponent.setCurrentVelocityVector(newVel);
