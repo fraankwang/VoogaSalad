@@ -9,6 +9,7 @@ import authoring.frontend.editor_features.ImageImporter;
 import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
+import backend.xml_converting.GameWorldToXMLWriter;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -99,6 +100,8 @@ public class MenuBarElement implements IMenuBarElement {
 		fileChooser.setTitle("Open Game File");
 //		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("xml"));
 //		File gameFile = fileChooser.showOpenDialog(null);
+		
+		GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
 		
 		return importGame;
 	}
