@@ -1,94 +1,82 @@
 /**
  * 
- * @author mario_oliver93
+ * @author mario_oliver93, raghav kedia
  *
  */
 package engine.backend.game_object;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-
-import engine.backend.entities.Entity;
-import engine.backend.entities.IEntity;
 
 public class GameWorld {
 
-	private Map<String, Map<String, Entity>> myEntityTypeMap; //maps types of entities to a map containing specific entity names of that type
-	private List<Mode> modes;
+	//myModes is a map of mode name to Mode object
+	private Map<String, Mode> myModes;
+	private String myName;
 	private GameStatistics myGameStatistics;
 
-	public GameWorld() {
-		this.myGameStatistics = new GameStatistics();
-		this.modes = new ArrayList<Mode>();
-	}
+	
+	/**
+	 * Authoring Environment Constructor
+	 */
 
-	public GameStatistics getGameStatistics() {
-		return myGameStatistics;
-	}
-
-	public void addMode(Mode mode) {
-		modes.add(mode);
-		myGameStatistics.incrementNumModes();
-	}
-
-	public Mode getModeWithName(String name){
-		for (Mode mode : modes){
-			if (mode.getName().equals(name)){
-				return mode; //potential exception
-			}
-		}
-		return null;
-	}
-
-	public Level getLevelWithId(int id){
-		for (Mode mode: modes){
-			for (Level level : mode.getLevels()){
-				if (level.getId() == id){
-					return level;
-				}
-			}
-		}
-		return null;
-	}
-
-	public IEntity getEntityWithId(int id){
-		for (Mode mode : modes){
-			for(Level level : mode.getLevels()){
-				if (level.getEntities().containsKey(id)) {
-					return level.getEntities().get(id);
-				}
-			}
-		}
-		return null;
-	}
-
-	public void addNewLevelToCurrentMode(Mode mode) {
-		Level level1 = new Level(0);
-		mode.addLevel(level1);
-		myGameStatistics.incrementNumLevels();
+	public GameWorld(String name, Map<String, Mode> modes) {
+		this.myName = name;
+		this.myModes = modes;
 	}
 
 	/**
-	 * Returns all possible types of modes
-	 * 
-	 * @return List<Modes>
+	 * Engine Environment Testing.
 	 */
-	public List<Mode> getModes() {
-		return modes;
+	public GameWorld() {
+		this.myModes = new HashMap<String, Mode>();
+	}
+
+	public GameStatistics getGameStatistics(String mode) {
+		return myModes.get(mode).getGameStatistics();
+	}
+
+	public void setGameName(String name) {
+		this.myName = name;
+	}
+	
+	public void setGameStatistics(GameStatistics gameStatistics) {
+		this.myGameStatistics = gameStatistics;
+	}
+
+	public String getName() {
+		return myName;
+	}
+
+	public void addMode(Mode mode) {
+		myModes.put(mode.getName(), mode);
+	}
+
+	public Level getLevelWithId(String modeString, int levelIndex) {
+		Mode mode = myModes.get(modeString);
+		Level level = mode.getLevels().get(levelIndex);
+		return level;
+	}
+
+	// write the thing to set level here.
+	/**
+	 * Places a level in the map with the key being the level index.
+	 * 
+	 * @param modeString
+	 * @param levelIndex
+	 * @param level
+	 */
+	public void putLevelInMap(String modeString, int levelIndex, Level level) {
+		myModes.get(modeString).setLevelInMap(levelIndex, level);
 	}
 
 	public void printWhatIHave() {
 		System.out.println("I am game object " + this.toString() + " and I have been created");
-		System.out.println("I have " + modes.size() + " mode(s) and they are composed of " + modes.get(0).toString());
+		System.out.println("I have " + myModes.size() + " mode(s) and they are composed of " + myModes);
 	}
 
-	public void setEntityMap(Map<String, Map<String, Entity>> map){
-		this.myEntityTypeMap = map;
-	}
-
-	public Map<String, Map<String, Entity>> getEntityMap(){
-		return myEntityTypeMap;
+	public Map<String, Mode> getModes() {
+		return myModes;
 	}
 
 }

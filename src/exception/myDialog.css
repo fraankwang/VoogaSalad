@@ -1,0 +1,47 @@
+/*.myDialog{
+    -fx-background-color: #d6e0f6;
+}
+
+.myDialog: title{
+	-fx-font-family: "Andale Mono";
+}
+
+.myDialog > button-type{
+	-fx-font-family: "Andale Mono";
+}
+
+.myDialog:header *.header-panel{
+    -fx-background-color: #d6e0f6;
+	-fx-font-family: "Andale Mono";
+	-fx-padding: 2.833em;
+   	-fx-effect: dropshadow(gaussian, rgba(67,96,156,0.25) , 0,0,2,2 );
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.myDialog > .button-bar > .container > .details-button {
+    -fx-background-color: #d6e0f6;
+    -fx-alignment: baseline-left;
+    -fx-focus-traversable: false;
+} 
+
+.dialog-pane > .button-bar > .container > .details-button:hover {
+    -fx-underline: true;
+}*/
+
+.myDialog{
+    -fx-background-color: #d6e0f6;
+}
+
+.myDialog > *.button-bar > *.container{
+    -fx-background-color: #d6e0f6;
+   	-fx-font-family: "Andale Mono";  
+}
+.myDialog > *.label.content{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.myDialog:header *.header-panel{
+    -fx-background-color: #d6e0f6;
+    -fx-font-family: "Andale Mono";
+}

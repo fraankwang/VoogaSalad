@@ -1,86 +1,153 @@
 package engine.backend.entities;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.Observable;
 import java.util.Set;
 
 import engine.backend.components.IComponent;
+import engine.backend.game_object.IModifiable;
 import engine.backend.rules.EntityAction;
+
 import engine.backend.rules.Rule;
 
-public class Entity implements IEntity {
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
+
+
+import engine.backend.rules.IAction;
+import engine.backend.utilities.ComponentTagResources;
+import exception.DrumpfTowerException;
+import exception.ExceptionLoader;
+
+
+public class Entity extends Observable implements IEntity, IModifiable {
+
+	private static final String PREFIX = "set";
+	private static final String LACK_ACCESS = "LackAccessToClass";
+	private static final String METHOD_DNE = "MethodDoesNotExist";
+	private static final String SECURITY_EXCEPTION = "SecurityException";
+	private static final String ILLEGAL_ARGS = "IllegalArguments";
+	private static final String INSTANTIATION = "ReflectionInstantiation";
 
 	private String myName;
-	private String myType;
-	private List<Rule> myRules = new ArrayList<Rule>();;
+	private String myGenre;
 	private int myID;
-	private int myParentLevelID;
-	private Map<String, IComponent> myComponents = new HashMap<String, IComponent>();
+	private Map<String, IComponent> myComponents;
+	private boolean hasBeenModified;
 
-	private boolean hasBeenModified = true;
+	private EntityStatistics myStats;
+	private ExceptionLoader myExceptionLoader;
 
-	public Entity(int myID, String myName, String myType, double myValue) {
+	/**
+	 * Initializes an Entity without a unique ID. Authoring Environment
+	 * Constructor.
+	 */
+	public Entity(String myName, String myGenre, Map<String, IComponent> myComponents) {
+		myExceptionLoader = new ExceptionLoader();
 		this.myName = myName;
-		this.myType = myType;
+		this.myGenre = myGenre;
+		this.myComponents = myComponents;
+		myStats = new EntityStatistics();
+	}
+
+	/**
+	 * Engine Testing Constructor.
+	 */
+	public Entity(int myID, String myName, String myGenre) {
+		this.myName = myName;
+
+		this.myGenre = myGenre;
 		this.myID = myID;
-		// this.myValue = myValue;
-	}
-
-	public Entity(String myName, String myType, double myValue) {
-		this.myName = myName;
-		this.myType = myType;
-		// this.myValue = myValue;
-	}
-
-	public List<Rule> getRules() {
-		return myRules;
-	}
-
-	public void addRule(Rule myRule) {
-		myRules.add(myRule);
+		this.myComponents = new HashMap<String, IComponent>();
+		this.myStats = new EntityStatistics();
 	}
 
 	public void addComponent(IComponent component) {
-		component.setEntityName(myName);
 		myComponents.put(component.getTag(), component);
 	}
 
 	public IComponent getComponent(String tag) {
-		return myComponents.get(tag);
+		if (myComponents.containsKey(tag)) {
+			return myComponents.get(tag);
+		}
+		// find substring tag
+		Set<String> keys = myComponents.keySet();
+		for (String key : keys) {
+			if (key.contains(tag)) {
+				return myComponents.get(key);
+			}
+		}
+		return null;
 	}
 
 	public Set<String> getComponentTags() {
 		return myComponents.keySet();
 	}
 
+	/**
+	 * Returns a set of components that this entity has.
+	 */
 	public Collection<IComponent> getComponents() {
 		return myComponents.values();
 	}
 
+	/**
+	 * Sets the unique identifier for this entity.
+	 * 
+	 * @param myID
+	 */
 	public void setID(int myID) {
 		this.myID = myID;
 	}
 
+	/**
+	 * @return The unique identifier for this entity.
+	 */
 	public int getID() {
 		return myID;
 	}
 
+	
+	public void setLevelID(int levelID) {
+		myID = levelID;
+	}
+
+	/**
+	 * @return A string that represents the name of the entity.
+	 */
 	public String getName() {
 		return myName;
 	}
 
-	public void setMane(String name) {
-		this.myName = name;
+	/**
+	 * @return A string that represents the type of the entity.
+	 */
+	public String getGenre() {
+		return myGenre;
 	}
 
+	/**
+	 * @return A boolean representing whether this entity has the component with
+	 *         the tag.
+	 */
 	public boolean hasComponent(String tag) {
-		return myComponents.get(tag) != null;
+		if (myComponents.containsKey(tag)) {
+			return true;
+		}
+		// find substring tag
+		Set<String> keys = myComponents.keySet();
+		for (String key : keys) {
+			if (key.contains(tag)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean hasBeenModified() {
@@ -91,82 +158,54 @@ public class Entity implements IEntity {
 		hasBeenModified = bool;
 	}
 
-	public int getLevelID() {
-		return myParentLevelID;
-	}
-
-	public void setLevelID(int levelID) {
-		this.myParentLevelID = levelID;
-	}
-
-	public String getType() {
-		return myType;
-	}
-
-	public void setMyType(String myType) {
-		this.myType = myType;
-	}
-
 	@Override
 	public String toString() {
 		return "Entity [myID=" + myID + ", components=" + myComponents + "]";
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Entity) {
-			Entity temp = (Entity) o;
-			if (this.myName.equals(temp.myName)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
+	public EntityStatistics getStats() {
+		for (IComponent component : myComponents.values()) {
+			myStats.addStat(component.getComponentInfo());
 		}
 
+		return myStats;
 	}
 
-	@Override
-	public double getValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
-	public void applyAction(EntityAction action, ResourceBundle myComponentTagResources) {
-		String component = action.getComponentToModifiy();
-		String instanceVar = action.getValueInComponent();
-		String newVal = action.getNewValue();
+	public void applyAction(IAction action) {
+		String component = ((EntityAction) action).getComponentToModifiy();
+		String instanceVar = ((EntityAction) action).getValueInComponent();
+		String newVal = ((EntityAction) action).getNewValue();
 		Method setMethod;
 
-		String fullName = myComponentTagResources.getString(component);
-		Class<? extends IComponent> componentClass = myComponents.get(fullName).getClass();
-
+		String fullName = ComponentTagResources.getComponentTag(component);
+		Class<? extends IComponent> componentClass = getComponent(fullName).getClass();
+		// System.out.println(componentClass.getName());
 		try {
 			Object componentClassInstance = componentClass.newInstance();
-			componentClassInstance = componentClass.cast(myComponents.get(fullName));
-			// put in resource file!!!
-			String methodName = "set" + instanceVar;
 
+			componentClassInstance = componentClass.cast(getComponent(fullName));
+			
+			String methodName = PREFIX + instanceVar;
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 
 			setMethod.invoke(componentClassInstance, newVal);
-
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (InstantiationException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(INSTANTIATION));
+		} catch (IllegalAccessException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(LACK_ACCESS));
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new DrumpfTowerException(myExceptionLoader.getString(METHOD_DNE));
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new DrumpfTowerException(myExceptionLoader.getString(SECURITY_EXCEPTION));
 		} catch (IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new DrumpfTowerException(myExceptionLoader.getString(ILLEGAL_ARGS));
 		}
-
 	}
 
+	public void broadcastEntity() {
+		setChanged();
+		notifyObservers();
+	}
 }

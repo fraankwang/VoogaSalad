@@ -1,16 +1,26 @@
 package engine.backend.systems.Events;
 
+import java.util.Collection;
+import java.util.List;
+
 import engine.backend.entities.IEntity;
 
-public class AddEntityEvent extends EntityEvent{
-	
-	private IEntity newEntity;
-	
-	public AddEntityEvent(IEntity newEntity){
-		this.newEntity = newEntity;
+public class AddEntityEvent extends EntityEvent {
+
+	private Collection<IEntity> newEntities;
+
+	public AddEntityEvent(Collection<IEntity> newEntities) {
+		this.newEntities = newEntities;
 	}
-	
-	public IEntity getNewEntity(){
-		return newEntity;
+
+	public Collection<IEntity> getNewEntities() {
+		return newEntities;
 	}
+
+	@Override
+	public String getEventID() {
+		// TODO Auto-generated method stub
+		return this.getClass().getSimpleName();
+	}
+
 }

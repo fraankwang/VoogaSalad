@@ -1,23 +1,30 @@
 package authoring.backend.factories;
 
-import engine.backend.rules.Action;
+import java.util.List;
+
+import engine.backend.rules.EntityAction;
+import engine.backend.rules.IAction;
+import engine.backend.rules.LevelAction;
 
 public class ActionsFactory {
 
 	public ActionsFactory() {
-		
+
 	}
-	
-	public Action createAction(Object info) {
-		String actionName = "";
-		Action action = null;
-		try {
-			action = (Action) Class.forName("backend.rules"+ actionName + "Actions").newInstance();
-			
-		} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
-			e.printStackTrace();
+
+	public IAction createAction(List<String> info) {
+		if (info.get(0).equals("Entity")) {
+			return createEntityAction(info);
 		}
-		return action;
+		return createLevelAction(info);
+	}
+
+	private LevelAction createLevelAction(List<String> info) {
+		return new LevelAction(info.get(1), info.get(2));
+	}
+
+	private EntityAction createEntityAction(List<String> info) {
+		return new EntityAction(info.get(1), info.get(2), info.get(3), info.get(4));
 	}
 
 }

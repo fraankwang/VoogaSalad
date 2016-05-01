@@ -1,65 +1,86 @@
 package authoring.backend;
 
+import java.io.IOException;
 import java.util.Map;
 
-import authoring.backend.factories.EntityFactory;
-import authoring.backend.factories.LevelFactory;
-import authoring.backend.factories.ModeFactory;
-import authoring.controller.GlobalData;
-import engine.backend.entities.Entity;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
+import authoring.backend.data.GlobalData;
+import authoring.backend.factories.AuthoringEntityFactory;
+import authoring.backend.factories.AuthoringLevelFactory;
+import authoring.backend.factories.AuthoringModeFactory;
+import authoring.backend.factories.GameFactory;
+import authoring.backend.game_objects.AuthoringEntity;
+import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringMode;
+import backend.xml_converting.GameWorldToXMLWriter;
+import engine.backend.game_object.GameWorld;
 
 /*
  * @author: Jonathan Ma
  */
 
 public class ModelManager implements IModel {
-	
+
 	private final GlobalData globaldata;
-	private final EntityFactory entityfactory;
-	private final LevelFactory levelfactory;
-	private final ModeFactory modefactory;
+	private final AuthoringEntityFactory entityfactory;
+	private final AuthoringLevelFactory levelfactory;
+	private final AuthoringModeFactory modefactory;
+	private final GameFactory gameFactory;
 	
 	public ModelManager(GlobalData globaldata) {
 		this.globaldata = globaldata;
-		this.entityfactory = new EntityFactory();
-		this.levelfactory = new LevelFactory();
-		this.modefactory = new ModeFactory();
-	}
-	
-	public void updateEntities(Map<String, String> data) {
-		Entity entity = entityfactory.createEntity(data);
-		for (Entity e : globaldata.getEntities()) {
-			if (e.equals(entity)) {
-				e = entity;
-				return;
-			}
-		}
-		globaldata.getEntities().add(entity);
+		this.entityfactory = new AuthoringEntityFactory();
+		this.levelfactory = new AuthoringLevelFactory();
+		this.modefactory = new AuthoringModeFactory();
+		this.gameFactory = new GameFactory(globaldata);
 	}
 
-	public void updateLevels(Map<String, String> data) {
-		Level level = levelfactory.createLevel(data);
-		for (Level l : globaldata.getLevels()) {
-			if (l.equals(level)) {
-				l = level;
-				return;
-			}
+	public void updateEntities(String command, Map<String, String> data) {
+		AuthoringEntity entity = entityfactory.createEntity(data);
+		if (command.equals("Update")) {
+			globaldata.getEntities().add(entity);
+			return;
 		}
-		globaldata.getLevels().add(level);
+		if (command.equals("Delete")) {
+			globaldata.getEntities().remove(entity);
+			return;
+		}
+	}
+
+	public void updateLevels(String command, Map<String, String> data) {
+		AuthoringLevel level = levelfactory.createLevel(data);
+		if (command.equals("Update")) {
+			globaldata.getLevels().add(level);
+			return;
+		}
+		if (command.equals("Delete")) {
+			globaldata.getLevels().remove(level);
+			return;
+		}
+	}
+
+	public void updateModes(String command, Map<String, String> data) {
+		AuthoringMode mode = modefactory.createMode(data);
+		if (command.equals("Update")) {
+			globaldata.getModes().add(mode);
+			return;
+		}
+		if (command.equals("Delete")) {
+			globaldata.getModes().remove(mode);
+			return;
+		}
+	}
+
+	public void updateGame(Map<String, String> data) {
+		if (data.containsKey("Name")) {
+			globaldata.getGame().setName(data.get("Name"));
+		}
+	}
+	
+	public void exportGame() throws IOException {
+		GameWorld game = gameFactory.createGame();
+		GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
+		String raw = writer.getXMLfromObject(game);
+		writer.stringToDocument(raw, "game1.xml");
+	}
 		
-	}
-
-	public void updateModes(Map<String, String> data) {
-		Mode mode = modefactory.createMode(data);
-		for (Mode m : globaldata.getModes()) {
-			if (m.equals(mode)) {
-				m = mode;
-				return;
-			}
-		}
-		globaldata.getModes().add(mode);
-	}
-	
 }
