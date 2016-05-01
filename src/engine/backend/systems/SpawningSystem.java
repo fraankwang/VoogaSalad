@@ -38,7 +38,6 @@ public class SpawningSystem extends GameSystem {
 			delayTimer = 0;
 		}
 
-
 		if(delayTimer > 0){
 			delayTimer = delayTimer - GameClock.getTimePerLoop();
 			return;
@@ -46,23 +45,27 @@ public class SpawningSystem extends GameSystem {
 
 		int currentWaveIndex = myLevel.getCurrentWaveIndex();
 		boolean waveIsOver = true;
-		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.spawnerComponentTag);
+		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+				ComponentTagResources.spawnerComponentTag);
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 
-		for(IEntity entity : applicableEntities){
+		for (IEntity entity : applicableEntities) {
 
-			SpawnerComponent spawnerComponent = (SpawnerComponent) entity.getComponent(ComponentTagResources.spawnerComponentTag);
-			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
+			SpawnerComponent spawnerComponent = (SpawnerComponent) entity
+					.getComponent(ComponentTagResources.spawnerComponentTag);
+			PositionComponent posComponent = (PositionComponent) entity
+					.getComponent(ComponentTagResources.positionComponentTag);
 
 			for(Spawn spawn : spawnerComponent.getSpawns()){
 				if(spawn.getWaveIndex() == currentWaveIndex && spawn.getNumEntities() > 0){
 					//System.out.println(spawn.getInfo());
 					waveIsOver = false;
-					updateSpawn(spawn, posComponent.getPositionVector(), newEntities, myEntityFactory, currentSecond, spawnerComponent.getPathID());
+					updateSpawn(spawn, posComponent.getPositionVector(), newEntities, myEntityFactory, currentSecond,
+							spawnerComponent.getPathID());
 				}
 			}
 
-			if(waveIsOver){
+			if (waveIsOver) {
 				myLevel.setCurrentWaveIndex(currentWaveIndex + 1);
 				sendEvent(getWaveOverEvent(myLevel.getWaveDelayTimer()));
 				delayTimer = 100 * myLevel.getWaveDelayTimer();
@@ -74,12 +77,24 @@ public class SpawningSystem extends GameSystem {
 
 	}
 
-	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities, InGameEntityFactory myEntityFactory, double currentSecond, int pathID){
-		if(spawn.getTimer() <= 0 && spawn.getNumEntities() > 0){
+	/**
+	 * Updating the spawner checks to see if the spawner can create another spawn. If it can 
+	 * the position of the new spawn is set to the position vector given and a path component
+	 * is given to the new spawn if applicable. The spawn is added to the map. The spawn
+	 * component decrements the timer otherwise.
+	 * @param spawn
+	 * @param newPos
+	 * @param newEntities
+	 * @param myEntityFactory
+	 * @param currentSecond
+	 * @param pathID
+	 */
+	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities,
+			InGameEntityFactory myEntityFactory, double currentSecond, int pathID) {
+		if (spawn.getTimer() <= 0 && spawn.getNumEntities() > 0) {
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
 			newEntity.addComponent(newPositionComponent);
-			System.out.println(newEntity.getID());
 			if(newEntity.hasComponent(ComponentTagResources.pathComponentTag)){
 				PathComponent pathComp = (PathComponent) newEntity.getComponent(ComponentTagResources.pathComponentTag);
 				pathComp.setPathID(pathID);
@@ -87,8 +102,7 @@ public class SpawningSystem extends GameSystem {
 			spawn.setNumEntities(spawn.getNumEntities() - 1);
 			newEntities.add(newEntity);
 			spawn.resetTimer();
-		}
-		else{
+		} else {
 			spawn.decrementTimer();
 		}
 
@@ -98,11 +112,11 @@ public class SpawningSystem extends GameSystem {
 		return new WaveOverEvent(timer);
 	}
 
-	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){
+	private IEvent getAddEntityEvent(Collection<IEntity> newEntities) {
 		return new AddEntityEvent(newEntities);
 	}
 
-	private void sendEvent(IEvent event){
+	private void sendEvent(IEvent event) {
 		setChanged();
 		notifyObservers(event);
 	}

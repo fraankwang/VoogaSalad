@@ -9,11 +9,9 @@ package engine.backend.game_object;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
@@ -254,6 +252,4 @@ public class Level {
 		int index = getCurrentWaveIndex();		
 		return index == getNumWaves();
 	}
-
-
 }

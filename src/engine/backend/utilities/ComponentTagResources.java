@@ -16,6 +16,7 @@ public class ComponentTagResources {
 	public static final String spawnerComponentTag = myComponentTagResources.getString("Spawner");
 	public static final String healthComponentTag = myComponentTagResources.getString("Health");
 	public static final String displayComponentTag = myComponentTagResources.getString("Display");
+	public static final String purchaseComponentTag = myComponentTagResources.getString("Purchase");
 	
 	public static String getComponentTag(String component){
 		return myComponentTagResources.getString(component);

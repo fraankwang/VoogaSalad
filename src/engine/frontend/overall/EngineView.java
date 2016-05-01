@@ -89,7 +89,7 @@ public class EngineView extends ResourceUser{
 
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
-//		myScene.setOnDragOver(e -> handleMove(e));
+		myScene.setOnDragOver(e -> handleMove(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
 		myScene.setOnKeyPressed(e -> handleKeyPress(e));
 		return myScene;

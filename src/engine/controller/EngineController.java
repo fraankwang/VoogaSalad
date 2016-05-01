@@ -13,7 +13,6 @@ import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.HUDValueFinder;
 import engine.backend.game_features.ShopItem;
-import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
@@ -27,14 +26,14 @@ import engine.backend.systems.Events.PowerUpDroppedEvent;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
-import engine.frontend.overall.StartView;
 import engine.frontend.status.DrumpfHUDScreen;
+import exception.DrumpfTowerException;
+import exception.ExceptionLoader;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -47,8 +46,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
+	private ExceptionLoader exceptionLoader;
 
 	private static final String RESOURCE_NAME = "stage";
+	private static final String INITGAME = "StartingGameEvent";
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean stepping;
@@ -57,16 +58,17 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
 	private InGameEntityFactory myEntityFactory;
-	private testingClass myTestingClass;
 	private Integer lastEntityClickedID;
-
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
 
+	private testingClass myTestingClass;
+	
 	public EngineController(Stage s, Main m) {
 		super(RESOURCE_NAME);
 		myStage = s;
 		myMain = m;
+		exceptionLoader = new ExceptionLoader();
 	}
 
 	/**
@@ -130,8 +132,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			initEngineView();
 			manualRefresh();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new DrumpfTowerException(exceptionLoader.getString(INITGAME));
 		}
 	}
 
@@ -195,8 +196,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
 			boolean show) {
-
-		System.out.println("image2: " + image);
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
 

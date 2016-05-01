@@ -32,7 +32,6 @@ public class EntityView {
 		myID = id;
 		myW = new SimpleDoubleProperty(width);
 		myH = new SimpleDoubleProperty(height);
-		System.out.println("image: " + image);
 		myImageView = new ImageView(new Image(myImageName));		
 		myImageView.translateXProperty().bind(myController.getEngineView().getScalingFactor().multiply(myX.subtract(myW.divide(2))));
 		myImageView.translateYProperty().bind(myController.getEngineView().getScalingFactor().multiply(myY.subtract(myH.divide(2))));
@@ -40,7 +39,6 @@ public class EntityView {
 		myImageView.fitHeightProperty().bind(myController.getEngineView().getScalingFactor().multiply(myH));
 		myImageView.setOnMouseClicked(e -> handleClick());
 		
-//		myImageView.setOnDragEntered(e -> handleDragDrop(e));
 		myImageView.setOnDragDropped(e -> handleDragDrop(e));
 	}
 	
@@ -54,8 +52,7 @@ public class EntityView {
 		e.acceptTransferModes(TransferMode.ANY);
 		
 		System.out.println("SHITTY SHIT is happening");
-		System.out.println(e);
-		e.getDragboard().getString();
+		System.out.println(e.getDragboard().getString());
 	}
 		
 	public Node getNode(){
@@ -83,16 +80,13 @@ public class EntityView {
 	
 	private void updateFocus(){
 		myImageView.requestFocus();
-		System.out.println("Tester");
 	}
 	
 	public void handlePowerUpDrop(DragEvent e){
-	
 		e.acceptTransferModes(TransferMode.ANY);
 		System.out.println("Here");
 		if (e.getDragboard().hasString()) {
 			myController.attemptUpgrade(myID, e.getDragboard().getString());
-
 		}
 	}
 	

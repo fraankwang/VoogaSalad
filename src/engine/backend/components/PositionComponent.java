@@ -9,7 +9,9 @@ public class PositionComponent extends Component {
 
 	private Vector myPositionVector;
 	private Vector myCriticalPosition;
-	
+	private double range;
+	public static final int DEFAULTPOSITION = 50;
+
 	public PositionComponent() {
 		myPositionVector = new Vector(0, 0);
 	}
@@ -17,8 +19,19 @@ public class PositionComponent extends Component {
 	public PositionComponent(PositionComponent posComp) {
 		double posX = posComp.getX();
 		double posY = posComp.getY();
+		double range = 10;
 
 		myPositionVector = new Vector(posX, posY);
+	}
+
+	/**
+	 * 
+	 * Returns the firing range of the entity
+	 * 
+	 * @return range
+	 */
+	public double getRange() {
+		return range;
 	}
 
 	/**
@@ -74,6 +87,7 @@ public class PositionComponent extends Component {
 
 	/**
 	 * Sets a critical position for the entity with this component.
+	 * 
 	 * @param myCriticalPosition
 	 */
 	public void setCriticalPosition(Vector myCriticalPosition) {
@@ -84,13 +98,13 @@ public class PositionComponent extends Component {
 	public String getComponentInfo() {
 		return "XCoordinate:" + myPositionVector.getX() + "," + "YCoordinate:" + myPositionVector.getY();
 	}
-	
-	public void setXCoordinate(String deltaX){
+
+	public void setXCoordinate(String deltaX) {
 		double xdelta = Double.parseDouble(deltaX);
 		myPositionVector = new Vector(getX() + xdelta, getY());
 	}
-	
-	public void setYCoordinate(String deltaY){
+
+	public void setYCoordinate(String deltaY) {
 		double ydelta = Double.parseDouble(deltaY);
 		myPositionVector = new Vector(getX(), getY() + ydelta);
 	}
@@ -98,11 +112,11 @@ public class PositionComponent extends Component {
 	@Override
 	public void update(String dataName, String data) {
 		switch (dataName) {
-		
+
 		case "XCoordinate":
 			double x = Double.parseDouble(data);
 			double y = 0;
-			if (myPositionVector != null){
+			if (myPositionVector != null) {
 				y = myPositionVector.getY();
 			}
 			this.myPositionVector = new Vector(x, y);
