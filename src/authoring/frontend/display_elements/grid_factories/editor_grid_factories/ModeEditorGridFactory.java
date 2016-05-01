@@ -7,8 +7,8 @@ import authoring.frontend.display_elements.panels.LevelGridViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableModeAttributesPanel;
-import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
+import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 
 /**
  * 
@@ -29,7 +29,8 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 	 */
 	@Override
 	public Panel createPrimaryDisplay() {
-		LevelGridViewPanel levelView = new LevelGridViewPanel(Constants.getDouble("LEVEL_GRID_SIZE"), Constants.getDouble("LEVEL_GRID_SIZE"), null, myController);
+		LevelGridViewPanel levelView = new LevelGridViewPanel(Constants.getDouble("LEVEL_GRID_SIZE"),
+				Constants.getDouble("LEVEL_GRID_SIZE"), null, myController);
 		levelView.initialize();
 		return levelView;
 	}

@@ -8,9 +8,9 @@ import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
-import javafx.scene.image.Image;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
+import javafx.scene.image.Image;
 
 /**
  * 
@@ -34,12 +34,10 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	 */
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel editorView = new EditorViewPanel(Constants.getInt("ENTITY_EDITOR_GRID_SIZE"), Constants.getInt("ENTITY_EDITOR_GRID_SIZE"));
+		EditorViewPanel editorView = new EditorViewPanel(Constants.getInt("ENTITY_EDITOR_GRID_SIZE"),
+				Constants.getInt("ENTITY_EDITOR_GRID_SIZE"));
 		editorView.initialize();
-
-
-		editorView.setImage(new Image("resources/images/question_mark.png")); // set
-																				// defaul
+		editorView.setImage(new Image("resources/images/question_mark.png"));
 		editorView.setDescription("Entity");
 
 		editorView.getPanelBar().addButton(Constants.getString("UPLOAD_IMAGE_BUTTON"), e -> {
@@ -49,7 +47,6 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 		});
 		return editorView;
 	}
-
 
 	@Override
 	public ModifiableAttributesPanel createModifiableAttributesPanel() {

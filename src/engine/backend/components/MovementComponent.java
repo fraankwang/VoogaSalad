@@ -49,12 +49,12 @@ public class MovementComponent extends Component {
 	public MovementComponent(double xspeed, double yspeed) {
 		setCurrentVelocityVector(new Vector(xspeed, yspeed));
 	}
-	
+
 	public MovementComponent() {
 		setCurrentVelocityVector(new Vector(0, 0));
 	}
-	
-	public Vector getCurrentVelocityVector(){
+
+	public Vector getCurrentVelocityVector() {
 		return myCurrentVelocityVector;
 	}
 
@@ -165,7 +165,7 @@ public class MovementComponent extends Component {
 	public double getVelocity() {
 		return myVelocity;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Velocity: " + myVelocity;

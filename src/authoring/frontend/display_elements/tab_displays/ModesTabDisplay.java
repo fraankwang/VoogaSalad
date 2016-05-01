@@ -38,7 +38,7 @@ public class ModesTabDisplay extends TabDisplay {
 
 		myEditorDisplay = new ModeEditorDisplay(myController);
 		myEditorDisplay.initialize();
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -47,16 +47,15 @@ public class ModesTabDisplay extends TabDisplay {
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
 		update(data);
 	}
-	
+
 	public void update(List<Map<String, String>> data) {
 		((ModesTabGrid) myGrid).updateModesPrimaryDisplay(data);
 	}
-	
-	
+
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		
+
 		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
@@ -64,7 +63,7 @@ public class ModesTabDisplay extends TabDisplay {
 
 		return map;
 	}
-	
+
 	@Override
 	public void createNew() {
 		myEditorDisplay.edit(getDefaultAttributesMap());
@@ -73,7 +72,7 @@ public class ModesTabDisplay extends TabDisplay {
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
-	
+
 	public String getName() {
 		return "Modes";
 	}

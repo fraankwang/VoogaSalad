@@ -75,7 +75,7 @@ public class ModesTabGrid extends TabGrid {
 			ImageView iv = convertToImageView(info.get("Levels"));
 			linkImage(iv, info);
 			gridView.addImage(iv);
-			
+
 		}
 
 		gridView.resetGrid();
@@ -127,7 +127,8 @@ public class ModesTabGrid extends TabGrid {
 	 * @return
 	 */
 	private ImageView convertToImageView(String string) {
-		LevelGridViewPanel levels = new LevelGridViewPanel(Constants.getInt("LEVEL_GRID_SIZE"), Constants.getInt("LEVEL_GRID_SIZE"), null, myController);
+		LevelGridViewPanel levels = new LevelGridViewPanel(Constants.getInt("LEVEL_GRID_SIZE"),
+				Constants.getInt("LEVEL_GRID_SIZE"), null, myController);
 		levels.initialize();
 		levels.updatePossibleLevels(myController.getLevels());
 		levels.updateSelectedLevels(GlobalParser.parseLevels(string));

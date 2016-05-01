@@ -102,7 +102,7 @@ public class ShopCell extends ListCell<ShopItem> {
 		myShopPane.getEngineView().getStage().getScene().setCursor(Cursor.NONE);
 		Dragboard db = this.startDragAndDrop(TransferMode.ANY);
 		ClipboardContent content = new ClipboardContent();
-		content.putString(myItem.getItemName()+"&"+myItem.getItemValue());
+		content.putString(myItem.getItemName() + "&" + myItem.getItemValue());
 		db.setContent(content);
 	}
 

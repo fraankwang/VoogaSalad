@@ -2,12 +2,8 @@ package engine.backend.systems;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import engine.backend.components.HealthComponent;
 import engine.backend.entities.IEntity;
@@ -18,8 +14,6 @@ import engine.backend.systems.Events.DeathEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.utilities.ComponentTagResources;
 
-import java.util.Observable;
-
 /**
  * 
  * @author raghavkedia
@@ -29,13 +23,15 @@ import java.util.Observable;
 public class HealthSystem extends GameSystem {
 
 	@Override
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
-		
-		if(!playing){
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
+			InGameEntityFactory myEntityFactory, double currentSecond) {
+
+		if (!playing) {
 			return;
 		}
-		
-		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.healthComponentTag);
+
+		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+				ComponentTagResources.healthComponentTag);
 		for (IEntity entity : applicableEntities) {
 			HealthComponent healthComp = (HealthComponent) entity
 					.getComponent(ComponentTagResources.healthComponentTag);

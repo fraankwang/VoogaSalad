@@ -24,7 +24,7 @@ public class AuthoringMode {
 		this.myInfo = new HashMap<String, String>();
 		initializeInfo();
 	}
-	
+
 	public AuthoringMode(Mode mode) {
 		this.myName = mode.getName();
 		this.levels = getLevelMap(mode.getLevels());
@@ -32,7 +32,7 @@ public class AuthoringMode {
 		this.initialResources = mode.getGameStatistics().getInitialResources();
 		initializeInfo();
 	}
-	
+
 	private void initializeInfo() {
 		myInfo.put("Type", "Mode");
 		myInfo.put("Name", myName);
@@ -40,7 +40,7 @@ public class AuthoringMode {
 		myInfo.put("InitialResources", initialResources + "");
 		myInfo.put("Levels", getStringLevelIndexes());
 	}
-	
+
 	private Map<Integer, String> getLevelMap(Map<Integer, Level> levels) {
 		Map<Integer, String> levelMap = new TreeMap<Integer, String>();
 		for (int key : levels.keySet()) {
@@ -49,7 +49,7 @@ public class AuthoringMode {
 		}
 		return levelMap;
 	}
-	
+
 	private String getStringLevelIndexes() {
 		if (levels.isEmpty()) {
 			return "";

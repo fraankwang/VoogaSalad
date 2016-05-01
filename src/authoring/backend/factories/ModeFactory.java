@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring.backend.game_objects.AuthoringMode;
+import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
-import engine.backend.game_object.GameStatistics;
 
 public class ModeFactory {
 

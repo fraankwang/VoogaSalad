@@ -24,7 +24,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
-
 public class MenubarManager extends ResourceUser {
 	private EngineView myEngineView;
 	public static final String RESOURCE_NAME = "menubar";
@@ -32,16 +31,19 @@ public class MenubarManager extends ResourceUser {
 
 	/**
 	 * Constructor for MenubarManager
-	 * @param ev EngineView - used to access various engine view methods and base node of entire front end
+	 * 
+	 * @param ev
+	 *            EngineView - used to access various engine view methods and
+	 *            base node of entire front end
 	 */
 	public MenubarManager(EngineView ev) {
 		super(RESOURCE_NAME);
 		myEngineView = ev;
 	}
 
-	
 	/**
 	 * Instantiates MenubarManager
+	 * 
 	 * @return Returns a MenuBar to be added to the player's view
 	 */
 	public MenuBar buildMenuBar() {
@@ -57,6 +59,7 @@ public class MenubarManager extends ResourceUser {
 
 	/**
 	 * Instantiates the MenuBar's fields
+	 * 
 	 * @return Returns a Menu
 	 */
 	private Menu buildFileMenu() {
@@ -79,8 +82,9 @@ public class MenubarManager extends ResourceUser {
 	}
 
 	/**
-	 * Builds the video/screen capture UI 
-	 * @return Menu to populate video/screen capture portion of MenuBar  
+	 * Builds the video/screen capture UI
+	 * 
+	 * @return Menu to populate video/screen capture portion of MenuBar
 	 */
 	private Menu buildCaptureMenu() {
 		Menu menu = new Menu(loadStringResource("MenuPrompt"));
@@ -136,6 +140,7 @@ public class MenubarManager extends ResourceUser {
 
 	/**
 	 * Builds the help menu UI
+	 * 
 	 * @return Menu to populate help section of MenuBar
 	 */
 	private Menu buildHelpMenu() {

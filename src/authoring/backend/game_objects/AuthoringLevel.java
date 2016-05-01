@@ -33,7 +33,7 @@ public class AuthoringLevel {
 		this.spawnEntities = new ArrayList<AuthoringEntity>();
 		initializeInfo();
 	}
-	
+
 	public AuthoringLevel(Level level) {
 		this.myName = level.getName();
 		this.myMap = level.getMap();
@@ -43,7 +43,7 @@ public class AuthoringLevel {
 		setUpRuleAgenda(level);
 		initializeInfo();
 	}
-	
+
 	private void initializeInfo() {
 		myInfo.put("Type", "Level");
 		myInfo.put("Name", myName);
@@ -53,7 +53,7 @@ public class AuthoringLevel {
 		myInfo.put("MapHeight", myMap.getMapHeight() + "");
 		myInfo.put("Paths", myMap.getPathsInfo());
 	}
-	
+
 	private void setUpSpawnEntities(Level level) {
 		List<IEntity> entities = level.getAuthoredEntities();
 		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
@@ -65,7 +65,7 @@ public class AuthoringLevel {
 		}
 		setSpawnEntities(spawnEntities);
 	}
-	
+
 	private void setUpRuleAgenda(Level level) {
 		List<Rule> ruleAgenda = level.getRuleAgenda();
 		List<String> events = new ArrayList<String>();
@@ -75,7 +75,7 @@ public class AuthoringLevel {
 		}
 		setRuleAgenda(level.getRuleAgenda(), events);
 	}
-	
+
 	public Set<String> getEntities() {
 		return entities;
 	}
@@ -172,11 +172,10 @@ public class AuthoringLevel {
 		return sb.toString();
 	}
 
-	
 	public List<Rule> getRuleAgenda() {
 		return ruleAgenda;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AuthoringLevel) {

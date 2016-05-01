@@ -26,7 +26,6 @@ public class GameStatistics implements IModifiable {
 	private static final String SECURITY_EXCEPTION = "SecurityException";
 	private static final String ILLEGAL_ARGS = "IllegalArguments";
 
-	private ExceptionLoader myExceptionLoader;
 	private int initialNumLives;
 	private double initialResources;
 	private int initialLevel;
@@ -42,7 +41,6 @@ public class GameStatistics implements IModifiable {
 	private Property currentMode;
 
 	public GameStatistics(int numLives, double resources) {
-		myExceptionLoader = new ExceptionLoader();
 
 		setInitialNumLives(numLives);
 		setInitialResources(resources);
@@ -213,6 +211,7 @@ public class GameStatistics implements IModifiable {
 		String instanceVar = ((LevelAction) action).getVariableToModify();
 		String deltaVal = ((LevelAction) action).getDeltaValue();
 		Method setMethod;
+		ExceptionLoader myExceptionLoader = new ExceptionLoader();
 
 		try {
 			String methodName = PREFIX + instanceVar;
