@@ -33,8 +33,7 @@ public class BoardPane extends AbstractPane{
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
 		myBackground.setMouseTransparent(true);
 		myGroup = new Group();
-		//myPane.getChildren().addAll(myBackground, myGroup);
-		myPane.getChildren().add(myGroup);
+		myPane.getChildren().addAll(myBackground, myGroup);
 		return myPane;
 	}
 	
@@ -79,6 +78,10 @@ public class BoardPane extends AbstractPane{
 		double yLoc = mouseYLoc - myPane.getLayoutY();
 		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
 
+	}
+	
+	public Map<Integer, EntityView> getEntityMap(){
+		return myEntityViewMap;
 	}
 
 	

@@ -39,8 +39,6 @@ public class EntityView {
 		myImageView.fitWidthProperty().bind(myController.getEngineView().getScalingFactor().multiply(myW));
 		myImageView.fitHeightProperty().bind(myController.getEngineView().getScalingFactor().multiply(myH));
 		myImageView.setOnMouseClicked(e -> handleClick());
-		myImageView.setOnDragDropped( e -> handlePowerUpDrop(e));
-		myImageView.setOnMouseDragEntered( e-> updateFocus());
 	}
 	
 	public void handleClick(){
@@ -76,14 +74,30 @@ public class EntityView {
 		System.out.println("Tester");
 	}
 	
-	private void handlePowerUpDrop(DragEvent e){
-		myImageView.requestFocus();
+	public void handlePowerUpDrop(DragEvent e){
+	
 		e.acceptTransferModes(TransferMode.ANY);
 		System.out.println("Here");
 		if (e.getDragboard().hasString()) {
 			myController.attemptUpgrade(myID, e.getDragboard().getString());
 
 		}
-		e.consume();
+	}
+	
+	public boolean contains(double x, double y){
+		double minX = myImageView.translateXProperty().doubleValue();
+		double maxX = myImageView.fitWidthProperty().doubleValue() + minX;
+		
+		x = x - myController.getEngineView().getBoardPane().getPane().getLayoutX();
+		y = y - myController.getEngineView().getBoardPane().getPane().getLayoutY();
+		
+		System.out.println("Min: " + minX + " Max: " + maxX + " x: " + x);
+		double minY = myImageView.translateYProperty().doubleValue();
+		double maxY = myImageView.fitHeightProperty().doubleValue() + minY;
+		System.out.println("Min: " + minY + " Max: " + maxY + " y: " + y);
+		
+		
+		return (x>= minX && x<= maxX && y>=minY && y<=maxY);
+		
 	}
 }
