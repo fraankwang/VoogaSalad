@@ -35,11 +35,12 @@ public class SpawningSystem extends GameSystem {
 		
 		if(myLevel.sendNextWave()){
 			myLevel.setSendNextWave(false);
-			delayTimer = 0;
+			myLevel.setCurrentWaveTimer(0);
 		}
 
 		if(delayTimer > 0){
-			delayTimer = delayTimer - GameClock.getTimePerLoop();
+			myLevel.setCurrentWaveTimer(myLevel.getCurrentWaveTimer() - GameClock.getTimePerLoop());
+			//delayTimer = delayTimer - GameClock.getTimePerLoop();
 			return;
 		}
 
@@ -63,7 +64,8 @@ public class SpawningSystem extends GameSystem {
 			if(waveIsOver){
 				myLevel.setCurrentWaveIndex(currentWaveIndex + 1);
 				sendEvent(getWaveOverEvent(myLevel.getWaveDelayTimer()));
-				delayTimer = 100 * myLevel.getWaveDelayTimer();
+				myLevel.setCurrentWaveTimer(100*myLevel.getWaveDelayTimer());
+				//delayTimer = 100 * myLevel.getWaveDelayTimer();
 			}
 
 		}
