@@ -110,7 +110,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
 		try {
 			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(file));
-			myGameStatistics = myGameWorld.getGameStatistics();
 			myEventManager = new EventManager(this, myGameWorld);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block bad xml file error once its thrown
@@ -128,8 +127,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		} catch (IOException e) {
 			new DrumpfTowerException(exceptionLoader.getString(INITGAME));
 		}
-		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
@@ -150,7 +148,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public Region setupHUD() {
 		HUDController myHUD = new HUDController();
-		myHUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
+		myHUD.init(myEventManager.getCurrentGameStatistics(), new HUDValueFinder());
 		AbstractHUDScreen myHUDScreen = myHUD.getView();
 		return ((DrumpfHUDScreen) myHUDScreen).getBody();
 	}
@@ -243,7 +241,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public List<Integer> currentLevelsUnlocked(String mode){
 		List<Integer> list = new ArrayList<Integer>();
 		for(Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()){
-			if(i <= myGameStatistics.getHighestLevelUnlocked());
+			if(i <= myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked());
 			list.add(i);
 		}
 		return list;
