@@ -25,7 +25,6 @@ import javafx.stage.Stage;
 
 public abstract class EditorGrid extends Grid {
 
-	protected RulesEditorPanel myRulesPanel;
 	protected ModifiableAttributesPanel myModifiableAttributesPanel;
 	protected Stage myEditorStage;
 
@@ -38,7 +37,6 @@ public abstract class EditorGrid extends Grid {
 	protected void initializeGrid() {
 		super.initializeGrid();
 		myModifiableAttributesPanel = ((EditorGridFactory) myGridFactory).createModifiableAttributesPanel();
-		myRulesPanel = ((EditorGridFactory) myGridFactory).createRulesPanel(myModifiableAttributesPanel);
 
 	}
 

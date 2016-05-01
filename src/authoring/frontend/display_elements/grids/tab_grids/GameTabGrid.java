@@ -5,6 +5,7 @@ import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.GameTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
+import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -40,5 +41,10 @@ public class GameTabGrid extends TabGrid {
 	@Override
 	public void setAttributesPanel(Map<String, String> info) {
 		myUnmodifiableAttributesPanel.setAttributes(info);
+	}
+
+	@Override
+	protected void linkImage(ImageView iv, Map<String, String> info) {
+		// NOTHING
 	}
 }

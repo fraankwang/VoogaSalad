@@ -1,13 +1,14 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
 import java.util.Map;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.LevelEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.LevelEditorViewPanel;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
+import authoring.frontend.display_elements.panels.RulesEditorPanel;
 
 /**
  * 
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
  */
 
 public class LevelEditorGrid extends EditorGrid {
+
+	private RulesEditorPanel myRulesPanel;
 
 	public LevelEditorGrid(IAuthoringView controller, Stage stage) {
 		super(controller, stage);
@@ -34,6 +37,14 @@ public class LevelEditorGrid extends EditorGrid {
 		myGridFactory = new LevelEditorGridFactory(myController, this);
 
 	}
+	
+	@Override
+	protected void initializeGrid() {
+		super.initializeGrid();
+		myRulesPanel = ((LevelEditorGridFactory) myGridFactory).createRulesPanel(myModifiableAttributesPanel);
+		
+	}
+
 	
 	@Override
 	protected void assembleGridComponents() {

@@ -72,20 +72,26 @@ public class LevelsTabGrid extends TabGrid {
 			info.remove("EntityNames");
 
 			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
-			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
-				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
-						Boolean newValue) {
-					if (newValue) {
-						info.remove("Type");
-						setAttributesPanel(info);
-						currentInfo = info;
-						currentInfo.put("Type", "Level");
-					}
-				}
-			});
+			linkImage(iv, info);
 			gridView.addImage(iv);
 		}
 
+	}
+	
+	protected void linkImage(ImageView iv, Map<String, String> info) {
+		iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+					Boolean newValue) {
+				if (newValue) {
+					info.remove("Type");
+					setAttributesPanel(info);
+					currentInfo = info;
+					currentInfo.put("Type", "Level");
+				}
+			}
+		});
+		
+		
 	}
 
 	public Map<String, String> getLevels() {
