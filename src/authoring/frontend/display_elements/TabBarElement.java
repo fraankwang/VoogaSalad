@@ -77,6 +77,14 @@ public class TabBarElement implements ITabBarElement {
 		return myTabPane;
 	}
 
+	/**
+	 * Simple tab creation method for styling the overarching tabs for the
+	 * Authoring Environment.
+	 * 
+	 * @param name
+	 * @param content
+	 * @return
+	 */
 	private Tab createTab(String name, Node content) {
 		Tab t = new Tab(name, content);
 		t.setClosable(false);
@@ -84,6 +92,12 @@ public class TabBarElement implements ITabBarElement {
 		return t;
 	}
 
+	/**
+	 * Removes current TabDisplay from TabBar if the user wants to work on the
+	 * tab in another window.
+	 * 
+	 * @param tabDisplay
+	 */
 	private void removeTab(ITabDisplay tabDisplay) {
 		if (!tabRemoved) {
 			myTabPane.getTabs().remove(tabDisplay.getTabIndex());
@@ -91,6 +105,12 @@ public class TabBarElement implements ITabBarElement {
 		}
 	}
 
+	/**
+	 * If the user closes the other window, the tab is placed back into the main
+	 * TabPane.
+	 * 
+	 * @param tabDisplay
+	 */
 	private void addTab(ITabDisplay tabDisplay) {
 		if (tabRemoved) {
 			Tab tab = createTab(tabDisplay.getName(), tabDisplay.getNode());
@@ -134,11 +154,14 @@ public class TabBarElement implements ITabBarElement {
 		removeTab(display);
 	}
 
+	/**
+	 * Initializes hotkeys for accessing the different tabs and initializes the
+	 * hotkeys for whatever tab is accessed upon viewing that tab.
+	 */
 	public void initializeHotKeys() {
 		List<TabDisplay> myTabDisplays = Arrays.asList(myGameTabDisplay, myModesTabDisplay, myLevelsTabDisplay,
 				myEntitiesTabDisplay);
 
-		
 		myEntitiesTabDisplay.getNode().getScene().getAccelerators()
 				.put(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN), new Runnable() {
 					@Override
@@ -146,7 +169,7 @@ public class TabBarElement implements ITabBarElement {
 						myTabPane.getSelectionModel().select(ENTITIES_TAB_INDEX);
 					}
 				});
-		
+
 		myLevelsTabDisplay.getNode().getScene().getAccelerators()
 				.put(new KeyCodeCombination(KeyCode.L, KeyCombination.SHORTCUT_DOWN), new Runnable() {
 					@Override
@@ -154,7 +177,7 @@ public class TabBarElement implements ITabBarElement {
 						myTabPane.getSelectionModel().select(LEVELS_TAB_INDEX);
 					}
 				});
-		
+
 		myModesTabDisplay.getNode().getScene().getAccelerators()
 				.put(new KeyCodeCombination(KeyCode.M, KeyCombination.SHORTCUT_DOWN), new Runnable() {
 					@Override
@@ -175,7 +198,7 @@ public class TabBarElement implements ITabBarElement {
 			@Override
 			public void run() {
 				int currentIndex = myTabPane.getSelectionModel().getSelectedIndex();
-				if (currentIndex < 3) { //TODO: 
+				if (currentIndex < 3) {
 					myTabPane.getSelectionModel().select(currentIndex + 1);
 				} else {
 					myTabPane.getSelectionModel().select(0);
@@ -183,7 +206,7 @@ public class TabBarElement implements ITabBarElement {
 
 			}
 		});
-		
+
 		myTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab selectedTab) {
