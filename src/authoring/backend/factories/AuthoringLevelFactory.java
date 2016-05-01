@@ -106,7 +106,7 @@ public class AuthoringLevelFactory {
 		String[] eventData = eventInfo.split("\\+");
 		List<String> events = new ArrayList<String>();
 		for (String event : eventData) {
-			String[] eventElements = event.split("_");
+			String[] eventElements = event.split("-");
 			StringBuilder sb = new StringBuilder();
 			if (eventElements.length > 2) {
 				String[] eventEntities = new String[2];
@@ -133,7 +133,7 @@ public class AuthoringLevelFactory {
 		List<List<String>> actions = new ArrayList<List<String>>();
 		for (String action : actionData) {
 			List<String> elements = new ArrayList<String>();
-			String[] actionElements = action.split("_");
+			String[] actionElements = action.split("-");
 			for (String str : actionElements) {
 				elements.add(str);
 			}

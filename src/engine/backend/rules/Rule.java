@@ -1,6 +1,7 @@
 package engine.backend.rules;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class Rule {
@@ -25,6 +26,12 @@ public class Rule {
 	public Rule() {
 		myEvents = new ArrayList<String>();
 		myActions = new ArrayList<IAction>();
+	}
+	
+	@Override
+	public String toString() {
+		String str = Arrays.toString(myEvents.toArray());
+		return str + Arrays.toString(myActions.toArray());
 	}
 
 	public void addEvents(Collection<String> events) {

@@ -39,6 +39,7 @@ public class RenderingSystem extends GameSystem {
 		System.out.println(entities.size());
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
 		for(IEntity myEntity : entities){
+			System.out.println(myEntity.getID());
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
