@@ -11,13 +11,13 @@ import java.util.Map;
 public class GameWorld {
 
 	private Map<String, Mode> myModes;
-	private String myGameType;
+	private String myName;
 	
 	/**
 	 * Authoring Environment Constructor
 	 */
 	public GameWorld(String gameType, Map<String, Mode> modes) {
-		this.myGameType = gameType;
+		this.myName = gameType;
 		this.myModes = modes;
 	}
 	
@@ -32,12 +32,12 @@ public class GameWorld {
 		return myModes.get(mode).getGameStatistics();
 	}
 
-	public void setGameType(String gameType) {
-		this.myGameType = gameType;
+	public void setGameName(String name) {
+		this.myName = name;
 	}
 
-	public String getGameType() {
-		return myGameType;
+	public String getName() {
+		return myName;
 	}
 	
 	public void addMode(Mode mode) {

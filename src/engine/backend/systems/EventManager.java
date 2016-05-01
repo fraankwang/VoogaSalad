@@ -19,6 +19,7 @@ import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
@@ -230,15 +231,13 @@ public class EventManager implements Observer {
 	 * the level is reset.
 	 */
 	public void handleLevelOver() {
-		
+
 		boolean noLives = currentGameStatistics.noMoreLives();
-		if(noLives){
+		if (noLives) {
 			myEngineController.levelIsLost();
 			resetLevel();
-		}
-		else{
-			if(getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()){
-				System.out.println("hi");
+		} else {
+			if (getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()) {
 				currentGameStatistics.addEndOfLevelLives(currentGameStatistics.getCurrentNumLives());
 				currentGameStatistics.addEndOfLevelResources(currentGameStatistics.getCurrentResources());
 				myEngineController.levelIsWon();
@@ -247,31 +246,35 @@ public class EventManager implements Observer {
 				return;
 			}
 		}
+	}
 
-	}
-	
-	private boolean isEnemyOnScreen(){
-		Set<String> enemyNames = getUniqueEnemyNames();
-		boolean ret = false;
-		for(IEntity entity : getCurrentLevel().getEntities().values()){
-			if(enemyNames.contains(entity.getName())){
-				ret = true;
-				break;
-			}
-		}
-		return ret;
-	}
-	
-	private Set<String> getUniqueEnemyNames(){
-		Set<String> enemyNames = new HashSet<String>();
-		for(IEntity tower: getCurrentLevel().getAuthoredEntities()){
-			if(tower.hasComponent(ComponentTagResources.purchaseComponentTag) && tower.hasComponent(ComponentTagResources.firingComponentTag)){
-				FiringComponent firingComponent = (FiringComponent) tower.getComponent(ComponentTagResources.firingComponentTag);
-				enemyNames.addAll(firingComponent.getTargets());
-			}
-		}
-		return enemyNames;
-	}
+    private boolean isEnemyOnScreen(){
+        Set<String> enemyNames = getUniqueEnemyNames();
+        boolean ret = false;
+        for(IEntity entity : getCurrentLevel().getEntities().values()){
+            if(enemyNames.contains(entity.getName())){
+                ret = true;
+                break;
+            }
+        }
+        return ret;
+    }
+    
+    private Set<String> getUniqueEnemyNames(){
+        Set<String> enemyNames = new HashSet<String>();
+        
+        for(ShopItem item: getCurrentLevel().getShopItems()){
+            for(IEntity entity : getCurrentLevel().getAuthoredEntities()){
+                if(item.getItemName().equals(entity.getName())){
+                    if(entity.hasComponent(ComponentTagResources.firingComponentTag)){
+                        FiringComponent firingComponent = (FiringComponent) entity.getComponent(ComponentTagResources.firingComponentTag);
+                        enemyNames.addAll(firingComponent.getTargets());
+                    }
+                }
+            }
+        }
+        return enemyNames;
+    }
 	
 	private void resetLevel(){
 		String modeName = currentGameStatistics.getCurrentMode();
