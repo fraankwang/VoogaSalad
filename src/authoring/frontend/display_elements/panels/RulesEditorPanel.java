@@ -51,7 +51,7 @@ public class RulesEditorPanel extends Panel {
 	public static final List<String> MODIFIABLE_LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("NumLives",
 			"CurrentResources");
 	public static final List<String> POSSIBLE_EVENTS = (List<String>) Arrays.asList("CollisionEvent",
-			"CriticalHealthEvent", "CriticalPositionEvent", "EntityClickedEvent", "KeyPressedEvent");
+			"CriticalHealthEvent", "DeathEvent", "EntityClickedEvent", "KeyPressedEvent", "EndOfPathEvent");
 	public static final List<String> UNMODIFIABLE_ENTITY_ATTRIBUTES = (List<String>) Arrays.asList("Type", "Name",
 			"Genre");
 
@@ -188,13 +188,13 @@ public class RulesEditorPanel extends Panel {
 
 		saveButton.setOnAction(e -> {
 			StringBuilder sb = new StringBuilder();
-			sb.append(entityChooser.getSelectionModel().getSelectedItem().getText() + ":");
+			sb.append(entityChooser.getSelectionModel().getSelectedItem().getText() + "-");
 			if (entityChooser2.isVisible()) {
-				sb.append(entityChooser2.getSelectionModel().getSelectedItem().getText() + ":");
+				sb.append(entityChooser2.getSelectionModel().getSelectedItem().getText() + "-");
 			}
 			sb.append(eventChooser.getSelectionModel().getSelectedItem());
 			if (ifStatementBuilder.getChildren().contains(enterKeyBox)) {
-				sb.append(":" + keyField.getText());
+				sb.append("-" + keyField.getText());
 			}
 			myIfStatements.getItems().add(sb.toString());
 			myRulesStage.close();
@@ -275,16 +275,19 @@ public class RulesEditorPanel extends Panel {
 		Button saveButton = new Button("Create Action");
 		saveButton.setOnAction(e -> {
 			StringBuilder sb = new StringBuilder();
-			sb.append(typeChooser.getSelectionModel().getSelectedItem() + ":");
+			sb.append(typeChooser.getSelectionModel().getSelectedItem() + "-");
 			if (typeChooser.getSelectionModel().getSelectedItem().equals("Entity")) {
-				sb.append(entityChooser.getSelectionModel().getSelectedItem().getText() + ":");
-				sb.append(attributeChooser.getSelectionModel().getSelectedItem() + ":");
+				sb.append(entityChooser.getSelectionModel().getSelectedItem().getText() + "-");
+				List<String> attribute = Arrays.asList(attributeChooser.getSelectionModel().getSelectedItem().split("Component_"));
+				attribute.forEach(a -> sb.append(a + "-"));
 
 			} else {
-				sb.append(levelValueChooser.getSelectionModel().getSelectedItem() + ":");
+				sb.append(levelValueChooser.getSelectionModel().getSelectedItem() + "-");
 			}
 			if (thenStatementBuilder.getChildren().contains(selectNewValueBox)) {
 				sb.append(newValueChooser.getSelectionModel().getSelectedItem().getText());
+//				Enemy-CriticalHealthEvent:Entity-Enemy-Movement-Velocity-15
+//				MovementComponent_Velocity -> Movement-Velocity
 			} else {
 				sb.append(deltaValueField.getText());
 			}
