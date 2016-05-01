@@ -255,7 +255,9 @@ public class EntityComponentSelector {
 
 	public Map<String, String> getExtraDefaultAttributes(String genre) {
 		Map<String, String> extraAttributes = new TreeMap<String, String>();
-		
+		extraAttributes.put("Name", null);
+		extraAttributes.put("Genre", null);
+//		extraAttributes.put("DisplayComponent_Image", null);
 		switch (genre) {
 	
 		case "Tower":
