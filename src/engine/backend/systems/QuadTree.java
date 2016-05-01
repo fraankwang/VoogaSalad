@@ -60,10 +60,12 @@ public class QuadTree {
 		nodes[2] = new QuadTree(layer + 1, new Rectangle(x, y + subHeight, subWidth, subHeight));
 		nodes[3] = new QuadTree(layer + 1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
 	}
-
-	/*
+	
+	/**
 	 * Determine which node the object belongs to. -1 means object cannot
 	 * completely fit within a child node and is part of the parent node
+	 * @param entity
+	 * @return
 	 */
 	private int getIndex(IEntity entity) {
 		int index = -1;
@@ -99,9 +101,10 @@ public class QuadTree {
 		return index;
 	}
 
-	/*
+	/**
 	 * Insert the object into the quadtree. If the node exceeds the capacity, it
 	 * will split and add all objects to their corresponding nodes.
+	 * @param entity
 	 */
 	public void insert(IEntity entity) {
 		if (nodes[0] != null) {
@@ -133,8 +136,11 @@ public class QuadTree {
 		}
 	}
 
-	/*
+	/**
 	 * Return all objects that could collide with the given object
+	 * @param retrieved
+	 * @param entity
+	 * @return
 	 */
 	public Collection<IEntity> retrieve(Collection<IEntity> retrieved, IEntity entity) {
 		int index = getIndex(entity);

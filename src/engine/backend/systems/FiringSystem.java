@@ -29,7 +29,12 @@ import engine.backend.utilities.ComponentTagResources;
 public class FiringSystem extends GameSystem {
 
 	@Override 
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
+		
+		if(!playing){
+			return;
+		}
+		
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		Collection<IEntity> shootingEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.firingComponentTag);
 		shootingEntities.stream()

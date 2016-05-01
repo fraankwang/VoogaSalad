@@ -24,16 +24,26 @@ import javafx.scene.control.TextInputDialog;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+
 public class MenubarManager extends ResourceUser {
 	private EngineView myEngineView;
 	public static final String RESOURCE_NAME = "menubar";
 	private MenuBar menubar;
 
+	/**
+	 * Constructor for MenubarManager
+	 * @param ev EngineView - used to access various engine view methods and base node of entire front end
+	 */
 	public MenubarManager(EngineView ev) {
 		super(RESOURCE_NAME);
 		myEngineView = ev;
 	}
 
+	
+	/**
+	 * Instantiates MenubarManager
+	 * @return Returns a MenuBar to be added to the player's view
+	 */
 	public MenuBar buildMenuBar() {
 		menubar = new MenuBar();
 
@@ -45,6 +55,10 @@ public class MenubarManager extends ResourceUser {
 		return menubar;
 	}
 
+	/**
+	 * Instantiates the MenuBar's fields
+	 * @return Returns a Menu
+	 */
 	private Menu buildFileMenu() {
 		Menu menu = new Menu(loadStringResource("FilePrompt"));
 		MenuItem save = new MenuItem(loadStringResource("SavePrompt"));
@@ -65,6 +79,10 @@ public class MenubarManager extends ResourceUser {
 		return menu;
 	}
 
+	/**
+	 * Builds the video/screen capture UI 
+	 * @return Menu to populate video/screen capture portion of MenuBar  
+	 */
 	private Menu buildCaptureMenu() {
 		Menu menu = new Menu(loadStringResource("MenuPrompt"));
 		MenuItem setImageFileType = new MenuItem(loadStringResource("ImageFileTypePrompt"));
@@ -117,6 +135,10 @@ public class MenubarManager extends ResourceUser {
 		return menu;
 	}
 
+	/**
+	 * Builds the help menu UI
+	 * @return Menu to populate help section of MenuBar
+	 */
 	private Menu buildHelpMenu() {
 		Menu menu = new Menu(loadStringResource("HelpPrompt"));
 		CheckMenuItem debugModeItem = new CheckMenuItem(loadStringResource("DebugPrompt"));

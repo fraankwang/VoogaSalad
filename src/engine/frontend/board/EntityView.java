@@ -9,6 +9,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 
 public class EntityView {
 	
@@ -37,6 +39,7 @@ public class EntityView {
 		myImageView.fitWidthProperty().bind(myController.getEngineView().getScalingFactor().multiply(myW));
 		myImageView.fitHeightProperty().bind(myController.getEngineView().getScalingFactor().multiply(myH));
 		myImageView.setOnMouseClicked(e -> handleClick());
+		myImageView.setOnDragDropped( e -> handlePowerUpDrop(e));
 	}
 	
 	public void handleClick(){
@@ -65,5 +68,15 @@ public class EntityView {
 		if(myH.doubleValue() != height){
 			myH.setValue(height);
 		}
+	}
+	
+	private void handlePowerUpDrop(DragEvent e){
+		e.acceptTransferModes(TransferMode.ANY);
+		if (e.getDragboard().hasString()) {
+			myController.attemptUpgrade(myID, e.getDragboard().getString());
+
+		}
+		e.consume();
+		
 	}
 }

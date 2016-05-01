@@ -17,8 +17,14 @@ public class EntityAction implements IAction{
 	private String componentToModifiy;
 	private String valueInComponent;
 	private String newValue;
-
-
+	
+	/**
+	 * 
+	 * @param entityName
+	 * @param componentToModify
+	 * @param valueInComponent
+	 * @param newValue
+	 */
 	public EntityAction(String entityName, String componentToModify, String valueInComponent, String newValue) {
 		this.setEntityName(entityName);
 		this.setComponentToModifiy(componentToModify);
@@ -31,6 +37,10 @@ public class EntityAction implements IAction{
 	}
 
 
+	/**
+	 * 
+	 * @param newValue - create the new value to set the variable to
+	 */
 	public void setNewValue(String newValue) {
 		this.newValue = newValue;
 	}

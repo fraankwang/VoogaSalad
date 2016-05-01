@@ -27,7 +27,12 @@ public class SpawningSystem extends GameSystem {
 	private double delayTimer;
 
 	@Override
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {		
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {		
+		
+		if(!playing){
+			return;
+		}
+		
 		if(myLevel.sendNextWave()){
 			myLevel.setSendNextWave(false);
 			delayTimer = 0;
@@ -51,13 +56,15 @@ public class SpawningSystem extends GameSystem {
 
 			for(Spawn spawn : spawnerComponent.getSpawns()){
 				if(spawn.getWaveIndex() == currentWaveIndex && spawn.getNumEntities() > 0){
+					//System.out.println(spawn.getInfo());
 					waveIsOver = false;
 					updateSpawn(spawn, posComponent.getPositionVector(), newEntities, myEntityFactory, currentSecond, spawnerComponent.getPathID());
 				}
 			}
 
 			if(waveIsOver){
-				sendEvent(getWaveOverEvent());
+				myLevel.setCurrentWaveIndex(currentWaveIndex + 1);
+				sendEvent(getWaveOverEvent(myLevel.getWaveDelayTimer()));
 				delayTimer = 100 * myLevel.getWaveDelayTimer();
 			}
 
@@ -72,7 +79,7 @@ public class SpawningSystem extends GameSystem {
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
 			newEntity.addComponent(newPositionComponent);
-
+			System.out.println(newEntity.getID());
 			if(newEntity.hasComponent(ComponentTagResources.pathComponentTag)){
 				PathComponent pathComp = (PathComponent) newEntity.getComponent(ComponentTagResources.pathComponentTag);
 				pathComp.setPathID(pathID);
@@ -87,8 +94,8 @@ public class SpawningSystem extends GameSystem {
 
 	}
 
-	private IEvent getWaveOverEvent(){
-		return new WaveOverEvent();
+	private IEvent getWaveOverEvent(double timer){
+		return new WaveOverEvent(timer);
 	}
 
 	private IEvent getAddEntityEvent(Collection<IEntity> newEntities){

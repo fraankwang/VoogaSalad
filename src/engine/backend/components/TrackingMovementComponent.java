@@ -17,7 +17,7 @@ public class TrackingMovementComponent extends MovementComponent {
 	public TrackingMovementComponent(double xspeed, double yspeed) {
 		super(xspeed, yspeed);
 	}
-	
+
 	public IEntity getEntityToTrack() {
 		return myEntityToTrack;
 	}

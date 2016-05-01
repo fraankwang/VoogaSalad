@@ -50,13 +50,14 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 
+		
 		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 600, 400);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object");
 		IComponent tempPosition = new PositionComponent(0, 60);
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent tempCollision = new CollisionComponent();
-		IComponent pathComp = new PathComponent(0, 0);
+		IComponent pathComp = new PathComponent(0, 0);r
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
 		tempEntity.addComponent(tempDisplay);
@@ -100,6 +101,20 @@ public class testingClass {
 	public GameWorld testFiring() {
 		GameWorld firingTest = new GameWorld();
 		Mode mode = new Mode("test firing");
+		Level level = getLevel();
+		Level level2 = getLevel();
+		level2.setIndex(1);
+		mode.addLevel(level);
+		mode.addLevel(level2);
+		firingTest.addMode(mode);
+		
+		GameStatistics gameStats = new GameStatistics(50, 50);
+		mode.setGameStatistics(gameStats);
+
+		return firingTest;
+	}
+	
+	private Level getLevel(){
 		Level level = new Level("blah");
 		level.setIndex(0);
 		EntityAction action = new EntityAction("tempEntity", "Display", "Delete", "true");
@@ -168,16 +183,30 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 		
-		Path[] pathArray = new Path[1];
-		pathArray[0] = tempPath;
+		Path tempPath1 = new Path();
+		BezierCurve tempCurve4 = new BezierCurve(600, 4, 0, 0, 0, 0, 2, 100);
+		BezierCurve tempCurve5 = new BezierCurve(250, 200, 50, 50, 250, 450, 0, 200);
+		BezierCurve tempCurve6 = new BezierCurve(0, 300, 950, 50, 250, 250, 200, 400);
+		tempPath1.addCurve(tempCurve4);
+		tempPath1.addCurve(tempCurve6);
+		tempPath1.addCurve(tempCurve5);
 		
+		Path[] pathArray = new Path[2];
+		pathArray[0] = tempPath;
+		pathArray[1] = tempPath1;
 		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 10);
-		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 10);
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 2);
+		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 2);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
 
+		IEntity tempSpawn2  = new Entity(-40, "tempSpawn2", "spawner");
+		Spawn spawn3 = new Spawn("tempEntity", 1, 0, 2);
+		Spawn spawn4 = new Spawn("tempEntity", 1, 1, 2);
+		IComponent tempSpawner1 = new SpawnerComponent(Arrays.asList(spawn3, spawn4), 1);
+
+		
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
@@ -185,6 +214,14 @@ public class testingClass {
 		tempSpawn.addComponent(tempSpawner);
 		tempSpawn.addComponent(tempPosition4);
 		tempSpawn.addComponent(tempDisplay4);
+		
+		IComponent tempPosition5 = new PositionComponent(0, 100);
+		IComponent tempDisplay5 = new DisplayComponent(false);
+		IComponent tempSize5 = new SizeComponent();
+		tempSpawn2.addComponent(tempSize5);
+		tempSpawn2.addComponent(tempSpawner1);
+		tempSpawn2.addComponent(tempPosition5);
+		tempSpawn2.addComponent(tempDisplay5);
 		
 		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns");
 		IComponent tempPosition = new PositionComponent(0, 100);
@@ -243,8 +280,7 @@ public class testingClass {
 		
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
 		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
-		//firingTest.setAuthoredEntities(authoredEntities);
-//		firingTest.setEntityMap(myCreatableEntityMap);
+
 		ArrayList<String> myTargets = new ArrayList<String>();
 		myTargets.add("tempEntity");
 		simpleFire.setTargets(myTargets);
@@ -257,8 +293,8 @@ public class testingClass {
 		createdTowers.put("tempEntity2", tempEntity2);
 		myCreatableEntityMap.put("Towers", createdTowers);
 		
-		//level.addEntityToMap(tempSpawn);
-		System.out.println(level.getEntities().values().size());
+		level.addEntityToMap(tempSpawn);
+		level.addEntityToMap(tempSpawn2);
 		level.addEntityToMap(tempEntity2);
 		
 		level.setCurrentWaveIndex(0);
@@ -267,13 +303,8 @@ public class testingClass {
 		level.setNumWaves(2);
 		level.setWaveDelayTimer(5);
 		level.setAuthoredEntities(authoredEntities);
-		mode.addLevel(level);
-		firingTest.addMode(mode);
 		
-		GameStatistics gameStats = new GameStatistics(50, 50);
-		firingTest.setGameStatistics(gameStats);
-
-		return firingTest;
+		return level;
 	}
 
 	public GameWorld testCollision() {
