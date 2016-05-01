@@ -30,7 +30,6 @@ public class DummyCursor {
 		myImage.fitWidthProperty().bind(myEngineView.getBoardPane().getPane().widthProperty().multiply(myEngineView.loadDoubleResource("CursorWidth")));
 		myImage.fitHeightProperty().bind(myEngineView.getBoardPane().getPane().heightProperty().multiply(myEngineView.loadDoubleResource("CursorHeight")));
 		myImage.setMouseTransparent(true);
-
 		return myImage;
 	}
 	/**

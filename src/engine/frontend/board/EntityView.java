@@ -98,15 +98,15 @@ public class EntityView {
 			myH.setValue(height);
 		}
 	}
-	
+
 	public void handlePowerUpDrop(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getDragboard().hasString()) {
 			myController.attemptUpgrade(myID, e.getDragboard().getString());
 		}
 	}
-
-	public boolean contains(double x, double y) {
+	
+	public boolean contains(double x, double y){
 
 		double minX = myImageView.translateXProperty().doubleValue();
 		double maxX = myImageView.fitWidthProperty().doubleValue() + minX;

@@ -91,12 +91,14 @@ public class BoardPane extends AbstractPane {
 	}
 
 
+
 	/**
 	 * Tells engine that a tower has been attempted to be placed at a location
 	 * @param mouseXLoc - xPosition of tower to be placed
 	 * @param mouseYLoc - yPosition of tower to be placed
 	 * @param placingTower - String of tower type to be placed
 	 */
+
 	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower, double cost){
 		double xLoc = mouseXLoc - myPane.getLayoutX();
 		double yLoc = mouseYLoc - myPane.getLayoutY();

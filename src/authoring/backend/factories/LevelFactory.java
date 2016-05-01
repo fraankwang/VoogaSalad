@@ -77,13 +77,8 @@ public class LevelFactory {
 				shopItems.add(item);
 			}
 		}
-<<<<<<< HEAD
-
-		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, entitiesMap);
-=======
 		List<Rule> ruleAgenda = authoringLevel.getRuleAgenda();
 		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, ruleAgenda, entitiesMap);
->>>>>>> cc09944ea96264d6bc1f62149f3bc8d2d963d77f
 	}
 
 }
