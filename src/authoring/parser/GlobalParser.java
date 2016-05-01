@@ -107,9 +107,9 @@ public class GlobalParser {
 			String[] split = level.split(":");
 			sortedLevels.add(split[1]);
 		}
-		
+
 		return sortedLevels;
-		
+
 	}
 
 	public static String compressLevels(Map<Integer, String> levels) {
@@ -124,7 +124,7 @@ public class GlobalParser {
 		for (int j : indexes) {
 			result += Integer.toString(j) + ":" + levels.get(j) + " ";
 		}
-		
+
 		return result.substring(0, result.length());
 	}
 
