@@ -49,7 +49,7 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		newPath.initialize();
 		newPath.setSize(myImageView.getImage().getWidth(), myImageView.getImage().getHeight());
 		myPathBuilders.add(newPath);
-		myPanelBar.addButton("Path " + Integer.toString(pathIndexNumber + 1), f -> {
+		myPanelBar.addButton("Path " + Integer.toString(pathIndexNumber), f -> {
 			newPath.createNewCurve(null);
 		});
 		myGroup.getChildren().add(newPath.getNode());
