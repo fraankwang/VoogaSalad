@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 
 public class EntityView {
@@ -25,9 +26,18 @@ public class EntityView {
 	private int myID;
 	private DoubleProperty myW;
 	private DoubleProperty myH;
-
-	public EntityView(EngineController controller, double xLoc, double yLoc, String image, int id, double width,
-			double height) {
+	
+	/**
+	 * Instantiates EntityView - overarching component of frontend
+	 * @param controller - Controller used to connect front end to engine
+	 * @param xLoc - x position in relation to stage
+	 * @param yLoc - 
+	 * @param image - 
+	 * @param id
+	 * @param width
+	 * @param height
+	 */
+	public EntityView(EngineController controller, double xLoc, double yLoc, String image, int id, double width, double height){
 		myController = controller;
 		myX = new SimpleDoubleProperty(xLoc);
 		myY = new SimpleDoubleProperty(yLoc);
@@ -88,11 +98,7 @@ public class EntityView {
 			myH.setValue(height);
 		}
 	}
-
-	private void updateFocus() {
-		myImageView.requestFocus();
-	}
-
+	
 	public void handlePowerUpDrop(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getDragboard().hasString()) {
