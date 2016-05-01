@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements.panels.panel_bars;
 
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,7 +31,7 @@ public class EditorPanelBar extends PanelBar {
 	public Button addButton(String label, EventHandler<ActionEvent> action) {
 		Button b = new Button(label);
 		b.setOnAction(action);
-		b.setFont(new Font(10));
+		b.setFont(new Font(Constants.getInt("EDITOR_PANEL_BAR_FONT")));
 		myGridBar.getChildren().add(b);
 		return b;
 	}

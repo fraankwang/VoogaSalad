@@ -1,4 +1,4 @@
-package authoring.frontend.editor_features;
+package authoring.frontend.configuration;
 
 import java.util.Map;
 
@@ -32,8 +32,8 @@ public class LabelCell extends ListCell<Label> {
  			
  			ImageView newImage = new ImageView(
  					new Image(myImageMap.get(item.getText())));
- 			newImage.setFitHeight(50);
- 			newImage.setFitWidth(50);
+ 			newImage.setFitHeight(Constants.getInt("LABEL_CELL_IMAGE_SIZE"));
+ 			newImage.setFitWidth(Constants.getInt("LABEL_CELL_IMAGE_SIZE"));
  			newImage.setPreserveRatio(true);
  			newLabel.setGraphic(newImage);
  			newLabel.setStyle("-fx-text-fill: black;");

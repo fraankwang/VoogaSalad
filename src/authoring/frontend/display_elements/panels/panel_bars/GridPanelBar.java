@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements.panels.panel_bars;
 
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -32,7 +33,7 @@ public class GridPanelBar extends PanelBar {
 	protected void initializeComponents() {
 		super.initializeComponents();
 		numColumnsLabel = new Label("# of columns");
-		numColumnsLabel.setFont(new Font(25));
+		numColumnsLabel.setFont(new Font(Constants.getInt("PANEL_BAR_FONT")));
 		myIncreaseColumnsButton = new Button("+");
 		myDecreaseColumnsButton = new Button("-");
 	}

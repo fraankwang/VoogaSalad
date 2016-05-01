@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
+import authoring.frontend.configuration.EntityComponents;
+import authoring.frontend.configuration.LabelCell;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableLevelAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
-import authoring.frontend.editor_features.EntityComponents;
-import authoring.frontend.editor_features.LabelCell;
 import authoring.frontend.editor_features.ObjectChooser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -43,11 +44,11 @@ import javafx.util.Callback;
 
 public class RulesEditorPanel extends Panel {
 
-	public static final int COLUMN_1_WIDTH_PERCENTAGE = 10;
-	public static final int COLUMN_2_WIDTH_PERCENTAGE = 15;
-	public static final int COLUMN_3_WIDTH_PERCENTAGE = 30;
-	public static final int COLUMN_4_WIDTH_PERCENTAGE = 15;
-	public static final int COLUMN_5_WIDTH_PERCENTAGE = 30;
+	public static final int COLUMN_1_WIDTH_PERCENTAGE = Constants.getInt("RULES_COLUMN_1");
+	public static final int COLUMN_2_WIDTH_PERCENTAGE = Constants.getInt("RULES_COLUMN_2");
+	public static final int COLUMN_3_WIDTH_PERCENTAGE = Constants.getInt("RULES_COLUMN_3");
+	public static final int COLUMN_4_WIDTH_PERCENTAGE = Constants.getInt("RULES_COLUMN_4");
+	public static final int COLUMN_5_WIDTH_PERCENTAGE = Constants.getInt("RULES_COLUMN_5");
 	public static final List<String> MODIFIABLE_LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("NumLives",
 			"CurrentResources");
 	public static final List<String> POSSIBLE_EVENTS = (List<String>) Arrays.asList("CollisionEvent",
@@ -153,7 +154,7 @@ public class RulesEditorPanel extends Panel {
 
 	private Scene openIfScene() {
 		VBox ifStatementBuilder = new VBox();
-		Scene ifScene = new Scene(ifStatementBuilder, 400, 400, Color.WHITE);
+		Scene ifScene = new Scene(ifStatementBuilder, Constants.getInt("IF_SCENE_HEIGHT"), Constants.getInt("IF_SCENE_WIDTH"), Color.WHITE);
 
 		HBox selectEventBox = new HBox();
 		Text eventText = new Text("Choose the type of event:");
@@ -167,12 +168,12 @@ public class RulesEditorPanel extends Panel {
 		entityChooser.setCellFactory(
 				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 		entityChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-		entityChooser.setPrefWidth(400);
+		entityChooser.setPrefWidth(Constants.getInt("ENTITY_CHOOSER_WIDTH"));
 		ComboBox<Label> entityChooser2 = new ComboBox<Label>();
 		entityChooser2.setCellFactory(
 				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 		entityChooser2.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-		entityChooser2.setPrefWidth(400);
+		entityChooser2.setPrefWidth(Constants.getInt("ENTITY_CHOOSER_WIDTH"));
 		Button keyField = new Button("Click and press desired key");
 
 		keyField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -243,7 +244,7 @@ public class RulesEditorPanel extends Panel {
 	private Scene openThenScene() {
 		Map<String, String> myImageMap = myController.getAuthoringViewManager().getObjectChooser().getMap();
 		VBox thenStatementBuilder = new VBox();
-		Scene thenScene = new Scene(thenStatementBuilder, 400, 400, Color.WHITE);
+		Scene thenScene = new Scene(thenStatementBuilder, Constants.getInt("THEN_SCENE_WIDTH"), Constants.getInt("THEN_SCENE_HEIGHT"), Color.WHITE);
 		HBox selectTypeBox = new HBox();
 		Text typeText = new Text("Select the type of the affected object:");
 		HBox selectEntityBox = new HBox();
@@ -265,7 +266,7 @@ public class RulesEditorPanel extends Panel {
 		entityChooser.setCellFactory(
 				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 		entityChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-		entityChooser.setPrefWidth(400);
+		entityChooser.setPrefWidth(Constants.getInt("ENTITY_CHOOSER_WIDTH"));
 		ComboBox<String> attributeChooser = new ComboBox<String>();
 		ComboBox<Label> newValueChooser = new ComboBox<Label>();
 		ComboBox<String> levelValueChooser = new ComboBox<String>();
@@ -377,7 +378,7 @@ public class RulesEditorPanel extends Panel {
 							createLabelList(myController.getAuthoringViewManager().getObjectChooser().getMap()));
 					newValueChooser.setCellFactory(listview -> new LabelCell(myImageMap));
 					newValueChooser.setButtonCell(new LabelCell(myImageMap));
-					newValueChooser.setPrefWidth(400);
+					newValueChooser.setPrefWidth(Constants.getInt("NEW_VALUE_WIDTH"));
 
 				} else if (EntityComponents.getVariableType(newValue).equals("Entity")) {
 					// add all of the level entities
@@ -387,7 +388,7 @@ public class RulesEditorPanel extends Panel {
 							((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 					newValueChooser.setButtonCell(
 							new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-					newValueChooser.setPrefWidth(400);
+					newValueChooser.setPrefWidth(Constants.getInt("NEW_VALUE_WIDTH"));
 				}
 
 				thenStatementBuilder.getChildren().add(saveButton);

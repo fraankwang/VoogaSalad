@@ -1,5 +1,8 @@
 package authoring.frontend.editor_features;
 
+import com.sun.corba.se.impl.orbutil.closure.Constant;
+
+import authoring.frontend.configuration.Constants;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,7 +20,7 @@ import javafx.scene.text.TextAlignment;
  */
 public class SpawnEntityRow {
 
-	private static final int FONT_SIZE = 15;
+	private static final int FONT_SIZE = Constants.getInt("SPAWN_ENTITY_ROW_FONT_SIZE");
 	private String myTag;
 	private Label myPathID;
 	private Label myName;
@@ -64,8 +67,8 @@ public class SpawnEntityRow {
 		myName.setFont(new Font(FONT_SIZE));
 		myName.toFront();
 		myImage = image;
-		myImage.setFitHeight(25);
-		myImage.setFitWidth(25);
+		myImage.setFitHeight(Constants.getInt("SPAWN_ENTITY_ROW_IMAGE_SIZE"));
+		myImage.setFitWidth(Constants.getInt("SPAWN_ENTITY_ROW_IMAGE_SIZE"));
 		myName.setGraphic(myImage);
 
 		myWaveOrder = new Label(wave);

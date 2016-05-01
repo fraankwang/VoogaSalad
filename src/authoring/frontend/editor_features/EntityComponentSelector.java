@@ -3,8 +3,8 @@ package authoring.frontend.editor_features;
 import java.util.*;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.EntityComponents;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
-import authoring.frontend.editor_features.EntityComponents;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
