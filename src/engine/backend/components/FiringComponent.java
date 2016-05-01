@@ -1,5 +1,6 @@
 package engine.backend.components;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import engine.backend.systems.GameClock;
@@ -52,7 +53,7 @@ public class FiringComponent extends Component{
 	}
 	
 	public FiringComponent() {
-		
+		this.myTargets = new ArrayList<String>();
 	}
 	
 	/**
@@ -279,6 +280,9 @@ public class FiringComponent extends Component{
 			return;
 		case "EnemyInSightRange":
 			this.myEnemyInSightRange = Double.parseDouble(data);
+			return;
+		case "Targets":
+			this.myTargets.add(data);
 			return;
 		case "FiringRate":
 			this.myFiringRate = Double.parseDouble(data);

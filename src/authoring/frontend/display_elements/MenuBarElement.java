@@ -1,5 +1,9 @@
 package authoring.frontend.display_elements;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.editor_features.ImageImporter;
 import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
@@ -28,9 +32,11 @@ public class MenuBarElement implements IMenuBarElement {
 	private ITabBarElement myTabBar;
 	private ObjectChooser myImageChooser;
 	private ImageImporter myImageImporter;
+	private IAuthoringView myController;
 
-	public MenuBarElement(ObjectChooser ic) {
+	public MenuBarElement(ObjectChooser ic, IAuthoringView controller) {
 		myImageChooser = ic;
+		myController = controller;
 	}
 
 	@Override
@@ -56,6 +62,14 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem importImages = new MenuItem("Import Images...");
 		importImages.setOnAction(e -> myImageImporter.openImporter());
 		
+		MenuItem exportGame = new MenuItem("Export Game");
+		Map<String, String> createGameMap = new HashMap<String, String>();
+		createGameMap.put("Type", "Create");
+		exportGame.setOnAction(e -> {
+			myController.writeData(createGameMap);
+			// make a pop up window that says "Game successfully exported!"
+		});
+		
 		Menu open = new Menu("Open in separate window");
 		MenuItem openGame = new MenuItem("Open Game Tab");
 		openGame.setOnAction(e -> myTabBar.show(myTabBar.getGameTabDisplay()));
@@ -66,7 +80,7 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem openEntities = new MenuItem("Open Entities Tab");
 		openEntities.setOnAction(e -> myTabBar.show(myTabBar.getEntitiesTabDisplay()));
 
-		file.getItems().addAll(open, importImages);
+		file.getItems().addAll(open, importImages, exportGame);
 		open.getItems().addAll(openGame, openModes, openLevels, openEntities);
 		return file;
 	}

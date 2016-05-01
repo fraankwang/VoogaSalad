@@ -104,7 +104,7 @@ public class ShopCell extends ListCell<ShopItem> {
 		
 		Dragboard db = this.startDragAndDrop(TransferMode.ANY);
 		ClipboardContent content = new ClipboardContent();
-		content.putString(myItem.getItemName());
+		content.putString(myItem.getItemName()+"&"+myItem.getItemValue());
 		db.setContent(content);
 	}
 

@@ -14,6 +14,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import authoring.frontend.editor_features.EntityComponentSelector;
 
 /**
  * 
@@ -23,12 +24,14 @@ import javafx.scene.image.ImageView;
 
 public class EntitiesTabGrid extends TabGrid {
 
+	private String myGenre;
 	private Map<String, String> currentInfo;
 	private Map<String, String> myEntities;
 
 	public EntitiesTabGrid(IAuthoringView controller, TabDisplay tab) {
 		super(controller, tab);
 		currentInfo = new TreeMap<String, String>();
+		myGenre = "";
 	}
 
 	@Override
@@ -49,7 +52,15 @@ public class EntitiesTabGrid extends TabGrid {
 		super.assembleGridComponents();
 		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
 		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo, "Entity"));
-
+		((GridViewPanel) myPrimaryDisplay).getMyAddNewButton().setOnAction(e -> {
+			Map<String, String> defaultAttributesMap = myTabDisplay.getDefaultAttributesMap();
+			EntityComponentSelector templateComponentSelector = new EntityComponentSelector(myController);
+			templateComponentSelector.initialize();
+			Map<String, String> additionalAttributes = templateComponentSelector.getExtraDefaultAttributes(myGenre);
+			defaultAttributesMap.putAll(additionalAttributes);
+			defaultAttributesMap.put("Genre", myGenre);
+			myTabDisplay.openEditorDisplay(defaultAttributesMap);
+		});
 	}
 
 	public void updateEntitiesPrimaryDisplay(List<Map<String, String>> data, String genre) {
@@ -92,6 +103,15 @@ public class EntitiesTabGrid extends TabGrid {
 
 	public Map<String, String> getEntities() {
 		return myEntities;
+	}
+
+	public String getGenre() {
+		return myGenre;
+	}
+	
+	public void setGenre(String name) {
+		myGenre = name;
+		
 	}
 
 }
