@@ -10,15 +10,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
-
-import javax.swing.text.html.parser.Entity;
-
-import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.IEvent;
-import engine.controller.EngineController;
 
 public class SystemsController {
 
@@ -30,7 +24,6 @@ public class SystemsController {
 	private GameSystem spawningSystem;
 	private UserInputSystem userInputSystem;
 	private List<ISystem> mySystems;
-	private EngineController engineController;
 	private EventManager myEventManager;
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
@@ -69,17 +62,17 @@ public class SystemsController {
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
 		mySystems.add(userInputSystem);
-		//mySystems.add(myEventManager);
-		//mySystems.add(renderingSystem);
-	
+		// mySystems.add(myEventManager);
+		// mySystems.add(renderingSystem);
+
 		myGameClock = new GameClock(framesPerSecond);
 	}
-	
+
 	/**
 	 * Receives user input from frontend, sends it to UserInputSystem
 	 * @param event
 	 */
-	public void sendUserInputEvent(IEvent event){
+	public void sendUserInputEvent(IEvent event) {
 		userInputSystem.handleUserEvent(event);
 	}
 
@@ -92,7 +85,7 @@ public class SystemsController {
 		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
 		myEventManager.handleNonMapEvents(nonMapEvents);
 		nonMapEvents.clear();
-		//handle all the generate events
+		// handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
 		myEventManager.updateGameShop();
 		renderingSystem.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
@@ -100,9 +93,6 @@ public class SystemsController {
 		if(!playing){
 			myGameClock.updateLoopIteration();
 		}
-		
 	}
-	
-	
-	
+
 }

@@ -17,7 +17,7 @@ public class GameWorldToXMLWriter extends ObjectToXMLWriter {
 	private void setXMLAlias() {
 		// Add all alias to set up
 	}
-	
+
 	/**
 	 * Converts an XML to object.
 	 */

@@ -9,7 +9,5 @@ import java.util.Observer;
  */
 
 public interface IAuthoringController extends Observer {
-	
 	public void parseInput(Map<String, String> data) throws IOException;
-
 }

@@ -1,10 +1,10 @@
 package engine.backend.entities;
 
-import java.util.Collection;
-import java.util.Set;
-
 import engine.backend.components.IComponent;
 import engine.backend.rules.IAction;
+
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * 
@@ -38,6 +38,7 @@ public interface IEntity {
 	public void setID(int id);
 	
 	public int getID();
+
 	
 	public EntityStatistics getStats();
 
