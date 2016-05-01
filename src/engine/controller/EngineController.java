@@ -306,7 +306,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 */
 	public void keyPressed(String s) {
 		if (lastEntityClickedID != null) {
-
 			IEvent keyPressedEvent = new KeyPressedEntityEvent(lastEntityClickedID, s);
 			mySystems.sendUserInputEvent(keyPressedEvent);
 		}
