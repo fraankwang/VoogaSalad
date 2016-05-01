@@ -1,5 +1,6 @@
 package authoring.frontend.interfaces.display_element_interfaces;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 
@@ -22,5 +23,7 @@ public interface ITabDisplay extends IDisplayElement, Observer {
 	public IEditorDisplay getEditor();
 
 	public void openEditorDisplay(Map<String, String> map);
+	
+	public void update(List<Map<String, String>> data);
 
 }

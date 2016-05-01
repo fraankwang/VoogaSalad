@@ -155,11 +155,17 @@ public class EntitiesTabDisplay extends TabDisplay {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
-		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
-		updateMyEntities(data);
+		update(data);
 
+	}
+	
+
+	public void update(List<Map<String, String>> data) {
+		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
+		updateMyEntities(data);
+		
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
@@ -169,6 +175,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 	}
+	
 
 	/**
 	 * Maps each of the entities to their names. This information is pulled by

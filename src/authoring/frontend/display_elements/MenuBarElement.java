@@ -107,11 +107,15 @@ public class MenuBarElement implements IMenuBarElement {
 
 			GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
 
+			
 			try {
 				String string = ObjectToXMLWriter.documentToString(gameFile);
 				GameWorld game = (GameWorld) writer.xMLToObject(string);
 				
-				
+//				List<Map<String, String>> myModes = 
+//				List<Map<String, String>> myLevels
+//				List<Map<String, String>> myEntities
+//				myController.updateAll(myModes, myLevels, myEntities);
 				
 			} catch (Exception e1) {
 				e1.printStackTrace();

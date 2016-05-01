@@ -44,9 +44,14 @@ public class LevelsTabDisplay extends TabDisplay {
 	public void update(Observable o, Object arg) {
 		@SuppressWarnings("unchecked")
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
+		update(data);
+	}
+	
 
+	public void update(List<Map<String, String>> data) {
 		((LevelsTabGrid) myGrid).updateLevelsPrimaryDisplay(data);
 	}
+	
 
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
