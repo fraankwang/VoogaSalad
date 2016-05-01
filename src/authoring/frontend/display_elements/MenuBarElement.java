@@ -110,7 +110,9 @@ public class MenuBarElement implements IMenuBarElement {
 			try {
 				String string = ObjectToXMLWriter.documentToString(gameFile);
 				GameWorld game = (GameWorld) writer.xMLToObject(string);
-
+				
+				
+				
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
