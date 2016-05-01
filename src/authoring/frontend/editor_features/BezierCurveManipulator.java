@@ -26,10 +26,11 @@ import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
+import resources.ResourceManager;
 
 
 /**
- * This class was taken from online and modified to fit our needs.
+ * This class was inspired by a Stack Overflow post and modified to fit our needs.
  * @author benchesnut
  *
  */
@@ -42,7 +43,6 @@ public class BezierCurveManipulator implements IDisplayElement {
 	private double myWidth, myHeight;
 	private PathBuilder myContainer;
 	private IntegerProperty myNum;
-//	private static final int LABEL_FONT_SIZE = 7;
 	private int myPathIndex;
 	
 	public BezierCurveManipulator(double width, double height, PathBuilder builder, int curveNum, int pathIndex) {
@@ -120,27 +120,18 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    end      = new Anchor(Color.TOMATO,    myCurve.endXProperty(),      myCurve.endYProperty());
 
 	    myNode.getChildren().addAll(myCurve, start, control1, control2, end, controlLine1, controlLine2);
-	    
-	    start.setOpacity(0.9);
-	    start.setOpacity(1);
-	    control1.setOpacity(0.9);
-	    control1.setOpacity(1);
-	    control2.setOpacity(0.9);
-	    control2.setOpacity(1);
-	    end.setOpacity(0.9);
-	    end.setOpacity(1);
 	}
 	
 	private CubicCurve createInitialCurve() {
 		CubicCurve curve = new CubicCurve();
-	    curve.setStartX(100);
-	    curve.setStartY(100);
-	    curve.setControlX1(150);
-	    curve.setControlY1(50);
-	    curve.setControlX2(250);
-	    curve.setControlY2(150);
-	    curve.setEndX(300);
-	    curve.setEndY(100);
+	    curve.setStartX(ResourceManager.getBezierIntResource("DefaultStartX"));
+	    curve.setStartY(ResourceManager.getBezierIntResource("DefaultStartY"));
+	    curve.setControlX1(ResourceManager.getBezierIntResource("DefaultControlX1"));
+	    curve.setControlY1(ResourceManager.getBezierIntResource("DefaultControlY1"));
+	    curve.setControlX2(ResourceManager.getBezierIntResource("DefaultControlX2"));
+	    curve.setControlY2(ResourceManager.getBezierIntResource("DefaultControlY2"));
+	    curve.setEndX(ResourceManager.getBezierIntResource("DefaultEndX"));
+	    curve.setEndY(ResourceManager.getBezierIntResource("DefaultEndY"));
 	    curve.setStroke(Color.RED);
 	    curve.setStrokeWidth(4);
 	    curve.setStrokeLineCap(StrokeLineCap.ROUND);
@@ -213,60 +204,38 @@ public class BezierCurveManipulator implements IDisplayElement {
 
 	      x.bind(centerXProperty());
 	      y.bind(centerYProperty());
-	      
-//	      Label numLabel = new Label(myNum.toString());
-//	      numLabel.setFont(new Font(LABEL_FONT_SIZE));
-//	      numLabel.textProperty().bind(myNum.asString());
-//	      Label indexLabel = new Label("Path #" + Integer.toString(myPathIndex));
-//	      indexLabel.setFont(new Font(LABEL_FONT_SIZE));
-////	      indexLabel.textProperty().bind(myNum.asString());
-//	      VBox labelBox = new VBox();
-//	      labelBox.getChildren().addAll(indexLabel,numLabel);
-//	      labelBox.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
-//	      labelBox.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
-////	      numLabel.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
-////	      numLabel.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
-//	      myNode.getChildren().add(labelBox);
-////	      myNode.getChildren().add(numLabel);
-////	      numLabel.toFront();
-//	      labelBox.toFront();
-	      
+
 	      enableDrag();
 	      
 	      this.setOnMousePressed(new EventHandler<MouseEvent>() {
 		        @Override public void handle(MouseEvent mouseEvent) {
 		        	if (mouseEvent.isShiftDown()) {
 		        		Alert alert = new Alert(AlertType.INFORMATION);
-		        		alert.setTitle("Path Information");
+		        		alert.setTitle(ResourceManager.getBezierStringResource("AlertTitle"));
 		        		alert.setHeaderText("Path #" + Integer.toString(myPathIndex+1) + "\n" + "Segment #" + Integer.toString(myNum.get()+1));
 		        		alert.show();
 		        	}
 		        }
 		      });
 	      
-	      this.setOnMouseEntered(e -> {
-	    	  this.toFront();
-	    	  myCurve.requestFocus();
-	      });
 	      this.setOnMouseEntered(new EventHandler<MouseEvent>() {
-		        @Override public void handle(MouseEvent mouseEvent) {
-		          if (!mouseEvent.isPrimaryButtonDown()) {
-		            getScene().setCursor(Cursor.HAND);
+	    	  @Override public void handle(MouseEvent mouseEvent) {
+	    		  if (!mouseEvent.isPrimaryButtonDown()) {
+		        	  getScene().setCursor(Cursor.HAND);
 		          }
+		    	  myCurve.requestFocus();
 		        }
 	      });
 	      
-//	      this.opacityProperty().addListener(new ChangeListener<Number>() {
-//				@Override
-//				public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//					numLabel.toFront();
-//				} 
-//		      });
-
 	    }
 	    
+
 	    
-	    // lock in place with other anchors
+	    
+	    
+	    /**
+	     * Lock this curve's anchors to the anchors of other curves belonging to the path.
+	     */
 	    private void lockToAnchors() {
 	    	for (BezierCurveManipulator bc: myContainer.getMyBezierCurves()) {
 		    	List<Circle> anchors = bc.getAnchors();
@@ -278,24 +247,39 @@ public class BezierCurveManipulator implements IDisplayElement {
 		    	}
 	    	}
 	    }
+	    
+	    /**
+	     * Make an anchor movable by dragging it around with the mouse.
+	     */
 
-	    // make a node movable by dragging it around with the mouse.
 	    private void enableDrag() {
 	      final Delta dragDelta = new Delta();
+	     
+	      /**
+	       * Change the cursor type and record a delta distance for the drag and drop operation when the mouse
+	       * is pressed inside an anchor.
+	       */
 	      setOnMousePressed(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	          // record a delta distance for the drag and drop operation.
 	          dragDelta.x = getCenterX() - mouseEvent.getX();
 	          dragDelta.y = getCenterY() - mouseEvent.getY();
 	          getScene().setCursor(Cursor.MOVE);
 	          myCurve.requestFocus();
 	        }
 	      });
+	      
+	      /**
+	       * Change the cursor back to a hand once the mouse is released.
+	       */
 	      setOnMouseReleased(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	          getScene().setCursor(Cursor.HAND);
 	        }
 	      });
+	      
+	      /**
+	       * Move the center of the anchor based on the mouse movement.
+	       */
 	      setOnMouseDragged(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	          myCurve.requestFocus();
@@ -310,6 +294,10 @@ public class BezierCurveManipulator implements IDisplayElement {
 	          lockToAnchors();
 	        }
 	      });
+	      
+	      /**
+	       * Change the cursor to a hand when hovering over an anchor.
+	       */
 	      setOnMouseEntered(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	          if (!mouseEvent.isPrimaryButtonDown()) {
@@ -318,6 +306,9 @@ public class BezierCurveManipulator implements IDisplayElement {
 	        }
 	      });
 	      
+	      /**
+	       * Change the cursor back to the default arrow when not hovering over an anchor.
+	       */
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	          if (!mouseEvent.isPrimaryButtonDown()) {
@@ -327,12 +318,22 @@ public class BezierCurveManipulator implements IDisplayElement {
 	      });
 	    }
 	    
+	    /**
+	     * A simple class to store the difference between where the mouse clicked the anchor and the center
+	     * of the anchor; useful for making the dragging action smooth.
+	     * @author benchesnut
+	     *
+	     */
 	    private class Delta { double x, y; }
 	    
 	}
 	
+	/**
+	 * Translate the coordinates of this Bezier Curve to a String that the Game World can parse.
+	 * 
+	 * Format: "startX-startY,control1X-control1Y,control2X-control2Y,endX-endY"
+	 */
 	public String getCoordinatesString() {
-		// format: "startX-startY,control1X-control1Y,control2X-control2Y,endX-endY"
 		String result = "";
 		result += (Double.toString(start.getCenterX()) + "-" + Double.toString(start.getCenterY()) + ",");
 		result += (Double.toString(control1.getCenterX()) + "-" + Double.toString(control1.getCenterY()) + ",");

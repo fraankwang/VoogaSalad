@@ -24,7 +24,7 @@ public interface IDisplayElement {
 	 * Due to the extensibility of multiple subclasses, constructors cannot
 	 * instantiate their subcomponents all together (i.e. the GridFactory must
 	 * be created before grid initialization begins). Thus, an initialize method
-	 * is required to separate the two steps.
+	 * is standardized and required to separate the two steps.
 	 */
 	public void initialize();
 }

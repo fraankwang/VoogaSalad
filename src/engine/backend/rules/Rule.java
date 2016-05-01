@@ -2,6 +2,7 @@ package engine.backend.rules;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 
@@ -14,6 +15,9 @@ public class Rule {
 	private int myID;
 
 	
+	/**
+	 * Creates a new rule with empty events and actions
+	 */
 	public Rule(Collection<String> events, Collection<IAction> actions) {
 		this.myEvents = events;
 		this.myActions = actions;

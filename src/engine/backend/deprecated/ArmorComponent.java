@@ -3,8 +3,9 @@ package engine.backend.deprecated;
 import engine.backend.components.Component;
 
 public class ArmorComponent extends Component {
-	
+
 	private double resistanceToDamage;
+
 	/**
 	 * Sets resistance to Damage for Armor Component
 	 * @param value
@@ -17,6 +18,7 @@ public class ArmorComponent extends Component {
 	 * @param value
 	 */
 	public void setResistanceToDamage(String value){
+
 		double newValue = Double.parseDouble(value);
 		this.resistanceToDamage = newValue;
 	}

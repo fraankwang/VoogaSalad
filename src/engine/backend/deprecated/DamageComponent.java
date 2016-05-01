@@ -2,13 +2,13 @@ package engine.backend.deprecated;
 
 import engine.backend.components.Component;
 
-public class DamageComponent extends Component{
-	
+public class DamageComponent extends Component {
+
 	private double myDamageToHealth;
 	private double myDamageToVelocity;
-	//private Vector myDamageToPosition;
-	
-	public DamageComponent(){
+	// private Vector myDamageToPosition;
+
+	public DamageComponent() {
 	}
 	/**
 	 * Returns how much health is damaged
@@ -24,6 +24,7 @@ public class DamageComponent extends Component{
 	public void setDamageToHealth(double myDamage) {
 		this.myDamageToHealth = myDamage;
 	}
+
 	/**
 	 * Parses string of damage to myDamageToHealth
 	 * @param myDamage
@@ -46,15 +47,19 @@ public class DamageComponent extends Component{
 	public void setDamageToVelocity(double myDamageToVelocity) {
 		this.myDamageToVelocity = myDamageToVelocity;
 	}
+
 	/**
 	 * Parses string of damage to myDamageToVelocity
 	 * @param myDamageToVelocity
 	 */
+
+
+
 	public void setDamageToVelocity(String myDamageToVelocity) {
 		double newVal = Double.parseDouble(myDamageToVelocity);
 		this.myDamageToVelocity = newVal;
 	}
-	
+
 	@Override
 	public String getComponentInfo() {
 		return myDamageToHealth + "";
@@ -63,7 +68,7 @@ public class DamageComponent extends Component{
 	@Override
 	public void update(String dataName, String data) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

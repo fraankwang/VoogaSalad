@@ -6,6 +6,7 @@ import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.frontend.editor_features.CheckComboBox;
 import authoring.frontend.editor_features.EntityComponentSelector;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -83,36 +84,11 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		super.updateAttributes(info);
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
-		
+
 		expandTracking(myInputMap, myAttributes);
 		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
 		refreshAttributes();
 
-	}
-
-	@SuppressWarnings("unchecked")
-	public Map<String, String> saveAttributes() {
-		myAttributesMap.clear();
-		myAttributesMap.put("Type", "Entity");
-
-		if (myAttributes.contains("MovementComponent_CanTrack")) {
-			condenseTracking(myInputMap, myAttributes);			
-		}
-
-		for (String s : myInputMap.keySet()) {
-
-			if (myInputMap.get(s) instanceof TextField) {
-				myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
-			} else if (myInputMap.get(s) instanceof ComboBox<?>) {
-				myAttributesMap.put(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
-			}
-
-		}
-
-		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
-		System.out.println(myAttributesMap);
-
-		return myAttributesMap;
 	}
 
 	/**
@@ -130,14 +106,12 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 				"MovementComponent_CanRotate");
 		String canTrack = "MovementComponent_CanTrack";
 
-		
 		String tracking = ((ComboBox<String>) myInputMap.get(canTrack)).getSelectionModel().getSelectedItem();
 
 		inputMap.remove(canTrack);
 		attributes.remove(canTrack);
 
 		if (tracking.equals("true")) {
-			System.out.println("tracking is true");
 			for (String movementComponent : movementComponents) {
 				attributes.remove(movementComponent);
 				attributes.add("Tracking" + movementComponent);
@@ -166,7 +140,10 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
 		if (attributes.contains("TrackingMovementComponent_Velocity")) {
 			myAttributesMap.put("MovementComponent_CanTrack", "true");
-			myAttributes.add("MovementComponent_CanTrack");
+
+			if (!myAttributes.contains("MovementComponent_CanTrack")) {
+				myAttributes.add("MovementComponent_CanTrack");
+			}
 			for (String trackingComponent : trackingMovementComponents) {
 				String truncated = trackingComponent.substring(8);
 				attributes.remove(trackingComponent);
@@ -175,27 +152,61 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 				myAttributesMap.remove(trackingComponent);
 				myAttributesMap.put(truncated, selected);
 			}
-			
+
 		} else if (attributes.contains("MovementComponent_Velocity")) {
-			myAttributesMap.put("MovementComponent_CanTrack", "false");
-			myAttributes.add("MovementComponent_CanTrack");
+			if (!myAttributes.contains("MovementComponent_CanTrack")) {
+				myAttributes.add("MovementComponent_CanTrack");
+				myAttributesMap.put("MovementComponent_CanTrack", null);
+			} else {
+				myAttributesMap.put("MovementComponent_CanTrack", "false");
+
+			}
 		}
-		
+
+		if (!myAttributes.contains("MovementComponent_CanTrack")) {
+
+		}
 
 	}
 
 	@Override
 	public void resetAttributes() {
-		myInputMap.clear();
-		myAttributes.clear();
-		myAttributes.add("DisplayComponent_Image");
-		myAttributes.add("Genre");
-		myAttributes.add("Name");
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
-		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
+		myAttributesMap = selector.getExtraDefaultAttributes(myAttributesMap.get("Genre"));
 
-		refreshAttributeInputRows();
+		updateAttributes(myAttributesMap);
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public Map<String, String> saveAttributes() {
+		myAttributesMap.clear();
+		myAttributesMap.put("Type", "Entity");
+	
+		if (myAttributes.contains("MovementComponent_CanTrack")) {
+			condenseTracking(myInputMap, myAttributes);
+		}
+	
+		for (String s : myInputMap.keySet()) {
+	
+			if (myInputMap.get(s) instanceof ComboBox<?>) {
+				myAttributesMap.put(s, ((ComboBox<String>) myInputMap.get(s)).getValue());	
+			}
+			else if (myInputMap.get(s) instanceof TextField) {
+				myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
+			}
+			else if (myInputMap.get(s) instanceof CheckComboBox) {
+				myAttributesMap.put(s, ((CheckComboBox) myInputMap.get(s)).getSelections());
+			}
+			
+	
+		}
+	
+		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
+		System.out.println(myAttributesMap);
+	
+		return myAttributesMap;
 	}
 
 	protected void refreshAttributes() {
@@ -216,6 +227,14 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 					cb.setValue(myAttributesMap.get(currentAttribute));
 					cb.setEditable(false);
 					myInputMap.replace(currentAttribute, cb);
+				}
+				
+				else if (inputMethod instanceof CheckComboBox) {
+					if (myAttributesMap.get(currentAttribute) != null) {
+						CheckComboBox ccb = (CheckComboBox) myInputMap.get(currentAttribute);
+						ccb.selectAll(Arrays.asList(myAttributesMap.get(currentAttribute).split(",")));
+						myInputMap.replace(currentAttribute, ccb);
+					}
 				}
 
 			}

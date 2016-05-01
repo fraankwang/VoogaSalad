@@ -65,7 +65,6 @@ public class MenubarManager extends ResourceUser {
 		save.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 			File file = fileChooser.showSaveDialog(myEngineView.getStage());
-			System.out.println(file);
 		});
 
 		MenuItem load = new MenuItem(loadStringResource("LoadPrompt"));

@@ -8,8 +8,8 @@ package engine.backend.components;
  */
 
 public class PathComponent extends Component {
-	
-	//stores which path you're on
+
+	// stores which path you're on
 	private int pathID;
 	private double myBezierTime;
 
@@ -97,19 +97,27 @@ public class PathComponent extends Component {
 
 	/**
 	 * 
-	 * @return A boolean representing whether or not the end of path has been reached.
+	 * @return A boolean representing whether or not the end of path has been
+	 *         reached.
 	 */
 	public boolean getReachedEndOfPath() {
 		return reachedEndOfPath;
 	}
 
 	/**
-	 * Sets the boolean for whether the end of path has been reached by the entity with this component.
+	 * Sets the boolean for whether the end of path has been reached by the
+	 * entity with this component.
+	 * 
 	 * @param bool
 	 */
 	public void setReachedEndOfPath(boolean bool) {
 		reachedEndOfPath = bool;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "PathID: " + pathID;
+	}
 	
 	@Override
 	public String getComponentInfo() {

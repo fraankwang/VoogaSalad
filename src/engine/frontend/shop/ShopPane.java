@@ -20,7 +20,7 @@ import javafx.util.Callback;
 
 public class ShopPane extends AbstractPane {
 	public static final String RESOURCE_NAME = "shop";
-	
+
 	private VBox myVBox;
 	private ListView<ShopItem> shopListView;
 	private CurrentView myCurrentView;
@@ -28,12 +28,14 @@ public class ShopPane extends AbstractPane {
 
 	private final ObservableList<ShopItem> myShopItems = FXCollections.observableArrayList();
 	private final ObservableList<ShopItem> myUpgradeItems = FXCollections.observableArrayList();
-	
+
 	private ShopPane raghav;
-	
+
 	/**
 	 * Instantiates ShopPane
-	 * @param ev - EngineView - parent of Shop Pane
+	 * 
+	 * @param ev
+	 *            - EngineView - parent of Shop Pane
 	 */
 	public ShopPane(EngineView ev) {
 		super(ev, RESOURCE_NAME);
@@ -41,7 +43,8 @@ public class ShopPane extends AbstractPane {
 	}
 
 	/**
-	 * Initializes shop pane by binding nodes and attaching all underlying children
+	 * Initializes shop pane by binding nodes and attaching all underlying
+	 * children
 	 */
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
 		super.buildNode(widthBinding, heightBinding);
@@ -52,77 +55,84 @@ public class ShopPane extends AbstractPane {
 		bindWidth(myVBox, myPane.widthProperty());
 		bindHeight(myVBox, myPane.heightProperty());
 		myVBox.setSpacing(loadDoubleResource("ShopSpacing"));
-		
-		setupShopList();		
+
+		setupShopList();
 		setupUpgradeList();
 		myCurrentView = new CurrentView(this);
-		myVBox.getChildren().add(myCurrentView.buildCurrentView(myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
-		
+		myVBox.getChildren()
+				.add(myCurrentView.buildCurrentView(myVBox.widthProperty(), myVBox.heightProperty().multiply(.1)));
+
 		myPane.getChildren().add(myVBox);
 		myPane.setOnKeyPressed(null);
-		
+
 		return myPane;
 	}
-	
+
 	/**
 	 * instantiates the shop listView
 	 */
-	private void setupShopList(){
+	private void setupShopList() {
 		shopListView = new ListView<ShopItem>(myShopItems);
-//		shopListView.setCellFactory(e -> {return new ShopCell(this);});
-		shopListView.setCellFactory(new Callback<ListView<ShopItem>, 
-	            ListCell<ShopItem>>() {
-	                @Override 
-	                public ListCell<ShopItem> call(ListView<ShopItem> list) {
-	                    return new ShopCell(raghav);
-	                }
-	            }
-	        );
-		
+		shopListView.setCellFactory(e -> {
+			return new ShopCell(this);
+		});
 		bindWidth(shopListView, myVBox.widthProperty());
 		bindHeight(shopListView, myVBox.heightProperty().multiply(.6));
 		myVBox.getChildren().add(shopListView);
 	}
-	
+
 	/**
 	 * instantiates the upgrade listView
 	 */
-	private void setupUpgradeList(){
+	private void setupUpgradeList() {
 		upgradeListView = new ListView<ShopItem>(myUpgradeItems);
-		upgradeListView.setCellFactory(e -> {return new UpgradeCell(this);});
+		upgradeListView.setCellFactory(e -> {
+			return new ShopCell(this);
+		});
 		bindWidth(upgradeListView, myVBox.widthProperty());
 		bindHeight(upgradeListView, myVBox.heightProperty().multiply(.3));
 		myVBox.getChildren().add(upgradeListView);
 	}
-	
+
 	/**
 	 * Updates the shop given a list of shopItems
-	 * @param list - list of shopItems - each shopItem contains name, image, cost, and if it's interactable
+	 * 
+	 * @param list
+	 *            - list of shopItems - each shopItem contains name, image,
+	 *            cost, and if it's interactable
 	 */
 	public void updateShop(List<ShopItem> shoplist) {
 		myShopItems.retainAll(shoplist);
-		for(ShopItem item : shoplist){
-			if(!myShopItems.contains(item)){
+		for (ShopItem item : shoplist) {
+			if (!myShopItems.contains(item)) {
 				myShopItems.add(item);
 			}
 		}
 	}
-	
+
 	/**
 	 * Updates the upgrade list given a list of shopItems
-	 * @param upgradelist - list of upgrades as shopItems - each shop Item contains name, image, cost, and if it's interactable
+	 * 
+	 * @param upgradelist
+	 *            - list of upgrades as shopItems - each shop Item contains
+	 *            name, image, cost, and if it's interactable
 	 */
-	public void updateUpgrade(List<ShopItem> upgradelist) {
-		myUpgradeItems.clear();
-		myUpgradeItems.addAll(upgradelist);
+	public void updateUpgrades(List<ShopItem> upgradelist) {
+		myUpgradeItems.retainAll(upgradelist);
+		for (ShopItem item : upgradelist) {
+			if (!myUpgradeItems.contains(item)) {
+				myUpgradeItems.add(item);
+			}
+		}
 	}
-	
+
 	/**
 	 * Returns the current view
+	 * 
 	 * @return - returns shop pane's currentView
 	 */
-	public CurrentView getCurrentView(){
+	public CurrentView getCurrentView() {
 		return myCurrentView;
 	}
-	
+
 }

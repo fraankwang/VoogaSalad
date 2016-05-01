@@ -40,32 +40,39 @@ public class TrackingMovementComponent extends MovementComponent {
 		mySpeed = speed;
 	}
 
+
 /**
  * sets current position
  * @param position
  */
+
 	public void setPosition(PositionComponent position) {
 		this.myCurrentPosition = position;
 	}
 
-	public Vector getCurrentVelocityVector(){
-		if(isEntityDisplayed()){ //check if entity has been removed from map
+	public Vector getCurrentVelocityVector() {
+		if (isEntityDisplayed()) { // check if entity has been removed from map
 			updateCurrentVelocityVector();
 		}
 		return super.getCurrentVelocityVector();
 	}
-	
-	private boolean isEntityDisplayed(){
-		if(myEntityToTrack != null){
-			return !((DisplayComponent) myEntityToTrack.getComponent(ComponentTagResources.displayComponentTag)).getDelete();
+
+	private boolean isEntityDisplayed() {
+		if (myEntityToTrack != null) {
+			return !((DisplayComponent) myEntityToTrack.getComponent(ComponentTagResources.displayComponentTag))
+					.getDelete();
 		}
 		return false;
 	}
+
 	/**
 	 * Updates the vector towards the tracked entity and scales it for speed
 	 */
-	private void updateCurrentVelocityVector(){
-		Vector targetPosVector = ((PositionComponent) myEntityToTrack.getComponent(ComponentTagResources.positionComponentTag)).getPositionVector();
+
+
+	private void updateCurrentVelocityVector() {
+		Vector targetPosVector = ((PositionComponent) myEntityToTrack
+				.getComponent(ComponentTagResources.positionComponentTag)).getPositionVector();
 		double xComp = targetPosVector.getX() - myCurrentPosition.getX();
 		double yComp = targetPosVector.getY() - myCurrentPosition.getY();
 		Vector updatedDirection = new Vector(xComp, yComp);

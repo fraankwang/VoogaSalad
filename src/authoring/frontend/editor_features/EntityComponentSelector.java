@@ -1,10 +1,6 @@
 package authoring.frontend.editor_features;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
@@ -122,8 +118,10 @@ public class EntityComponentSelector {
 			case "FiringComponent":
 				ComboBox<String> ammo = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
 						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
-				ComboBox<String> targets = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
+				CheckComboBox targets = new CheckComboBox("Select Targets", ((EntitiesTabDisplay) myController.getAuthoringViewManager()
 						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
+	
+//				ComboBox<String> multiTrack = createComboBox(booleanComboBox);
 				TextField speed = new TextField();
 				TextField sightRange = new TextField();
 				TextField firingRate = new TextField();
@@ -132,6 +130,7 @@ public class EntityComponentSelector {
 				inputMap.put("FiringComponent_AmmunitionSpeed", speed);
 				inputMap.put("FiringComponent_EnemyInSightRange", sightRange);
 				inputMap.put("FiringComponent_FiringRate", firingRate);
+//				inputMap.put("FiringComponent_MultiDirectional, multiTrack"));
 				break;
 
 			case "SizeComponent":
@@ -253,5 +252,64 @@ public class EntityComponentSelector {
 
 	public List<String> getSelectedAttributes() {
 		return mySelectedComponents;
+	}
+
+	public Map<String, String> getExtraDefaultAttributes(String genre) {
+		Map<String, String> extraAttributes = new TreeMap<String, String>();
+		extraAttributes.put("Name", null);
+		extraAttributes.put("Genre", null);
+//		extraAttributes.put("DisplayComponent_Image", null);
+		switch (genre) {
+	
+		case "Tower":
+			extraAttributes.put("DisplayComponent_Image", null);
+			extraAttributes.put("FiringComponent_Ammunition", null);
+			extraAttributes.put("FiringComponent_AmmunitionSpeed", null);
+			extraAttributes.put("FiringComponent_EnemyInSightRange", null);
+			extraAttributes.put("FiringComponent_Targets", null);
+			extraAttributes.put("FiringComponent_FiringRate", null);
+			extraAttributes.put("SizeComponent_Width", null);
+			extraAttributes.put("SizeComponent_Height", null);
+			extraAttributes.put("PositionComponent_XCoordinate", null);
+			extraAttributes.put("PositionComponent_YCoordinate", null);
+			break;
+			
+		case "Enemy":
+			extraAttributes.put("DisplayComponent_Image", null);
+			extraAttributes.put("HealthComponent_Health", null);
+			extraAttributes.put("HealthComponent_CriticalHealth", null);
+			extraAttributes.put("SizeComponent_Width", null);
+			extraAttributes.put("SizeComponent_Height", null);
+			extraAttributes.put("PositionComponent_XCoordinate", null);
+			extraAttributes.put("PositionComponent_YCoordinate", null);
+			extraAttributes.put("MovementComponent_Velocity", null);
+			extraAttributes.put("MovementComponent_CanMove", null);
+			extraAttributes.put("MovementComponent_CanRotate", null);
+			extraAttributes.put("MovementComponent_CanTrack", null);
+
+			break;
+			
+		case "Ammo":
+			extraAttributes.put("DisplayComponent_Image", null);
+			extraAttributes.put("SizeComponent_Width", null);
+			extraAttributes.put("SizeComponent_Height", null);
+			extraAttributes.put("PositionComponent_XCoordinate", null);
+			extraAttributes.put("PositionComponent_YCoordinate", null);
+			extraAttributes.put("MovementComponent_Velocity", null);
+			extraAttributes.put("MovementComponent_CanMove", null);
+			extraAttributes.put("MovementComponent_CanRotate", null);
+			extraAttributes.put("MovementComponent_CanTrack", null);
+
+			break;
+			
+		case "Custom":
+			
+			break;
+			
+		default:
+			break;
+		}
+			
+		return extraAttributes;
 	}
 }

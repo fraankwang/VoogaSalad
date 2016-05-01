@@ -16,6 +16,7 @@ public class GameMap {
 	private double myMapHeight;
 	private List<Quadrant> quadrants;
 	private Path[] paths;
+
 	/**
 	 * Map is defined by a image and list of paths, width and height
 	 * @param image
@@ -23,6 +24,11 @@ public class GameMap {
 	 * @param width
 	 * @param height
 	 */
+
+
+	private static final int NUMOFTESTPATHS = 1;
+
+
 	public GameMap(String image, Path[] paths, double width, double height) {
 		this.myMapImage = image;
 		this.myMapWidth = width;
@@ -30,13 +36,24 @@ public class GameMap {
 		this.quadrants = new ArrayList<Quadrant>();
 		this.paths = paths;
 	}
-	
+
+	/* test code */
+	public GameMap(String image, Path paths, double width, double height) {
+		this.myMapImage = image;
+		this.myMapWidth = width;
+		this.myMapHeight = height;
+		this.quadrants = new ArrayList<Quadrant>();
+		Path[] testPaths = { paths };
+		this.paths = testPaths;
+	}
+
 	public GameMap() {
 		this.myMapImage = null;
 		this.myMapWidth = 0;
 		this.myMapHeight = 0;
 		this.quadrants = new ArrayList<Quadrant>();
 	}
+
 	/**
 	 * Returns the map image
 	 * @return myMapImage
@@ -83,6 +100,7 @@ public class GameMap {
 	 * Returns the paths separated by an underscores
 	 * @return
 	 */
+
 	public String getPathsInfo() {
 		StringBuilder sb = new StringBuilder();
 		for (Path path : paths) {
@@ -92,6 +110,7 @@ public class GameMap {
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 	}
+
 	/**
 	 * Returns the array of paths on the map
 	 * @return paths
@@ -123,6 +142,7 @@ public class GameMap {
 	 * Sets the quadrants of the Game Map
 	 * @param quadrants
 	 */
+
 	public void setQuandrants(List<Quadrant> quadrants) {
 		this.quadrants = quadrants;
 	}

@@ -3,6 +3,8 @@ package authoring.frontend.display_elements.panels;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -10,6 +12,7 @@ import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -37,13 +40,15 @@ public class GridViewPanel extends Panel {
 	protected Button myAddNewButton;
 	private int numColumns;
 	protected List<ImageView> myImages;
-	private ImageView myCurrImage;
+	protected ImageView myCurrImage;
 	protected ITabDisplay myTabDisplay;
+	protected IAuthoringView myController;
 
-	public GridViewPanel(double height, double width, ITabDisplay tab) {
+	public GridViewPanel(double height, double width, ITabDisplay tab, IAuthoringView controller) {
 		super(height, width);
 		myTabDisplay = tab;
 		numColumns = DEFAULT_NUM_GRID_COLUMNS;
+		myController = controller;
 	}
 
 	@Override
@@ -59,6 +64,7 @@ public class GridViewPanel extends Panel {
 				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#515D7B,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
 
 		myAddNewButton.setPrefSize(ADD_NEW_BUTTON_SIZE, ADD_NEW_BUTTON_SIZE);
+		
 	}
 
 	public void resetGrid() {
@@ -147,5 +153,9 @@ public class GridViewPanel extends Panel {
 	
 	public void setPanelBarDescription(String description) { 
 		((GridPanelBar) myPanelBar).setDescription(description);
+	}
+	
+	public Node getMyGridPane() {
+		return myGridPane;
 	}
 }

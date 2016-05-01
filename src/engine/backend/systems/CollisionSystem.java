@@ -38,39 +38,42 @@ public class CollisionSystem extends GameSystem{
 			retrievedCollidables.clear();
 			quad.retrieve(retrievedCollidables, entity1);
 			retrievedCollidables.stream().filter(entity2 -> checkIntersection(entity1, entity2)).forEach(entity2 -> {
-				IEvent event = getCollisionEvent(entity1, entity2);
-				Set<IEntity> entitySet = new HashSet<IEntity>();
-				entitySet.add(entity1);
-				entitySet.add(entity2);
-				addToEventMap(myEventMap, event, entitySet);
+				if(entity1.getID() != entity2.getID()){
+					IEvent event = getCollisionEvent(entity1, entity2);
+					Set<IEntity> entitySet = new HashSet<IEntity>();
+					entitySet.add(entity1);
+					entitySet.add(entity2);
+					addToEventMap(myEventMap, event, entitySet);
+				}
 			});
 		});
-    					 
-    }
+
+	}
 
 	private QuadTree setUpQuadTree(Level myLevel) {
-		Rectangle r =new Rectangle();
-    	r.setBounds(0, 0, (int) myLevel.getMap().getMapWidth(), (int) myLevel.getMap().getMapHeight());
-    	QuadTree quad = new QuadTree(0, r);
+		Rectangle r = new Rectangle();
+		r.setBounds(0, 0, (int) myLevel.getMap().getMapWidth(), (int) myLevel.getMap().getMapHeight());
+		QuadTree quad = new QuadTree(0, r);
 		return quad;
 	}
 
-    
-	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){
+	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2) {
 		CollisionEvent collisionEvent = new CollisionEvent(entity1.getID(), entity2.getID());
 		collisionEvent.setEventID(Arrays.asList(entity1.getName(), entity2.getName()));
 		return collisionEvent;
 	}
-    
-    private boolean checkIntersection(IEntity entity1, IEntity entity2){
-    	PositionComponent positionOne = (PositionComponent) entity1.getComponent(ComponentTagResources.positionComponentTag);
-    	PositionComponent positionTwo = (PositionComponent) entity2.getComponent(ComponentTagResources.positionComponentTag);
-    	SizeComponent sizeOne = (SizeComponent) entity1.getComponent(ComponentTagResources.sizeComponentTag);
-    	SizeComponent sizeTwo = (SizeComponent) entity2.getComponent(ComponentTagResources.sizeComponentTag);
-    	
-    	return  positionOne.getX() < positionTwo.getX() + sizeTwo.getWidth() &&
-    			positionOne.getX() + sizeOne.getWidth() > positionTwo.getX() &&
-    			positionOne.getY() < positionTwo.getY() + sizeTwo.getHeight() &&
-    			positionOne.getY() + sizeOne.getHeight() > positionTwo.getY();
-    }
+
+	private boolean checkIntersection(IEntity entity1, IEntity entity2) {
+		PositionComponent positionOne = (PositionComponent) entity1
+				.getComponent(ComponentTagResources.positionComponentTag);
+		PositionComponent positionTwo = (PositionComponent) entity2
+				.getComponent(ComponentTagResources.positionComponentTag);
+		SizeComponent sizeOne = (SizeComponent) entity1.getComponent(ComponentTagResources.sizeComponentTag);
+		SizeComponent sizeTwo = (SizeComponent) entity2.getComponent(ComponentTagResources.sizeComponentTag);
+
+		return positionOne.getX() < positionTwo.getX() + sizeTwo.getWidth()
+				&& positionOne.getX() + sizeOne.getWidth() > positionTwo.getX()
+				&& positionOne.getY() < positionTwo.getY() + sizeTwo.getHeight()
+				&& positionOne.getY() + sizeOne.getHeight() > positionTwo.getY();
+	}
 }

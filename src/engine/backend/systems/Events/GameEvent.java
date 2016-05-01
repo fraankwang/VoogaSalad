@@ -1,9 +1,9 @@
 package engine.backend.systems.Events;
 
-public class GameEvent implements IEvent{
+public class GameEvent implements IEvent {
 	private String modeName;
 	private int level;
-	
+
 	public GameEvent(String modeName, int level) {
 		this.modeName = modeName;
 		this.level = level;

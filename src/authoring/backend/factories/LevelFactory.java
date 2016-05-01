@@ -8,6 +8,7 @@ import java.util.Set;
 
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
+import engine.backend.components.CollisionComponent;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
@@ -18,15 +19,17 @@ import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.Level;
 import engine.backend.map.GameMap;
+import engine.backend.rules.Rule;
+import engine.backend.utilities.ComponentTagResources;
 
 public class LevelFactory {
-	
+
 	private EntityFactory entityFactory;
-	
+
 	public LevelFactory() {
 		this.entityFactory = new EntityFactory();
 	}
-	
+
 	public Level createLevel(AuthoringLevel authoringLevel, Map<String, IEntity> entityMap) {
 		String name = authoringLevel.getName();
 		GameMap map = authoringLevel.getMap();
@@ -36,6 +39,7 @@ public class LevelFactory {
 		for (String key : entityNames) {
 			IEntity entity = entityMap.get(key);
 			entity.addComponent(new PositionComponent());
+			entity.addComponent(new CollisionComponent());
 			authoredEntities.add(entity);
 		}
 		List<AuthoringEntity> spawnEntities = authoringLevel.getSpawnEntities();
@@ -56,7 +60,7 @@ public class LevelFactory {
 					numWaves = spawnWaves;
 				}
 			}
-			
+
 			IEntity entity = entityFactory.createEntity(spawnEntity);
 			entity.setID(entityID);
 			authoredEntities.add(entity);
@@ -66,15 +70,17 @@ public class LevelFactory {
 		List<ShopItem> shopItems = new ArrayList<ShopItem>();
 		for (IEntity entity : authoredEntities) {
 			if (entity.hasComponent("PurchaseComponent")) {
-				System.out.println("added new shopitem");
 				DisplayComponent displayComponent = (DisplayComponent) entity.getComponent("DisplayComponent");
 				PurchaseComponent purchaseComponent = (PurchaseComponent) entity.getComponent("PurchaseComponent");
-				ShopItem item = new ShopItem(entity.getName(), displayComponent.getImage(), purchaseComponent.getValue());
-				shopItems.add(item);		
+				ShopItem item = new ShopItem(entity.getName(), displayComponent.getImage(),
+						purchaseComponent.getValue());
+				shopItems.add(item);
 			}
 		}
-		
-		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, entitiesMap);
+
+		List<Rule> ruleAgenda = authoringLevel.getRuleAgenda();
+		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, ruleAgenda, entitiesMap);
+
 	}
 
 }
