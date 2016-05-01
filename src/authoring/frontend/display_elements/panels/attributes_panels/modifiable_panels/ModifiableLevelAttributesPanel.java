@@ -332,7 +332,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public void updateAttributes(Map<String, String> info) {
 		super.updateAttributes(info);
 		myAttributes.remove("SpawnEntities");
-		parseLevelEntities(myAttributesMap.get("Entities"));
+		if (myAttributesMap.get("Entities") != null) {
+			parseLevelEntities(myAttributesMap.get("Entities"));
+		}
 		myAttributesMap.remove("Entities");
 		
 		myInputMap = new TreeMap<String, Control>();
