@@ -34,19 +34,10 @@ public class InGameEntityFactory {
 		nextAvailableID = 0;
 		//initNumEntities = 0;
 	}
-<<<<<<< HEAD
-	
-	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities)
-	{
-		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>(); 
-		for(IEntity entity : entities){
-			System.out.println("Name: " + entity.getName());
-=======
 
 	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities) {
 		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>();
 		for (IEntity entity : entities) {
->>>>>>> 1cb9788291b0d6bbefcbdd399e9c22c95e1bd484
 			Map<String, IEntity> typeMap = null;
 			if (mainEntityMap.containsKey(entity.getGenre())) {
 				typeMap = mainEntityMap.get(entity.getGenre());
@@ -68,11 +59,8 @@ public class InGameEntityFactory {
 	public IEntity createEntity(String entityName) {
 		System.out.println(entityName);
 		IEntity templateEntity = findInMap(entityName);
-<<<<<<< HEAD
-		System.out.println(templateEntity);
-=======
 		if(templateEntity == null) new DrumpfTowerException(myExceptionLoader.getString(ENTITY_DNE));
->>>>>>> 1cb9788291b0d6bbefcbdd399e9c22c95e1bd484
+
 		IEntity newEntity = new Entity(initNumEntities + getNextAvailableID(), templateEntity.getName(), templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;

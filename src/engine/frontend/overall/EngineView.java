@@ -130,37 +130,13 @@ public class EngineView extends ResourceUser {
 	 * @param e
 	 */
 	private void handleEndMouseRelease(DragEvent e) {
-		if (e.getGestureSource() != myScene) {
-<<<<<<< HEAD
-
-			System.out.println("dropped something");
-			for( Integer id: myBoardPane.getEntityMap().keySet()){
-				
-				if( myBoardPane.getEntityMap().get(id).contains(e.getSceneX(), e.getSceneY())){
-					myBoardPane.getEntityMap().get(id).handlePowerUpDrop(e);
-					myDummyCursor.changePic(null);
-					this.getStage().getScene().setCursor(Cursor.DEFAULT);
-					//e.consume();
-					return;
-				}
-			}
-
-
-
-			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
-
-				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
-=======
-			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
-				if(!e.getDragboard().getString().contains("SpeedPowerUp") && !e.getDragboard().getString().contains("RangePowerUp")){
-					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&")[0], Double.parseDouble(e.getDragboard().getString().split("&")[1]));
-				}			
->>>>>>> authoring_backend
-			}
+		if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+			if(!e.getDragboard().getString().contains("SpeedPowerUp") && !e.getDragboard().getString().contains("RangePowerUp")){
+				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&")[0], Double.parseDouble(e.getDragboard().getString().split("&")[1]));
+			}			
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-
 	}
 
 
