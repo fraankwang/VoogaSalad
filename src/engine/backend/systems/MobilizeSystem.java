@@ -34,19 +34,10 @@ public class MobilizeSystem extends GameSystem {
 		
 		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.movementComponentTag);
 		for (IEntity entity : movableEntities) {
-<<<<<<< HEAD
 			MovementComponent movComponent = (MovementComponent) entity
 					.getComponent(ComponentTagResources.movementComponentTag);
 			PositionComponent posComponent = (PositionComponent) entity
 					.getComponent(ComponentTagResources.positionComponentTag);
-=======
-			
-//			System.out.println(entity.getName());
-			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
-			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
-//			System.out.println(movComponent.getVelocity());
-
->>>>>>> 9f944fb2afc22d80ecb2d06f9d772c198f85a760
 			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
 				PathComponent pathComponent = (PathComponent) entity
 						.getComponent(ComponentTagResources.pathComponentTag);
@@ -148,10 +139,7 @@ public class MobilizeSystem extends GameSystem {
 		Vector velVector = movComponent.getCurrentVelocityVector();
 
 		BezierCurve currCurve = path.getCurveFromTime(currBezTime);
-<<<<<<< HEAD
-=======
-
->>>>>>> 9f944fb2afc22d80ecb2d06f9d772c198f85a760
+		
 		double speed = velVector.calculateMagnitude();
 		double bezTimeStep = ((pathComponent.movesWithTime()) ? 1 : -1) * speed / currCurve.getLength();
 		double newBezTime = currBezTime + bezTimeStep;
