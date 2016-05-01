@@ -283,6 +283,7 @@ public class EventManager implements Observer {
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
 		System.out.println("reseting level here");
+		currentGameStatistics.resetResourcesAndLives();
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 

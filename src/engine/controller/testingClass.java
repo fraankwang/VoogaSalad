@@ -202,8 +202,8 @@ public class testingClass {
 		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 10);
-		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 10);
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 2);
+		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 4);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
 
 		IEntity tempSpawn2  = new Entity(-40, "tempSpawn2", "spawner");
