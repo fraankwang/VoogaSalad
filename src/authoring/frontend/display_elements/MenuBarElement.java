@@ -3,7 +3,6 @@ package authoring.frontend.display_elements;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.editor_features.ImageImporter;
 import authoring.frontend.editor_features.ObjectChooser;
@@ -59,12 +58,11 @@ public class MenuBarElement implements IMenuBarElement {
 	public void initialize() {
 		myMenuBar = new MenuBar();
 		Menu file = createFileMenu();
-		Menu create = new Menu("Create");
 		Menu help = createHelpMenu();
 		myImageImporter = new ImageImporter(myImageChooser);
 		myImageImporter.initialize();
 
-		myMenuBar.getMenus().addAll(file, create, help);
+		myMenuBar.getMenus().addAll(file, help);
 	}
 
 	private Menu createFileMenu() {
@@ -140,8 +138,8 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem openWiki = new MenuItem("About");
 		openWiki.setOnAction(
 				e -> openWebPage("https://github.com/duke-compsci308-spring2016/voogasalad_DrumpfTower/wiki"));
-		MenuItem openTDWiki = new MenuItem("How to play Tower Defense");
-		openTDWiki.setOnAction(e -> openWebPage("https://en.wikipedia.org/wiki/Tower_defense"));
+		MenuItem openTDWiki = new MenuItem("How To");
+		openTDWiki.setOnAction(e -> openWebPage("https://docs.google.com/document/d/1XtS7cTKnU7g7cwGhlDpgI7qe-cJQXso01z_qSoRJRwk/edit?usp=sharing"));
 
 		help.getItems().addAll(openWiki, openTDWiki);
 		return help;
