@@ -15,7 +15,7 @@ public abstract class EntityEvent implements IEvent {
 	 * @param identifiers
 	 */
 	public void setEventID(List<String> identifiers) {
-		this.eventID = (identifiers.get(0) + this.getClass().getSimpleName());
+		this.eventID = (identifiers.get(0) + "-" + this.getClass().getSimpleName());
 	}
 
 	/**
@@ -24,7 +24,7 @@ public abstract class EntityEvent implements IEvent {
 	 * @param indentifier
 	 */
 	public void setEventID(String indentifier) {
-		this.eventID = (indentifier + this.getClass().getSimpleName());
+		this.eventID = (indentifier + "-" + this.getClass().getSimpleName());
 	}
 
 	/**
