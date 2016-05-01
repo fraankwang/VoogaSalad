@@ -2,8 +2,6 @@ package authoring.frontend.editor_features;
 
 import java.util.Map;
 
-import authoring.frontend.AuthoringView;
-import authoring.frontend.IAuthoringView;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
@@ -30,8 +28,6 @@ public class LabelCell extends ListCell<Label> {
  			setItem(null);
  			setGraphic(null);
  		} else {
- 			setText("| Genre: " + myImageMap.get(item.getText()));
-
  			Label newLabel = new Label(item.getText());
  			
  			ImageView newImage = new ImageView(

@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -30,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * The RulesEditorPanel contains two scrollable views of "if" and "then"
@@ -149,7 +151,6 @@ public class RulesEditorPanel extends Panel {
 	
 
 	private Scene openIfScene() {
-		Map<String, String> myImageMap = myController.getAuthoringViewManager().getObjectChooser().getMap(); 
 		VBox ifStatementBuilder = new VBox();
 		Scene ifScene = new Scene(ifStatementBuilder, 400, 400, Color.WHITE);
 		
@@ -162,12 +163,12 @@ public class RulesEditorPanel extends Panel {
 
 		ComboBox<String> eventChooser = new ComboBox<String>();
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
-		entityChooser.setCellFactory(listview -> new LabelCell(myImageMap));
-		entityChooser.setButtonCell(new LabelCell(myImageMap)); 
+		entityChooser.setCellFactory(listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+		entityChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities())); 
 		entityChooser.setPrefWidth(400);
 		ComboBox<Label> entityChooser2 = new ComboBox<Label>();
-		entityChooser2.setCellFactory(listview -> new LabelCell(myImageMap));
-		entityChooser2.setButtonCell(new LabelCell(myImageMap));
+		entityChooser2.setCellFactory(listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+		entityChooser2.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 		entityChooser2.setPrefWidth(400);
 		Button keyField = new Button("Click and press desired key");
 		
@@ -255,14 +256,11 @@ public class RulesEditorPanel extends Panel {
 		typeChooser.getItems().addAll("Level", "Entity");
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
 		entityChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-		entityChooser.setCellFactory(listview -> new LabelCell(myImageMap));
-		entityChooser.setButtonCell(new LabelCell(myImageMap)); 
+		entityChooser.setCellFactory(listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+		entityChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities())); 
 		entityChooser.setPrefWidth(400);
 		ComboBox<String> attributeChooser = new ComboBox<String>();
 		ComboBox<Label> newValueChooser = new ComboBox<Label>();
-		newValueChooser.setCellFactory(listview -> new LabelCell(myImageMap));
-		newValueChooser.setButtonCell(new LabelCell(myImageMap)); 
-		newValueChooser.setPrefWidth(400);
 		ComboBox<String> levelValueChooser = new ComboBox<String>();
 		levelValueChooser.getItems().addAll(MODIFIABLE_LEVEL_ATTRIBUTES);
 		TextField deltaValueField = new TextField();
@@ -347,19 +345,43 @@ public class RulesEditorPanel extends Panel {
 				}
 				
 				if (EntityComponents.getVariableType(newValue).equals("Boolean")) {
+					newValueChooser.setCellFactory(new Callback<ListView<Label>, ListCell<Label>>() {
+					     public ListCell<Label> call(ListView<Label> p) {
+					         return new ListCell<Label>() {
+					             
+					             @Override protected void updateItem(Label item, boolean empty) {
+					                 super.updateItem(item, empty);
+					                 
+					                 if (item == null || empty) {
+					                     setGraphic(null);
+					                 } else {
+					                     setText(item.getText());
+					                     
+					                 }
+					            }
+					       };
+					   }
+					});
+					
+					
+					
+					
+					
 					newValueChooser.getItems().addAll(new Label("true"), new Label("false"));
 				}
 				else if (EntityComponents.getVariableType(newValue).equals("Image")) {
 					newValueChooser.getItems().addAll(createLabelList(myController.getAuthoringViewManager().getObjectChooser().getMap()));
-//					newValueChooser.setCellFactory(listview -> new LabelCell(myController));
-//					newValueChooser.setButtonCell(new LabelCell(myController));
+					newValueChooser.setCellFactory(listview -> new LabelCell(myImageMap));
+					newValueChooser.setButtonCell(new LabelCell(myImageMap)); 
+					newValueChooser.setPrefWidth(400);
 				
 				}
 				else if (EntityComponents.getVariableType(newValue).equals("Entity")) {
 					// add all of the level entities
 					newValueChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-//					newValueChooser.setCellFactory(listview -> new LabelCell(myController));
-//					newValueChooser.setButtonCell(new LabelCell(myController));
+					newValueChooser.setCellFactory(listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+					newValueChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities())); 
+					newValueChooser.setPrefWidth(400);
 				}
 				
 				thenStatementBuilder.getChildren().add(saveButton);
