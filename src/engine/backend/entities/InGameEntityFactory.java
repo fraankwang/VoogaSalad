@@ -11,27 +11,32 @@ import java.util.Map;
 
 import engine.backend.components.IComponent;
 import engine.backend.game_object.GameStatistics;
+import exception.DrumpfTowerException;
 
 public class InGameEntityFactory {
 
 	private GameStatistics myStats;
 	private Map<String, Map<String, IEntity>> myEntityMap;
 	private int currentLevelId;
+	
+	private static final String LACK_ACCESS = "LackAccessToClass";
+	private static final String METHOD_DNE = "MethodDoesNotExist";
+	private static final String SECURITY_EXCEPTION = "SecurityException";
+	private static final String ILLEGAL_ARGS = "IllegalArguments";
+	private static final String INSTANTIATION = "ReflectionInstantiation";
 
 	public InGameEntityFactory(GameStatistics stats, List<IEntity> entities) {
 		this.myStats = stats;
 		this.myEntityMap = createMap(entities);
 	}
-	
-	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities)
-	{
-		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>(); 
-		for(IEntity entity : entities){
+
+	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities) {
+		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>();
+		for (IEntity entity : entities) {
 			Map<String, IEntity> typeMap = null;
-			if(mainEntityMap.containsKey(entity.getGenre())){
+			if (mainEntityMap.containsKey(entity.getGenre())) {
 				typeMap = mainEntityMap.get(entity.getGenre());
-			}
-			else{
+			} else {
 				typeMap = new HashMap<String, IEntity>();
 				mainEntityMap.put(entity.getGenre(), typeMap);
 			}
@@ -39,16 +44,18 @@ public class InGameEntityFactory {
 		}
 		return mainEntityMap;
 	}
+
 	/**
 	 * 
 	 * @param entityName
 	 * @return A entity with the entity name given.
 	 */
-	
+
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
 
-		IEntity newEntity = new Entity(myStats.getNextAvailableID(), templateEntity.getName(), templateEntity.getGenre());
+		IEntity newEntity = new Entity(myStats.getNextAvailableID(), templateEntity.getName(),
+				templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
 	}
@@ -75,18 +82,19 @@ public class InGameEntityFactory {
 		try {
 			Constructor constructor = component.getClass().getConstructor(component.getClass());
 			return (IComponent) constructor.newInstance(component);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			System.exit(1);
-			e.printStackTrace();
+		} catch (InstantiationException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(INSTANTIATION));
+		} catch (IllegalAccessException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(LACK_ACCESS));
+		} catch (IllegalArgumentException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(ILLEGAL_ARGS));
+		} catch (InvocationTargetException e) {
 			return null;
 		} catch (NoSuchMethodException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			new DrumpfTowerException(myExceptionLoader.getString(METHOD_DNE));
 			return null;
 		} catch (SecurityException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			new DrumpfTowerException(myExceptionLoader.getString(SECURITY_EXCEPTION));
 			return null;
 		}
 
@@ -102,16 +110,16 @@ public class InGameEntityFactory {
 		// return null;
 		// }
 	}
-	
-	public boolean isCurrent(int id){
+
+	public boolean isCurrent(int id) {
 		return this.currentLevelId == id;
 	}
-	
-	public void setEntities(List<IEntity> entities){
+
+	public void setEntities(List<IEntity> entities) {
 		this.myEntityMap = createMap(entities);
 	}
-	
-	public void setID(int id){
+
+	public void setID(int id) {
 		this.currentLevelId = id;
 	}
 
