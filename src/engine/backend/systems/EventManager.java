@@ -67,7 +67,7 @@ public class EventManager implements Observer {
 	public Level getCurrentLevel() {
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
-		System.out.println(levelIndex);
+//		System.out.println(levelIndex);
 		if (myGameWorld.getLevelWithId(modeName, levelIndex).shouldRevert()) {
 			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 			Level myLevel = (Level) serializer.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
@@ -90,11 +90,11 @@ public class EventManager implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// System.out.println(arg.getClass().getName());
 		handleSystemEvent((IEvent) arg);
 	}
 
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
+		
 		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(),
 				myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}
@@ -178,7 +178,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void handleWaveOverEvent(WaveOverEvent event) {
-		myEngineController.waveIsOver();
+		myEngineController.waveIsOver(event.getTimerLength());
 	}
 	
 	public void handleLevelOver() {
@@ -284,7 +284,7 @@ public class EventManager implements Observer {
 		
 		for(IEvent event : events){
 			if(event instanceof EntityDroppedEvent){
-				System.out.println(event.getEventID());
+//				System.out.println(event.getEventID());
 				handleEntityDropEvent((EntityDroppedEvent) event);
 			}
 			else if(event instanceof NextWaveEvent){
@@ -304,6 +304,7 @@ public class EventManager implements Observer {
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
 			for (String event : ruleEvents) {
+				System.out.println(event);
 				if (!generatedEventMap.containsKey(event)) {
 					myPossibleEntities.clear();
 					break;

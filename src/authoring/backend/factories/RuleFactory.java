@@ -1,10 +1,8 @@
 package authoring.backend.factories;
 
-
 import java.util.List;
 
 import engine.backend.rules.Rule;
-import engine.backend.utilities.ComponentTagResources;
 
 public class RuleFactory {
 	private ActionsFactory myActionsFactory;

@@ -47,7 +47,7 @@ public class SpawningSystem extends GameSystem {
 		boolean waveIsOver = true;
 		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.spawnerComponentTag);
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
-
+		
 		for(IEntity entity : applicableEntities){
 
 			SpawnerComponent spawnerComponent = (SpawnerComponent) entity.getComponent(ComponentTagResources.spawnerComponentTag);
@@ -55,7 +55,6 @@ public class SpawningSystem extends GameSystem {
 
 			for(Spawn spawn : spawnerComponent.getSpawns()){
 				if(spawn.getWaveIndex() == currentWaveIndex && spawn.getNumEntities() > 0){
-					//System.out.println(spawn.getInfo());
 					waveIsOver = false;
 					updateSpawn(spawn, posComponent.getPositionVector(), newEntities, myEntityFactory, currentSecond, spawnerComponent.getPathID());
 				}
@@ -74,11 +73,13 @@ public class SpawningSystem extends GameSystem {
 	}
 
 	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities, InGameEntityFactory myEntityFactory, double currentSecond, int pathID){
+		//System.out.println("Num: " + spawn.getNumEntities() + " " + spawn.getTimer());
 		if(spawn.getTimer() <= 0 && spawn.getNumEntities() > 0){
+			//System.out.println("fdjklafjda");
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
+			//System.out.println("-------");
 			newEntity.addComponent(newPositionComponent);
-			System.out.println(newEntity.getID());
 			if(newEntity.hasComponent(ComponentTagResources.pathComponentTag)){
 				PathComponent pathComp = (PathComponent) newEntity.getComponent(ComponentTagResources.pathComponentTag);
 				pathComp.setPathID(pathID);

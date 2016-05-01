@@ -12,11 +12,16 @@ public class Rule {
 	/**
 	 * Creates a new rule with empty events and actions
 	 */
+
 	public Rule(Collection<String> events, Collection<IAction> actions) {
 		this.myEvents = events;
 		this.myActions = actions;
 	}
 	
+	/**
+	 * Creates a new rule with empty events and actions
+	 */
+
 	public Rule() {
 		myEvents = new ArrayList<String>();
 		myActions = new ArrayList<IAction>();

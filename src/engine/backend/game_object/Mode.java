@@ -14,7 +14,6 @@ public class Mode {
 	private Map<Integer, Level> myLevels;
 	private String myName;
 	private GameStatistics myGameStatistics;
-	private int index;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -59,14 +58,6 @@ public class Mode {
 	 */
 	public void addLevel(Level level) {
 		this.myLevels.put(level.getIndex(), level);
-	}
-	
-	public int getIndex() {
-		return index;
-	}
-	
-	public void setIndex(int index) {
-		this.index = index;
 	}
 	
 	@Override

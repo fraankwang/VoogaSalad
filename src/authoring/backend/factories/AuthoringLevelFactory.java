@@ -1,6 +1,7 @@
 package authoring.backend.factories;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,9 @@ import java.util.Set;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.parser.GlobalParser;
+import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
+import engine.backend.components.PositionComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
@@ -70,8 +73,12 @@ public class AuthoringLevelFactory {
 		}
 		AuthoringLevel level = new AuthoringLevel(name, map, waveDelayTimer);
 		level.setEntities(entities);
-		level.setSpawnEntities(spawnEntities);
-		level.setRuleAgenda(createRules(ruleInfo), parseReadEvents(ruleInfo));
+		if (!spawnEntities.isEmpty()) {
+			level.setSpawnEntities(spawnEntities);
+		}
+		if (!ruleInfo.equals("")) {
+			level.setRuleAgenda(createRules(ruleInfo), parseReadEvents(ruleInfo));
+		}
 		return level;
 	}
 	
@@ -100,10 +107,22 @@ public class AuthoringLevelFactory {
 		for (String event : eventData) {
 			String[] eventElements = event.split("_");
 			StringBuilder sb = new StringBuilder();
-			for (String str : eventElements) {
-				sb.append(str);
-			}
-			events.add(sb.toString());
+			if (eventElements.length > 2) {
+				String[] eventEntities = new String[2];
+				eventEntities[0] = eventElements[0];
+				eventEntities[1] = eventElements[1];
+				Arrays.sort(eventEntities);
+				for (String str : eventEntities) {
+					sb.append(str);
+				}
+				sb.append(eventElements[2]);
+				events.add(sb.toString());
+			} else {
+				for (String str : eventElements) {
+					sb.append(str);
+				}
+				events.add(sb.toString());
+			}			
 		}
 		return events;
 	}
@@ -151,6 +170,8 @@ public class AuthoringLevelFactory {
 			IComponent spawner = new SpawnerComponent(spawns, pathID);
 			AuthoringEntity spawnEntity = new AuthoringEntity(entityName, genre);
 			spawnEntity.addComponent(spawner);
+			spawnEntity.addComponent(new DisplayComponent());
+			spawnEntity.addComponent(new PositionComponent());
 			spawnEntities.add(spawnEntity);
 		}
 		return spawnEntities;
@@ -182,7 +203,9 @@ public class AuthoringLevelFactory {
 			temp.add(createCurve(curve));
 		}
 		int pathID = Integer.parseInt(ID);
-		return new Path(temp, pathID);
+		Path path = new Path(temp, pathID);
+		System.out.println(path.toString());
+		return path;
 	}
 	
 	private BezierCurve createCurve(String curve) {
