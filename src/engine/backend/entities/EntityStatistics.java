@@ -15,7 +15,9 @@ public class EntityStatistics {
 		String[] arr = stat.split(",");
 		for (String str : arr) {
 			String[] newArr = str.split(":");
-			myStatsMap.put(newArr[0], newArr[1]);
+			if(newArr.length > 1){
+				myStatsMap.put(newArr[0], newArr[1]);
+			}			
 		}
 	}
 
