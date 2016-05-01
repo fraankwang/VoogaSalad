@@ -63,6 +63,10 @@ public class LevelsTabDisplay extends TabDisplay {
 		return map;
 	}
 
+	public void initializeHotKeys() {
+		((TabGrid) myGrid).initializeHotKeys();
+	}
+
 	public Map<String, String> getLevels() {
 		return ((LevelsTabGrid) myGrid).getLevels();
 	}
@@ -71,9 +75,6 @@ public class LevelsTabDisplay extends TabDisplay {
 		return "Levels";
 	}
 
-	public void initializeHotKeys() {
-		((TabGrid) myGrid).initializeHotKeys();
-	}
 
 
 }

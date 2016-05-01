@@ -57,19 +57,16 @@ public class ModesTabDisplay extends TabDisplay {
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-		
-		System.out.println("*****1. ModesTabDisplay: got default Modes attributes");
-		System.out.println(map);
 
 		return map;
-	}
-
-	public String getName() {
-		return "Modes";
 	}
 
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
 	
+	public String getName() {
+		return "Modes";
+	}
+
 }

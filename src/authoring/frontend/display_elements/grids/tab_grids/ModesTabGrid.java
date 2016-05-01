@@ -78,7 +78,6 @@ public class ModesTabGrid extends TabGrid {
 						currentInfo = info;
 						currentInfo.put("Type", "Mode");
 						
-						//TODO: update editor Grid's PrimaryDisplay
 						if (info.get("Levels") != null) {
 							List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
 							currentGridViewPanel = new LevelGridViewPanel(500, 500, null, myController);

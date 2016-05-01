@@ -34,13 +34,6 @@ public class GameTabDisplay extends TabDisplay {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	
-	@Override
-	public String getName() {
-		return "Game";
 	}
 
 	@Override
@@ -61,5 +54,10 @@ public class GameTabDisplay extends TabDisplay {
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
-	
+
+	@Override
+	public String getName() {
+		return "Game";
+	}
+
 }
