@@ -80,8 +80,7 @@ public class MenuBarElement implements IMenuBarElement {
 		});
 		
 		Menu open = new Menu("Open in separate window");
-		MenuItem openGame = new MenuItem("Open Game Tab");
-		openGame.setOnAction(e -> myTabBar.show(myTabBar.getGameTabDisplay()));
+
 		MenuItem openModes = new MenuItem("Open Modes Tab");
 		openModes.setOnAction(e -> myTabBar.show(myTabBar.getModesTabDisplay()));
 		MenuItem openLevels = new MenuItem("Open Levels Tab");
@@ -89,7 +88,7 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem openEntities = new MenuItem("Open Entities Tab");
 		openEntities.setOnAction(e -> myTabBar.show(myTabBar.getEntitiesTabDisplay()));
 
-		open.getItems().addAll(openGame, openModes, openLevels, openEntities);
+		open.getItems().addAll(openModes, openLevels, openEntities);
 		file.getItems().addAll(open, importImages, importGame, exportGame);
 		return file;
 	}
@@ -98,8 +97,8 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem importGame = new MenuItem("Import Game");
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Game File");
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("xml"));
-		File gameFile = fileChooser.showOpenDialog(null);
+//		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("xml"));
+//		File gameFile = fileChooser.showOpenDialog(null);
 		
 		return importGame;
 	}

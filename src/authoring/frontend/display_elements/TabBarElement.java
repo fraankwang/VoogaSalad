@@ -5,7 +5,6 @@ import java.util.List;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
-import authoring.frontend.display_elements.tab_displays.GameTabDisplay;
 import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring.frontend.display_elements.tab_displays.ModesTabDisplay;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -40,7 +39,6 @@ public class TabBarElement implements ITabBarElement {
 	private TabDisplay myModesTabDisplay;
 	private TabDisplay myLevelsTabDisplay;
 	private TabDisplay myEntitiesTabDisplay;
-	private static final int GAME_TAB_INDEX = 0;
 	private static final int MODES_TAB_INDEX = 1;
 	private static final int LEVELS_TAB_INDEX = 2;
 	private static final int ENTITIES_TAB_INDEX = 3;
@@ -56,8 +54,6 @@ public class TabBarElement implements ITabBarElement {
 	public void initialize() {
 		myTabPane = new TabPane();
 
-		myGameTabDisplay = new GameTabDisplay(GAME_TAB_INDEX, myController);
-		myGameTabDisplay.initialize();
 		myModesTabDisplay = new ModesTabDisplay(MODES_TAB_INDEX, myController);
 		myModesTabDisplay.initialize();
 		myLevelsTabDisplay = new LevelsTabDisplay(LEVELS_TAB_INDEX, myController);
@@ -65,11 +61,10 @@ public class TabBarElement implements ITabBarElement {
 		myEntitiesTabDisplay = new EntitiesTabDisplay(ENTITIES_TAB_INDEX, myController);
 		myEntitiesTabDisplay.initialize();
 
-		Tab gameTab = createTab(myGameTabDisplay.getName(), myGameTabDisplay.getNode());
 		Tab modeTab = createTab(myModesTabDisplay.getName(), myModesTabDisplay.getNode());
 		Tab levelTab = createTab(myLevelsTabDisplay.getName(), myLevelsTabDisplay.getNode());
 		Tab entityTab = createTab(myEntitiesTabDisplay.getName(), myEntitiesTabDisplay.getNode());
-		myTabPane.getTabs().addAll(gameTab, modeTab, levelTab, entityTab);
+		myTabPane.getTabs().addAll(modeTab, levelTab, entityTab);
 	}
 
 	@Override
@@ -120,11 +115,6 @@ public class TabBarElement implements ITabBarElement {
 	}
 
 	@Override
-	public TabDisplay getGameTabDisplay() {
-		return myGameTabDisplay;
-	}
-
-	@Override
 	public TabDisplay getModesTabDisplay() {
 		return myModesTabDisplay;
 	}
@@ -159,7 +149,7 @@ public class TabBarElement implements ITabBarElement {
 	 * hotkeys for whatever tab is accessed upon viewing that tab.
 	 */
 	public void initializeHotKeys() {
-		List<TabDisplay> myTabDisplays = Arrays.asList(myGameTabDisplay, myModesTabDisplay, myLevelsTabDisplay,
+		List<TabDisplay> myTabDisplays = Arrays.asList(myModesTabDisplay, myLevelsTabDisplay,
 				myEntitiesTabDisplay);
 
 		myEntitiesTabDisplay.getNode().getScene().getAccelerators()
@@ -186,19 +176,11 @@ public class TabBarElement implements ITabBarElement {
 					}
 				});
 
-		myGameTabDisplay.getNode().getScene().getAccelerators()
-				.put(new KeyCodeCombination(KeyCode.G, KeyCombination.SHORTCUT_DOWN), new Runnable() {
-					@Override
-					public void run() {
-						myTabPane.getSelectionModel().select(GAME_TAB_INDEX);
-					}
-				});
-
 		myTabPane.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.TAB), new Runnable() {
 			@Override
 			public void run() {
 				int currentIndex = myTabPane.getSelectionModel().getSelectedIndex();
-				if (currentIndex < 3) {
+				if (currentIndex < 2) {
 					myTabPane.getSelectionModel().select(currentIndex + 1);
 				} else {
 					myTabPane.getSelectionModel().select(0);

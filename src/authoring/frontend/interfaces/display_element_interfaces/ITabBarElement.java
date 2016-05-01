@@ -13,8 +13,6 @@ public interface ITabBarElement extends IDisplayElement {
 
 	public void show(ITabDisplay display);
 
-	public ITabDisplay getGameTabDisplay();
-
 	public ITabDisplay getModesTabDisplay();
 
 	public ITabDisplay getLevelsTabDisplay();
