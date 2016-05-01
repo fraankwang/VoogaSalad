@@ -53,6 +53,10 @@ public class CurrentView extends ResourceUser implements Observer{
 
 	private boolean debug;
 	
+	/**
+	 * Instantiates current view node - displays most recently clicked entity and its attributes
+	 * @param sp - shop pane - this class's parent node
+	 */
 	public CurrentView(ShopPane sp) {
 		super(RESOURCE_NAME);
 		myShopPane = sp;
@@ -62,6 +66,10 @@ public class CurrentView extends ResourceUser implements Observer{
 		}
 	}
 	
+	/**
+	 * Setup default values shown in view
+	 * @param showMap - map of string values to booleans of whether they should be shown
+	 */
 	private void addDefaultShows(Map<String, Boolean> showMap){
 		String[] hides = loadStringArrayResource("DefaultHides", ",");
 		String[] shows = loadStringArrayResource("DefaultShows", ",");
@@ -73,6 +81,12 @@ public class CurrentView extends ResourceUser implements Observer{
 		}
 	}
 
+	/**
+	 * Instantiates current view node - adds bindings and attaches child nodes
+	 * @param widthBinding - DoubleExpression binding value connecting current node to parent node's width property
+	 * @param heightBinding - DoubleExpression binding value connecting current node to parent node's height property
+	 * @return - returns Node to be added to parent pane
+	 */
 	public Node buildCurrentView(DoubleExpression widthBinding, DoubleExpression heightBinding) {
 		myHBox = new HBox();
 		myShopPane.bindHeight(myHBox, heightBinding);
@@ -95,7 +109,14 @@ public class CurrentView extends ResourceUser implements Observer{
 		return myHBox;
 	}
 
-	@Override
+
+	/**
+	 * @Override
+	 * 
+	 * Updates the entries displayed in the CurrentView's display
+	 * @param o  - observed object
+	 * @param arg - argument to be observed
+	 */
 	public void update(Observable o, Object arg) {
 		IEntity entity = (IEntity) o;
 		Map<String, String> statMap = entity.getStats().getStatsMap();
@@ -113,6 +134,10 @@ public class CurrentView extends ResourceUser implements Observer{
 		}
 	}
 
+	/**
+	 * Enables debug mode
+	 * @param b - boolean of whether debug should be completed
+	 */
 	public void setDebug(boolean b){
 		debug = b;
 	}

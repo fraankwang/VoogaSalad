@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 
 public class EntityView {
@@ -24,6 +25,16 @@ public class EntityView {
 	private DoubleProperty myW;
 	private DoubleProperty myH;
 	
+	/**
+	 * Instantiates EntityView - overarching component of frontend
+	 * @param controller - Controller used to connect front end to engine
+	 * @param xLoc - x position in relation to stage
+	 * @param yLoc - 
+	 * @param image - 
+	 * @param id
+	 * @param width
+	 * @param height
+	 */
 	public EntityView(EngineController controller, double xLoc, double yLoc, String image, int id, double width, double height){
 		myController = controller;
 		myX = new SimpleDoubleProperty(xLoc);
@@ -39,6 +50,7 @@ public class EntityView {
 		myImageView.fitWidthProperty().bind(myController.getEngineView().getScalingFactor().multiply(myW));
 		myImageView.fitHeightProperty().bind(myController.getEngineView().getScalingFactor().multiply(myH));
 		myImageView.setOnMouseClicked(e -> handleClick());
+		//myImageView.setOnMouseReleased(e-> handleDrag(e));
 	}
 	
 	public void handleClick(){
@@ -68,15 +80,9 @@ public class EntityView {
 			myH.setValue(height);
 		}
 	}
-	
-	private void updateFocus(){
-		myImageView.requestFocus();
-		System.out.println("Tester");
-	}
-	
+
 	public void handlePowerUpDrop(DragEvent e){
 	
-		e.acceptTransferModes(TransferMode.ANY);
 		System.out.println("Here");
 		if (e.getDragboard().hasString()) {
 			myController.attemptUpgrade(myID, e.getDragboard().getString());
