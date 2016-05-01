@@ -14,7 +14,7 @@ public class Mode {
 	private Map<Integer, Level> myLevels;
 	private String myName;
 	private GameStatistics myGameStatistics;
-	
+	private int index;
 	/**
 	 * Authoring Environment Constructor.
 	 */
@@ -23,7 +23,7 @@ public class Mode {
 		this.myGameStatistics = gameStatistics;		
 		this.myLevels = levels;
 	}
-	
+
 	/**
 	 * Engine Testing Constructor.
 	 */
@@ -31,7 +31,7 @@ public class Mode {
 		this.myName = name;
 		this.myLevels = new HashMap<Integer, Level>();
 	}
-		
+
 	public Map<Integer, Level> getLevels() {
 		return myLevels;
 	}
@@ -48,18 +48,26 @@ public class Mode {
 	public void setGameStatistics(GameStatistics stats){
 		myGameStatistics = stats;
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return this.myName;
 	}
-	
+
 	/**
 	 * Engine Testing Method
 	 */
 	public void addLevel(Level level) {
 		this.myLevels.put(level.getIndex(), level);
 	}
-	
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
 	@Override
 	public String toString() {
 		return "Mode [levels=" + myLevels + "]";

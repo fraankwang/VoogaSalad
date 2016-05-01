@@ -41,13 +41,17 @@ public class ModesTabDisplay extends TabDisplay {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
-		@SuppressWarnings("unchecked")
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
-
+		update(data);
+	}
+	
+	public void update(List<Map<String, String>> data) {
 		((ModesTabGrid) myGrid).updateModesPrimaryDisplay(data);
 	}
+	
 	
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
@@ -57,19 +61,21 @@ public class ModesTabDisplay extends TabDisplay {
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-		
-		System.out.println("*****1. ModesTabDisplay: got default Modes attributes");
-		System.out.println(map);
 
 		return map;
 	}
-
-	public String getName() {
-		return "Modes";
+	
+	@Override
+	public void createNew() {
+		myEditorDisplay.edit(getDefaultAttributesMap());
 	}
 
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
 	
+	public String getName() {
+		return "Modes";
+	}
+
 }

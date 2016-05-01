@@ -6,6 +6,7 @@ import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.frontend.editor_features.CheckComboBox;
 import authoring.frontend.editor_features.EntityComponentSelector;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -170,17 +171,13 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
 	@Override
 	public void resetAttributes() {
-		myInputMap.clear();
-		myAttributes.clear();
-		myAttributes.add("DisplayComponent_Image");
-		myAttributes.add("Genre");
-		myAttributes.add("Name");
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
-		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
+		myAttributesMap = selector.getExtraDefaultAttributes(myAttributesMap.get("Genre"));
 
-		refreshAttributeInputRows();
+		updateAttributes(myAttributesMap);
 	}
+
 
 	@SuppressWarnings("unchecked")
 	public Map<String, String> saveAttributes() {
@@ -193,18 +190,22 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 	
 		for (String s : myInputMap.keySet()) {
 	
-			if (myInputMap.get(s) instanceof TextField) {
-				myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
-			} else if (myInputMap.get(s) instanceof ComboBox<?>) {
-				myAttributesMap.put(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
+			if (myInputMap.get(s) instanceof ComboBox<?>) {
+				myAttributesMap.put(s, ((ComboBox<String>) myInputMap.get(s)).getValue());	
 			}
+			else if (myInputMap.get(s) instanceof TextField) {
+				myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
+			}
+			else if (myInputMap.get(s) instanceof CheckComboBox) {
+				myAttributesMap.put(s, ((CheckComboBox) myInputMap.get(s)).getSelections());
+			}
+			
 	
 		}
 	
 		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 	
-		checkAllFilled();
 		return myAttributesMap;
 	}
 
@@ -226,6 +227,14 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 					cb.setValue(myAttributesMap.get(currentAttribute));
 					cb.setEditable(false);
 					myInputMap.replace(currentAttribute, cb);
+				}
+				
+				else if (inputMethod instanceof CheckComboBox) {
+					if (myAttributesMap.get(currentAttribute) != null) {
+						CheckComboBox ccb = (CheckComboBox) myInputMap.get(currentAttribute);
+						ccb.selectAll(Arrays.asList(myAttributesMap.get(currentAttribute).split(",")));
+						myInputMap.replace(currentAttribute, ccb);
+					}
 				}
 
 			}

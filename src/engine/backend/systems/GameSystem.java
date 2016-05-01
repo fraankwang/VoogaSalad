@@ -15,6 +15,7 @@ public abstract class GameSystem extends Observable implements ISystem {
 
 	/**
 	 * Adds an event to the map of eventIDs to entities with those events.
+	 * 
 	 * @param myEventMap
 	 * @param event
 	 * @param collection
@@ -24,27 +25,31 @@ public abstract class GameSystem extends Observable implements ISystem {
 			entities.forEach(e -> putEventInMap(myEventMap, event, e.getID()));
 		}
 	}
-	
+
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, List<Integer> entityIDs) {
 		if (event != null) {
 			entityIDs.forEach(id -> putEventInMap(myEventMap, event, id));
 		}
 	}
-	
+
 	/**
 	 * Adds an event to the map of eventIDs to entities with those events.
-	 * @param myEventMap The map to put the event into.
-	 * @param event 
-	 * @param entityID The entity ID corresponding with the event.
+	 * 
+	 * @param myEventMap
+	 *            The map to put the event into.
+	 * @param event
+	 * @param entityID
+	 *            The entity ID corresponding with the event.
 	 */
 	public void addToEventMap(Map<String, Set<Integer>> myEventMap, IEvent event, int entityID) {
 		if (event != null) {
 			putEventInMap(myEventMap, event, entityID);
 		}
 	}
-	
+
 	/**
 	 * Adds an event to the map of eventIDs to entities with those events.
+	 * 
 	 * @param myEventMap
 	 * @param event
 	 * @param entity
@@ -66,8 +71,9 @@ public abstract class GameSystem extends Observable implements ISystem {
 	}
 
 	/**
-	 * Filters a list of entities given with the give string of tags. Returns the filtered list
-	 * of entities.
+	 * Filters a list of entities given with the give string of tags. Returns
+	 * the filtered list of entities.
+	 * 
 	 * @param entities
 	 * @param tag
 	 * @return

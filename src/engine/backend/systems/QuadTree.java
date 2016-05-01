@@ -115,6 +115,7 @@ public class QuadTree {
 	/**
 	 * Insert the object into the quadtree. If the node exceeds the capacity, it
 	 * will split and add all objects to their corresponding nodes.
+	 * 
 	 * @param entity
 	 */
 	public void insert(IEntity entity) {

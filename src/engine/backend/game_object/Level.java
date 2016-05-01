@@ -6,7 +6,6 @@
 
 package engine.backend.game_object;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,12 +20,12 @@ import engine.backend.rules.Rule;
 
 /**
  * 
- * @author 
+ * @author
  *
  */
 public class Level {
-	
-	//the initial IDs for spawn entities is 0 to n - 1, where n is the number of spawn entities.
+
+	// put spawning entities in this map
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
 	private List<IEntity> authoredEntities;
@@ -42,33 +41,35 @@ public class Level {
 	private String lastSerializedVersion;
 	private boolean shouldRevert;
 	private double currentWaveTimer;
-	
+
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems,
+			List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
 		this.numWaves = numWaves;
 		this.myShopItems = shopItems;
 		this.authoredEntities = authoredEntities;
+		this.ruleAgenda = ruleAgenda;
 		this.entities = entities;
 		this.currentWaveIndex = 0;
 		this.setShouldRevert(false);
 		this.currentWaveTimer = 0;
 	}
-	
+
 	/**
 	 * Engine Testing Constructor.
 	 */
 	public Level(String name) {
-        this.authoredEntities = new ArrayList<IEntity>();
-        this.entities = new HashMap<Integer, IEntity>();
-        this.myName = name;
-        this.myEventMap = new HashMap<String, List<EntityAction>>();
-        ruleAgenda = new ArrayList<Rule>();
-    }
+		this.authoredEntities = new ArrayList<IEntity>();
+		this.entities = new HashMap<Integer, IEntity>();
+		this.myName = name;
+		this.myEventMap = new HashMap<String, List<EntityAction>>();
+		ruleAgenda = new ArrayList<Rule>();
+	}
 
 	/**
 	 * 
@@ -77,27 +78,27 @@ public class Level {
 	public String getName() {
 		return myName;
 	}
-	
+
 	/**
 	 * 
 	 * @return A list of Rule objects that has the rules for the level.
 	 */
-	public List<Rule> getRuleAgenda(){
+	public List<Rule> getRuleAgenda() {
 		return ruleAgenda;
 	}
 
-	
 	/**
-	 * Sets the rules for the level.	
+	 * Sets the rules for the level.
+	 * 
 	 * @param rules
 	 */
-	public void setRuleAgenda(List<Rule> rules){
+	public void setRuleAgenda(List<Rule> rules) {
 		ruleAgenda = rules;
 	}
 
-	
 	/**
 	 * Adds an action to the event map.
+	 * 
 	 * @param eventID
 	 * @param actions
 	 */
@@ -141,7 +142,6 @@ public class Level {
 		return map;
 	}
 
-	
 	/**
 	 * Engine Testing Method.
 	 */
@@ -149,19 +149,17 @@ public class Level {
 		this.map = map;
 	}
 
-	public void removeEntites(Collection<IEntity> entitiesToRemove){
+	public void removeEntites(Collection<IEntity> entitiesToRemove) {
 		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
-
-	public void setWaveDelayTimer(double time){
+	public void setWaveDelayTimer(double time) {
 		waveDelayTimer = time;
 	}
 
 	public int getNumWaves() {
 		return numWaves;
 	}
-
 
 	public int getCurrentWaveIndex() {
 		return currentWaveIndex;
@@ -170,27 +168,27 @@ public class Level {
 	public void setCurrentWaveIndex(int currentWaveIndex) {
 		this.currentWaveIndex = currentWaveIndex;
 	}
-	
+
 	public int getIndex() {
 		return index;
 	}
-	
+
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
-	public void setNumWaves(int num){
+
+	public void setNumWaves(int num) {
 		numWaves = num;
 	}
-	
+
 	public double getWaveDelayTimer() {
 		return waveDelayTimer;
 	}
-	
+
 	public List<IEntity> getAuthoredEntities() {
 		return authoredEntities;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Level [entities=" + entities + "] ";
@@ -211,8 +209,8 @@ public class Level {
 	public boolean sendNextWave() {
 		return sendNextWave;
 	}
-	
-	public void setSendNextWave(boolean bool){
+
+	public void setSendNextWave(boolean bool) {
 		sendNextWave = bool;
 	}
 
@@ -226,16 +224,16 @@ public class Level {
 
 	/**
 	 * Sets the last serialized version of this level.
+	 * 
 	 * @param lastSerializedVersion
 	 */
 	public void setLastSerializedVersion(String lastSerializedVersion) {
 		this.lastSerializedVersion = lastSerializedVersion;
 	}
-	
-	public IEntity getEntityWithID(int id){
+
+	public IEntity getEntityWithID(int id) {
 		return entities.get(id);
 	}
-
 
 	public boolean shouldRevert() {
 		return shouldRevert;
@@ -244,17 +242,17 @@ public class Level {
 	public void setShouldRevert(boolean shouldRevert) {
 		this.shouldRevert = shouldRevert;
 	}
-	
-	public int getNumEntities(){
+
+	public int getNumEntities() {
 		return this.entities.keySet().size();
 	}
 
 	public boolean lastWaveOver() {
 		// TODO Auto-generated method stub
-		int index = getCurrentWaveIndex();		
+		int index = getCurrentWaveIndex();
 		return index == getNumWaves();
 	}
-	
+
 	public double getCurrentWaveTimer() {
 		return currentWaveTimer;
 	}

@@ -32,20 +32,15 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	}
 
 	@Override
-	public Node getNode() {
-		return myGrid.getNode();
-
-	}
-
-	@Override
 	public void edit(Map<String, String> info) {
 		myGrid.setAttributesPanel(info);
 		openEditorStage();
-		
+
 	}
 
 	/**
-	 * Internal method used to create a new scene which is displayed in the editor stage.
+	 * Internal method used to create a new scene which is displayed in the
+	 * editor stage.
 	 */
 	private void openEditorStage() {
 		BorderPane root = new BorderPane();
@@ -56,6 +51,12 @@ public abstract class EditorDisplay implements IEditorDisplay {
 		myGrid.initializeHotKeys();
 	}
 
-	
+
+	@Override
+	public Node getNode() {
+		return myGrid.getNode();
+
+	}
+
 
 }

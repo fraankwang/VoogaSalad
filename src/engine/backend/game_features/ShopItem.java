@@ -1,13 +1,13 @@
 package engine.backend.game_features;
 
 public class ShopItem {
-	
+
 	private String itemName;
 	private String itemImage;
 	private double itemValue;
 	private boolean canBuy;
-	
-	public ShopItem(String name, String image, double value){
+
+	public ShopItem(String name, String image, double value) {
 		setItemName(name);
 		setItemImage(image);
 		setItemValue(value);
@@ -45,7 +45,5 @@ public class ShopItem {
 	public void setCanBuy(boolean canBuy) {
 		this.canBuy = canBuy;
 	}
-	
-	
-	
+
 }

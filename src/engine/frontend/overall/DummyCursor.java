@@ -19,7 +19,6 @@ public class DummyCursor {
 	 */
 	public DummyCursor(EngineView ev){
 		myEngineView = ev;
-
 	}
 	
 	/**
@@ -31,9 +30,9 @@ public class DummyCursor {
 		myImage.fitWidthProperty().bind(myEngineView.getBoardPane().getPane().widthProperty().multiply(myEngineView.loadDoubleResource("CursorWidth")));
 		myImage.fitHeightProperty().bind(myEngineView.getBoardPane().getPane().heightProperty().multiply(myEngineView.loadDoubleResource("CursorHeight")));
 		myImage.setMouseTransparent(true);
+
 		return myImage;
 	}
-	
 	/**
 	 * Gets this node
 	 * @return - returns private ImageView instance variable
@@ -63,14 +62,12 @@ public class DummyCursor {
 			if(myImage.isVisible()){
 				myImage.setVisible(false);
 			}
-		}else{
-			if(!myImage.isVisible()){
+		} else {
+			if (!myImage.isVisible()) {
 				myImage.setVisible(true);
 			}
 		}
-		
+
 	}
-	
-	
-	
+
 }

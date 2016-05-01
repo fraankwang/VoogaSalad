@@ -10,7 +10,11 @@ import javafx.scene.Node;
 /**
  * The TabDisplay superclass acts as a container for it's Grid and corresponding
  * editor. TabDisplays implement the Observer interface, thus each TabDisplay
- * contains an update method.
+ * contains an update method. The GameTabDisplay does not require this as there
+ * is only the name information to keep track of. Each TabDisplay also contains
+ * access to its corresponding EditorDisplay, which is opened in by it's Grid
+ * requiring the EditorDisplay to be opened with pre-populated data (i.e. when
+ * duplicating something).
  * 
  * @author Frank
  *
@@ -26,7 +30,6 @@ public abstract class TabDisplay implements ITabDisplay {
 	public TabDisplay(int index, IAuthoringView controller) {
 		myTabIndex = index;
 		myController = controller;
-
 	}
 
 	@Override
@@ -36,8 +39,6 @@ public abstract class TabDisplay implements ITabDisplay {
 
 	@Override
 	public void openEditorDisplay(Map<String, String> info) {
-		System.out.println("*****2. TabDisplay: Editor opened with default attribute data:");
-		System.out.println(info);
 		myEditorDisplay.edit(info);
 	}
 

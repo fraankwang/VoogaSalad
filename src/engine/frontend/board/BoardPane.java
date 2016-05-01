@@ -15,12 +15,12 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class BoardPane extends AbstractPane{
+public class BoardPane extends AbstractPane {
 	private ImageView myBackground;
 	private Group myGroup;
-	
+
 	private Map<Integer, EntityView> myEntityViewMap;
-	
+
 	/**
 	 * Instantiates BoardPane
 	 * @param ev - engineView - main container for scene
@@ -51,9 +51,11 @@ public class BoardPane extends AbstractPane{
 	public void setBackground(String imageName){
 		myBackground.setImage(new Image(imageName));
 	}
-	
+
 	/**
-	 * updates entity relative to map with id to correct coordinate and size, if size is negative 
+	 * updates entity relative to map with id to correct coordinate and size, if
+	 * size is negative
+	 * 
 	 * @param xCoord
 	 * @param yCoord
 	 * @param image
@@ -61,20 +63,22 @@ public class BoardPane extends AbstractPane{
 	 * @param width
 	 * @param height
 	 */
-	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height, boolean show){
-		if(!show){
+	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
+			boolean show) {
+		if (!show) {
 			deleteEntity(id);
 			return;
 		}
-		if(myEntityViewMap.containsKey(id)){
+		if (myEntityViewMap.containsKey(id)) {
 			myEntityViewMap.get(id).update(xCoord, yCoord, image, width, height);
-		} else {			
-			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
+		} else {
+			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width,
+					height);
 			myEntityViewMap.put(id, ev);
 			myPane.getChildren().add(ev.getNode());
 		}
 	}
-	
+
 	/**
 	 * Deletes an entity from the map
 	 * @param id - unique id of entity to be deleted
@@ -97,7 +101,6 @@ public class BoardPane extends AbstractPane{
 		double xLoc = mouseXLoc - myPane.getLayoutX();
 		double yLoc = mouseYLoc - myPane.getLayoutY();
 		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower, cost);	
-
 	}
 	
 	/**
@@ -108,6 +111,4 @@ public class BoardPane extends AbstractPane{
 		return myEntityViewMap;
 	}
 
-	
-	
 }

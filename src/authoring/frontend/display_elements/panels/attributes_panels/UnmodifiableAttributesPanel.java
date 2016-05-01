@@ -28,13 +28,10 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected static final int COLUMN_2_PERCENTAGE = 50;
 	
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
-	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
 	protected static final int BUTTON_HEIGHT_PERCENTAGE = 8;
 
 	protected List<String> myDefaultAttributes;
-	
 	protected Button myOpenEditorButton;
-
 	protected Map<String, Control> myOutputMap;
 	protected GridPane myAttributesGridPane;
 

@@ -3,15 +3,16 @@
  */
 package engine.backend.components;
 
-
 /**
- * Creates a collision component that can be added to an entity to allow for collision detection of that entity.
- * @author 
+ * Creates a collision component that can be added to an entity to allow for
+ * collision detection of that entity.
+ * 
+ * @author
  *
  */
 
-public class CollisionComponent extends Component{
-    
+public class CollisionComponent extends Component {
+
 	private boolean isCollided;
 
     public CollisionComponent(){
@@ -47,7 +48,8 @@ public class CollisionComponent extends Component{
 	@Override
 	public void update(String dataName, String data) {
 		if (dataName.equals("IsCollided")) {
-			if (data.equals("True") || data.equals("true") || data.equals("1") || data.equals("Yes") || data.equals("yes")) {
+			if (data.equals("True") || data.equals("true") || data.equals("1") || data.equals("Yes")
+					|| data.equals("yes")) {
 				isCollided = true;
 			} else {
 				isCollided = false;

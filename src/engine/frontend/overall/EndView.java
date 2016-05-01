@@ -13,7 +13,7 @@ import javafx.stage.FileChooser;
 import engine.controller.EngineController;
 
 public class EndView {
-	
+
 	private Scene myScene;
 	private EngineController myController;
 
@@ -35,18 +35,19 @@ public class EndView {
 		bindHeight(myRegion, myVBox.heightProperty().divide(2));
 		myVBox.getChildren().add(buildRestartButton());
 		myVBox.getChildren().add(myRegion);
-	
+
 		return myScene;
 	}
+
 	private Node buildRestartButton() {
 		restartButton = new Button("RESTART");
-		//startButton.setDisable(true);
+		// startButton.setDisable(true);
 
 		restartButton.setOnAction(e -> restart());
 
 		bindHeight(restartButton, myScene.heightProperty().divide(4));
 		bindWidth(restartButton, myScene.widthProperty());
-		
+
 		return restartButton;
 	}
 
@@ -59,10 +60,8 @@ public class EndView {
 		region.minHeightProperty().bind(db);
 		region.maxHeightProperty().bind(db);
 	}
-	
-	private void restart(){
+
+	private void restart() {
 		myController.initStartView(false);
 	}
 }
-
-

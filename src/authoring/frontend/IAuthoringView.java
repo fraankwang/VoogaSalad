@@ -17,27 +17,31 @@ import javafx.scene.Scene;
 public interface IAuthoringView {
 
 	/**
-	 * Sends attribute information to the GlobalData contained within this class.
+	 * Sends attribute information to the GlobalData contained within this
+	 * class.
+	 * 
 	 * @param data
 	 */
 	void writeData(Map<String, String> data);
 
+	/**
+	 * Sends attribute information to the GlobalData contained within this class
+	 * with the command to delete the information rather than write it.
+	 * 
+	 * @param data
+	 */
 	void deleteData(Map<String, String> data);
-	
-	ObservableList<AuthoringEntity> getEntityList();
-
-	ObservableList<AuthoringLevel> getLevelList();
-
-	ObservableList<AuthoringMode> getModeList();
 
 	/**
 	 * Displays given scene on current stage.
+	 * 
 	 * @param s
 	 */
 	void setScene(Scene s);
 
 	/**
 	 * Sets primary scene that acts as a "home page".
+	 * 
 	 * @param scene
 	 */
 	void setPrimaryScene(Scene scene);
@@ -46,13 +50,20 @@ public interface IAuthoringView {
 	 * Displays primary scene.
 	 */
 	void showPrimaryScene();
-	
-	IViewManager getAuthoringViewManager();
 
-	Map<String, String> getEntityImages();
-	
-	Map<String, String> getLevels();
 
-	Map<String, Map<String, String>> getEntities();
+	public IViewManager getAuthoringViewManager();
+
+	public Map<String, String> getEntityImages();
+
+	public Map<String, String> getLevels();
+
+	public Map<String, Map<String, String>> getEntities();
+	
+	public ObservableList<AuthoringEntity> getEntityList();
+
+	public ObservableList<AuthoringLevel> getLevelList();
+
+	public ObservableList<AuthoringMode> getModeList();
 
 }

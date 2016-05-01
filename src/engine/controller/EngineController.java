@@ -120,6 +120,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.show();
 	}
 
+
 	/**
 	 * Initialize a game world from XML
 	 * 
@@ -166,7 +167,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.setScene(myEngineView.buildScene());
 		myStage.show();
 		setupGameCapture();
-		toggleStepping(true);
+		toggleStepping(false);
 	}
 
 	/**
@@ -382,7 +383,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 */
 	public void levelIsWon() {
 		toggleStepping(false);
-
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 	}
 
@@ -428,6 +428,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void toggleStepping(boolean shouldStep) {
 		stepping = shouldStep;
 		myEngineView.getStatusPane().getControlManager().togglePlayButton(shouldStep);
+	}
+	
+	public void toggleStepping(){
+		toggleStepping(!stepping);
 	}
 
 	/**
