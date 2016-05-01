@@ -7,10 +7,7 @@ public class EmptyComponent extends Component {
 
 	private static final String EMPTYCOMPONENT = "EmptyComponent";
 
-	private ExceptionLoader myExceptionLoader;
-
 	public EmptyComponent() {
-		myExceptionLoader = new ExceptionLoader();
 	}
 
 	@Override
@@ -20,6 +17,7 @@ public class EmptyComponent extends Component {
 
 	@Override
 	public void update(String dataName, String data) {
+		ExceptionLoader myExceptionLoader = new ExceptionLoader();
 		new DrumpfTowerException(myExceptionLoader.getString(EMPTYCOMPONENT));
 	}
 
