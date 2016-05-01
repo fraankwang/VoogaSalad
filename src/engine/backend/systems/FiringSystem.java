@@ -16,7 +16,6 @@ import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
-import engine.backend.systems.Events.IEvent;
 import engine.backend.utilities.ComponentTagResources;
 
 /**

@@ -4,7 +4,6 @@
  * 
  */
 
-
 package engine.backend.map;
 
 public class Quadrant {

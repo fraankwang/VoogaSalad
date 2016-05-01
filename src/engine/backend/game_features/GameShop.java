@@ -16,10 +16,11 @@ public class GameShop {
 	}
 
 	/**
-	 * Iterates over shop items and depending on currentResources, updates what you can or cannot purchase
+	 * Iterates over shop items and depending on currentResources, updates what
+	 * you can or cannot purchase
+	 * 
 	 * @param currentResources
 	 */
-
 
 	public void updateShop(double currentResources) {
 		for (ShopItem item : myItems) {

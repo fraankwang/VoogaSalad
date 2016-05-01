@@ -1,6 +1,5 @@
 package engine.backend.systems.Events;
 
-
 public class UpdateEntityEvent extends EntityEvent {
 	double x;
 	double y;

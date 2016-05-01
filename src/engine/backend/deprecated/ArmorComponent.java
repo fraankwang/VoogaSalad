@@ -8,16 +8,19 @@ public class ArmorComponent extends Component {
 
 	/**
 	 * Sets resistance to Damage for Armor Component
+	 * 
 	 * @param value
 	 */
-	public void setResistanceToDamage(double value){
+	public void setResistanceToDamage(double value) {
 		this.resistanceToDamage = value;
 	}
+
 	/**
 	 * Parses String into double value to set resistance to damage
+	 * 
 	 * @param value
 	 */
-	public void setResistanceToDamage(String value){
+	public void setResistanceToDamage(String value) {
 
 		double newValue = Double.parseDouble(value);
 		this.resistanceToDamage = newValue;

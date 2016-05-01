@@ -9,9 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
 /**
- * The PanelBar is the object on top of the GridViewPanel or
- * EditorViewPanel. It acts as a mini-controller and display for the panel
- * specifically.
+ * The PanelBar is the object on top of the GridViewPanel or EditorViewPanel. It
+ * acts as a mini-controller and display for the panel specifically.
  * 
  * @author Frank
  *
@@ -37,14 +36,13 @@ public abstract class PanelBar extends Panel {
 	}
 
 	public abstract void setDescription(String description);
-	
+
 	public void setFontSize(int font) {
 		myDescription.setFont(new Font(font));
 	}
-	
+
 	public void addButtonToBar(Button b) {
 		myGridBar.getChildren().add(b);
 	}
-	
-	
+
 }

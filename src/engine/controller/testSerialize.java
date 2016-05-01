@@ -15,11 +15,12 @@ public class testSerialize {
 		String xml = serializer.getXMLfromObject(g);
 
 		GameWorldToXMLWriter.stringToDocument(xml, "gametest.xml");
-		//String loadedString = GameWorldToXMLWriter.documentToString("C:/Users/Yoga2785/Documents/GitHub/voogasalad_DrumpfTower/testFiring04302016.xml");
-		//GameWorld newg = (GameWorld) serializer.xMLToObject(loadedString);
+		// String loadedString =
+		// GameWorldToXMLWriter.documentToString("C:/Users/Yoga2785/Documents/GitHub/voogasalad_DrumpfTower/testFiring04302016.xml");
+		// GameWorld newg = (GameWorld) serializer.xMLToObject(loadedString);
 		System.out.println("hi");
 	}
-	
+
 	public static void main(String[] args) throws IOException {
 		testSerialize s = new testSerialize();
 	}

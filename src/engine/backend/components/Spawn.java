@@ -30,15 +30,15 @@ public class Spawn {
 	 * @return spawningRate
 	 */
 
-
-
 	public double getSpawningRate() {
 		return spawningRate;
 	}
-/**
- * sets the SpawningRate
- * @param spawningRate
- */
+
+	/**
+	 * sets the SpawningRate
+	 * 
+	 * @param spawningRate
+	 */
 	public void setSpawningRate(int spawningRate) {
 		this.spawningRate = spawningRate;
 	}
@@ -54,10 +54,12 @@ public class Spawn {
 	public void resetTimer() {
 		timer = spawningRate * 100;
 	}
-/**
- * Sets the Time and decrements from the GameClock
- * @param currentSecond
- */
+
+	/**
+	 * Sets the Time and decrements from the GameClock
+	 * 
+	 * @param currentSecond
+	 */
 	public void setTimer(double currentSecond) {
 		if (this.currentSecond != currentSecond) {
 			this.currentSecond = currentSecond;

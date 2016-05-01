@@ -33,7 +33,8 @@ public class LabelCell extends ListCell<Label> {
 		} else {
 			Label newLabel = new Label(item.getText());
 
-			ImageView newImage = new ImageView(new Image(myController.getImageMap().get(myImageMap.get(item.getText()))));
+			ImageView newImage = new ImageView(
+					new Image(myController.getImageMap().get(myImageMap.get(item.getText()))));
 			newImage.setFitHeight(Constants.getInt("LABEL_CELL_IMAGE_SIZE"));
 			newImage.setFitWidth(Constants.getInt("LABEL_CELL_IMAGE_SIZE"));
 

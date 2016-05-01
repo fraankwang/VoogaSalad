@@ -8,7 +8,7 @@ import java.util.List;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.entities.IEntity;
-import engine.backend.utilities.*;
+import engine.backend.utilities.ComponentTagResources;
 
 /**
  * Quad collision detection
@@ -60,10 +60,11 @@ public class QuadTree {
 		nodes[2] = new QuadTree(layer + 1, new Rectangle(x, y + subHeight, subWidth, subHeight));
 		nodes[3] = new QuadTree(layer + 1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
 	}
-	
+
 	/**
 	 * Determine which node the object belongs to. -1 means object cannot
 	 * completely fit within a child node and is part of the parent node
+	 * 
 	 * @param entity
 	 * @return
 	 */
@@ -72,7 +73,8 @@ public class QuadTree {
 		double verticalMidpoint = bounds.getX() + (bounds.getWidth() / 2);
 		double horizontalMidpoint = bounds.getY() + (bounds.getHeight() / 2);
 
-		PositionComponent myPosition = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
+		PositionComponent myPosition = (PositionComponent) entity
+				.getComponent(ComponentTagResources.positionComponentTag);
 		SizeComponent mySize = (SizeComponent) entity.getComponent(ComponentTagResources.sizeComponentTag);
 		boolean topQuadrant = inTopQuadrants(horizontalMidpoint, myPosition, mySize);
 		boolean bottomQuadrant = inBottomQuadrants(horizontalMidpoint, myPosition);
@@ -82,8 +84,7 @@ public class QuadTree {
 			} else if (bottomQuadrant) {
 				index = 2;
 			}
-		}
-		else if (inRightQuadrant(verticalMidpoint, myPosition)) {
+		} else if (inRightQuadrant(verticalMidpoint, myPosition)) {
 			if (topQuadrant) {
 				index = 0;
 			} else if (bottomQuadrant) {
@@ -108,7 +109,8 @@ public class QuadTree {
 	}
 
 	private boolean inTopQuadrants(double horizontalMidpoint, PositionComponent myPosition, SizeComponent mySize) {
-		boolean topQuadrant = (myPosition.getX() < horizontalMidpoint&& myPosition.getY() + mySize.getHeight() < horizontalMidpoint);
+		boolean topQuadrant = (myPosition.getX() < horizontalMidpoint
+				&& myPosition.getY() + mySize.getHeight() < horizontalMidpoint);
 		return topQuadrant;
 	}
 
@@ -150,6 +152,7 @@ public class QuadTree {
 
 	/**
 	 * Return all objects that could collide with the given object
+	 * 
 	 * @param retrieved
 	 * @param entity
 	 * @return

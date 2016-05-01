@@ -11,12 +11,12 @@ import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
+import authoring.frontend.editor_features.EntityComponentSelector;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import authoring.frontend.editor_features.EntityComponentSelector;
 
 /**
  * 
@@ -57,7 +57,7 @@ public class EntitiesTabGrid extends TabGrid {
 		setDefaultAddNewAction(((GridViewPanel) myPrimaryDisplay).getMyAddNewButton());
 
 	}
-	
+
 	/**
 	 * Takes myGenre and populates the defaultAttributesMap with additional
 	 * attributes (components) required for genre specified.
@@ -84,8 +84,7 @@ public class EntitiesTabGrid extends TabGrid {
 			myTabDisplay.openEditorDisplay(defaultAttributesMap);
 		}
 	}
-	
-	
+
 	/**
 	 * Goes through each entity info (map) and links the ImageView created to
 	 * populating the UnmodifiableAttributesPanel.

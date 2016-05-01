@@ -22,7 +22,9 @@ public class StatusPane extends AbstractPane {
 	/**
 	 * Constructor method for status pane
 	 * 
-	 * @param ev EngineView - used to access various engine view methods and base node of entire front end
+	 * @param ev
+	 *            EngineView - used to access various engine view methods and
+	 *            base node of entire front end
 	 */
 	public StatusPane(EngineView ev) {
 		super(ev, DEFAULT_RESOURCE);
@@ -30,7 +32,8 @@ public class StatusPane extends AbstractPane {
 	}
 
 	/**
-	 * Instantiates the node for the status pane - and attaches an HBox to this node
+	 * Instantiates the node for the status pane - and attaches an HBox to this
+	 * node
 	 * 
 	 * @return returns the StatusPane's node
 	 */
@@ -47,7 +50,8 @@ public class StatusPane extends AbstractPane {
 	/**
 	 * Private method to create a VBox to hold controls for recording gameplay
 	 * 
-	 * @return returns a vbox to be added to the HBox contained in the StatusPane
+	 * @return returns a vbox to be added to the HBox contained in the
+	 *         StatusPane
 	 */
 	private VBox buildRecordControls() {
 		VBox vbox = new VBox();
@@ -85,9 +89,14 @@ public class StatusPane extends AbstractPane {
 	/**
 	 * Creates a button
 	 * 
-	 * @param s - string to be displayed on button
-	 * @param heightBinding - binding property dictating how the button's height will relate to another node's
-	 * @param widthBinding - binding property dictating how the button's width will relate to another node's
+	 * @param s
+	 *            - string to be displayed on button
+	 * @param heightBinding
+	 *            - binding property dictating how the button's height will
+	 *            relate to another node's
+	 * @param widthBinding
+	 *            - binding property dictating how the button's width will
+	 *            relate to another node's
 	 * @return - returns a customized button
 	 */
 	public Button createButton(String s, DoubleExpression heightBinding, DoubleExpression widthBinding) {
@@ -121,7 +130,8 @@ public class StatusPane extends AbstractPane {
 	 * Returns StatusPane's internal control manager - separate class used to
 	 * help set up recording controls
 	 * 
-	 * @return ControlManager - separate class used to help set up recording s controls.
+	 * @return ControlManager - separate class used to help set up recording s
+	 *         controls.
 	 */
 	public ControlManager getControlManager() {
 		return myControlManager;

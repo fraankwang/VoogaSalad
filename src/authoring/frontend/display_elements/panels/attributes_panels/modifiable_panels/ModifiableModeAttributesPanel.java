@@ -1,6 +1,11 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.LevelGridViewPanel;
@@ -20,12 +25,13 @@ import javafx.scene.layout.BorderPane;
 public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 	private static final int MODE_DESCRIPTION_HEIGHT = 30;
-	private static final List<String> DEFAULT_MODE_ATTRIBUTES = Arrays.asList("Name", "InitialLives", "InitialResources");
-	
+	private static final List<String> DEFAULT_MODE_ATTRIBUTES = Arrays.asList("Name", "InitialLives",
+			"InitialResources");
+
 	private LevelGridViewPanel myLevelSelector;
 	private Map<String, String> myPossibleLevels;
 	private Map<Integer, String> mySelectedLevelsMap;
-	
+
 	public ModifiableModeAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
 		myPossibleLevels = new HashMap<String, String>();
@@ -45,12 +51,12 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
-		
+
 		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
 		myLevelSelector.initialize();
-		
+
 		mySelectedLevelsMap = new HashMap<Integer, String>();
-		
+
 		myAttributesMap = new TreeMap<String, String>();
 		myInputMap = new TreeMap<String, Control>();
 		myAttributes = DEFAULT_MODE_ATTRIBUTES;
@@ -64,25 +70,24 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
-	
 
 	@Override
 	public void updateAttributes(Map<String, String> info) {
 		myAttributesMap = info;
 		myInputMap.clear();
-		
+
 		for (String attribute : DEFAULT_MODE_ATTRIBUTES) {
 			TextField tf = new TextField();
 			myInputMap.put(attribute, tf);
 		}
-		
+
 		if (info.get("Levels") != null) {
 			List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
-//			System.out.println("***** new parsed levels: " + selectedLevels);
+			// System.out.println("***** new parsed levels: " + selectedLevels);
 			updateSelectedLevels(selectedLevels);
-			
+
 		}
-		
+
 		System.out.println(
 				"*****3. ModifiableModeAttrPanel: updated myAttributesMap and myAttributes set with given unmodifiableattributespanel outputs:");
 		System.out.println(myAttributesMap);
@@ -94,7 +99,6 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		myLevelSelector.updatePossibleLevels(myPossibleLevels);
 		myLevelSelector.updateSelectedLevels(selectedLevels);
 	}
-	
 
 	@Override
 	protected void refreshAttributes() {
@@ -126,28 +130,27 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
 		mySelectedLevelsMap = myLevelSelector.getSelectedLevels();
 		String levelsCompressed = GlobalParser.compressLevels(mySelectedLevelsMap);
-		
+
 		if (!myAttributesMap.containsKey("Levels")) {
 			myAttributesMap.put("Levels", levelsCompressed);
 		} else {
 			myAttributesMap.replace("Levels", levelsCompressed);
 		}
-		
+
 		System.out.println("*****4. ModifiableModeAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
 		return myAttributesMap;
 	}
-	
+
 	@Override
 	public void resetAttributes() {
 		super.resetAttributes();
 		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
 		myLevelSelector.initialize();
-		
+
 	}
-	
-	
+
 	public LevelGridViewPanel getLevelSelector() {
 		return myLevelSelector;
 	}

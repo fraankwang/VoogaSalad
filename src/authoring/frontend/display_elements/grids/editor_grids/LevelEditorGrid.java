@@ -1,16 +1,16 @@
 package authoring.frontend.display_elements.grids.editor_grids;
 
 import java.util.Map;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.editor_grid_factories.LevelEditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.LevelEditorViewPanel;
-import authoring.frontend.display_elements.panels.LevelGridViewPanel;
 import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -70,7 +70,8 @@ public class LevelEditorGrid extends EditorGrid {
 		if (info.get("MapBackgroundImage") == null) {
 			info.put("MapBackgroundImage", "resources/images/question_mark.png");
 		}
-		((EditorViewPanel) myPrimaryDisplay).setImage(new Image(myController.getImageMap().get(info.get("MapBackgroundImage"))));
+		((EditorViewPanel) myPrimaryDisplay)
+				.setImage(new Image(myController.getImageMap().get(info.get("MapBackgroundImage"))));
 		super.setAttributesPanel(info);
 	}
 

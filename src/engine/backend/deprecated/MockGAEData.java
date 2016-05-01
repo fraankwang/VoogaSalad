@@ -31,20 +31,25 @@ public class MockGAEData {
 		entitiesWanted = 2;
 		// also pretend that she also wants a list of things she wants one
 		// sprite to be able to do
-		// outside list represents level 1, inside list is components for one sprite
+		// outside list represents level 1, inside list is components for one
+		// sprite
 
-//		String[][] mock = { { "Display", "Position", "Size"}, { "Display", "Position", "Size"} };
-		String[][] mock = { { "DisplayComponent", "PositionComponent", "SizeComponent"}};
+		// String[][] mock = { { "Display", "Position", "Size"}, { "Display",
+		// "Position", "Size"} };
+		String[][] mock = { { "DisplayComponent", "PositionComponent", "SizeComponent" } };
 
-		//String[][] mock = { { "Display", "Position", "Size", "Collision"}, { "Display", "Position", "Size", "Collision"} };
+		// String[][] mock = { { "Display", "Position", "Size", "Collision"}, {
+		// "Display", "Position", "Size", "Collision"} };
 
 		// string rules
-		String[][] rules = {{ "SizeComponent", "5", "increaseSize"}};//, {"Move", "5"}};
+		String[][] rules = { { "SizeComponent", "5", "increaseSize" } };// ,
+																		// {"Move",
+																		// "5"}};
 		myRules = rules;
 		level1SpritesComponentWanted = mock;
 	}
-	
-	private void addMap(){
+
+	private void addMap() {
 		maps.add(new GameMap());
 	}
 
