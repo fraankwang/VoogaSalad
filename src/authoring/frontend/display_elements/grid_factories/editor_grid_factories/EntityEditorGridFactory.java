@@ -38,6 +38,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 
 		editorView.setImage(new Image("resources/images/question_mark.png")); // set
 																				// defaul
+
 		editorView.setDescription("Entity");
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {

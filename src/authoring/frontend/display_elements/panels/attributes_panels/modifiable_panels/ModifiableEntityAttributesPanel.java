@@ -6,7 +6,6 @@ import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
-import authoring.frontend.editor_features.CheckComboBox;
 import authoring.frontend.editor_features.EntityComponentSelector;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

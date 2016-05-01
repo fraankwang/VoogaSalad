@@ -137,7 +137,6 @@ public class AuthoringLevel {
 
 		return sb.toString();
 	}
-
 	
 	public List<Rule> getRuleAgenda() {
 		return ruleAgenda;

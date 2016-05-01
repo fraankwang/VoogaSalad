@@ -254,7 +254,7 @@ public class Level {
 		int index = getCurrentWaveIndex();
 		return index == getNumWaves();
 	}
-
+	
 	public double getCurrentWaveTimer() {
 		return currentWaveTimer;
 	}

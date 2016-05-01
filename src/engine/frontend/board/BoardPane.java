@@ -75,10 +75,10 @@ public class BoardPane extends AbstractPane {
 		}
 	}
 
-	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower) {
+	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower, double cost){
 		double xLoc = mouseXLoc - myPane.getLayoutX();
 		double yLoc = mouseYLoc - myPane.getLayoutY();
-		myEngineView.getEngineController().attemptTower(xLoc, yLoc, placingTower);
+		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower, cost);	
 
 	}
 
