@@ -28,7 +28,7 @@ import engine.backend.rules.Rule;
  */
 public class Level {
 	
-	//put spawning entities in this map
+	//the initial IDs for spawn entities is 0 to n - 1, where n is the number of spawn entities.
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
 	private List<IEntity> authoredEntities;
@@ -47,12 +47,15 @@ public class Level {
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
+		this.numWaves = numWaves;
+		this.myShopItems = shopItems;
 		this.authoredEntities = authoredEntities;
 		this.entities = entities;
+		this.currentWaveIndex = 0;
 		this.setShouldRevert(false);
 	}
 	

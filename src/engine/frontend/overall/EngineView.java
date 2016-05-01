@@ -13,6 +13,7 @@ import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.DragEvent;
@@ -108,7 +109,10 @@ public class EngineView extends ResourceUser{
 	private void handleDrop(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene && e.getDragboard().hasString()) {
+			
+
 			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+			
 		}
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
@@ -118,7 +122,19 @@ public class EngineView extends ResourceUser{
 
 	private void handleEndMouseRelease(DragEvent e) {
 		if (e.getGestureSource() != myScene) {
-			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+			
+			System.out.println("dropped something");
+			for( Node n: myBoardPane.getPane().getChildren()){
+				System.out.println(n.toString());
+				if( n.accessibleTextProperty().toString().equals("a")){
+					System.out.println("Hit something");
+					//System.out.println(n.toString());
+					//e.consume();
+				}
+			}
+			System.out.println("didn't drop it in an imageView");
+			
+			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
 			}
 		}

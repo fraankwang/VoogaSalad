@@ -26,6 +26,7 @@ public class ModeFactory {
 		for (int key : levelIndex.keySet()) {
 			String levelName = levelIndex.get(key);
 			Level level = levelMap.get(levelName);
+			level.setIndex(key);
 			levels.put(key, level);
 		}
 		

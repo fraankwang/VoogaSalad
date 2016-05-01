@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//import authoring.backend.Testing;
 import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.HUDValueFinder;
@@ -94,6 +95,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		animation.stop();
 		stepping = false;
 
+
 		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		//myGameStatistics = myGameWorld.getGameStatistics();
@@ -101,6 +103,16 @@ public class EngineController extends ResourceUser implements IEngineController 
 		startGame("test firing", 0);
 		
 //		StartView myStartView = new StartView(this, firsttime);
+
+//		myTestingClass = new testingClass();
+//		Testing test = new Testing();
+//		myGameWorld = test.test1();
+//		
+//      myEventManager = new EventManager(this, myGameWorld);
+//      startGame("mode1", 0);
+				
+//		StartView myStartView = new StartView(this);
+
 //		Scene scene = myStartView.buildScene();
 //		myStage.setScene(scene);
 //		myStage.show();
@@ -132,6 +144,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			e.printStackTrace();
 		}
 		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
+		System.out.println(myEntityFactory);
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
@@ -198,6 +211,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
 			boolean show) {
+		
+		System.out.println("image2: " + image);
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
 

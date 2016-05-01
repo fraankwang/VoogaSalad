@@ -34,11 +34,11 @@ public class AuthoringController implements IAuthoringController {
 
 	@Override
 	public void parseInput(Map<String, String> input) {
+		System.out.println("AuthoringController: " + input);
 		Map<String, String> data = processData(input);
 		String type = data.get("Type");
 		String command = data.get("Command");
 		data.remove("Command");
-		data.remove("Type");
 		if (type.equals("Entity")) {
 			model.updateEntities(command, data);
 			return;
@@ -52,15 +52,15 @@ public class AuthoringController implements IAuthoringController {
 			return;
 		}
 		if (type.equals("Game")) {
-			model.updateGame(command, data);
+			model.updateGame(data);
 			return;
 		}
 	}
 	
 	private Map<String, String> processData(Map<String, String> data) {
+		System.out.println("FrontEnd data: " + data);
 		for (String key : data.keySet()) {
 			if (data.get(key).equals("") || data.get(key) == null) {
-				System.out.println(key);
 				data.put(key, "0");
 			}
 		}

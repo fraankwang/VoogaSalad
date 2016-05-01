@@ -92,11 +92,12 @@ public class EventManager implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// System.out.println(arg.getClass().getName());
 		handleSystemEvent((IEvent) arg);
 	}
 
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
+		System.out.println("image3: " + myEvent.getImage());
+		
 		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(),
 				myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}

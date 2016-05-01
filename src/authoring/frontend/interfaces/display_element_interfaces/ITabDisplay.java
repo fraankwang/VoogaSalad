@@ -18,6 +18,8 @@ public interface ITabDisplay extends IDisplayElement, Observer {
 	public String getName();
 
 	public int getTabIndex();
+	
+	IEditorDisplay getEditor();
 
 	void openEditorDisplay(Map<String, String> map);
 
