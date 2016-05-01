@@ -213,7 +213,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAddTowerButton.setOnAction(e -> {
 			String selected = promptUserInput("Entity", entityTextField);
 			String selectedImagePath = myPossibleEntities.get(selected);
-			if (!myTowers.containsKey(selected)) {
+			if (!myTowers.containsKey(selected) && myController.getEntities().get(selected).keySet().contains("FiringComponent_Ammunition")) {
 				myTowers.put(selected, selectedImagePath);
 				ImageView towerView = new ImageView(new Image(selectedImagePath));
 				towerView.setPreserveRatio(true);
@@ -225,6 +225,11 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				myTowersListView.getItems().add(tower);
 				if (!myLevelEntities.keySet().contains(selected)) {
 					myLevelEntities.put(selected, selectedImagePath);
+				}
+				
+				String ammo = myController.getEntities().get(selected).get("FiringComponent_Ammunition");
+				if (!myLevelEntities.keySet().contains(ammo)) {
+					myLevelEntities.put(ammo, myController.getEntities().get(ammo).get("DisplayComponent_Image"));
 				}
 			}
 		});
@@ -338,6 +343,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		if (myAttributesMap.get("SpawnEntities") != null) {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
+			myAttributesMap.remove("SpawnEntities");
 		}
 
 		setMyPossibleEntities(myController.getEntityImages());
@@ -394,13 +400,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
-		checkAllFilled();
 		return myAttributesMap;
 	}
-
+		
 	protected void refreshAttributes() {
-
-		myAttributes.remove("SpawnEntities");
 		preserveMapRatio();
 
 		if (myInputMap != null) {

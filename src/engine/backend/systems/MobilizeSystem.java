@@ -139,7 +139,6 @@ public class MobilizeSystem extends GameSystem {
 		Vector velVector = movComponent.getCurrentVelocityVector();
 
 		BezierCurve currCurve = path.getCurveFromTime(currBezTime);
-		
 		double speed = velVector.calculateMagnitude();
 		double bezTimeStep = ((pathComponent.movesWithTime()) ? 1 : -1) * speed / currCurve.getLength();
 		double newBezTime = currBezTime + bezTimeStep;
@@ -152,6 +151,7 @@ public class MobilizeSystem extends GameSystem {
 		newVel.scale(speed);
 
 		pathComponent.setCurveID((int) Math.floor(newBezTime));
+		System.out.println(entity.getName() + "  " + newPos.getX() + " " + newPos.getY());
 		posComponent.setPositionVector(newPos);
 		pathComponent.setBezierTime(newBezTime);
 		movComponent.setCurrentVelocityVector(newVel);

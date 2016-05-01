@@ -1,18 +1,24 @@
 package authoring.frontend.editor_features;
 
-import authoring.frontend.AuthoringView;
-import authoring.frontend.IAuthoringView;
+import java.util.Map;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * 
+ * @author Frank
+ *
+ */
+
 public class LabelCell extends ListCell<Label> {
 	
-	private AuthoringView myController;
+	private Map<String, String> myImageMap;
 	
-	public LabelCell(IAuthoringView controller) {
-		myController = (AuthoringView) controller;
+	public LabelCell(Map<String, String> imageMap) {
+		myImageMap = imageMap;
 	}
 
 	@Override
@@ -22,12 +28,10 @@ public class LabelCell extends ListCell<Label> {
  			setItem(null);
  			setGraphic(null);
  		} else {
- 			setText("| Genre: " + myController.getEntities().get(item.getText()).get("Genre"));
-
  			Label newLabel = new Label(item.getText());
  			
  			ImageView newImage = new ImageView(
- 					new Image(myController.getEntities().get(item.getText()).get("DisplayComponent_Image")));
+ 					new Image(myImageMap.get(item.getText())));
  			newImage.setFitHeight(50);
  			newImage.setFitWidth(50);
  			newImage.setPreserveRatio(true);

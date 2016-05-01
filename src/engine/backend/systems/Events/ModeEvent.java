@@ -15,6 +15,4 @@ public class ModeEvent implements IEvent {
 		return MODE + this.getClass().getSimpleName();
 	}
 
-	
-
 }

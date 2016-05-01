@@ -4,7 +4,7 @@ import java.util.List;
 
 import engine.backend.rules.IAction;
 
-public abstract class PowerUpComponent extends Component{
+public abstract class PowerUpComponent extends Component {
 	private List<IAction> actions;
 
 	public PowerUpComponent() {
@@ -23,18 +23,15 @@ public abstract class PowerUpComponent extends Component{
 
 	@Override
 	public void update(String dataName, String data) {
-		
+
 	}
-	
-	public List<IAction> getActions(){
+
+	public List<IAction> getActions() {
 		return this.actions;
 	}
 
 	public void setActions(List<IAction> actions) {
 		this.actions = actions;
 	}
-	
-	
-	
 
 }

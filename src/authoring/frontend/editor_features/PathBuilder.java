@@ -6,6 +6,12 @@ import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
+/**
+ * 
+ * @author benchesnut
+ *
+ */
+
 public class PathBuilder implements IDisplayElement {
 
 	private int myPathIndex;

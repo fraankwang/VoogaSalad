@@ -113,7 +113,6 @@ public class LevelGridViewPanel extends GridViewPanel {
 	 * @param selectedLevels
 	 */
 	public void updateSelectedLevels(List<String> selectedLevels) {
-		System.out.println("******* mySelectedLevels: " + mySelectedLevels);
 		myImages.clear();
 		myPossibleLevels = myController.getLevels();
 		for (String level : selectedLevels) {
@@ -121,7 +120,6 @@ public class LevelGridViewPanel extends GridViewPanel {
 			myImages.add(iv);
 		}
 		mySelectedLevels = selectedLevels;
-		System.out.println("******* mySelectedLevels: " + mySelectedLevels);
 
 		resetGrid();
 	}
@@ -139,12 +137,19 @@ public class LevelGridViewPanel extends GridViewPanel {
 	 * @return
 	 */
 	public Map<Integer, String> getSelectedLevels() {
-		System.out.println("*******Selected levels: " + mySelectedLevels);
 		Map<Integer, String> levelsMap = new HashMap<Integer, String>();
+
 		for (int i = 0; i < mySelectedLevels.size(); i++) {
 			levelsMap.put(i, mySelectedLevels.get(i));
 		}
+		
 		return levelsMap;
+	}
+
+	public void reset() {
+		initializeComponents();
+		assembleComponents();
+		
 	}
 
 }

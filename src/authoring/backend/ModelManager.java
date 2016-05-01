@@ -19,7 +19,7 @@ import engine.backend.game_object.GameWorld;
  */
 
 public class ModelManager implements IModel {
-	
+
 	private final GlobalData globaldata;
 	private final AuthoringEntityFactory entityfactory;
 	private final AuthoringLevelFactory levelfactory;
@@ -33,7 +33,7 @@ public class ModelManager implements IModel {
 		this.modefactory = new AuthoringModeFactory();
 		this.gameFactory = new GameFactory(globaldata);
 	}
-	
+
 	public void updateEntities(String command, Map<String, String> data) {
 		AuthoringEntity entity = entityfactory.createEntity(data);
 		if (command.equals("Update")) {

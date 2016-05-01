@@ -12,16 +12,16 @@ import engine.backend.rules.IAction;
 import engine.backend.rules.Rule;
 
 public class AuthoringLevel {
-	
+
 	private String myName;
 	private GameMap myMap;
 	private double waveDelayTimer;
-	
+
 	private Set<String> entities;
 	private Map<String, String> myInfo;
 	private List<AuthoringEntity> spawnEntities;
 	private List<Rule> ruleAgenda;
-	
+
 	public AuthoringLevel(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
 		this.myMap = myMap;
@@ -31,7 +31,7 @@ public class AuthoringLevel {
 		this.spawnEntities = new ArrayList<AuthoringEntity>();
 		initializeInfo();
 	}
-	
+
 	private void initializeInfo() {
 		myInfo.put("Type", "Level");
 		myInfo.put("Name", myName);
@@ -41,41 +41,41 @@ public class AuthoringLevel {
 		myInfo.put("MapHeight", myMap.getMapHeight() + "");
 		myInfo.put("Paths", myMap.getPathsInfo());
 	}
-	
+
 	public Set<String> getEntities() {
 		return entities;
 	}
-	
+
 	public Map<String, String> getInfo() {
 		return myInfo;
 	}
-	
+
 	public String getName() {
 		return myName;
 	}
-	
+
 	public GameMap getMap() {
 		return myMap;
 	}
-	
+
 	public double getWaveDelayTimer() {
 		return waveDelayTimer;
 	}
-	
+
 	public List<AuthoringEntity> getSpawnEntities() {
 		return spawnEntities;
 	}
-	
+
 	public void setEntities(Set<String> entities) {
 		this.entities = entities;
 		this.myInfo.put("EntityNames", getEntityNames());
 	}
-	
+
 	public void setSpawnEntities(List<AuthoringEntity> spawnEntities) {
 		this.spawnEntities = spawnEntities;
 		this.myInfo.put("SpawnEntities", getSpawnEntityInfo());
 	}
-	
+
 	private String getSpawnEntityInfo() {
 		if (spawnEntities.isEmpty()) {
 			return "empty";
@@ -91,7 +91,7 @@ public class AuthoringLevel {
 			return sb.toString();
 		}
 	}
-	
+
 	private String getEntityNames() {
 		if (entities.isEmpty()) {
 			return "";
@@ -105,12 +105,12 @@ public class AuthoringLevel {
 			return sb.toString();
 		}
 	}
-	
+
 	public void setRuleAgenda(List<Rule> ruleAgenda, List<String> events) {
 		this.ruleAgenda = ruleAgenda;
 		this.myInfo.put("Rules", getRuleAgendaInfo(events));
 	}
-	
+
 	private String getRuleAgendaInfo(List<String> events) {
 		StringBuilder sb = new StringBuilder();
 		List<String> actions = new ArrayList<String>();
@@ -134,10 +134,18 @@ public class AuthoringLevel {
 			sb.append(" ");
 		}
 		sb.deleteCharAt(sb.length() - 1);
-		
+
 		return sb.toString();
 	}
+<<<<<<< HEAD
+
+=======
 	
+	public List<Rule> getRuleAgenda() {
+		return ruleAgenda;
+	}
+	
+>>>>>>> cc09944ea96264d6bc1f62149f3bc8d2d963d77f
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AuthoringLevel) {

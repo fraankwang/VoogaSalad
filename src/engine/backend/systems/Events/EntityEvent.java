@@ -35,10 +35,11 @@ public abstract class EntityEvent implements IEvent {
 	public List<Integer> getEntityIDs() {
 		return entityIDs;
 	}
-	
+
 	/**
 	 * 
-	 * @return First entity in list if the list is not empty, otherwise returns -1;
+	 * @return First entity in list if the list is not empty, otherwise returns
+	 *         -1;
 	 */
 	public int getFirstEntityID() {
 		return entityIDs.size() != 0 ? entityIDs.get(0) : -1;
