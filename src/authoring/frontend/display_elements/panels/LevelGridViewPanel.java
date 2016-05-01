@@ -36,7 +36,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 		myDeleteButton = new Button(Constants.getString("RESET_BUTTON"));
 		mySelectedLevels = new ArrayList<String>();
 		myPossibleLevels = new HashMap<String, String>();
-		myChooser = new ObjectChooser();
+		myChooser = new ObjectChooser(myController);
 		myChooser.initialize();
 	}
 
@@ -57,8 +57,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 			updatePossibleLevels(myController.getLevels());
 			String chosen = myChooser.openChooser();
 			mySelectedLevels.add(chosen);
-
-			ImageView iv = new ImageView(new Image(myPossibleLevels.get(chosen)));
+			ImageView iv = new ImageView(new Image(myController.getImageMap().get(myPossibleLevels.get(chosen))));
 			myCurrentImage = chosen;
 			addImage(iv);
 		});
@@ -116,7 +115,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 		myImages.clear();
 		myPossibleLevels = myController.getLevels();
 		for (String level : selectedLevels) {
-			ImageView iv = new ImageView(new Image(myPossibleLevels.get(level)));
+			ImageView iv = new ImageView(new Image(myController.getImageMap().get(myPossibleLevels.get(level))));
 			myImages.add(iv);
 		}
 		mySelectedLevels = selectedLevels;

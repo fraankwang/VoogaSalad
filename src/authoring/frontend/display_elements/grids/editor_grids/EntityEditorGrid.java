@@ -56,7 +56,7 @@ public class EntityEditorGrid extends EditorGrid {
 		if (info.get("DisplayComponent_Image") == null) {
 			info.put("DisplayComponent_Image", "resources/images/question_mark.png");
 		}
-		((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
+		((EditorViewPanel) myPrimaryDisplay).setImage(new Image(myController.getImageMap().get(info.get("DisplayComponent_Image"))));
 		super.setAttributesPanel(info);
 	}
 	

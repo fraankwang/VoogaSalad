@@ -43,7 +43,7 @@ public class AuthoringViewManager implements IViewManager {
 		myStage = s;
 
 		myTabBar = new TabBarElement(myController);
-		myObjectChooser = new ObjectChooser();
+		myObjectChooser = new ObjectChooser(myController);
 		myMenuBar = new MenuBarElement(myObjectChooser, myController, s, main);
 
 	}
@@ -52,7 +52,6 @@ public class AuthoringViewManager implements IViewManager {
 	public void initialize(Stage s) {
 		myTabBar = new TabBarElement(myController);
 		myTabBar.initialize();
-		myObjectChooser = new ObjectChooser();
 		myObjectChooser.initialize();
 		myMenuBar = new MenuBarElement(myObjectChooser, myController, myStage, myMain);
 		myMenuBar.initialize();

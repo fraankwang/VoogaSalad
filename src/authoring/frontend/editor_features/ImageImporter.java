@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -37,8 +38,8 @@ public class ImageImporter {
 		myImageMap = new HashMap<String, String>();
 		for (final File fileEntry : imageFolder.listFiles()) {
 
-			myChooser.add(IMAGE_PATH + fileEntry.getName(), IMAGE_PATH + fileEntry.getName());
 			myImageMap.put(IMAGE_PATH + fileEntry.getName(), IMAGE_PATH + fileEntry.getName());
+			myChooser.add(IMAGE_PATH + fileEntry.getName(), IMAGE_PATH + fileEntry.getName());
 		}
 	}
 	
@@ -71,6 +72,7 @@ public class ImageImporter {
 //			System.out.println(url.toString());
 //		}
 
+		myImageMap.put(IMAGE_PATH + newFile.getName(), imageFile.toURI().toURL().toString());
 		myChooser.add(IMAGE_PATH + newFile.getName(), IMAGE_PATH + newFile.getName());
 	}
 	
@@ -78,15 +80,21 @@ public class ImageImporter {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
-		File imageFile = fileChooser.showOpenDialog(null);
-		if (imageFile != null) {
-			try {
-				addNewImage(imageFile);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		List<File> imageFiles = fileChooser.showOpenMultipleDialog(null);
+		if (imageFiles != null) {
+			for (File imageFile: imageFiles) {
+				try {
+					addNewImage(imageFile);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+	}
+	
+	public Map<String, String> getImageMap() {
+		return myImageMap;
 	}
 	
 	
