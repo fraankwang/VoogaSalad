@@ -1,3 +1,6 @@
+/**
+ * @author austinwu
+ */
 package engine.frontend.board;
 
 import java.util.HashMap;
@@ -53,7 +56,7 @@ public class BoardPane extends AbstractPane{
 		}
 		if(myEntityViewMap.containsKey(id)){
 			myEntityViewMap.get(id).update(xCoord, yCoord, image, width, height);
-		} else {
+		} else {			
 			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
 			myEntityViewMap.put(id, ev);
 			myPane.getChildren().add(ev.getNode());
@@ -68,13 +71,8 @@ public class BoardPane extends AbstractPane{
 	}
 
 	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower){
-		System.out.println(myPane.getLayoutX());
-		System.out.println(myPane.getLayoutY());
-		// need to tell them which type it is too
 		double xLoc = mouseXLoc - myPane.getLayoutX();
 		double yLoc = mouseYLoc - myPane.getLayoutY();
-
-		System.out.println("X location: " + xLoc + "\nY location: " + yLoc);
 		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
 
 	}

@@ -19,11 +19,11 @@ public class GameWorldToXMLWriter extends ObjectToXMLWriter {
 	}
 	
 	/**
-	 * Converts an XML to a GameWorld.
+	 * Converts an XML to object.
 	 */
 	@Override
 	public Object xMLToObject(String xml) {
-		return (GameWorld) getXstream().fromXML(xml);
+		return getXstream().fromXML(xml);
 	}
 
 }

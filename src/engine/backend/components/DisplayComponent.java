@@ -18,7 +18,7 @@ public class DisplayComponent extends Component{
 	private boolean delete;
 	
 	public DisplayComponent() {
-		
+		this.canBeShown = false;
 	}
 	
 	public DisplayComponent(String image){

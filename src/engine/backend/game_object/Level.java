@@ -39,17 +39,22 @@ public class Level {
 	private int index;
 	private boolean sendNextWave;
 	private String lastSerializedVersion;
+	private boolean shouldRevert;
 	
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double waveDelayTimer, List<ShopItem> shopItems, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems, List<IEntity> authoredEntities, List<Rule> ruleAgenda, Map<Integer, IEntity> entities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
+		this.numWaves = numWaves;
 		this.myShopItems = shopItems;
 		this.authoredEntities = authoredEntities;
+		this.ruleAgenda = ruleAgenda;
 		this.entities = entities;
+		this.currentWaveIndex = 0;
+		this.setShouldRevert(false);
 	}
 	
 	/**
@@ -222,6 +227,24 @@ public class Level {
 	 */
 	public void setLastSerializedVersion(String lastSerializedVersion) {
 		this.lastSerializedVersion = lastSerializedVersion;
+	}
+
+	public boolean shouldRevert() {
+		return shouldRevert;
+	}
+
+	public void setShouldRevert(boolean shouldRevert) {
+		this.shouldRevert = shouldRevert;
+	}
+	
+	public int getNumEntities(){
+		return this.entities.keySet().size();
+	}
+
+	public boolean lastWaveOver() {
+		// TODO Auto-generated method stub
+		int index = getCurrentWaveIndex();		
+		return index == getNumWaves();
 	}
 
 }

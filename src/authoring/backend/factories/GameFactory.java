@@ -31,6 +31,7 @@ public class GameFactory {
 		this.myGlobalData = globaldata;
 		this.entityMap = new HashMap<String, IEntity>();
 		this.levelMap = new HashMap<String, Level>();
+		this.modeMap = new HashMap<String, Mode>();
 		this.entityFactory = new EntityFactory();
 		this.levelFactory = new LevelFactory();
 		this.modeFactory = new ModeFactory();

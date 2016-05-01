@@ -12,12 +12,15 @@ public class GameWorld {
 
 	//myModes is a map of mode name to Mode object
 	private Map<String, Mode> myModes;
+
 	private String myName;
 	private GameStatistics myGameStatistics;
+
 	
 	/**
 	 * Authoring Environment Constructor
 	 */
+
 	public GameWorld(String name, Map<String, Mode> modes) {
 		this.myName = name;
 		this.myModes = modes;
@@ -27,20 +30,19 @@ public class GameWorld {
 	 * Engine Environment Testing.
 	 */
 	public GameWorld() {
-		this.myGameStatistics = new GameStatistics();
 		this.myModes = new HashMap<String, Mode>();
 	}
 
-	public GameStatistics getGameStatistics() {
-		return myGameStatistics;
+	public GameStatistics getGameStatistics(String mode) {
+		return myModes.get(mode).getGameStatistics();
+	}
+
+	public void setGameName(String name) {
+		this.myName = name;
 	}
 	
 	public void setGameStatistics(GameStatistics gameStatistics) {
 		this.myGameStatistics = gameStatistics;
-	}
-	
-	public void setGameType(String name) {
-		this.myName = name;
 	}
 
 	public String getName() {
@@ -55,6 +57,17 @@ public class GameWorld {
 		Mode mode = myModes.get(modeString);
 		Level level = mode.getLevels().get(levelIndex);
 		return level;
+	}
+	
+	//write the thing to set level here.
+	/**
+	 * Places a level in the map with the key being the level index.
+	 * @param modeString
+	 * @param levelIndex
+	 * @param level
+	 */
+	public void putLevelInMap(String modeString, int levelIndex, Level level) {
+		myModes.get(modeString).setLevelInMap(levelIndex, level);
 	}
 
 	public void printWhatIHave() {

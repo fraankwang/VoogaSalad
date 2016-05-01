@@ -1,3 +1,6 @@
+/**
+ * @author austinwu
+ */
 package engine.frontend.shop;
 
 import java.util.HashMap;
@@ -5,20 +8,16 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import engine.backend.components.ArmorComponent;
 import engine.backend.components.CollisionComponent;
-import engine.backend.components.DamageComponent;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.FiringComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.IComponent;
-import engine.backend.components.MouseComponent;
 import engine.backend.components.MovementComponent;
 import engine.backend.components.MultiDirectionalFiringComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.PurchaseComponent;
-import engine.backend.components.RotationComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.components.TrackingMovementComponent;
