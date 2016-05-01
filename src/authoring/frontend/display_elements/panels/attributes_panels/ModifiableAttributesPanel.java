@@ -1,10 +1,6 @@
 package authoring.frontend.display_elements.panels.attributes_panels;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
+import java.util.*;
 
 import authoring.frontend.IAuthoringView;
 import javafx.scene.control.Alert;
@@ -12,14 +8,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -37,17 +28,13 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected GridPane myGridPane;
 	protected GridPane myAttributesGridPane;
 	protected ScrollPane myScrollPane;
-	protected TitledPane myRulesPane;
-	protected ListView<String> myRulesListView;
 	protected IAuthoringView myController;
-	
+
 	protected Map<String, Control> myInputMap;
 
-	protected static final int RULES_HEIGHT_PERCENTAGE = 30;
 	protected static final int ATTRIBUTES_HEIGHT = 50;
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	// scene width * 0.4275, hardcoded I know. Based on 30% column constraint.
-	private static final int DEFAULT_ATTRIBUTES_HEIGHT = 600;
 	private static final int COLUMN_1_PERCENTAGE = 50;
 	private static final int COLUMN_2_PERCENTAGE = 50;
 
@@ -64,7 +51,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
+		myGridPane.setMaxWidth(MAX_SIZE);
 
 		myAttributes = new ArrayList<String>();
 		myAttributesMap = new TreeMap<String, String>();
@@ -73,7 +60,8 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(myAttributesGridPane);
-		myScrollPane.setFitToWidth(false);
+		myScrollPane.setFitToWidth(true);
+		myScrollPane.setPrefWidth(MAX_SIZE);
 
 		assembleEmptyInputRows();
 
@@ -82,12 +70,10 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myScrollPane, 0, 0);
-		// myGridPane.add(myRulesPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
 
-	
 	protected GridPane createAttributesGridPane() {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		List<Integer> columnConstraints = new ArrayList<Integer>();
@@ -95,12 +81,11 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		columnConstraints.add(COLUMN_2_PERCENTAGE);
 
 		myAttributesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myAttributesGridPane.setPrefSize(ATTRIBUTES_PANEL_WIDTH, DEFAULT_ATTRIBUTES_HEIGHT);
+		myAttributesGridPane.setPrefSize(MAX_SIZE, MAX_SIZE);
 		return myAttributesGridPane;
 
 	}
 
-	
 	/**
 	 * Populates myAttributesMap and myInputMap using given myAttributes.
 	 */
@@ -113,21 +98,20 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 			tf.setEditable(true);
 
 			myAttributesMap.put(currentAttribute, tf.getText());
+			myInputMap.put(currentAttribute, tf);
 			myAttributesGridPane.add(text, 0, i);
 
 		}
 	}
 
-	
 	/**
 	 * Assumes myAttributesMap is correctly populated. Iterates through
 	 * myInputMap to replace the input areas for each component (in
 	 * myAttributes) with the existing value in myAttributesMap. After
-	 * myInputMap is updated, this method calls refreshInputRows.
+	 * myInputMap is updated, this method calls refreshAttributeInputRows.
 	 */
 	protected abstract void refreshAttributes();
 
-	
 	/**
 	 * Assumes myAttributes and myInputMap are up to date with all necessary
 	 * components. Clears myAttributesGridPane and re-populates it using
@@ -139,26 +123,19 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
-			if (!currentAttribute.equals("Type") && !currentAttribute.equals("SpawnEntities")){
+
+			if (!currentAttribute.equals("Type") && !currentAttribute.equals("SpawnEntities")) {
 				Text text = new Text(currentAttribute);
 				text.setFont(new Font(FONT_SIZE));
-				
+
 				myAttributesGridPane.add(text, 0, i);
 				myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
-				
+
 			}
 		}
 
 	}
 
-	
-	/**
-	 * Update image display based on attribute image name.
-	 * @param image
-	 */
-	public abstract void updateImageComponent(String image);
-	
-	
 	/**
 	 * Creates confirmation before allowing user to reset all input values.
 	 * 
@@ -224,26 +201,40 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	 */
 	public void updateAttributes(Map<String, String> info) {
 		myAttributesMap = info;
-		myAttributes = new ArrayList<String>();
+		myAttributes.clear();
 		myAttributes.addAll(myAttributesMap.keySet());
 		System.out.println(
-				"*****3. ModifiableAttrPanel: myAttributesMap set with given unmodifiableattributespanel outputs:");
+				"*****3. ModifiableAttrPanel: updated myAttributesMap and myAttributes set with given unmodifiableattributespanel outputs:");
 		System.out.println(myAttributesMap);
 		myInputMap.clear();
 
 	}
 
-	protected ListView<String> createRulesListView() {
-		ListView<String> lv = new ListView<String>();
-		lv.setCellFactory(TextFieldListCell.forListView());
-		ContextMenu cm = new ContextMenu();
-		cm.getItems().add(new MenuItem("context menu text"));
-		lv.setContextMenu(cm);
-		lv.setEditable(true);
-		lv.getItems().add("hello!");
-		lv.getItems().add("helloooo");
-
-		return lv;
+	/**
+	 * Allows subclasses of ModifiableAttributePanels to warn the user what is
+	 * wrong.
+	 * 
+	 * @param message
+	 */
+	protected void createAlert(String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setHeaderText("Attribute Saving Warning");
+		alert.setContentText(message);
+		alert.show();
 	}
 
+	/**
+	 * Error checking that alerts the user why something isn't saving.
+	 */
+	protected void checkAllFilled() {
+		boolean unfilledField = false;
+		for (String attr : myAttributesMap.keySet()) {
+			if (myAttributesMap.get(attr).equals("") || myAttributesMap.get(attr) == null) {
+				unfilledField = true;
+			}
+		}
+		if (unfilledField) {
+			createAlert("You must fill out all fields");
+		}
+	}
 }

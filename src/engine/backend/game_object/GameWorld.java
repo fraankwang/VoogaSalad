@@ -10,14 +10,25 @@ import java.util.Map;
 
 public class GameWorld {
 
+	//myModes is a map of mode name to Mode object
 	private Map<String, Mode> myModes;
+<<<<<<< HEAD
 	private String myGameType;
+=======
+	private String myName;
+	private GameStatistics myGameStatistics;
+>>>>>>> cd3341011ab21cbf2e2ec0ea4a8cda59dd194b49
 	
 	/**
 	 * Authoring Environment Constructor
 	 */
+<<<<<<< HEAD
 	public GameWorld(String gameType, Map<String, Mode> modes) {
 		this.myGameType = gameType;
+=======
+	public GameWorld(String name, Map<String, Mode> modes) {
+		this.myName = name;
+>>>>>>> cd3341011ab21cbf2e2ec0ea4a8cda59dd194b49
 		this.myModes = modes;
 	}
 	
@@ -31,13 +42,23 @@ public class GameWorld {
 	public GameStatistics getGameStatistics(String mode) {
 		return myModes.get(mode).getGameStatistics();
 	}
+<<<<<<< HEAD
 
 	public void setGameType(String gameType) {
 		this.myGameType = gameType;
+=======
+	
+	public void setGameStatistics(GameStatistics gameStatistics) {
+		this.myGameStatistics = gameStatistics;
+	}
+	
+	public void setGameType(String name) {
+		this.myName = name;
+>>>>>>> cd3341011ab21cbf2e2ec0ea4a8cda59dd194b49
 	}
 
-	public String getGameType() {
-		return myGameType;
+	public String getName() {
+		return myName;
 	}
 	
 	public void addMode(Mode mode) {

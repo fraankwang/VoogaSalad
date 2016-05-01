@@ -1,5 +1,6 @@
 package authoring.frontend;
 
+import java.util.List;
 import java.util.Map;
 
 import authoring.backend.data.GlobalData;
@@ -8,9 +9,9 @@ import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
+import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -86,8 +87,16 @@ public class AuthoringView implements IAuthoringView {
 		return myAuthoringViewManager;
 	}
 	
-	public Map<String, Image> getEntities() {
+	public Map<String, String> getEntityImages() {
+		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntityImages();
+	}
+	
+	public Map<String, Map<String, String>> getEntities() {
 		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntities();
 	}
 
+	public Map<String, String> getLevels() {
+		return ((LevelsTabDisplay) myAuthoringViewManager.getTabBarElement().getLevelsTabDisplay()).getLevels();
+	}
+	
 }

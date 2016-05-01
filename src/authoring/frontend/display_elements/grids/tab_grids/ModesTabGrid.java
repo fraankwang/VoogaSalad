@@ -1,10 +1,23 @@
 package authoring.frontend.display_elements.grids.tab_grids;
 
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.ModesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
+import authoring.frontend.display_elements.panels.GridViewPanel;
+import authoring.frontend.display_elements.panels.LevelGridViewPanel;
+import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
+import authoring.parser.GlobalParser;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 
 /**
  * 
@@ -14,8 +27,12 @@ import authoring.frontend.display_elements.tab_displays.TabDisplay;
 
 public class ModesTabGrid extends TabGrid {
 
+	private Map<String, String> currentInfo;
+	private LevelGridViewPanel currentGridViewPanel;
+
 	public ModesTabGrid(IAuthoringView controller, TabDisplay tabDisplay) {
 		super(controller, tabDisplay);
+		currentInfo = new TreeMap<String, String>();
 	}
 
 	@Override
@@ -34,12 +51,70 @@ public class ModesTabGrid extends TabGrid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-
+		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
+		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo, "Mode"));
 	}
 
-	@Override
-	public void setAttributesPanel(Map<String, String> info) {
-		myUnmodifiableAttributesPanel.setAttributes(info);
+	public void updateModesPrimaryDisplay(List<Map<String, String>> data) {
+		
+		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
+		gridView.clearImages();
+		gridView.getNode().toBack();
+		if (data.isEmpty()) {
+			gridView.resetGrid();
+		}
+
+		for (Map<String, String> info : data) {
+
+			ImageView iv = convertToImageView(info.get("Levels"));
+			iv.setOnMouseClicked(e -> iv.requestFocus());
+			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
+				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+						Boolean newValue) {
+					if (newValue) {
+						iv.setOpacity(1);
+						info.remove("Type");
+						setAttributesPanel(info);
+						currentInfo = info;
+						currentInfo.put("Type", "Mode");
+						
+						//TODO: update editor Grid's PrimaryDisplay
+						if (info.get("Levels") != null) {
+							List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
+							currentGridViewPanel = new LevelGridViewPanel(500, 500, null, myController);
+							currentGridViewPanel.initialize();
+							currentGridViewPanel.updateSelectedLevels(selectedLevels);
+							((ModeEditorDisplay) myTabDisplay.getEditor()).setPrimaryDisplay(currentGridViewPanel);
+						}
+						
+					} else {
+						iv.setOpacity(0.2);
+						
+					}
+				}
+			});
+			gridView.addImage(iv);
+		}
+
+		gridView.resetGrid();
+	}
+
+	/**
+	 * Takes inputted String of level information, parses it, takes a snapshot
+	 * of the constructed GridViewPanel and converts to an ImageView
+	 * 
+	 * @param string
+	 * @return
+	 */
+	private ImageView convertToImageView(String string) {
+		LevelGridViewPanel levels = new LevelGridViewPanel(500, 500, null, myController);
+		levels.initialize();
+		levels.updatePossibleLevels(myController.getLevels());
+		levels.updateSelectedLevels(GlobalParser.parseLevels(string));
+		levels.removeAddNewButton();
+		levels.resetGrid();
+		WritableImage snapshot = levels.getMyGridPane().snapshot(new SnapshotParameters(), null);
+		return new ImageView(snapshot);
 	}
 
 }

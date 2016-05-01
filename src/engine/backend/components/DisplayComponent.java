@@ -84,7 +84,7 @@ public class DisplayComponent extends Component{
 
 	@Override
 	public String getComponentInfo() {
-		return "CanBeShown:" + canBeShown + "," + "Image:" + image + "," + "Delete:" + delete;
+		return "Image:" + image + "," + "Delete:" + delete;
 	}
 
 	@Override

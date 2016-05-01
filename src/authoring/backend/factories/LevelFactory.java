@@ -8,7 +8,10 @@ import java.util.Set;
 
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
+import engine.backend.components.DisplayComponent;
+import engine.backend.components.PurchaseComponent;
 import engine.backend.entities.IEntity;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.Level;
 import engine.backend.map.GameMap;
 
@@ -37,9 +40,19 @@ public class LevelFactory {
 			IEntity spawnEntity = entityFactory.createEntity(authoringEntity);
 			authoredEntities.add(spawnEntity);
 			entitiesMap.put(entityID, spawnEntity);
+			entityID++;
+		}
+		List<ShopItem> shopItems = new ArrayList<ShopItem>();
+		for (IEntity entity : authoredEntities) {
+			if (entity.hasComponent("PurchaseComponent")) {
+				DisplayComponent displayComponent = (DisplayComponent) entity.getComponent("DisplayComponent");
+				PurchaseComponent purchaseComponent = (PurchaseComponent) entity.getComponent("PurchaseComponent");
+				ShopItem item = new ShopItem(entity.getName(), displayComponent.getImage(), purchaseComponent.getValue());
+				shopItems.add(item);		
+			}
 		}
 		
-		return new Level(name, map, waveDelayTimer, authoredEntities, entitiesMap);
+		return new Level(name, map, waveDelayTimer, shopItems, authoredEntities, entitiesMap);
 	}
 
 }
