@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
 import engine.backend.map.GameMap;
@@ -245,5 +246,4 @@ public class Level {
 		int index = getCurrentWaveIndex();		
 		return index == getNumWaves();
 	}
-
 }

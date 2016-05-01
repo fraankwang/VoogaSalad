@@ -18,6 +18,7 @@ import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
@@ -247,7 +248,7 @@ public class EventManager implements Observer {
 			}
 		}
 	}
-	
+
 	private boolean isEnemyOnScreen(){
 		Set<String> enemyNames = getUniqueEnemyNames();
 		boolean ret = false;
@@ -262,10 +263,15 @@ public class EventManager implements Observer {
 	
 	private Set<String> getUniqueEnemyNames(){
 		Set<String> enemyNames = new HashSet<String>();
-		for(IEntity tower: getCurrentLevel().getAuthoredEntities()){
-			if(tower.hasComponent(ComponentTagResources.purchaseComponentTag) && tower.hasComponent(ComponentTagResources.firingComponentTag)){
-				FiringComponent firingComponent = (FiringComponent) tower.getComponent(ComponentTagResources.firingComponentTag);
-				enemyNames.addAll(firingComponent.getTargets());
+		
+		for(ShopItem item: getCurrentLevel().getShopItems()){
+			for(IEntity entity : getCurrentLevel().getAuthoredEntities()){
+				if(item.getItemName().equals(entity.getName())){
+					if(entity.hasComponent(ComponentTagResources.firingComponentTag)){
+						FiringComponent firingComponent = (FiringComponent) entity.getComponent(ComponentTagResources.firingComponentTag);
+						enemyNames.addAll(firingComponent.getTargets());
+					}
+				}
 			}
 		}
 		return enemyNames;
