@@ -11,12 +11,12 @@ public class HUDValueFinder implements IValueFinder {
 
 	private HUDController controller;
 	private GameStatistics data;
-	private ExceptionLoader myExceptionLoader;
+//	private ExceptionLoader myExceptionLoader;
 	
 	private static final String ILLEGAL_ARGUMENTS = "DataIllegalArgument";
 
 	public HUDValueFinder() {
-		myExceptionLoader = new ExceptionLoader();
+//		myExceptionLoader = new ExceptionLoader();
 	}
 
 	@Override

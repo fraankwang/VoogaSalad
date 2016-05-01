@@ -32,7 +32,7 @@ public class InGameEntityFactory {
 		myExceptionLoader = new ExceptionLoader();
 		this.myEntityMap = createMap(entities);
 		nextAvailableID = 0;
-		//initNumEntities = 0;
+		initNumEntities = 0;
 	}
 
 	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities) {

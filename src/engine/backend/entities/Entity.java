@@ -42,14 +42,14 @@ public class Entity extends Observable implements IEntity, IModifiable {
 	private boolean hasBeenModified;
 
 	private EntityStatistics myStats;
-	private ExceptionLoader myExceptionLoader;
+//	private ExceptionLoader myExceptionLoader;
 
 	/**
 	 * Initializes an Entity without a unique ID. Authoring Environment
 	 * Constructor.
 	 */
 	public Entity(String myName, String myGenre, Map<String, IComponent> myComponents) {
-		myExceptionLoader = new ExceptionLoader();
+//		myExceptionLoader = new ExceptionLoader();
 		this.myName = myName;
 		this.myGenre = myGenre;
 		this.myComponents = myComponents;
@@ -192,15 +192,15 @@ public class Entity extends Observable implements IEntity, IModifiable {
 
 			setMethod.invoke(componentClassInstance, newVal);
 		} catch (InstantiationException e) {
-			new DrumpfTowerException(myExceptionLoader.getString(INSTANTIATION));
+//			new DrumpfTowerException(myExceptionLoader.getString(INSTANTIATION));
 		} catch (IllegalAccessException e) {
-			new DrumpfTowerException(myExceptionLoader.getString(LACK_ACCESS));
+//			new DrumpfTowerException(myExceptionLoader.getString(LACK_ACCESS));
 		} catch (NoSuchMethodException e) {
-			new DrumpfTowerException(myExceptionLoader.getString(METHOD_DNE));
+//			new DrumpfTowerException(myExceptionLoader.getString(METHOD_DNE));
 		} catch (SecurityException e) {
-			new DrumpfTowerException(myExceptionLoader.getString(SECURITY_EXCEPTION));
+//			new DrumpfTowerException(myExceptionLoader.getString(SECURITY_EXCEPTION));
 		} catch (IllegalArgumentException | InvocationTargetException e) {
-			new DrumpfTowerException(myExceptionLoader.getString(ILLEGAL_ARGS));
+//			new DrumpfTowerException(myExceptionLoader.getString(ILLEGAL_ARGS));
 		}
 	}
 
