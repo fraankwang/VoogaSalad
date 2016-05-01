@@ -6,11 +6,12 @@ public class EntityDroppedEvent implements IEvent {
 	private double yPosition;
 	private String entityName;
 	private double entityValue;
-
-	public EntityDroppedEvent(double x, double y, String name) {
+	
+	public EntityDroppedEvent(double x, double y, String name, double cost) {
 		setXCoordinate(x);
 		setYCoordinate(y);
 		setEntityName(name);
+		setEntityValue(cost);
 	}
 
 	public String getEntityName() {

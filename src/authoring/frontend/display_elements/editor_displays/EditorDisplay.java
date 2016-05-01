@@ -2,6 +2,7 @@ package authoring.frontend.display_elements.editor_displays;
 
 import java.util.Map;
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.interfaces.display_element_interfaces.IEditorDisplay;
 import javafx.scene.Node;
@@ -20,8 +21,8 @@ import javafx.stage.Stage;
 
 public abstract class EditorDisplay implements IEditorDisplay {
 
-	private static final int EDITOR_SCENE_WIDTH = 1200;
-	private static final int EDITOR_SCENE_HEIGHT = 800;
+	private static final int EDITOR_SCENE_WIDTH = Constants.getInt("SCENE_WIDTH");
+	private static final int EDITOR_SCENE_HEIGHT = Constants.getInt("SCENE_HEIGHT");
 	protected EditorGrid myGrid;
 	protected IAuthoringView myController;
 	protected Stage myEditorStage;

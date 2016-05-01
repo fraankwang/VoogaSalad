@@ -41,7 +41,7 @@ public class EditorViewPanel extends Panel {
 		myScrollPane.setFitToHeight(true);
 		myScrollPane.setFitToWidth(true);
 		myGroup = new Group();
-		myPanelBar = new EditorPanelBar(50, 50, this);
+		myPanelBar = new EditorPanelBar(MAX_SIZE, MAX_SIZE, this);
 		myPanelBar.initialize();
 		myPanelBar.setFontSize(15);
 	}

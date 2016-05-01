@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.grid_factories.editor_grid_factories;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
@@ -33,21 +34,18 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	 */
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel editorView = new EditorViewPanel(800 * 0.7, 1200 * 0.7);
+		EditorViewPanel editorView = new EditorViewPanel(Constants.getInt("ENTITY_EDITOR_GRID_SIZE"), Constants.getInt("ENTITY_EDITOR_GRID_SIZE"));
 		editorView.initialize();
-
-		editorView.setImage(new Image("resources/images/question_mark.png")); // set
-																				// defaul
+		editorView.setImage(new Image("resources/images/question_mark.png"));
 		editorView.setDescription("Entity");
 
-		editorView.getPanelBar().addButton("Upload Image", e -> {
+		editorView.getPanelBar().addButton(Constants.getString("UPLOAD_IMAGE_BUTTON"), e -> {
 			String newImage = myController.getAuthoringViewManager().getObjectChooser().openChooser();
-			editorView.setImage(new Image(newImage));
+			editorView.setImage(new Image(myController.getImageMap().get(newImage)));
 			((ModifiableEntityAttributesPanel) myEditorGrid.getAttributesPanel()).updateImageComponent(newImage);
 		});
 		return editorView;
 	}
-
 
 	@Override
 	public ModifiableAttributesPanel createModifiableAttributesPanel() {

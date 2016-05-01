@@ -13,6 +13,7 @@ import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDa
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -71,7 +72,7 @@ public class LevelsTabGrid extends TabGrid {
 			myLevels.put(info.get("Name"), info.get("MapBackgroundImage"));
 			info.remove("EntityNames");
 
-			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
+			ImageView iv = new ImageView(new Image(myController.getImageMap().get(info.get("MapBackgroundImage"))));
 			linkImage(iv, info);
 			gridView.addImage(iv);
 		}

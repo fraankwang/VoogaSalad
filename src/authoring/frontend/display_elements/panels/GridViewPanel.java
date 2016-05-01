@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.display_elements.panels.panel_bars.PanelBar;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
@@ -32,8 +33,8 @@ import javafx.scene.layout.VBox;
 
 public class GridViewPanel extends Panel {
 
-	private final static int DEFAULT_NUM_GRID_COLUMNS = 2;
-	private final static int ADD_NEW_BUTTON_SIZE = 300;
+	private final static int DEFAULT_NUM_GRID_COLUMNS = Constants.getInt("GRID_VIEW_PANEL_DEFAULT_NUM_COLUMNS");
+	private final static int ADD_NEW_BUTTON_SIZE = Constants.getInt("GRID_VIEW_ADD_NEW_SIZE");
 	protected GridPane myGridPane;
 	protected ScrollPane myScrollPane;
 	protected PanelBar myPanelBar;
@@ -70,7 +71,7 @@ public class GridViewPanel extends Panel {
 	public void resetGrid() {
 		myGridPane.getChildren().clear();
 		myGridPane.getColumnConstraints().clear();
-		double gridCellSize = (myScrollPane.getViewportBounds().getWidth() - 20) / numColumns;
+		double gridCellSize = (myScrollPane.getViewportBounds().getWidth() - Constants.getInt("SCROLLPANE_OFFSET")) / numColumns;
 		for (int i = 0; i < numColumns; i++) {
 			ColumnConstraints column = new ColumnConstraints();
 			column.setMinWidth(gridCellSize);

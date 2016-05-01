@@ -10,7 +10,7 @@ public class KeyPressedEntityEvent extends EntityEvent {
 
 	@Override
 	public String getEventID() {
-		return super.getEventID() + keyPressed;
+		return super.getEventID() + "-" + keyPressed;
 	}
 
 	public String getKeyPressed() {

@@ -11,6 +11,7 @@ import java.util.TreeMap;
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
@@ -69,14 +70,14 @@ public class EntitiesTabDisplay extends TabDisplay {
 	 * inputs nothing or a tab that already exists.
 	 */
 	private void createAddNewGenreTab() {
-		Tab addNewTypeTab = new Tab("Add New...", null);
+		Tab addNewTypeTab = new Tab(Constants.getString("ADD_NEW_BUTTON"), null);
 
 		myEntitiesTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab selectedTab) {
 				if (selectedTab == addNewTypeTab) {
 
-					String newGenre = myGrid.promptNewName("genre name");
+					String newGenre = myGrid.promptNewName(Constants.getString("PROMPT_GENRE"));
 
 					if (newGenre != "" && !getGenres().contains(newGenre)) {
 						myEntitiesTabPane.getTabs().remove(addNewTypeTab);
@@ -100,10 +101,10 @@ public class EntitiesTabDisplay extends TabDisplay {
 	 */
 	private void setContextMenu() {
 		ContextMenu tabContextMenu = new ContextMenu();
-		MenuItem tabMenu = new MenuItem("Change Genre name");
+		MenuItem tabMenu = new MenuItem(Constants.getString("GENRE_CHANGE_MENU"));
 
 		tabMenu.setOnAction(e -> {
-			String name = myGrid.promptNewName("genre name");
+			String name = myGrid.promptNewName(Constants.getString("PROMPT_GENRE"));
 			if (!name.equals("")) {
 				((GridViewPanel) myGrid.getPrimaryDisplay()).setPanelBarDescription(name + " Entities");
 				myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(name);
@@ -170,7 +171,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 		updateMyEntities(data);
 		
 		for (Tab t : myEntitiesTabPane.getTabs()) {
-			if (!t.getText().equals("Add New...")) {
+			if (!t.getText().equals(Constants.getString("ADD_NEW_BUTTON"))) {
 				myEntitiesTabPane.getSelectionModel().select(t);
 				((EntitiesTabGrid) myGrid).updateEntitiesPrimaryDisplay(data, t.getText());
 			}
@@ -236,7 +237,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 		Map<String, String> entities = new TreeMap<String, String>();
 		for (Tab t : myEntitiesTabPane.getTabs()) {
-			if (!t.getText().equals("Add New...")) {
+			if (!t.getText().equals(Constants.getString("ADD_NEW_BUTTON"))) {
 				myEntitiesTabPane.getSelectionModel().select(t);
 				Map<String, String> genreEntities = (TreeMap<String, String>) ((EntitiesTabGrid) myGrid).getEntities();
 				for (String name : genreEntities.keySet()) {

@@ -1,9 +1,11 @@
 package authoring.backend.game_objects;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import engine.backend.components.IComponent;
+import engine.backend.entities.IEntity;
 
 public class AuthoringEntity {
 
@@ -27,13 +29,26 @@ public class AuthoringEntity {
 		this.myComponents = new HashMap<String, IComponent>();
 		initializeInfo();
 	}
+	
+	public AuthoringEntity(IEntity entity) {
+		this.myName = entity.getName();
+		this.myGenre = entity.getGenre();
+		setUpComponents((List<IComponent>) entity.getComponents());
+		initializeInfo();
+	}
 
 	private void initializeInfo() {
 		myInfo.put(TYPE, CLASS_TYPE);
 		myInfo.put(GENRE, myGenre);
 		myInfo.put(NAME, myName);
 	}
-
+	
+	private void setUpComponents(List<IComponent> components) {
+		for (IComponent component : components) {
+			addComponent(component);
+		}
+	}
+	
 	public void addComponent(IComponent component) {
 		myComponents.put(component.getTag(), component);
 		if (!myGenre.equals("Spawner")) {

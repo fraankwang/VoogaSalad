@@ -1,4 +1,4 @@
-package authoring.frontend.editor_features;
+package authoring.frontend.configuration;
 
 import java.util.Arrays;
 import java.util.Collections;

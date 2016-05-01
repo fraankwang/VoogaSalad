@@ -35,6 +35,11 @@ public class StartView {
 		firsttime = f;
 	}
 
+
+	/**
+	 * Initialize startPrompt scene
+	 * @return Scene - containing view for beginning prompt
+	 */
 	public Scene buildScene() {
 		myVBox = new VBox();
 		myScene = new Scene(myVBox, Color.WHEAT);
@@ -117,17 +122,27 @@ public class StartView {
 		startButton = new Button("START");
 		startButton.setDisable(true);
 
-		startButton.setOnAction(e -> myController.startGame(selectedMode, selectedLevel));
+		startButton.setOnAction(e -> myController.startGame(selectedMode, selectedLevel, firsttime));
 
 		bindHeight(startButton, myScene.heightProperty().divide(4));
 		bindWidth(startButton, myScene.widthProperty());
 	}
 
+	/**
+	 * Helps bind width between two Regions
+	 * @param region - Region to bind
+	 * @param db - double expression describing binding
+	 */
 	public void bindWidth(Region region, DoubleExpression db) {
 		region.minWidthProperty().bind(db);
 		region.maxWidthProperty().bind(db);
 	}
 
+	/**
+	 * Helps bind height between two Regions
+	 * @param region - Region to bind
+	 * @param db - double expression describing binding
+	 */
 	public void bindHeight(Region region, DoubleExpression db) {
 		region.minHeightProperty().bind(db);
 		region.maxHeightProperty().bind(db);
