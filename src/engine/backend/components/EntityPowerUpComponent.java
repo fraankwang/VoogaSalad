@@ -5,9 +5,9 @@ import java.util.Map;
 
 import engine.backend.game_features.EntityPowerUp;
 
-public class EntityPowerUpComponent extends Component{
+public class EntityPowerUpComponent extends Component {
 	private Map<String, List<EntityPowerUp>> myPowerUps;
-	
+
 	public EntityPowerUpComponent(EntityPowerUpComponent component) {
 		this.setPowerUps(component.getPowerUps());
 	}
@@ -21,7 +21,7 @@ public class EntityPowerUpComponent extends Component{
 	@Override
 	public void update(String dataName, String data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Map<String, EntityPowerUp> getPowerUps() {
@@ -31,13 +31,11 @@ public class EntityPowerUpComponent extends Component{
 	public void setPowerUps(Map<String, List<EntityPowerUp>> myPowerUps) {
 		this.myPowerUps = myPowerUps;
 	}
-	
-	public void addPowerUp(String name, EntityPowerUp powerUp){
-		if(myPowerUps.containsKey(name)){
-			
+
+	public void addPowerUp(String name, EntityPowerUp powerUp) {
+		if (myPowerUps.containsKey(name)) {
+
 		}
 	}
-	
-
 
 }
