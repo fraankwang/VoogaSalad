@@ -21,13 +21,13 @@ import engine.backend.map.GameMap;
 import engine.backend.utilities.ComponentTagResources;
 
 public class LevelFactory {
-	
+
 	private EntityFactory entityFactory;
-	
+
 	public LevelFactory() {
 		this.entityFactory = new EntityFactory();
 	}
-	
+
 	public Level createLevel(AuthoringLevel authoringLevel, Map<String, IEntity> entityMap) {
 		String name = authoringLevel.getName();
 		GameMap map = authoringLevel.getMap();
@@ -57,7 +57,7 @@ public class LevelFactory {
 					numWaves = spawnWaves;
 				}
 			}
-			
+
 			IEntity entity = entityFactory.createEntity(spawnEntity);
 			entity.setID(entityID);
 			authoredEntities.add(entity);
@@ -69,14 +69,15 @@ public class LevelFactory {
 			if (entity.hasComponent("PurchaseComponent")) {
 				DisplayComponent displayComponent = (DisplayComponent) entity.getComponent("DisplayComponent");
 				PurchaseComponent purchaseComponent = (PurchaseComponent) entity.getComponent("PurchaseComponent");
-				ShopItem item = new ShopItem(entity.getName(), displayComponent.getImage(), purchaseComponent.getValue());
-				shopItems.add(item);		
+				ShopItem item = new ShopItem(entity.getName(), displayComponent.getImage(),
+						purchaseComponent.getValue());
+				shopItems.add(item);
 			}
 			if (entity.hasComponent("MovementComponent")) {
 				System.out.println(entity.getComponent("MovementComponent").getComponentInfo());
 			}
 		}
-		
+
 		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, entitiesMap);
 	}
 

@@ -15,19 +15,19 @@ import authoring.backend.game_objects.AuthoringMode;
  */
 
 public class ModelManager implements IModel {
-	
+
 	private final GlobalData globaldata;
 	private final AuthoringEntityFactory entityfactory;
 	private final AuthoringLevelFactory levelfactory;
 	private final AuthoringModeFactory modefactory;
-	
+
 	public ModelManager(GlobalData globaldata) {
 		this.globaldata = globaldata;
 		this.entityfactory = new AuthoringEntityFactory();
 		this.levelfactory = new AuthoringLevelFactory();
 		this.modefactory = new AuthoringModeFactory();
 	}
-	
+
 	public void updateEntities(String command, Map<String, String> data) {
 		AuthoringEntity entity = entityfactory.createEntity(data);
 		if (command.equals("Update")) {
@@ -69,5 +69,5 @@ public class ModelManager implements IModel {
 			globaldata.getGame().setName(data.get("Name"));
 		}
 	}
-		
+
 }

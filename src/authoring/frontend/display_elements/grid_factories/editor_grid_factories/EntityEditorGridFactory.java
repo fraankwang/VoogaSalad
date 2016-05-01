@@ -31,23 +31,24 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	public Panel createPrimaryDisplay() {
 		EditorViewPanel editorView = new EditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
-		editorView.setImage(new Image("resources/images/question_mark.png")); // set default
+		editorView.setImage(new Image("resources/images/question_mark.png")); // set
+																				// default
 		editorView.setDescription("Entity");
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {
 			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();
 			editorView.setImage(new Image(newImage));
-			((ModifiableEntityAttributesPanel) myEditorGrid.getAttributesPanel())
-					.updateImageComponent(newImage);
+			((ModifiableEntityAttributesPanel) myEditorGrid.getAttributesPanel()).updateImageComponent(newImage);
 		});
 		return editorView;
 	}
 
 	@Override
 	public RulesEditorPanel createRulesPanel(ModifiableAttributesPanel attributes) {
-//		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController, attributes);
-//		editorPanel.initialize();
-//		return editorPanel;
+		// RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE,
+		// MAX_SIZE, myController, attributes);
+		// editorPanel.initialize();
+		// return editorPanel;
 		return null;
 	}
 

@@ -21,13 +21,13 @@ import engine.backend.map.Path;
 import engine.backend.rules.Rule;
 
 public class AuthoringLevelFactory {
-	
+
 	private RuleFactory ruleFactory;
-	
+
 	public AuthoringLevelFactory() {
 		this.ruleFactory = new RuleFactory();
 	}
-	
+
 	public AuthoringLevel createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
 		Set<String> entities = new HashSet<String>();
@@ -81,7 +81,7 @@ public class AuthoringLevelFactory {
 		}
 		return level;
 	}
-	
+
 	private List<Rule> createRules(String rawRules) {
 		String[] rawRuleSet = rawRules.split(" ");
 		String[] events = new String[rawRuleSet.length];
@@ -100,7 +100,7 @@ public class AuthoringLevelFactory {
 		}
 		return rules;
 	}
-	
+
 	private List<String> parseEvents(String eventInfo) {
 		String[] eventData = eventInfo.split("+");
 		List<String> events = new ArrayList<String>();
@@ -122,11 +122,11 @@ public class AuthoringLevelFactory {
 					sb.append(str);
 				}
 				events.add(sb.toString());
-			}			
+			}
 		}
 		return events;
 	}
-	
+
 	private List<List<String>> parseActions(String actionInfo) {
 		String[] actionData = actionInfo.split("+");
 		List<List<String>> actions = new ArrayList<List<String>>();
@@ -140,7 +140,7 @@ public class AuthoringLevelFactory {
 		}
 		return actions;
 	}
-	
+
 	private List<String> parseReadEvents(String ruleInfo) {
 		List<String> events = new ArrayList<String>();
 		for (String rulePair : ruleInfo.split(" ")) {
@@ -149,7 +149,7 @@ public class AuthoringLevelFactory {
 		}
 		return events;
 	}
-	
+
 	private List<AuthoringEntity> createSpawnEntities(String info) {
 		Map<String, String[]> spawnInfo = GlobalParser.spawnParse(info);
 		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
@@ -176,7 +176,7 @@ public class AuthoringLevelFactory {
 		}
 		return spawnEntities;
 	}
-		
+
 	private Set<String> getEntityNames(String str) {
 		String[] names = str.split(" ");
 		Set<String> entityNames = new HashSet<String>();
@@ -185,7 +185,7 @@ public class AuthoringLevelFactory {
 		}
 		return entityNames;
 	}
-	
+
 	private Path[] getPaths(String str) {
 		Map<String, String[]> temp = GlobalParser.pathParse(str);
 		Path[] paths = new Path[temp.size()];
@@ -196,7 +196,7 @@ public class AuthoringLevelFactory {
 		}
 		return paths;
 	}
-	
+
 	private Path createPath(String ID, String[] curves) {
 		List<BezierCurve> temp = new ArrayList<BezierCurve>();
 		for (String curve : curves) {
@@ -205,7 +205,7 @@ public class AuthoringLevelFactory {
 		int pathID = Integer.parseInt(ID);
 		return new Path(temp, pathID);
 	}
-	
+
 	private BezierCurve createCurve(String curve) {
 		String[] raw = curve.split(",");
 		double[] points = new double[raw.length * 2];
@@ -221,5 +221,5 @@ public class AuthoringLevelFactory {
 		}
 		return new BezierCurve(points);
 	}
-	
+
 }

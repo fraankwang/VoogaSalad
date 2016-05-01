@@ -11,17 +11,17 @@ import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
 
 public class ObservableList<E> extends Observable {
-	
+
 	private List<E> objects;
-	
+
 	public ObservableList(List<E> objects) {
 		this.objects = objects;
 	}
-	
+
 	public ObservableList() {
 		this.objects = new ArrayList<E>();
 	}
-	
+
 	public void add(E object) {
 		for (E e : objects) {
 			if (e.equals(object)) {
@@ -35,7 +35,7 @@ public class ObservableList<E> extends Observable {
 		setChanged();
 		notifyObservers(getInfo());
 	}
-	
+
 	public void remove(E object) {
 		for (E e : objects) {
 			if (e.equals(object)) {
@@ -46,11 +46,11 @@ public class ObservableList<E> extends Observable {
 			}
 		}
 	}
-	
+
 	public List<E> getList() {
 		return objects;
 	}
-	
+
 	public List<Map<String, String>> getInfo() {
 		List<Map<String, String>> info = new ArrayList<Map<String, String>>();
 		for (E object : objects) {
