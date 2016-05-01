@@ -55,7 +55,6 @@ public class SpawningSystem extends GameSystem {
 
 			for(Spawn spawn : spawnerComponent.getSpawns()){
 				if(spawn.getWaveIndex() == currentWaveIndex && spawn.getNumEntities() > 0){
-					//System.out.println(spawn.getInfo());
 					waveIsOver = false;
 					updateSpawn(spawn, posComponent.getPositionVector(), newEntities, myEntityFactory, currentSecond, spawnerComponent.getPathID());
 				}
@@ -74,9 +73,12 @@ public class SpawningSystem extends GameSystem {
 	}
 
 	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities, InGameEntityFactory myEntityFactory, double currentSecond, int pathID){
+		System.out.println("Num: " + spawn.getNumEntities() + " " + spawn.getTimer());
 		if(spawn.getTimer() <= 0 && spawn.getNumEntities() > 0){
+			System.out.println("fdjklafjda");
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
+			System.out.println(newPos.getX() + "  " + newPos.getY());
 			newEntity.addComponent(newPositionComponent);
 			if(newEntity.hasComponent(ComponentTagResources.pathComponentTag)){
 				PathComponent pathComp = (PathComponent) newEntity.getComponent(ComponentTagResources.pathComponentTag);

@@ -111,8 +111,6 @@ public class testingClass {
 		
 		firingTest.addMode(mode);
 		
-		
-
 		return firingTest;
 	}
 	

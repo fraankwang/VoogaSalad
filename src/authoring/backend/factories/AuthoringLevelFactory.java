@@ -203,7 +203,9 @@ public class AuthoringLevelFactory {
 			temp.add(createCurve(curve));
 		}
 		int pathID = Integer.parseInt(ID);
-		return new Path(temp, pathID);
+		Path path = new Path(temp, pathID);
+		System.out.println(path.toString());
+		return path;
 	}
 	
 	private BezierCurve createCurve(String curve) {

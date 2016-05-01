@@ -38,7 +38,6 @@ public class MobilizeSystem extends GameSystem{
 			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
 				PathComponent pathComponent = (PathComponent) entity.getComponent(ComponentTagResources.pathComponentTag);
-				System.out.println(pathComponent.getPathID());
 				addToEventMap(myEventMap, updatePositionOnPath(entity, posComponent, movComponent, pathComponent,
 						myLevel.getMap().getPath(pathComponent.getPathID())), entity);
 			} else {
