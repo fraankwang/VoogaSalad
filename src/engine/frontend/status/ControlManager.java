@@ -48,7 +48,7 @@ public class ControlManager extends ResourceUser {
 		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
 		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());		
 		play.setOnMouseClicked(e -> {
-			myStatusPane.getEngineView().getEngineController().toggleStepping();
+			myStatusPane.getEngineView().getEngineController().toggleStepping(false);
 		});
 
 		nextWave.setDisable(true);
