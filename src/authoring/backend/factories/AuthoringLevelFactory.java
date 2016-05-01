@@ -122,13 +122,17 @@ public class AuthoringLevelFactory {
 				} else {
 					for (String str : eventElements) {
 						sb.append(str);
+						sb.append("-");
 					}
+					sb.deleteCharAt(sb.length() - 1);
 					events.add(sb.toString());
 				}
 			} else {
 				for (String str : eventElements) {
 					sb.append(str);
+					sb.append("-");
 				}
+				sb.deleteCharAt(sb.length() - 1);
 				events.add(sb.toString());
 			}			
 		}

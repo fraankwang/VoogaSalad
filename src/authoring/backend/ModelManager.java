@@ -85,11 +85,11 @@ public class ModelManager implements IModel {
 		}
 	}
 	
-	public void exportGame() throws IOException {
+	public void exportGame(String url) throws IOException {
 		GameWorld game = gameFactory.createGame();
 		GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
 		String raw = writer.getXMLfromObject(game);
-		ObjectToXMLWriter.stringToDocument(raw, "game1.xml");
+		ObjectToXMLWriter.stringToDocument(raw, url);
 	}
 	
 	public void reloadGame(String url) throws IOException {
