@@ -1,4 +1,7 @@
 package engine.frontend.overall;
+/**
+ * @author austinwu
+ */
 
 import engine.controller.EngineController;
 import engine.frontend.board.BoardPane;
@@ -30,10 +33,8 @@ public class EngineView extends ResourceUser{
 	 *  Small todos:
 	 *  finish "load game" option for first screen- almost done 
 	 *  lose-the-game screen
-	 *  finish stats util
-	 *  Set up upgrades to send  backend info when dropped on towers
-	 *  make sure game looop works when loading new maps with different aspect ratio map images
-	 *  Respond to keyboard events with an entityID and the key pressed
+	 *  Set up upgrades to send backend info when dropped on towers
+	 *  make sure game loop works when loading new maps with different aspect ratio map images
 	 *  reorganize/javadoc code LAST
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
@@ -90,7 +91,6 @@ public class EngineView extends ResourceUser{
 		myBorderPane.setBottom(myStatusPane.buildNode(myScene.widthProperty(),
 				myScene.heightProperty().subtract(boardHeight).subtract(myMenuBar.heightProperty())));
 
-		myScene.setOnDragExited(e -> handleEndMouseRelease(e));
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleDrop(e));
@@ -124,6 +124,7 @@ public class EngineView extends ResourceUser{
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
+		e.consume();
 	}
 
 	private boolean isInBoardPane(double x, double y) {

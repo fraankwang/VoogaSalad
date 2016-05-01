@@ -14,13 +14,15 @@ import engine.backend.game_object.GameStatistics;
 
 public class InGameEntityFactory {
 
-	private GameStatistics myStats;
 	private Map<String, Map<String, IEntity>> myEntityMap;
 	private int currentLevelId;
+	private int initNumEntities;
+	private int nextAvailableID;
 
-	public InGameEntityFactory(GameStatistics stats, List<IEntity> entities) {
-		this.myStats = stats;
+	public InGameEntityFactory(List<IEntity> entities) {
 		this.myEntityMap = createMap(entities);
+		nextAvailableID = 0;
+		//initNumEntities = 0;
 	}
 	
 	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities)
@@ -47,8 +49,7 @@ public class InGameEntityFactory {
 	
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
-
-		IEntity newEntity = new Entity((int) Math.floor(Math.random()*1000), templateEntity.getName(), templateEntity.getGenre());
+		IEntity newEntity = new Entity(initNumEntities + getNextAvailableID(), templateEntity.getName(), templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
 	}
@@ -113,6 +114,15 @@ public class InGameEntityFactory {
 	
 	public void setID(int id){
 		this.currentLevelId = id;
+	}
+	
+	public void setInitNumEntities(int num){
+		this.initNumEntities = num;
+	}
+	
+	private int getNextAvailableID(){
+		nextAvailableID++;
+		return this.nextAvailableID;
 	}
 
 }

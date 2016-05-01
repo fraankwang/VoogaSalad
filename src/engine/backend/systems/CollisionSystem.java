@@ -23,7 +23,12 @@ import engine.backend.utilities.ComponentTagResources;
 public class CollisionSystem extends GameSystem{
  
     @Override
-    public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
+    public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
+    	
+    	if(!playing){
+			return;
+		}
+    	
     	QuadTree quad = setUpQuadTree(myLevel);
     	Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.collisionComponentTag);
     	collidableEntities.forEach(entity -> quad.insert(entity));
@@ -32,11 +37,13 @@ public class CollisionSystem extends GameSystem{
 			retrievedCollidables.clear();
 			quad.retrieve(retrievedCollidables, entity1);
 			retrievedCollidables.stream().filter(entity2 -> checkIntersection(entity1, entity2)).forEach(entity2 -> {
-				IEvent event = getCollisionEvent(entity1, entity2);
-				Set<IEntity> entitySet = new HashSet<IEntity>();
-				entitySet.add(entity1);
-				entitySet.add(entity2);
-				addToEventMap(myEventMap, event, entitySet);
+				if(entity1.getID() != entity2.getID()){
+					IEvent event = getCollisionEvent(entity1, entity2);
+					Set<IEntity> entitySet = new HashSet<IEntity>();
+					entitySet.add(entity1);
+					entitySet.add(entity2);
+					addToEventMap(myEventMap, event, entitySet);
+				}
 			});
 		});
     					 

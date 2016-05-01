@@ -1,8 +1,14 @@
 package engine.controller;
-
+import java.io.File;
+/**
+ * @author austinwu
+ */
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import authoring.backend.Testing;
+import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.HUDValueFinder;
 import engine.backend.game_features.ShopItem;
@@ -25,9 +31,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -40,11 +44,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
+	
+	private File myFile;
 
 	private static final String RESOURCE_NAME = "stage";
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
-	private boolean playing;
+	private boolean stepping;
 
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
@@ -72,7 +78,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		animation.getKeyFrames().add(frame);
 
 		initStage();
-		initStartView();
+		initStartView(true);
 	}
 
 	private void initStage() {
@@ -82,27 +88,34 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.setY(loadIntResource("StartY"));
 	}
 
-	public void initStartView() {
+	public void initStartView(boolean firsttime) {
 		animation.stop();
-		playing = false;
-		myGameWorld = new GameWorld();
+		stepping = false;
 		myTestingClass = new testingClass();
-		myGameWorld = myTestingClass.testFiring();
+		Testing test = new Testing();
+		myGameWorld = test.test1();
 		
-		GameStatistics stats = new GameStatistics(10, 10);
-		myGameWorld.setGameStatistics(stats);
-		myEventManager = new EventManager(this, myGameWorld);
-		
-		StartView myStartView = new StartView(this);
-		Scene scene = myStartView.buildScene();
-		myStage.setScene(scene);
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                keyPressed(event.getCharacter());
-            }
-        });
-		myStage.show();
+        myEventManager = new EventManager(this, myGameWorld);
+        startGame("mode1", 0);
+				
+//		StartView myStartView = new StartView(this, firsttime);
+//		Scene scene = myStartView.buildScene();
+//		myStage.setScene(scene);
+//		myStage.show();
+	}
+	
+	public void initGameWorld(File file){
+		if(file != null){
+			myFile = file;
+		}
+		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
+		try {
+			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(myFile));
+			myEventManager = new EventManager(this, myGameWorld);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block bad xml file error once its thrown
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -116,12 +129,12 @@ public class EngineController extends ResourceUser implements IEngineController 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myEntityFactory = new InGameEntityFactory(myGameWorld.getGameStatistics(),
-				myEventManager.getCurrentLevel().getAuthoredEntities());
+		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		initEngineView();
+		mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), false);
 	}
 	
 	/**
@@ -137,7 +150,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	
 	public Region setupHUD(){
 		HUDController myHUD = new HUDController();
-		myHUD.init(myGameWorld.getGameStatistics(), new HUDValueFinder());
+		myHUD.init(myEventManager.getCurrentGameStatistics(), new HUDValueFinder());
 		AbstractHUDScreen myHUDScreen = myHUD.getView();
 		return ((DrumpfHUDScreen) myHUDScreen).getBody();
 	}
@@ -176,13 +189,14 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void step() {
-		if (playing) {
-			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel());
+		if (stepping) {
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), true);
 		}
 	}
 
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
 			boolean show) {
+		
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
 
@@ -197,12 +211,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void attemptTower(double xLoc, double yLoc, String type) {
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
-		//myEventManager.handleEntityDropEvent(event);
 		mySystems.sendUserInputEvent(event);
+		if(!stepping){
+			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), false);
+		}
 	}
 
 	public void keyPressed(String s){
-		//TODO do something with this string
 		if(lastEntityClickedID != null){
 			IEvent keyPressedEvent = new KeyPressedEntityEvent(lastEntityClickedID, s);
 			mySystems.sendUserInputEvent(keyPressedEvent);
@@ -213,6 +228,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		mySystems.sendUserInputEvent(clickedEvent);
+		
 	}
 
 	public void nextWaveClicked() {
@@ -223,18 +239,35 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void nextLevelClicked() {
 		myEventManager.handleGoToNextLevelEvent();
+		initEngineView();
+	}
+	
+	public List<Integer> currentLevelsUnlocked(String mode){
+		List<Integer> list = new ArrayList<Integer>();
+		for(Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()){
+			if(i <= myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked()){
+				list.add(i);
+			}
+		}
+		return list;
 	}
 
 	public void switchModeClicked() {
-		initStartView();
+		initStartView(false);
 	}
 
-	public void waveIsOver() {
-		myEngineView.getStatusPane().getControlManager().nextWaveEnable();
+	public void waveIsOver(double delaytime) {
+		myEngineView.getStatusPane().getControlManager().nextWaveEnable(delaytime);
 	}
 
-	public void levelIsOver(boolean won) {
-		myEngineView.getStatusPane().getControlManager().nextLevelEnable(won);
+	public void levelIsWon(){
+		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
+	}
+	
+	public void levelIsLost(){
+		stepping = false;
+//		initLoseView();
+		System.out.println("lost");
 	}
 
 	public Main getMain() {
@@ -242,7 +275,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void setPlaying(boolean b) {
-		playing = b;
+		stepping = b;
 	}
 
 	public String getBackgroundImageFile() {

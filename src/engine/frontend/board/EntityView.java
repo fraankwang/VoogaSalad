@@ -30,7 +30,6 @@ public class EntityView {
 		myID = id;
 		myW = new SimpleDoubleProperty(width);
 		myH = new SimpleDoubleProperty(height);
-
 		myImageView = new ImageView(new Image(myImageName));		
 		myImageView.translateXProperty().bind(myController.getEngineView().getScalingFactor().multiply(myX.subtract(myW.divide(2))));
 		myImageView.translateYProperty().bind(myController.getEngineView().getScalingFactor().multiply(myY.subtract(myH.divide(2))));
@@ -40,6 +39,7 @@ public class EntityView {
 	}
 	
 	public void handleClick(){
+		myImageView.requestFocus();
 		myController.entityClicked(myID);
 	}
 		

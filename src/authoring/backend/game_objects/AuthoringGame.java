@@ -1,5 +1,6 @@
 package authoring.backend.game_objects;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class AuthoringGame {
@@ -9,10 +10,11 @@ public class AuthoringGame {
 	
 	public AuthoringGame(String name) {
 		this.myName = name;
+		this.myInfo = new HashMap<String, String>();
 	}
 	
 	public AuthoringGame() {
-		
+		this.myInfo = new HashMap<String, String>();
 	}
 	
 	public void initializeInfo() {

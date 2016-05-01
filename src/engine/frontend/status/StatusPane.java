@@ -1,3 +1,6 @@
+/**
+ * @author austinwu
+ */
 package engine.frontend.status;
 
 import engine.frontend.overall.AbstractPane;
@@ -65,6 +68,7 @@ public class StatusPane extends AbstractPane{
 		Button button = new Button(s);
 		bindHeight(button, heightBinding);
 		bindWidth(button, widthBinding);
+		button.setOnKeyPressed(null);
 		return button;
 	}
 	

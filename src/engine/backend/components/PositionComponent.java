@@ -11,7 +11,7 @@ public class PositionComponent extends Component {
 	private Vector myCriticalPosition;
 	
 	public PositionComponent() {
-		
+		myPositionVector = new Vector(0, 0);
 	}
 
 	public PositionComponent(PositionComponent posComp) {

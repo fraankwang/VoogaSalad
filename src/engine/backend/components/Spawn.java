@@ -88,4 +88,21 @@ public class Spawn {
 		return sb.toString();
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("EntityName: ");
+		sb.append(spawningEntityName);
+		sb.append(", ");
+		sb.append("WaveIndex: ");
+		sb.append(waveIndex);
+		sb.append(", ");
+		sb.append("NumEntities: ");
+		sb.append(numEntities);
+		sb.append(", ");
+		sb.append("Rate: ");
+		sb.append(spawningRate);
+		return sb.toString();
+	}
+	
 }

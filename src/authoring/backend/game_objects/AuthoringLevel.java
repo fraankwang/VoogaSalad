@@ -138,6 +138,10 @@ public class AuthoringLevel {
 		return sb.toString();
 	}
 	
+	public List<Rule> getRuleAgenda() {
+		return ruleAgenda;
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AuthoringLevel) {

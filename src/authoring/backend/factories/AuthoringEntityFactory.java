@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.backend.game_objects.AuthoringEntity;
+import engine.backend.components.CollisionComponent;
 import engine.backend.components.IComponent;
 
 /*
@@ -52,7 +53,7 @@ public class AuthoringEntityFactory {
 				}
 			}
 		}
-
+		
 		Collection<IComponent> temp = componentMap.values();
 
 		List<IComponent> components = new ArrayList<IComponent>(temp);
