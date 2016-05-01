@@ -170,16 +170,11 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 
 	@Override
 	public void resetAttributes() {
-		myInputMap.clear();
-		myAttributes.clear();
-		myAttributes.add("DisplayComponent_Image");
-		myAttributes.add("Genre");
-		myAttributes.add("Name");
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
-		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
+		myAttributesMap = selector.getExtraDefaultAttributes(myAttributesMap.get("Genre"));
 
-		refreshAttributeInputRows();
+		updateAttributes(myAttributesMap);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -204,7 +199,6 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 	
-		checkAllFilled();
 		return myAttributesMap;
 	}
 

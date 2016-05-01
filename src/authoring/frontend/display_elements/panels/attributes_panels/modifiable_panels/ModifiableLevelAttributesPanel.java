@@ -338,6 +338,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		if (myAttributesMap.get("SpawnEntities") != null) {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
+			myAttributesMap.remove("SpawnEntities");
 		}
 
 		setMyPossibleEntities(myController.getEntityImages());
@@ -394,21 +395,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
-		checkAllFilled();
 		return myAttributesMap;
 	}
-
-	@Override
-	public void resetAttributes() {
-		super.resetAttributes();
-		initializeComponents();
-		assembleComponents();
-	}
-	
-	
+		
 	protected void refreshAttributes() {
-
-		myAttributes.remove("SpawnEntities");
 		preserveMapRatio();
 
 		if (myInputMap != null) {
