@@ -161,7 +161,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.setScene(myEngineView.buildScene());
 		myStage.show();
 		setupGameCapture();
-		toggleStepping(false);
+		toggleStepping(true);
 	}
 
 	
