@@ -140,6 +140,15 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		return myAttributesMap;
 	}
 	
+	@Override
+	public void resetAttributes() {
+		super.resetAttributes();
+		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
+		myLevelSelector.initialize();
+		
+	}
+	
+	
 	public LevelGridViewPanel getLevelSelector() {
 		return myLevelSelector;
 	}

@@ -398,6 +398,14 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		return myAttributesMap;
 	}
 
+	@Override
+	public void resetAttributes() {
+		super.resetAttributes();
+		initializeComponents();
+		assembleComponents();
+	}
+	
+	
 	protected void refreshAttributes() {
 
 		myAttributes.remove("SpawnEntities");
