@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.grids;
 
 import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grid_factories.GridFactory;

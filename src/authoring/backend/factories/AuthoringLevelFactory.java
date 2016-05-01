@@ -217,7 +217,6 @@ public class AuthoringLevelFactory {
 		}
 		int pathID = Integer.parseInt(ID);
 		Path path = new Path(temp, pathID);
-		System.out.println(path.toString());
 		return path;
 	}
 

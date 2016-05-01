@@ -7,11 +7,10 @@
 
 package engine.backend.deprecated;
 
+import ch.qos.logback.core.joran.action.Action;
 import engine.backend.entities.Entity;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
-import engine.backend.rules.Action;
-import engine.backend.rules.Predicate;
 import engine.backend.rules.Rule;
 import engine.backend.systems.SystemsController;
 

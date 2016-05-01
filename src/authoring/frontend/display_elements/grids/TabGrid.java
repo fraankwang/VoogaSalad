@@ -1,6 +1,10 @@
 package authoring.frontend.display_elements.grids;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.TabGridFactory;
 import authoring.frontend.display_elements.panels.GridViewPanel;
@@ -8,10 +12,10 @@ import authoring.frontend.display_elements.panels.attributes_panels.Unmodifiable
 import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDashboard;
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;

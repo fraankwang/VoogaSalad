@@ -3,15 +3,13 @@ package authoring.frontend.display_elements;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.configuration.Constants;
 import authoring.frontend.editor_features.ImageImporter;
 import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
-import backend.xml_converting.GameWorldToXMLWriter;
-import backend.xml_converting.ObjectToXMLWriter;
-import engine.backend.game_object.GameWorld;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -20,8 +18,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import main.Main;
 
 /**

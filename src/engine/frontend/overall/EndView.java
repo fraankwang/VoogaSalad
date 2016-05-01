@@ -1,16 +1,14 @@
 package engine.frontend.overall;
 
 
+import engine.controller.EngineController;
 import javafx.beans.binding.DoubleExpression;
-
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
-import engine.controller.EngineController;
 
 public class EndView {
 

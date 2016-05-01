@@ -20,7 +20,6 @@ import engine.backend.components.SpawnerComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
-import engine.backend.game_features.GameShop;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;

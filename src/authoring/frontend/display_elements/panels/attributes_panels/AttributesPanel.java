@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.panels.attributes_panels;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import authoring.frontend.display_elements.panels.Panel;
 import javafx.geometry.Pos;

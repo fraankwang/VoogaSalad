@@ -2,12 +2,8 @@ package engine.backend.systems;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import engine.backend.components.HealthComponent;
 import engine.backend.entities.IEntity;
@@ -17,8 +13,6 @@ import engine.backend.systems.Events.CriticalHealthEvent;
 import engine.backend.systems.Events.DeathEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.utilities.ComponentTagResources;
-
-import java.util.Observable;
 
 /**
  * 

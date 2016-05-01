@@ -1,7 +1,6 @@
 package engine.backend.systems.Events;
 
 import java.util.Collection;
-import java.util.List;
 
 import engine.backend.entities.IEntity;
 

@@ -1,10 +1,10 @@
 package engine.backend.entities;
 
-import engine.backend.components.IComponent;
-import engine.backend.rules.IAction;
-
 import java.util.Collection;
 import java.util.Set;
+
+import engine.backend.components.IComponent;
+import engine.backend.rules.IAction;
 
 /**
  * 

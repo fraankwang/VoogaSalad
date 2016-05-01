@@ -2,8 +2,9 @@ package authoring.frontend.editor_features;
 
 import java.util.Map;
 import java.util.TreeMap;
-import authoring.frontend.configuration.Constants;
+
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

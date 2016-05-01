@@ -1,7 +1,6 @@
 package engine.backend.game_features;
 
 import engine.backend.game_object.GameStatistics;
-import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
 import utility.hud.HUDController;
 import utility.hud.IValueFinder;

@@ -4,14 +4,12 @@
 package engine.frontend.status;
 
 import java.text.DecimalFormat;
-import engine.controller.EngineController;
-import engine.frontend.overall.EndView;
+
 import engine.frontend.overall.ResourceUser;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 

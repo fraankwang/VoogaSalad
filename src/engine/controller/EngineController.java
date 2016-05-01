@@ -4,12 +4,10 @@ package engine.controller;
  * @author austinwu
  */
 import java.io.File;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.backend.Testing;
 //import authoring.backend.Testing;
 import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
@@ -115,7 +113,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            - boolean if this is the first time the splash screen has been
 	 *            shown
 	 */
-	public void initStartView(boolean firsttime) {
+	public void initStartView(boolean firsttime) {		
 		StartView myStartView = new StartView(this, firsttime);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);

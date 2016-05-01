@@ -9,7 +9,6 @@ import java.util.Set;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
-import engine.backend.rules.Rule;
 import engine.backend.systems.Events.EntityClickedEvent;
 import engine.backend.systems.Events.EntityEvent;
 import engine.backend.systems.Events.IEvent;
