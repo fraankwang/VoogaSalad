@@ -98,11 +98,12 @@ public class MenuBarElement implements IMenuBarElement {
 
 	private MenuItem createImportGame() {
 		MenuItem importGame = new MenuItem("Import Game");
+
 		importGame.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Game File");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Game Files", "xml"));
 			File gameFile = fileChooser.showOpenDialog(null);
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("xml"));
 
 			GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
 
@@ -116,6 +117,9 @@ public class MenuBarElement implements IMenuBarElement {
 
 		});
 
+
+		
+		
 		return importGame;
 	}
 

@@ -35,7 +35,6 @@ import javafx.stage.Stage;
 public class TabBarElement implements ITabBarElement {
 
 	private TabPane myTabPane;
-	private TabDisplay myGameTabDisplay;
 	private TabDisplay myModesTabDisplay;
 	private TabDisplay myLevelsTabDisplay;
 	private TabDisplay myEntitiesTabDisplay;
