@@ -13,6 +13,7 @@ import java.util.Set;
 
 import backend.xml_converting.GameWorldToXMLWriter;
 import backend.xml_converting.ObjectToXMLWriter;
+import engine.backend.components.FiringComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
@@ -236,7 +237,8 @@ public class EventManager implements Observer {
 			resetLevel();
 		}
 		else{
-			if(getCurrentLevel().lastWaveOver()){
+			if(getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()){
+				System.out.println("hi");
 				currentGameStatistics.addEndOfLevelLives(currentGameStatistics.getCurrentNumLives());
 				currentGameStatistics.addEndOfLevelResources(currentGameStatistics.getCurrentResources());
 				myEngineController.levelIsWon();
@@ -246,6 +248,29 @@ public class EventManager implements Observer {
 			}
 		}
 
+	}
+	
+	private boolean isEnemyOnScreen(){
+		Set<String> enemyNames = getUniqueEnemyNames();
+		boolean ret = false;
+		for(IEntity entity : getCurrentLevel().getEntities().values()){
+			if(enemyNames.contains(entity.getName())){
+				ret = true;
+				break;
+			}
+		}
+		return ret;
+	}
+	
+	private Set<String> getUniqueEnemyNames(){
+		Set<String> enemyNames = new HashSet<String>();
+		for(IEntity tower: getCurrentLevel().getAuthoredEntities()){
+			if(tower.hasComponent(ComponentTagResources.purchaseComponentTag) && tower.hasComponent(ComponentTagResources.firingComponentTag)){
+				FiringComponent firingComponent = (FiringComponent) tower.getComponent(ComponentTagResources.firingComponentTag);
+				enemyNames.addAll(firingComponent.getTargets());
+			}
+		}
+		return enemyNames;
 	}
 	
 	private void resetLevel(){
