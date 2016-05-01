@@ -64,6 +64,11 @@ public class ModesTabDisplay extends TabDisplay {
 
 		return map;
 	}
+	
+	@Override
+	public void createNew() {
+		myEditorDisplay.edit(getDefaultAttributesMap());
+	}
 
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();

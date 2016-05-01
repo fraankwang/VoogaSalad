@@ -73,6 +73,18 @@ public class EntitiesTabGrid extends TabGrid {
 		});
 	}
 
+	public void openNewEditor() {
+		String newGenre = promptNewName("[ Tower | Enemy | Ammo | Custom ]");
+		if (!newGenre.equals("")) {
+			EntityComponentSelector templateComponentSelector = new EntityComponentSelector(myController);
+			templateComponentSelector.initialize();
+			Map<String, String> defaultAttributesMap = templateComponentSelector.getExtraDefaultAttributes(newGenre);
+			defaultAttributesMap.put("Genre", newGenre);
+			myTabDisplay.openEditorDisplay(defaultAttributesMap);
+		}
+	}
+	
+	
 	/**
 	 * Goes through each entity info (map) and links the ImageView created to
 	 * populating the UnmodifiableAttributesPanel.

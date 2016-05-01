@@ -58,11 +58,32 @@ public class MenuBarElement implements IMenuBarElement {
 	public void initialize() {
 		myMenuBar = new MenuBar();
 		Menu file = createFileMenu();
+		Menu create = createCreateMenu();
 		Menu help = createHelpMenu();
 		myImageImporter = new ImageImporter(myImageChooser);
 		myImageImporter.initialize();
 
-		myMenuBar.getMenus().addAll(file, help);
+		myMenuBar.getMenus().addAll(file, create, help);
+	}
+
+	private Menu createCreateMenu() {
+		MenuItem createEntity = new MenuItem("Create New Entity");
+		createEntity.setOnAction(e -> {
+			myController.getAuthoringViewManager().getTabBarElement().getEntitiesTabDisplay().createNew();
+		});
+		MenuItem createLevel = new MenuItem("Create New Level");
+		createLevel.setOnAction(e -> {
+			myController.getAuthoringViewManager().getTabBarElement().getLevelsTabDisplay().createNew();
+		});
+		MenuItem createMode = new MenuItem("Create New Mode");
+		createMode.setOnAction(e -> {
+			myController.getAuthoringViewManager().getTabBarElement().getModesTabDisplay().createNew();
+		});
+		
+		Menu createMenu = new Menu("Create");
+		createMenu.getItems().addAll(createEntity, createLevel, createMode);
+		return createMenu;
+		
 	}
 
 	private Menu createFileMenu() {
@@ -72,13 +93,7 @@ public class MenuBarElement implements IMenuBarElement {
 		importImages.setOnAction(e -> myImageImporter.openImporter());
 
 		MenuItem importGame = createImportGame();
-		MenuItem exportGame = new MenuItem("Export Game");
-		Map<String, String> createGameMap = new HashMap<String, String>();
-		createGameMap.put("Type", "Create");
-		exportGame.setOnAction(e -> {
-			myController.writeData(createGameMap);
-			myMain.createPlayer(myStage);
-		});
+		MenuItem exportGame = createExportGame();
 
 		Menu open = new Menu("Open in separate window");
 
@@ -93,6 +108,25 @@ public class MenuBarElement implements IMenuBarElement {
 		file.getItems().addAll(open, importImages, importGame, exportGame);
 		return file;
 	}
+	
+	private MenuItem createExportGame() {
+		MenuItem exportGame = new MenuItem("Export Game");
+		exportGame.setOnAction(e -> {
+			FileChooser gameSaver = new FileChooser();
+			gameSaver.setTitle("Save Game File");
+			gameSaver.getExtensionFilters().add(new ExtensionFilter("Game Files", "*.xml"));
+			File gameFile = gameSaver.showSaveDialog(null);
+			
+			Map<String, String> exportGameMap = new HashMap<String, String>();
+			exportGameMap.put("Type", "Export");
+			exportGameMap.put("URL", gameFile.getName());
+			
+			myController.writeData(exportGameMap);
+			myMain.createPlayer(myStage);
+		});
+		
+		return exportGame;
+	}
 
 	private MenuItem createImportGame() {
 		MenuItem importGame = new MenuItem("Import Game");
@@ -100,15 +134,18 @@ public class MenuBarElement implements IMenuBarElement {
 		importGame.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Game File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Game Files", "xml"));
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Game Files", "*.xml"));
 			File gameFile = fileChooser.showOpenDialog(null);
 
-			GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
-
+			Map<String, String> importGameMap = new HashMap<String, String>();
+			importGameMap.put("Type", "Export");
+			importGameMap.put("URL", gameFile.getName());
+			
+			myController.writeData(importGameMap);
 			
 			try {
-				String string = ObjectToXMLWriter.documentToString(gameFile);
-				GameWorld game = (GameWorld) writer.xMLToObject(string);
+//				String string = ObjectToXMLWriter.documentToString(gameFile);
+//				GameWorld game = (GameWorld) writer.xMLToObject(string);
 				
 //				List<Map<String, String>> myModes = 
 //				List<Map<String, String>> myLevels
@@ -118,6 +155,7 @@ public class MenuBarElement implements IMenuBarElement {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
+
 
 		});
 

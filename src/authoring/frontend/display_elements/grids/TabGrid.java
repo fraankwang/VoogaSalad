@@ -84,7 +84,7 @@ public abstract class TabGrid extends Grid {
 			duplicateEntity.put(s, info.get(s));
 		}
 
-		String newName = promptNewName();
+		String newName = promptNewName("duplicate name");
 		if (!newName.equals("")) {
 			duplicateEntity.replace("Name", newName);
 			duplicateEntity.remove("Type");

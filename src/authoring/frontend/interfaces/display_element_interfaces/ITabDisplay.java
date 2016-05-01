@@ -26,4 +26,6 @@ public interface ITabDisplay extends IDisplayElement, Observer {
 	
 	public void update(List<Map<String, String>> data);
 
+	public void createNew();
+
 }
