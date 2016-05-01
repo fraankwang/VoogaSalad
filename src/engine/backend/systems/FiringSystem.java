@@ -47,6 +47,15 @@ public class FiringSystem extends GameSystem {
 
 	} 
 	
+	/**
+	 * Updates the firing by getting the firing component from the shooting entity.
+	 * Checks whether or not the entity can shoot and instantiates the entity being fired.
+	 * @param shootingEntity
+	 * @param targetEntity
+	 * @param newEntities
+	 * @param currentSecond
+	 * @param myEntityFactory
+	 */
 	private void updateFiring(IEntity shootingEntity, IEntity targetEntity, Collection<IEntity> newEntities, 
 			double currentSecond, InGameEntityFactory myEntityFactory){
 		

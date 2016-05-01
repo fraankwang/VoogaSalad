@@ -16,18 +16,19 @@ import engine.backend.systems.Events.IEvent;
 
 /**
  * System receives user input from user.
+ * 
  * @author Christine Zhou (clz4)
  *
  */
-public class UserInputSystem extends GameSystem{
+public class UserInputSystem extends GameSystem {
 	private Collection<IEvent> nonMapEvents;
 	private Collection<EntityEvent> myMapEvents;
-	
+
 	public UserInputSystem() {
 		nonMapEvents = new ArrayList<IEvent>();
 		myMapEvents = new ArrayList<EntityEvent>();
 	}
-	
+
 	@Override
 	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory,
 			double currentSecond) {
@@ -43,8 +44,9 @@ public class UserInputSystem extends GameSystem{
 	}
 
 	/**
-	 * Handles a user event by sort events into events that were defined in user (in map) and
-	 * events that were not defined by user(nonMap).
+	 * Handles a user event by sort events into events that were defined in user
+	 * (in map) and events that were not defined by user(nonMap).
+	 * 
 	 * @param event
 	 */
 	public void handleUserEvent(IEvent event) {
@@ -63,12 +65,12 @@ public class UserInputSystem extends GameSystem{
 	        ((Observable) entity).addObserver(event.getCurrentView());
 	        entity.broadcastEntity();
 	}
-	
+
 	/**
 	 * 
 	 * @return A collection of IEvents that would not be within the map.
 	 */
 	public Collection<IEvent> getNonMapEvents() {
-			return nonMapEvents;
+		return nonMapEvents;
 	}
 }
