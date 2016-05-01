@@ -23,13 +23,15 @@ import engine.backend.utilities.ComponentTagResources;
 public class HealthSystem extends GameSystem {
 
 	@Override
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
-		
-		if(!playing){
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
+			InGameEntityFactory myEntityFactory, double currentSecond) {
+
+		if (!playing) {
 			return;
 		}
-		
-		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.healthComponentTag);
+
+		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+				ComponentTagResources.healthComponentTag);
 		for (IEntity entity : applicableEntities) {
 			HealthComponent healthComp = (HealthComponent) entity
 					.getComponent(ComponentTagResources.healthComponentTag);

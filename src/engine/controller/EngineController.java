@@ -113,7 +113,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            - boolean if this is the first time the splash screen has been
 	 *            shown
 	 */
-	public void initStartView(boolean firsttime) {		
+	public void initStartView(boolean firsttime) {
 		StartView myStartView = new StartView(this, firsttime);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);
@@ -153,7 +153,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			new DrumpfTowerException(myExceptionLoader.getString(INITGAME));
 		}
 		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
-		//System.out.println(myEntityFactory);
+		// System.out.println(myEntityFactory);
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
@@ -328,8 +328,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		mySystems.sendUserInputEvent(clickedEvent);
-		//test
-		//levelIsOver(false);
+		// test
+		// levelIsOver(false);
 
 	}
 
@@ -435,8 +435,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		stepping = shouldStep;
 		myEngineView.getStatusPane().getControlManager().togglePlayButton(shouldStep);
 	}
-	
-	public void toggleStepping(){
+
+	public void toggleStepping() {
 		toggleStepping(!stepping);
 	}
 

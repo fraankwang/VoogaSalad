@@ -78,11 +78,11 @@ public class MenuBarElement implements IMenuBarElement {
 		createMode.setOnAction(e -> {
 			myController.getAuthoringViewManager().getTabBarElement().getModesTabDisplay().createNew();
 		});
-		
+
 		Menu createMenu = new Menu(Constants.getString("CREATE_MENU"));
 		createMenu.getItems().addAll(createEntity, createLevel, createMode);
 		return createMenu;
-		
+
 	}
 
 	private Menu createFileMenu() {
@@ -107,7 +107,7 @@ public class MenuBarElement implements IMenuBarElement {
 		file.getItems().addAll(open, importImages, importGame, exportGame);
 		return file;
 	}
-	
+
 	private MenuItem createExportGame() {
 		MenuItem exportGame = new MenuItem(Constants.getString("EXPORT_MENU"));
 		exportGame.setOnAction(e -> {
@@ -115,15 +115,15 @@ public class MenuBarElement implements IMenuBarElement {
 			gameSaver.setTitle("Save Game File");
 			gameSaver.getExtensionFilters().add(new ExtensionFilter("Game Files", "*.xml"));
 			File gameFile = gameSaver.showSaveDialog(null);
-			
+
 			Map<String, String> exportGameMap = new HashMap<String, String>();
 			exportGameMap.put("Type", "Export");
 			exportGameMap.put("URL", gameFile.getName());
-			
+
 			myController.writeData(exportGameMap);
 			myMain.createPlayer(myStage);
 		});
-		
+
 		return exportGame;
 	}
 
@@ -139,28 +139,24 @@ public class MenuBarElement implements IMenuBarElement {
 			Map<String, String> importGameMap = new HashMap<String, String>();
 			importGameMap.put("Type", "Export");
 			importGameMap.put("URL", gameFile.getName());
-			
+
 			myController.writeData(importGameMap);
-			
+
 			try {
-//				String string = ObjectToXMLWriter.documentToString(gameFile);
-//				GameWorld game = (GameWorld) writer.xMLToObject(string);
-				
-//				List<Map<String, String>> myModes = 
-//				List<Map<String, String>> myLevels
-//				List<Map<String, String>> myEntities
-//				myController.updateAll(myModes, myLevels, myEntities);
-				
+				// String string = ObjectToXMLWriter.documentToString(gameFile);
+				// GameWorld game = (GameWorld) writer.xMLToObject(string);
+
+				// List<Map<String, String>> myModes =
+				// List<Map<String, String>> myLevels
+				// List<Map<String, String>> myEntities
+				// myController.updateAll(myModes, myLevels, myEntities);
+
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 
-
 		});
 
-
-		
-		
 		return importGame;
 	}
 
@@ -176,7 +172,8 @@ public class MenuBarElement implements IMenuBarElement {
 		openWiki.setOnAction(
 				e -> openWebPage("https://github.com/duke-compsci308-spring2016/voogasalad_DrumpfTower/wiki"));
 		MenuItem openTDWiki = new MenuItem(Constants.getString("HOWTO_MENU"));
-		openTDWiki.setOnAction(e -> openWebPage("https://docs.google.com/document/d/1XtS7cTKnU7g7cwGhlDpgI7qe-cJQXso01z_qSoRJRwk/edit?usp=sharing"));
+		openTDWiki.setOnAction(e -> openWebPage(
+				"https://docs.google.com/document/d/1XtS7cTKnU7g7cwGhlDpgI7qe-cJQXso01z_qSoRJRwk/edit?usp=sharing"));
 
 		help.getItems().addAll(openWiki, openTDWiki);
 		return help;

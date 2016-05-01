@@ -21,7 +21,7 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 
 	private BorderPane myWrapper;
 	private GridPane myGridPane;
-	
+
 	public UnmodifiableModeAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
 		myDefaultAttributes = Arrays.asList("Name", "InitialLives", "InitialResources");
@@ -38,7 +38,7 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myGridPane.setMaxWidth(MAX_SIZE);
-		
+
 		myAttributesGridPane = createAttributesGridPane(myDefaultAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 

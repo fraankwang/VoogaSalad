@@ -34,7 +34,8 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	 */
 	@Override
 	public Panel createPrimaryDisplay() {
-		EditorViewPanel editorView = new EditorViewPanel(Constants.getInt("ENTITY_EDITOR_GRID_SIZE"), Constants.getInt("ENTITY_EDITOR_GRID_SIZE"));
+		EditorViewPanel editorView = new EditorViewPanel(Constants.getInt("ENTITY_EDITOR_GRID_SIZE"),
+				Constants.getInt("ENTITY_EDITOR_GRID_SIZE"));
 		editorView.initialize();
 		editorView.setImage(new Image("resources/images/question_mark.png"));
 		editorView.setDescription("Entity");

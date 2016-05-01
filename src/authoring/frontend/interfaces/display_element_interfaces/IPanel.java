@@ -11,11 +11,11 @@ import javafx.scene.control.Button;
  */
 
 public interface IPanel extends IDisplayElement {
-	
+
 	public void setHeight(double height);
 
 	public void setWidth(double width);
-	
+
 	public Button addButton(String label, EventHandler<ActionEvent> action);
-	
+
 }

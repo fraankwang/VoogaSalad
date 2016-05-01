@@ -29,7 +29,8 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 	 */
 	@Override
 	public Panel createPrimaryDisplay() {
-		LevelGridViewPanel levelView = new LevelGridViewPanel(Constants.getDouble("LEVEL_GRID_SIZE"), Constants.getDouble("LEVEL_GRID_SIZE"), null, myController);
+		LevelGridViewPanel levelView = new LevelGridViewPanel(Constants.getDouble("LEVEL_GRID_SIZE"),
+				Constants.getDouble("LEVEL_GRID_SIZE"), null, myController);
 		levelView.initialize();
 		return levelView;
 	}

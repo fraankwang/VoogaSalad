@@ -17,14 +17,14 @@ import engine.backend.systems.SystemsController;
 public class FakeGAEBackend {
 
 	private SystemsController systems;
-	//private EntityFactoryClass entityFactory;
+	// private EntityFactoryClass entityFactory;
 	private GameWorld trumpGame;
 	private MockGAEData frontMockData;
 
 	public FakeGAEBackend() {
-		//entityFactory = new EntityFactoryClass();
+		// entityFactory = new EntityFactoryClass();
 		frontMockData = new MockGAEData();
-		
+
 	}
 
 	public GameWorld createGameObject() {
@@ -42,10 +42,11 @@ public class FakeGAEBackend {
 		int tempx_y = 0;
 		for (int eachSprite = 0; eachSprite < mockData.level1SpritesComponentWanted.length; eachSprite++) {
 			Entity entity;
-//			System.out.println(mockData.level1SpritesComponentWanted[eachSprite]);
+			// System.out.println(mockData.level1SpritesComponentWanted[eachSprite]);
 			entity = entityFactory.makeEntity(trumpGame, mockData.level1SpritesComponentWanted[eachSprite]);
 			// this is the line that assumes we are on mode one and level one
-			Rule myRule = new Rule(); myRule.addPredicate(new Predicate(mockData.myRules[eachSprite][0])); 
+			Rule myRule = new Rule();
+			myRule.addPredicate(new Predicate(mockData.myRules[eachSprite][0]));
 			myRule.setMyAction(new Action(mockData.myRules[eachSprite][1]));
 			myRule.setMyMethodToCall(mockData.myRules[eachSprite][2]);
 			entity.addRule(myRule);

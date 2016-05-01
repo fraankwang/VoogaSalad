@@ -29,9 +29,10 @@ public class PathBuilder implements IDisplayElement {
 		myBezierCurves = new ArrayList<BezierCurveManipulator>();
 		myNode = new Group();
 	}
-	
+
 	public void createNewCurve(List<String> coordinates) {
-		BezierCurveManipulator newCurve = new BezierCurveManipulator(myWidth, myHeight, this, myBezierCurves.size(), myPathIndex);
+		BezierCurveManipulator newCurve = new BezierCurveManipulator(myWidth, myHeight, this, myBezierCurves.size(),
+				myPathIndex);
 		newCurve.initialize();
 		if (coordinates != null) {
 			newCurve.setCoordinates(coordinates);

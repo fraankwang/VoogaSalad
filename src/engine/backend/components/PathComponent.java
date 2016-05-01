@@ -36,9 +36,9 @@ public class PathComponent extends Component {
 		myBezierTime = time;
 		movesWithTime = true;
 	}
-	
+
 	public PathComponent() {
-		
+
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class PathComponent extends Component {
 	public String toString() {
 		return "PathID: " + pathID;
 	}
-	
+
 	@Override
 	public String getComponentInfo() {
 		return "PathID:" + pathID;

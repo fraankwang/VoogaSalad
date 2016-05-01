@@ -58,20 +58,21 @@ public class GridViewPanel extends Panel {
 		myScrollPane = new ScrollPane();
 		myPanelBar = new GridPanelBar(MAX_SIZE, MAX_SIZE, this);
 		myPanelBar.initialize();
-		
+
 		myImages = new ArrayList<ImageView>();
 		myAddNewButton = new Button("Add New");
 		myAddNewButton.setStyle(
 				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#515D7B,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
 
 		myAddNewButton.setPrefSize(ADD_NEW_BUTTON_SIZE, ADD_NEW_BUTTON_SIZE);
-		
+
 	}
 
 	public void resetGrid() {
 		myGridPane.getChildren().clear();
 		myGridPane.getColumnConstraints().clear();
-		double gridCellSize = (myScrollPane.getViewportBounds().getWidth() - Constants.getInt("SCROLLPANE_OFFSET")) / numColumns;
+		double gridCellSize = (myScrollPane.getViewportBounds().getWidth() - Constants.getInt("SCROLLPANE_OFFSET"))
+				/ numColumns;
 		for (int i = 0; i < numColumns; i++) {
 			ColumnConstraints column = new ColumnConstraints();
 			column.setMinWidth(gridCellSize);
@@ -151,11 +152,11 @@ public class GridViewPanel extends Panel {
 	public Button getMyAddNewButton() {
 		return myAddNewButton;
 	}
-	
-	public void setPanelBarDescription(String description) { 
+
+	public void setPanelBarDescription(String description) {
 		((GridPanelBar) myPanelBar).setDescription(description);
 	}
-	
+
 	public Node getMyGridPane() {
 		return myGridPane;
 	}

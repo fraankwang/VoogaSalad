@@ -45,7 +45,8 @@ public class ObjectChooser {
 		myListView.setItems(myObjectsList);
 		mySelection = "";
 		myStage = new Stage();
-		myScene = new Scene(myListView, Constants.getInt("OBJECT_CHOOSER_WIDTH"), Constants.getInt("OBJECT_CHOOSER_HEIGHT"), Color.WHITE);
+		myScene = new Scene(myListView, Constants.getInt("OBJECT_CHOOSER_WIDTH"),
+				Constants.getInt("OBJECT_CHOOSER_HEIGHT"), Color.WHITE);
 		myStage.setScene(myScene);
 		myListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -88,7 +89,7 @@ public class ObjectChooser {
 	public ObservableList<Label> getList() {
 		return myObjectsList;
 	}
-	
+
 	public void clear() {
 		myObjectsList.clear();
 	}

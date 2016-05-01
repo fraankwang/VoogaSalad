@@ -4,12 +4,12 @@ import java.util.List;
 
 public class SpawnerComponent extends Component implements IComponent {
 
-/**
- * A component that gives the ability to an entity to spawn more entities.
- * 
- * @author
- *
- */
+	/**
+	 * A component that gives the ability to an entity to spawn more entities.
+	 * 
+	 * @author
+	 *
+	 */
 
 	private List<Spawn> mySpawns;
 	private int pathID;

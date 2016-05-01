@@ -55,7 +55,7 @@ public abstract class AttributesPanel extends Panel {
 		TextField textBox = new TextField();
 		return promptUserInput(promptValue, textBox);
 	}
-	
+
 	protected String promptUserInput(String promptValue, TextField tf) {
 		Stage promptStage = new Stage();
 		promptedString = "";
@@ -74,7 +74,7 @@ public abstract class AttributesPanel extends Panel {
 			promptStage.close();
 			return;
 		});
-		
+
 		tf.setOnAction(e -> {
 			promptedString = tf.getText();
 			promptStage.close();
@@ -91,7 +91,7 @@ public abstract class AttributesPanel extends Panel {
 		promptStage.showAndWait();
 		return promptedString;
 	}
-	
+
 	public String promptUserInput(String promptValue, ComboBox<String> cb) {
 		Stage promptStage = new Stage();
 		promptedString = "";

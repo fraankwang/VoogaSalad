@@ -26,17 +26,21 @@ public class MobilizeSystem extends GameSystem {
 	}
 
 	@Override
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
-		
-		if(!playing){
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
+			InGameEntityFactory myEntityFactory, double currentSecond) {
+
+		if (!playing) {
 			return;
 		}
-		
-		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.movementComponentTag);
+
+		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+				ComponentTagResources.movementComponentTag);
 		for (IEntity entity : movableEntities) {
 
-			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
-			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
+			MovementComponent movComponent = (MovementComponent) entity
+					.getComponent(ComponentTagResources.movementComponentTag);
+			PositionComponent posComponent = (PositionComponent) entity
+					.getComponent(ComponentTagResources.positionComponentTag);
 
 			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
 				PathComponent pathComponent = (PathComponent) entity
@@ -120,12 +124,13 @@ public class MobilizeSystem extends GameSystem {
 	 * updates it's position along the curve If the entity reaches the end of
 	 * the curve (bezier time is max), it will generate an EndOfPathEvent
 	 */
-	private IEvent updatePositionOnPath(IEntity entity, PositionComponent posComponent, MovementComponent movComponent, PathComponent pathComponent, Path path){
+	private IEvent updatePositionOnPath(IEntity entity, PositionComponent posComponent, MovementComponent movComponent,
+			PathComponent pathComponent, Path path) {
 		double currBezTime = pathComponent.getBezierTime();
-				
-		if((currBezTime >= path.numCurves() - 0.01)){
-			
-			//create end of path event
+
+		if ((currBezTime >= path.numCurves() - 0.01)) {
+
+			// create end of path event
 
 			IEvent event = getEndOfPathEvent(entity);
 			return event;
@@ -138,11 +143,11 @@ public class MobilizeSystem extends GameSystem {
 		Vector velVector = movComponent.getCurrentVelocityVector();
 
 		BezierCurve currCurve = path.getCurveFromTime(currBezTime);
-	
+
 		double speed = velVector.calculateMagnitude();
 
 		double bezTimeStep = speed / currCurve.getLength();
-		
+
 		double newBezTime = currBezTime + bezTimeStep;
 
 		BezierCurve newCurve = path.getCurveFromTime(newBezTime);
