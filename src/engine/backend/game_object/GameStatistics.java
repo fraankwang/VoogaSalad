@@ -106,8 +106,9 @@ public class GameStatistics implements IModifiable{
 		return this.currentResources;
 	}
 
-	public void setCurrentResources(double currentResources) {
-		this.currentResources.setValue(currentResources);
+	public void setCurrentResources(double curResources) {
+		this.currentResources.setValue(curResources);
+		System.out.println("VALUE UPDATED TO " + currentResources.getValue() + "AND SHOULD BE " + curResources);
 	}
 	
 	public void setCurrentResources(String delta){
