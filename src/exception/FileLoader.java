@@ -12,38 +12,39 @@ import java.util.Properties;
  *
  */
 public abstract class FileLoader {
-    
-    private static final String FILE_NOT_FOUND = "File not found";
-    Properties myProperties;
-    private BufferedReader myFileReader;
-    private String fileName;
 
-    /**
-     * Loads language property file into property object
-     * @throws DrumpfTowerException
-     */
-    public void load(String path, String extension) throws DrumpfTowerException{
-        fileName = path + "/" + extension;
-        myFileReader = null;
-        try {
-            myFileReader = new BufferedReader(new FileReader(fileName));
-        } catch (IOException e) {
-            throw new DrumpfTowerException(String.format("File not found: %s", fileName));
-        }
-        myProperties = new Properties();
-        try {
-            myProperties.load(myFileReader);
-        } catch (IOException e) {
-            throw new DrumpfTowerException(FILE_NOT_FOUND);
-        }
-    }
+	private static final String FILE_NOT_FOUND = "File not found";
+	Properties myProperties;
+	private BufferedReader myFileReader;
+	private String fileName;
 
-    public String getFileName(){
-        return fileName;
-    }
+	/**
+	 * Loads language property file into property object
+	 * 
+	 * @throws DrumpfTowerException
+	 */
+	public void load(String path, String extension) throws DrumpfTowerException {
+		fileName = path + "/" + extension;
+		myFileReader = null;
+		try {
+			myFileReader = new BufferedReader(new FileReader(fileName));
+		} catch (IOException e) {
+			throw new DrumpfTowerException(String.format("File not found: %s", fileName));
+		}
+		myProperties = new Properties();
+		try {
+			myProperties.load(myFileReader);
+		} catch (IOException e) {
+			throw new DrumpfTowerException(FILE_NOT_FOUND);
+		}
+	}
 
-    public String getString(String key) throws DrumpfTowerException {
-        return myProperties.getProperty(key);
-    }
+	public String getFileName() {
+		return fileName;
+	}
+
+	public String getString(String key) throws DrumpfTowerException {
+		return myProperties.getProperty(key);
+	}
 
 }

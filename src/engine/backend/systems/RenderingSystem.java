@@ -45,9 +45,7 @@ public class RenderingSystem extends GameSystem {
 			double sizey = Integer.MIN_VALUE;
 			boolean show = true;
 			boolean delete = false;
-			
-			System.out.println(myEntity.getName());
-			
+						
 			for (IComponent eachComponent : myEntity.getComponents()) {
 				if (eachComponent.getTag().equals(ComponentTagResources.displayComponentTag)) {
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();
@@ -69,16 +67,27 @@ public class RenderingSystem extends GameSystem {
 			if(delete){
 				entitiesToRemove.add(myEntity);
 			}
-			
+
 			myEntity.setHasBeenModified(false);
-		
+
 		}
-		
+
 		myLevel.removeEntites(entitiesToRemove);
-		
 	}
-	
-	public void sendUpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey, boolean show){
+
+	/**
+	 * Sends the update entity event with the necessary components needed. Event manager
+	 * receives this event.
+	 * @param x
+	 * @param y
+	 * @param image
+	 * @param id
+	 * @param sizex
+	 * @param sizey
+	 * @param show
+	 */
+	public void sendUpdateEntityEvent(double x, double y, String image, int id, double sizex, double sizey,
+			boolean show) {
 		UpdateEntityEvent event = new UpdateEntityEvent(x, y, image, id, sizex, sizey, show);
 		this.setChanged();
 		notifyObservers(event);

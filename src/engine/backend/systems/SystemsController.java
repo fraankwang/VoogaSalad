@@ -69,17 +69,17 @@ public class SystemsController {
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
 		mySystems.add(userInputSystem);
-		//mySystems.add(myEventManager);
-		//mySystems.add(renderingSystem);
-	
+		// mySystems.add(myEventManager);
+		// mySystems.add(renderingSystem);
+
 		myGameClock = new GameClock(framesPerSecond);
 	}
-	
+
 	/**
 	 * Receives user input from frontend, sends it to UserInputSystem
 	 * @param event
 	 */
-	public void sendUserInputEvent(IEvent event){
+	public void sendUserInputEvent(IEvent event) {
 		userInputSystem.handleUserEvent(event);
 	}
 
@@ -92,17 +92,16 @@ public class SystemsController {
 		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
 		myEventManager.handleNonMapEvents(nonMapEvents);
 		nonMapEvents.clear();
-		//handle all the generate events
-//		myEventManager.handleGeneratedEvents(myEventMap);
+
+		// handle all the generate events
+		myEventManager.handleGeneratedEvents(myEventMap);
+
 		myEventManager.updateGameShop();
 		renderingSystem.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
 		myEventManager.handleLevelOver();
 		if(!playing){
 			myGameClock.updateLoopIteration();
 		}
-		
 	}
-	
-	
-	
+
 }

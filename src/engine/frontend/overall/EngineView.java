@@ -29,16 +29,9 @@ import utility.gamecapture.GameCapture;
 
 public class EngineView extends ResourceUser{
 
-	/*
-	 * Big todos:
-	 * Figure out picking/choosing levels etc.- cant play a level unless its been already played
-	 * 
-	 *  Small todos:
-	 *  finish "load game" option for first screen- almost done 
-	 *  lose-the-game screen
-	 *  Set up upgrades to send backend info when dropped on towers
-	 *  make sure game loop works when loading new maps with different aspect ratio map images
+	/*  
 	 *  reorganize/javadoc code LAST
+	 *  things that go off map go "under" the borders
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 
@@ -118,8 +111,13 @@ public class EngineView extends ResourceUser{
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Handles cursor moving across boardPane to have drag and drop cursor follow correctly
 	 * @param e - DragEvent created by dragging a tower onto the screen
+=======
+	 * Handles the changes in mouse position while the mouse is pressed, allows 
+	 * the image to track the cursor
+>>>>>>> 9f944fb2afc22d80ecb2d06f9d772c198f85a760
 	 */
 	private void handleMove(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
@@ -129,41 +127,21 @@ public class EngineView extends ResourceUser{
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
 		}
-		e.consume();
 	}
 
+	
 	/**
-	 * Interface with back end to notify engine that objects have been placed/released 
-	 * @param e - DragDropped event
+	 * Called a dragged shop item is dropped on the scene
+	 * @param e
 	 */
 	private void handleEndMouseRelease(DragEvent e) {
-		e.acceptTransferModes(TransferMode.ANY);
-		
-		if (e.getGestureSource() != myScene && e.getDragboard().hasString()) {
-			System.out.println("dropped something");
-			
-			for( Integer id: myBoardPane.getEntityMap().keySet()){
-				
-				if( myBoardPane.getEntityMap().get(id).contains(e.getSceneX(), e.getSceneY())){
-					myBoardPane.getEntityMap().get(id).handlePowerUpDrop(e);
-					myDummyCursor.changePic(null);
-					this.getStage().getScene().setCursor(Cursor.DEFAULT);
-					return;
-				}
-			}
-			
-			System.out.println("attempting this");
-			if(isInBoardPane(e.getX(), e.getY())) {
-				System.out.println("and this");
-				System.out.println(e.getX());
-				System.out.println(e.getY());
-				System.out.println(e.getDragboard().getString());
-				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
-				System.out.println("placing tower");
-				this.getStage().getScene().setCursor(Cursor.DEFAULT);
-				System.out.println("resetting cursor");
-				myDummyCursor.changePic(null);
-				return;
+		if (e.getGestureSource() != myScene) {
+			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+				if(!e.getDragboard().getString().equals("SpeedPowerUp") && !e.getDragboard().getString().equals("RangePowerUp")){
+					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+					System.out.println(e.getDragboard().getString());
+					System.out.println("dropping tower");
+				}			
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
