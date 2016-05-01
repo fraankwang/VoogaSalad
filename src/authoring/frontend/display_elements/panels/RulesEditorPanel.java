@@ -80,9 +80,9 @@ public class RulesEditorPanel extends Panel {
 		myRules = FXCollections.observableArrayList();
 		myRulesStage = new Stage();
 		((ModifiableLevelAttributesPanel) myAttributes).updateRulesView(myRules);
-		myAddNewIfButton = new Button("Add New If");
+		myAddNewIfButton = new Button(Constants.getString("NEW_IF_BUTTON"));
 		myAddNewIfButton.setOnAction(e -> openStatementCreator(openIfScene()));
-		myAddNewThenButton = new Button("Add New Then");
+		myAddNewThenButton = new Button(Constants.getString("NEW_THEN_BUTTON"));
 		myAddNewThenButton.setOnAction(e -> openStatementCreator(openThenScene()));
 		myIfStatements = new ListView<String>();
 		myThenStatements = new ListView<String>();
@@ -101,8 +101,8 @@ public class RulesEditorPanel extends Panel {
 
 		GridPane grid = createGridWrapper(rowConstraints, columnConstraints);
 
-		VBox ifbox = createVBoxWrapper("If Statements", myAddNewIfButton);
-		VBox thenbox = createVBoxWrapper("Then Statements", myAddNewThenButton);
+		VBox ifbox = createVBoxWrapper(Constants.getString("IF_LABEL"), myAddNewIfButton);
+		VBox thenbox = createVBoxWrapper(Constants.getString("THEN_LABEL"), myAddNewThenButton);
 		mySimpleButtonDashboard.getSaveButton().setOnAction(e -> {
 			StringBuilder sb = new StringBuilder();
 			myIfStatements.getItems().forEach(event -> sb.append(event + "+"));
@@ -273,7 +273,7 @@ public class RulesEditorPanel extends Panel {
 		levelValueChooser.getItems().addAll(MODIFIABLE_LEVEL_ATTRIBUTES);
 		TextField deltaValueField = new TextField();
 
-		Button saveButton = new Button("Create Action");
+		Button saveButton = new Button(Constants.getString("CREATE_ACTION_BUTTON"));
 		saveButton.setOnAction(e -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append(typeChooser.getSelectionModel().getSelectedItem() + "-");
@@ -287,8 +287,7 @@ public class RulesEditorPanel extends Panel {
 			}
 			if (thenStatementBuilder.getChildren().contains(selectNewValueBox)) {
 				sb.append(newValueChooser.getSelectionModel().getSelectedItem().getText());
-//				Enemy-CriticalHealthEvent:Entity-Enemy-Movement-Velocity-15
-//				MovementComponent_Velocity -> Movement-Velocity
+
 			} else {
 				sb.append(deltaValueField.getText());
 			}

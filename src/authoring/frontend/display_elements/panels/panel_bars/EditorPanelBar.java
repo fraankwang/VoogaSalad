@@ -42,7 +42,7 @@ public class EditorPanelBar extends PanelBar {
 
 	@Override
 	public void setDescription(String description) {
-		myDescription.setText("You are currently editing your " + description);
+		myDescription.setText(Constants.getString("PANEL_BAR_DESCRIPTION") + " " + description);
 
 	}
 

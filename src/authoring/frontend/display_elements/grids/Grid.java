@@ -119,8 +119,8 @@ public abstract class Grid implements IGrid {
 		promptBox.getChildren().add(textBox);
 		HBox buttonBox = new HBox();
 		buttonBox.setAlignment(Pos.CENTER);
-		Button cancelButton = new Button("Cancel");
-		Button saveButton = new Button("Save");
+		Button cancelButton = new Button(Constants.getString("CANCEL_BUTTON"));
+		Button saveButton = new Button(Constants.getString("SAVE_BUTTON"));
 		cancelButton.setOnAction(e -> promptStage.close());
 		textBox.setOnAction(e -> {
 			newPromptedString = textBox.getText();

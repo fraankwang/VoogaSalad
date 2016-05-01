@@ -52,7 +52,7 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 		editorView.setImage(new Image("resources/images/question_mark.png"));
 		editorView.setDescription("Level");
 
-		editorView.getPanelBar().addButton("Upload Map Image", e -> {
+		editorView.getPanelBar().addButton(Constants.getString("UPLOAD_IMAGE_BUTTON"), e -> {
 			String newImage = myController.getAuthoringViewManager().getObjectChooser().openChooser();
 			editorView.setImage(new Image(newImage));
 			((ModifiableLevelAttributesPanel) myEditorGrid.getAttributesPanel()).updateImageComponent(newImage);

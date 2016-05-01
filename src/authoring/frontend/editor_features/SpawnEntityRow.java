@@ -1,7 +1,5 @@
 package authoring.frontend.editor_features;
 
-import com.sun.corba.se.impl.orbutil.closure.Constant;
-
 import authoring.frontend.configuration.Constants;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,8 +40,8 @@ public class SpawnEntityRow {
 		myName = new Label(name);
 		myName.setFont(new Font(FONT_SIZE));
 		myImage = image;
-		myImage.setFitHeight(25);
-		myImage.setFitWidth(25);
+		myImage.setFitHeight(Constants.getInt("SPAWN_ENTITY_ROW_IMAGE_SIZE"));
+		myImage.setFitWidth(Constants.getInt("SPAWN_ENTITY_ROW_IMAGE_SIZE"));
 		myName.setGraphic(myImage);
 
 		myNumber = new TextField(number);
@@ -92,7 +90,7 @@ public class SpawnEntityRow {
 	 * Connects the increase/decrease buttons with myNumber.
 	 */
 	private void initializeButtons() {
-		myIncreaseButton = new Button("+");
+		myIncreaseButton = new Button(Constants.getString("PLUS_BUTTON"));
 
 		myIncreaseButton.setOnAction(e -> {
 			String currentNumber = myNumber.getText();
@@ -104,7 +102,7 @@ public class SpawnEntityRow {
 			}
 		});
 
-		myDecreaseButton = new Button("-");
+		myDecreaseButton = new Button(Constants.getString("PLUS_BUTTON"));
 		myDecreaseButton.setOnAction(e -> {
 			String currentNumber = myNumber.getText();
 			if (currentNumber == null || currentNumber.equals("") || currentNumber.equals("0")) {
@@ -115,7 +113,7 @@ public class SpawnEntityRow {
 			}
 		});
 
-		myDeleteButton = new Button("X");
+		myDeleteButton = new Button(Constants.getString("DELETE_BUTTON"));
 	}
 
 	public Label getMyPathID() {

@@ -33,7 +33,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 
 	public LevelGridViewPanel(double height, double width, ITabDisplay tabDisplay, IAuthoringView controller) {
 		super(height, width, tabDisplay, controller);
-		myDeleteButton = new Button("Reset");
+		myDeleteButton = new Button(Constants.getString("RESET_BUTTON"));
 		mySelectedLevels = new ArrayList<String>();
 		myPossibleLevels = new HashMap<String, String>();
 		myChooser = new ObjectChooser();
@@ -47,7 +47,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 	
 	@Override
 	protected void assembleComponents() {
-		myAddNewButton = new Button("Add New Level to Mode");
+		myAddNewButton = new Button(Constants.getString("NEW_LEVEL_TO_MODE"));
 		myAddNewButton.setStyle(
 				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#515D7B,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
 
@@ -68,10 +68,10 @@ public class LevelGridViewPanel extends GridViewPanel {
 		myScrollPane.setContent(myGridPane);
 		VBox.setVgrow(myGridPane, Priority.ALWAYS);
 
-		myPanelBar.setDescription("Levels for this Mode");
+		myPanelBar.setDescription(Constants.getString("LEVEL_FOR_MODE"));
 		myPanelBar.setFontSize(15);
 		
-		myDeleteButton = new Button("Delete");
+		myDeleteButton = new Button(Constants.getString("DELETE_BUTTON"));
 		formatDeleteButton();
 
 		((GridPanelBar) myPanelBar).addButtonToBar(myDeleteButton);
@@ -147,6 +147,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 	}
 
 	public void reset() {
+		//INCOMPLETE
 		initializeComponents();
 		assembleComponents();
 		
