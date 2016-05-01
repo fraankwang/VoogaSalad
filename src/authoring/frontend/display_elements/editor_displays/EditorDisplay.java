@@ -53,12 +53,10 @@ public abstract class EditorDisplay implements IEditorDisplay {
 		myGrid.initializeHotKeys();
 	}
 
-
 	@Override
 	public Node getNode() {
 		return myGrid.getNode();
 
 	}
-
 
 }

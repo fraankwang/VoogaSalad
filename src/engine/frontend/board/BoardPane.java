@@ -22,17 +22,19 @@ public class BoardPane extends AbstractPane {
 
 	/**
 	 * Instantiates BoardPane
-	 * @param ev - engineView - main container for scene
+	 * 
+	 * @param ev
+	 *            - engineView - main container for scene
 	 */
-	public BoardPane(EngineView ev){
+	public BoardPane(EngineView ev) {
 		super(ev, null);
 		myEntityViewMap = new HashMap<Integer, EntityView>();
 	}
-	
+
 	/**
 	 * Initializes BoardPane
 	 */
-	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding){
+	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
 		super.buildNode(widthBinding, heightBinding);
 		myBackground = new ImageView(new Image(myEngineView.getEngineController().getBackgroundImageFile()));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
@@ -42,12 +44,14 @@ public class BoardPane extends AbstractPane {
 		myPane.getChildren().addAll(myBackground, myGroup);
 		return myPane;
 	}
-	
+
 	/**
 	 * Sets boardPane's background image
-	 * @param imageName - string location for map image
+	 * 
+	 * @param imageName
+	 *            - string location for map image
 	 */
-	public void setBackground(String imageName){
+	public void setBackground(String imageName) {
 		myBackground.setImage(new Image(imageName));
 	}
 
@@ -80,35 +84,40 @@ public class BoardPane extends AbstractPane {
 
 	/**
 	 * Deletes an entity from the map
-	 * @param id - unique id of entity to be deleted
+	 * 
+	 * @param id
+	 *            - unique id of entity to be deleted
 	 */
-	private void deleteEntity(int id){
-		if(myEntityViewMap.containsKey(id)){
+	private void deleteEntity(int id) {
+		if (myEntityViewMap.containsKey(id)) {
 			myPane.getChildren().remove(myEntityViewMap.get(id).getNode());
 			myEntityViewMap.remove(id);
 		}
 	}
 
-
-
 	/**
 	 * Tells engine that a tower has been attempted to be placed at a location
-	 * @param mouseXLoc - xPosition of tower to be placed
-	 * @param mouseYLoc - yPosition of tower to be placed
-	 * @param placingTower - String of tower type to be placed
+	 * 
+	 * @param mouseXLoc
+	 *            - xPosition of tower to be placed
+	 * @param mouseYLoc
+	 *            - yPosition of tower to be placed
+	 * @param placingTower
+	 *            - String of tower type to be placed
 	 */
 
-	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower, double cost){
+	public void attemptTower(double mouseXLoc, double mouseYLoc, String placingTower, double cost) {
 		double xLoc = mouseXLoc - myPane.getLayoutX();
 		double yLoc = mouseYLoc - myPane.getLayoutY();
-		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower, cost);	
+		myEngineView.getEngineController().attemptTower(xLoc, yLoc, placingTower, cost);
 	}
-	
+
 	/**
 	 * Returns map containing unique ID to Entity displayed in board
+	 * 
 	 * @return
 	 */
-	public Map<Integer, EntityView> getEntityMap(){
+	public Map<Integer, EntityView> getEntityMap() {
 		return myEntityViewMap;
 	}
 

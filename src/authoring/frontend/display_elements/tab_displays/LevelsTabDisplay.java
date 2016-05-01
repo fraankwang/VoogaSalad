@@ -49,12 +49,10 @@ public class LevelsTabDisplay extends TabDisplay {
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
 		update(data);
 	}
-	
 
 	public void update(List<Map<String, String>> data) {
 		((LevelsTabGrid) myGrid).updateLevelsPrimaryDisplay(data);
 	}
-	
 
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {

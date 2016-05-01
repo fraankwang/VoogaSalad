@@ -65,32 +65,39 @@ public class GameStatistics implements IModifiable {
 	public void addEndOfLevelLives(int numLives) {
 		endOfLevelLives.add(numLives);
 	}
-/**
- * adds how resources at the end of the level
- * @param resources
- */
+
+	/**
+	 * adds how resources at the end of the level
+	 * 
+	 * @param resources
+	 */
 	public void addEndOfLevelResources(double resources) {
 		endOfLevelResources.add(resources);
 	}
-/**
- * 
- * @return initial number of lives
- */
+
+	/**
+	 * 
+	 * @return initial number of lives
+	 */
 	public int getInitialNumLives() {
 		return initialNumLives;
 	}
-/**
- * Sets the initial number of lives
- * @param initialNumLives
- */
+
+	/**
+	 * Sets the initial number of lives
+	 * 
+	 * @param initialNumLives
+	 */
 	public void setInitialNumLives(int initialNumLives) {
 		this.initialNumLives = initialNumLives;
 		currentNumLives = new Property(initialNumLives, "lives");
 	}
-/**
- * Gets the current number of lives
- * @return
- */
+
+	/**
+	 * Gets the current number of lives
+	 * 
+	 * @return
+	 */
 	public int getCurrentNumLives() {
 		return (int) currentNumLives.getValue();
 	}
@@ -98,33 +105,40 @@ public class GameStatistics implements IModifiable {
 	public Property getCurrentLivesProperty() {
 		return this.currentNumLives;
 	}
-/**
- * Set current number of lives
- * @param currentNumLives
- */
+
+	/**
+	 * Set current number of lives
+	 * 
+	 * @param currentNumLives
+	 */
 	public void setCurrentNumLives(int currentNumLives) {
 		this.currentNumLives.setValue(currentNumLives);
 	}
+
 	/**
 	 * Updates the number of lives by parsing a string parameter into a integer
+	 * 
 	 * @param deltaNumLives
 	 */
-	public void setCurrentNumLives(String deltaNumLives){
+	public void setCurrentNumLives(String deltaNumLives) {
 
 		int newValue = getCurrentNumLives() + Integer.parseInt(deltaNumLives);
 		setCurrentNumLives(newValue);
 	}
-/**
- * 
- * @return initial resources
- */
+
+	/**
+	 * 
+	 * @return initial resources
+	 */
 	public double getInitialResources() {
 		return initialResources;
 	}
-/**
- * sets the initial resources value
- * @param initialResources
- */
+
+	/**
+	 * sets the initial resources value
+	 * 
+	 * @param initialResources
+	 */
 	public void setInitialResources(double initialResources) {
 		this.initialResources = initialResources;
 		currentResources = new Property(initialResources, "resources");
@@ -152,10 +166,10 @@ public class GameStatistics implements IModifiable {
 		// checkEndOfLevel();
 		return (int) currentLevelIndex.getValue();
 	}
-	
-	public void updateHighestLevelUnlocked(int index){
+
+	public void updateHighestLevelUnlocked(int index) {
 		if (index > highestLevelUnlocked) {
-			highestLevelUnlocked = index;	
+			highestLevelUnlocked = index;
 		}
 	}
 

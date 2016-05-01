@@ -48,7 +48,6 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 
-		
 		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 600, 400);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object");
@@ -111,13 +110,13 @@ public class testingClass {
 		mode.addLevel(level2);
 		GameStatistics gameStats = new GameStatistics(50, 50);
 		mode.setGameStatistics(gameStats);
-		
+
 		firingTest.addMode(mode);
-		
+
 		return firingTest;
 	}
-	
-	private Level getLevel(){
+
+	private Level getLevel() {
 		Level level = new Level("blah");
 		level.setIndex(0);
 		EntityAction action = new EntityAction("tempEntity", "Display", "Delete", "true");
@@ -143,7 +142,7 @@ public class testingClass {
 		Rule ruleKeyDown = new Rule();
 		ruleKeyDown.addActions(keyActionDown);
 		ruleKeyDown.addEvents(Arrays.asList("tempEntity2-KeyPressedEntityEvent-DOWN"));
-		
+
 		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
 		LevelAction levelAction2 = new LevelAction("CurrentResources", "4");
 
@@ -186,7 +185,7 @@ public class testingClass {
 		tempPath.addCurve(tempCurve1);
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
-		
+
 		Path tempPath1 = new Path();
 		BezierCurve tempCurve4 = new BezierCurve(600, 4, 0, 0, 0, 0, 2, 100);
 		BezierCurve tempCurve5 = new BezierCurve(250, 200, 50, 50, 250, 450, 0, 200);
@@ -194,23 +193,22 @@ public class testingClass {
 		tempPath1.addCurve(tempCurve4);
 		tempPath1.addCurve(tempCurve6);
 		tempPath1.addCurve(tempCurve5);
-		
+
 		Path[] pathArray = new Path[2];
 		pathArray[0] = tempPath;
 		pathArray[1] = tempPath1;
 		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
-		
-		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
+
+		IEntity tempSpawn = new Entity(40, "tempSpawn", "spawner");
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 2);
 		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 4);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
 
-		IEntity tempSpawn2  = new Entity(-40, "tempSpawn2", "spawner");
+		IEntity tempSpawn2 = new Entity(-40, "tempSpawn2", "spawner");
 		Spawn spawn3 = new Spawn("tempEntity", 1, 0, 2);
 		Spawn spawn4 = new Spawn("tempEntity", 1, 1, 2);
 		IComponent tempSpawner1 = new SpawnerComponent(Arrays.asList(spawn3, spawn4), 1);
 
-		
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
@@ -218,7 +216,7 @@ public class testingClass {
 		tempSpawn.addComponent(tempSpawner);
 		tempSpawn.addComponent(tempPosition4);
 		tempSpawn.addComponent(tempDisplay4);
-		
+
 		IComponent tempPosition5 = new PositionComponent(0, 100);
 		IComponent tempDisplay5 = new DisplayComponent(false);
 		IComponent tempSize5 = new SizeComponent();
@@ -226,7 +224,6 @@ public class testingClass {
 		tempSpawn2.addComponent(tempSpawner1);
 		tempSpawn2.addComponent(tempPosition5);
 		tempSpawn2.addComponent(tempDisplay5);
-		
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns");
 		IComponent tempPosition = new PositionComponent(0, 100);
@@ -247,7 +244,7 @@ public class testingClass {
 
 		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
 		ShopItem item2 = new ShopItem("SpeedPowerUp", "bullet_sprite.png", 30);
-	
+
 		level.setShopItems(Arrays.asList(item, item2));
 
 		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
@@ -295,14 +292,14 @@ public class testingClass {
 		myCreatableEntityMap.put("Towers", createdTowers);
 
 		level.addEntityToMap(tempSpawn);
-		//level.addEntityToMap(tempSpawn2);
+		// level.addEntityToMap(tempSpawn2);
 		level.addEntityToMap(tempEntity2);
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
 		level.setNumWaves(2);
 		level.setWaveDelayTimer(5);
 		level.setAuthoredEntities(authoredEntities);
-		
+
 		return level;
 	}
 

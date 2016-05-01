@@ -32,7 +32,7 @@ public class ModelManager implements IModel {
 	private final AuthoringLevelFactory levelfactory;
 	private final AuthoringModeFactory modefactory;
 	private final GameFactory gameFactory;
-	
+
 	public ModelManager(GlobalData globaldata) {
 		this.globaldata = globaldata;
 		this.entityfactory = new AuthoringEntityFactory();
@@ -82,14 +82,14 @@ public class ModelManager implements IModel {
 			globaldata.getGame().setName(data.get("Name"));
 		}
 	}
-	
+
 	public void exportGame(String url) throws IOException {
 		GameWorld game = gameFactory.createGame();
 		GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
 		String raw = writer.getXMLfromObject(game);
 		ObjectToXMLWriter.stringToDocument(raw, "game1.xml");
 	}
-	
+
 	public void reloadGame(String url) throws IOException {
 		File file = new File(url);
 		GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
@@ -97,54 +97,54 @@ public class ModelManager implements IModel {
 		GameWorld game = (GameWorld) writer.xMLToObject(raw);
 		reload(game);
 	}
-	
+
 	private void reload(GameWorld game) {
 		List<Mode> modes = (List<Mode>) game.getModes().values();
 		Map<String, Level> levelMap = new HashMap<String, Level>();
 		Map<String, IEntity> entityMap = new HashMap<String, IEntity>();
-		
+
 		for (Mode mode : modes) {
 			List<Level> modeLevels = (List<Level>) mode.getLevels().values();
 			for (Level level : modeLevels) {
 				levelMap.put(level.getName(), level);
 			}
 		}
-		
+
 		List<Level> levels = (List<Level>) levelMap.values();
-		
+
 		for (Level level : levels) {
 			List<IEntity> levelEntities = (List<IEntity>) level.getEntities().values();
 			for (IEntity entity : levelEntities) {
 				entityMap.put(entity.getName(), entity);
 			}
 		}
-		
+
 		List<IEntity> entities = (List<IEntity>) entityMap.values();
-		
+
 		reloadModes(modes);
 		reloadLevels(levels);
 		reloadEntities(entities);
 	}
-	
+
 	private void reloadModes(List<Mode> modes) {
 		for (Mode mode : modes) {
 			AuthoringMode authoringMode = new AuthoringMode(mode);
 			globaldata.getModes().add(authoringMode);
 		}
 	}
-	
+
 	private void reloadLevels(List<Level> levels) {
 		for (Level level : levels) {
 			AuthoringLevel authoringLevel = new AuthoringLevel(level);
 			globaldata.getLevels().add(authoringLevel);
 		}
 	}
-	
+
 	private void reloadEntities(List<IEntity> entities) {
 		for (IEntity entity : entities) {
 			AuthoringEntity authoringEntity = new AuthoringEntity(entity);
 			globaldata.getEntities().add(authoringEntity);
 		}
 	}
-		
+
 }

@@ -1,4 +1,5 @@
 package engine.backend.deprecated;
+
 import engine.backend.components.Component;
 
 /**
@@ -48,10 +49,10 @@ public class UserInputComponent extends Component {
 		this.keyValue = keyValue;
 	}
 
-    @Override
-    public String getTag(){
-        return "UserInput";
-    }
+	@Override
+	public String getTag() {
+		return "UserInput";
+	}
 
 	@Override
 	public String getComponentInfo() {
@@ -62,6 +63,6 @@ public class UserInputComponent extends Component {
 	@Override
 	public void update(String dataName, String data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

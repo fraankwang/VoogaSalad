@@ -11,12 +11,12 @@ import main.Main;
  */
 
 public class GameAuthoring {
-	
+
 	public GameAuthoring(Stage stage, Main main) {
 		GlobalData globaldata = new GlobalData();
 		AuthoringController controller = new AuthoringController(globaldata);
 		AuthoringView view = new AuthoringView(stage, globaldata, main);
 		view.start();
 	}
-	
+
 }

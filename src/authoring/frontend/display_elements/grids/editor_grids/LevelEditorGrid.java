@@ -70,7 +70,8 @@ public class LevelEditorGrid extends EditorGrid {
 		if (info.get("MapBackgroundImage") == null) {
 			info.put("MapBackgroundImage", "resources/images/question_mark.png");
 		}
-		((EditorViewPanel) myPrimaryDisplay).setImage(new Image(myController.getImageMap().get(info.get("MapBackgroundImage"))));
+		((EditorViewPanel) myPrimaryDisplay)
+				.setImage(new Image(myController.getImageMap().get(info.get("MapBackgroundImage"))));
 		super.setAttributesPanel(info);
 	}
 

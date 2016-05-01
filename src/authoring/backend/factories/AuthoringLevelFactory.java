@@ -105,7 +105,7 @@ public class AuthoringLevelFactory {
 	private List<String> parseEvents(String eventInfo) {
 		String[] eventData = eventInfo.split("\\+");
 		List<String> events = new ArrayList<String>();
-		
+
 		for (String event : eventData) {
 			String[] eventElements = event.split("-");
 			StringBuilder sb = new StringBuilder();

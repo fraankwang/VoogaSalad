@@ -45,12 +45,12 @@ public class EntityComponentSelector {
 	public void initialize() {
 		myVBox = new VBox();
 		myStage = new Stage();
-		myScene = new Scene(myVBox, Constants.getInt("COMPONENT_SELECTOR_WIDTH"), Constants.getInt("COMPONENT_SELECTOR_HEIGHT"));
+		myScene = new Scene(myVBox, Constants.getInt("COMPONENT_SELECTOR_WIDTH"),
+				Constants.getInt("COMPONENT_SELECTOR_HEIGHT"));
 
 		mySelectedComponents = new ArrayList<String>();
 		myStage.setScene(myScene);
 
-		
 		for (String componentTag : EntityComponents.getComponentTags()) {
 			CheckBox cb = createCheckBox(componentTag);
 			myVBox.getChildren().add(cb);
@@ -110,9 +110,10 @@ public class EntityComponentSelector {
 			case "FiringComponent":
 				ComboBox<String> ammo = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
 						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
-				CheckComboBox targets = new CheckComboBox("Select Targets", ((EntitiesTabDisplay) myController.getAuthoringViewManager()
-						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
-	
+				CheckComboBox targets = new CheckComboBox("Select Targets",
+						((EntitiesTabDisplay) myController.getAuthoringViewManager().getTabBarElement()
+								.getEntitiesTabDisplay()).getEntityImages().keySet());
+
 				TextField speed = new TextField();
 				TextField sightRange = new TextField();
 				TextField firingRate = new TextField();
@@ -175,9 +176,9 @@ public class EntityComponentSelector {
 
 	private void checkTracking(Map<String, Control> inputMap) {
 		if (inputMap.containsKey("MovementComponent_CanTrack")) {
-			
+
 		}
-		
+
 	}
 
 	/**
@@ -248,9 +249,9 @@ public class EntityComponentSelector {
 		Map<String, String> extraAttributes = new TreeMap<String, String>();
 		extraAttributes.put("Name", null);
 		extraAttributes.put("Genre", null);
-//		extraAttributes.put("DisplayComponent_Image", null);
+		// extraAttributes.put("DisplayComponent_Image", null);
 		switch (genre) {
-	
+
 		case "Tower":
 			extraAttributes.put("DisplayComponent_Image", null);
 			extraAttributes.put("FiringComponent_Ammunition", null);
@@ -263,7 +264,7 @@ public class EntityComponentSelector {
 			extraAttributes.put("PositionComponent_XCoordinate", null);
 			extraAttributes.put("PositionComponent_YCoordinate", null);
 			break;
-			
+
 		case "Enemy":
 			extraAttributes.put("DisplayComponent_Image", null);
 			extraAttributes.put("HealthComponent_Health", null);
@@ -278,7 +279,7 @@ public class EntityComponentSelector {
 			extraAttributes.put("MovementComponent_CanTrack", null);
 
 			break;
-			
+
 		case "Ammo":
 			extraAttributes.put("DisplayComponent_Image", null);
 			extraAttributes.put("SizeComponent_Width", null);
@@ -291,15 +292,15 @@ public class EntityComponentSelector {
 			extraAttributes.put("MovementComponent_CanTrack", null);
 
 			break;
-			
+
 		case "Custom":
-			
+
 			break;
-			
+
 		default:
 			break;
 		}
-			
+
 		return extraAttributes;
 	}
 }

@@ -24,18 +24,24 @@ public class EntityView {
 	private int myID;
 	private DoubleProperty myW;
 	private DoubleProperty myH;
-	
+
 	/**
 	 * Instantiates EntityView - overarching component of frontend
-	 * @param controller - Controller used to connect front end to engine
-	 * @param xLoc - x position in relation to stage
-	 * @param yLoc - 
-	 * @param image - 
+	 * 
+	 * @param controller
+	 *            - Controller used to connect front end to engine
+	 * @param xLoc
+	 *            - x position in relation to stage
+	 * @param yLoc
+	 *            -
+	 * @param image
+	 *            -
 	 * @param id
 	 * @param width
 	 * @param height
 	 */
-	public EntityView(EngineController controller, double xLoc, double yLoc, String image, int id, double width, double height){
+	public EntityView(EngineController controller, double xLoc, double yLoc, String image, int id, double width,
+			double height) {
 		myController = controller;
 		myX = new SimpleDoubleProperty(xLoc);
 		myY = new SimpleDoubleProperty(yLoc);
@@ -65,7 +71,7 @@ public class EntityView {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getDragboard().hasString()) {
 			String s = e.getDragboard().getString();
-			if(s.equals("RangePowerUp") || s.equals("SpeedPowerUp")){
+			if (s.equals("RangePowerUp") || s.equals("SpeedPowerUp")) {
 				myController.attemptUpgrade(myID, e.getDragboard().getString());
 				e.consume();
 				myController.getStage().getScene().setCursor(Cursor.DEFAULT);
@@ -103,8 +109,8 @@ public class EntityView {
 			myController.attemptUpgrade(myID, e.getDragboard().getString());
 		}
 	}
-	
-	public boolean contains(double x, double y){
+
+	public boolean contains(double x, double y) {
 
 		double minX = myImageView.translateXProperty().doubleValue();
 		double maxX = myImageView.fitWidthProperty().doubleValue() + minX;

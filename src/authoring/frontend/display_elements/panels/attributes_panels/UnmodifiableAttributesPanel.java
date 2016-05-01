@@ -26,7 +26,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	protected ITabDisplay myTabDisplay;
 	protected static final int COLUMN_1_PERCENTAGE = 50;
 	protected static final int COLUMN_2_PERCENTAGE = 50;
-	
+
 	protected static final double ATTRIBUTES_PANEL_WIDTH = 800 * 0.4275;
 	protected static final int BUTTON_HEIGHT_PERCENTAGE = 8;
 
@@ -187,7 +187,7 @@ public abstract class UnmodifiableAttributesPanel extends AttributesPanel {
 	public Map<String, String> getAttributesMap() {
 		return myAttributesMap;
 	}
-	
+
 	public List<String> getDefaultAttributes() {
 		return myDefaultAttributes;
 	}

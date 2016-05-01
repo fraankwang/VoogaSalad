@@ -1,6 +1,5 @@
 package engine.frontend.overall;
 
-
 import engine.controller.EngineController;
 import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
@@ -23,6 +22,7 @@ public class EndView {
 
 	/**
 	 * Instantiates scene for ending screen
+	 * 
 	 * @return
 	 */
 	public Scene buildScene() {

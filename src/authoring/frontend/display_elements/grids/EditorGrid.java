@@ -44,8 +44,7 @@ public abstract class EditorGrid extends Grid {
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
 
-		((EditorButtonDashboard) myButtonDashboard).getSaveButton()
-				.setOnAction(e -> sendData(saveAttributes()));
+		((EditorButtonDashboard) myButtonDashboard).getSaveButton().setOnAction(e -> sendData(saveAttributes()));
 
 		((EditorButtonDashboard) myButtonDashboard).getResetButton().setOnAction(e -> resetAttributes());
 
@@ -63,7 +62,7 @@ public abstract class EditorGrid extends Grid {
 		myEditorStage.close();
 
 	}
-	
+
 	protected Map<String, String> saveAttributes() {
 		return myModifiableAttributesPanel.saveAttributes();
 	}
@@ -108,7 +107,7 @@ public abstract class EditorGrid extends Grid {
 						resetButton.fire();
 					}
 				});
-		
+
 	}
 
 }

@@ -178,34 +178,30 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		updateAttributes(myAttributesMap);
 	}
 
-
 	@SuppressWarnings("unchecked")
 	public Map<String, String> saveAttributes() {
 		myAttributesMap.clear();
 		myAttributesMap.put("Type", "Entity");
-	
+
 		if (myAttributes.contains("MovementComponent_CanTrack")) {
 			condenseTracking(myInputMap, myAttributes);
 		}
-	
+
 		for (String s : myInputMap.keySet()) {
-	
+
 			if (myInputMap.get(s) instanceof ComboBox<?>) {
-				myAttributesMap.put(s, ((ComboBox<String>) myInputMap.get(s)).getValue());	
-			}
-			else if (myInputMap.get(s) instanceof TextField) {
+				myAttributesMap.put(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
+			} else if (myInputMap.get(s) instanceof TextField) {
 				myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
-			}
-			else if (myInputMap.get(s) instanceof CheckComboBox) {
+			} else if (myInputMap.get(s) instanceof CheckComboBox) {
 				myAttributesMap.put(s, ((CheckComboBox) myInputMap.get(s)).getSelections());
 			}
-			
-	
+
 		}
-	
+
 		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
-	
+
 		return myAttributesMap;
 	}
 
@@ -228,7 +224,7 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 					cb.setEditable(false);
 					myInputMap.replace(currentAttribute, cb);
 				}
-				
+
 				else if (inputMethod instanceof CheckComboBox) {
 					if (myAttributesMap.get(currentAttribute) != null) {
 						CheckComboBox ccb = (CheckComboBox) myInputMap.get(currentAttribute);

@@ -22,7 +22,7 @@ public interface IEntity {
 	public Set<String> getComponentTags();
 
 	public Collection<IComponent> getComponents();
-	
+
 	public void addComponent(IComponent component);
 
 	public boolean hasComponent(String tag);
@@ -36,13 +36,12 @@ public interface IEntity {
 	public String getGenre();
 
 	public void setID(int id);
-	
+
 	public int getID();
 
-	
 	public EntityStatistics getStats();
 
 	public void broadcastEntity();
-	
+
 	public void applyAction(IAction action);
 }

@@ -57,7 +57,7 @@ public class EntitiesTabGrid extends TabGrid {
 		setDefaultAddNewAction(((GridViewPanel) myPrimaryDisplay).getMyAddNewButton());
 
 	}
-	
+
 	/**
 	 * Takes myGenre and populates the defaultAttributesMap with additional
 	 * attributes (components) required for genre specified.
@@ -84,8 +84,7 @@ public class EntitiesTabGrid extends TabGrid {
 			myTabDisplay.openEditorDisplay(defaultAttributesMap);
 		}
 	}
-	
-	
+
 	/**
 	 * Goes through each entity info (map) and links the ImageView created to
 	 * populating the UnmodifiableAttributesPanel.

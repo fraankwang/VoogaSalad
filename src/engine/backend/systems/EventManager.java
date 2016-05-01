@@ -60,6 +60,7 @@ public class EventManager implements Observer {
 
 	/**
 	 * Sets the in game entity factory creator to the given factory.
+	 * 
 	 * @param factory
 	 */
 	public void setEntityFactory(InGameEntityFactory factory) {
@@ -69,6 +70,7 @@ public class EventManager implements Observer {
 
 	/**
 	 * Sets the level rules to those for the current level.
+	 * 
 	 * @param level
 	 */
 	public void setLevelRules(Level level) {
@@ -76,13 +78,15 @@ public class EventManager implements Observer {
 	}
 
 	/**
-	 * If the current level is not reverted when it should be, revert occurs before returning.
+	 * If the current level is not reverted when it should be, revert occurs
+	 * before returning.
+	 * 
 	 * @return The current level.
 	 */
 	public Level getCurrentLevel() {
 
 		String modeName = currentGameStatistics.getCurrentMode();
-		int levelIndex = currentGameStatistics.getCurrentLevelIndex();		
+		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
 		Level myLevel = myGameWorld.getLevelWithId(modeName, levelIndex);
 		revertLevelIfNeeded(myLevel, modeName, levelIndex);
 		return myLevel;
@@ -108,9 +112,9 @@ public class EventManager implements Observer {
 	}
 
 	/**
-	 * Updates the game shop by setting the shop items to those for the current level. 
-	 * Also updates the shop so only those allowed with the given resources is displayed.
-	 * Calls engine controller to update the shop.
+	 * Updates the game shop by setting the shop items to those for the current
+	 * level. Also updates the shop so only those allowed with the given
+	 * resources is displayed. Calls engine controller to update the shop.
 	 */
 	public void updateGameShop() {
 		myGameShop.setShopItems(getCurrentLevel().getShopItems());
@@ -122,10 +126,11 @@ public class EventManager implements Observer {
 	public void update(Observable o, Object arg) {
 		handleSystemEvent((IEvent) arg);
 	}
-	
+
 	/**
-	 * Receives an update entity event and sends the engine controller information to update
-	 * the entity.
+	 * Receives an update entity event and sends the engine controller
+	 * information to update the entity.
+	 * 
 	 * @param myEvent
 	 */
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
@@ -134,7 +139,8 @@ public class EventManager implements Observer {
 	}
 
 	/**
-	 * Sets the rule agenda for each level to the list of rules given. 
+	 * Sets the rule agenda for each level to the list of rules given.
+	 * 
 	 * @param rules
 	 */
 	public void setCustomRules(List<Rule> rules) {
@@ -170,15 +176,15 @@ public class EventManager implements Observer {
 		handleModeClickedEvent(event.getModeName());
 		handleLevelClickedEvent(event.getLevel());
 	}
-	
+
 	/**
 	 * 
 	 * @return The current game statistics.
 	 */
-	public GameStatistics getCurrentGameStatistics(){
+	public GameStatistics getCurrentGameStatistics() {
 		return currentGameStatistics;
 	}
-	
+
 	/**
 	 * Handles when a mode has been selected.
 	 * 
@@ -228,10 +234,10 @@ public class EventManager implements Observer {
 	}
 
 	/**
-	 * Handles whether a level is over by checking if there are no more lives. If no more lives,
-	 * engine controller is told that the level is lost and the level played is reset. 
-	 * If level is won, then the lives left and level resources is saved in the statistics and
-	 * the level is reset.
+	 * Handles whether a level is over by checking if there are no more lives.
+	 * If no more lives, engine controller is told that the level is lost and
+	 * the level played is reset. If level is won, then the lives left and level
+	 * resources is saved in the statistics and the level is reset.
 	 */
 	public void handleLevelOver() {
 
@@ -244,10 +250,11 @@ public class EventManager implements Observer {
 			if (getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()) {
 				currentGameStatistics.addEndOfLevelLives(currentGameStatistics.getCurrentNumLives());
 				currentGameStatistics.addEndOfLevelResources(currentGameStatistics.getCurrentResources());
-				int numLevelsTotal = myGameWorld.getModes().get(currentGameStatistics.getCurrentMode()).getLevels().size();
+				int numLevelsTotal = myGameWorld.getModes().get(currentGameStatistics.getCurrentMode()).getLevels()
+						.size();
 				int nextLevelIndex = currentGameStatistics.getCurrentLevelIndex() + 1;
 				if (numLevelsTotal > nextLevelIndex) {
-					currentGameStatistics.updateHighestLevelUnlocked(currentGameStatistics.getCurrentLevelIndex() + 1);					
+					currentGameStatistics.updateHighestLevelUnlocked(currentGameStatistics.getCurrentLevelIndex() + 1);
 				} else {
 					myEngineController.levelIsLost();
 				}
@@ -259,35 +266,36 @@ public class EventManager implements Observer {
 		}
 	}
 
-    private boolean isEnemyOnScreen(){
-        Set<String> enemyNames = getUniqueEnemyNames();
-        boolean ret = false;
-        for(IEntity entity : getCurrentLevel().getEntities().values()){
-            if(enemyNames.contains(entity.getName())){
-                ret = true;
-                break;
-            }
-        }
-        return ret;
-    }
-    
-    private Set<String> getUniqueEnemyNames(){
-        Set<String> enemyNames = new HashSet<String>();
-        
-        for(ShopItem item: getCurrentLevel().getShopItems()){
-            for(IEntity entity : getCurrentLevel().getAuthoredEntities()){
-                if(item.getItemName().equals(entity.getName())){
-                    if(entity.hasComponent(ComponentTagResources.firingComponentTag)){
-                        FiringComponent firingComponent = (FiringComponent) entity.getComponent(ComponentTagResources.firingComponentTag);
-                        enemyNames.addAll(firingComponent.getTargets());
-                    }
-                }
-            }
-        }
-        return enemyNames;
-    }
-	
-	private void resetLevel(){
+	private boolean isEnemyOnScreen() {
+		Set<String> enemyNames = getUniqueEnemyNames();
+		boolean ret = false;
+		for (IEntity entity : getCurrentLevel().getEntities().values()) {
+			if (enemyNames.contains(entity.getName())) {
+				ret = true;
+				break;
+			}
+		}
+		return ret;
+	}
+
+	private Set<String> getUniqueEnemyNames() {
+		Set<String> enemyNames = new HashSet<String>();
+
+		for (ShopItem item : getCurrentLevel().getShopItems()) {
+			for (IEntity entity : getCurrentLevel().getAuthoredEntities()) {
+				if (item.getItemName().equals(entity.getName())) {
+					if (entity.hasComponent(ComponentTagResources.firingComponentTag)) {
+						FiringComponent firingComponent = (FiringComponent) entity
+								.getComponent(ComponentTagResources.firingComponentTag);
+						enemyNames.addAll(firingComponent.getTargets());
+					}
+				}
+			}
+		}
+		return enemyNames;
+	}
+
+	private void resetLevel() {
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
 		System.out.println("reseting level here");
@@ -315,8 +323,8 @@ public class EventManager implements Observer {
 			getCurrentLevel().addEntityToMap(newEntity);
 		}
 	}
-	
-	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
+
+	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event) {
 		if (currentGameStatistics.getCurrentResources() >= event.getPowerUp().getPrice()) {
 			if (event.getPowerUp() != null && isPowerUpApplicable(event.getAffectedEntityID(),
 					((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
@@ -324,26 +332,26 @@ public class EventManager implements Observer {
 				Collection<IAction> actions = event.getPowerUp().getActions();
 				applyActions(affectedEntities, actions);
 				subtractFromResources(event.getPowerUp().getPrice());
-			} 
-		} 
+			}
+		}
 	}
-	
-	private boolean isPowerUpApplicable(int entityID, String applicableName){
+
+	private boolean isPowerUpApplicable(int entityID, String applicableName) {
 		IEntity entity = getCurrentLevel().getEntityWithID(entityID);
 		return entity.getName().equals(applicableName);
 	}
 
 	/**
-	 * Updates the factory by checking if the entity factory is correct for the current level.
-	 * If not, the entity factory is set to the authored entities for the level and given
-	 * the current level index and initial entities.
+	 * Updates the factory by checking if the entity factory is correct for the
+	 * current level. If not, the entity factory is set to the authored entities
+	 * for the level and given the current level index and initial entities.
 	 */
 	public void updateEntityFactory() {
 		if (myEntityFactory.isCurrent(getCurrentLevel().getIndex())) {
 			return;
 		}
 		myEntityFactory.setEntities(getCurrentLevel().getAuthoredEntities());
-		myEntityFactory.setID(getCurrentLevel().getIndex()); 
+		myEntityFactory.setID(getCurrentLevel().getIndex());
 		myEntityFactory.setInitNumEntities(getCurrentLevel().getNumEntities());
 		return;
 	}
@@ -380,13 +388,12 @@ public class EventManager implements Observer {
 	 * @param events
 	 */
 	public void handleNonMapEvents(Collection<IEvent> events) {
-		for(IEvent event : events){
-			if(event instanceof EntityDroppedEvent){
+		for (IEvent event : events) {
+			if (event instanceof EntityDroppedEvent) {
 				handleEntityDropEvent((EntityDroppedEvent) event);
 			} else if (event instanceof NextWaveEvent) {
 				handleNextWaveEvent((NextWaveEvent) event);
-			}
-			else if(event instanceof PowerUpDroppedEvent){
+			} else if (event instanceof PowerUpDroppedEvent) {
 				handlePowerUpDroppedEvent((PowerUpDroppedEvent) event);
 				System.out.println("POWER UP NON MAP :" + event);
 			}
@@ -394,9 +401,10 @@ public class EventManager implements Observer {
 	}
 
 	/**
-	 * Takes a generated map of eventIDs and entityIDs for each eventID and finds
-	 * whether a rule in the agenda has the entities and event necessary to carryout
-	 * the actions of each rule. If so, the actions are applied.
+	 * Takes a generated map of eventIDs and entityIDs for each eventID and
+	 * finds whether a rule in the agenda has the entities and event necessary
+	 * to carryout the actions of each rule. If so, the actions are applied.
+	 * 
 	 * @param generatedEventMap
 	 */
 	public void handleGeneratedEvents(Map<String, Set<Integer>> generatedEventMap) {
@@ -465,10 +473,10 @@ public class EventManager implements Observer {
 	public void initializeRules() {
 		myRuleAgenda = getCurrentLevel().getRuleAgenda();
 	}
-	
-	private void subtractFromResources(double value){
+
+	private void subtractFromResources(double value) {
 		System.out.println("SUBTRACTING WITH " + value);
-		currentGameStatistics.setCurrentResources(currentGameStatistics.getCurrentResources() - value); 
+		currentGameStatistics.setCurrentResources(currentGameStatistics.getCurrentResources() - value);
 	}
 
 }

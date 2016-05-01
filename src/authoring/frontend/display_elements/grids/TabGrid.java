@@ -74,8 +74,7 @@ public abstract class TabGrid extends Grid {
 	 * @param info
 	 */
 	protected abstract void linkImage(ImageView iv, Map<String, String> info);
-	
-	
+
 	/**
 	 * Takes current information exactly, replaces the name, and opens the
 	 * editor display with the new name.

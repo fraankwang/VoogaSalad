@@ -60,7 +60,7 @@ public class EditorViewPanel extends Panel {
 	public void setImage(Image image) {
 		myImageView.setImage(image);
 	}
-	
+
 	public ImageView getImage() {
 		return myImageView;
 	}

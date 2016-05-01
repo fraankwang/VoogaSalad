@@ -8,11 +8,11 @@ package engine.backend.components;
 public class PurchaseComponent extends Component {
 
 	private double myValue;
-		
+
 	public PurchaseComponent() {
 		super();
 	}
-	
+
 	/**
 	 * Initializes a purchase component with an existing purchase component.
 	 * 
