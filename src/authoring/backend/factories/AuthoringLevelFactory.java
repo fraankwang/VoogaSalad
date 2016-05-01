@@ -13,6 +13,7 @@ import authoring.parser.GlobalParser;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.PositionComponent;
+import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
@@ -172,6 +173,7 @@ public class AuthoringLevelFactory {
 			spawnEntity.addComponent(spawner);
 			spawnEntity.addComponent(new DisplayComponent());
 			spawnEntity.addComponent(new PositionComponent());
+			spawnEntity.addComponent(new SizeComponent());
 			spawnEntities.add(spawnEntity);
 		}
 		return spawnEntities;
