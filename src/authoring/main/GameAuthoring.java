@@ -1,6 +1,7 @@
 package authoring.main;
 
 import javafx.stage.Stage;
+import main.Main;
 import authoring.backend.data.GlobalData;
 import authoring.controller.AuthoringController;
 import authoring.frontend.AuthoringView;
@@ -11,10 +12,10 @@ import authoring.frontend.AuthoringView;
 
 public class GameAuthoring {
 	
-	public GameAuthoring(Stage stage) {
+	public GameAuthoring(Stage stage, Main main) {
 		GlobalData globaldata = new GlobalData();
 		AuthoringController controller = new AuthoringController(globaldata);
-		AuthoringView view = new AuthoringView(stage, globaldata);
+		AuthoringView view = new AuthoringView(stage, globaldata, main);
 		view.start();
 	}
 	

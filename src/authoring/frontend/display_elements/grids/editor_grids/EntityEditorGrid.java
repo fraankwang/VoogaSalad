@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -41,13 +42,22 @@ public class EntityEditorGrid extends EditorGrid {
 	}
 
 	@Override
+	protected void assembleGridComponents() {
+		super.assembleGridComponents();
+		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
+		GridPane.setRowSpan(myPrimaryDisplay.getNode(), 2);
+		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
+		myGrid.add(myButtonDashboard.getNode(), 1, 1);
+		
+	}
+	
+	@Override
 	public void setAttributesPanel(Map<String, String> info) {
-		super.setAttributesPanel(info);
 		if (info.get("DisplayComponent_Image") == null) {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("question_mark.png"));
-		} else {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
+			info.put("DisplayComponent_Image", "resources/images/question_mark.png");
 		}
+		((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("DisplayComponent_Image")));
+		super.setAttributesPanel(info);
 	}
 	
 	@Override
@@ -55,7 +65,7 @@ public class EntityEditorGrid extends EditorGrid {
 		super.initializeHotKeys();
 		Button addComponentButton = ((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).getAddComponentButton();
 	
-		addComponentButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN),
+		addComponentButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN),
 				new Runnable() {
 					@Override
 					public void run() {

@@ -1,4 +1,5 @@
 package engine.frontend.overall;
+
 /**
  * @author austinwu
  */
@@ -19,6 +20,7 @@ import javafx.stage.FileChooser;
 public class StartView {
 	private Scene myScene;
 	private EngineController myController;
+	private boolean firsttime;
 	private String selectedMode;
 	private Integer selectedLevel;
 
@@ -28,10 +30,16 @@ public class StartView {
 	private ComboBox<Integer> levelComboBox;
 	private Button startButton;
 
-	public StartView(EngineController ec) {
+	public StartView(EngineController ec, boolean f) {
 		myController = ec;
+		firsttime = f;
 	}
 
+
+	/**
+	 * Initialize startPrompt scene
+	 * @return Scene - containing view for beginning prompt
+	 */
 	public Scene buildScene() {
 		myVBox = new VBox();
 		myScene = new Scene(myVBox, Color.WHEAT);
@@ -49,7 +57,11 @@ public class StartView {
 	}
 
 	private void buildGameChooser() {
-		loadButton = new Button("Load Game");
+		if (firsttime) {
+			loadButton = new Button("Load Game");
+		} else {
+			loadButton = new Button("Load Different Game");
+		}
 		loadButton.setOnAction(e -> {
 			loadGamePressed();
 		});
@@ -63,15 +75,18 @@ public class StartView {
 		if (file != null) {
 			myController.initGameWorld(file);
 			modeComboBox.setDisable(false);
+			modeComboBox.getItems().addAll(myController.getGameWorld().getModes().keySet());
 		}
 	}
 
 	private void buildModePicker() {
 		modeComboBox = new ComboBox<String>();
 		modeComboBox.setPromptText("Select Mode");
-		modeComboBox.setDisable(true);
-
-		modeComboBox.getItems().addAll(myController.getGameWorld().getModes().keySet());
+		if (!firsttime) {
+			modeComboBox.getItems().addAll(myController.getGameWorld().getModes().keySet());
+		} else {
+			modeComboBox.setDisable(true);
+		}
 		modeComboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue ov, String t, String t1) {
@@ -107,17 +122,27 @@ public class StartView {
 		startButton = new Button("START");
 		startButton.setDisable(true);
 
-		startButton.setOnAction(e -> myController.startGame(selectedMode, selectedLevel));
+		startButton.setOnAction(e -> myController.startGame(selectedMode, selectedLevel, firsttime));
 
 		bindHeight(startButton, myScene.heightProperty().divide(4));
 		bindWidth(startButton, myScene.widthProperty());
 	}
 
+	/**
+	 * Helps bind width between two Regions
+	 * @param region - Region to bind
+	 * @param db - double expression describing binding
+	 */
 	public void bindWidth(Region region, DoubleExpression db) {
 		region.minWidthProperty().bind(db);
 		region.maxWidthProperty().bind(db);
 	}
 
+	/**
+	 * Helps bind height between two Regions
+	 * @param region - Region to bind
+	 * @param db - double expression describing binding
+	 */
 	public void bindHeight(Region region, DoubleExpression db) {
 		region.minHeightProperty().bind(db);
 		region.maxHeightProperty().bind(db);

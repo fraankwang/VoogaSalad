@@ -1,9 +1,6 @@
 package authoring.parser;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import authoring.frontend.editor_features.SpawnEntityRow;
 
@@ -61,28 +58,6 @@ public class GlobalParser {
 		}
 	}
 
-	public static Map<String, String> parseSpawnEntities(String spawnEntities) {
-		TreeMap<String, String> spawnEntitiesMap = new TreeMap<String, String>();
-		if (spawnEntities.equals("")) {
-			return spawnEntitiesMap;
-		}
-
-		String[] allSpawnEntities = spawnEntities.split(",");
-		for (String entity : allSpawnEntities) {
-			String[] pathSplit = entity.split(":");
-			String pathID = pathSplit[0];
-			String spawnObjects = pathSplit[1];
-			String[] spawnObjectsSplit = spawnObjects.split(" ");
-			for (String spawn : spawnObjectsSplit) {
-				spawnEntitiesMap.put(pathID, spawn);
-
-			}
-
-		}
-
-		return spawnEntitiesMap;
-	}
-
 	/**
 	 * Takes unordered inputs and sorts them by pathID, then delineated (in no
 	 * order) by entity names, followed by wave order, number, and rate.
@@ -90,7 +65,7 @@ public class GlobalParser {
 	 * @param map
 	 * @return
 	 */
-	public static String spawnCompress(TreeMap<String, SpawnEntityRow> map) {
+	public static String compressSpawnsInputs(TreeMap<String, SpawnEntityRow> map) {
 		String result = "";
 
 		Set<String> myIDs = new HashSet<String>();
@@ -101,28 +76,58 @@ public class GlobalParser {
 		}
 
 		for (String id : myIDs) {
+
 			String pathString = new String(id + ":");
 			for (String tag : map.keySet()) {
 				String[] split = tag.split(":");
 				String currentID = split[0];
 				if (currentID.equals(id)) {
-					String name = split[1];
-					String wave = split[2];
 					SpawnEntityRow row = map.get(tag);
+					String name = row.getMyName().getText();
+					String wave = row.getMyWaveOrder().getText();
 					String number = row.getMyNumber().getText();
 					String rate = row.getMyRate().getText();
-					String entityObject = new String(name + "." + wave + "." + number + "." + rate + " ");
-					pathString = pathString + entityObject;
+					String entityObject = name + "." + wave + "." + number + "." + rate + "_";
+					pathString += entityObject;
 				}
 
 			}
-			pathString = pathString.substring(0, pathString.length() - 1);
-			result = result + pathString + ",";
+			String completePath = pathString.substring(0, pathString.length() - 1);
+			result = result + completePath + ",";
 		}
 
 		result = result.substring(0, result.length() - 1);
-
 		return result;
+	}
+
+	public static List<String> parseLevels(String string) {
+		List<String> sortedLevels = new ArrayList<String>();
+		String[] allLevels = string.split(" ");
+		for (String level : allLevels) {
+			String[] split = level.split(":");
+			sortedLevels.add(split[1]);
+		}
+
+		return sortedLevels;
+
+	}
+
+	public static String compressLevels(Map<Integer, String> levels) {
+		int[] indexes = new int[levels.size()];
+		int index = 0;
+		for (Integer i : levels.keySet()) {
+			indexes[index] = i;
+			index++;
+		}
+
+		Arrays.sort(indexes);
+
+		String result = "";
+		for (int j : indexes) {
+			result += Integer.toString(j) + ":" + levels.get(j) + " ";
+		}
+
+		return result.substring(0, result.length() - 1);
 	}
 
 }

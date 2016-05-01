@@ -7,7 +7,7 @@ package engine.backend.components;
  */
 
 public class MovementComponent extends Component {
-	
+
 	private double myVelocity;
 	// private double myAcceleration;
 	private Vector myCurrentVelocityVector;
@@ -36,6 +36,7 @@ public class MovementComponent extends Component {
 		this.myInitialOmega = component.getInitialOmega();
 		this.canMove = component.canMove();
 		this.canRotate = component.canRotate();
+		this.myVelocity = component.getVelocity();
 	}
 
 	// for demo purposes
@@ -49,12 +50,17 @@ public class MovementComponent extends Component {
 		setCurrentVelocityVector(new Vector(xspeed, yspeed));
 	}
 	
+	public MovementComponent() {
+		setCurrentVelocityVector(new Vector(0, 0));
+	}
+	
 	public Vector getCurrentVelocityVector(){
 		return myCurrentVelocityVector;
 	}
 
 	/**
 	 * Sets the current velocity of the entity with this component.
+	 * 
 	 * @param vel
 	 */
 	public void setCurrentVelocityVector(Vector vel) {
@@ -63,6 +69,7 @@ public class MovementComponent extends Component {
 
 	/**
 	 * Sets a default velocity for an entity with this component.
+	 * 
 	 * @param vel
 	 */
 	public void setDefaultVelocityVector(Vector vel) {
@@ -79,6 +86,7 @@ public class MovementComponent extends Component {
 
 	/**
 	 * Sets the speed of movement for the entity with this component.
+	 * 
 	 * @param deltaSpeed
 	 */
 	public void setSpeed(String deltaSpeed) {
@@ -120,7 +128,8 @@ public class MovementComponent extends Component {
 
 	/**
 	 * 
-	 * @return A boolean that tells whether or not this entity with this component can currently move.
+	 * @return A boolean that tells whether or not this entity with this
+	 *         component can currently move.
 	 */
 	public boolean canMove() {
 		return canMove;
@@ -128,7 +137,8 @@ public class MovementComponent extends Component {
 
 	/**
 	 * 
-	 * @return Whether or not an entity with this component can currecntly rotate.
+	 * @return Whether or not an entity with this component can currecntly
+	 *         rotate.
 	 */
 	public boolean canRotate() {
 		return canRotate;
@@ -136,6 +146,7 @@ public class MovementComponent extends Component {
 
 	/**
 	 * Sets whether or not the entity with this component can move.
+	 * 
 	 * @param bool
 	 */
 	public void setCanMove(boolean bool) {
@@ -144,14 +155,20 @@ public class MovementComponent extends Component {
 
 	/**
 	 * Sets whether or not the entity with this component can rotate.
+	 * 
 	 * @param bool
 	 */
 	public void setCanRotate(boolean bool) {
 		canRotate = bool;
 	}
-	
+
 	public double getVelocity() {
 		return myVelocity;
+	}
+	
+	@Override
+	public String toString() {
+		return "Velocity: " + myVelocity;
 	}
 
 	@Override
@@ -162,9 +179,10 @@ public class MovementComponent extends Component {
 	@Override
 	public void update(String dataName, String data) {
 		switch (dataName) {
-		
+
 		case "Velocity":
 			this.myVelocity = Double.parseDouble(data);
+			this.myCurrentVelocityVector = new Vector(myVelocity, 0);
 			return;
 		case "CanMove":
 			if (data.equals("True")) {

@@ -1,5 +1,6 @@
 package authoring.controller;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Observable;
 
@@ -11,16 +12,16 @@ import authoring.backend.data.GlobalData;
  */
 
 public class AuthoringController implements IAuthoringController {
-	
+
 	private final GlobalData globaldata;
 	private final ModelManager model;
-	
+
 	public AuthoringController(GlobalData globaldata) {
 		this.globaldata = globaldata;
 		this.model = new ModelManager(globaldata);
 		setListener();
 	}
-	
+
 	private void setListener() {
 		this.globaldata.getData().addObserver(this);
 	}
@@ -28,17 +29,21 @@ public class AuthoringController implements IAuthoringController {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o == globaldata.getData()) {
-			parseInput(globaldata.getData().getData());
+			try {
+				parseInput(globaldata.getData().getData());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@Override
-	public void parseInput(Map<String, String> input) {
+	public void parseInput(Map<String, String> input) throws IOException {
 		Map<String, String> data = processData(input);
 		String type = data.get("Type");
 		String command = data.get("Command");
 		data.remove("Command");
-		data.remove("Type");
 		if (type.equals("Entity")) {
 			model.updateEntities(command, data);
 			return;
@@ -52,20 +57,22 @@ public class AuthoringController implements IAuthoringController {
 			return;
 		}
 		if (type.equals("Game")) {
-			model.updateGame(command, data);
+			model.updateGame(data);
+			return;
+		}
+		if (type.equals("Create")) {
+			model.exportGame();
 			return;
 		}
 	}
-	
+
 	private Map<String, String> processData(Map<String, String> data) {
 		for (String key : data.keySet()) {
-			if (data.get(key).equals("") || data.get(key) == null) {
-				System.out.println(key);
+			if (data.get(key) == null || data.get(key).equals("")) {
 				data.put(key, "0");
 			}
 		}
 		return data;
 	}
-	
-}
 
+}

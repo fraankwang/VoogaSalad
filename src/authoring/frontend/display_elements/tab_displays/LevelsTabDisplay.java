@@ -1,9 +1,7 @@
 package authoring.frontend.display_elements.tab_displays;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.TreeMap;
+import java.util.*;
+
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.frontend.IAuthoringView;
@@ -46,37 +44,43 @@ public class LevelsTabDisplay extends TabDisplay {
 	public void update(Observable o, Object arg) {
 		@SuppressWarnings("unchecked")
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
-
-		((LevelsTabGrid) myGrid).update(data);
+		update(data);
 	}
+	
 
+	public void update(List<Map<String, String>> data) {
+		((LevelsTabGrid) myGrid).updateLevelsPrimaryDisplay(data);
+	}
+	
 
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		map.put("Name", null);
-		map.put("MapBackgroundImage", null);
-		map.put("LevelTimer", null);
-		map.put("WaveDelayTimer", null);
-		map.put("MapWidth", null);
-		map.put("MapHeight", null);
 
-		System.out.println("*****1. LevelsTabDisplay: got default Levels attributes");
-		System.out.println(map);
+		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+
+		for (String attribute : defaultAttributes) {
+			map.put(attribute, null);
+		}
 
 		return map;
+	}
+
+	@Override
+	public void createNew() {
+		myEditorDisplay.edit(getDefaultAttributesMap());
 	}
 
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
 
-	@Override
+	public Map<String, String> getLevels() {
+		return ((LevelsTabGrid) myGrid).getLevels();
+	}
+
 	public String getName() {
 		return "Levels";
 	}
-	
-	public List<String> getLevels() {
-		return ((LevelsTabGrid) myGrid).getLevels();
-	}
+
 }

@@ -6,10 +6,18 @@ import authoring.frontend.display_elements.grid_factories.GridFactory;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.interfaces.display_element_interfaces.IGrid;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * The Grid superclass is the object that populates all the EditorDisplays and
@@ -29,6 +37,8 @@ public abstract class Grid implements IGrid {
 	protected GridPane myGrid;
 	protected Panel myPrimaryDisplay;
 	protected ButtonDashboard myButtonDashboard;
+
+	protected String newPromptedString;
 
 	/**
 	 * Upon instantiation of a Grid, the grid components are initialized and
@@ -74,17 +84,7 @@ public abstract class Grid implements IGrid {
 
 	}
 
-	/**
-	 * @return assembled and formatted Grid
-	 */
-	public Node getNode() {
-		return myGrid;
-	}
-
-	public Panel getPrimaryDisplay() {
-		return myPrimaryDisplay;
-	}
-
+	
 	/**
 	 * Sets the Editor attribute panel information with information from the
 	 * selected item just opened, or updates Unmodifiable attributes information
@@ -94,9 +94,64 @@ public abstract class Grid implements IGrid {
 	 */
 	public abstract void setAttributesPanel(Map<String, String> info);
 
+	
 	/**
 	 * Pulls various buttons from the grids and assigns hotkeys.
 	 */
 	public abstract void initializeHotKeys();
+
+	
+	/**
+	 * Creates new window for user to input a String. This method is public to
+	 * allow its TabDisplay wrapper to access it as well.
+	 * 
+	 * @return
+	 */
+	public String promptNewName(String name) {
+		Stage promptStage = new Stage();
+		VBox promptBox = new VBox();
+		promptBox.setAlignment(Pos.CENTER);
+		Label prompt = new Label("Enter new " + name + ":");
+		TextField textBox = new TextField();
+		textBox.setMaxWidth(200);
+		promptBox.getChildren().add(prompt);
+		promptBox.getChildren().add(textBox);
+		HBox buttonBox = new HBox();
+		buttonBox.setAlignment(Pos.CENTER);
+		Button cancelButton = new Button("Cancel");
+		Button saveButton = new Button("Save");
+		cancelButton.setOnAction(e -> promptStage.close());
+		textBox.setOnAction(e -> {
+			newPromptedString = textBox.getText();
+			promptStage.close();
+		});
+
+		saveButton.setOnAction(e -> {
+			newPromptedString = textBox.getText();
+			if (!newPromptedString.equals("")) {
+				promptStage.close();				
+			}
+		});
+//		buttonBox.getChildren().addAll(cancelButton, saveButton);
+		buttonBox.getChildren().add(saveButton);
+		promptBox.getChildren().add(buttonBox);
+		Scene promptScene = new Scene(promptBox, 300, 200);
+		promptStage.setScene(promptScene);
+		promptStage.showAndWait();
+		return newPromptedString;
+	}
+	
+
+	/**
+	 * @return assembled and formatted Grid
+	 */
+	public Node getNode() {
+		return myGrid;
+	}
+	
+	
+	public Panel getPrimaryDisplay() {
+		return myPrimaryDisplay;
+	}
 
 }

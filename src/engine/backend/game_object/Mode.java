@@ -10,20 +10,20 @@ import java.util.Map;
 
 public class Mode {
 
+	//myLevels is a map of index at which level is played to Level object.
 	private Map<Integer, Level> myLevels;
 	private String myName;
-	private GameStatistics myModeStatistics;
+	private GameStatistics myGameStatistics;
 	private int index;
-	
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Mode(String myName, GameStatistics modeStatistics, Map<Integer, Level> levels) {
+	public Mode(String myName, GameStatistics gameStatistics, Map<Integer, Level> levels) {
 		this.myName = myName;
-		this.myModeStatistics = modeStatistics;		
+		this.myGameStatistics = gameStatistics;		
 		this.myLevels = levels;
 	}
-	
+
 	/**
 	 * Engine Testing Constructor.
 	 */
@@ -31,7 +31,7 @@ public class Mode {
 		this.myName = name;
 		this.myLevels = new HashMap<Integer, Level>();
 	}
-		
+
 	public Map<Integer, Level> getLevels() {
 		return myLevels;
 	}
@@ -41,29 +41,33 @@ public class Mode {
 	}
 	
 	
-	public GameStatistics getModeStatistics(){
-		return myModeStatistics;
+	public GameStatistics getGameStatistics(){
+		return myGameStatistics;
 	}
 	
-	public String getName(){
+	public void setGameStatistics(GameStatistics stats){
+		myGameStatistics = stats;
+	}
+
+	public String getName() {
 		return this.myName;
 	}
-	
+
 	/**
 	 * Engine Testing Method
 	 */
 	public void addLevel(Level level) {
 		this.myLevels.put(level.getIndex(), level);
 	}
-	
+
 	public int getIndex() {
 		return index;
 	}
-	
+
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Mode [levels=" + myLevels + "]";

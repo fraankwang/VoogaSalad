@@ -72,25 +72,18 @@ public class QuadTree {
 		double verticalMidpoint = bounds.getX() + (bounds.getWidth() / 2);
 		double horizontalMidpoint = bounds.getY() + (bounds.getHeight() / 2);
 
-		// Object can completely fit within the top quadrants
-		PositionComponent myPosition = (PositionComponent) entity
-				.getComponent(ComponentTagResources.positionComponentTag);
+		PositionComponent myPosition = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 		SizeComponent mySize = (SizeComponent) entity.getComponent(ComponentTagResources.sizeComponentTag);
-		boolean topQuadrant = (myPosition.getX() < horizontalMidpoint
-				&& myPosition.getY() + mySize.getHeight() < horizontalMidpoint);
-		// Object can completely fit within the bottom quadrants
-		boolean bottomQuadrant = (myPosition.getY() > horizontalMidpoint);
-
-		// Object can completely fit within the left quadrants
-		if (myPosition.getX() < verticalMidpoint && myPosition.getX() + mySize.getWidth() < verticalMidpoint) {
+		boolean topQuadrant = inTopQuadrants(horizontalMidpoint, myPosition, mySize);
+		boolean bottomQuadrant = inBottomQuadrants(horizontalMidpoint, myPosition);
+		if (inLeftQuadrant(verticalMidpoint, myPosition, mySize)) {
 			if (topQuadrant) {
 				index = 1;
 			} else if (bottomQuadrant) {
 				index = 2;
 			}
 		}
-		// Object can completely fit within the right quadrants
-		else if (myPosition.getX() > verticalMidpoint) {
+		else if (inRightQuadrant(verticalMidpoint, myPosition)) {
 			if (topQuadrant) {
 				index = 0;
 			} else if (bottomQuadrant) {
@@ -101,9 +94,28 @@ public class QuadTree {
 		return index;
 	}
 
+	private boolean inRightQuadrant(double verticalMidpoint, PositionComponent myPosition) {
+		return myPosition.getX() > verticalMidpoint;
+	}
+
+	private boolean inLeftQuadrant(double verticalMidpoint, PositionComponent myPosition, SizeComponent mySize) {
+		return myPosition.getX() < verticalMidpoint && myPosition.getX() + mySize.getWidth() < verticalMidpoint;
+	}
+
+	private boolean inBottomQuadrants(double horizontalMidpoint, PositionComponent myPosition) {
+		boolean bottomQuadrant = (myPosition.getY() > horizontalMidpoint);
+		return bottomQuadrant;
+	}
+
+	private boolean inTopQuadrants(double horizontalMidpoint, PositionComponent myPosition, SizeComponent mySize) {
+		boolean topQuadrant = (myPosition.getX() < horizontalMidpoint&& myPosition.getY() + mySize.getHeight() < horizontalMidpoint);
+		return topQuadrant;
+	}
+
 	/**
 	 * Insert the object into the quadtree. If the node exceeds the capacity, it
 	 * will split and add all objects to their corresponding nodes.
+	 * 
 	 * @param entity
 	 */
 	public void insert(IEntity entity) {

@@ -1,18 +1,15 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.display_elements.panels.LevelGridViewPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.parser.GlobalParser;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 /**
  * 
@@ -22,10 +19,16 @@ import javafx.scene.text.Text;
 
 public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 
-	private static final int MODE_DESCRIPTION_HEIGHT = 15;
-
+	private static final int MODE_DESCRIPTION_HEIGHT = 30;
+	private static final List<String> DEFAULT_MODE_ATTRIBUTES = Arrays.asList("Name", "InitialLives", "InitialResources");
+	
+	private LevelGridViewPanel myLevelSelector;
+	private Map<String, String> myPossibleLevels;
+	private Map<Integer, String> mySelectedLevelsMap;
+	
 	public ModifiableModeAttributesPanel(int height, int width, IAuthoringView controller) {
 		super(height, width, controller);
+		myPossibleLevels = new HashMap<String, String>();
 	}
 
 	@Override
@@ -33,19 +36,24 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		myWrapper = new BorderPane();
 
 		List<Integer> rowConstraints = new ArrayList<Integer>();
+		List<Integer> columnConstraints = new ArrayList<Integer>();
 		rowConstraints.add(MODE_DESCRIPTION_HEIGHT);
 		rowConstraints.add(100 - MODE_DESCRIPTION_HEIGHT);
-		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myGridPane.setMaxWidth(ATTRIBUTES_PANEL_WIDTH);
-		myRulesListView = createRulesListView();
-		myRulesPane = new TitledPane("Rules", myRulesListView);
 
 		myAttributesGridPane = createAttributesGridPane();
 		myAttributesGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
-
-		myAttributes = (List<String>) Arrays.asList("Easy", "Medium", "Hard", "Invincible");
+		
+		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
+		myLevelSelector.initialize();
+		
+		mySelectedLevelsMap = new HashMap<Integer, String>();
+		
+		myAttributesMap = new TreeMap<String, String>();
+		myInputMap = new TreeMap<String, Control>();
+		myAttributes = DEFAULT_MODE_ATTRIBUTES;
 		assembleEmptyInputRows();
 
 	}
@@ -53,93 +61,99 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myAttributesGridPane, 0, 0);
-		myGridPane.add(myRulesPane, 0, 1);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 	}
-
-	@Override
-	protected void assembleEmptyInputRows() {
-		myInputMap = new HashMap<String, Control>();
-		myAttributesMap = new HashMap<String, String>();
-
-		ComboBox<String> cb = new ComboBox<String>();
-		cb.setEditable(false);
-		cb.setPromptText("Pick a Mode");
-
-		for (int i = 0; i < myAttributes.size(); i++) {
-			cb.getItems().add(myAttributes.get(i));
-			// TODO: set on action to autofill some rules based on which mode
-			// they pick
-		}
-		cb.getItems().add("Custom");
-
-		Text text = new Text("Mode");
-		text.setFont(new Font(FONT_SIZE));
-
-		myAttributesMap.put("Mode", "");
-		myInputMap.put("Mode", cb);
-
-		myAttributesGridPane.add(text, 0, 0);
-		myAttributesGridPane.add(myInputMap.get("Mode"), 1, 0);
-	}
+	
 
 	@Override
 	public void updateAttributes(Map<String, String> info) {
 		myAttributesMap = info;
+		myInputMap.clear();
+		
+		for (String attribute : DEFAULT_MODE_ATTRIBUTES) {
+			TextField tf = new TextField();
+			myInputMap.put(attribute, tf);
+		}
+		
+		if (info.get("Levels") != null) {
+			List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
+//			System.out.println("***** new parsed levels: " + selectedLevels);
+			updateSelectedLevels(selectedLevels);
+			
+		}
+		
+		System.out.println(
+				"*****3. ModifiableModeAttrPanel: updated myAttributesMap and myAttributes set with given unmodifiableattributespanel outputs:");
+		System.out.println(myAttributesMap);
 		refreshAttributes();
 	}
 
-	@Override // change to make refresh combo boxes instead
-	@SuppressWarnings("unchecked")
+	public void updateSelectedLevels(List<String> selectedLevels) {
+		myPossibleLevels = myController.getLevels();
+		myLevelSelector.updatePossibleLevels(myPossibleLevels);
+		myLevelSelector.updateSelectedLevels(selectedLevels);
+	}
+	
+
+	@Override
 	protected void refreshAttributes() {
 		if (myInputMap != null) {
-			String selectedMode = myAttributesMap.get("Mode");
-			ComboBox<String> cb = (ComboBox<String>) myInputMap.get("Mode");
-			cb.getSelectionModel().select(selectedMode);
-			myInputMap.replace("Mode", cb);
-		}
+			for (int i = 0; i < myAttributes.size(); i++) {
+				TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
+				tf.setText(myAttributesMap.get(myAttributes.get(i)));
+				tf.setEditable(true);
+				myInputMap.replace(myAttributes.get(i), tf);
 
+			}
+
+		}
 		refreshAttributeInputRows();
 	}
 
-	@Override
-	protected void refreshAttributeInputRows() {
-		myAttributesGridPane.getChildren().clear();
-
-		Text text = new Text("Mode");
-		text.setFont(new Font(FONT_SIZE));
-
-		myAttributesGridPane.add(text, 0, 0);
-		myAttributesGridPane.add(myInputMap.get("Mode"), 1, 0);
-	}
-
 	@SuppressWarnings("unchecked")
-	@Override
 	public Map<String, String> saveAttributes() {
 		myAttributesMap.put("Type", "Mode");
-		myAttributesMap.replace("Mode",
-				((ComboBox<String>) myInputMap.get("Mode")).getSelectionModel().getSelectedItem());
 
+		for (String s : myInputMap.keySet()) {
+			if (myInputMap.get(s) instanceof TextField) {
+				myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
+			} else if (myInputMap.get(s) instanceof ComboBox<?>) {
+				myAttributesMap.replace(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
+			}
+
+		}
+
+		mySelectedLevelsMap = myLevelSelector.getSelectedLevels();
+		String levelsCompressed = GlobalParser.compressLevels(mySelectedLevelsMap);
+		
+		if (!myAttributesMap.containsKey("Levels")) {
+			myAttributesMap.put("Levels", levelsCompressed);
+		} else {
+			myAttributesMap.replace("Levels", levelsCompressed);
+		}
+		
 		System.out.println("*****4. ModifiableModeAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
 		return myAttributesMap;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void resetAttributes() {
-		for (String s : myInputMap.keySet()) {
-			ComboBox<String> inputArea = (ComboBox<String>) myInputMap.get(s);
-			inputArea.getSelectionModel().clearSelection();
-		}
-
+		super.resetAttributes();
+		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
+		myLevelSelector.initialize();
+		
+	}
+	
+	
+	public LevelGridViewPanel getLevelSelector() {
+		return myLevelSelector;
 	}
 
-	@Override
-	public void updateImageComponent(String image) {
-		// null because no image component?
+	public void setLevelSelector(LevelGridViewPanel currentGridViewPanel) {
+		myLevelSelector = currentGridViewPanel;
 	}
 
 }

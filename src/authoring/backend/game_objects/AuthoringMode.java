@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AuthoringMode {
-	
+
 	private String myName;
 	private int initialNumLives;
 	private double initialResources;
-	
+
 	private Map<String, String> myInfo;
 	private Map<Integer, String> levels;
-	
+
 	public AuthoringMode(String myName, int initialNumLives, double initialResources, Map<Integer, String> levels) {
 		this.myName = myName;
 		this.levels = levels;
@@ -20,7 +20,7 @@ public class AuthoringMode {
 		this.myInfo = new HashMap<String, String>();
 		initializeInfo();
 	}
-	
+
 	private void initializeInfo() {
 		myInfo.put("Type", "Mode");
 		myInfo.put("Name", myName);
@@ -28,7 +28,7 @@ public class AuthoringMode {
 		myInfo.put("InitialResources", initialResources + "");
 		myInfo.put("Levels", getStringLevelIndexes());
 	}
-	
+
 	private String getStringLevelIndexes() {
 		if (levels.isEmpty()) {
 			return "";
@@ -44,27 +44,27 @@ public class AuthoringMode {
 			return sb.toString();
 		}
 	}
-	
+
 	public Map<String, String> getInfo() {
 		return myInfo;
 	}
-	
+
 	public String getName() {
 		return myName;
 	}
-	
+
 	public int getInitialLives() {
 		return initialNumLives;
 	}
-	
+
 	public double getInitialResources() {
 		return initialResources;
 	}
-	
+
 	public Map<Integer, String> getLevels() {
 		return levels;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AuthoringMode) {

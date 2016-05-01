@@ -11,6 +11,12 @@ import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDa
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 
+/**
+ * 
+ * @author Frank
+ *
+ */
+
 public class EntitiesTabGridFactory extends TabGridFactory {
 
 	public EntitiesTabGridFactory(IAuthoringView controller, ITabDisplay tabDisplay) {
@@ -19,7 +25,7 @@ public class EntitiesTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay);
+		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay, myController);
 		gridView.initialize();
 		return gridView;
 	}

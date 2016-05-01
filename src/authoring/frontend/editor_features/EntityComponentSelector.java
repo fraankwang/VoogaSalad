@@ -1,15 +1,10 @@
 package authoring.frontend.editor_features;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
+import authoring.frontend.editor_features.EntityComponents;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
@@ -24,11 +19,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Benchesnut
+ *
+ */
 public class EntityComponentSelector {
 
-	public static final String COMPONENT_RESOURCES = "backend/resources/component_tags";
-
-	private ResourceBundle myTags;
 	private VBox myVBox;
 	private Stage myStage;
 	private Scene myScene;
@@ -40,8 +37,6 @@ public class EntityComponentSelector {
 	}
 
 	public void initialize() {
-		myTags = ResourceBundle.getBundle(COMPONENT_RESOURCES);
-
 		myVBox = new VBox();
 		myStage = new Stage();
 		myScene = new Scene(myVBox, 400, 800);
@@ -49,11 +44,12 @@ public class EntityComponentSelector {
 		mySelectedComponents = new ArrayList<String>();
 		myStage.setScene(myScene);
 
-		Enumeration<String> componentTags = myTags.getKeys();
-		while (componentTags.hasMoreElements()) {
-			CheckBox cb = createCheckBox(myTags.getString(componentTags.nextElement()));
+		
+		for (String componentTag : EntityComponents.getComponentTags()) {
+			CheckBox cb = createCheckBox(componentTag);
 			myVBox.getChildren().add(cb);
 		}
+
 		Button saveButton = new Button("Save");
 		myVBox.getChildren().add(saveButton);
 
@@ -98,7 +94,7 @@ public class EntityComponentSelector {
 		Set<String> booleanComboBox = new HashSet<String>();
 		booleanComboBox.add("true");
 		booleanComboBox.add("false");
-		
+
 		for (String component : components) {
 
 			switch (component) {
@@ -115,17 +111,17 @@ public class EntityComponentSelector {
 				break;
 
 			case "DisplayComponent":
-				ComboBox<String> canBeShown = createComboBox(booleanComboBox);
 				TextField image = new TextField();
-				inputMap.put("DisplayComponent_CanBeShown", canBeShown);
 				inputMap.put("DisplayComponent_Image", image);
 				break;
 
 			case "FiringComponent":
 				ComboBox<String> ammo = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
-						.getTabBarElement().getEntitiesTabDisplay()).getEntities().keySet());
-				ComboBox<String> targets = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
-						.getTabBarElement().getEntitiesTabDisplay()).getEntities().keySet());
+						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
+				CheckComboBox targets = new CheckComboBox("Select Targets", ((EntitiesTabDisplay) myController.getAuthoringViewManager()
+						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
+	
+//				ComboBox<String> multiTrack = createComboBox(booleanComboBox);
 				TextField speed = new TextField();
 				TextField sightRange = new TextField();
 				TextField firingRate = new TextField();
@@ -134,6 +130,7 @@ public class EntityComponentSelector {
 				inputMap.put("FiringComponent_AmmunitionSpeed", speed);
 				inputMap.put("FiringComponent_EnemyInSightRange", sightRange);
 				inputMap.put("FiringComponent_FiringRate", firingRate);
+//				inputMap.put("FiringComponent_MultiDirectional, multiTrack"));
 				break;
 
 			case "SizeComponent":
@@ -143,11 +140,6 @@ public class EntityComponentSelector {
 				inputMap.put("SizeComponent_Height", height);
 				break;
 
-			case "ArmorComponent":
-				TextField armor = new TextField();
-				inputMap.put("ArmorComponent_ResistanceToDamage", armor);
-				break;
-
 			case "HealthComponent":
 				TextField health = new TextField();
 				TextField crit = new TextField();
@@ -155,24 +147,9 @@ public class EntityComponentSelector {
 				inputMap.put("HealthComponent_CriticalHealth", crit);
 				break;
 
-			case "RotationComponent":
-				ComboBox<String> rotate = createComboBox(booleanComboBox);
-				inputMap.put("RotationComponent", rotate);
-				break;
-
-			case "CostComponent":
+			case "PurchaseComponent":
 				TextField cost = new TextField();
-				inputMap.put("Cost", cost);
-				break;
-
-			case "BountyComponent":
-				TextField bounty = new TextField();
-				inputMap.put("Bounty", bounty);
-				break;
-
-			case "PathComponent":
-				TextField pathID = new TextField();
-				inputMap.put("PathComponent_PathID", pathID);
+				inputMap.put("PurchaseComponent_Value", cost);
 				break;
 
 			case "PositionComponent":
@@ -182,23 +159,15 @@ public class EntityComponentSelector {
 				inputMap.put("PositionComponent_YCoordinate", y);
 				break;
 
-			case "CollisionComponent":
-				ComboBox<String> collided = createComboBox(booleanComboBox);
-				inputMap.put("CollisionComponent_IsCollided", collided);
-				break;
-
 			case "MovementComponent":
 				TextField velocity = new TextField();
 				ComboBox<String> canMove = createComboBox(booleanComboBox);
 				ComboBox<String> canRotate = createComboBox(booleanComboBox);
+				ComboBox<String> canTrack = createComboBox(booleanComboBox);
 				inputMap.put("MovementComponent_Velocity", velocity);
 				inputMap.put("MovementComponent_CanMove", canMove);
 				inputMap.put("MovementComponent_CanRotate", canRotate);
-				break;
-
-			case "DamageComponent":
-				TextField damage = new TextField();
-				inputMap.put("DamageComponent", damage);
+				inputMap.put("MovementComponent_CanTrack", canTrack);
 				break;
 
 			case "Cancel":
@@ -210,7 +179,15 @@ public class EntityComponentSelector {
 
 		}
 
+		checkTracking(inputMap);
 		return inputMap;
+	}
+
+	private void checkTracking(Map<String, Control> inputMap) {
+		if (inputMap.containsKey("MovementComponent_CanTrack")) {
+			
+		}
+		
 	}
 
 	/**
@@ -232,7 +209,7 @@ public class EntityComponentSelector {
 	}
 
 	/**
-	 * Creates a String ComboBox that populates given List of options.
+	 * Creates a String ComboBox that populates given Set of options.
 	 * 
 	 * @param set
 	 * @return
@@ -275,5 +252,64 @@ public class EntityComponentSelector {
 
 	public List<String> getSelectedAttributes() {
 		return mySelectedComponents;
+	}
+
+	public Map<String, String> getExtraDefaultAttributes(String genre) {
+		Map<String, String> extraAttributes = new TreeMap<String, String>();
+		extraAttributes.put("Name", null);
+		extraAttributes.put("Genre", null);
+//		extraAttributes.put("DisplayComponent_Image", null);
+		switch (genre) {
+	
+		case "Tower":
+			extraAttributes.put("DisplayComponent_Image", null);
+			extraAttributes.put("FiringComponent_Ammunition", null);
+			extraAttributes.put("FiringComponent_AmmunitionSpeed", null);
+			extraAttributes.put("FiringComponent_EnemyInSightRange", null);
+			extraAttributes.put("FiringComponent_Targets", null);
+			extraAttributes.put("FiringComponent_FiringRate", null);
+			extraAttributes.put("SizeComponent_Width", null);
+			extraAttributes.put("SizeComponent_Height", null);
+			extraAttributes.put("PositionComponent_XCoordinate", null);
+			extraAttributes.put("PositionComponent_YCoordinate", null);
+			break;
+			
+		case "Enemy":
+			extraAttributes.put("DisplayComponent_Image", null);
+			extraAttributes.put("HealthComponent_Health", null);
+			extraAttributes.put("HealthComponent_CriticalHealth", null);
+			extraAttributes.put("SizeComponent_Width", null);
+			extraAttributes.put("SizeComponent_Height", null);
+			extraAttributes.put("PositionComponent_XCoordinate", null);
+			extraAttributes.put("PositionComponent_YCoordinate", null);
+			extraAttributes.put("MovementComponent_Velocity", null);
+			extraAttributes.put("MovementComponent_CanMove", null);
+			extraAttributes.put("MovementComponent_CanRotate", null);
+			extraAttributes.put("MovementComponent_CanTrack", null);
+
+			break;
+			
+		case "Ammo":
+			extraAttributes.put("DisplayComponent_Image", null);
+			extraAttributes.put("SizeComponent_Width", null);
+			extraAttributes.put("SizeComponent_Height", null);
+			extraAttributes.put("PositionComponent_XCoordinate", null);
+			extraAttributes.put("PositionComponent_YCoordinate", null);
+			extraAttributes.put("MovementComponent_Velocity", null);
+			extraAttributes.put("MovementComponent_CanMove", null);
+			extraAttributes.put("MovementComponent_CanRotate", null);
+			extraAttributes.put("MovementComponent_CanTrack", null);
+
+			break;
+			
+		case "Custom":
+			
+			break;
+			
+		default:
+			break;
+		}
+			
+		return extraAttributes;
 	}
 }

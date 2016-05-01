@@ -1,7 +1,5 @@
 package authoring.frontend.display_elements.grid_factories.editor_grid_factories;
 
-import java.io.File;
-
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
@@ -13,8 +11,6 @@ import authoring.frontend.display_elements.panels.attributes_panels.modifiable_p
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * 
@@ -31,33 +27,34 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 		myEditorGrid = grid;
 	}
 
-	@Override
-	public RulesEditorPanel createRulesPanel() {
-		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE);
+	/**
+	 * Rules are created and defined within the Level Editor. This task is
+	 * encapsulated by the RulesEditorPanel.
+	 * 
+	 * @param attributes
+	 * @return
+	 */
+	public RulesEditorPanel createRulesPanel(ModifiableAttributesPanel attributes) {
+		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController, attributes);
 		editorPanel.initialize();
 		return editorPanel;
 	}
 
+	/**
+	 * The PrimaryDisplay for the Level Editor is a LevelEditorViewPanel, which
+	 * contains additional functionalities to create Paths.
+	 */
 	@Override
 	public Panel createPrimaryDisplay() {
 		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
-		editorView.setImage(new Image("question_mark.png")); // set default
-																// image as
-																// question
-																// mark or
-																// something
+		editorView.setImage(new Image("resources/images/question_mark.png"));
+		editorView.setDescription("Level");
 
 		editorView.getPanelBar().addButton("Upload Map Image", e -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-			File imageFile = fileChooser.showOpenDialog(null);
-			if (imageFile != null) {
-				editorView.setImage(new Image(imageFile.toURI().toString()));
-				((ModifiableAttributesPanel) myEditorGrid.getAttributesPanel())
-				.updateImageComponent(imageFile.getName());
-			}
+			String newImage = myController.getAuthoringViewManager().getObjectChooser().openChooser();
+			editorView.setImage(new Image(newImage));
+			((ModifiableLevelAttributesPanel) myEditorGrid.getAttributesPanel()).updateImageComponent(newImage);
 		});
 
 		return editorView;

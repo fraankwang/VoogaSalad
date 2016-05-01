@@ -1,33 +1,39 @@
 package authoring.backend;
 
+import java.io.IOException;
 import java.util.Map;
 
 import authoring.backend.data.GlobalData;
 import authoring.backend.factories.AuthoringEntityFactory;
 import authoring.backend.factories.AuthoringLevelFactory;
 import authoring.backend.factories.AuthoringModeFactory;
+import authoring.backend.factories.GameFactory;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
+import backend.xml_converting.GameWorldToXMLWriter;
+import engine.backend.game_object.GameWorld;
 
 /*
  * @author: Jonathan Ma
  */
 
 public class ModelManager implements IModel {
-	
+
 	private final GlobalData globaldata;
 	private final AuthoringEntityFactory entityfactory;
 	private final AuthoringLevelFactory levelfactory;
 	private final AuthoringModeFactory modefactory;
+	private final GameFactory gameFactory;
 	
 	public ModelManager(GlobalData globaldata) {
 		this.globaldata = globaldata;
 		this.entityfactory = new AuthoringEntityFactory();
 		this.levelfactory = new AuthoringLevelFactory();
 		this.modefactory = new AuthoringModeFactory();
+		this.gameFactory = new GameFactory(globaldata);
 	}
-	
+
 	public void updateEntities(String command, Map<String, String> data) {
 		AuthoringEntity entity = entityfactory.createEntity(data);
 		if (command.equals("Update")) {
@@ -64,8 +70,17 @@ public class ModelManager implements IModel {
 		}
 	}
 
-	public void updateGame(String command, Map<String, String> data) {
-		globaldata.getGame().update(data);
+	public void updateGame(Map<String, String> data) {
+		if (data.containsKey("Name")) {
+			globaldata.getGame().setName(data.get("Name"));
+		}
+	}
+	
+	public void exportGame() throws IOException {
+		GameWorld game = gameFactory.createGame();
+		GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
+		String raw = writer.getXMLfromObject(game);
+		writer.stringToDocument(raw, "game1.xml");
 	}
 		
 }

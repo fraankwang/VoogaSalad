@@ -37,26 +37,27 @@ public class HealthSystem extends GameSystem {
 		
 		Collection<IEntity> applicableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.healthComponentTag);
 		for (IEntity entity : applicableEntities) {
-			HealthComponent healthComp = (HealthComponent) entity.getComponent(ComponentTagResources.healthComponentTag);			
-			if(healthComp.getHealth() <= 0){
+			HealthComponent healthComp = (HealthComponent) entity
+					.getComponent(ComponentTagResources.healthComponentTag);
+			if (healthComp.getHealth() <= 0) {
 				addToEventMap(myEventMap, getDeathEvent(entity), Arrays.asList(entity));
 				continue;
 			}
-			if(healthComp.getHealth() <= healthComp.getCriticalHealth()){
+			if (healthComp.getHealth() <= healthComp.getCriticalHealth()) {
 				addToEventMap(myEventMap, getCriticalHealthEvent(entity), entity);
 				continue;
 			}
-		
+
 		}
 	}
 
-	private IEvent getDeathEvent(IEntity entity){
+	private IEvent getDeathEvent(IEntity entity) {
 		DeathEvent deathEvent = new DeathEvent(entity.getID());
 		deathEvent.setEventID(entity.getName());
 		return deathEvent;
 	}
-	
-	private IEvent getCriticalHealthEvent(IEntity entity){
+
+	private IEvent getCriticalHealthEvent(IEntity entity) {
 		CriticalHealthEvent criticalHealthEvent = new CriticalHealthEvent(entity.getID());
 		criticalHealthEvent.setEventID(entity.getName());
 		return criticalHealthEvent;

@@ -6,6 +6,7 @@ import authoring.frontend.display_elements.panels.Panel;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -50,16 +51,20 @@ public abstract class AttributesPanel extends Panel {
 	}
 
 	protected String promptUserInput(String promptValue) {
+		TextField textBox = new TextField();
+		return promptUserInput(promptValue, textBox);
+	}
+	
+	protected String promptUserInput(String promptValue, TextField tf) {
 		Stage promptStage = new Stage();
 		promptedString = "";
 		VBox promptBox = new VBox();
 		promptBox.setAlignment(Pos.CENTER);
 		Label prompt = new Label("Enter " + promptValue + ":");
-		TextField textBox = new TextField();
-		textBox.setMaxWidth(200);
-		textBox.setPromptText("promptValue");
+		tf.setMaxWidth(200);
+		tf.setPromptText(promptValue);
 		promptBox.getChildren().add(prompt);
-		promptBox.getChildren().add(textBox);
+		promptBox.getChildren().add(tf);
 		HBox buttonBox = new HBox();
 		buttonBox.setAlignment(Pos.CENTER);
 		Button cancelButton = new Button("Cancel");
@@ -69,13 +74,44 @@ public abstract class AttributesPanel extends Panel {
 			return;
 		});
 		
-		textBox.setOnAction(e -> {
-			promptedString = textBox.getText();
+		tf.setOnAction(e -> {
+			promptedString = tf.getText();
 			promptStage.close();
 		});
 
 		saveButton.setOnAction(e -> {
-			promptedString = textBox.getText();
+			promptedString = tf.getText();
+			promptStage.close();
+		});
+		buttonBox.getChildren().addAll(cancelButton, saveButton);
+		promptBox.getChildren().add(buttonBox);
+		Scene promptScene = new Scene(promptBox, 300, 200);
+		promptStage.setScene(promptScene);
+		promptStage.showAndWait();
+		return promptedString;
+	}
+	
+	public String promptUserInput(String promptValue, ComboBox<String> cb) {
+		Stage promptStage = new Stage();
+		promptedString = "";
+		VBox promptBox = new VBox();
+		promptBox.setAlignment(Pos.CENTER);
+		Label prompt = new Label("Enter " + promptValue + ":");
+		cb.setMaxWidth(200);
+		cb.setPromptText(promptValue);
+		promptBox.getChildren().add(prompt);
+		promptBox.getChildren().add(cb);
+		HBox buttonBox = new HBox();
+		buttonBox.setAlignment(Pos.CENTER);
+		Button cancelButton = new Button("Cancel");
+		Button saveButton = new Button("Save");
+		cancelButton.setOnAction(e -> {
+			promptStage.close();
+			return;
+		});
+
+		saveButton.setOnAction(e -> {
+			promptedString = cb.getSelectionModel().getSelectedItem();
 			promptStage.close();
 		});
 		buttonBox.getChildren().addAll(cancelButton, saveButton);

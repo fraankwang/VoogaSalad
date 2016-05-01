@@ -1,8 +1,12 @@
 package authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
+import authoring.frontend.editor_features.CheckComboBox;
 import authoring.frontend.editor_features.EntityComponentSelector;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -61,11 +65,15 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		});
 	}
 
-	@Override
-	public void updateImageComponent(String image) {
-		myAttributesMap.replace("DisplayComponent_Image", image);
+	/**
+	 * Update image display based on attribute image name.
+	 * 
+	 * @param imageView
+	 */
+	public void updateImageComponent(String imageName) {
+		myAttributesMap.replace("DisplayComponent_Image", imageName);
 		TextField tf = (TextField) myInputMap.get("DisplayComponent_Image");
-		tf.setText(image);
+		tf.setText(imageName);
 		tf.setEditable(false);
 		myInputMap.replace("DisplayComponent_Image", tf);
 		refreshAttributeInputRows();
@@ -76,47 +84,157 @@ public class ModifiableEntityAttributesPanel extends ModifiableAttributesPanel {
 		super.updateAttributes(info);
 		EntityComponentSelector selector = new EntityComponentSelector(myController);
 		selector.initialize();
+
+		expandTracking(myInputMap, myAttributes);
 		myInputMap = selector.getParsedInputMap(myInputMap, myAttributes);
 		refreshAttributes();
 
 	}
 
+	/**
+	 * Dedicated method to parsing the user's selection of
+	 * MovementComponent_CanTrack. If selected to be true, all
+	 * MovementComponents are replaced with TrackingMovementComponents and
+	 * CanTrack is removed.
+	 * 
+	 * @param myInputMap
+	 * @param myAttributes
+	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, String> saveAttributes() {
-		myAttributesMap.put("Type", "Entity");
+	private void condenseTracking(Map<String, Control> inputMap, List<String> attributes) {
+		List<String> movementComponents = Arrays.asList("MovementComponent_Velocity", "MovementComponent_CanMove",
+				"MovementComponent_CanRotate");
+		String canTrack = "MovementComponent_CanTrack";
 
-		for (String s : myInputMap.keySet()) {
-			if (myInputMap.get(s) instanceof TextField) {
-				myAttributesMap.replace(s, ((TextField) myInputMap.get(s)).getText());
-			} else if (myInputMap.get(s) instanceof ComboBox<?>) {
-				myAttributesMap.replace(s, ((ComboBox<String>) myInputMap.get(s)).getValue());
+		String tracking = ((ComboBox<String>) myInputMap.get(canTrack)).getSelectionModel().getSelectedItem();
+
+		inputMap.remove(canTrack);
+		attributes.remove(canTrack);
+
+		if (tracking.equals("true")) {
+			for (String movementComponent : movementComponents) {
+				attributes.remove(movementComponent);
+				attributes.add("Tracking" + movementComponent);
+				Control control = inputMap.get(movementComponent);
+				inputMap.remove(movementComponent);
+				inputMap.put("Tracking" + movementComponent, control);
 			}
+		}
+
+		myAttributes = attributes;
+		myInputMap = inputMap;
+
+	}
+
+	/**
+	 * Method to replace instances of "Tracking" with normal MovementComponent
+	 * for the EntitySelectorComponent to read. Adds additional true/false value
+	 * in myAttributesMap for user to change.
+	 * 
+	 * @param inputMap
+	 * @param attributes
+	 */
+	private void expandTracking(Map<String, Control> inputMap, List<String> attributes) {
+		List<String> trackingMovementComponents = Arrays.asList("TrackingMovementComponent_Velocity",
+				"TrackingMovementComponent_CanMove", "TrackingMovementComponent_CanRotate");
+
+		if (attributes.contains("TrackingMovementComponent_Velocity")) {
+			myAttributesMap.put("MovementComponent_CanTrack", "true");
+
+			if (!myAttributes.contains("MovementComponent_CanTrack")) {
+				myAttributes.add("MovementComponent_CanTrack");
+			}
+			for (String trackingComponent : trackingMovementComponents) {
+				String truncated = trackingComponent.substring(8);
+				attributes.remove(trackingComponent);
+				attributes.add(truncated);
+				String selected = myAttributesMap.get(trackingComponent);
+				myAttributesMap.remove(trackingComponent);
+				myAttributesMap.put(truncated, selected);
+			}
+
+		} else if (attributes.contains("MovementComponent_Velocity")) {
+			if (!myAttributes.contains("MovementComponent_CanTrack")) {
+				myAttributes.add("MovementComponent_CanTrack");
+				myAttributesMap.put("MovementComponent_CanTrack", null);
+			} else {
+				myAttributesMap.put("MovementComponent_CanTrack", "false");
+
+			}
+		}
+
+		if (!myAttributes.contains("MovementComponent_CanTrack")) {
 
 		}
 
+	}
+
+	@Override
+	public void resetAttributes() {
+		EntityComponentSelector selector = new EntityComponentSelector(myController);
+		selector.initialize();
+		myAttributesMap = selector.getExtraDefaultAttributes(myAttributesMap.get("Genre"));
+
+		updateAttributes(myAttributesMap);
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public Map<String, String> saveAttributes() {
+		myAttributesMap.clear();
+		myAttributesMap.put("Type", "Entity");
+	
+		if (myAttributes.contains("MovementComponent_CanTrack")) {
+			condenseTracking(myInputMap, myAttributes);
+		}
+	
+		for (String s : myInputMap.keySet()) {
+	
+			if (myInputMap.get(s) instanceof ComboBox<?>) {
+				myAttributesMap.put(s, ((ComboBox<String>) myInputMap.get(s)).getValue());	
+			}
+			else if (myInputMap.get(s) instanceof TextField) {
+				myAttributesMap.put(s, ((TextField) myInputMap.get(s)).getText());
+			}
+			else if (myInputMap.get(s) instanceof CheckComboBox) {
+				myAttributesMap.put(s, ((CheckComboBox) myInputMap.get(s)).getSelections());
+			}
+			
+	
+		}
+	
 		System.out.println("*****4. ModifiableEntityAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
-
+	
 		return myAttributesMap;
 	}
 
 	protected void refreshAttributes() {
 		if (myInputMap != null) {
 			for (int i = 0; i < myAttributes.size(); i++) {
-				Control inputMethod = myInputMap.get(myAttributes.get(i));
+				String currentAttribute = myAttributes.get(i);
+				Control inputMethod = myInputMap.get(currentAttribute);
 
 				if (inputMethod instanceof TextField) {
-					TextField tf = (TextField) myInputMap.get(myAttributes.get(i));
-					tf.setText(myAttributesMap.get(myAttributes.get(i)));
+					TextField tf = (TextField) myInputMap.get(currentAttribute);
+					tf.setText(myAttributesMap.get(currentAttribute));
 					tf.setEditable(true);
-					myInputMap.replace(myAttributes.get(i), tf);
+					myInputMap.replace(currentAttribute, tf);
 
 				} else if (inputMethod instanceof ComboBox<?>) {
 					@SuppressWarnings("unchecked")
-					ComboBox<String> cb = (ComboBox<String>) myInputMap.get(myAttributes.get(i));
-					cb.setValue(myAttributesMap.get(myAttributes.get(i)));
+					ComboBox<String> cb = (ComboBox<String>) myInputMap.get(currentAttribute);
+					cb.setValue(myAttributesMap.get(currentAttribute));
 					cb.setEditable(false);
-					myInputMap.replace(myAttributes.get(i), cb);
+					myInputMap.replace(currentAttribute, cb);
+				}
+				
+				else if (inputMethod instanceof CheckComboBox) {
+					if (myAttributesMap.get(currentAttribute) != null) {
+						CheckComboBox ccb = (CheckComboBox) myInputMap.get(currentAttribute);
+						ccb.selectAll(Arrays.asList(myAttributesMap.get(currentAttribute).split(",")));
+						myInputMap.replace(currentAttribute, ccb);
+					}
 				}
 
 			}

@@ -4,7 +4,6 @@ import java.util.Map;
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.Panel;
-import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.EditorButtonDashboard;
 import javafx.scene.control.Button;
@@ -25,7 +24,6 @@ import javafx.stage.Stage;
 
 public abstract class EditorGrid extends Grid {
 
-	protected RulesEditorPanel myRulesPanel;
 	protected ModifiableAttributesPanel myModifiableAttributesPanel;
 	protected Stage myEditorStage;
 
@@ -37,7 +35,6 @@ public abstract class EditorGrid extends Grid {
 	@Override
 	protected void initializeGrid() {
 		super.initializeGrid();
-		myRulesPanel = ((EditorGridFactory) myGridFactory).createRulesPanel();
 		myModifiableAttributesPanel = ((EditorGridFactory) myGridFactory).createModifiableAttributesPanel();
 
 	}
@@ -45,11 +42,6 @@ public abstract class EditorGrid extends Grid {
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-
-		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
-		myGrid.add(myRulesPanel.getNode(), 0, 1);
-		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
-		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
 		((EditorButtonDashboard) myButtonDashboard).getSaveButton()
 				.setOnAction(e -> sendData(saveAttributes()));
