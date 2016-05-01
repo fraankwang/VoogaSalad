@@ -106,10 +106,12 @@ public class testingClass {
 		level2.setIndex(1);
 		mode.addLevel(level);
 		mode.addLevel(level2);
-		firingTest.addMode(mode);
-		
 		GameStatistics gameStats = new GameStatistics(50, 50);
 		mode.setGameStatistics(gameStats);
+		
+		firingTest.addMode(mode);
+		
+		
 
 		return firingTest;
 	}

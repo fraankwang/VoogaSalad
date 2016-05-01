@@ -9,17 +9,14 @@ public class Rule {
 	private Collection<IAction> myActions;
 	private int myID;
 	
-<<<<<<< HEAD
 	public Rule(Collection<String> events, Collection<IAction> actions) {
 		this.myEvents = events;
 		this.myActions = actions;
 	}
 	
-=======
 	/**
 	 * Creates a new rule with empty events and actions
 	 */
->>>>>>> d8a8fec900bd88e0d9b68024c78301a492a593ee
 	public Rule() {
 		myEvents = new ArrayList<String>();
 		myActions = new ArrayList<IAction>();

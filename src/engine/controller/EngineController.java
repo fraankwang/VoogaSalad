@@ -93,10 +93,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 		stepping = false;
 		myTestingClass = new testingClass();
 		Testing test = new Testing();
-		myGameWorld = test.test1();
+		myGameWorld = myTestingClass.testFiring();
 		
         myEventManager = new EventManager(this, myGameWorld);
-        startGame("mode1", 0);
+        startGame("test firing", 0);
 				
 //		StartView myStartView = new StartView(this);
 //		Scene scene = myStartView.buildScene();

@@ -104,7 +104,7 @@ public abstract class ObjectToXMLWriter {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	public static void stringToDocument(String xml, String fileName) throws IOException {
+	public void stringToDocument(String xml, String fileName) throws IOException {
 		PrintWriter out = new PrintWriter(fileName);
 		out.println(xml);
 		out.close();
