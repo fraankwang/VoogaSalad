@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.EntitiesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
@@ -12,6 +13,7 @@ import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDa
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import authoring.frontend.editor_features.EntityComponentSelector;
@@ -52,17 +54,45 @@ public class EntitiesTabGrid extends TabGrid {
 		super.assembleGridComponents();
 		((MainButtonDashboard) myButtonDashboard).getDuplicateButton().setOnAction(e -> duplicate(currentInfo));
 		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo, "Entity"));
-		((GridViewPanel) myPrimaryDisplay).getMyAddNewButton().setOnAction(e -> {
-			Map<String, String> defaultAttributesMap = myTabDisplay.getDefaultAttributesMap();
+		setDefaultAddNewAction(((GridViewPanel) myPrimaryDisplay).getMyAddNewButton());
+
+	}
+	
+	/**
+	 * Takes myGenre and populates the defaultAttributesMap with additional
+	 * attributes (components) required for genre specified.
+	 * 
+	 * @param addNewButton
+	 */
+	private void setDefaultAddNewAction(Button addNewButton) {
+		addNewButton.setOnAction(e -> {
 			EntityComponentSelector templateComponentSelector = new EntityComponentSelector(myController);
 			templateComponentSelector.initialize();
-			Map<String, String> additionalAttributes = templateComponentSelector.getExtraDefaultAttributes(myGenre);
-			defaultAttributesMap.putAll(additionalAttributes);
+			Map<String, String> defaultAttributesMap = templateComponentSelector.getExtraDefaultAttributes(myGenre);
 			defaultAttributesMap.put("Genre", myGenre);
 			myTabDisplay.openEditorDisplay(defaultAttributesMap);
 		});
 	}
 
+	public void openNewEditor() {
+		String newGenre = promptNewName(Constants.getString("PROMPT_NEW_ENTITY"));
+		if (!newGenre.equals("")) {
+			EntityComponentSelector templateComponentSelector = new EntityComponentSelector(myController);
+			templateComponentSelector.initialize();
+			Map<String, String> defaultAttributesMap = templateComponentSelector.getExtraDefaultAttributes(newGenre);
+			defaultAttributesMap.put("Genre", newGenre);
+			myTabDisplay.openEditorDisplay(defaultAttributesMap);
+		}
+	}
+	
+	
+	/**
+	 * Goes through each entity info (map) and links the ImageView created to
+	 * populating the UnmodifiableAttributesPanel.
+	 * 
+	 * @param data
+	 * @param genre
+	 */
 	public void updateEntitiesPrimaryDisplay(List<Map<String, String>> data, String genre) {
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
@@ -76,42 +106,45 @@ public class EntitiesTabGrid extends TabGrid {
 			if (info.get("Genre").equals(genre)) {
 				if (!myEntities.containsKey((info.get("Name")))) {
 					info.remove("DisplayComponent_Delete");
-					Image image = new Image(info.get("DisplayComponent_Image"));
-					ImageView iv = new ImageView(image);
 					myEntities.put(info.get("Name"), info.get("DisplayComponent_Image"));
-					iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
-						public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
-								Boolean newValue) {
-							if (newValue) {
-								info.remove("Type");
-								setAttributesPanel(info);
-								currentInfo = info;
-								currentInfo.put("Type", "Entity");
-							}
-						}
-					});
+
+					Image image = new Image(myController.getImageMap().get(info.get("DisplayComponent_Image")));
+					ImageView iv = new ImageView(image);
+					linkImage(iv, info);
 					gridView.addImage(iv);
 
 				}
 			}
 		}
-		
+
 		gridView.resetGrid();
 	}
 
-	
+	protected void linkImage(ImageView iv, Map<String, String> info) {
+		iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+					Boolean newValue) {
+				if (newValue) {
+					info.remove("Type");
+					setAttributesPanel(info);
+					currentInfo = info;
+					currentInfo.put("Type", "Entity");
+				}
+			}
+		});
+
+	}
 
 	public Map<String, String> getEntities() {
 		return myEntities;
 	}
 
-	public String getGenre() {
-		return myGenre;
-	}
-	
 	public void setGenre(String name) {
 		myGenre = name;
-		
+	}
+
+	public String getGenre() {
+		return myGenre;
 	}
 
 }

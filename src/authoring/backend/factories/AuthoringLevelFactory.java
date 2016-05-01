@@ -13,6 +13,7 @@ import authoring.parser.GlobalParser;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.PositionComponent;
+import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
@@ -21,13 +22,13 @@ import engine.backend.map.Path;
 import engine.backend.rules.Rule;
 
 public class AuthoringLevelFactory {
-	
+
 	private RuleFactory ruleFactory;
-	
+
 	public AuthoringLevelFactory() {
 		this.ruleFactory = new RuleFactory();
 	}
-	
+
 	public AuthoringLevel createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
 		Set<String> entities = new HashSet<String>();
@@ -81,7 +82,7 @@ public class AuthoringLevelFactory {
 		}
 		return level;
 	}
-	
+
 	private List<Rule> createRules(String rawRules) {
 		String[] rawRuleSet = rawRules.split(" ");
 		String[] events = new String[rawRuleSet.length];
@@ -100,39 +101,50 @@ public class AuthoringLevelFactory {
 		}
 		return rules;
 	}
-	
+
 	private List<String> parseEvents(String eventInfo) {
 		String[] eventData = eventInfo.split("\\+");
 		List<String> events = new ArrayList<String>();
+		
 		for (String event : eventData) {
-			String[] eventElements = event.split("_");
+			String[] eventElements = event.split("-");
 			StringBuilder sb = new StringBuilder();
 			if (eventElements.length > 2) {
-				String[] eventEntities = new String[2];
-				eventEntities[0] = eventElements[0];
-				eventEntities[1] = eventElements[1];
-				Arrays.sort(eventEntities);
-				for (String str : eventEntities) {
-					sb.append(str);
+				if (eventElements[2].equals("CollisionEvent")) {
+					String[] entities = new String[2];
+					Arrays.sort(entities);
+					sb.append(entities[0]);
+					sb.append("-");
+					sb.append(entities[1]);
+					sb.append("-");
+					sb.append(eventElements[2]);
+					events.add(sb.toString());
+				} else {
+					for (String str : eventElements) {
+						sb.append(str);
+						sb.append("-");
+					}
+					sb.deleteCharAt(sb.length() - 1);
+					events.add(sb.toString());
 				}
-				sb.append(eventElements[2]);
-				events.add(sb.toString());
 			} else {
 				for (String str : eventElements) {
 					sb.append(str);
+					sb.append("-");
 				}
+				sb.deleteCharAt(sb.length() - 1);
 				events.add(sb.toString());
-			}			
+			}
 		}
 		return events;
 	}
-	
+
 	private List<List<String>> parseActions(String actionInfo) {
 		String[] actionData = actionInfo.split("\\+");
 		List<List<String>> actions = new ArrayList<List<String>>();
 		for (String action : actionData) {
 			List<String> elements = new ArrayList<String>();
-			String[] actionElements = action.split("_");
+			String[] actionElements = action.split("-");
 			for (String str : actionElements) {
 				elements.add(str);
 			}
@@ -140,7 +152,7 @@ public class AuthoringLevelFactory {
 		}
 		return actions;
 	}
-	
+
 	private List<String> parseReadEvents(String ruleInfo) {
 		List<String> events = new ArrayList<String>();
 		for (String rulePair : ruleInfo.split(" ")) {
@@ -149,7 +161,7 @@ public class AuthoringLevelFactory {
 		}
 		return events;
 	}
-	
+
 	private List<AuthoringEntity> createSpawnEntities(String info) {
 		Map<String, String[]> spawnInfo = GlobalParser.spawnParse(info);
 		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
@@ -172,11 +184,12 @@ public class AuthoringLevelFactory {
 			spawnEntity.addComponent(spawner);
 			spawnEntity.addComponent(new DisplayComponent());
 			spawnEntity.addComponent(new PositionComponent());
+			spawnEntity.addComponent(new SizeComponent());
 			spawnEntities.add(spawnEntity);
 		}
 		return spawnEntities;
 	}
-		
+
 	private Set<String> getEntityNames(String str) {
 		String[] names = str.split(" ");
 		Set<String> entityNames = new HashSet<String>();
@@ -185,7 +198,7 @@ public class AuthoringLevelFactory {
 		}
 		return entityNames;
 	}
-	
+
 	private Path[] getPaths(String str) {
 		Map<String, String[]> temp = GlobalParser.pathParse(str);
 		Path[] paths = new Path[temp.size()];
@@ -196,7 +209,7 @@ public class AuthoringLevelFactory {
 		}
 		return paths;
 	}
-	
+
 	private Path createPath(String ID, String[] curves) {
 		List<BezierCurve> temp = new ArrayList<BezierCurve>();
 		for (String curve : curves) {
@@ -207,7 +220,7 @@ public class AuthoringLevelFactory {
 		System.out.println(path.toString());
 		return path;
 	}
-	
+
 	private BezierCurve createCurve(String curve) {
 		String[] raw = curve.split(",");
 		double[] points = new double[raw.length * 2];
@@ -223,5 +236,5 @@ public class AuthoringLevelFactory {
 		}
 		return new BezierCurve(points);
 	}
-	
+
 }

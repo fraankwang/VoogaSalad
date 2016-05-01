@@ -24,11 +24,11 @@ import javafx.stage.Stage;
 import main.Main;
 import utility.gamecapture.GameCapture;
 
-public class EngineView extends ResourceUser{
+public class EngineView extends ResourceUser {
 
-	/*  
-	 *  reorganize/javadoc code LAST
-	 *  things that go off map go "under" the borders
+	/*
+	 * reorganize/javadoc code LAST things that go off map go "under" the
+	 * borders
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 
@@ -55,7 +55,7 @@ public class EngineView extends ResourceUser{
 	public EngineView(Stage s, EngineController c) {
 		super(RESOURCE_NAME);
 		myStage = s;
-		myController = c;		
+		myController = c;
 		myMenubarManager = new MenubarManager(this);
 		myBoardPane = new BoardPane(this);
 		myShopPane = new ShopPane(this);
@@ -81,14 +81,14 @@ public class EngineView extends ResourceUser{
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
 
-		scalingFactor.bind(Bindings.min(getUsableBoardHeight().divide(mapHeight), getUsableBoardWidth().divide(mapWidth)));
+		scalingFactor
+				.bind(Bindings.min(getUsableBoardHeight().divide(mapHeight), getUsableBoardWidth().divide(mapWidth)));
 		DoubleExpression boardWidth = mapWidth.multiply(scalingFactor);
 		DoubleExpression boardHeight = mapHeight.multiply(scalingFactor);
 		myBorderPane.setLeft(myBoardPane.buildNode(boardWidth, boardHeight));
 		myBorderPane.setRight(myShopPane.buildNode(myScene.widthProperty().subtract(boardWidth), boardHeight));
 		myBorderPane.setBottom(myStatusPane.buildNode(myScene.widthProperty(),
 				myScene.heightProperty().subtract(boardHeight).subtract(myMenuBar.heightProperty())));
-
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleMove(e));
@@ -108,40 +108,35 @@ public class EngineView extends ResourceUser{
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Handles cursor moving across boardPane to have drag and drop cursor follow correctly
 	 * @param e - DragEvent created by dragging a tower onto the screen
-=======
 	 * Handles the changes in mouse position while the mouse is pressed, allows 
+	 * Handles the changes in mouse position while the mouse is pressed, allows
 	 * the image to track the cursor
->>>>>>> 9f944fb2afc22d80ecb2d06f9d772c198f85a760
 	 */
 	private void handleMove(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene && e.getDragboard().hasString()) {
-			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());	
+			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
 		}
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
 		}
 	}
 
-	
 	/**
 	 * Called a dragged shop item is dropped on the scene
+	 * 
 	 * @param e
 	 */
 	private void handleEndMouseRelease(DragEvent e) {
-		if (e.getGestureSource() != myScene) {
-			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
-				if(!e.getDragboard().getString().contains("SpeedPowerUp") && !e.getDragboard().getString().contains("RangePowerUp")){
-					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&")[0], Double.parseDouble(e.getDragboard().getString().split("&")[1]));
-				}			
-			}
+		if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+			if(!e.getDragboard().getString().contains("SpeedPowerUp") && !e.getDragboard().getString().contains("RangePowerUp")){
+				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&")[0], Double.parseDouble(e.getDragboard().getString().split("&")[1]));
+			}			
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-
 	}
 
 
@@ -253,7 +248,7 @@ public class EngineView extends ResourceUser{
 	 * Returns DoubleExpression representing scaling size of scene in relation to engine
 	 * @return
 	 */
-	public DoubleExpression getScalingFactor(){
+	public DoubleExpression getScalingFactor() {
 		return scalingFactor;
 	}
 }

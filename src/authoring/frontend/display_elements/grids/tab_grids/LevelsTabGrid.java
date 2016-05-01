@@ -13,6 +13,7 @@ import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDa
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -66,25 +67,30 @@ public class LevelsTabGrid extends TabGrid {
 		for (Map<String, String> info : data) {
 			if (myLevels.containsKey(info.get("Name"))) {
 				continue;
-			};
-			
+			}
+
 			myLevels.put(info.get("Name"), info.get("MapBackgroundImage"));
 			info.remove("EntityNames");
 
-			ImageView iv = new ImageView(info.get("MapBackgroundImage"));
-			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
-				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
-						Boolean newValue) {
-					if (newValue) {
-						info.remove("Type");
-						setAttributesPanel(info);
-						currentInfo = info;
-						currentInfo.put("Type", "Level");
-					}
-				}
-			});
+			ImageView iv = new ImageView(new Image(myController.getImageMap().get(info.get("MapBackgroundImage"))));
+			linkImage(iv, info);
 			gridView.addImage(iv);
 		}
+
+	}
+
+	protected void linkImage(ImageView iv, Map<String, String> info) {
+		iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+					Boolean newValue) {
+				if (newValue) {
+					info.remove("Type");
+					setAttributesPanel(info);
+					currentInfo = info;
+					currentInfo.put("Type", "Level");
+				}
+			}
+		});
 
 	}
 

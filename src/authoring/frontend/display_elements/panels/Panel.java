@@ -13,7 +13,8 @@ import javafx.scene.layout.RowConstraints;
 
 /**
  * This is a Panel superclass which contains a Node and height and width
- * dimensions.
+ * dimensions. Each Panel has an initializeComponents and assembleComponents
+ * method, which vary wildly depending on Panel purpose and look.
  * 
  * @author Frank
  *
@@ -23,7 +24,7 @@ public abstract class Panel implements IPanel {
 
 	protected Node myNode;
 	protected double myHeight, myWidth;
-	protected final int MAX_SIZE = Integer.MAX_VALUE; 
+	protected static final int MAX_SIZE = Integer.MAX_VALUE;
 
 	public Panel(double height, double width) {
 		myHeight = height;
@@ -34,9 +35,9 @@ public abstract class Panel implements IPanel {
 	public void initialize() {
 		initializeComponents();
 		assembleComponents();
-		
+
 	}
-	
+
 	/**
 	 * Each subclass of Panel will have its components that are initialized
 	 * differently.
@@ -53,7 +54,7 @@ public abstract class Panel implements IPanel {
 	public Node getNode() {
 		return myNode;
 	}
-	
+
 	/**
 	 * Creates GridPane with set row and column constraints.
 	 * 
@@ -76,13 +77,16 @@ public abstract class Panel implements IPanel {
 
 		return grid;
 	}
-	
-	public Button addButton(String label, EventHandler<ActionEvent> action) {
-		Button b = new Button(label);
+
+	/**
+	 * Creates a button given name and action.
+	 */
+	public Button addButton(String name, EventHandler<ActionEvent> action) {
+		Button b = new Button(name);
 		b.setOnAction(action);
 		return b;
 	}
-	
+
 	@Override
 	public void setHeight(double height) {
 		myHeight = height;

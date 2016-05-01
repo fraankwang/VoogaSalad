@@ -136,9 +136,17 @@ public class ModifiableModeAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableModeAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
-		checkAllFilled();
 		return myAttributesMap;
 	}
+	
+	@Override
+	public void resetAttributes() {
+		super.resetAttributes();
+		myLevelSelector = new LevelGridViewPanel(myHeight, myWidth, null, myController);
+		myLevelSelector.initialize();
+		
+	}
+	
 	
 	public LevelGridViewPanel getLevelSelector() {
 		return myLevelSelector;

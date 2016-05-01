@@ -18,10 +18,10 @@ import javafx.util.Duration;
 public class ControlManager extends ResourceUser {
 	private StatusPane myStatusPane;
 	private static final String RESOURCE_NAME = "status";
-	
+
 	private double clockTime;
 	private Timeline timerAnimation;
-	
+
 	private Button play;
 	private Button nextWave;
 	private Button nextLevel;
@@ -29,26 +29,35 @@ public class ControlManager extends ResourceUser {
 
 	/**
 	 * Instantiates Control Manager
-	 * @param sp - status pane that the control manager will become a child of
+	 * 
+	 * @param sp
+	 *            - status pane that the control manager will become a child of
 	 */
 	public ControlManager(StatusPane sp) {
 		super(RESOURCE_NAME);
 		myStatusPane = sp;
+		timerAnimation = new Timeline();
+		timerAnimation.setCycleCount(Animation.INDEFINITE);
 	}
 
 	/**
 	 * Instantiates the Game Control Buttons within a vbox
+	 * 
 	 * @return VBox containing Game Control buttons
 	 */
 	public VBox buildGameControls() {
 		VBox vbox = new VBox();
 
-		play = myStatusPane.createButton(loadStringResource("PlayLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
-		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
-		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());
-		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4), vbox.widthProperty());		
+		play = myStatusPane.createButton(loadStringResource("PlayLabel"), vbox.heightProperty().divide(4),
+				vbox.widthProperty());
+		nextWave = myStatusPane.createButton(loadStringResource("NextWaveLabel"), vbox.heightProperty().divide(4),
+				vbox.widthProperty());
+		nextLevel = myStatusPane.createButton(loadStringResource("NextLevelLabel"), vbox.heightProperty().divide(4),
+				vbox.widthProperty());
+		modeButton = myStatusPane.createButton(loadStringResource("ModeTitleLabel"), vbox.heightProperty().divide(4),
+				vbox.widthProperty());
 		play.setOnMouseClicked(e -> {
-			myStatusPane.getEngineView().getEngineController().toggleStepping(false);
+			myStatusPane.getEngineView().getEngineController().toggleStepping();
 		});
 
 		nextWave.setDisable(true);
@@ -70,15 +79,16 @@ public class ControlManager extends ResourceUser {
 		myStatusPane.bindHeight(vbox, myStatusPane.getPane().heightProperty());
 		return vbox;
 	}
-	
-	public void togglePlayButton(boolean playing){
+
+	public void togglePlayButton(boolean playing) {
 		if (playing) {
 			play.setText(loadStringResource("PauseLabel"));
 		} else {
 			play.setText(loadStringResource("PlayLabel"));
 		}
+		timerAnimation.stop();
 	}
-	
+
 	/**
 	 * Enables the nextwave button
 	 */
@@ -86,13 +96,11 @@ public class ControlManager extends ResourceUser {
 		nextWave.setDisable(false);
 		startNextWaveTimer(time);
 	}
-	
-	private void startNextWaveTimer(double time){
+
+	private void startNextWaveTimer(double time) {
 		clockTime = time;
-		timerAnimation = new Timeline();
-		timerAnimation.setCycleCount(Animation.INDEFINITE);
 		KeyFrame frame = new KeyFrame(Duration.millis(100), e -> {
-			if(clockTime > 0){
+			if (clockTime > 0) {
 				DecimalFormat df = new DecimalFormat("#.##");
 				nextWave.setText(loadStringResource("NextWaveTimerLabel") + df.format(clockTime));
 				clockTime -= .1;
@@ -103,8 +111,8 @@ public class ControlManager extends ResourceUser {
 		timerAnimation.getKeyFrames().add(frame);
 		timerAnimation.play();
 	}
-	
-	private void resetNextWaveTimer(){
+
+	private void resetNextWaveTimer() {
 		timerAnimation.stop();
 		nextWave.setText(loadStringResource("NextWaveLabel"));
 		nextWave.setDisable(true);
@@ -112,5 +120,6 @@ public class ControlManager extends ResourceUser {
 
 	public void nextLevelEnable() {
 		nextLevel.setDisable(false);
+		resetNextWaveTimer();
 	}
 }

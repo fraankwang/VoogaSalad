@@ -3,10 +3,11 @@ package engine.backend.utilities;
 import java.util.ResourceBundle;
 
 public interface IComponentTagResources {
-	
+
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	public static ResourceBundle myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
-	
+	public static ResourceBundle myComponentTagResources = ResourceBundle
+			.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
+
 	public static final String movementComponentTag = myComponentTagResources.getString("Movement");
 	public static final String positionComponentTag = myComponentTagResources.getString("Position");
 	public static final String collisionComponentTag = myComponentTagResources.getString("Collision");
@@ -16,6 +17,5 @@ public interface IComponentTagResources {
 	public static final String spawnerComponentTag = myComponentTagResources.getString("Spawner");
 	public static final String healthComponentTag = myComponentTagResources.getString("Health");
 	public static final String displayComponentTag = myComponentTagResources.getString("Display");
-	
-	
+
 }

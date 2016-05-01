@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -61,6 +62,17 @@ public abstract class TabGrid extends Grid {
 	}
 
 	/**
+	 * Sets the focused property of the ImageView given. Updates currentInfo as
+	 * well as the current LevelGridViewPanel, both of which are utilized when
+	 * the Open Editor button is pressed.
+	 * 
+	 * @param iv
+	 * @param info
+	 */
+	protected abstract void linkImage(ImageView iv, Map<String, String> info);
+	
+	
+	/**
 	 * Takes current information exactly, replaces the name, and opens the
 	 * editor display with the new name.
 	 * 
@@ -72,7 +84,7 @@ public abstract class TabGrid extends Grid {
 			duplicateEntity.put(s, info.get(s));
 		}
 
-		String newName = promptNewName();
+		String newName = promptNewName("duplicate name");
 		if (!newName.equals("")) {
 			duplicateEntity.replace("Name", newName);
 			duplicateEntity.remove("Type");
@@ -113,11 +125,14 @@ public abstract class TabGrid extends Grid {
 	public Map<String, String> getAttributesMap() {
 		return myUnmodifiableAttributesPanel.getAttributesMap();
 	}
-	
+
 	public List<String> getDefaultAttributes() {
 		return myUnmodifiableAttributesPanel.getDefaultAttributes();
 	}
 
+	/**
+	 * Assigns hotkeys for the different buttons.
+	 */
 	public void initializeHotKeys() {
 		Button editorButton = myUnmodifiableAttributesPanel.getEditorButton();
 		Button duplicateButton = ((MainButtonDashboard) myButtonDashboard).getDuplicateButton();

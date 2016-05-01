@@ -1,7 +1,7 @@
 package engine.backend.systems.Events;
 
-public class EntityDroppedEvent implements IEvent{
-	
+public class EntityDroppedEvent implements IEvent {
+
 	private double xPosition;
 	private double yPosition;
 	private String entityName;
@@ -37,12 +37,12 @@ public class EntityDroppedEvent implements IEvent{
 	public void setYCoordinate(double yPosition) {
 		this.yPosition = yPosition;
 	}
-	
-	public void setEntityValue(double value){
+
+	public void setEntityValue(double value) {
 		entityValue = value;
 	}
-	
-	public double getEntityValue(){
+
+	public double getEntityValue() {
 		return entityValue;
 	}
 

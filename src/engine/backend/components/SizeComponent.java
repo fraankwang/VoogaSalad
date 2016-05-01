@@ -5,9 +5,6 @@
  */
 package engine.backend.components;
 
-
-
-
 public class SizeComponent extends Component implements IComponent {
 	private double width;
 	private double height;
@@ -20,7 +17,7 @@ public class SizeComponent extends Component implements IComponent {
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
 	}
-	
+
 	public SizeComponent(SizeComponent component) {
 		this.width = component.getWidth();
 		this.height = component.getHeight();
@@ -30,22 +27,33 @@ public class SizeComponent extends Component implements IComponent {
 	public String toString() {
 		return this.getTag() + " with width: " + this.width + " with height: " + this.height;
 	}
-
+/**
+ * 
+ * @return height
+ */
 	public double getHeight() {
 		return height;
 	}
-
+/**
+ * Increases height and width by the same delta
+ * @param delta
+ */
 	public void increaseSize(int delta) {
 		this.width += delta;
 		this.height += delta;
 	}
-
+/**
+ * Parses string to increase size
+ * @param delta
+ */
 	public void increaseSize(String delta) {
 		int newVal = Integer.parseInt(delta);
-		this.width += newVal;
-		this.height += newVal;
+		increaseSize(newVal);
 	}
-
+/**
+ * 
+ * @return width
+ */
 	public double getWidth() {
 		return width;
 	}
@@ -57,11 +65,11 @@ public class SizeComponent extends Component implements IComponent {
 
 	@Override
 	public void update(String dataName, String data) {
-		if (dataName.equals("Width")) {
+		if (dataName.equalsIgnoreCase("Width")) {
 			this.width = Double.parseDouble(data);
 			return;
 		}
-		if (dataName.equals("Height")) {
+		if (dataName.equalsIgnoreCase("Height")) {
 			this.height = Double.parseDouble(data);
 			return;
 

@@ -247,6 +247,8 @@ public class EventManager implements Observer {
 				int nextLevelIndex = currentGameStatistics.getCurrentLevelIndex() + 1;
 				if (numLevelsTotal > nextLevelIndex) {
 					currentGameStatistics.updateHighestLevelUnlocked(currentGameStatistics.getCurrentLevelIndex() + 1);					
+				} else {
+					myEngineController.levelIsLost();
 				}
 				myEngineController.levelIsWon();
 				resetLevel();
@@ -303,8 +305,6 @@ public class EventManager implements Observer {
 	 * @param event
 	 */
 	private void handleEntityDropEvent(EntityDroppedEvent event) {
-		System.out.println("RESOURCES: " + currentGameStatistics.getCurrentResources());
-		System.out.println(currentGameStatistics.getCurrentResources() >= event.getEntityValue());
 		if (currentGameStatistics.getCurrentResources() >= event.getEntityValue()) {
 			subtractFromResources(event.getEntityValue());
 			IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
@@ -404,7 +404,6 @@ public class EventManager implements Observer {
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
 			for (String event : ruleEvents) {
-				System.out.println(event);
 				if (!generatedEventMap.containsKey(event)) {
 					myPossibleEntities.clear();
 					break;

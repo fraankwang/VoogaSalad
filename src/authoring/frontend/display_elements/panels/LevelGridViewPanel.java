@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.panels.panel_bars.GridPanelBar;
 import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
@@ -32,10 +33,10 @@ public class LevelGridViewPanel extends GridViewPanel {
 
 	public LevelGridViewPanel(double height, double width, ITabDisplay tabDisplay, IAuthoringView controller) {
 		super(height, width, tabDisplay, controller);
-		myDeleteButton = new Button("Reset");
+		myDeleteButton = new Button(Constants.getString("RESET_BUTTON"));
 		mySelectedLevels = new ArrayList<String>();
 		myPossibleLevels = new HashMap<String, String>();
-		myChooser = new ObjectChooser();
+		myChooser = new ObjectChooser(myController);
 		myChooser.initialize();
 	}
 
@@ -46,19 +47,17 @@ public class LevelGridViewPanel extends GridViewPanel {
 	
 	@Override
 	protected void assembleComponents() {
-		myAddNewButton = new Button("Add New Level to Mode");
+		myAddNewButton = new Button(Constants.getString("NEW_LEVEL_TO_MODE"));
 		myAddNewButton.setStyle(
 				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#515D7B,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
 
-		myAddNewButton.setPrefSize(300, 300);
+		myAddNewButton.setPrefSize(Constants.getInt("LEVEL_ADD_NEW_SIZE"), Constants.getInt("LEVEL_ADD_NEW_SIZE"));
 		myAddNewButton.setOnAction(e -> {
 			myChooser.clear();
 			updatePossibleLevels(myController.getLevels());
 			String chosen = myChooser.openChooser();
 			mySelectedLevels.add(chosen);
-			System.out.println("*******just added level: " + chosen);
-			System.out.println("*******mySelectedLevels updated to: " + mySelectedLevels);
-			ImageView iv = new ImageView(new Image(myPossibleLevels.get(chosen)));
+			ImageView iv = new ImageView(new Image(myController.getImageMap().get(myPossibleLevels.get(chosen))));
 			myCurrentImage = chosen;
 			addImage(iv);
 		});
@@ -68,10 +67,10 @@ public class LevelGridViewPanel extends GridViewPanel {
 		myScrollPane.setContent(myGridPane);
 		VBox.setVgrow(myGridPane, Priority.ALWAYS);
 
-		myPanelBar.setDescription("Levels for this Mode");
+		myPanelBar.setDescription(Constants.getString("LEVEL_FOR_MODE"));
 		myPanelBar.setFontSize(15);
 		
-		myDeleteButton = new Button("Delete");
+		myDeleteButton = new Button(Constants.getString("DELETE_BUTTON"));
 		formatDeleteButton();
 
 		((GridPanelBar) myPanelBar).addButtonToBar(myDeleteButton);
@@ -85,7 +84,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 	 * Specifications for a delete button and formatting.
 	 */
 	private void formatDeleteButton() {
-		// TODO: figure out deletion
+		// INCOMPLETE
 		myDeleteButton.setOnAction(e -> {
 			mySelectedLevels.remove(myCurrentImage);
 			updateSelectedLevels(mySelectedLevels);
@@ -113,15 +112,13 @@ public class LevelGridViewPanel extends GridViewPanel {
 	 * @param selectedLevels
 	 */
 	public void updateSelectedLevels(List<String> selectedLevels) {
-		System.out.println("******* mySelectedLevels: " + mySelectedLevels);
 		myImages.clear();
 		myPossibleLevels = myController.getLevels();
 		for (String level : selectedLevels) {
-			ImageView iv = new ImageView(new Image(myPossibleLevels.get(level)));
+			ImageView iv = new ImageView(new Image(myController.getImageMap().get(myPossibleLevels.get(level))));
 			myImages.add(iv);
 		}
 		mySelectedLevels = selectedLevels;
-		System.out.println("******* mySelectedLevels: " + mySelectedLevels);
 
 		resetGrid();
 	}
@@ -139,12 +136,20 @@ public class LevelGridViewPanel extends GridViewPanel {
 	 * @return
 	 */
 	public Map<Integer, String> getSelectedLevels() {
-		System.out.println("*******Selected levels: " + mySelectedLevels);
 		Map<Integer, String> levelsMap = new HashMap<Integer, String>();
+
 		for (int i = 0; i < mySelectedLevels.size(); i++) {
 			levelsMap.put(i, mySelectedLevels.get(i));
 		}
+		
 		return levelsMap;
+	}
+
+	public void reset() {
+		//INCOMPLETE
+		initializeComponents();
+		assembleComponents();
+		
 	}
 
 }

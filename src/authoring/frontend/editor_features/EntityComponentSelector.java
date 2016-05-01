@@ -3,8 +3,9 @@ package authoring.frontend.editor_features;
 import java.util.*;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
+import authoring.frontend.configuration.EntityComponents;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
-import authoring.frontend.editor_features.EntityComponents;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
@@ -39,7 +40,7 @@ public class EntityComponentSelector {
 	public void initialize() {
 		myVBox = new VBox();
 		myStage = new Stage();
-		myScene = new Scene(myVBox, 400, 800);
+		myScene = new Scene(myVBox, Constants.getInt("COMPONENT_SELECTOR_WIDTH"), Constants.getInt("COMPONENT_SELECTOR_HEIGHT"));
 
 		mySelectedComponents = new ArrayList<String>();
 		myStage.setScene(myScene);
@@ -50,7 +51,7 @@ public class EntityComponentSelector {
 			myVBox.getChildren().add(cb);
 		}
 
-		Button saveButton = new Button("Save");
+		Button saveButton = new Button(Constants.getString("SAVE_BUTTON"));
 		myVBox.getChildren().add(saveButton);
 
 		saveButton.setOnAction(e -> myStage.close());
@@ -76,24 +77,10 @@ public class EntityComponentSelector {
 
 	}
 
-	// "Genre", "Name", "DisplayComponent_CanBeShown", "DisplayComponent_Image",
-	// "DamageComponent",
-	// "FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed",
-	// "FiringComponent_EnemyInSightRange",
-	// "FiringComponent_Targets", "FiringComponent_FiringRate",
-	// "SizeComponent_Width", "SizeComponent_Height",
-	// "ArmorComponent_ResistanceToDamage", "HealthComponent_Health",
-	// "HealthComponent_CriticalHealth",
-	// "RotationComponent", "Cost", "Bounty", "PathComponent_PathID",
-	// "PositionComponent_XCoordinate",
-	// "PositionComponent_YCoordinate", "CollisionComponent_IsCollided",
-	// "MovementComponent_Velocity",
-	// "MovementComponent_CanMove", "MovementComponent_CanRotate"
-
 	public Map<String, Control> parseComponents(Map<String, Control> inputMap, List<String> components) {
 		Set<String> booleanComboBox = new HashSet<String>();
-		booleanComboBox.add("true");
-		booleanComboBox.add("false");
+		booleanComboBox.add(Constants.getString("TRUE_OPTION"));
+		booleanComboBox.add(Constants.getString("FALSE_OPTION"));
 
 		for (String component : components) {
 
@@ -118,9 +105,9 @@ public class EntityComponentSelector {
 			case "FiringComponent":
 				ComboBox<String> ammo = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
 						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
-				ComboBox<String> targets = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
+				CheckComboBox targets = new CheckComboBox("Select Targets", ((EntitiesTabDisplay) myController.getAuthoringViewManager()
 						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
-//				ComboBox<String> multiTrack = createComboBox(booleanComboBox);
+	
 				TextField speed = new TextField();
 				TextField sightRange = new TextField();
 				TextField firingRate = new TextField();
@@ -129,7 +116,6 @@ public class EntityComponentSelector {
 				inputMap.put("FiringComponent_AmmunitionSpeed", speed);
 				inputMap.put("FiringComponent_EnemyInSightRange", sightRange);
 				inputMap.put("FiringComponent_FiringRate", firingRate);
-//				inputMap.put("FiringComponent_MultiDirectional, multiTrack"));
 				break;
 
 			case "SizeComponent":
@@ -255,7 +241,9 @@ public class EntityComponentSelector {
 
 	public Map<String, String> getExtraDefaultAttributes(String genre) {
 		Map<String, String> extraAttributes = new TreeMap<String, String>();
-		
+		extraAttributes.put("Name", null);
+		extraAttributes.put("Genre", null);
+//		extraAttributes.put("DisplayComponent_Image", null);
 		switch (genre) {
 	
 		case "Tower":

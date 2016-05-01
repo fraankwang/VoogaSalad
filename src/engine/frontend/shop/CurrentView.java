@@ -36,10 +36,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-public class CurrentView extends ResourceUser implements Observer{
+public class CurrentView extends ResourceUser implements Observer {
 
 	public static final String RESOURCE_NAME = "statlabels";
-	
+
 	private ShopPane myShopPane;
 
 	private HBox myHBox;
@@ -61,7 +61,7 @@ public class CurrentView extends ResourceUser implements Observer{
 		super(RESOURCE_NAME);
 		myShopPane = sp;
 		showMap = new HashMap<String, Boolean>();
-		if(!debug){
+		if (!debug) {
 			addDefaultShows(showMap);
 		}
 	}
@@ -73,10 +73,10 @@ public class CurrentView extends ResourceUser implements Observer{
 	private void addDefaultShows(Map<String, Boolean> showMap){
 		String[] hides = loadStringArrayResource("DefaultHides", ",");
 		String[] shows = loadStringArrayResource("DefaultShows", ",");
-		for(String s: hides){
+		for (String s : hides) {
 			showMap.put(s, false);
 		}
-		for(String s: shows){
+		for (String s : shows) {
 			showMap.put(s, true);
 		}
 	}
@@ -122,13 +122,13 @@ public class CurrentView extends ResourceUser implements Observer{
 		Map<String, String> statMap = entity.getStats().getStatsMap();
 		stats.clear();
 		for (String s : statMap.keySet()) {
-			if(!showMap.containsKey(s)){
+			if (!showMap.containsKey(s)) {
 				showMap.put(s, true);
 			}
 			if (s.equals("Image") && !statMap.get("Image").equals(myImageName)) {
 				myImageView.setImage(new Image(statMap.get("Image")));
 				myImageName = statMap.get("Image");
-			} else if (showMap.get(s) || debug){
+			} else if (showMap.get(s) || debug) {
 				stats.add(loadStringResource(s) + ": " + statMap.get(s));
 			}
 		}
@@ -138,7 +138,8 @@ public class CurrentView extends ResourceUser implements Observer{
 	 * Enables debug mode
 	 * @param b - boolean of whether debug should be completed
 	 */
-	public void setDebug(boolean b){
+	
+	public void setDebug(boolean b) {
 		debug = b;
 	}
 }

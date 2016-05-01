@@ -162,7 +162,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAddSpawnButton = new Button("Add Spawn");
 		myAddTowerButton = new Button("Add Tower");
 
-		myEntitySelector = new ObjectChooser();
+		myEntitySelector = new ObjectChooser(myController);
 		myEntitySelector.initialize();
 		myEntitySelector.addAll(myPossibleEntities);
 		TextField entityTextField = new TextField("Select Entity");
@@ -200,7 +200,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			String pathID = promptUserInput("Path Number");
 			if (!pathID.equals("")) {
 				String tag = pathID + ":" + selected + ":" + wave;
-				ImageView newImageView = new ImageView(new Image(selectedImagePath));
+				ImageView newImageView = new ImageView(new Image(myController.getImageMap().get(selectedImagePath)));
 				SpawnEntityRow row = new SpawnEntityRow(tag, selected, newImageView, wave, pathID);
 				linkRow(row);
 
@@ -213,9 +213,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAddTowerButton.setOnAction(e -> {
 			String selected = promptUserInput("Entity", entityTextField);
 			String selectedImagePath = myPossibleEntities.get(selected);
-			if (!myTowers.containsKey(selected)) {
+			if (!myTowers.containsKey(selected) && myController.getEntities().get(selected).keySet().contains("FiringComponent_Ammunition")) {
 				myTowers.put(selected, selectedImagePath);
-				ImageView towerView = new ImageView(new Image(selectedImagePath));
+				ImageView towerView = new ImageView(new Image(myController.getImageMap().get(selectedImagePath)));
 				towerView.setPreserveRatio(true);
 				towerView.setFitHeight(100);
 				towerView.setFitWidth(100);
@@ -225,6 +225,11 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				myTowersListView.getItems().add(tower);
 				if (!myLevelEntities.keySet().contains(selected)) {
 					myLevelEntities.put(selected, selectedImagePath);
+				}
+				
+				String ammo = myController.getEntities().get(selected).get("FiringComponent_Ammunition");
+				if (!myLevelEntities.keySet().contains(ammo)) {
+					myLevelEntities.put(ammo, myController.getEntities().get(ammo).get("DisplayComponent_Image"));
 				}
 			}
 		});
@@ -327,7 +332,11 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public void updateAttributes(Map<String, String> info) {
 		super.updateAttributes(info);
 		myAttributes.remove("SpawnEntities");
-
+		if (myAttributesMap.get("Entities") != null) {
+			parseLevelEntities(myAttributesMap.get("Entities"));
+		}
+		myAttributesMap.remove("Entities");
+		
 		myInputMap = new TreeMap<String, Control>();
 
 		for (String attribute : DEFAULT_LEVEL_ATTRIBUTES) {
@@ -338,10 +347,17 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		if (myAttributesMap.get("SpawnEntities") != null) {
 			updateSpawnEntitiesData(myAttributesMap.get("SpawnEntities"));
+			myAttributesMap.remove("SpawnEntities");
 		}
 
 		setMyPossibleEntities(myController.getEntityImages());
 		refreshAttributes();
+	}
+
+	private void parseLevelEntities(String entities) {
+		myLevelEntities.clear();
+		List<String> ents = Arrays.asList(entities.split(" "));
+		ents.forEach(e -> myLevelEntities.put(e, myController.getImageMap().get(myPossibleEntities.get(e))));
 	}
 
 	/**
@@ -360,7 +376,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				String[] components = spawn.split("\\.");
 				String name = components[0];
 				String imagePath = myPossibleEntities.get(name);
-				ImageView newImage = new ImageView(new Image(imagePath));
+				ImageView newImage = new ImageView(new Image(myController.getImageMap().get(imagePath)));
 				String wave = components[1];
 				String number = components[2];
 				String rate = components[3];
@@ -378,6 +394,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public Map<String, String> saveAttributes() {
 		myAttributesMap.clear();
 		myAttributesMap.put("Type", "Level");
+		myAttributesMap.put("Entities", compressLevelEntities());
 
 		for (String s : myInputMap.keySet()) {
 			if (myInputMap.get(s) instanceof TextField) {
@@ -394,13 +411,17 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
-		checkAllFilled();
 		return myAttributesMap;
+	}
+		
+	private String compressLevelEntities() {
+		StringBuilder sb = new StringBuilder();
+		myLevelEntities.keySet().forEach(e -> sb.append(e + " "));
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
 	}
 
 	protected void refreshAttributes() {
-
-		myAttributes.remove("SpawnEntities");
 		preserveMapRatio();
 
 		if (myInputMap != null) {

@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
-public abstract class AbstractPane extends ResourceUser{
+public abstract class AbstractPane extends ResourceUser {
 	protected Pane myPane;
 	protected EngineView myEngineView;
 	

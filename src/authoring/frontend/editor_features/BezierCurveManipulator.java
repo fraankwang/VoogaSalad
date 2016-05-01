@@ -2,6 +2,8 @@ package authoring.frontend.editor_features;
 
 import java.util.Arrays;
 import java.util.List;
+
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.interfaces.display_element_interfaces.IDisplayElement;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -151,7 +153,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	        	if (mouseEvent.isShiftDown()) {
 	        		Alert alert = new Alert(AlertType.INFORMATION);
-	        		alert.setTitle("Path Information");
+	        		alert.setTitle(Constants.getString("PATH_INFO_ALERT"));
 	        		alert.setHeaderText("Path #" + Integer.toString(myPathIndex+1) + "\n" + "Segment #" + Integer.toString(myNum.get()+1));
 	        		alert.show();
 	        	}
@@ -204,14 +206,14 @@ public class BezierCurveManipulator implements IDisplayElement {
 
 	      x.bind(centerXProperty());
 	      y.bind(centerYProperty());
-	      
+
 	      enableDrag();
 	      
 	      this.setOnMousePressed(new EventHandler<MouseEvent>() {
 		        @Override public void handle(MouseEvent mouseEvent) {
 		        	if (mouseEvent.isShiftDown()) {
 		        		Alert alert = new Alert(AlertType.INFORMATION);
-		        		alert.setTitle(ResourceManager.getBezierStringResource("AlertTitle"));
+		        		alert.setTitle(Constants.getString("PATH_INFO_ALERT"));
 		        		alert.setHeaderText("Path #" + Integer.toString(myPathIndex+1) + "\n" + "Segment #" + Integer.toString(myNum.get()+1));
 		        		alert.show();
 		        	}
@@ -226,8 +228,11 @@ public class BezierCurveManipulator implements IDisplayElement {
 		    	  myCurve.requestFocus();
 		        }
 	      });
-
+	      
 	    }
+	    
+
+	    
 	    
 	    
 	    /**
@@ -244,11 +249,11 @@ public class BezierCurveManipulator implements IDisplayElement {
 		    	}
 	    	}
 	    }
-
 	    
 	    /**
 	     * Make an anchor movable by dragging it around with the mouse.
 	     */
+
 	    private void enableDrag() {
 	      final Delta dragDelta = new Delta();
 	     

@@ -26,5 +26,5 @@ public interface IViewManager {
 
 	ITabBarElement getTabBarElement();
 
-	ObjectChooser getImageChooser();
+	ObjectChooser getObjectChooser();
 }

@@ -7,21 +7,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import engine.backend.entities.IEntity;
+import engine.backend.game_object.Level;
 import engine.backend.map.GameMap;
 import engine.backend.rules.IAction;
 import engine.backend.rules.Rule;
 
 public class AuthoringLevel {
-	
+
 	private String myName;
 	private GameMap myMap;
 	private double waveDelayTimer;
-	
+
 	private Set<String> entities;
 	private Map<String, String> myInfo;
 	private List<AuthoringEntity> spawnEntities;
 	private List<Rule> ruleAgenda;
-	
+
 	public AuthoringLevel(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
 		this.myMap = myMap;
@@ -29,6 +31,16 @@ public class AuthoringLevel {
 		this.entities = new HashSet<String>();
 		this.myInfo = new HashMap<String, String>();
 		this.spawnEntities = new ArrayList<AuthoringEntity>();
+		initializeInfo();
+	}
+	
+	public AuthoringLevel(Level level) {
+		this.myName = level.getName();
+		this.myMap = level.getMap();
+		this.waveDelayTimer = level.getWaveDelayTimer();
+		this.myInfo = new HashMap<String, String>();
+		setUpSpawnEntities(level);
+		setUpRuleAgenda(level);
 		initializeInfo();
 	}
 	
@@ -42,40 +54,62 @@ public class AuthoringLevel {
 		myInfo.put("Paths", myMap.getPathsInfo());
 	}
 	
+	private void setUpSpawnEntities(Level level) {
+		List<IEntity> entities = level.getAuthoredEntities();
+		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
+		for (IEntity entity : entities) {
+			if (entity.hasComponent("SpawnerComponent")) {
+				AuthoringEntity authoringEntity = new AuthoringEntity(entity);
+				spawnEntities.add(authoringEntity);
+			}
+		}
+		setSpawnEntities(spawnEntities);
+	}
+	
+	private void setUpRuleAgenda(Level level) {
+		List<Rule> ruleAgenda = level.getRuleAgenda();
+		List<String> events = new ArrayList<String>();
+		for (Rule rule : ruleAgenda) {
+			List<String> ruleEvents = (List<String>) rule.getEvents();
+			events.addAll(ruleEvents);
+		}
+		setRuleAgenda(level.getRuleAgenda(), events);
+	}
+	
 	public Set<String> getEntities() {
 		return entities;
 	}
-	
+
 	public Map<String, String> getInfo() {
 		return myInfo;
 	}
-	
+
 	public String getName() {
 		return myName;
 	}
-	
+
 	public GameMap getMap() {
 		return myMap;
 	}
-	
+
 	public double getWaveDelayTimer() {
 		return waveDelayTimer;
 	}
-	
+
 	public List<AuthoringEntity> getSpawnEntities() {
 		return spawnEntities;
 	}
-	
+
 	public void setEntities(Set<String> entities) {
 		this.entities = entities;
 		this.myInfo.put("EntityNames", getEntityNames());
 	}
-	
+
 	public void setSpawnEntities(List<AuthoringEntity> spawnEntities) {
 		this.spawnEntities = spawnEntities;
 		this.myInfo.put("SpawnEntities", getSpawnEntityInfo());
 	}
-	
+
 	private String getSpawnEntityInfo() {
 		if (spawnEntities.isEmpty()) {
 			return "empty";
@@ -91,7 +125,7 @@ public class AuthoringLevel {
 			return sb.toString();
 		}
 	}
-	
+
 	private String getEntityNames() {
 		if (entities.isEmpty()) {
 			return "";
@@ -105,12 +139,12 @@ public class AuthoringLevel {
 			return sb.toString();
 		}
 	}
-	
+
 	public void setRuleAgenda(List<Rule> ruleAgenda, List<String> events) {
 		this.ruleAgenda = ruleAgenda;
 		this.myInfo.put("Rules", getRuleAgendaInfo(events));
 	}
-	
+
 	private String getRuleAgendaInfo(List<String> events) {
 		StringBuilder sb = new StringBuilder();
 		List<String> actions = new ArrayList<String>();
@@ -134,8 +168,12 @@ public class AuthoringLevel {
 			sb.append(" ");
 		}
 		sb.deleteCharAt(sb.length() - 1);
-		
+
 		return sb.toString();
+	}
+
+	public List<Rule> getRuleAgenda() {
+		return ruleAgenda;
 	}
 	
 	@Override

@@ -18,20 +18,12 @@ public class CollisionEvent extends EntityEvent {
 		super.addEntityID(entityID2);
 	}
 
-//	@Override
-//	public Collection<Integer> getEntityIDs() {
-//		Collection<Integer> collidingEntities = new ArrayList<Integer>();
-//		collidingEntities.add(entityID1);
-//		collidingEntities.add(entityID2);
-//		return collidingEntities;
-//	}
-
-	@Override 
+	@Override
 	public void setEventID(List<String> identifiers) {
 		Collections.sort(identifiers);
 		eventID = (identifiers.get(0) + "-" + identifiers.get(1) + "-" + this.getClass().getSimpleName());
 	}
-	
+
 	@Override
 	public String getEventID() {
 		return eventID;

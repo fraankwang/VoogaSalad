@@ -88,12 +88,11 @@ public class SpawningSystem extends GameSystem {
 	 * @param currentSecond
 	 * @param pathID
 	 */
-	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities,
-			InGameEntityFactory myEntityFactory, double currentSecond, int pathID) {
-		if (spawn.getTimer() <= 0 && spawn.getNumEntities() > 0) {
+	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities, InGameEntityFactory myEntityFactory, double currentSecond, int pathID){
+		System.out.println(spawn.toString());
+		if(spawn.getTimer() <= 0 && spawn.getNumEntities() > 0){
 			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
-			//System.out.println("-------");
 			newEntity.addComponent(newPositionComponent);
 			if(newEntity.hasComponent(ComponentTagResources.pathComponentTag)){
 				PathComponent pathComp = (PathComponent) newEntity.getComponent(ComponentTagResources.pathComponentTag);

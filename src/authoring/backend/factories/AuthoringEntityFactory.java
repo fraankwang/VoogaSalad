@@ -16,26 +16,26 @@ import engine.backend.components.IComponent;
 
 public class AuthoringEntityFactory {
 	private ComponentFactory myComponentFactory;
-	
+
 	public AuthoringEntityFactory() {
 		this.myComponentFactory = new ComponentFactory();
 	}
 
-	public AuthoringEntity createEntity(Map<String, String> info){
+	public AuthoringEntity createEntity(Map<String, String> info) {
 		String name = info.get("Name");
 		String genre = info.get("Genre");
-		
+
 		AuthoringEntity newAuthoringEntity = new AuthoringEntity(name, genre);
-		
+
 		List<IComponent> entityComponents = createComponents(info);
-		
-		for(IComponent comp : entityComponents){
+
+		for (IComponent comp : entityComponents) {
 			newAuthoringEntity.addComponent(comp);
 		}
 		return newAuthoringEntity;
 	}
-	
-	private List<IComponent> createComponents(Map<String, String> info){
+
+	private List<IComponent> createComponents(Map<String, String> info) {
 		Map<String, IComponent> componentMap = new HashMap<String, IComponent>();
 		for (String key : info.keySet()) {
 			if (key.contains("_")) {
@@ -60,5 +60,5 @@ public class AuthoringEntityFactory {
 
 		return components;
 	}
-	
+
 }
