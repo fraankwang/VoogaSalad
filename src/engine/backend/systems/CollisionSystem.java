@@ -20,25 +20,26 @@ import engine.backend.utilities.ComponentTagResources;
 /**
  * Created by colinduffy on 4/10/16., raghav kedia, Christine Zhou
  */
-public class CollisionSystem extends GameSystem{
+public class CollisionSystem extends GameSystem {
 
- 
-    @Override
-    public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
-    	
-    	if(!playing){
+	@Override
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
+			InGameEntityFactory myEntityFactory, double currentSecond) {
+
+		if (!playing) {
 			return;
 		}
-    	
-    	QuadTree quad = setUpQuadTree(myLevel);
-    	Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.collisionComponentTag);
-    	collidableEntities.forEach(entity -> quad.insert(entity));
-    	Collection<IEntity> retrievedCollidables = new ArrayList<IEntity>();
+
+		QuadTree quad = setUpQuadTree(myLevel);
+		Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+				ComponentTagResources.collisionComponentTag);
+		collidableEntities.forEach(entity -> quad.insert(entity));
+		Collection<IEntity> retrievedCollidables = new ArrayList<IEntity>();
 		collidableEntities.stream().forEach(entity1 -> {
 			retrievedCollidables.clear();
 			quad.retrieve(retrievedCollidables, entity1);
 			retrievedCollidables.stream().filter(entity2 -> checkIntersection(entity1, entity2)).forEach(entity2 -> {
-				if(entity1.getID() != entity2.getID()){
+				if (entity1.getID() != entity2.getID()) {
 					IEvent event = getCollisionEvent(entity1, entity2);
 					Set<IEntity> entitySet = new HashSet<IEntity>();
 					entitySet.add(entity1);

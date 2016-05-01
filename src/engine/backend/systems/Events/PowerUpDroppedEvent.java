@@ -9,16 +9,14 @@ import engine.backend.rules.IAction;
 public class PowerUpDroppedEvent implements IEvent {
 	private int myAffectedEntityID;
 	private EntityPowerUp powerUp;
-	
+
 	public PowerUpDroppedEvent(String powerUp, int affectedEntityID) {
 		this.myAffectedEntityID = affectedEntityID;
-		if(powerUp.equals("RangePowerUp")){
+		if (powerUp.equals("RangePowerUp")) {
 			this.powerUp = createRangePowerUp();
-		}
-		else if(powerUp.equals("SpeedPowerUp")){
+		} else if (powerUp.equals("SpeedPowerUp")) {
 			this.powerUp = createSpeedPowerUp();
-		}
-		else{
+		} else {
 			this.powerUp = null;
 		}
 	}
@@ -28,16 +26,16 @@ public class PowerUpDroppedEvent implements IEvent {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	private EntityPowerUp createRangePowerUp(){
+
+	private EntityPowerUp createRangePowerUp() {
 		int price = 100;
 		String applicableEntityName = "tempEntity2";
 		IAction increaseRange = new EntityAction(applicableEntityName, "Firing", "EnemyInSightRange", "100");
 		EntityPowerUp rangePowerUp = new EntityPowerUp(price, Arrays.asList(increaseRange));
 		return rangePowerUp;
 	}
-	
-	private EntityPowerUp createSpeedPowerUp(){
+
+	private EntityPowerUp createSpeedPowerUp() {
 		int price = 100;
 		String applicableEntityName = "tempEntity2";
 		IAction increaseSpeed = new EntityAction(applicableEntityName, "Firing", "AmmunitionSpeed", "100");
@@ -48,9 +46,9 @@ public class PowerUpDroppedEvent implements IEvent {
 	public int getAffectedEntityID() {
 		return myAffectedEntityID;
 	}
-	 public EntityPowerUp getPowerUp(){
-		 return powerUp;
-	 }
-	
+
+	public EntityPowerUp getPowerUp() {
+		return powerUp;
+	}
 
 }

@@ -1,6 +1,7 @@
 package authoring.frontend;
 
 import java.util.Map;
+
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
@@ -51,7 +52,6 @@ public interface IAuthoringView {
 	 */
 	void showPrimaryScene();
 
-
 	public IViewManager getAuthoringViewManager();
 
 	public Map<String, String> getEntityImages();
@@ -59,13 +59,13 @@ public interface IAuthoringView {
 	public Map<String, String> getLevels();
 
 	public Map<String, Map<String, String>> getEntities();
-	
+
 	public ObservableList<AuthoringEntity> getEntityList();
 
 	public ObservableList<AuthoringLevel> getLevelList();
 
 	public ObservableList<AuthoringMode> getModeList();
-	
+
 	Map<String, String> getImageMap();
 
 }

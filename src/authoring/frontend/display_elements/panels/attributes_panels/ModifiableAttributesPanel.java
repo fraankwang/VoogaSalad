@@ -1,6 +1,10 @@
 package authoring.frontend.display_elements.panels.attributes_panels;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
 import javafx.scene.control.Alert;

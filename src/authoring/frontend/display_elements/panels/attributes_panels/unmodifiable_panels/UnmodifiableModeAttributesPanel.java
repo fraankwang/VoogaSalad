@@ -1,6 +1,5 @@
 package authoring.frontend.display_elements.panels.attributes_panels.unmodifiable_panels;
 
-import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Map;
 
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -21,7 +21,7 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 
 	private BorderPane myWrapper;
 	private GridPane myGridPane;
-	
+
 	public UnmodifiableModeAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
 		myDefaultAttributes = Arrays.asList("Name", "InitialLives", "InitialResources");
@@ -38,7 +38,7 @@ public class UnmodifiableModeAttributesPanel extends UnmodifiableAttributesPanel
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
 		myGridPane.setMaxWidth(MAX_SIZE);
-		
+
 		myAttributesGridPane = createAttributesGridPane(myDefaultAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 

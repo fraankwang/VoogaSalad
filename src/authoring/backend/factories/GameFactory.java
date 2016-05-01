@@ -1,9 +1,5 @@
 package authoring.backend.factories;
 
-import engine.backend.game_object.GameWorld;
-import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +10,9 @@ import authoring.backend.game_objects.AuthoringGame;
 import authoring.backend.game_objects.AuthoringLevel;
 import authoring.backend.game_objects.AuthoringMode;
 import engine.backend.entities.IEntity;
+import engine.backend.game_object.GameWorld;
+import engine.backend.game_object.Level;
+import engine.backend.game_object.Mode;
 
 public class GameFactory {
 

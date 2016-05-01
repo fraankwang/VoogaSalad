@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.tab_displays;
 
 import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.editor_displays.EditorDisplay;
 import authoring.frontend.display_elements.grids.Grid;

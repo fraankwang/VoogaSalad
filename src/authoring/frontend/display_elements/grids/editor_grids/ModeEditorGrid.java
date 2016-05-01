@@ -47,7 +47,7 @@ public class ModeEditorGrid extends EditorGrid {
 	public void setPrimaryDisplay(LevelGridViewPanel currentGridViewPanel) {
 		myPrimaryDisplay = currentGridViewPanel;
 		((ModifiableModeAttributesPanel) myModifiableAttributesPanel).setLevelSelector(currentGridViewPanel);
-		
+
 		myGrid.getChildren().clear();
 		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
 		GridPane.setRowSpan(myPrimaryDisplay.getNode(), 2);

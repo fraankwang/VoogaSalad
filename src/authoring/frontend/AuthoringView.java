@@ -41,10 +41,11 @@ public class AuthoringView implements IAuthoringView {
 		myAuthoringViewManager.initialize(myPrimaryStage);
 	}
 
-	public void updateAll(List<Map<String, String>> modes, List<Map<String, String>> levels, List<Map<String, String>> entities) {
+	public void updateAll(List<Map<String, String>> modes, List<Map<String, String>> levels,
+			List<Map<String, String>> entities) {
 		myAuthoringViewManager.getTabBarElement().updateAll(modes, levels, entities);
 	}
-	
+
 	@Override
 	public void writeData(Map<String, String> data) {
 		myGlobalData.updateData(data);
@@ -91,11 +92,12 @@ public class AuthoringView implements IAuthoringView {
 	public IViewManager getAuthoringViewManager() {
 		return myAuthoringViewManager;
 	}
-	
+
 	public Map<String, String> getEntityImages() {
-		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntityImages();
+		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay())
+				.getEntityImages();
 	}
-	
+
 	public Map<String, Map<String, String>> getEntities() {
 		return ((EntitiesTabDisplay) myAuthoringViewManager.getTabBarElement().getEntitiesTabDisplay()).getEntities();
 	}
@@ -103,9 +105,9 @@ public class AuthoringView implements IAuthoringView {
 	public Map<String, String> getLevels() {
 		return ((LevelsTabDisplay) myAuthoringViewManager.getTabBarElement().getLevelsTabDisplay()).getLevels();
 	}
-	
+
 	public Map<String, String> getImageMap() {
 		return myAuthoringViewManager.getMenuBarElement().getImageImporter().getImageMap();
 	}
-	
+
 }

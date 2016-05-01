@@ -17,7 +17,7 @@ public class TrackingMovementComponent extends MovementComponent {
 	public TrackingMovementComponent(double xspeed, double yspeed) {
 		super(xspeed, yspeed);
 	}
-	
+
 	public TrackingMovementComponent() {
 		super();
 	}
@@ -25,26 +25,30 @@ public class TrackingMovementComponent extends MovementComponent {
 	public IEntity getEntityToTrack() {
 		return myEntityToTrack;
 	}
-/**
- * Sets which entity the component is going to track
- * @param myEntityToTrack
- */
+
+	/**
+	 * Sets which entity the component is going to track
+	 * 
+	 * @param myEntityToTrack
+	 */
 	public void setEntityToTrack(IEntity myEntityToTrack) {
 		this.myEntityToTrack = myEntityToTrack;
 	}
-/**
- * Sets speed
- * @param speed
- */
+
+	/**
+	 * Sets speed
+	 * 
+	 * @param speed
+	 */
 	public void setSpeed(double speed) {
 		mySpeed = speed;
 	}
 
-
-/**
- * sets current position
- * @param position
- */
+	/**
+	 * sets current position
+	 * 
+	 * @param position
+	 */
 
 	public void setPosition(PositionComponent position) {
 		this.myCurrentPosition = position;
@@ -68,7 +72,6 @@ public class TrackingMovementComponent extends MovementComponent {
 	/**
 	 * Updates the vector towards the tracked entity and scales it for speed
 	 */
-
 
 	private void updateCurrentVelocityVector() {
 		Vector targetPosVector = ((PositionComponent) myEntityToTrack

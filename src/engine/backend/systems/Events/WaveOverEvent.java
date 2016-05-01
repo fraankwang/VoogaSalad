@@ -1,9 +1,9 @@
 package engine.backend.systems.Events;
 
 public class WaveOverEvent implements IEvent {
-	
+
 	private double timerLength;
-	
+
 	public WaveOverEvent(double timer) {
 		setTimerLength(timer);
 	}
