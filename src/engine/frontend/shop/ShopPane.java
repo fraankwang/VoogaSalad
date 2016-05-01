@@ -31,18 +31,22 @@ public class ShopPane extends AbstractPane {
 	
 	private ShopPane raghav;
 	
+	/**
+	 * Instantiates ShopPane
+	 * @param ev - EngineView - parent of Shop Pane
+	 */
 	public ShopPane(EngineView ev) {
 		super(ev, RESOURCE_NAME);
 		raghav = this;
 	}
 
 	/**
-	 * Instantiates the node binding and attaching all underlying children
+	 * Initializes shop pane by binding nodes and attaching all underlying children
 	 */
 	public Node buildNode(DoubleExpression widthBinding, DoubleExpression heightBinding) {
 		super.buildNode(widthBinding, heightBinding);
 		Pane myPane = super.getPane();
-		myPane.setStyle("-fx-border-color: black");
+		myPane.setStyle(loadStringResource("ShopStyle"));
 
 		myVBox = new VBox();
 		bindWidth(myVBox, myPane.widthProperty());
@@ -65,16 +69,7 @@ public class ShopPane extends AbstractPane {
 	 */
 	private void setupShopList(){
 		shopListView = new ListView<ShopItem>(myShopItems);
-//		shopListView.setCellFactory(e -> {return new ShopCell(this);});
-		shopListView.setCellFactory(new Callback<ListView<ShopItem>, 
-	            ListCell<ShopItem>>() {
-	                @Override 
-	                public ListCell<ShopItem> call(ListView<ShopItem> list) {
-	                    return new ShopCell(raghav);
-	                }
-	            }
-	        );
-		
+		shopListView.setCellFactory(e -> {return new ShopCell(this);});
 		bindWidth(shopListView, myVBox.widthProperty());
 		bindHeight(shopListView, myVBox.heightProperty().multiply(.6));
 		myVBox.getChildren().add(shopListView);
@@ -85,7 +80,7 @@ public class ShopPane extends AbstractPane {
 	 */
 	private void setupUpgradeList(){
 		upgradeListView = new ListView<ShopItem>(myUpgradeItems);
-		upgradeListView.setCellFactory(e -> {return new UpgradeCell(this);});
+		upgradeListView.setCellFactory(e -> {return new ShopCell(this);});
 		bindWidth(upgradeListView, myVBox.widthProperty());
 		bindHeight(upgradeListView, myVBox.heightProperty().multiply(.3));
 		myVBox.getChildren().add(upgradeListView);
@@ -93,7 +88,7 @@ public class ShopPane extends AbstractPane {
 	
 	/**
 	 * Updates the shop given a list of shopItems
-	 * @param list - list of shopItems - each shopItem contains shon name, image, cost, and if it's interactable
+	 * @param list - list of shopItems - each shopItem contains name, image, cost, and if it's interactable
 	 */
 	public void updateShop(List<ShopItem> shoplist) {
 		myShopItems.retainAll(shoplist);
@@ -104,11 +99,23 @@ public class ShopPane extends AbstractPane {
 		}
 	}
 	
-	public void updateUpgrade(List<ShopItem> upgradelist) {
-		myUpgradeItems.clear();
-		myUpgradeItems.addAll(upgradelist);
+	/**
+	 * Updates the upgrade list given a list of shopItems
+	 * @param upgradelist - list of upgrades as shopItems - each shop Item contains name, image, cost, and if it's interactable
+	 */
+	public void updateUpgrades(List<ShopItem> upgradelist) {
+		myUpgradeItems.retainAll(upgradelist);
+		for(ShopItem item : upgradelist){
+			if(!myUpgradeItems.contains(item)){
+				myUpgradeItems.add(item);
+			}
+		}
 	}
 	
+	/**
+	 * Returns the current view
+	 * @return - returns shop pane's currentView
+	 */
 	public CurrentView getCurrentView(){
 		return myCurrentView;
 	}

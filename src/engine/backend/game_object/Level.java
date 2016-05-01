@@ -6,11 +6,14 @@
 
 package engine.backend.game_object;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
@@ -25,7 +28,7 @@ import engine.backend.rules.Rule;
  */
 public class Level {
 	
-	//put spawning entities in this map
+	//the initial IDs for spawn entities is 0 to n - 1, where n is the number of spawn entities.
 	private Map<Integer, IEntity> entities;
 	private Map<String, List<EntityAction>> myEventMap;
 	private List<IEntity> authoredEntities;
@@ -44,12 +47,15 @@ public class Level {
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
+		this.numWaves = numWaves;
+		this.myShopItems = shopItems;
 		this.authoredEntities = authoredEntities;
 		this.entities = entities;
+		this.currentWaveIndex = 0;
 		this.setShouldRevert(false);
 	}
 	
@@ -79,6 +85,7 @@ public class Level {
 	public List<Rule> getRuleAgenda(){
 		return ruleAgenda;
 	}
+
 	
 	/**
 	 * Sets the rules for the level.	
@@ -87,6 +94,7 @@ public class Level {
 	public void setRuleAgenda(List<Rule> rules){
 		ruleAgenda = rules;
 	}
+
 	
 	/**
 	 * Adds an action to the event map.
@@ -132,6 +140,7 @@ public class Level {
 	public GameMap getMap() {
 		return map;
 	}
+
 	
 	/**
 	 * Engine Testing Method.
@@ -144,10 +153,7 @@ public class Level {
 		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
-	public IEntity getEntityWithID(int entityID) {
-		return entities.get(entityID);
-	}
-	
+
 	public void setWaveDelayTimer(double time){
 		waveDelayTimer = time;
 	}
@@ -155,6 +161,7 @@ public class Level {
 	public int getNumWaves() {
 		return numWaves;
 	}
+
 
 	public int getCurrentWaveIndex() {
 		return currentWaveIndex;
@@ -224,6 +231,11 @@ public class Level {
 	public void setLastSerializedVersion(String lastSerializedVersion) {
 		this.lastSerializedVersion = lastSerializedVersion;
 	}
+	
+	public IEntity getEntityWithID(int id){
+		return entities.get(id);
+	}
+
 
 	public boolean shouldRevert() {
 		return shouldRevert;
@@ -242,5 +254,6 @@ public class Level {
 		int index = getCurrentWaveIndex();		
 		return index == getNumWaves();
 	}
+
 
 }

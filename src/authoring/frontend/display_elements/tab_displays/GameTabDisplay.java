@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.TreeMap;
@@ -45,11 +46,17 @@ public class GameTabDisplay extends TabDisplay {
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-		map.put("Starting Lives", null);
-		map.put("Starting Resources", null);
-		//etc
+
+		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+		for (String attribute : defaultAttributes) {
+			map.put(attribute, null);
+		}
+		
+		System.out.println("*****1. GameTabDisplay: got default Game attributes");
+		System.out.println(map);
 		return map;
 	}
+
 	
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();

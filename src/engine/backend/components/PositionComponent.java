@@ -13,7 +13,7 @@ public class PositionComponent extends Component {
 	public static final int DEFAULTPOSITION = 50;
 
 	public PositionComponent() {
-
+		myPositionVector = new Vector(0, 0);
 	}
 
 	public PositionComponent(PositionComponent posComp) {

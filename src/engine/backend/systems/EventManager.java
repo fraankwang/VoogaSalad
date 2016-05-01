@@ -52,6 +52,7 @@ public class EventManager implements Observer {
 	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
 		myGameWorld = game;
+
 		currentGameStatistics = new GameStatistics();
 		// pass in right values
 		myGameShop = new GameShop();
@@ -63,6 +64,7 @@ public class EventManager implements Observer {
 	 */
 	public void setEntityFactory(InGameEntityFactory factory) {
 		myEntityFactory = factory;
+
 	}
 
 	/**
@@ -127,6 +129,8 @@ public class EventManager implements Observer {
 	 * @param myEvent
 	 */
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
+		//System.out.println("image3: " + myEvent.getImage());
+		
 		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(),
 				myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}
@@ -283,7 +287,7 @@ public class EventManager implements Observer {
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
-	private void handleNextWaveEvent(NextWaveEvent event) {
+	public void handleNextWaveEvent(NextWaveEvent event) {
 		getCurrentLevel().setSendNextWave(true);
 	}
 

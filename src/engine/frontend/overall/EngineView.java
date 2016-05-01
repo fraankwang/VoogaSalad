@@ -5,6 +5,7 @@ package engine.frontend.overall;
 
 import engine.controller.EngineController;
 import engine.frontend.board.BoardPane;
+import engine.frontend.board.EntityView;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
@@ -13,8 +14,10 @@ import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
@@ -26,15 +29,7 @@ import utility.gamecapture.GameCapture;
 
 public class EngineView extends ResourceUser{
 
-	/*
-	 * Big todos:
-	 * Figure out picking/choosing levels etc.- cant play a level unless its been already played
-	 * 
-	 *  Small todos:
-	 *  finish "load game" option for first screen- almost done 
-	 *  lose-the-game screen
-	 *  Set up upgrades to send backend info when dropped on towers
-	 *  make sure game loop works when loading new maps with different aspect ratio map images
+	/*  
 	 *  reorganize/javadoc code LAST
 	 *  things that go off map go "under" the borders
 	 */
@@ -94,7 +89,7 @@ public class EngineView extends ResourceUser{
 
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
-		myScene.setOnDragOver(e -> handleDrop(e));
+//		myScene.setOnDragOver(e -> handleMove(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
 		myScene.setOnKeyPressed(e -> handleKeyPress(e));
 		return myScene;
@@ -106,26 +101,34 @@ public class EngineView extends ResourceUser{
 		e.consume();
 	}
 
-	private void handleDrop(DragEvent e) {
+	/**
+	 * Handles the changes in mouse position while the mouse is pressed, allows 
+	 * the image to track the cursor
+	 */
+	private void handleMove(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene && e.getDragboard().hasString()) {
-			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());	
 		}
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
 		}
-		e.consume();
+//		e.consume();
 	}
-
+	
+	/**
+	 * Called a dragged shop item is dropped on the scene
+	 * @param e
+	 */
 	private void handleEndMouseRelease(DragEvent e) {
 		if (e.getGestureSource() != myScene) {
-			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-		e.consume();
+//		e.consume();
 	}
 
 	private boolean isInBoardPane(double x, double y) {

@@ -34,13 +34,10 @@ public class CollisionComponent extends Component{
         return isCollided;
     }
 
-    /**
-     * Sets the collision boolean to the boolean paramter collided.
-     * @param collided
-     */
     public void setCollided(boolean collided) {
         isCollided = collided;
     }
+
 
 	@Override
 	public String getComponentInfo() {

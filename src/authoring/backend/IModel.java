@@ -10,5 +10,5 @@ public interface IModel {
 	
 	public void updateModes(String command, Map<String, String> data);
 	
-	public void updateGame(String command, Map<String, String> data);
+	public void updateGame(Map<String, String> data);
 }

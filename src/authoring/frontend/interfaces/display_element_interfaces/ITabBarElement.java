@@ -1,7 +1,5 @@
 package authoring.frontend.interfaces.display_element_interfaces;
 
-import authoring.frontend.display_elements.tab_displays.TabDisplay;
-
 /**
  * The ITabBarElement allows for the easy creation of additional TabBar types,
  * provided they contain the relevant game components defined as methods in this
@@ -15,13 +13,13 @@ public interface ITabBarElement extends IDisplayElement {
 
 	public void show(ITabDisplay display);
 
-	public TabDisplay getGameTabDisplay();
+	public ITabDisplay getGameTabDisplay();
 
-	public TabDisplay getModesTabDisplay();
+	public ITabDisplay getModesTabDisplay();
 
-	public TabDisplay getLevelsTabDisplay();
+	public ITabDisplay getLevelsTabDisplay();
 
-	public TabDisplay getEntitiesTabDisplay();
+	public ITabDisplay getEntitiesTabDisplay();
 
 	/**
 	 * After the stage is displayed, this method traces back to each aspect of
