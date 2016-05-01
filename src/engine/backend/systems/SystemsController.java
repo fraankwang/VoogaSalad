@@ -93,7 +93,7 @@ public class SystemsController {
 		myEventManager.handleNonMapEvents(nonMapEvents);
 		nonMapEvents.clear();
 		//handle all the generate events
-//		myEventManager.handleGeneratedEvents(myEventMap);
+		myEventManager.handleGeneratedEvents(myEventMap);
 		myEventManager.updateGameShop();
 		renderingSystem.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
 		myEventManager.handleLevelOver();

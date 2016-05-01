@@ -304,6 +304,7 @@ public class EventManager implements Observer {
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
 			for (String event : ruleEvents) {
+				System.out.println(event);
 				if (!generatedEventMap.containsKey(event)) {
 					myPossibleEntities.clear();
 					break;

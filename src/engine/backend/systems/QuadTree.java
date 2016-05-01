@@ -76,7 +76,6 @@ public class QuadTree {
 		PositionComponent myPosition = (PositionComponent) entity
 				.getComponent(ComponentTagResources.positionComponentTag);
 		SizeComponent mySize = (SizeComponent) entity.getComponent(ComponentTagResources.sizeComponentTag);
-		System.out.println(entity.getName());
 		boolean topQuadrant = (myPosition.getX() < horizontalMidpoint
 				&& myPosition.getY() + mySize.getHeight() < horizontalMidpoint);
 		// Object can completely fit within the bottom quadrants
