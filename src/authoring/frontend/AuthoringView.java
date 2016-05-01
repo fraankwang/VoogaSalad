@@ -11,6 +11,7 @@ import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.Main;
 
 /**
  * This class contains the link to the backend through GlobalData, the link to
@@ -28,10 +29,10 @@ public class AuthoringView implements IAuthoringView {
 	private IViewManager myAuthoringViewManager;
 	private GlobalData myGlobalData;
 
-	public AuthoringView(Stage s, GlobalData globalData) {
+	public AuthoringView(Stage s, GlobalData globalData, Main main) {
 		myPrimaryStage = s;
 		myGlobalData = globalData;
-		myAuthoringViewManager = new AuthoringViewManager(this);
+		myAuthoringViewManager = new AuthoringViewManager(this, s, main);
 	}
 
 	public void start() {

@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import main.Main;
 
 /**
  * The AuthoringViewManager is responsible for initializing the stage, the
@@ -33,22 +34,18 @@ public class AuthoringViewManager implements IViewManager {
 	private ObjectChooser myObjectChooser;
 	private IAuthoringView myController;
 
-	public AuthoringViewManager(IAuthoringView controller) {
+	public AuthoringViewManager(IAuthoringView controller, Stage s, Main main) {
 		myController = controller;
+		myTabBar = new TabBarElement(myController);
+		myMenuBar = new MenuBarElement(myObjectChooser, myController, s, main);
+		myObjectChooser = new ObjectChooser();
 
 	}
 
 	@Override
 	public void initialize(Stage s) {
-		myTabBar = new TabBarElement(myController);
 		myTabBar.initialize();
-
-
-		myObjectChooser = new ObjectChooser();
 		myObjectChooser.initialize();
-
-		myMenuBar = new MenuBarElement(myObjectChooser, myController);
-
 		myMenuBar.initialize();
 		myMenuBar.link(myTabBar);
 

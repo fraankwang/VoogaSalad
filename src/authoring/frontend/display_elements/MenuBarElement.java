@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
+import main.Main;
 
 /**
  * The MenuBarElement acts as a primary UI component that creates and manages
@@ -33,10 +37,14 @@ public class MenuBarElement implements IMenuBarElement {
 	private ObjectChooser myImageChooser;
 	private ImageImporter myImageImporter;
 	private IAuthoringView myController;
+	private Main myMain;
+	private Stage myStage;
 
-	public MenuBarElement(ObjectChooser ic, IAuthoringView controller) {
+	public MenuBarElement(ObjectChooser ic, IAuthoringView controller, Stage s, Main main) {
 		myImageChooser = ic;
 		myController = controller;
+		myMain = main;
+		myStage = s;
 	}
 
 	@Override
@@ -62,12 +70,13 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem importImages = new MenuItem("Import Images...");
 		importImages.setOnAction(e -> myImageImporter.openImporter());
 		
+		MenuItem importGame = createImportGame();
 		MenuItem exportGame = new MenuItem("Export Game");
 		Map<String, String> createGameMap = new HashMap<String, String>();
 		createGameMap.put("Type", "Create");
 		exportGame.setOnAction(e -> {
 			myController.writeData(createGameMap);
-			// make a pop up window that says "Game successfully exported!"
+			myMain.createPlayer(myStage);
 		});
 		
 		Menu open = new Menu("Open in separate window");
@@ -80,9 +89,19 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem openEntities = new MenuItem("Open Entities Tab");
 		openEntities.setOnAction(e -> myTabBar.show(myTabBar.getEntitiesTabDisplay()));
 
-		file.getItems().addAll(open, importImages, exportGame);
 		open.getItems().addAll(openGame, openModes, openLevels, openEntities);
+		file.getItems().addAll(open, importImages, importGame, exportGame);
 		return file;
+	}
+
+	private MenuItem createImportGame() {
+		MenuItem importGame = new MenuItem("Import Game");
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Game File");
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("xml"));
+		File gameFile = fileChooser.showOpenDialog(null);
+		
+		return importGame;
 	}
 
 	private Menu createHelpMenu() {
