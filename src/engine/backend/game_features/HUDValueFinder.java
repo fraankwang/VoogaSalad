@@ -12,6 +12,7 @@ public class HUDValueFinder implements IValueFinder {
 	private GameStatistics data;
 	private ExceptionLoader myExceptionLoader;
 
+
 	private static final String ILLEGAL_ARGUMENTS = "DataIllegalArgument";
 
 	public HUDValueFinder() {
@@ -56,8 +57,6 @@ public class HUDValueFinder implements IValueFinder {
 			this.data = (GameStatistics) dataSource;
 		} else {
 			throw new IllegalArgumentException();
-			// throw new
-			// DrumpfTowerException(myExceptionLoader.getString(ILLEGAL_ARGUMENTS));
 		}
 	}
 
