@@ -96,20 +96,22 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void initStartView(boolean firsttime) {
 
-		testingClass myTestingClass = new testingClass();
-		myGameWorld = myTestingClass.testFiring();
-		// myGameStatistics = myGameWorld.getGameStatistics();
+//		myTestingClass = new testingClass();
+//		myGameWorld = myTestingClass.testFiring();
+//		// myGameStatistics = myGameWorld.getGameStatistics();
+//
+//		myEventManager = new EventManager(this, myGameWorld);
+//		startGame("test firing", 0);
 
-		myEventManager = new EventManager(this, myGameWorld);
-		startGame("test firing", 0);
-
-		// StartView myStartView = new StartView(this, firsttime);
-		// Scene scene = myStartView.buildScene();
-		// myStage.setScene(scene);
-		// myStage.show();
+		 StartView myStartView = new StartView(this, firsttime);
+		 Scene scene = myStartView.buildScene();
+		 myStage.setScene(scene);
+		 myStage.show();
+		 
 		animation.stop();
 		stepping = false;
-}
+
+	}
 
 	public void initGameWorld(File file) {
 		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
