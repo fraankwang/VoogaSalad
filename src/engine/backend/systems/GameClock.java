@@ -1,8 +1,5 @@
 package engine.backend.systems;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class GameClock {
 
 	private static final int HUNDRED = 100;

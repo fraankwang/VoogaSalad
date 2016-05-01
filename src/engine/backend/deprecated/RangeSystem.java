@@ -1,4 +1,4 @@
-package engine.backend.systems;
+package engine.backend.deprecated;
 
 import java.util.Collection;
 import java.util.Map;
@@ -10,6 +10,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
+import engine.backend.systems.GameSystem;
 import engine.backend.utilities.ComponentTagResources;
 
 public class RangeSystem extends GameSystem {

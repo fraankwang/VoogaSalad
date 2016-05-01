@@ -26,11 +26,13 @@ public class MobilizeSystem extends GameSystem {
 	}
 
 	@Override
-
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory,
-			double currentSecond) {
-		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
-				ComponentTagResources.movementComponentTag);
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
+		
+		if(!playing){
+			return;
+		}
+		
+		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.movementComponentTag);
 		for (IEntity entity : movableEntities) {
 			MovementComponent movComponent = (MovementComponent) entity
 					.getComponent(ComponentTagResources.movementComponentTag);

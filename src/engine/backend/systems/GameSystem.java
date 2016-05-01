@@ -71,10 +71,12 @@ public abstract class GameSystem extends Observable implements ISystem {
 	}
 
 	/**
-	 * Gets a list of entities that contain the searched for entity from the list
+	 * Filters a list of entities given with the give string of tags. Returns
+	 * the filtered list of entities.
+	 * 
 	 * @param entities
 	 * @param tag
-	 * @return a list of entities that contain the searched for tag
+	 * @return
 	 */
 	public List<IEntity> getEntitiesWithTag(Collection<IEntity> entities, String tag) {
 		return entities.stream().filter(e -> e.hasComponent(tag)).collect(Collectors.toList());

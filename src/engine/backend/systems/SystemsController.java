@@ -76,20 +76,23 @@ public class SystemsController {
 	}
 
 	/**
+<<<<<<< HEAD
+	 * Receives user input from frontend, sends it to UserInputSystem
+=======
 	 * recieves user input from frontend, sends it to UserInputSystem
 	 * 
+>>>>>>> 66d110766b45ba83c1a1b6cf9252a64a7baee972
 	 * @param event
 	 */
 	public void sendUserInputEvent(IEvent event) {
 		userInputSystem.handleUserEvent(event);
 	}
 
-	public void iterateThroughSystems(Level level) {
+	public void iterateThroughSystems(Level level, boolean playing) {
 		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
 
 		for (ISystem system : mySystems) {
-			system.update(myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(),
-					myGameClock.getCurrentSecond());
+			system.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());			
 		}
 		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
 		myEventManager.handleNonMapEvents(nonMapEvents);
@@ -97,11 +100,11 @@ public class SystemsController {
 		// handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
 		myEventManager.updateGameShop();
-		renderingSystem.update(myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(),
-				myGameClock.getCurrentSecond());
+		renderingSystem.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
 		myEventManager.handleLevelOver();
-		myGameClock.updateLoopIteration();
-
+		if(!playing){
+			myGameClock.updateLoopIteration();
+		}
 	}
 
 }

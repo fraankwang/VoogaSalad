@@ -2,6 +2,7 @@ package engine.backend.game_object;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import engine.backend.rules.IAction;
@@ -32,8 +33,6 @@ public class GameStatistics implements IModifiable {
 	private String initialMode;
 	private int highestLevelUnlocked;
 	private int nextAvailableEntityID;
-	private boolean levelLost;
-
 	private List<Integer> endOfLevelLives;
 	private List<Double> endOfLevelResources;
 
@@ -48,18 +47,15 @@ public class GameStatistics implements IModifiable {
 		setInitialNumLives(numLives);
 		setInitialResources(resources);
 
-		currentNumLives = new Property(initialNumLives, "lives");
-		currentResources = new Property(initialResources, "resources");
 		currentLevelIndex = new Property(initialLevel, "level");
 		currentMode = new Property((initialMode = new String()), "mode");
 
 		setCurrentNumLives(numLives);
 		setCurrentResources(resources);
 
-		levelLost = false;
 		nextAvailableEntityID = 0;
-		// endOfLevelLives = new ArrayList<Integer>();
-		// endOfLevelResources = new ArrayList<Double>();
+		endOfLevelLives = new ArrayList<Integer>();
+		endOfLevelResources = new ArrayList<Double>();
 	}
 
 	public GameStatistics() {
@@ -80,7 +76,7 @@ public class GameStatistics implements IModifiable {
 
 	public void setInitialNumLives(int initialNumLives) {
 		this.initialNumLives = initialNumLives;
-		currentNumLives = new Property(initialNumLives, "currentNumLives");
+		currentNumLives = new Property(initialNumLives, "lives");
 	}
 
 	public int getCurrentNumLives() {
@@ -98,9 +94,6 @@ public class GameStatistics implements IModifiable {
 	public void setCurrentNumLives(String deltaNumLives) {
 		int newValue = getCurrentNumLives() + Integer.parseInt(deltaNumLives);
 		setCurrentNumLives(newValue);
-		if (noMoreLives()) {
-			levelLost = true;
-		}
 	}
 
 	public double getInitialResources() {
@@ -109,7 +102,7 @@ public class GameStatistics implements IModifiable {
 
 	public void setInitialResources(double initialResources) {
 		this.initialResources = initialResources;
-		currentResources = new Property(initialResources, "currentResources");
+		currentResources = new Property(initialResources, "resources");
 	}
 
 	public double getCurrentResources() {
@@ -130,7 +123,7 @@ public class GameStatistics implements IModifiable {
 	}
 
 	public int getCurrentLevelIndex() {
-		checkEndOfLevel();
+		// checkEndOfLevel();
 		return (int) currentLevelIndex.getValue();
 	}
 
@@ -140,7 +133,7 @@ public class GameStatistics implements IModifiable {
 		}
 	}
 
-	public int getHighestLevelUnlocke() {
+	public int getHighestLevelUnlocked() {
 		return highestLevelUnlocked;
 	}
 

@@ -28,8 +28,13 @@ import engine.backend.utilities.ComponentTagResources;
 public class FiringSystem extends GameSystem {
 
 	@Override
-	public void update(Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory,
-			double currentSecond) {
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
+			InGameEntityFactory myEntityFactory, double currentSecond) {
+
+		if (!playing) {
+			return;
+		}
+
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
 		Collection<IEntity> shootingEntities = getEntitiesWithTag(myLevel.getEntities().values(),
 				ComponentTagResources.firingComponentTag);
@@ -45,6 +50,17 @@ public class FiringSystem extends GameSystem {
 
 	}
 
+	/**
+	 * Updates the firing by getting the firing component from the shooting
+	 * entity. Checks whether or not the entity can shoot and instantiates the
+	 * entity being fired.
+	 * 
+	 * @param shootingEntity
+	 * @param targetEntity
+	 * @param newEntities
+	 * @param currentSecond
+	 * @param myEntityFactory
+	 */
 	private void updateFiring(IEntity shootingEntity, IEntity targetEntity, Collection<IEntity> newEntities,
 			double currentSecond, InGameEntityFactory myEntityFactory) {
 

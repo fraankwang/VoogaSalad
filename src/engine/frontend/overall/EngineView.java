@@ -35,8 +35,8 @@ public class EngineView extends ResourceUser{
 	 *  lose-the-game screen
 	 *  Set up upgrades to send backend info when dropped on towers
 	 *  make sure game loop works when loading new maps with different aspect ratio map images
-	 *  Respond to keyboard events with an entityID and the key pressed
 	 *  reorganize/javadoc code LAST
+	 *  things that go off map go "under" the borders
 	 */
 	public static final String RESOURCE_NAME = "engine_window";
 
@@ -121,7 +121,6 @@ public class EngineView extends ResourceUser{
 		if (e.getGestureSource() != myScene) {
 			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
-				
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);

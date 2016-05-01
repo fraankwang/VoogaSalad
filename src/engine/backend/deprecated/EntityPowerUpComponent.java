@@ -1,8 +1,9 @@
-package engine.backend.components;
+package engine.backend.deprecated;
 
 import java.util.List;
 import java.util.Map;
 
+import engine.backend.components.Component;
 import engine.backend.game_features.EntityPowerUp;
 
 public class EntityPowerUpComponent extends Component {

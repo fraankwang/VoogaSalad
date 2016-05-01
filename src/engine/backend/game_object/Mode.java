@@ -12,15 +12,15 @@ public class Mode {
 
 	private Map<Integer, Level> myLevels;
 	private String myName;
-	private GameStatistics myModeStatistics;
+	private GameStatistics myGameStatistics;
 	private int index;
 
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Mode(String myName, GameStatistics modeStatistics, Map<Integer, Level> levels) {
+	public Mode(String myName, GameStatistics gameStatistics, Map<Integer, Level> levels) {
 		this.myName = myName;
-		this.myModeStatistics = modeStatistics;
+		this.myGameStatistics = gameStatistics;		
 		this.myLevels = levels;
 	}
 
@@ -39,9 +39,14 @@ public class Mode {
 	public void setLevelInMap(int levelIndex, Level level) {
 		myLevels.put(levelIndex, level);
 	}
-
-	public GameStatistics getModeStatistics() {
-		return myModeStatistics;
+	
+	
+	public GameStatistics getGameStatistics(){
+		return myGameStatistics;
+	}
+	
+	public void setGameStatistics(GameStatistics stats){
+		myGameStatistics = stats;
 	}
 
 	public String getName() {
