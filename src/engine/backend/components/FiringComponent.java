@@ -282,7 +282,10 @@ public class FiringComponent extends Component{
 			this.myEnemyInSightRange = Double.parseDouble(data);
 			return;
 		case "Targets":
-			this.myTargets.add(data);
+			String[] targets = data.split("_");
+			for (String target : targets) {
+				this.myTargets.add(target);
+			}
 			return;
 		case "FiringRate":
 			this.myFiringRate = Double.parseDouble(data);

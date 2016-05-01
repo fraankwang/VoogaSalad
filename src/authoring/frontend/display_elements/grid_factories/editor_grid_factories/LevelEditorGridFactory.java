@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.grid_factories.editor_grid_factories;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.panels.LevelEditorViewPanel;
@@ -46,12 +47,12 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	 */
 	@Override
 	public Panel createPrimaryDisplay() {
-		LevelEditorViewPanel editorView = new LevelEditorViewPanel(800 * 0.7, 1200 * 0.7);
+		LevelEditorViewPanel editorView = new LevelEditorViewPanel(Constants.getDouble("LEVEL_EDITOR_GRID_SIZE"), Constants.getDouble("LEVEL_EDITOR_GRID_SIZE"));
 		editorView.initialize();
 		editorView.setImage(new Image("resources/images/question_mark.png"));
 		editorView.setDescription("Level");
 
-		editorView.getPanelBar().addButton("Upload Map Image", e -> {
+		editorView.getPanelBar().addButton(Constants.getString("UPLOAD_IMAGE_BUTTON"), e -> {
 			String newImage = myController.getAuthoringViewManager().getObjectChooser().openChooser();
 			editorView.setImage(new Image(myController.getImageMap().get(newImage)));
 			((ModifiableLevelAttributesPanel) myEditorGrid.getAttributesPanel()).updateImageComponent(newImage);

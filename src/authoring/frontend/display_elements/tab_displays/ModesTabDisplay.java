@@ -45,8 +45,13 @@ public class ModesTabDisplay extends TabDisplay {
 	@Override
 	public void update(Observable o, Object arg) {
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
+		update(data);
+	}
+	
+	public void update(List<Map<String, String>> data) {
 		((ModesTabGrid) myGrid).updateModesPrimaryDisplay(data);
 	}
+	
 	
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
@@ -58,6 +63,11 @@ public class ModesTabDisplay extends TabDisplay {
 		}
 
 		return map;
+	}
+	
+	@Override
+	public void createNew() {
+		myEditorDisplay.edit(getDefaultAttributesMap());
 	}
 
 	public void initializeHotKeys() {

@@ -1,5 +1,6 @@
 package authoring.frontend;
 
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.MenuBarElement;
 import authoring.frontend.display_elements.TabBarElement;
 import authoring.frontend.editor_features.ObjectChooser;
@@ -25,8 +26,8 @@ import main.Main;
 
 public class AuthoringViewManager implements IViewManager {
 
-	private static final int SCENE_WIDTH = 1200;
-	private static final int SCENE_HEIGHT = 800;
+	private static final int SCENE_WIDTH = Constants.getInt("SCENE_WIDTH");
+	private static final int SCENE_HEIGHT = Constants.getInt("SCENE_HEIGHT");
 
 	private Scene myPrimaryScene;
 	private IMenuBarElement myMenuBar;

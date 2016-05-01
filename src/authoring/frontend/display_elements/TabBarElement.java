@@ -2,8 +2,10 @@ package authoring.frontend.display_elements;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring.frontend.display_elements.tab_displays.ModesTabDisplay;
@@ -136,7 +138,7 @@ public class TabBarElement implements ITabBarElement {
 
 		BorderPane bp = new BorderPane();
 		bp.setCenter(display.getNode());
-		Scene scene = new Scene(bp, 1200, 800);
+		Scene scene = new Scene(bp, Constants.getInt("SCENE_WIDTH"), Constants.getInt("SCENE_HEIGHT"));
 		s.setScene(scene);
 		s.show();
 
@@ -148,8 +150,7 @@ public class TabBarElement implements ITabBarElement {
 	 * hotkeys for whatever tab is accessed upon viewing that tab.
 	 */
 	public void initializeHotKeys() {
-		List<TabDisplay> myTabDisplays = Arrays.asList(myModesTabDisplay, myLevelsTabDisplay,
-				myEntitiesTabDisplay);
+		List<TabDisplay> myTabDisplays = Arrays.asList(myModesTabDisplay, myLevelsTabDisplay, myEntitiesTabDisplay);
 
 		myEntitiesTabDisplay.getNode().getScene().getAccelerators()
 				.put(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN), new Runnable() {
@@ -196,6 +197,14 @@ public class TabBarElement implements ITabBarElement {
 				currentTabDisplay.initializeHotKeys();
 			}
 		});
+	}
+
+	@Override
+	public void updateAll(List<Map<String, String>> modes, List<Map<String, String>> levels,
+			List<Map<String, String>> entities) {
+		myModesTabDisplay.update(modes);
+		myLevelsTabDisplay.update(levels);
+		myEntitiesTabDisplay.update(levels);
 	}
 
 }

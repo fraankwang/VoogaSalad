@@ -1,6 +1,8 @@
 package authoring.frontend;
 
+import java.util.List;
 import java.util.Map;
+
 import authoring.backend.data.GlobalData;
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringEntity;
@@ -39,6 +41,10 @@ public class AuthoringView implements IAuthoringView {
 		myAuthoringViewManager.initialize(myPrimaryStage);
 	}
 
+	public void updateAll(List<Map<String, String>> modes, List<Map<String, String>> levels, List<Map<String, String>> entities) {
+		myAuthoringViewManager.getTabBarElement().updateAll(modes, levels, entities);
+	}
+	
 	@Override
 	public void writeData(Map<String, String> data) {
 		myGlobalData.updateData(data);

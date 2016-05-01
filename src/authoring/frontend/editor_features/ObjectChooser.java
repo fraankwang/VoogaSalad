@@ -2,7 +2,7 @@ package authoring.frontend.editor_features;
 
 import java.util.Map;
 import java.util.TreeMap;
-
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.IAuthoringView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +44,7 @@ public class ObjectChooser {
 		myListView.setItems(myObjectsList);
 		mySelection = "";
 		myStage = new Stage();
-		myScene = new Scene(myListView, 600, 800, Color.WHITE);
+		myScene = new Scene(myListView, Constants.getInt("OBJECT_CHOOSER_WIDTH"), Constants.getInt("OBJECT_CHOOSER_HEIGHT"), Color.WHITE);
 		myStage.setScene(myScene);
 		myListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override

@@ -3,8 +3,8 @@ package authoring.frontend.display_elements;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.editor_features.ImageImporter;
 import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
@@ -59,7 +59,7 @@ public class MenuBarElement implements IMenuBarElement {
 	public void initialize() {
 		myMenuBar = new MenuBar();
 		Menu file = createFileMenu();
-		Menu create = new Menu("Create");
+		Menu create = createCreateMenu();
 		Menu help = createHelpMenu();
 		myImageImporter = new ImageImporter(myImageChooser);
 		myImageImporter.initialize();
@@ -67,8 +67,28 @@ public class MenuBarElement implements IMenuBarElement {
 		myMenuBar.getMenus().addAll(file, create, help);
 	}
 
+	private Menu createCreateMenu() {
+		MenuItem createEntity = new MenuItem(Constants.getString("CREATE_ENTITY"));
+		createEntity.setOnAction(e -> {
+			myController.getAuthoringViewManager().getTabBarElement().getEntitiesTabDisplay().createNew();
+		});
+		MenuItem createLevel = new MenuItem(Constants.getString("CREATE_LEVEL"));
+		createLevel.setOnAction(e -> {
+			myController.getAuthoringViewManager().getTabBarElement().getLevelsTabDisplay().createNew();
+		});
+		MenuItem createMode = new MenuItem(Constants.getString("CREATE_MODE"));
+		createMode.setOnAction(e -> {
+			myController.getAuthoringViewManager().getTabBarElement().getModesTabDisplay().createNew();
+		});
+		
+		Menu createMenu = new Menu(Constants.getString("CREATE_MENU"));
+		createMenu.getItems().addAll(createEntity, createLevel, createMode);
+		return createMenu;
+		
+	}
+
 	private Menu createFileMenu() {
-		Menu file = new Menu("File");
+		Menu file = new Menu(Constants.getString("FILE_MENU"));
 
 		MenuItem importImages = new MenuItem("Import Images...");
 		importImages.setOnAction(e -> myImageImporter.openImporter());
@@ -76,13 +96,13 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem importGame = createImportGame();
 		MenuItem exportGame = createExportGame();
 
-		Menu open = new Menu("Open in separate window");
+		Menu open = new Menu(Constants.getString("SEPARATE_MENU"));
 
-		MenuItem openModes = new MenuItem("Open Modes Tab");
+		MenuItem openModes = new MenuItem(Constants.getString("OPEN_MODE"));
 		openModes.setOnAction(e -> myTabBar.show(myTabBar.getModesTabDisplay()));
-		MenuItem openLevels = new MenuItem("Open Levels Tab");
+		MenuItem openLevels = new MenuItem(Constants.getString("OPEN_LEVEL"));
 		openLevels.setOnAction(e -> myTabBar.show(myTabBar.getLevelsTabDisplay()));
-		MenuItem openEntities = new MenuItem("Open Entities Tab");
+		MenuItem openEntities = new MenuItem(Constants.getString("OPEN_ENTITY"));
 		openEntities.setOnAction(e -> myTabBar.show(myTabBar.getEntitiesTabDisplay()));
 
 		open.getItems().addAll(openModes, openLevels, openEntities);
@@ -91,7 +111,7 @@ public class MenuBarElement implements IMenuBarElement {
 	}
 	
 	private MenuItem createExportGame() {
-		MenuItem exportGame = new MenuItem("Export Game");
+		MenuItem exportGame = new MenuItem(Constants.getString("EXPORT_MENU"));
 		exportGame.setOnAction(e -> {
 			FileChooser gameSaver = new FileChooser();
 			gameSaver.setTitle("Save Game File");
@@ -110,7 +130,7 @@ public class MenuBarElement implements IMenuBarElement {
 	}
 
 	private MenuItem createImportGame() {
-		MenuItem importGame = new MenuItem("Import Game");
+		MenuItem importGame = new MenuItem(Constants.getString("IMPORT_MENU"));
 
 		importGame.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
@@ -123,6 +143,21 @@ public class MenuBarElement implements IMenuBarElement {
 			importGameMap.put("URL", gameFile.getName());
 			
 			myController.writeData(importGameMap);
+			
+			try {
+//				String string = ObjectToXMLWriter.documentToString(gameFile);
+//				GameWorld game = (GameWorld) writer.xMLToObject(string);
+				
+//				List<Map<String, String>> myModes = 
+//				List<Map<String, String>> myLevels
+//				List<Map<String, String>> myEntities
+//				myController.updateAll(myModes, myLevels, myEntities);
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+
+
 		});
 
 
@@ -137,13 +172,13 @@ public class MenuBarElement implements IMenuBarElement {
 	 * @return
 	 */
 	private Menu createHelpMenu() {
-		Menu help = new Menu("Help");
+		Menu help = new Menu(Constants.getString("HELP_MENU"));
 
-		MenuItem openWiki = new MenuItem("About");
+		MenuItem openWiki = new MenuItem(Constants.getString("ABOUT_MENU"));
 		openWiki.setOnAction(
 				e -> openWebPage("https://github.com/duke-compsci308-spring2016/voogasalad_DrumpfTower/wiki"));
-		MenuItem openTDWiki = new MenuItem("How to play Tower Defense");
-		openTDWiki.setOnAction(e -> openWebPage("https://en.wikipedia.org/wiki/Tower_defense"));
+		MenuItem openTDWiki = new MenuItem(Constants.getString("HOWTO_MENU"));
+		openTDWiki.setOnAction(e -> openWebPage("https://docs.google.com/document/d/1XtS7cTKnU7g7cwGhlDpgI7qe-cJQXso01z_qSoRJRwk/edit?usp=sharing"));
 
 		help.getItems().addAll(openWiki, openTDWiki);
 		return help;
@@ -159,12 +194,12 @@ public class MenuBarElement implements IMenuBarElement {
 
 		WebView webView = new WebView();
 		webView.getEngine().load(url);
-		webView.setPrefSize(800, 800);
+		webView.setPrefSize(Constants.getInt("SCENE_WIDTH"), Constants.getInt("SCENE_HEIGHT"));
 
 		Group root = new Group();
 		root.getChildren().add(webView);
 
-		Scene scene = new Scene(root, 800, 800);
+		Scene scene = new Scene(root, Constants.getInt("SCENE_WIDTH"), Constants.getInt("SCENE_HEIGHT"));
 		helpStage.setScene(scene);
 		helpStage.show();
 

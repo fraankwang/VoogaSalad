@@ -2,6 +2,7 @@ package authoring.frontend.display_elements.grids;
 
 import java.util.Map;
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grid_factories.GridFactory;
 import authoring.frontend.display_elements.panels.Panel;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
@@ -72,13 +73,13 @@ public abstract class Grid implements IGrid {
 	protected void assembleGridComponents() {
 		myGrid = new GridPane();
 		ColumnConstraints column1 = new ColumnConstraints();
-		column1.setPercentWidth(70);
+		column1.setPercentWidth(Constants.getInt("GRID_COLUMN_1"));
 		ColumnConstraints column2 = new ColumnConstraints();
-		column2.setPercentWidth(30);
+		column2.setPercentWidth(Constants.getInt("GRID_COLUMN_2"));
 		RowConstraints row1 = new RowConstraints();
-		row1.setPercentHeight(70);
+		row1.setPercentHeight(Constants.getInt("GRID_ROW_1"));
 		RowConstraints row2 = new RowConstraints();
-		row2.setPercentHeight(30);
+		row2.setPercentHeight(Constants.getInt("GRID_ROW_2"));
 		myGrid.getColumnConstraints().addAll(column1, column2);
 		myGrid.getRowConstraints().addAll(row1, row2);
 
@@ -107,19 +108,19 @@ public abstract class Grid implements IGrid {
 	 * 
 	 * @return
 	 */
-	public String promptNewName() {
+	public String promptNewName(String name) {
 		Stage promptStage = new Stage();
 		VBox promptBox = new VBox();
 		promptBox.setAlignment(Pos.CENTER);
-		Label prompt = new Label("Enter new name:");
+		Label prompt = new Label("Enter new " + name + ":");
 		TextField textBox = new TextField();
 		textBox.setMaxWidth(200);
 		promptBox.getChildren().add(prompt);
 		promptBox.getChildren().add(textBox);
 		HBox buttonBox = new HBox();
 		buttonBox.setAlignment(Pos.CENTER);
-		Button cancelButton = new Button("Cancel");
-		Button saveButton = new Button("Save");
+		Button cancelButton = new Button(Constants.getString("CANCEL_BUTTON"));
+		Button saveButton = new Button(Constants.getString("SAVE_BUTTON"));
 		cancelButton.setOnAction(e -> promptStage.close());
 		textBox.setOnAction(e -> {
 			newPromptedString = textBox.getText();
@@ -128,11 +129,13 @@ public abstract class Grid implements IGrid {
 
 		saveButton.setOnAction(e -> {
 			newPromptedString = textBox.getText();
-			promptStage.close();
+			if (!newPromptedString.equals("")) {
+				promptStage.close();				
+			}
 		});
-		buttonBox.getChildren().addAll(cancelButton, saveButton);
+		buttonBox.getChildren().add(saveButton);
 		promptBox.getChildren().add(buttonBox);
-		Scene promptScene = new Scene(promptBox, 300, 200);
+		Scene promptScene = new Scene(promptBox, Constants.getInt("PROMPT_NEW_WIDTH"), Constants.getInt("PROMPT_NEW_HEIGHT"));
 		promptStage.setScene(promptScene);
 		promptStage.showAndWait();
 		return newPromptedString;
