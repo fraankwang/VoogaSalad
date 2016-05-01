@@ -237,11 +237,17 @@ public class EventManager implements Observer {
 		boolean noLives = currentGameStatistics.noMoreLives();
 		if (noLives) {
 			myEngineController.levelIsLost();
+			currentGameStatistics.updateHighestLevelUnlocked(currentGameStatistics.getCurrentLevelIndex());
 			resetLevel();
 		} else {
 			if (getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()) {
 				currentGameStatistics.addEndOfLevelLives(currentGameStatistics.getCurrentNumLives());
 				currentGameStatistics.addEndOfLevelResources(currentGameStatistics.getCurrentResources());
+				int numLevelsTotal = myGameWorld.getModes().get(currentGameStatistics.getCurrentMode()).getLevels().size();
+				int nextLevelIndex = currentGameStatistics.getCurrentLevelIndex() + 1;
+				if (numLevelsTotal > nextLevelIndex) {
+					currentGameStatistics.updateHighestLevelUnlocked(currentGameStatistics.getCurrentLevelIndex() + 1);					
+				}
 				myEngineController.levelIsWon();
 				resetLevel();
 			} else {

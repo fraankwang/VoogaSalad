@@ -120,9 +120,9 @@ public class GameStatistics implements IModifiable{
 		return (int) currentLevelIndex.getValue();
 	}
 	
-	private void updateHighestLevelUnlocked(){
-		if((int) currentLevelIndex.getValue() > highestLevelUnlocked){
-			highestLevelUnlocked = (int) currentLevelIndex.getValue();
+	public void updateHighestLevelUnlocked(int index){
+		if (index > highestLevelUnlocked) {
+			highestLevelUnlocked = index;	
 		}
 	}
 	
@@ -154,12 +154,12 @@ public class GameStatistics implements IModifiable{
 	
 	public void setCurrentLevelIndex(int currentLevelIndex) {
 		this.currentLevelIndex.setValue(currentLevelIndex);
-		updateHighestLevelUnlocked();
+		updateHighestLevelUnlocked(currentLevelIndex);
 	}
 	
 	public void setCurrentLevelIndex(String delta){
 		this.currentLevelIndex.setValue(Integer.parseInt(delta));
-		updateHighestLevelUnlocked();
+		updateHighestLevelUnlocked((int) currentLevelIndex.getValue());
 	}
 	
 //	private void checkEndOfLevel(){
