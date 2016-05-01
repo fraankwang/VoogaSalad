@@ -86,13 +86,12 @@ public class EventManager implements Observer {
 
 	private void revertLevelIfNeeded(Level myLevel, String modeName, int levelIndex) {
 		if (myLevel.shouldRevert()) {
-		if (myGameWorld.getLevelWithId(modeName, levelIndex).shouldRevert()) {
+			System.out.println("Should revert");
 			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 			myLevel = (Level) serializer
 					.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
 			myLevel.setShouldRevert(false);
 			myGameWorld.putLevelInMap(modeName, levelIndex, myLevel);
-		}
 		}
 	}
 
@@ -220,7 +219,7 @@ public class EventManager implements Observer {
 	}
 
 	private void handleWaveOverEvent(WaveOverEvent event) {
-		myEngineController.waveIsOver();
+		myEngineController.waveIsOver(event.getTimerLength());
 	}
 
 	/**
@@ -337,10 +336,8 @@ public class EventManager implements Observer {
 	 * @param events
 	 */
 	public void handleNonMapEvents(Collection<IEvent> events) {
-
-		for (IEvent event : events) {
-			if (event instanceof EntityDroppedEvent) {
-				System.out.println(event.getEventID());
+		for(IEvent event : events){
+			if(event instanceof EntityDroppedEvent){
 				handleEntityDropEvent((EntityDroppedEvent) event);
 			} else if (event instanceof NextWaveEvent) {
 				handleNextWaveEvent((NextWaveEvent) event);

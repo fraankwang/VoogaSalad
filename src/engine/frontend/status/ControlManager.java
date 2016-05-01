@@ -3,14 +3,16 @@
  */
 package engine.frontend.status;
 
+import java.text.DecimalFormat;
+
 import engine.frontend.overall.ResourceUser;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class ControlManager extends ResourceUser {
 	private StatusPane myStatusPane;
@@ -18,6 +20,7 @@ public class ControlManager extends ResourceUser {
 
 	private Button play;
 	private Button nextWave;
+	private double clockTime;
 	private Button nextLevel;
 	private ComboBox<String> modeComboBox;
 	private Button modeButton;
@@ -47,7 +50,7 @@ public class ControlManager extends ResourceUser {
 		nextWave.setDisable(true);
 		nextWave.setOnMouseClicked(e -> {
 			myStatusPane.getEngineView().getEngineController().nextWaveClicked();
-			nextWave.setDisable(true);
+			clockTime = Double.MIN_VALUE;
 		});
 
 		nextLevel.setDisable(true);
@@ -64,12 +67,36 @@ public class ControlManager extends ResourceUser {
 		return vbox;
 	}
 
-	public void nextWaveEnable() {
+	public void nextWaveEnable(double time) {
 		nextWave.setDisable(false);
+		startNextWaveTimer(time);
+	}
+	
+	private void startNextWaveTimer(double time){
+		clockTime = time;
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Animation.INDEFINITE);
+		KeyFrame frame = new KeyFrame(Duration.millis(100), e -> {
+			if(clockTime > 0){
+				DecimalFormat df = new DecimalFormat("#.##");
+				nextWave.setText(loadStringResource("NextWaveTimerLabel") + df.format(clockTime));
+				clockTime -= .1;
+			} else {
+				animation.stop();
+				resetNextWaveTimer();
+			}
+		});
+		animation.getKeyFrames().add(frame);
+		animation.play();
+	}
+	
+	private void resetNextWaveTimer(){
+		nextWave.setText(loadStringResource("NextWaveLabel"));
+		nextWave.setDisable(true);
 	}
 
 	public void nextLevelEnable() {
-		nextWave.setDisable(false);
+		nextLevel.setDisable(false);
 	}
 
 	public void switchModeEnable() {

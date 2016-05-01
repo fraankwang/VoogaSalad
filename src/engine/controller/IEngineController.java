@@ -9,7 +9,7 @@ public interface IEngineController {
 
 	public void updateShop(List<ShopItem> shoplist);
 
-	public void waveIsOver();
+	public void waveIsOver(double time);
 
 	public void levelIsWon();
 
