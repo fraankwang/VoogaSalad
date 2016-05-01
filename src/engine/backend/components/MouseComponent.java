@@ -41,6 +41,9 @@ public class MouseComponent extends Component {
 
 	@Override
 	public void update(String dataName, String data) {
-		
+	}
+
+	public void initWithParams(String[] params) {
+		// TODO Auto-generated method stub
 	}
 }

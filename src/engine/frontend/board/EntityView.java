@@ -9,6 +9,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 
 public class EntityView {
 	
@@ -30,7 +32,7 @@ public class EntityView {
 		myID = id;
 		myW = new SimpleDoubleProperty(width);
 		myH = new SimpleDoubleProperty(height);
-
+		System.out.println("image: " + image);
 		myImageView = new ImageView(new Image(myImageName));		
 		myImageView.translateXProperty().bind(myController.getEngineView().getScalingFactor().multiply(myX.subtract(myW.divide(2))));
 		myImageView.translateYProperty().bind(myController.getEngineView().getScalingFactor().multiply(myY.subtract(myH.divide(2))));
@@ -66,5 +68,37 @@ public class EntityView {
 		if(myH.doubleValue() != height){
 			myH.setValue(height);
 		}
+	}
+	
+	private void updateFocus(){
+		myImageView.requestFocus();
+		System.out.println("Tester");
+	}
+	
+	public void handlePowerUpDrop(DragEvent e){
+	
+		e.acceptTransferModes(TransferMode.ANY);
+		System.out.println("Here");
+		if (e.getDragboard().hasString()) {
+			myController.attemptUpgrade(myID, e.getDragboard().getString());
+
+		}
+	}
+	
+	public boolean contains(double x, double y){
+		double minX = myImageView.translateXProperty().doubleValue();
+		double maxX = myImageView.fitWidthProperty().doubleValue() + minX;
+		
+		x = x - myController.getEngineView().getBoardPane().getPane().getLayoutX();
+		y = y - myController.getEngineView().getBoardPane().getPane().getLayoutY();
+		
+		System.out.println("Min: " + minX + " Max: " + maxX + " x: " + x);
+		double minY = myImageView.translateYProperty().doubleValue();
+		double maxY = myImageView.fitHeightProperty().doubleValue() + minY;
+		System.out.println("Min: " + minY + " Max: " + maxY + " y: " + y);
+		
+		
+		return (x>= minX && x<= maxX && y>=minY && y<=maxY);
+		
 	}
 }

@@ -4,7 +4,8 @@
 package engine.frontend.status;
 
 import java.text.DecimalFormat;
-
+import engine.controller.EngineController;
+import engine.frontend.overall.EndView;
 import engine.frontend.overall.ResourceUser;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -26,11 +27,19 @@ public class ControlManager extends ResourceUser {
 	private Button nextLevel;
 	private Button modeButton;
 
+	/**
+	 * Instantiates Control Manager
+	 * @param sp - status pane that the control manager will become a child of
+	 */
 	public ControlManager(StatusPane sp) {
 		super(RESOURCE_NAME);
 		myStatusPane = sp;
 	}
 
+	/**
+	 * Instantiates the Game Control Buttons within a vbox
+	 * @return VBox containing Game Control buttons
+	 */
 	public VBox buildGameControls() {
 		VBox vbox = new VBox();
 
@@ -70,6 +79,9 @@ public class ControlManager extends ResourceUser {
 		}
 	}
 	
+	/**
+	 * Enables the nextwave button
+	 */
 	public void nextWaveEnable(double time) {
 		nextWave.setDisable(false);
 		startNextWaveTimer(time);

@@ -5,6 +5,7 @@ package engine.frontend.overall;
 
 import engine.controller.EngineController;
 import engine.frontend.board.BoardPane;
+import engine.frontend.board.EntityView;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
@@ -13,8 +14,10 @@ import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
@@ -86,7 +89,7 @@ public class EngineView extends ResourceUser{
 
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
-		myScene.setOnDragOver(e -> handleDrop(e));
+		myScene.setOnDragOver(e -> handleMove(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
 		myScene.setOnKeyPressed(e -> handleKeyPress(e));
 		return myScene;
@@ -98,10 +101,10 @@ public class EngineView extends ResourceUser{
 		e.consume();
 	}
 
-	private void handleDrop(DragEvent e) {
+	private void handleMove(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene && e.getDragboard().hasString()) {
-			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
+			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());	
 		}
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
@@ -111,7 +114,18 @@ public class EngineView extends ResourceUser{
 
 	private void handleEndMouseRelease(DragEvent e) {
 		if (e.getGestureSource() != myScene) {
-			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+			System.out.println("dropped something");
+			for( Integer id: myBoardPane.getEntityMap().keySet()){
+				
+				if( myBoardPane.getEntityMap().get(id).contains(e.getSceneX(), e.getSceneY())){
+					myBoardPane.getEntityMap().get(id).handlePowerUpDrop(e);
+					myDummyCursor.changePic(null);
+					this.getStage().getScene().setCursor(Cursor.DEFAULT);
+					e.consume();
+					return;
+				}
+			}
+			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
 			}
 		}

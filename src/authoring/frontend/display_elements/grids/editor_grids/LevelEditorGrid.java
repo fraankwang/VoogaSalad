@@ -36,21 +36,33 @@ public class LevelEditorGrid extends EditorGrid {
 	}
 	
 	@Override
+	protected void assembleGridComponents() {
+		super.assembleGridComponents();
+		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
+		myGrid.add(myRulesPanel.getNode(), 0, 1);
+		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
+		myGrid.add(myButtonDashboard.getNode(), 1, 1);
+	}
+	
+	
+	@Override
 	public void setAttributesPanel(Map<String, String> info) {
 		((LevelEditorViewPanel) myPrimaryDisplay).setPaths(info.get("Paths"));
+		myRulesPanel.setRules(info.get("Rules"));
 		info.remove("Paths");
-		super.setAttributesPanel(info);
+		info.remove("Rules");
 		if (info.get("MapBackgroundImage") == null) {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image("question_mark.png"));
-		} else {
-			((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("MapBackgroundImage")));
+			info.put("MapBackgroundImage", "resources/images/question_mark.png");
 		}
+		((EditorViewPanel) myPrimaryDisplay).setImage(new Image(info.get("MapBackgroundImage")));
+		super.setAttributesPanel(info);
 	}
 	
 	@Override
 	public Map<String, String> saveAttributes() {
 		Map<String, String> info = myModifiableAttributesPanel.saveAttributes();
 		info.put("Paths", ((LevelEditorViewPanel) myPrimaryDisplay).getPathIDs());
+		info.put("Rules", myRulesPanel.getRules());
 		return info;
 	}
 

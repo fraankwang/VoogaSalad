@@ -29,6 +29,10 @@ public class ShopCell extends ListCell<ShopItem> {
 	public static final String DEFAULT_RESOURCE = "engine/frontend/resources/shop_cell";
 	private ResourceBundle myResources;
 
+	/**
+	 * Instantiates ShopCell on a ShopPane
+	 * @param sp - ShopPane -> type of Pane on which ShopCells are located
+	 */
 	public ShopCell(ShopPane sp) {
 		super();
 		myShopPane = sp;
@@ -47,6 +51,11 @@ public class ShopCell extends ListCell<ShopItem> {
 		myHBox.setAlignment(Pos.CENTER_LEFT);
 	}
 
+	/**
+	 * @Override - overrides updateItem method from inherited ListCell
+	 * @param empty - boolean determining whether the cell is empty
+	 * @param item - ShopItem contained in the cell
+	 */
 	@Override
 	public void updateItem(ShopItem item, boolean empty) {
 		super.updateItem(item, empty);
@@ -62,9 +71,11 @@ public class ShopCell extends ListCell<ShopItem> {
 				myName.setText(item.getItemName());
 			}
 			
+
 			if(myCost != item.getItemValue()){
 				myCost = item.getItemValue();
 				myCostText.setText(myResources.getString("ShopCostPrompt") + myCost);
+
 			}
 			
 			if (myItem.isCanBuy()) {
@@ -78,6 +89,10 @@ public class ShopCell extends ListCell<ShopItem> {
 		}
 	}
 
+	/**
+	 * Handles object being clicked on
+	 * @param e - MouseEvent called when cell is clicked on
+	 */
 	private void selectTower(MouseEvent e) {
 
 		myShopPane.getEngineView().getDummyCursor().changePic(myImageView.getImage());
@@ -90,10 +105,19 @@ public class ShopCell extends ListCell<ShopItem> {
 		e.consume();
 	}
 
+	/**
+	 * Accesses resource file with given string and returns associated double
+	 * @param myString - String key to access double from resource file
+	 * @return - returns double grabbed from resource file
+	 */
 	private double getDoubleResource(String myString) {
 		return Double.parseDouble(myResources.getString(myString));
 	}
 
+	/**
+	 * Sets the opacity of all graphics in the shell
+	 * @param value - double percent opacity
+	 */
 	private void setHBoxOpacity(double value) {
 		myImageView.setOpacity(value);
 		myName.setOpacity(value);

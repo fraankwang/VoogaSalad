@@ -18,8 +18,7 @@ import javafx.scene.text.Font;
 
 public class GridPanelBar extends PanelBar {
 
-	private Label myDescription;
-	private HBox myGridBar;
+	private Label numColumnsLabel;
 	private Button myIncreaseColumnsButton;
 	private Button myDecreaseColumnsButton;
 	private GridViewPanel myGridView;
@@ -31,32 +30,43 @@ public class GridPanelBar extends PanelBar {
 
 	@Override
 	protected void initializeComponents() {
-		myDescription = new Label();
-		myDescription.setFont(new Font(25));
+		super.initializeComponents();
+		numColumnsLabel = new Label("# of columns");
+		numColumnsLabel.setFont(new Font(25));
 		myIncreaseColumnsButton = new Button("+");
 		myDecreaseColumnsButton = new Button("-");
 	}
 
 	@Override
 	protected void assembleComponents() {
-		myGridBar = new HBox();
-		myGridBar.setAlignment(Pos.CENTER_LEFT);
-		myGridBar.setSpacing(10);
-		Label numColumns = new Label("# of columns");
-		numColumns.setFont(new Font(25));
 		myDecreaseColumnsButton.setOnAction(e -> myGridView.decreaseGridSize());
 		myIncreaseColumnsButton.setOnAction(e -> myGridView.increaseGridSize());
-		HBox.setHgrow(myDecreaseColumnsButton, Priority.ALWAYS);
-		HBox.setHgrow(numColumns, Priority.ALWAYS);
-		HBox.setHgrow(myIncreaseColumnsButton, Priority.ALWAYS);
-		HBox columnSelector = new HBox(myDecreaseColumnsButton, numColumns, myIncreaseColumnsButton);
-		myGridBar.getChildren().addAll(myDescription, columnSelector);
-		columnSelector.setAlignment(Pos.CENTER_RIGHT);
+
+		HBox selector = assembleColumnSelector();
+		selector.setAlignment(Pos.CENTER);
+		myGridBar.getChildren().addAll(myDescription, selector);
 		myNode = myGridBar;
 	}
 	
+	private HBox assembleColumnSelector() {
+		HBox.setHgrow(myDecreaseColumnsButton, Priority.ALWAYS);
+		HBox.setHgrow(numColumnsLabel, Priority.ALWAYS);
+		HBox.setHgrow(myIncreaseColumnsButton, Priority.ALWAYS);
+		HBox columnSelector = new HBox(myDecreaseColumnsButton, numColumnsLabel, myIncreaseColumnsButton);
+		return columnSelector;	
+	}
+	
+	@Override
+	public void setFontSize(int font) {
+		super.setFontSize(font);
+		numColumnsLabel.setFont(new Font(font));
+	}
+	
+	@Override
 	public void setDescription(String description) {
 		myDescription.setText("You are currently viewing your " + description);
+
 	}
 
+	
 }

@@ -64,8 +64,10 @@ public class ModelManager implements IModel {
 		}
 	}
 
-	public void updateGame(String command, Map<String, String> data) {
-		globaldata.getGame().update(data);
+	public void updateGame(Map<String, String> data) {
+		if (data.containsKey("Name")) {
+			globaldata.getGame().setName(data.get("Name"));
+		}
 	}
 		
 }

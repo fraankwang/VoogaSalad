@@ -45,7 +45,9 @@ public class RenderingSystem extends GameSystem {
 			double sizey = Integer.MIN_VALUE;
 			boolean show = true;
 			boolean delete = false;
-
+			
+			System.out.println(myEntity.getName());
+			
 			for (IComponent eachComponent : myEntity.getComponents()) {
 				if (eachComponent.getTag().equals(ComponentTagResources.displayComponentTag)) {
 					imageToDisplay = ((DisplayComponent) eachComponent).getImage();

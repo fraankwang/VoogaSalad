@@ -2,13 +2,16 @@ package engine.backend.components;
 
 import java.util.List;
 
+
+import engine.backend.entities.IEntity;
+
+public class SpawnerComponent extends Component implements IComponent {
+
 /**
  * A component that gives the ability to an entity to spawn more entities.
  * @author 
  *
  */
-
-public class SpawnerComponent extends Component {
 
 	private List<Spawn> mySpawns;
 	private int pathID;

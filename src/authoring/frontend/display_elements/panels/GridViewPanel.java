@@ -31,14 +31,14 @@ public class GridViewPanel extends Panel {
 
 	private final static int DEFAULT_NUM_GRID_COLUMNS = 2;
 	private final static int ADD_NEW_BUTTON_SIZE = 300;
-	private GridPane myGridPane;
-	private ScrollPane myScrollPane;
-	private PanelBar myPanelBar;
-	private Button myAddNewButton;
+	protected GridPane myGridPane;
+	protected ScrollPane myScrollPane;
+	protected PanelBar myPanelBar;
+	protected Button myAddNewButton;
 	private int numColumns;
-	private List<ImageView> myImages;
+	protected List<ImageView> myImages;
 	private ImageView myCurrImage;
-	private ITabDisplay myTabDisplay;
+	protected ITabDisplay myTabDisplay;
 
 	public GridViewPanel(double height, double width, ITabDisplay tab) {
 		super(height, width);
@@ -56,7 +56,7 @@ public class GridViewPanel extends Panel {
 		myImages = new ArrayList<ImageView>();
 		myAddNewButton = new Button("Add New");
 		myAddNewButton.setStyle(
-				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#000000,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
+				"-fx-wrap-text: true; -fx-background-insets: 0,1,2,3; -fx-background-radius: 3,2,2,2;-fx-padding: 12 30 12 30;-fx-text-fill: white;-fx-font-size: 30px;-fx-background-color:#515D7B,linear-gradient(#7ebcea, #2f4b8f),linear-gradient(#426ab7, #263e75),linear-gradient(#395cab, #223768);");
 
 		myAddNewButton.setPrefSize(ADD_NEW_BUTTON_SIZE, ADD_NEW_BUTTON_SIZE);
 	}
