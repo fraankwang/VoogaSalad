@@ -149,6 +149,7 @@ public class RulesEditorPanel extends Panel {
 	
 
 	private Scene openIfScene() {
+		Map<String, String> myImageMap = myController.getAuthoringViewManager().getObjectChooser().getMap(); 
 		VBox ifStatementBuilder = new VBox();
 		Scene ifScene = new Scene(ifStatementBuilder, 400, 400, Color.WHITE);
 		
@@ -161,12 +162,12 @@ public class RulesEditorPanel extends Panel {
 
 		ComboBox<String> eventChooser = new ComboBox<String>();
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
-		entityChooser.setCellFactory(listview -> new LabelCell(myController));
-		entityChooser.setButtonCell(new LabelCell(myController)); 
+		entityChooser.setCellFactory(listview -> new LabelCell(myImageMap));
+		entityChooser.setButtonCell(new LabelCell(myImageMap)); 
 		entityChooser.setPrefWidth(400);
 		ComboBox<Label> entityChooser2 = new ComboBox<Label>();
-		entityChooser2.setCellFactory(listview -> new LabelCell(myController));
-		entityChooser2.setButtonCell(new LabelCell(myController));
+		entityChooser2.setCellFactory(listview -> new LabelCell(myImageMap));
+		entityChooser2.setButtonCell(new LabelCell(myImageMap));
 		entityChooser2.setPrefWidth(400);
 		Button keyField = new Button("Click and press desired key");
 		
@@ -234,6 +235,7 @@ public class RulesEditorPanel extends Panel {
 	}
 
 	private Scene openThenScene() {
+		Map<String, String> myImageMap = myController.getAuthoringViewManager().getObjectChooser().getMap();
 		VBox thenStatementBuilder = new VBox();
 		Scene thenScene = new Scene(thenStatementBuilder, 400, 400, Color.WHITE);
 		HBox selectTypeBox = new HBox();
@@ -253,13 +255,13 @@ public class RulesEditorPanel extends Panel {
 		typeChooser.getItems().addAll("Level", "Entity");
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
 		entityChooser.getItems().addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-		entityChooser.setCellFactory(listview -> new LabelCell(myController));
-		entityChooser.setButtonCell(new LabelCell(myController)); 
+		entityChooser.setCellFactory(listview -> new LabelCell(myImageMap));
+		entityChooser.setButtonCell(new LabelCell(myImageMap)); 
 		entityChooser.setPrefWidth(400);
 		ComboBox<String> attributeChooser = new ComboBox<String>();
 		ComboBox<Label> newValueChooser = new ComboBox<Label>();
-		newValueChooser.setCellFactory(listview -> new LabelCell(myController));
-		newValueChooser.setButtonCell(new LabelCell(myController)); 
+		newValueChooser.setCellFactory(listview -> new LabelCell(myImageMap));
+		newValueChooser.setButtonCell(new LabelCell(myImageMap)); 
 		newValueChooser.setPrefWidth(400);
 		ComboBox<String> levelValueChooser = new ComboBox<String>();
 		levelValueChooser.getItems().addAll(MODIFIABLE_LEVEL_ATTRIBUTES);
