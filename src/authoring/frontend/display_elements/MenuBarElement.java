@@ -176,4 +176,9 @@ public class MenuBarElement implements IMenuBarElement {
 
 	}
 
+	@Override
+	public ImageImporter getImageImporter() {
+		return myImageImporter;
+	}
+
 }

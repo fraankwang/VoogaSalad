@@ -95,7 +95,7 @@ public class EntitiesTabGrid extends TabGrid {
 					info.remove("DisplayComponent_Delete");
 					myEntities.put(info.get("Name"), info.get("DisplayComponent_Image"));
 
-					Image image = new Image(info.get("DisplayComponent_Image"));
+					Image image = new Image(myController.getImageMap().get(info.get("DisplayComponent_Image")));
 					ImageView iv = new ImageView(image);
 					linkImage(iv, info);
 					gridView.addImage(iv);

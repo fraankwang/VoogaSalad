@@ -2,6 +2,7 @@ package authoring.frontend.editor_features;
 
 import java.util.Map;
 
+import authoring.frontend.IAuthoringView;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
@@ -16,9 +17,11 @@ import javafx.scene.image.ImageView;
 public class LabelCell extends ListCell<Label> {
 	
 	private Map<String, String> myImageMap;
+	private IAuthoringView myController;
 	
-	public LabelCell(Map<String, String> imageMap) {
+	public LabelCell(Map<String, String> imageMap, IAuthoringView controller) {
 		myImageMap = imageMap;
+		myController = controller;
 	}
 
 	@Override
@@ -31,7 +34,7 @@ public class LabelCell extends ListCell<Label> {
  			Label newLabel = new Label(item.getText());
  			
  			ImageView newImage = new ImageView(
- 					new Image(myImageMap.get(item.getText())));
+ 					new Image(myController.getImageMap().get(myImageMap.get(item.getText()))));
  			newImage.setFitHeight(50);
  			newImage.setFitWidth(50);
  			newImage.setPreserveRatio(true);

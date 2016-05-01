@@ -165,13 +165,13 @@ public class RulesEditorPanel extends Panel {
 		ComboBox<String> eventChooser = new ComboBox<String>();
 		ComboBox<Label> entityChooser = new ComboBox<Label>();
 		entityChooser.setCellFactory(
-				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-		entityChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities(), myController));
+		entityChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities(), myController));
 		entityChooser.setPrefWidth(400);
 		ComboBox<Label> entityChooser2 = new ComboBox<Label>();
 		entityChooser2.setCellFactory(
-				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-		entityChooser2.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities(), myController));
+		entityChooser2.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities(), myController));
 		entityChooser2.setPrefWidth(400);
 		Button keyField = new Button("Click and press desired key");
 
@@ -263,8 +263,8 @@ public class RulesEditorPanel extends Panel {
 		entityChooser.getItems()
 				.addAll(createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 		entityChooser.setCellFactory(
-				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
-		entityChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+				listview -> new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities(), myController));
+		entityChooser.setButtonCell(new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities(), myController));
 		entityChooser.setPrefWidth(400);
 		ComboBox<String> attributeChooser = new ComboBox<String>();
 		ComboBox<Label> newValueChooser = new ComboBox<Label>();
@@ -372,8 +372,8 @@ public class RulesEditorPanel extends Panel {
 				} else if (EntityComponents.getVariableType(newValue).equals("Image")) {
 					newValueChooser.getItems().addAll(
 							createLabelList(myController.getAuthoringViewManager().getObjectChooser().getMap()));
-					newValueChooser.setCellFactory(listview -> new LabelCell(myImageMap));
-					newValueChooser.setButtonCell(new LabelCell(myImageMap));
+					newValueChooser.setCellFactory(listview -> new LabelCell(myImageMap, myController));
+					newValueChooser.setButtonCell(new LabelCell(myImageMap, myController));
 					newValueChooser.setPrefWidth(400);
 
 				} else if (EntityComponents.getVariableType(newValue).equals("Entity")) {
@@ -381,9 +381,9 @@ public class RulesEditorPanel extends Panel {
 					newValueChooser.getItems().addAll(
 							createLabelList(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
 					newValueChooser.setCellFactory(listview -> new LabelCell(
-							((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+							((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities(), myController));
 					newValueChooser.setButtonCell(
-							new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities()));
+							new LabelCell(((ModifiableLevelAttributesPanel) myAttributes).getLevelEntities(), myController));
 					newValueChooser.setPrefWidth(400);
 				}
 
@@ -420,7 +420,7 @@ public class RulesEditorPanel extends Panel {
 	}
 
 	private List<Label> createLabelList(Map<String, String> map) {
-		ObjectChooser entityChooser = new ObjectChooser();
+		ObjectChooser entityChooser = new ObjectChooser(myController);
 		entityChooser.initialize();
 		entityChooser.addAll(map);
 		return entityChooser.getList();

@@ -98,4 +98,8 @@ public class AuthoringView implements IAuthoringView {
 		return ((LevelsTabDisplay) myAuthoringViewManager.getTabBarElement().getLevelsTabDisplay()).getLevels();
 	}
 	
+	public Map<String, String> getImageMap() {
+		return myAuthoringViewManager.getMenuBarElement().getImageImporter().getImageMap();
+	}
+	
 }
