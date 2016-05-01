@@ -1,5 +1,6 @@
 package authoring.controller;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Observer;
 
@@ -9,6 +10,6 @@ import java.util.Observer;
 
 public interface IAuthoringController extends Observer {
 	
-	public void parseInput(Map<String, String> data);
+	public void parseInput(Map<String, String> data) throws IOException;
 
 }

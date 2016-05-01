@@ -212,6 +212,7 @@ public class EventManager implements Observer {
 		System.out.println("level serialized");
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
+		System.out.println(levelIndex);
 		myGameWorld.getLevelWithId(modeName, levelIndex)
 				.setLastSerializedVersion(serializeLevel(myGameWorld.getLevelWithId(modeName, levelIndex)));
 	}
@@ -232,14 +233,13 @@ public class EventManager implements Observer {
 	 * the level is reset.
 	 */
 	public void handleLevelOver() {
-		
+
 		boolean noLives = currentGameStatistics.noMoreLives();
-		if(noLives){
+		if (noLives) {
 			myEngineController.levelIsLost();
 			resetLevel();
-		}
-		else{
-			if(getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()){
+		} else {
+			if (getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()) {
 				currentGameStatistics.addEndOfLevelLives(currentGameStatistics.getCurrentNumLives());
 				currentGameStatistics.addEndOfLevelResources(currentGameStatistics.getCurrentResources());
 				myEngineController.levelIsWon();
@@ -250,38 +250,39 @@ public class EventManager implements Observer {
 		}
 	}
 
-	private boolean isEnemyOnScreen(){
-		Set<String> enemyNames = getUniqueEnemyNames();
-		boolean ret = false;
-		for(IEntity entity : getCurrentLevel().getEntities().values()){
-			if(enemyNames.contains(entity.getName())){
-				ret = true;
-				break;
-			}
-		}
-		return ret;
-	}
-	
-	private Set<String> getUniqueEnemyNames(){
-		Set<String> enemyNames = new HashSet<String>();
-		
-		for(ShopItem item: getCurrentLevel().getShopItems()){
-			for(IEntity entity : getCurrentLevel().getAuthoredEntities()){
-				if(item.getItemName().equals(entity.getName())){
-					if(entity.hasComponent(ComponentTagResources.firingComponentTag)){
-						FiringComponent firingComponent = (FiringComponent) entity.getComponent(ComponentTagResources.firingComponentTag);
-						enemyNames.addAll(firingComponent.getTargets());
-					}
-				}
-			}
-		}
-		return enemyNames;
-	}
+    private boolean isEnemyOnScreen(){
+        Set<String> enemyNames = getUniqueEnemyNames();
+        boolean ret = false;
+        for(IEntity entity : getCurrentLevel().getEntities().values()){
+            if(enemyNames.contains(entity.getName())){
+                ret = true;
+                break;
+            }
+        }
+        return ret;
+    }
+    
+    private Set<String> getUniqueEnemyNames(){
+        Set<String> enemyNames = new HashSet<String>();
+        
+        for(ShopItem item: getCurrentLevel().getShopItems()){
+            for(IEntity entity : getCurrentLevel().getAuthoredEntities()){
+                if(item.getItemName().equals(entity.getName())){
+                    if(entity.hasComponent(ComponentTagResources.firingComponentTag)){
+                        FiringComponent firingComponent = (FiringComponent) entity.getComponent(ComponentTagResources.firingComponentTag);
+                        enemyNames.addAll(firingComponent.getTargets());
+                    }
+                }
+            }
+        }
+        return enemyNames;
+    }
 	
 	private void resetLevel(){
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
 		System.out.println("reseting level here");
+		currentGameStatistics.resetResourcesAndLives();
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
@@ -397,6 +398,7 @@ public class EventManager implements Observer {
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
 			for (String event : ruleEvents) {
+				System.out.println(event);
 				if (!generatedEventMap.containsKey(event)) {
 					myPossibleEntities.clear();
 					break;

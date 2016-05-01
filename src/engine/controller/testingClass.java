@@ -110,11 +110,11 @@ public class testingClass {
 		level2.setIndex(1);
 		mode.addLevel(level);
 		mode.addLevel(level2);
-		firingTest.addMode(mode);
-		
 		GameStatistics gameStats = new GameStatistics(50, 50);
 		mode.setGameStatistics(gameStats);
-
+		
+		firingTest.addMode(mode);
+		
 		return firingTest;
 	}
 	
@@ -203,8 +203,7 @@ public class testingClass {
 		
 		IEntity tempSpawn  = new Entity(40, "tempSpawn", "spawner");
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 2);
-		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 2);
-
+		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 4);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
 
 		IEntity tempSpawn2  = new Entity(-40, "tempSpawn2", "spawner");
@@ -297,12 +296,10 @@ public class testingClass {
 		myCreatableEntityMap.put("Towers", createdTowers);
 
 		level.addEntityToMap(tempSpawn);
-		level.addEntityToMap(tempSpawn2);
+		//level.addEntityToMap(tempSpawn2);
 		level.addEntityToMap(tempEntity2);
-
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
-		level.setCurrentWaveIndex(0);
 		level.setNumWaves(2);
 		level.setWaveDelayTimer(5);
 		level.setAuthoredEntities(authoredEntities);

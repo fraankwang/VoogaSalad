@@ -13,18 +13,18 @@ public class ActionsFactory {
 	}
 	
 	public IAction createAction(List<String> info) {
-		if(info.size() > 2){
+		if(info.get(0).equals("Entity")){
 			return createEntityAction(info);
 		}
 		return createLevelAction(info);
 	}
 	
 	private LevelAction createLevelAction(List<String> info){
-		return new LevelAction(info.get(0), info.get(1));
+		return new LevelAction(info.get(1), info.get(2));
 	}
 	
 	private EntityAction createEntityAction(List<String> info){
-		return new EntityAction(info.get(0), info.get(1), info.get(2), info.get(3));
+		return new EntityAction(info.get(1), info.get(2), info.get(3), info.get(4));
 	}
 
 }

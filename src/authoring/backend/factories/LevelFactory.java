@@ -8,6 +8,7 @@ import java.util.Set;
 
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
+import engine.backend.components.CollisionComponent;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
@@ -37,6 +38,7 @@ public class LevelFactory {
 		for (String key : entityNames) {
 			IEntity entity = entityMap.get(key);
 			entity.addComponent(new PositionComponent());
+			entity.addComponent(new CollisionComponent());
 			authoredEntities.add(entity);
 		}
 		List<AuthoringEntity> spawnEntities = authoringLevel.getSpawnEntities();
@@ -71,9 +73,6 @@ public class LevelFactory {
 				PurchaseComponent purchaseComponent = (PurchaseComponent) entity.getComponent("PurchaseComponent");
 				ShopItem item = new ShopItem(entity.getName(), displayComponent.getImage(), purchaseComponent.getValue());
 				shopItems.add(item);		
-			}
-			if (entity.hasComponent("MovementComponent")) {
-				System.out.println(entity.getComponent("MovementComponent").getComponentInfo());
 			}
 		}
 		

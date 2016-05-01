@@ -123,7 +123,7 @@ public class EngineView extends ResourceUser{
 		if (e.getGestureSource() != myScene) {
 			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				if(!e.getDragboard().getString().equals("SpeedPowerUp") && !e.getDragboard().getString().equals("RangePowerUp")){
-					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&+&")[0], Double.parseDouble(e.getDragboard().getString().split("&+&")[1]));
 					System.out.println(e.getDragboard().getString());
 					System.out.println("dropping tower");
 				}			

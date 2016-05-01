@@ -199,6 +199,11 @@ public class GameStatistics implements IModifiable{
 				e.printStackTrace();
 			}
 	}
+
+	public void resetResourcesAndLives() {
+		setCurrentNumLives(initialNumLives);
+		setCurrentResources(initialResources);
+	}
 }
 
 

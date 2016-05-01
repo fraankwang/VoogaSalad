@@ -33,7 +33,7 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		LevelGridViewPanel levelView = new LevelGridViewPanel(50, 50, null);
+		LevelGridViewPanel levelView = new LevelGridViewPanel(50, 50, null, myController);
 		levelView.initialize();
 		return levelView;
 	}

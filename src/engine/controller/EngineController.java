@@ -26,6 +26,7 @@ import engine.backend.systems.Events.PowerUpDroppedEvent;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
+import engine.frontend.overall.StartView;
 import engine.frontend.status.DrumpfHUDScreen;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
@@ -34,6 +35,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -93,17 +95,17 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void initStartView(boolean firsttime) {
-		myTestingClass = new testingClass();
-		myGameWorld = myTestingClass.testFiring();
-		// myGameStatistics = myGameWorld.getGameStatistics();
+//		myTestingClass = new testingClass();
+//		myGameWorld = myTestingClass.testFiring();
+//		// myGameStatistics = myGameWorld.getGameStatistics();
+//
+//		myEventManager = new EventManager(this, myGameWorld);
+//		startGame("test firing", 0);
 
-		myEventManager = new EventManager(this, myGameWorld);
-		startGame("test firing", 0);
-
-		// StartView myStartView = new StartView(this, firsttime);
-		// Scene scene = myStartView.buildScene();
-		// myStage.setScene(scene);
-		// myStage.show();
+		 StartView myStartView = new StartView(this, firsttime);
+		 Scene scene = myStartView.buildScene();
+		 myStage.setScene(scene);
+		 myStage.show();
 	}
 
 	public void initGameWorld(File file) {
@@ -207,9 +209,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myEngineView.getShopPane().updateUpgrades(upgradelist);
 	}
 
-	public void attemptTower(double xLoc, double yLoc, String type) {
+	public void attemptTower(double xLoc, double yLoc, String type, double cost) {
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
-				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
+				yLoc / myEngineView.getScalingFactor().doubleValue(), type, cost);
 		mySystems.sendUserInputEvent(event);
 		System.out.println(event);
 		if (!stepping) {
@@ -252,6 +254,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public List<Integer> currentLevelsUnlocked(String mode) {
 		List<Integer> list = new ArrayList<Integer>();
 		for (Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()) {
+			System.out.println("HELLLO "+  myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked());
 			if (i <= myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked()) {
 				list.add(i);
 			}

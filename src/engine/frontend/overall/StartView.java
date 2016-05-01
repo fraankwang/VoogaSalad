@@ -34,7 +34,6 @@ public class StartView {
 		firsttime = f;
 	}
 
-
 	public Scene buildScene() {
 		myVBox = new VBox();
 		myScene = new Scene(myVBox, Color.WHEAT);
