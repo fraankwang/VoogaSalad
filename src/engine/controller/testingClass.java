@@ -134,16 +134,16 @@ public class testingClass {
 
 		Rule ruleKeyLeft = new Rule();
 		ruleKeyLeft.addActions(keyActionLeft);
-		ruleKeyLeft.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventLEFT"));
+		ruleKeyLeft.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEvent-LEFT"));
 		Rule ruleKeyRight = new Rule();
 		ruleKeyRight.addActions(keyActionRight);
-		ruleKeyRight.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventRIGHT"));
+		ruleKeyRight.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEvent-RIGHT"));
 		Rule ruleKeyUp = new Rule();
 		ruleKeyUp.addActions(keyActionUp);
-		ruleKeyUp.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventUP"));
+		ruleKeyUp.addEvents(Arrays.asList("tempEntity2-KeyPressedEntityEvent-UP"));
 		Rule ruleKeyDown = new Rule();
 		ruleKeyDown.addActions(keyActionDown);
-		ruleKeyDown.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventDOWN"));
+		ruleKeyDown.addEvents(Arrays.asList("tempEntity2-KeyPressedEntityEvent-DOWN"));
 		
 		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
 		LevelAction levelAction2 = new LevelAction("CurrentResources", "4");
@@ -151,29 +151,29 @@ public class testingClass {
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action);
 		List<String> myEvents = new ArrayList<String>();
-		myEvents.add("SimpleBullettempEntityCollisionEvent");
-		myEvents.add("tempEntityDeathEvent");
+		myEvents.add("SimpleBullet-tempEntity-CollisionEvent");
+		myEvents.add("tempEntity-DeathEvent");
 
 		Rule rule1 = new Rule();
 		rule1.addActions(Arrays.asList(action2, action3, action5));
-		rule1.addEvents(Arrays.asList("SimpleBullettempEntityCollisionEvent"));
+		rule1.addEvents(Arrays.asList("SimpleBullet-tempEntity-CollisionEvent"));
 
 		Rule rule2 = new Rule();
 		rule2.addActions(Arrays.asList(action, action4));
-		rule2.addEvents(Arrays.asList("tempEntityDeathEvent"));
+		rule2.addEvents(Arrays.asList("tempEntity-DeathEvent"));
 
 		Rule rule3 = new Rule();
 		EntityAction shootAction = new EntityAction("tempEntity2", "Firing", "FireNow", "true");
 		rule3.addActions(Arrays.asList(shootAction));
-		rule3.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEventS"));
+		rule3.addEvents(Arrays.asList("tempEntity2-KeyPressedEntityEvent-S"));
 
 		Rule rule4 = new Rule();
 		rule4.addActions(Arrays.asList(action3, action5));
-		rule4.addEvents(Arrays.asList("SimpleBulletOutOfMapEvent"));
+		rule4.addEvents(Arrays.asList("SimpleBullet-OutOfMapEvent"));
 
 		Rule rule5 = new Rule();
 		rule5.addActions(Arrays.asList(levelAction, action, action4, levelAction2));
-		rule5.addEvents(Arrays.asList("tempEntityEndOfPathEvent"));
+		rule5.addEvents(Arrays.asList("tempEntity-EndOfPathEvent"));
 
 		level.setRuleAgenda(
 				Arrays.asList(rule1, rule2, rule3, rule4, rule5, ruleKeyUp, ruleKeyDown, ruleKeyLeft, ruleKeyRight));
