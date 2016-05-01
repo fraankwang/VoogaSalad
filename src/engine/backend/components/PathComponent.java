@@ -115,6 +115,11 @@ public class PathComponent extends Component {
 	}
 
 	@Override
+	public String toString() {
+		return "PathID: " + pathID;
+	}
+	
+	@Override
 	public String getComponentInfo() {
 		return "PathID:" + pathID;
 	}

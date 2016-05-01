@@ -53,9 +53,7 @@ public class AuthoringEntityFactory {
 				}
 			}
 		}
-
-		componentMap.put("CollisionComponent", new CollisionComponent());
-
+		
 		Collection<IComponent> temp = componentMap.values();
 
 		List<IComponent> components = new ArrayList<IComponent>(temp);

@@ -182,6 +182,7 @@ public class MovementComponent extends Component {
 
 		case "Velocity":
 			this.myVelocity = Double.parseDouble(data);
+			this.myCurrentVelocityVector = new Vector(myVelocity, 0);
 			return;
 		case "CanMove":
 			if (data.equals("True")) {

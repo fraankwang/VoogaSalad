@@ -57,10 +57,8 @@ public class InGameEntityFactory {
 
 	public IEntity createEntity(String entityName) {
 		IEntity templateEntity = findInMap(entityName);
-		System.out.println(templateEntity);
 		IEntity newEntity = new Entity(initNumEntities + getNextAvailableID(), templateEntity.getName(), templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
-		System.out.println(newEntity);
 		return newEntity;
 	}
 

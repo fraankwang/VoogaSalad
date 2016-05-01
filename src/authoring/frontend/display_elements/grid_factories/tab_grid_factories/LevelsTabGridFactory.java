@@ -25,7 +25,7 @@ public class LevelsTabGridFactory extends TabGridFactory {
 
 	@Override
 	public Panel createPrimaryDisplay() {
-		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay);
+		GridViewPanel gridView = new GridViewPanel(MAX_SIZE, MAX_SIZE, myTabDisplay, myController);
 		gridView.initialize();
 		return gridView;
 	}

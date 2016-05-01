@@ -9,10 +9,8 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -31,7 +29,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	protected GridPane myAttributesGridPane;
 	protected ScrollPane myScrollPane;
 	protected IAuthoringView myController;
-	
+
 	protected Map<String, Control> myInputMap;
 
 	protected static final int ATTRIBUTES_HEIGHT = 50;
@@ -76,7 +74,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myNode = myWrapper;
 	}
 
-	
 	protected GridPane createAttributesGridPane() {
 		List<Integer> rowConstraints = new ArrayList<Integer>();
 		List<Integer> columnConstraints = new ArrayList<Integer>();
@@ -89,7 +86,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	}
 
-	
 	/**
 	 * Populates myAttributesMap and myInputMap using given myAttributes.
 	 */
@@ -108,7 +104,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		}
 	}
 
-	
 	/**
 	 * Assumes myAttributesMap is correctly populated. Iterates through
 	 * myInputMap to replace the input areas for each component (in
@@ -117,7 +112,6 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 	 */
 	protected abstract void refreshAttributes();
 
-	
 	/**
 	 * Assumes myAttributes and myInputMap are up to date with all necessary
 	 * components. Clears myAttributesGridPane and re-populates it using
@@ -129,21 +123,19 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 		for (int i = 0; i < myAttributes.size(); i++) {
 			String currentAttribute = myAttributes.get(i);
-			
-			if (!currentAttribute.equals("Type") && !currentAttribute.equals("SpawnEntities")){
+
+			if (!currentAttribute.equals("Type") && !currentAttribute.equals("SpawnEntities")) {
 				Text text = new Text(currentAttribute);
 				text.setFont(new Font(FONT_SIZE));
-				
+
 				myAttributesGridPane.add(text, 0, i);
 				myAttributesGridPane.add(myInputMap.get(currentAttribute), 1, i);
-				
+
 			}
 		}
 
 	}
 
-
-	
 	/**
 	 * Creates confirmation before allowing user to reset all input values.
 	 * 
@@ -218,4 +210,31 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	}
 
+	/**
+	 * Allows subclasses of ModifiableAttributePanels to warn the user what is
+	 * wrong.
+	 * 
+	 * @param message
+	 */
+	protected void createAlert(String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setHeaderText("Attribute Saving Warning");
+		alert.setContentText(message);
+		alert.show();
+	}
+
+	/**
+	 * Error checking that alerts the user why something isn't saving.
+	 */
+	protected void checkAllFilled() {
+		boolean unfilledField = false;
+		for (String attr : myAttributesMap.keySet()) {
+			if (myAttributesMap.get(attr).equals("") || myAttributesMap.get(attr) == null) {
+				unfilledField = true;
+			}
+		}
+		if (unfilledField) {
+			createAlert("You must fill out all fields");
+		}
+	}
 }

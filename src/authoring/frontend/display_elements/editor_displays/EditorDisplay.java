@@ -57,4 +57,6 @@ public abstract class EditorDisplay implements IEditorDisplay {
 		myGrid.initializeHotKeys();
 	}
 
+	
+
 }

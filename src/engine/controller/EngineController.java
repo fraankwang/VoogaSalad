@@ -93,7 +93,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void initStartView(boolean firsttime) {
-		myTestingClass = new testingClass();
+		testingClass myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		// myGameStatistics = myGameWorld.getGameStatistics();
 

@@ -114,8 +114,10 @@ public class GlobalParser {
 
 	public static String compressLevels(Map<Integer, String> levels) {
 		int[] indexes = new int[levels.size()];
-		for (int i = 0; i < levels.size(); i++) {
-			indexes[i] = Integer.parseInt(levels.get(i));
+		int index = 0;
+		for (Integer i : levels.keySet()) {
+			indexes[index] = i;
+			index++;
 		}
 
 		Arrays.sort(indexes);
@@ -125,7 +127,7 @@ public class GlobalParser {
 			result += Integer.toString(j) + ":" + levels.get(j) + " ";
 		}
 
-		return result.substring(0, result.length());
+		return result.substring(0, result.length() - 1);
 	}
 
 }

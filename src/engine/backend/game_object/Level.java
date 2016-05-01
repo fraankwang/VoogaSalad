@@ -6,7 +6,6 @@
 
 package engine.backend.game_object;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,11 +40,13 @@ public class Level {
 	private boolean sendNextWave;
 	private String lastSerializedVersion;
 	private boolean shouldRevert;
+	private double currentWaveTimer;
 
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems,
+			List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
@@ -55,6 +56,7 @@ public class Level {
 		this.entities = entities;
 		this.currentWaveIndex = 0;
 		this.setShouldRevert(false);
+		this.currentWaveTimer = 0;
 	}
 
 	/**
@@ -150,15 +152,13 @@ public class Level {
 		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
-
-	public void setWaveDelayTimer(double time){
+	public void setWaveDelayTimer(double time) {
 		waveDelayTimer = time;
 	}
 
 	public int getNumWaves() {
 		return numWaves;
 	}
-
 
 	public int getCurrentWaveIndex() {
 		return currentWaveIndex;
@@ -229,11 +229,10 @@ public class Level {
 	public void setLastSerializedVersion(String lastSerializedVersion) {
 		this.lastSerializedVersion = lastSerializedVersion;
 	}
-	
-	public IEntity getEntityWithID(int id){
+
+	public IEntity getEntityWithID(int id) {
 		return entities.get(id);
 	}
-
 
 	public boolean shouldRevert() {
 		return shouldRevert;
@@ -242,8 +241,8 @@ public class Level {
 	public void setShouldRevert(boolean shouldRevert) {
 		this.shouldRevert = shouldRevert;
 	}
-	
-	public int getNumEntities(){
+
+	public int getNumEntities() {
 		return this.entities.keySet().size();
 	}
 
@@ -252,4 +251,13 @@ public class Level {
 		int index = getCurrentWaveIndex();
 		return index == getNumWaves();
 	}
+
+	public double getCurrentWaveTimer() {
+		return currentWaveTimer;
+	}
+
+	public void setCurrentWaveTimer(double currentWaveTimer) {
+		this.currentWaveTimer = currentWaveTimer;
+	}
+
 }
