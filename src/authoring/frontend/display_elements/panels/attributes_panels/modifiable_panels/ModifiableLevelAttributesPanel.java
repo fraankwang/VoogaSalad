@@ -332,7 +332,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public void updateAttributes(Map<String, String> info) {
 		super.updateAttributes(info);
 		myAttributes.remove("SpawnEntities");
-
+		parseLevelEntities(myAttributesMap.get("Entities"));
+		myAttributesMap.remove("Entities");
+		
 		myInputMap = new TreeMap<String, Control>();
 
 		for (String attribute : DEFAULT_LEVEL_ATTRIBUTES) {
@@ -348,6 +350,12 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		setMyPossibleEntities(myController.getEntityImages());
 		refreshAttributes();
+	}
+
+	private void parseLevelEntities(String entities) {
+		myLevelEntities.clear();
+		List<String> ents = Arrays.asList(entities.split(" "));
+		ents.forEach(e -> myLevelEntities.put(e, myController.getImageMap().get(myPossibleEntities.get(e))));
 	}
 
 	/**
@@ -384,6 +392,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public Map<String, String> saveAttributes() {
 		myAttributesMap.clear();
 		myAttributesMap.put("Type", "Level");
+		myAttributesMap.put("Entities", compressLevelEntities());
 
 		for (String s : myInputMap.keySet()) {
 			if (myInputMap.get(s) instanceof TextField) {
@@ -403,6 +412,13 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		return myAttributesMap;
 	}
 		
+	private String compressLevelEntities() {
+		StringBuilder sb = new StringBuilder();
+		myLevelEntities.keySet().forEach(e -> sb.append(e + " "));
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	}
+
 	protected void refreshAttributes() {
 		preserveMapRatio();
 
