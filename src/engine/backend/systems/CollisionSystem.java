@@ -21,6 +21,7 @@ import engine.backend.utilities.ComponentTagResources;
  * Created by colinduffy on 4/10/16., raghav kedia, Christine Zhou
  */
 public class CollisionSystem extends GameSystem{
+
  
     @Override
     public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){
@@ -55,6 +56,7 @@ public class CollisionSystem extends GameSystem{
     	QuadTree quad = new QuadTree(0, r);
 		return quad;
 	}
+
     
 	private IEvent getCollisionEvent(IEntity entity1, IEntity entity2){
 		CollisionEvent collisionEvent = new CollisionEvent(entity1.getID(), entity2.getID());

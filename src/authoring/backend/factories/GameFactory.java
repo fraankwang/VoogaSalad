@@ -44,11 +44,20 @@ public class GameFactory {
 		setupGame();
 		return myGame;
 	}
+
+
+
+
+
+
+
 	
 	public void setupGame() {
+
 		AuthoringGame authoringGame = myGlobalData.getGame();		
 		String name = authoringGame.getName();
 		this.myGame = new GameWorld(name, modeMap);
+
 	}
 	
 	private void setupEntityMap() {

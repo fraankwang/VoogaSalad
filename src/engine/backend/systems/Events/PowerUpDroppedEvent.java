@@ -18,6 +18,9 @@ public class PowerUpDroppedEvent implements IEvent {
 		else if(powerUp.equals("SpeedPowerUp")){
 			this.powerUp = createSpeedPowerUp();
 		}
+		else{
+			this.powerUp = null;
+		}
 	}
 
 	@Override
@@ -28,7 +31,7 @@ public class PowerUpDroppedEvent implements IEvent {
 	
 	private EntityPowerUp createRangePowerUp(){
 		int price = 100;
-		String applicableEntityName = "TOWER";
+		String applicableEntityName = "tempEntity2";
 		IAction increaseRange = new EntityAction(applicableEntityName, "Firing", "EnemyInSightRange", "100");
 		EntityPowerUp rangePowerUp = new EntityPowerUp(price, Arrays.asList(increaseRange));
 		return rangePowerUp;
@@ -36,7 +39,7 @@ public class PowerUpDroppedEvent implements IEvent {
 	
 	private EntityPowerUp createSpeedPowerUp(){
 		int price = 100;
-		String applicableEntityName = "TOWER";
+		String applicableEntityName = "tempEntity2";
 		IAction increaseSpeed = new EntityAction(applicableEntityName, "Firing", "AmmunitionSpeed", "100");
 		EntityPowerUp speedPowerUp = new EntityPowerUp(price, Arrays.asList(increaseSpeed));
 		return speedPowerUp;

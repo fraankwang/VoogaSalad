@@ -51,6 +51,11 @@ public class EntityAction implements IAction{
 		return newValue;
 	}
 
+
+	/**
+	 * 
+	 * @param newValue - create the new value to set the variable to
+	 */
 	public void setNewValue(String newValue) {
 		this.newValue = newValue;
 	}
@@ -78,7 +83,5 @@ public class EntityAction implements IAction{
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
 	}
-
-	
 
 }

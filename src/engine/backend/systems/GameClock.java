@@ -1,8 +1,5 @@
 package engine.backend.systems;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class GameClock {
 
 	private static final int HUNDRED = 100;
@@ -47,11 +44,4 @@ public class GameClock {
 		return (int) Math.floor((1.0/fps) * 100);
 	}
 
-//	public static double round(double value, int places) {
-//	    if (places < 0) throw new IllegalArgumentException();
-//
-//	    BigDecimal bd = new BigDecimal(value);
-//	    bd = bd.setScale(places, RoundingMode.HALF_UP);
-//	    return bd.doubleValue();
-//	}
 }

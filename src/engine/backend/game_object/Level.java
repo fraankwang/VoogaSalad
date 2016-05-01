@@ -6,6 +6,7 @@
 
 package engine.backend.game_object;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,6 +41,7 @@ public class Level {
 	private boolean sendNextWave;
 	private String lastSerializedVersion;
 	private boolean shouldRevert;
+	private double currentWaveTimer;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -55,6 +57,7 @@ public class Level {
 		this.entities = entities;
 		this.currentWaveIndex = 0;
 		this.setShouldRevert(false);
+		this.currentWaveTimer = 0;
 	}
 	
 	/**
@@ -83,6 +86,7 @@ public class Level {
 	public List<Rule> getRuleAgenda(){
 		return ruleAgenda;
 	}
+
 	
 	/**
 	 * Sets the rules for the level.	
@@ -91,6 +95,7 @@ public class Level {
 	public void setRuleAgenda(List<Rule> rules){
 		ruleAgenda = rules;
 	}
+
 	
 	/**
 	 * Adds an action to the event map.
@@ -136,6 +141,7 @@ public class Level {
 	public GameMap getMap() {
 		return map;
 	}
+
 	
 	/**
 	 * Engine Testing Method.
@@ -148,10 +154,7 @@ public class Level {
 		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
-	public IEntity getEntityWithID(int entityID) {
-		return entities.get(entityID);
-	}
-	
+
 	public void setWaveDelayTimer(double time){
 		waveDelayTimer = time;
 	}
@@ -159,6 +162,7 @@ public class Level {
 	public int getNumWaves() {
 		return numWaves;
 	}
+
 
 	public int getCurrentWaveIndex() {
 		return currentWaveIndex;
@@ -228,6 +232,11 @@ public class Level {
 	public void setLastSerializedVersion(String lastSerializedVersion) {
 		this.lastSerializedVersion = lastSerializedVersion;
 	}
+	
+	public IEntity getEntityWithID(int id){
+		return entities.get(id);
+	}
+
 
 	public boolean shouldRevert() {
 		return shouldRevert;
@@ -245,6 +254,14 @@ public class Level {
 		// TODO Auto-generated method stub
 		int index = getCurrentWaveIndex();		
 		return index == getNumWaves();
+	}
+	
+	public double getCurrentWaveTimer() {
+		return currentWaveTimer;
+	}
+
+	public void setCurrentWaveTimer(double currentWaveTimer) {
+		this.currentWaveTimer = currentWaveTimer;
 	}
 
 }

@@ -47,6 +47,15 @@ public class FiringSystem extends GameSystem {
 
 	} 
 	
+	/**
+	 * Updates the firing by getting the firing component from the shooting entity.
+	 * Checks whether or not the entity can shoot and instantiates the entity being fired.
+	 * @param shootingEntity
+	 * @param targetEntity
+	 * @param newEntities
+	 * @param currentSecond
+	 * @param myEntityFactory
+	 */
 	private void updateFiring(IEntity shootingEntity, IEntity targetEntity, Collection<IEntity> newEntities, 
 			double currentSecond, InGameEntityFactory myEntityFactory){
 		
@@ -62,6 +71,7 @@ public class FiringSystem extends GameSystem {
 				}
 				else{
 					firedVelVector = calculateVelocityVector(shootingEntity, targetEntity);
+
 				}
 				IEntity newEntity = initilizeFire(firingComponent.getAmmunition(), getEntityPositionVector(shootingEntity), firedVelVector,
 						firingComponent.getAmmunitionSpeed(), targetEntity, myEntityFactory);
@@ -85,6 +95,7 @@ public class FiringSystem extends GameSystem {
 		return new Vector(xComp, yComp);
 	}
 	
+
 	private Vector getEntityPositionVector(IEntity entity){
 		PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 		return posComponent.getPositionVector();
