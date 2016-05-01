@@ -86,19 +86,15 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void initStartView(boolean firsttime) {
-		animation.stop();
-		stepping = false;
-
-//		myTestingClass = new testingClass();
-//		myGameWorld = myTestingClass.testFiring();
-//		myGameStatistics = myGameWorld.getGameStatistics();
-//		myEventManager = new EventManager(this, myGameWorld);
-//		startGame("test firing", 0);
+		myTestingClass = new testingClass();
+		myGameWorld = myTestingClass.testFiring();
+		myEventManager = new EventManager(this, myGameWorld);
+		startGame("test firing", 0);
 		
-		StartView myStartView = new StartView(this, firsttime);
-		Scene scene = myStartView.buildScene();
-		myStage.setScene(scene);
-		myStage.show();
+//		StartView myStartView = new StartView(this, firsttime);
+//		Scene scene = myStartView.buildScene();
+//		myStage.setScene(scene);
+//		myStage.show();
 	}
 	
 	public void initGameWorld(File file){
@@ -119,16 +115,17 @@ public class EngineController extends ResourceUser implements IEngineController 
 		try {
 			GameEvent e = new GameEvent(selectedMode, selectedLevel);
 			myEventManager.handleGameStartEvent(e);
+			myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
+			myEventManager.setEntityFactory(myEntityFactory);
+			myEventManager.initializeRules();
+			mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
+			initEngineView();
+			toggleStepping(false);
+			manualRefresh();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
-		myEventManager.setEntityFactory(myEntityFactory);
-		myEventManager.initializeRules();
-		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-		initEngineView();
-		manualRefresh();
 	}
 	
 	/**
@@ -184,6 +181,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void step() {
 		if (stepping) {
+			System.out.println("step");
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), true);
 		}
 	}
@@ -216,7 +214,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 			mySystems.sendUserInputEvent(keyPressedEvent);
 		}
 	}
-	
+
+	//methods we call to the backend:
 	public void entityClicked(int myID) {
 		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
@@ -225,9 +224,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void nextWaveClicked() {
-		IEvent nextWaveEvent = new NextWaveEvent();
-		//myEventManager.handleNextWaveEvent(nextWaveEvent);
-		mySystems.sendUserInputEvent(nextWaveEvent);
+		System.out.println("CALLING NEXT WAVE EVENT");
+		NextWaveEvent nextWaveEvent = new NextWaveEvent();
+		myEventManager.handleNextWaveEvent(nextWaveEvent);
 	}
 
 	public void nextLevelClicked() {
@@ -244,23 +243,24 @@ public class EngineController extends ResourceUser implements IEngineController 
 		}
 		return list;
 	}
-
+	
 	public void switchModeClicked() {
+		toggleStepping(false);
 		initStartView(false);
 	}
 
+	//methods the backend will call:
 	public void waveIsOver(double delaytime) {
 		myEngineView.getStatusPane().getControlManager().nextWaveEnable(delaytime);
 	}
 
 	public void levelIsWon(){
+		toggleStepping(false);
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 	}
 	
 	public void levelIsLost(){
-		stepping = false;
-//		initLoseView();
-		System.out.println("lost");
+		toggleStepping(false);
 	}
 	
 	public void manualRefresh(){
@@ -271,8 +271,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 		return myMain;
 	}
 
-	public void setPlaying(boolean b) {
-		stepping = b;
+	public void toggleStepping(){
+		toggleStepping(!stepping);
+	}
+	
+	public void toggleStepping(boolean shouldStep) {
+		stepping = shouldStep;
+		myEngineView.getStatusPane().getControlManager().togglePlayButton(shouldStep);	
 	}
 
 	public String getBackgroundImageFile() {

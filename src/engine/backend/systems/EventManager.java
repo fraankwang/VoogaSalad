@@ -208,7 +208,7 @@ public class EventManager implements Observer {
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
-	private void handleNextWaveEvent(NextWaveEvent event) {
+	public void handleNextWaveEvent(NextWaveEvent event) {
 		getCurrentLevel().setSendNextWave(true);
 	}
 

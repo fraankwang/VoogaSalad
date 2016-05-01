@@ -26,13 +26,7 @@ import utility.gamecapture.GameCapture;
 
 public class EngineView extends ResourceUser{
 
-	/*
-	 * Big todos:
-	 * Figure out picking/choosing levels etc.- cant play a level unless its been already played
-	 * 
-	 *  Small todos:
-	 *  finish "load game" option for first screen- almost done 
-	 *  
+	/*  
 	 *  reorganize/javadoc code LAST
 	 *  things that go off map go "under" the borders
 	 */
