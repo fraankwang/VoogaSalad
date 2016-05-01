@@ -98,8 +98,8 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem importGame = new MenuItem("Import Game");
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Game File");
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("xml"));
-		File gameFile = fileChooser.showOpenDialog(null);
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Game Files", "xml"));
+		//File gameFile = fileChooser.showOpenDialog(null);
 		
 		return importGame;
 	}

@@ -36,10 +36,9 @@ public class AuthoringViewManager implements IViewManager {
 
 	public AuthoringViewManager(IAuthoringView controller, Stage s, Main main) {
 		myController = controller;
+		myObjectChooser = new ObjectChooser();
 		myTabBar = new TabBarElement(myController);
 		myMenuBar = new MenuBarElement(myObjectChooser, myController, s, main);
-		myObjectChooser = new ObjectChooser();
-
 	}
 
 	@Override
