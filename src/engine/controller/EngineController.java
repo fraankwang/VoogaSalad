@@ -128,7 +128,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 		initEngineView();
-		mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), false);
+		manualRefresh();
 	}
 	
 	/**
@@ -206,7 +206,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
 		mySystems.sendUserInputEvent(event);
 		if(!stepping){
-			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), false);
+			manualRefresh();
 		}
 	}
 
@@ -261,6 +261,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 		stepping = false;
 //		initLoseView();
 		System.out.println("lost");
+	}
+	
+	public void manualRefresh(){
+		mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), false);
 	}
 
 	public Main getMain() {
