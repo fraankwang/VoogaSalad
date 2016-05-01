@@ -213,24 +213,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 
 	      x.bind(centerXProperty());
 	      y.bind(centerYProperty());
-	      
-//	      Label numLabel = new Label(myNum.toString());
-//	      numLabel.setFont(new Font(LABEL_FONT_SIZE));
-//	      numLabel.textProperty().bind(myNum.asString());
-//	      Label indexLabel = new Label("Path #" + Integer.toString(myPathIndex));
-//	      indexLabel.setFont(new Font(LABEL_FONT_SIZE));
-////	      indexLabel.textProperty().bind(myNum.asString());
-//	      VBox labelBox = new VBox();
-//	      labelBox.getChildren().addAll(indexLabel,numLabel);
-//	      labelBox.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
-//	      labelBox.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
-////	      numLabel.layoutXProperty().bind(centerXProperty().subtract(radiusProperty().divide(2)));
-////	      numLabel.layoutYProperty().bind(centerYProperty().subtract(radiusProperty().divide(2)));
-//	      myNode.getChildren().add(labelBox);
-////	      myNode.getChildren().add(numLabel);
-////	      numLabel.toFront();
-//	      labelBox.toFront();
-	      
+
 	      enableDrag();
 	      
 	      this.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -256,17 +239,8 @@ public class BezierCurveManipulator implements IDisplayElement {
 		        }
 	      });
 	      
-//	      this.opacityProperty().addListener(new ChangeListener<Number>() {
-//				@Override
-//				public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//					numLabel.toFront();
-//				} 
-//		      });
-
 	    }
 	    
-	    
-	    // lock in place with other anchors
 	    private void lockToAnchors() {
 	    	for (BezierCurveManipulator bc: myContainer.getMyBezierCurves()) {
 		    	List<Circle> anchors = bc.getAnchors();
@@ -279,12 +253,10 @@ public class BezierCurveManipulator implements IDisplayElement {
 	    	}
 	    }
 
-	    // make a node movable by dragging it around with the mouse.
 	    private void enableDrag() {
 	      final Delta dragDelta = new Delta();
 	      setOnMousePressed(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	          // record a delta distance for the drag and drop operation.
 	          dragDelta.x = getCenterX() - mouseEvent.getX();
 	          dragDelta.y = getCenterY() - mouseEvent.getY();
 	          getScene().setCursor(Cursor.MOVE);
@@ -332,7 +304,6 @@ public class BezierCurveManipulator implements IDisplayElement {
 	}
 	
 	public String getCoordinatesString() {
-		// format: "startX-startY,control1X-control1Y,control2X-control2Y,endX-endY"
 		String result = "";
 		result += (Double.toString(start.getCenterX()) + "-" + Double.toString(start.getCenterY()) + ",");
 		result += (Double.toString(control1.getCenterX()) + "-" + Double.toString(control1.getCenterY()) + ",");
