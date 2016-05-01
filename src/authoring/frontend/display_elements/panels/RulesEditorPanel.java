@@ -288,7 +288,8 @@ public class RulesEditorPanel extends Panel {
 			sb.append(typeChooser.getSelectionModel().getSelectedItem() + "~");
 			if (typeChooser.getSelectionModel().getSelectedItem().equals("Entity")) {
 				sb.append(entityChooser.getSelectionModel().getSelectedItem().getText() + "~");
-				List<String> attribute = Arrays.asList(attributeChooser.getSelectionModel().getSelectedItem().split("Component_"));
+				List<String> attribute = Arrays
+						.asList(attributeChooser.getSelectionModel().getSelectedItem().split("Component_"));
 				attribute.forEach(a -> sb.append(a + "~"));
 
 			} else {

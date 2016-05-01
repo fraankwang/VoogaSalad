@@ -12,7 +12,6 @@ public class HUDValueFinder implements IValueFinder {
 	private GameStatistics data;
 	private ExceptionLoader myExceptionLoader;
 
-
 	private static final String ILLEGAL_ARGUMENTS = "DataIllegalArgument";
 
 	public HUDValueFinder() {
