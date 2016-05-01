@@ -64,6 +64,10 @@ public class AuthoringController implements IAuthoringController {
 			model.exportGame();
 			return;
 		}
+		if (type.equals("Reload")) {
+			model.reloadGame(data.get("URL"));
+			return;
+		}
 	}
 	
 	private Map<String, String> processData(Map<String, String> data) {

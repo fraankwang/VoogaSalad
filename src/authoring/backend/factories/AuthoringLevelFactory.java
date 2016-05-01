@@ -105,19 +105,26 @@ public class AuthoringLevelFactory {
 	private List<String> parseEvents(String eventInfo) {
 		String[] eventData = eventInfo.split("\\+");
 		List<String> events = new ArrayList<String>();
+		
 		for (String event : eventData) {
 			String[] eventElements = event.split("-");
 			StringBuilder sb = new StringBuilder();
 			if (eventElements.length > 2) {
-				String[] eventEntities = new String[2];
-				eventEntities[0] = eventElements[0];
-				eventEntities[1] = eventElements[1];
-				Arrays.sort(eventEntities);
-				for (String str : eventEntities) {
-					sb.append(str);
+				if (eventElements[2].equals("CollisionEvent")) {
+					String[] entities = new String[2];
+					Arrays.sort(entities);
+					sb.append(entities[0]);
+					sb.append("-");
+					sb.append(entities[1]);
+					sb.append("-");
+					sb.append(eventElements[2]);
+					events.add(sb.toString());
+				} else {
+					for (String str : eventElements) {
+						sb.append(str);
+					}
+					events.add(sb.toString());
 				}
-				sb.append(eventElements[2]);
-				events.add(sb.toString());
 			} else {
 				for (String str : eventElements) {
 					sb.append(str);
