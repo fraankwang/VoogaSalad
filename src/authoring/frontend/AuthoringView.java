@@ -1,8 +1,6 @@
 package authoring.frontend;
 
-import java.util.List;
 import java.util.Map;
-
 import authoring.backend.data.GlobalData;
 import authoring.backend.data.ObservableList;
 import authoring.backend.game_objects.AuthoringEntity;
@@ -17,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * This class contains the link to the backend through GlobalData, the link to
  * the frontend through myAuthoringViewManager, and acts as a universal
- * referencing point to the primary stage and scene.
+ * referencing point (Singleton) to the primary stage and scene.
  * 
  * @author Frank, benchesnut
  *

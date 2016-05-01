@@ -35,7 +35,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 		editorView.setDescription("Entity");
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {
-			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();
+			String newImage = myController.getAuthoringViewManager().getObjectChooser().openChooser();
 			editorView.setImage(new Image(newImage));
 			((ModifiableEntityAttributesPanel) myEditorGrid.getAttributesPanel())
 					.updateImageComponent(newImage);

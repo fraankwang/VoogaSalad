@@ -44,7 +44,7 @@ public class GameEditorGridFactory extends EditorGridFactory {
 		editorView.initialize();
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {
-			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();
+			String newImage = myController.getAuthoringViewManager().getObjectChooser().openChooser();
 			System.out.println(newImage);
 			editorView.setImage(new Image(newImage));
 		});

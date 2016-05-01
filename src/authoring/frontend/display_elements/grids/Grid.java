@@ -84,17 +84,7 @@ public abstract class Grid implements IGrid {
 
 	}
 
-	/**
-	 * @return assembled and formatted Grid
-	 */
-	public Node getNode() {
-		return myGrid;
-	}
-
-	public Panel getPrimaryDisplay() {
-		return myPrimaryDisplay;
-	}
-
+	
 	/**
 	 * Sets the Editor attribute panel information with information from the
 	 * selected item just opened, or updates Unmodifiable attributes information
@@ -104,11 +94,13 @@ public abstract class Grid implements IGrid {
 	 */
 	public abstract void setAttributesPanel(Map<String, String> info);
 
+	
 	/**
 	 * Pulls various buttons from the grids and assigns hotkeys.
 	 */
 	public abstract void initializeHotKeys();
 
+	
 	/**
 	 * Creates new window for user to input a String. This method is public to
 	 * allow its TabDisplay wrapper to access it as well.
@@ -144,6 +136,19 @@ public abstract class Grid implements IGrid {
 		promptStage.setScene(promptScene);
 		promptStage.showAndWait();
 		return newPromptedString;
+	}
+	
+
+	/**
+	 * @return assembled and formatted Grid
+	 */
+	public Node getNode() {
+		return myGrid;
+	}
+	
+	
+	public Panel getPrimaryDisplay() {
+		return myPrimaryDisplay;
 	}
 
 }

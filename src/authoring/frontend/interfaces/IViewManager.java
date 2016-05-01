@@ -22,9 +22,9 @@ public interface IViewManager {
 	 */
 	void initialize(Stage s);
 
-	IMenuBarElement getMenuBarElement();
+	public IMenuBarElement getMenuBarElement();
 
-	ITabBarElement getTabBarElement();
+	public ITabBarElement getTabBarElement();
 
-	ObjectChooser getImageChooser();
+	public ObjectChooser getObjectChooser();
 }

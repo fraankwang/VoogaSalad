@@ -348,7 +348,7 @@ public class RulesEditorPanel extends Panel {
 					newValueChooser.getItems().addAll(new Label("true"), new Label("false"));
 				}
 				else if (EntityComponents.getVariableType(newValue).equals("Image")) {
-					newValueChooser.getItems().addAll(createLabelList(myController.getAuthoringViewManager().getImageChooser().getMap()));
+					newValueChooser.getItems().addAll(createLabelList(myController.getAuthoringViewManager().getObjectChooser().getMap()));
 //					newValueChooser.setCellFactory(listview -> new LabelCell(myController));
 //					newValueChooser.setButtonCell(new LabelCell(myController));
 				

@@ -30,7 +30,7 @@ public class AuthoringViewManager implements IViewManager {
 	private Scene myPrimaryScene;
 	private IMenuBarElement myMenuBar;
 	private ITabBarElement myTabBar;
-	private ObjectChooser myImageChooser;
+	private ObjectChooser myObjectChooser;
 	private IAuthoringView myController;
 
 	public AuthoringViewManager(IAuthoringView controller) {
@@ -43,10 +43,10 @@ public class AuthoringViewManager implements IViewManager {
 		myTabBar = new TabBarElement(myController);
 		myTabBar.initialize();
 
-		myImageChooser = new ObjectChooser();
-		myImageChooser.initialize();
+		myObjectChooser = new ObjectChooser();
+		myObjectChooser.initialize();
 
-		myMenuBar = new MenuBarElement(myImageChooser);
+		myMenuBar = new MenuBarElement(myObjectChooser);
 		myMenuBar.initialize();
 		myMenuBar.link(myTabBar);
 
@@ -74,8 +74,8 @@ public class AuthoringViewManager implements IViewManager {
 	}
 
 	@Override
-	public ObjectChooser getImageChooser() {
-		return myImageChooser;
+	public ObjectChooser getObjectChooser() {
+		return myObjectChooser;
 	}
 
 }

@@ -17,13 +17,11 @@ import authoring.frontend.display_elements.grids.EditorGrid;
 public interface IEditorDisplay extends IDisplayElement {
 
 	/**
-	 * Takes in as a parameter a map of info and an image
-	 * 
-	 * @param oldEntity
-	 * @return newEntity
+	 * Takes in as a parameter a map of info pertaining to the object being
+	 * edited.
 	 */
 	public void edit(Map<String, String> info);
-	
-	EditorGrid getEditorGrid();
-	
+
+	public EditorGrid getEditorGrid();
+
 }

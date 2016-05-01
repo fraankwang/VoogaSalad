@@ -19,8 +19,8 @@ public interface ITabDisplay extends IDisplayElement, Observer {
 
 	public int getTabIndex();
 	
-	IEditorDisplay getEditor();
+	public IEditorDisplay getEditor();
 
-	void openEditorDisplay(Map<String, String> map);
+	public void openEditorDisplay(Map<String, String> map);
 
 }
