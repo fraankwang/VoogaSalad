@@ -4,7 +4,6 @@ import authoring.frontend.IAuthoringView;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
-import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableGameAttributesPanel;
 import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashboard;
@@ -21,14 +20,6 @@ public class GameEditorGridFactory extends EditorGridFactory {
 
 	public GameEditorGridFactory(IAuthoringView controller) {
 		super(controller);
-	}
-
-	@Override
-	public RulesEditorPanel createRulesPanel(ModifiableAttributesPanel attributes) {
-//		RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE, MAX_SIZE, myController, attributes);
-//		editorPanel.initialize();
-//		return editorPanel;
-		return null;
 	}
 
 	@Override
