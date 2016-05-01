@@ -9,6 +9,9 @@ import authoring.frontend.editor_features.ImageImporter;
 import authoring.frontend.editor_features.ObjectChooser;
 import authoring.frontend.interfaces.display_element_interfaces.IMenuBarElement;
 import authoring.frontend.interfaces.display_element_interfaces.ITabBarElement;
+import backend.xml_converting.GameWorldToXMLWriter;
+import backend.xml_converting.ObjectToXMLWriter;
+import engine.backend.game_object.GameWorld;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -66,10 +69,10 @@ public class MenuBarElement implements IMenuBarElement {
 
 	private Menu createFileMenu() {
 		Menu file = new Menu("File");
-		
+
 		MenuItem importImages = new MenuItem("Import Images...");
 		importImages.setOnAction(e -> myImageImporter.openImporter());
-		
+
 		MenuItem importGame = createImportGame();
 		MenuItem exportGame = new MenuItem("Export Game");
 		Map<String, String> createGameMap = new HashMap<String, String>();
@@ -78,10 +81,9 @@ public class MenuBarElement implements IMenuBarElement {
 			myController.writeData(createGameMap);
 			myMain.createPlayer(myStage);
 		});
-		
+
 		Menu open = new Menu("Open in separate window");
-		MenuItem openGame = new MenuItem("Open Game Tab");
-		openGame.setOnAction(e -> myTabBar.show(myTabBar.getGameTabDisplay()));
+
 		MenuItem openModes = new MenuItem("Open Modes Tab");
 		openModes.setOnAction(e -> myTabBar.show(myTabBar.getModesTabDisplay()));
 		MenuItem openLevels = new MenuItem("Open Levels Tab");
@@ -89,21 +91,43 @@ public class MenuBarElement implements IMenuBarElement {
 		MenuItem openEntities = new MenuItem("Open Entities Tab");
 		openEntities.setOnAction(e -> myTabBar.show(myTabBar.getEntitiesTabDisplay()));
 
-		open.getItems().addAll(openGame, openModes, openLevels, openEntities);
+		open.getItems().addAll(openModes, openLevels, openEntities);
 		file.getItems().addAll(open, importImages, importGame, exportGame);
 		return file;
 	}
 
 	private MenuItem createImportGame() {
 		MenuItem importGame = new MenuItem("Import Game");
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Game File");
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Game Files", "xml"));
-		//File gameFile = fileChooser.showOpenDialog(null);
+
+		importGame.setOnAction(e -> {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Game File");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Game Files", "xml"));
+			File gameFile = fileChooser.showOpenDialog(null);
+
+			GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
+
+			try {
+				String string = ObjectToXMLWriter.documentToString(gameFile);
+				GameWorld game = (GameWorld) writer.xMLToObject(string);
+
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+
+		});
+
+
+		
 		
 		return importGame;
 	}
 
+	/**
+	 * Creates help menu.
+	 * 
+	 * @return
+	 */
 	private Menu createHelpMenu() {
 		Menu help = new Menu("Help");
 
@@ -117,6 +141,11 @@ public class MenuBarElement implements IMenuBarElement {
 		return help;
 	}
 
+	/**
+	 * Opens page
+	 * 
+	 * @param url
+	 */
 	private void openWebPage(String url) {
 		Stage helpStage = new Stage();
 

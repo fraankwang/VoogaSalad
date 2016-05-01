@@ -33,18 +33,27 @@ public class AuthoringViewManager implements IViewManager {
 	private ITabBarElement myTabBar;
 	private ObjectChooser myObjectChooser;
 	private IAuthoringView myController;
+	private Main myMain;
+	private Stage myStage;
 
 	public AuthoringViewManager(IAuthoringView controller, Stage s, Main main) {
 		myController = controller;
-		myObjectChooser = new ObjectChooser();
+		myMain = main;
+		myStage = s;
+
 		myTabBar = new TabBarElement(myController);
+		myObjectChooser = new ObjectChooser();
 		myMenuBar = new MenuBarElement(myObjectChooser, myController, s, main);
+
 	}
 
 	@Override
 	public void initialize(Stage s) {
+		myTabBar = new TabBarElement(myController);
 		myTabBar.initialize();
+		myObjectChooser = new ObjectChooser();
 		myObjectChooser.initialize();
+		myMenuBar = new MenuBarElement(myObjectChooser, myController, myStage, myMain);
 		myMenuBar.initialize();
 		myMenuBar.link(myTabBar);
 
