@@ -21,6 +21,7 @@ import engine.backend.utilities.ComponentTagResources;
  * Created by colinduffy on 4/10/16., raghav kedia, Christine Zhou
  */
 public class CollisionSystem extends GameSystem{
+
  
     @Override
     public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond){

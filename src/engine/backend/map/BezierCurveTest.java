@@ -4,10 +4,8 @@ import java.util.ResourceBundle;
 
 import org.junit.Test;
 
-import engine.backend.components.DisplayComponent;
 import engine.backend.components.HealthComponent;
 import engine.backend.components.MovementComponent;
-import engine.backend.components.PathComponent;
 import engine.backend.components.PositionComponent;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;

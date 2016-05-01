@@ -76,6 +76,7 @@ public class FiringSystem extends GameSystem {
 					firedVelVector = ((MultiDirectionalFiringComponent) firingComponent).getDirectionAtIndex(i);
 				} else {
 					firedVelVector = calculateVelocityVector(shootingEntity, targetEntity);
+
 				}
 				IEntity newEntity = initilizeFire(firingComponent.getAmmunition(),
 						getEntityPositionVector(shootingEntity), firedVelVector, firingComponent.getAmmunitionSpeed(),

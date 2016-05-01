@@ -38,7 +38,6 @@ public class AuthoringController implements IAuthoringController {
 		String type = data.get("Type");
 		String command = data.get("Command");
 		data.remove("Command");
-		data.remove("Type");
 		if (type.equals("Entity")) {
 			model.updateEntities(command, data);
 			return;
@@ -52,7 +51,7 @@ public class AuthoringController implements IAuthoringController {
 			return;
 		}
 		if (type.equals("Game")) {
-			model.updateGame(command, data);
+			model.updateGame(data);
 			return;
 		}
 	}
@@ -60,7 +59,6 @@ public class AuthoringController implements IAuthoringController {
 	private Map<String, String> processData(Map<String, String> data) {
 		for (String key : data.keySet()) {
 			if (data.get(key).equals("") || data.get(key) == null) {
-				System.out.println(key);
 				data.put(key, "0");
 			}
 		}

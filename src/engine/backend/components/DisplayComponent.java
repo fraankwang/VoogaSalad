@@ -18,7 +18,7 @@ public class DisplayComponent extends Component {
 	private boolean delete;
 
 	public DisplayComponent() {
-
+		this.canBeShown = false;
 	}
 
 	public DisplayComponent(String image) {
@@ -88,7 +88,7 @@ public class DisplayComponent extends Component {
 
 	@Override
 	public String getComponentInfo() {
-		return "CanBeShown:" + canBeShown + "," + "Image:" + image + "," + "Delete:" + delete;
+		return "Image:" + image + "," + "Delete:" + delete;
 	}
 
 	@Override

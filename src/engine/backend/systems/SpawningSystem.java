@@ -38,7 +38,7 @@ public class SpawningSystem extends GameSystem {
 			delayTimer = 0;
 		}
 
-		if (delayTimer > 0) {
+		if(delayTimer > 0){
 			delayTimer = delayTimer - GameClock.getTimePerLoop();
 			return;
 		}

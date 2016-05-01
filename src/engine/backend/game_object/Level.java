@@ -6,6 +6,7 @@
 
 package engine.backend.game_object;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -44,13 +45,15 @@ public class Level {
 	/**
 	 * Authoring Environment Constructor.
 	 */
-	public Level(String myName, GameMap myMap, double waveDelayTimer, List<IEntity> authoredEntities,
-			Map<Integer, IEntity> entities) {
+	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems, List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
+		this.numWaves = numWaves;
+		this.myShopItems = shopItems;
 		this.authoredEntities = authoredEntities;
 		this.entities = entities;
+		this.currentWaveIndex = 0;
 		this.setShouldRevert(false);
 	}
 
@@ -147,17 +150,15 @@ public class Level {
 		entitiesToRemove.forEach(e -> entities.remove(e.getID()));
 	}
 
-	public IEntity getEntityWithID(int entityID) {
-		return entities.get(entityID);
-	}
 
-	public void setWaveDelayTimer(double time) {
+	public void setWaveDelayTimer(double time){
 		waveDelayTimer = time;
 	}
 
 	public int getNumWaves() {
 		return numWaves;
 	}
+
 
 	public int getCurrentWaveIndex() {
 		return currentWaveIndex;
@@ -228,6 +229,11 @@ public class Level {
 	public void setLastSerializedVersion(String lastSerializedVersion) {
 		this.lastSerializedVersion = lastSerializedVersion;
 	}
+	
+	public IEntity getEntityWithID(int id){
+		return entities.get(id);
+	}
+
 
 	public boolean shouldRevert() {
 		return shouldRevert;
@@ -246,5 +252,4 @@ public class Level {
 		int index = getCurrentWaveIndex();
 		return index == getNumWaves();
 	}
-
 }

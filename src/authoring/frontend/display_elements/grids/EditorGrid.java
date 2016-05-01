@@ -37,19 +37,14 @@ public abstract class EditorGrid extends Grid {
 	@Override
 	protected void initializeGrid() {
 		super.initializeGrid();
-		myRulesPanel = ((EditorGridFactory) myGridFactory).createRulesPanel();
 		myModifiableAttributesPanel = ((EditorGridFactory) myGridFactory).createModifiableAttributesPanel();
+		myRulesPanel = ((EditorGridFactory) myGridFactory).createRulesPanel(myModifiableAttributesPanel);
 
 	}
 
 	@Override
 	protected void assembleGridComponents() {
 		super.assembleGridComponents();
-
-		myGrid.add(myPrimaryDisplay.getNode(), 0, 0);
-		myGrid.add(myRulesPanel.getNode(), 0, 1);
-		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
-		myGrid.add(myButtonDashboard.getNode(), 1, 1);
 
 		((EditorButtonDashboard) myButtonDashboard).getSaveButton()
 				.setOnAction(e -> sendData(saveAttributes()));

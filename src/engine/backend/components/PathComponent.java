@@ -36,6 +36,10 @@ public class PathComponent extends Component {
 		myBezierTime = time;
 		movesWithTime = true;
 	}
+	
+	public PathComponent() {
+		
+	}
 
 	/**
 	 * 

@@ -1,5 +1,6 @@
 package engine.backend.entities;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -11,10 +12,19 @@ import java.util.Set;
 import engine.backend.components.IComponent;
 import engine.backend.game_object.IModifiable;
 import engine.backend.rules.EntityAction;
+
+import engine.backend.rules.Rule;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
+
+
 import engine.backend.rules.IAction;
 import engine.backend.utilities.ComponentTagResources;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
+
 
 public class Entity extends Observable implements IEntity, IModifiable {
 
@@ -30,6 +40,7 @@ public class Entity extends Observable implements IEntity, IModifiable {
 	private int myID;
 	private Map<String, IComponent> myComponents;
 	private boolean hasBeenModified;
+
 	private EntityStatistics myStats;
 	private ExceptionLoader myExceptionLoader;
 
@@ -50,6 +61,7 @@ public class Entity extends Observable implements IEntity, IModifiable {
 	 */
 	public Entity(int myID, String myName, String myGenre) {
 		this.myName = myName;
+
 		this.myGenre = myGenre;
 		this.myID = myID;
 		this.myComponents = new HashMap<String, IComponent>();
@@ -101,6 +113,11 @@ public class Entity extends Observable implements IEntity, IModifiable {
 		return myID;
 	}
 
+	
+	public void setLevelID(int levelID) {
+		myID = levelID;
+	}
+
 	/**
 	 * @return A string that represents the name of the entity.
 	 */
@@ -150,8 +167,10 @@ public class Entity extends Observable implements IEntity, IModifiable {
 		for (IComponent component : myComponents.values()) {
 			myStats.addStat(component.getComponentInfo());
 		}
+
 		return myStats;
 	}
+
 
 	@Override
 	public void applyAction(IAction action) {

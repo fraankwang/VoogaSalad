@@ -8,7 +8,11 @@ package engine.backend.components;
 public class PurchaseComponent extends Component {
 
 	private double myValue;
-
+		
+	public PurchaseComponent() {
+		super();
+	}
+	
 	/**
 	 * Initializes a purchase component with an existing purchase component.
 	 * 
@@ -37,12 +41,15 @@ public class PurchaseComponent extends Component {
 	}
 
 	public String getComponentInfo() {
-		return myValue + "";
+		return "Value:" + myValue;
 	}
 
 	@Override
 	public void update(String dataName, String data) {
-		// TODO Auto-generated method stub
+		if (dataName.equals("Value")) {
+			this.myValue = Double.parseDouble(data);
+			return;
+		}
 	}
 
 }

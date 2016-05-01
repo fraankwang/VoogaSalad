@@ -46,5 +46,15 @@ public class LevelAction implements IAction {
 	public void setDeltaValue(String deltaValue) {
 		this.deltaValue = deltaValue;
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Level");
+		sb.append("_");
+		sb.append(variableToModify);
+		sb.append("_");
+		sb.append(deltaValue);
+		return sb.toString();
+	}
 
 }

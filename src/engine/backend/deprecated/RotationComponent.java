@@ -2,7 +2,9 @@
  * author Raghav Kedia rk145
  */
 
-package engine.backend.components;
+package engine.backend.deprecated;
+
+import engine.backend.components.Component;
 
 public class RotationComponent extends Component {
 

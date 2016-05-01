@@ -1,4 +1,5 @@
 package engine.frontend.overall;
+
 /**
  * @author austinwu
  */
@@ -51,7 +52,7 @@ public class StartView {
 	}
 
 	private void buildGameChooser() {
-		if(firsttime){
+		if (firsttime) {
 			loadButton = new Button("Load Game");
 		} else {
 			loadButton = new Button("Load Different Game");
@@ -76,7 +77,7 @@ public class StartView {
 	private void buildModePicker() {
 		modeComboBox = new ComboBox<String>();
 		modeComboBox.setPromptText("Select Mode");
-		if(!firsttime){
+		if (!firsttime) {
 			modeComboBox.getItems().addAll(myController.getGameWorld().getModes().keySet());
 		} else {
 			modeComboBox.setDisable(true);

@@ -18,6 +18,9 @@ public class PowerUpDroppedEvent implements IEvent {
 		else if(powerUp.equals("SpeedPowerUp")){
 			this.powerUp = createSpeedPowerUp();
 		}
+		else{
+			this.powerUp = null;
+		}
 	}
 
 	@Override

@@ -1,4 +1,6 @@
-package engine.backend.components;
+package engine.backend.deprecated;
+
+import engine.backend.components.Component;
 
 public class ArmorComponent extends Component {
 

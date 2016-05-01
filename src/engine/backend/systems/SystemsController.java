@@ -76,12 +76,7 @@ public class SystemsController {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Receives user input from frontend, sends it to UserInputSystem
-=======
-	 * recieves user input from frontend, sends it to UserInputSystem
-	 * 
->>>>>>> 66d110766b45ba83c1a1b6cf9252a64a7baee972
 	 * @param event
 	 */
 	public void sendUserInputEvent(IEvent event) {
@@ -97,8 +92,10 @@ public class SystemsController {
 		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
 		myEventManager.handleNonMapEvents(nonMapEvents);
 		nonMapEvents.clear();
+
 		// handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
+
 		myEventManager.updateGameShop();
 		renderingSystem.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
 		myEventManager.handleLevelOver();

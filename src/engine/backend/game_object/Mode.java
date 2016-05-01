@@ -10,11 +10,11 @@ import java.util.Map;
 
 public class Mode {
 
+	//myLevels is a map of index at which level is played to Level object.
 	private Map<Integer, Level> myLevels;
 	private String myName;
 	private GameStatistics myGameStatistics;
 	private int index;
-
 	/**
 	 * Authoring Environment Constructor.
 	 */

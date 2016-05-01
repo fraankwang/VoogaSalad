@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
-
 import backend.xml_converting.GameWorldToXMLWriter;
 import backend.xml_converting.ObjectToXMLWriter;
 import engine.backend.components.FiringComponent;
@@ -19,6 +18,7 @@ import engine.backend.components.Vector;
 import engine.backend.entities.IEntity;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.GameShop;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.IModifiable;
 import engine.backend.game_object.Level;
@@ -51,6 +51,7 @@ public class EventManager implements Observer {
 	public EventManager(IEngineController engineController, GameWorld game) {
 		myEngineController = engineController;
 		myGameWorld = game;
+
 		currentGameStatistics = new GameStatistics();
 		// pass in right values
 		myGameShop = new GameShop();
@@ -62,6 +63,7 @@ public class EventManager implements Observer {
 	 */
 	public void setEntityFactory(InGameEntityFactory factory) {
 		myEntityFactory = factory;
+
 	}
 
 	/**
@@ -238,7 +240,6 @@ public class EventManager implements Observer {
 		}
 		else{
 			if(getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()){
-				System.out.println("hi");
 				currentGameStatistics.addEndOfLevelLives(currentGameStatistics.getCurrentNumLives());
 				currentGameStatistics.addEndOfLevelResources(currentGameStatistics.getCurrentResources());
 				myEngineController.levelIsWon();
@@ -247,9 +248,8 @@ public class EventManager implements Observer {
 				return;
 			}
 		}
-
 	}
-	
+
 	private boolean isEnemyOnScreen(){
 		Set<String> enemyNames = getUniqueEnemyNames();
 		boolean ret = false;
@@ -264,10 +264,15 @@ public class EventManager implements Observer {
 	
 	private Set<String> getUniqueEnemyNames(){
 		Set<String> enemyNames = new HashSet<String>();
-		for(IEntity tower: getCurrentLevel().getAuthoredEntities()){
-			if(tower.hasComponent(ComponentTagResources.purchaseComponentTag) && tower.hasComponent(ComponentTagResources.firingComponentTag)){
-				FiringComponent firingComponent = (FiringComponent) tower.getComponent(ComponentTagResources.firingComponentTag);
-				enemyNames.addAll(firingComponent.getTargets());
+		
+		for(ShopItem item: getCurrentLevel().getShopItems()){
+			for(IEntity entity : getCurrentLevel().getAuthoredEntities()){
+				if(item.getItemName().equals(entity.getName())){
+					if(entity.hasComponent(ComponentTagResources.firingComponentTag)){
+						FiringComponent firingComponent = (FiringComponent) entity.getComponent(ComponentTagResources.firingComponentTag);
+						enemyNames.addAll(firingComponent.getTargets());
+					}
+				}
 			}
 		}
 		return enemyNames;
@@ -280,7 +285,7 @@ public class EventManager implements Observer {
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
-	private void handleNextWaveEvent(NextWaveEvent event) {
+	public void handleNextWaveEvent(NextWaveEvent event) {
 		getCurrentLevel().setSendNextWave(true);
 	}
 
@@ -302,7 +307,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
-		if (isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
+		if (event.getPowerUp() != null && isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
 			Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
 			Collection<IAction> actions = event.getPowerUp().getActions();
 			applyActions(affectedEntities, actions);

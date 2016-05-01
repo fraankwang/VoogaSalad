@@ -31,11 +31,31 @@ public class EntityAction implements IAction {
 		this.setValueInComponent(valueInComponent);
 		this.setNewValue(newValue);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entity");
+		sb.append("_");
+		sb.append(entityName);
+		sb.append("_");
+		sb.append(componentToModifiy);
+		sb.append("_");
+		sb.append(valueInComponent);
+		sb.append("_");
+		sb.append(newValue);
+		return sb.toString();
+	}
 
 	public String getNewValue() {
 		return newValue;
 	}
 
+
+	/**
+	 * 
+	 * @param newValue - create the new value to set the variable to
+	 */
 	public void setNewValue(String newValue) {
 		this.newValue = newValue;
 	}
@@ -63,5 +83,6 @@ public class EntityAction implements IAction {
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
 	}
+
 
 }

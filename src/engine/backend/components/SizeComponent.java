@@ -5,8 +5,7 @@
  */
 package engine.backend.components;
 
-public class SizeComponent extends Component {
-
+public class SizeComponent extends Component implements IComponent {
 	private double width;
 	private double height;
 
@@ -62,6 +61,13 @@ public class SizeComponent extends Component {
 		if (dataName.equals("Height")) {
 			this.height = Double.parseDouble(data);
 			return;
+
+		}
+	}
+	public void initWithParams(String[] params) {
+		if (params.length > 0) {
+			this.width = Double.parseDouble(params[0]);
+			this.height = Double.parseDouble(params[1]);
 		}
 	}
 
