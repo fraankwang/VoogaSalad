@@ -74,13 +74,7 @@ public class MenuBarElement implements IMenuBarElement {
 		importImages.setOnAction(e -> myImageImporter.openImporter());
 
 		MenuItem importGame = createImportGame();
-		MenuItem exportGame = new MenuItem("Export Game");
-		Map<String, String> createGameMap = new HashMap<String, String>();
-		createGameMap.put("Type", "Create");
-		exportGame.setOnAction(e -> {
-			myController.writeData(createGameMap);
-			myMain.createPlayer(myStage);
-		});
+		MenuItem exportGame = createExportGame();
 
 		Menu open = new Menu("Open in separate window");
 
@@ -95,6 +89,25 @@ public class MenuBarElement implements IMenuBarElement {
 		file.getItems().addAll(open, importImages, importGame, exportGame);
 		return file;
 	}
+	
+	private MenuItem createExportGame() {
+		MenuItem exportGame = new MenuItem("Export Game");
+		exportGame.setOnAction(e -> {
+			FileChooser gameSaver = new FileChooser();
+			gameSaver.setTitle("Save Game File");
+			gameSaver.getExtensionFilters().add(new ExtensionFilter("Game Files", "*.xml"));
+			File gameFile = gameSaver.showSaveDialog(null);
+			
+			Map<String, String> exportGameMap = new HashMap<String, String>();
+			exportGameMap.put("Type", "Export");
+			exportGameMap.put("URL", gameFile.getName());
+			
+			myController.writeData(exportGameMap);
+			myMain.createPlayer(myStage);
+		});
+		
+		return exportGame;
+	}
 
 	private MenuItem createImportGame() {
 		MenuItem importGame = new MenuItem("Import Game");
@@ -102,19 +115,14 @@ public class MenuBarElement implements IMenuBarElement {
 		importGame.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Game File");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Game Files", "xml"));
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Game Files", "*.xml"));
 			File gameFile = fileChooser.showOpenDialog(null);
 
-			GameWorldToXMLWriter writer = new GameWorldToXMLWriter();
-
-			try {
-				String string = ObjectToXMLWriter.documentToString(gameFile);
-				GameWorld game = (GameWorld) writer.xMLToObject(string);
-
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-
+			Map<String, String> importGameMap = new HashMap<String, String>();
+			importGameMap.put("Type", "Export");
+			importGameMap.put("URL", gameFile.getName());
+			
+			myController.writeData(importGameMap);
 		});
 
 
