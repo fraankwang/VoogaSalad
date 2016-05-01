@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.backend.map.GameMap;
+import engine.backend.rules.IAction;
+import engine.backend.rules.Rule;
 
 public class AuthoringLevel {
 	
@@ -18,6 +20,7 @@ public class AuthoringLevel {
 	private Set<String> entities;
 	private Map<String, String> myInfo;
 	private List<AuthoringEntity> spawnEntities;
+	private List<Rule> ruleAgenda;
 	
 	public AuthoringLevel(String myName, GameMap myMap, double waveDelayTimer) {
 		this.myName = myName;
@@ -101,6 +104,38 @@ public class AuthoringLevel {
 			sb.deleteCharAt(sb.length() - 1);
 			return sb.toString();
 		}
+	}
+	
+	public void setRuleAgenda(List<Rule> ruleAgenda, List<String> events) {
+		this.ruleAgenda = ruleAgenda;
+		this.myInfo.put("Rules", getRuleAgendaInfo(events));
+	}
+	
+	private String getRuleAgendaInfo(List<String> events) {
+		StringBuilder sb = new StringBuilder();
+		List<String> actions = new ArrayList<String>();
+		for (Rule rule : ruleAgenda) {
+			StringBuilder sb2 = new StringBuilder();
+			for (IAction action : rule.getActions()) {
+				sb2.append(action.toString());
+				sb2.append("+");
+			}
+			sb2.deleteCharAt(sb2.length() - 1);
+			actions.add(sb2.toString());
+		}
+		for (int i = 0; i < actions.size(); i++) {
+			StringBuilder sb2 = new StringBuilder();
+			String event = events.get(i);
+			String action = actions.get(i);
+			sb2.append(event);
+			sb2.append(":");
+			sb2.append(action);
+			sb.append(sb2.toString());
+			sb.append(" ");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		
+		return sb.toString();
 	}
 	
 	@Override

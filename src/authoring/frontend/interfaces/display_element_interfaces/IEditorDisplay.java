@@ -2,6 +2,8 @@ package authoring.frontend.interfaces.display_element_interfaces;
 
 import java.util.Map;
 
+import authoring.frontend.display_elements.grids.EditorGrid;
+
 /**
  * This interface handles the editing of various entities and their components.
  * The edit method can be called on all EditorDisplays, which passes around an
@@ -21,5 +23,7 @@ public interface IEditorDisplay extends IDisplayElement {
 	 * @return newEntity
 	 */
 	public void edit(Map<String, String> info);
+	
+	EditorGrid getEditorGrid();
 	
 }

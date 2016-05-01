@@ -31,6 +31,7 @@ public class BoardPane extends AbstractPane{
 		myBackground = new ImageView(new Image(myEngineView.getEngineController().getBackgroundImageFile()));
 		myBackground.fitWidthProperty().bind(myPane.widthProperty());
 		myBackground.fitHeightProperty().bind(myPane.heightProperty());
+		myBackground.setMouseTransparent(true);
 		myGroup = new Group();
 		myPane.getChildren().addAll(myBackground, myGroup);
 		return myPane;
@@ -57,6 +58,8 @@ public class BoardPane extends AbstractPane{
 		if(myEntityViewMap.containsKey(id)){
 			myEntityViewMap.get(id).update(xCoord, yCoord, image, width, height);
 		} else {
+			System.out.println("image1: " + image);
+			
 			EntityView ev = new EntityView(myEngineView.getEngineController(), xCoord, yCoord, image, id, width, height);
 			myEntityViewMap.put(id, ev);
 			myPane.getChildren().add(ev.getNode());
@@ -76,6 +79,11 @@ public class BoardPane extends AbstractPane{
 		myEngineView.getEngineController().attemptTower(xLoc,  yLoc, placingTower);	
 
 	}
+	
+	public Map<Integer, EntityView> getEntityMap(){
+		return myEntityViewMap;
+	}
+
 	
 	
 }

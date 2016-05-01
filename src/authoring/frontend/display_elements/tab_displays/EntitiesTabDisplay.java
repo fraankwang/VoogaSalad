@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements.tab_displays;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,25 +15,15 @@ import authoring.frontend.display_elements.editor_displays.EntityEditorDisplay;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.grids.tab_grids.EntitiesTabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
-import authoring.frontend.editor_features.LocalImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * 
@@ -42,9 +33,11 @@ import javafx.stage.Stage;
 
 public class EntitiesTabDisplay extends TabDisplay {
 
+	private static final List<String> DEFAULT_GENRES = Arrays.asList("Tower", "Enemy", "Ammo");
+
 	private TabPane myEntitiesTabPane;
 	private ObservableList<AuthoringEntity> myEntityList;
-	private String genreName;
+	private Map<String, Map<String, String>> myEntities;
 
 	public EntitiesTabDisplay(int tabIndex, IAuthoringView controller) {
 		super(tabIndex, controller);
@@ -57,10 +50,12 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEntitiesTabPane = new TabPane(); // tab of entity types
 		myEditorDisplay = new EntityEditorDisplay(myController);
 		myEditorDisplay.initialize();
+		myEntities = new TreeMap<String, Map<String, String>>();
 
-		createNewTab("Tower", false);
-		createNewTab("Enemy", false);
-		createNewTab("Ammo", false);
+		for (String genre : DEFAULT_GENRES) {
+			createNewTab(genre, false);
+		}
+
 		setTabPaneActions();
 		myEntitiesTabPane.getSelectionModel().select(0);
 	}
@@ -77,7 +72,9 @@ public class EntitiesTabDisplay extends TabDisplay {
 			@Override
 			public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab selectedTab) {
 				if (selectedTab == addNewTypeTab) {
-					String newGenre = promptGenreName();
+
+					String newGenre = myGrid.promptNewName();
+
 					if (newGenre != "") {
 						myEntitiesTabPane.getTabs().remove(addNewTypeTab);
 						createNewTab(newGenre, true);
@@ -96,7 +93,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 		ContextMenu tabContextMenu = new ContextMenu();
 		MenuItem tabMenu = new MenuItem("Change Genre name");
 		tabMenu.setOnAction(e -> {
-			String name = promptGenreName();
+			String name = myGrid.promptNewName();
 			((GridViewPanel) myGrid.getPrimaryDisplay()).setPanelBarDescription(name + " Entities");
 			myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(name);
 		});
@@ -130,38 +127,6 @@ public class EntitiesTabDisplay extends TabDisplay {
 		myEntitiesTabPane.getSelectionModel().select(newTab);
 	}
 
-	private String promptGenreName() {
-		Stage promptStage = new Stage();
-		genreName = "";
-		VBox promptBox = new VBox();
-		promptBox.setAlignment(Pos.CENTER);
-		Label prompt = new Label("Enter new genre name:");
-		TextField textBox = new TextField();
-		textBox.setMaxWidth(200);
-		promptBox.getChildren().add(prompt);
-		promptBox.getChildren().add(textBox);
-		HBox buttonBox = new HBox();
-		buttonBox.setAlignment(Pos.CENTER);
-		Button cancelButton = new Button("Cancel");
-		Button saveButton = new Button("Save");
-		cancelButton.setOnAction(e -> promptStage.close());
-		textBox.setOnAction(e -> {
-			genreName = textBox.getText();
-			promptStage.close();
-		});
-
-		saveButton.setOnAction(e -> {
-			genreName = textBox.getText();
-			promptStage.close();
-		});
-		buttonBox.getChildren().addAll(cancelButton, saveButton);
-		promptBox.getChildren().add(buttonBox);
-		Scene promptScene = new Scene(promptBox, 300, 200);
-		promptStage.setScene(promptScene);
-		promptStage.showAndWait();
-		return genreName;
-	}
-
 	/**
 	 * For Entities, because there are multiple genres, it sends all the data to
 	 * each of the different genre tabs with the genre name and only selects the
@@ -177,10 +142,14 @@ public class EntitiesTabDisplay extends TabDisplay {
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
-				((EntitiesTabGrid) myGrid).update(data, t.getText());
+				((EntitiesTabGrid) myGrid).updateEntitiesPrimaryDisplay(data, t.getText());
 			}
 		}
 
+		myEntities.clear();
+		for (Map<String, String> entity: data) {
+			myEntities.put(entity.get("Name"), entity);
+		}
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 	}
 
@@ -188,11 +157,11 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
 
-		map.put("DisplayComponent_Image", null);
-		map.put("DisplayComponent_CanBeShown", null);
-		map.put("Name", null);
-		map.put("Genre", null);
-
+		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+		for (String attribute : defaultAttributes) {
+			map.put(attribute, null);
+		}
+		
 		System.out.println("*****1. EntitiesTabDisplay: got default entities attributes");
 		System.out.println(map);
 		return map;
@@ -220,23 +189,26 @@ public class EntitiesTabDisplay extends TabDisplay {
 	 * 
 	 * @return
 	 */
-	public Map<String, Image> getEntities() {
+	public Map<String, String> getEntityImages() {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 
-		Map<String, Image> entities = new TreeMap<String, Image>();
+		Map<String, String> entities = new TreeMap<String, String>();
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals("Add New...")) {
 				myEntitiesTabPane.getSelectionModel().select(t);
-				Map<String, Image> genreEntities = (TreeMap<String, Image>) ((EntitiesTabGrid) myGrid).getEntities();
+				Map<String, String> genreEntities = (TreeMap<String, String>) ((EntitiesTabGrid) myGrid).getEntities();
 				for (String name : genreEntities.keySet()) {
-					String imagePath = ((LocalImage) genreEntities.get(name)).getURL();
-					Image newImage = new LocalImage(imagePath);
-					entities.put(name, newImage);
+					String imagePath = genreEntities.get(name);
+					entities.put(name, imagePath);
 				}
 			}
 		}
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 		return entities;
+	}
+
+	public Map<String, Map<String, String>> getEntities() {
+		return myEntities;
 	}
 
 }

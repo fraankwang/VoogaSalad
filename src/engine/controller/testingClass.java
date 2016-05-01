@@ -57,7 +57,7 @@ public class testingClass {
 		IComponent tempPosition = new PositionComponent(0, 60);
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent tempCollision = new CollisionComponent();
-		IComponent pathComp = new PathComponent(0, 0);r
+		IComponent pathComp = new PathComponent(0, 0);
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
 		tempEntity.addComponent(tempDisplay);

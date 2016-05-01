@@ -1,7 +1,7 @@
 package engine.backend.entities;
 
 import engine.backend.components.IComponent;
-import engine.backend.rules.EntityAction;
+import engine.backend.rules.IAction;
 
 import java.util.Collection;
 import java.util.Set;
@@ -35,10 +35,14 @@ public interface IEntity {
 
 	public String getGenre();
 
+	public void setID(int id);
+	
 	public int getID();
 
 	
 	public EntityStatistics getStats();
 
 	public void broadcastEntity();
+	
+	public void applyAction(IAction action);
 }

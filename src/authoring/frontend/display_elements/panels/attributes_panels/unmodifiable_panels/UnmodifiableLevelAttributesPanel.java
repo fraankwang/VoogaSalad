@@ -5,13 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import authoring.frontend.display_elements.panels.attributes_panels.UnmodifiableAttributesPanel;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 import authoring.parser.GlobalParser;
-//import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-//import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -36,11 +36,12 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	private static final int SPAWN_ENTITIES_COLUMN_4 = 23;
 	private static final int SPAWN_ENTITIES_COLUMN_5 = 15;
 
-	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("PathID", "Name", "Wave", "Number",
-			"Rate");
+	private static final List<String> SPAWN_ENTITIES_COLUMN_NAMES = (List<String>) Arrays.asList("PathID", "Name",
+			"Wave", "Number", "Rate");
 
 	public UnmodifiableLevelAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
+		myDefaultAttributes = Arrays.asList("Name", "MapBackgroundImage", "WaveDelayTimer", "MapWidth", "MapHeight");
 	}
 
 	@Override
@@ -57,18 +58,14 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		List<Integer> columnConstraints = new ArrayList<Integer>();
 
 		myGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
-		
-		List<String> levelAttributes = (List<String>) Arrays.asList("Name", "MapBackgroundImage", "LevelTimer",
-				"WaveDelayTimer", "MapWidth", "MapHeight");
+		myGridPane.setMaxWidth(MAX_SIZE);
 
-		myAttributesGridPane = createAttributesGridPane(levelAttributes);
+		myAttributesGridPane = createAttributesGridPane(myDefaultAttributes);
 		myOpenEditorButton = createOpenEditorButton();
 		mySpawnEntitiesGridPane = createSpawnEntitiesGridPane();
 
 		myScrollPane = new ScrollPane();
 		myScrollPane.setContent(mySpawnEntitiesGridPane);
-		myScrollPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 	}
 
 	/**
@@ -86,19 +83,16 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		columnConstraints.add(SPAWN_ENTITIES_COLUMN_5);
 
 		mySpawnEntitiesGridPane = createGridWrapper(rowConstraints, columnConstraints);
-		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
+		addColumnNames(SPAWN_ENTITIES_COLUMN_NAMES, mySpawnEntitiesGridPane);
 
 		return mySpawnEntitiesGridPane;
 	}
-
-
 
 	@Override
 	protected void assembleComponents() {
 		myGridPane.add(myOpenEditorButton, 0, 0);
 		myGridPane.add(myAttributesGridPane, 0, 1);
 		myGridPane.add(myScrollPane, 0, 2);
-		myGridPane.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 		myWrapper.setCenter(myGridPane);
 		myNode = myWrapper;
 
@@ -112,31 +106,26 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 				"*****7. UnmodifiableLevelAttributesPanel: Levels display refreshed with updated myAttributesMap");
 		System.out.println(myAttributesMap);
 
+		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
+				(TreeMap<String, String[]>) GlobalParser.spawnParse(myAttributesMap.get("SpawnEntities")));
+
 		for (String currentAttribute : myAttributesMap.keySet()) {
-			if (!currentAttribute.equals("SpawnEntities")) {
-				if (myOutputMap.containsKey(currentAttribute)) {
-					TextField tf = (TextField) myOutputMap.get(currentAttribute);
-					tf.setText(myAttributesMap.get(currentAttribute));
-					tf.setEditable(false);
-					myOutputMap.replace(currentAttribute, tf);
-					
-				}
-				
-				else {
-					TextField tf = new TextField();
-					tf.setText(myAttributesMap.get(currentAttribute));
-					tf.setEditable(false);
-					myOutputMap.put(currentAttribute, tf);
-				}
-				
+			if (myOutputMap.containsKey(currentAttribute)) {
+				TextField tf = (TextField) myOutputMap.get(currentAttribute);
+				tf.setText(myAttributesMap.get(currentAttribute));
+				tf.setEditable(false);
+				myOutputMap.replace(currentAttribute, tf);
+
+			}
+
+			else {
+				TextField tf = new TextField();
+				tf.setText(myAttributesMap.get(currentAttribute));
+				tf.setEditable(false);
+				myOutputMap.put(currentAttribute, tf);
 			}
 
 		}
-
-		mySpawnEntitiesGridPane.getChildren().clear();
-
-		populateSpawnEntitiesGridPane(mySpawnEntitiesGridPane,
-				(TreeMap<String, String>) GlobalParser.parseSpawnEntities(myAttributesMap.get("SpawnEntities")));
 
 		refreshRows();
 		myGridPane.getChildren().clear();
@@ -149,27 +138,35 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 	 * @param gridPane
 	 * @param map
 	 */
-	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String> map) {
-		addColumnNames(COLUMN_NAMES, mySpawnEntitiesGridPane);
+	private void populateSpawnEntitiesGridPane(GridPane gridPane, TreeMap<String, String[]> map) {
+		gridPane.getChildren().clear();
+		addColumnNames(SPAWN_ENTITIES_COLUMN_NAMES, gridPane);
 
-		int row = 1; // row 0 is filled by addColumnNames
+		int row = 1;
 		for (String pathID : map.keySet()) {
 			Text ID = new Text(pathID);
 			ID.setFont(new Font(FONT_SIZE));
 
 			gridPane.add(ID, 0, row);
-			String compressed = map.get(pathID);
-			String[] components = compressed.split(".");
-			int column = 1;
-			for (String component : components) {
-				Text text = new Text(component);
-				text.setFont(new Font(FONT_SIZE));
-				gridPane.add(text, column, row);
-				column++;
+			String[] spawnObjects = map.get(pathID);
+			for (String spawn : spawnObjects) {
+				String[] components = spawn.split("\\.");
+
+				int column = 1;
+				for (String component : components) {
+					Label text = new Label(component);
+					text.setFont(new Font(FONT_SIZE));
+					gridPane.add(text, column, row);
+					column++;
+				}
+
+				row++;
 			}
 
 			row++;
 		}
+		row = 1;
+
 	}
 
 	@Override
@@ -178,7 +175,6 @@ public class UnmodifiableLevelAttributesPanel extends UnmodifiableAttributesPane
 		System.out.println(updatedInfo);
 		myAttributesMap = updatedInfo;
 		refreshDisplay();
-		myAttributesMap.put("Type", "Level");
 	}
 
 }

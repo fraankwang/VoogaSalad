@@ -108,10 +108,7 @@ public class GameMap {
 		return paths[index];
 	}
 	
-	/**
-	 * Updates the paths
-	 * @param paths
-	 */
+
 	public void setPaths(Path[] paths) {
 		this.paths = paths;
 	}
