@@ -66,8 +66,8 @@ public class LevelsTabGrid extends TabGrid {
 		for (Map<String, String> info : data) {
 			if (myLevels.containsKey(info.get("Name"))) {
 				continue;
-			};
-			
+			}
+
 			myLevels.put(info.get("Name"), info.get("MapBackgroundImage"));
 			info.remove("EntityNames");
 
@@ -77,7 +77,7 @@ public class LevelsTabGrid extends TabGrid {
 		}
 
 	}
-	
+
 	protected void linkImage(ImageView iv, Map<String, String> info) {
 		iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
@@ -90,8 +90,7 @@ public class LevelsTabGrid extends TabGrid {
 				}
 			}
 		});
-		
-		
+
 	}
 
 	public Map<String, String> getLevels() {
