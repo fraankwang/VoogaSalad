@@ -33,7 +33,7 @@ public class ImageImporter {
 		File imageFolder = new File(IMAGE_FOLDER);
 		for (final File fileEntry : imageFolder.listFiles()) {
 
-			myChooser.updateList(IMAGE_PATH + fileEntry.getName(), IMAGE_PATH + fileEntry.getName());
+			myChooser.add(IMAGE_PATH + fileEntry.getName(), IMAGE_PATH + fileEntry.getName());
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class ImageImporter {
 		}
 		String fileName = sysloader.getURLs()[sysloader.getURLs().length - 1].toString();
 
-		myChooser.updateList(fileName, fileName.split("src/")[1]);
+		myChooser.add(fileName, fileName.split("src/")[1]);
 	}
 	
 	public void openImporter() {

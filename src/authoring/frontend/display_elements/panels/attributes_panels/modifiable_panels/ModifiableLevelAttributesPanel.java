@@ -57,7 +57,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	private Accordion myAccordion;
 	private Map<String, String> myTowers;
 	private ScrollPane myScrollPane;
-	private List<Label> myLevelEntities;
+	private Map<String, String> myLevelEntities;
 
 	private static final List<String> COLUMN_NAMES = (List<String>) Arrays.asList("Path #", "Name", "#", "Wave",
 			"Rate");
@@ -76,7 +76,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		super(height, width, controller);
 		myPossibleEntities = new TreeMap<String, String>();
 		myTowers = new TreeMap<String, String>();
-		myLevelEntities = new ArrayList<Label>();
+		myLevelEntities = new TreeMap<String, String>();
 		myWaves = new ArrayList<String>();
 		myWaves.add("New");
 		myWaves.add("1");
@@ -164,7 +164,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 
 		myEntitySelector = new ObjectChooser();
 		myEntitySelector.initialize();
-		myEntitySelector.updateList(myPossibleEntities);
+		myEntitySelector.addAll(myPossibleEntities);
 		TextField entityTextField = new TextField("Select Entity");
 		entityTextField.setOnMouseClicked(e -> entityTextField.setText(myEntitySelector.openChooser()));
 		entityTextField.setEditable(false);
@@ -204,9 +204,9 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				SpawnEntityRow row = new SpawnEntityRow(tag, selected, newImageView, wave, pathID);
 				linkRow(row);
 
-				Label spawnLabel = new Label(selected);
-				spawnLabel.setGraphic(newImageView);
-				myLevelEntities.add(spawnLabel);
+				if (!myLevelEntities.keySet().contains(selected)) {
+					myLevelEntities.put(selected, selectedImagePath);
+				}
 			}
 		});
 
@@ -223,8 +223,8 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				tower.setPrefWidth(ATTRIBUTES_PANEL_WIDTH);
 				tower.setGraphic(towerView);
 				myTowersListView.getItems().add(tower);
-				if (!myLevelEntities.contains(tower)) {
-					myLevelEntities.add(tower);
+				if (!myLevelEntities.keySet().contains(selected)) {
+					myLevelEntities.put(selected, selectedImagePath);
 				}
 			}
 		});
@@ -394,6 +394,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		System.out.println("*****4. ModifiableLevelAttrPanel: myAttributesMap saved by user:");
 		System.out.println(myAttributesMap);
 
+		checkAllFilled();
 		return myAttributesMap;
 	}
 
@@ -464,10 +465,10 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 	public void setMyPossibleEntities(Map<String, String> entities) {
 		myPossibleEntities = (TreeMap<String, String>) entities;
 		myEntitySelector.clear();
-		myEntitySelector.updateList(myPossibleEntities);
+		myEntitySelector.addAll(myPossibleEntities);
 	}
 
-	public List<Label> getLevelEntities() {
+	public Map<String, String> getLevelEntities() {
 		return myLevelEntities;
 	}
 
