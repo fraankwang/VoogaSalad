@@ -65,11 +65,9 @@ public class EntitiesTabGrid extends TabGrid {
 	 */
 	private void setDefaultAddNewAction(Button addNewButton) {
 		addNewButton.setOnAction(e -> {
-			Map<String, String> defaultAttributesMap = myTabDisplay.getDefaultAttributesMap();
 			EntityComponentSelector templateComponentSelector = new EntityComponentSelector(myController);
 			templateComponentSelector.initialize();
-			Map<String, String> additionalAttributes = templateComponentSelector.getExtraDefaultAttributes(myGenre);
-			defaultAttributesMap.putAll(additionalAttributes);
+			Map<String, String> defaultAttributesMap = templateComponentSelector.getExtraDefaultAttributes(myGenre);
 			defaultAttributesMap.put("Genre", myGenre);
 			myTabDisplay.openEditorDisplay(defaultAttributesMap);
 		});
