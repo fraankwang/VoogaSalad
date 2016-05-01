@@ -296,6 +296,8 @@ public class EventManager implements Observer {
 	 * @param event
 	 */
 	private void handleEntityDropEvent(EntityDroppedEvent event) {
+		System.out.println("RESOURCES: " + currentGameStatistics.getCurrentResources());
+		System.out.println(currentGameStatistics.getCurrentResources() >= event.getEntityValue());
 		if (currentGameStatistics.getCurrentResources() >= event.getEntityValue()) {
 			subtractFromResources(event.getEntityValue());
 			IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
@@ -307,11 +309,14 @@ public class EventManager implements Observer {
 	}
 	
 	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
-		if (event.getPowerUp() != null && isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
-			Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
-			Collection<IAction> actions = event.getPowerUp().getActions();
-			applyActions(affectedEntities, actions);
-			subtractFromResources(event.getPowerUp().getPrice()); 
+		if (currentGameStatistics.getCurrentResources() >= event.getPowerUp().getPrice()) {
+			if (event.getPowerUp() != null && isPowerUpApplicable(event.getAffectedEntityID(),
+					((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
+				Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
+				Collection<IAction> actions = event.getPowerUp().getActions();
+				applyActions(affectedEntities, actions);
+				subtractFromResources(event.getPowerUp().getPrice());
+			} 
 		} 
 	}
 	
@@ -375,7 +380,7 @@ public class EventManager implements Observer {
 			}
 			else if(event instanceof PowerUpDroppedEvent){
 				handlePowerUpDroppedEvent((PowerUpDroppedEvent) event);
-				System.out.println(event);
+				System.out.println("POWER UP NON MAP :" + event);
 			}
 		}
 	}
@@ -454,6 +459,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void subtractFromResources(double value){
+		System.out.println("SUBTRACTING WITH " + value);
 		currentGameStatistics.setCurrentResources(currentGameStatistics.getCurrentResources() - value); 
 	}
 
