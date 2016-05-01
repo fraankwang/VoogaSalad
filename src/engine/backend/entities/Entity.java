@@ -161,7 +161,6 @@ public class Entity extends Observable implements IEntity, IModifiable {
 		Method setMethod;
 
 		String fullName = ComponentTagResources.getComponentTag(component);
-		// System.out.println(getName() + " " + fullName);
 		Class<? extends IComponent> componentClass = getComponent(fullName).getClass();
 		// System.out.println(componentClass.getName());
 		try {
