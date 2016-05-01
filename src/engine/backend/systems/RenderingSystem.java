@@ -36,7 +36,6 @@ public class RenderingSystem extends GameSystem {
 	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
-		System.out.println(entities.size());
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
 		for(IEntity myEntity : entities){
 			String imageToDisplay = "";

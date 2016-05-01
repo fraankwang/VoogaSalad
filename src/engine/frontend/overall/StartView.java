@@ -116,7 +116,7 @@ public class StartView {
 		startButton = new Button("START");
 		startButton.setDisable(true);
 
-		startButton.setOnAction(e -> myController.startGame(selectedMode, selectedLevel));
+		startButton.setOnAction(e -> myController.startGame(selectedMode, selectedLevel, firsttime));
 
 		bindHeight(startButton, myScene.heightProperty().divide(4));
 		bindWidth(startButton, myScene.widthProperty());

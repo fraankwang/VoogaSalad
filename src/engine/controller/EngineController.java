@@ -123,7 +123,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	/**
 	 * Starts a game after the intial scene sets the stage and
 	 */
-	public void startGame(String selectedMode, Integer selectedLevel) {
+	public void startGame(String selectedMode, Integer selectedLevel, boolean firsttime) {
 		try {
 			GameEvent e = new GameEvent(selectedMode, selectedLevel);
 			myEventManager.handleGameStartEvent(e);
@@ -131,7 +131,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			myEventManager.setEntityFactory(myEntityFactory);
 			myEventManager.initializeRules();
 			mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
-			initEngineView();
+			initEngineView(firsttime);
 			manualRefresh();
 		} catch (IOException e) {
 			new DrumpfTowerException(exceptionLoader.getString(INITGAME));
@@ -141,8 +141,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	/**
 	 * Creates the engineView, starts the game by playing the animation
 	 */
-	private void initEngineView() {
-		myEngineView = new EngineView(myStage, this);
+	private void initEngineView(boolean firsttime) {
+		if(firsttime){
+			myEngineView = new EngineView(myStage, this);
+		}
 		myStage.setScene(myEngineView.buildScene());
 		myStage.show();
 		setupGameCapture();
@@ -191,7 +193,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void step() {
 		if (stepping) {
-//			System.out.println("step");
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), true);
 		}
 	}
@@ -213,7 +214,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type, cost);
 		mySystems.sendUserInputEvent(event);
-		System.out.println(event);
 		if (!stepping) {
 			manualRefresh();
 		}
@@ -248,13 +248,12 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void nextLevelClicked() {
 		myEventManager.handleGoToNextLevelEvent();
-		initEngineView();
+		initEngineView(false);
 	}
 
 	public List<Integer> currentLevelsUnlocked(String mode) {
 		List<Integer> list = new ArrayList<Integer>();
 		for (Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()) {
-			System.out.println("HELLLO "+  myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked());
 			if (i <= myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked()) {
 				list.add(i);
 			}
@@ -274,6 +273,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void levelIsWon() {
 		toggleStepping(false);
+		
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 	}
 

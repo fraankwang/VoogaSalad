@@ -112,5 +112,6 @@ public class ControlManager extends ResourceUser {
 
 	public void nextLevelEnable() {
 		nextLevel.setDisable(false);
+		resetNextWaveTimer();
 	}
 }
