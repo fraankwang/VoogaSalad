@@ -89,7 +89,7 @@ public class EngineView extends ResourceUser{
 
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
-		myScene.setOnDragOver(e -> handleMove(e));
+//		myScene.setOnDragOver(e -> handleMove(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
 		myScene.setOnKeyPressed(e -> handleKeyPress(e));
 		return myScene;
@@ -101,6 +101,10 @@ public class EngineView extends ResourceUser{
 		e.consume();
 	}
 
+	/**
+	 * Handles the changes in mouse position while the mouse is pressed, allows 
+	 * the image to track the cursor
+	 */
 	private void handleMove(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene && e.getDragboard().hasString()) {
@@ -109,29 +113,22 @@ public class EngineView extends ResourceUser{
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
 		}
-		e.consume();
+//		e.consume();
 	}
-
+	
+	/**
+	 * Called a dragged shop item is dropped on the scene
+	 * @param e
+	 */
 	private void handleEndMouseRelease(DragEvent e) {
 		if (e.getGestureSource() != myScene) {
-			System.out.println("dropped something");
-			for( Integer id: myBoardPane.getEntityMap().keySet()){
-				
-				if( myBoardPane.getEntityMap().get(id).contains(e.getSceneX(), e.getSceneY())){
-					myBoardPane.getEntityMap().get(id).handlePowerUpDrop(e);
-					myDummyCursor.changePic(null);
-					this.getStage().getScene().setCursor(Cursor.DEFAULT);
-					e.consume();
-					return;
-				}
-			}
 			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-		e.consume();
+//		e.consume();
 	}
 
 	private boolean isInBoardPane(double x, double y) {

@@ -3,9 +3,9 @@ package engine.frontend.board;
  * @author austinwu
  */
 import engine.controller.EngineController;
-import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,12 +39,23 @@ public class EntityView {
 		myImageView.fitWidthProperty().bind(myController.getEngineView().getScalingFactor().multiply(myW));
 		myImageView.fitHeightProperty().bind(myController.getEngineView().getScalingFactor().multiply(myH));
 		myImageView.setOnMouseClicked(e -> handleClick());
+		
+//		myImageView.setOnDragEntered(e -> handleDragDrop(e));
+		myImageView.setOnDragDropped(e -> handleDragDrop(e));
 	}
 	
-	public void handleClick(){
+	private void handleClick(){
 		myImageView.requestFocus();
 		myController.entityClicked(myID);
 		myController.manualRefresh();
+	}
+	
+	private void handleDragDrop(DragEvent e){
+		e.acceptTransferModes(TransferMode.ANY);
+		
+		System.out.println("SHITTY SHIT is happening");
+		System.out.println(e);
+		e.getDragboard().getString();
 	}
 		
 	public Node getNode(){

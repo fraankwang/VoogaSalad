@@ -77,6 +77,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
+		animation.play();
 
 		initStage();
 		initStartView(true);
@@ -127,7 +128,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 			myEventManager.initializeRules();
 			mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
 			initEngineView();
-			toggleStepping(false);
 			manualRefresh();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -143,7 +143,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.setScene(myEngineView.buildScene());
 		myStage.show();
 		setupGameCapture();
-		animation.play();
+		toggleStepping(false);
 	}
 
 	public Region setupHUD() {
@@ -188,7 +188,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	public void step() {
 		if (stepping) {
-			System.out.println("step");
+//			System.out.println("step");
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), true);
 		}
 	}
@@ -205,7 +205,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void updateUpgrades(List<ShopItem> upgradelist) {
-		myEngineView.getShopPane().updateUpgrade(upgradelist);
+		myEngineView.getShopPane().updateUpgrades(upgradelist);
 	}
 
 	public void attemptTower(double xLoc, double yLoc, String type) {
