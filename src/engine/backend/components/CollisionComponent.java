@@ -3,16 +3,34 @@
  */
 package engine.backend.components;
 
-import java.util.List;
+/**
+ * Creates a collision component that can be added to an entity to allow for
+ * collision detection of that entity.
+ * 
+ * @author
+ *
+ */
 
-public class CollisionComponent extends Component implements IComponent{
-    
+public class CollisionComponent extends Component {
+
 	private boolean isCollided;
 
     public CollisionComponent(){
        isCollided = false;
     }
-
+    
+    /**
+     * Initializes a collision component from an existing collision component.
+     * @param component
+     */
+    public CollisionComponent(CollisionComponent component) {
+    	this.isCollided = component.isCollided;
+    }
+    
+    /**
+     * 
+     * @return The boolean for whether or not there has been a collision.
+     */
     public boolean isCollided() {
         return isCollided;
     }
@@ -21,15 +39,22 @@ public class CollisionComponent extends Component implements IComponent{
         isCollided = collided;
     }
 
-    @Override
-    public String getTag(){
-        return "Collision";
-    }
 
 	@Override
-	public void initWithParams(String[] params) {
-        //default
-        isCollided = false;
+	public String getComponentInfo() {
+		return "IsCollided:" + isCollided;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("IsCollided")) {
+			if (data.equals("True") || data.equals("true") || data.equals("1") || data.equals("Yes")
+					|| data.equals("yes")) {
+				isCollided = true;
+			} else {
+				isCollided = false;
+			}
+		}
 	}
 
 }

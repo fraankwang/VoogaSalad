@@ -1,11 +1,11 @@
 package engine.backend.map;
 
-import engine.backend.entities.IEntity;
-
 public interface IPath {
 
-	void addCurve(BezierCurve curve1);
+	public int numCurves();
 
-	void updatePositionOnPath(IEntity testEntity);
+	public void addCurve(BezierCurve curve);
+
+	public BezierCurve getCurveFromTime(double bezTime);
 
 }

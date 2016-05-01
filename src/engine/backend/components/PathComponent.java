@@ -1,69 +1,134 @@
 
 package engine.backend.components;
 
-import java.util.List;
-
 /**
  * 
  * @author raghavkedia
  *
  */
 
-public class PathComponent extends Component implements IComponent{
-	
-	//stores which path you're on
+public class PathComponent extends Component {
+
+	// stores which path you're on
 	private int pathID;
 	private double myBezierTime;
-	
-	
+
 	private boolean reachedEndOfPath;
 	private boolean movesWithTime;
-	//stores which curve in the path you're on
+	// stores which curve in the path you're on
 	private int curveID;
 
-	public PathComponent(){
+	/**
+	 * Initializes a path component from an existing path component.
+	 * 
+	 * @param component
+	 */
+	public PathComponent(PathComponent component) {
+		this.pathID = component.getPathID();
+		this.myBezierTime = component.getBezierTime();
+		this.reachedEndOfPath = component.getReachedEndOfPath();
+		this.movesWithTime = component.movesWithTime();
+		this.curveID = component.getCurveID();
+	}
+
+	public PathComponent(int id, double time) {
+		pathID = id;
+		myBezierTime = time;
+		movesWithTime = true;
 	}
 	
-	public int getCurveID(){
+	public PathComponent() {
+		
+	}
+
+	/**
+	 * 
+	 * @return The int identifier for this curve.
+	 */
+	public int getCurveID() {
 		return curveID;
 	}
-	public void setCurveID(int newID){
+
+	/**
+	 * Sets the identifier for this curve.
+	 * 
+	 * @param newID
+	 */
+	public void setCurveID(int newID) {
 		curveID = newID;
 	}
-	public int getPathID(){
+
+	/**
+	 * 
+	 * @return The int identifier for this path.
+	 */
+	public int getPathID() {
 		return pathID;
 	}
-	public void setPathID(int newID){
+
+	/**
+	 * Sets the path identifier.
+	 * 
+	 * @param newID
+	 */
+	public void setPathID(int newID) {
 		pathID = newID;
 	}
 
-	@Override
-	public void initWithParams(String[] params) {
-		pathID = Integer.parseInt(params[0]);
-		curveID = Integer.parseInt(params[1]);
-		movesWithTime = Boolean.parseBoolean(params[2]);
-		myBezierTime = Double.parseDouble(params[3]);
-		reachedEndOfPath = false;
-	}
-	
 	public double getBezierTime() {
 		return myBezierTime;
 	}
 
+	/**
+	 * 
+	 * @param myBezierTime
+	 */
 	public void setBezierTime(double myBezierTime) {
 		this.myBezierTime = myBezierTime;
 	}
 
-	public boolean movesWithTime(){
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean movesWithTime() {
 		return movesWithTime;
 	}
-	
-	public boolean getReachedEndOfPath(){
+
+	/**
+	 * 
+	 * @return A boolean representing whether or not the end of path has been
+	 *         reached.
+	 */
+	public boolean getReachedEndOfPath() {
 		return reachedEndOfPath;
 	}
-	
-	public void didReachEndOfPath(){
-		reachedEndOfPath = true;
+
+	/**
+	 * Sets the boolean for whether the end of path has been reached by the
+	 * entity with this component.
+	 * 
+	 * @param bool
+	 */
+	public void setReachedEndOfPath(boolean bool) {
+		reachedEndOfPath = bool;
+	}
+
+	@Override
+	public String toString() {
+		return "PathID: " + pathID;
 	}
 	
+	@Override
+	public String getComponentInfo() {
+		return "PathID:" + pathID;
+	}
+
+	@Override
+	public void update(String dataName, String data) {
+		if (dataName.equals("PathID")) {
+			this.pathID = Integer.parseInt(data);
+		}
+	}
+
 }

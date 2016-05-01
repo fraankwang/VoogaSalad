@@ -1,71 +1,98 @@
 /**
  * 
- * @author mario_oliver93
+ * @author mario_oliver93, raghav kedia
  * 
  */
 package engine.backend.systems;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
-
-import authoring.backend.factories.InGameEntityFactory;
-import engine.backend.game_object.GameWorld;
+import java.util.Map;
+import java.util.Set;
 import engine.backend.game_object.Level;
-import engine.backend.game_object.Mode;
-import engine.controller.EngineController;
+import engine.backend.systems.Events.IEvent;
 
 public class SystemsController {
 
-	private ISystem renderingSystem;
-	private ISystem mobilizationSystem;
-	private ISystem healthSystem;
-	private ISystem firingSystem;
-	private ISystem rulesSystem;
-	private ISystem collisionSystem;
-	
+	private GameSystem renderingSystem;
+	private GameSystem mobilizationSystem;
+	private GameSystem healthSystem;
+	private GameSystem firingSystem;
+	private GameSystem collisionSystem;
+	private GameSystem spawningSystem;
+	private UserInputSystem userInputSystem;
 	private List<ISystem> mySystems;
-	private EngineController engineController;
-	
+	private EventManager myEventManager;
+
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
-	private ResourceBundle myActionRequirementsResources;
-	private ResourceBundle myComponentTagResources;
-	
-	private InGameEntityFactory myEntityFactory;
 
+	private GameClock myGameClock;
 
-	public SystemsController(EngineController eController) {
-		engineController = eController;
-		myEntityFactory = new InGameEntityFactory(eController.getMyGameWorld().getGameStatistics(), eController.getMyGameWorld().getEntityMap());
-		
-		myComponentTagResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "component_tags");
-		
-		renderingSystem = new RenderingSystem(engineController);
+	/*
+	 * the this reference to rendering will get removed, so only the event
+	 * handler will get passed fixing rendering system before I remove this
+	 * dependency
+	 * 
+	 * @author == mario
+	 */
+	public SystemsController(int framesPerSecond, EventManager myEventManager) {
+
+		renderingSystem = new RenderingSystem();
 		mobilizationSystem = new MobilizeSystem();
 		healthSystem = new HealthSystem();
 		firingSystem = new FiringSystem();
 		collisionSystem = new CollisionSystem();
-		rulesSystem = new RulesSystem();
-		
+		spawningSystem = new SpawningSystem();
+		userInputSystem = new UserInputSystem();
+
+		this.myEventManager = myEventManager;
+
+		healthSystem.addObserver(myEventManager);
+		firingSystem.addObserver(myEventManager);
+		collisionSystem.addObserver(myEventManager);
+		renderingSystem.addObserver(myEventManager);
+		spawningSystem.addObserver(myEventManager);
+
 		mySystems = new ArrayList<ISystem>();
+		mySystems.add(spawningSystem);
 		mySystems.add(firingSystem);
 		mySystems.add(mobilizationSystem);
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
-		mySystems.add(rulesSystem);
-		mySystems.add(renderingSystem);
+		mySystems.add(userInputSystem);
+		// mySystems.add(myEventManager);
+		// mySystems.add(renderingSystem);
 
+		myGameClock = new GameClock(framesPerSecond);
 	}
 
-	public void iterateThroughSystems(GameWorld game) {
-		Mode currMode = game.getModes().get(game.getGameStatistics().getCurrentLevel());
-		List<Level> currLevels = currMode.getLevels();
-		Level currentLevel = currLevels.get(game.getGameStatistics().getCurrentLevel());
-		for (ISystem system : mySystems) {
-			system.update(currentLevel.getEntities(), myEntityFactory, myComponentTagResources);
+	/**
+	 * Receives user input from frontend, sends it to UserInputSystem
+	 * @param event
+	 */
+	public void sendUserInputEvent(IEvent event) {
+		userInputSystem.handleUserEvent(event);
+	}
 
+	public void iterateThroughSystems(Level level, boolean playing) {
+		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
+
+		for (ISystem system : mySystems) {
+			system.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());			
 		}
-		
+		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
+		myEventManager.handleNonMapEvents(nonMapEvents);
+		nonMapEvents.clear();
+		// handle all the generate events
+		myEventManager.handleGeneratedEvents(myEventMap);
+		myEventManager.updateGameShop();
+		renderingSystem.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
+		myEventManager.handleLevelOver();
+		if(!playing){
+			myGameClock.updateLoopIteration();
+		}
 	}
 
 }

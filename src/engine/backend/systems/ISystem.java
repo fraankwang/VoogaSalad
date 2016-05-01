@@ -1,13 +1,23 @@
 package engine.backend.systems;
 
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Map;
+import java.util.Set;
 
-import authoring.backend.factories.InGameEntityFactory;
-import engine.backend.entities.IEntity;
+import engine.backend.entities.InGameEntityFactory;
+import engine.backend.game_object.Level;
 
 public interface ISystem {
-	
-	public void update(List<IEntity> entities, InGameEntityFactory myEntityFactory, ResourceBundle myComponentTagResources);
-	
+
+	/**
+	 * Updates each system.
+	 * 
+	 * @param playing
+	 * @param myLevel
+	 * @param myEventMap
+	 * @param myEntityFactory
+	 * @param currentSecond
+	 */
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
+			InGameEntityFactory myEntityFactory, double currentSecond);
+
 }

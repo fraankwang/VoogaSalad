@@ -1,15 +1,15 @@
 package engine.backend.components;
 
-import java.util.List;
-
 public interface IComponent {
-	
+
+	/**
+	 * 
+	 * @return A string containing the identifier for this component.
+	 */
 	public String getTag();
-	
-	public void initWithParams(String[] params);
-	
-	public void setEntityName(String entityName);
-	
-	public String getEntityName();
-	
+
+	public String getComponentInfo();
+
+	public void update(String dataName, String data);
+
 }

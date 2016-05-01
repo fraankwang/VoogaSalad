@@ -2,11 +2,16 @@ package backend.xml_converting;
 
 import java.io.IOException;
 import java.io.StringWriter;
-
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+/**
+ * Class for calling methods to write an XML String.
+ * 
+ * @author Christine Zhou (clz4)
+ *
+ */
 public class XMLWriter {
 	private StringWriter stringWriter;
 	private XMLStreamWriter xmlStreamWriter;
@@ -44,7 +49,7 @@ public class XMLWriter {
 	public void printXMLString() {
 		System.out.println(xmlString);
 	}
-	
+
 	public String getXMLString() {
 		return xmlString;
 	}

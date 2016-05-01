@@ -1,9 +1,10 @@
 package engine.backend.entities;
 
+import engine.backend.components.IComponent;
+import engine.backend.rules.IAction;
+
 import java.util.Collection;
 import java.util.Set;
-
-import engine.backend.components.IComponent;
 
 /**
  * 
@@ -11,30 +12,37 @@ import engine.backend.components.IComponent;
  *
  */
 
-//this will be used as an interface for any game object. 
+// this will be used as an interface for any game object.
 public interface IEntity {
 
-	public void addComponent(IComponent component);
-	
 	public IComponent getComponent(String tag);
-	
+
 	public String toString();
-	
+
 	public Set<String> getComponentTags();
-	
+
 	public Collection<IComponent> getComponents();
 	
+	public void addComponent(IComponent component);
+
 	public boolean hasComponent(String tag);
-	
+
 	public String getName();
-	
+
 	public boolean hasBeenModified();
-	
+
 	public void setHasBeenModified(boolean bool);
 
-	public double getValue();
+	public String getGenre();
 
-	public String getType();
+	public void setID(int id);
 	
 	public int getID();
+
+	
+	public EntityStatistics getStats();
+
+	public void broadcastEntity();
+	
+	public void applyAction(IAction action);
 }

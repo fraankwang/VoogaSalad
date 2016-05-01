@@ -1,48 +1,86 @@
 package engine.backend.rules;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import engine.backend.components.IComponent;
-import engine.backend.components.SizeComponent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
+
+
 
 public class Rule {
 
-	private List<Predicate> conditionals;
-	private Action action;
-	private String methodToCall;
+	private Collection<String> myEvents;
+	private Collection<IAction> myActions;
+	private int myID;
+
 	
+	/**
+	 * Creates a new rule with empty events and actions
+	 */
+	public Rule(Collection<String> events, Collection<IAction> actions) {
+		this.myEvents = events;
+		this.myActions = actions;
+	}
+	
+
+	/**
+	 * Creates a new rule with empty events and actions
+	 */
 	public Rule() {
-		conditionals = new ArrayList<Predicate>();
+		myEvents = new ArrayList<String>();
+		myActions = new ArrayList<IAction>();
 	}
 	
-	public void addPredicate(Predicate myPredicate){
-		conditionals.add(myPredicate);
+	/**
+	 * 
+	 * @param events - Collection of Strings representing eventIDs for this rule
+	 */
+	public void addEvents(Collection<String> events) {
+		for (String e : events) {
+			myEvents.add(e);
+		}
+	}
+
+	
+	/**
+	 * 
+	 * @param event - String eventID to add to this rule
+	 */
+	public void addEvents(String event) {
+		myEvents.add(event);
 	}
 	
-	public void setMyAction(Action myAction){
-		action = myAction;
+	/**
+	 * 
+	 * @param actions - Collection of IAction objects to add to this rule
+	 */
+	public void addActions(Collection<IAction> actions) {
+		actions.forEach(a -> myActions.add(a));
 	}
 	
-	public void setMyMethodToCall(String method){
-		this.methodToCall = method;
+	/**
+	 * 
+	 * @param action IAction to add to this rule
+	 */
+	public void addActions(IAction action) {
+		myActions.add(action);
 	}
 	
-	public String getMethodToCall(){
-		return methodToCall;
+	/**
+	 * 
+	 * @return Collection of Strings representing this rule's event IDs (in the format entity_event)
+	 */
+	public Collection<String> getEvents() {
+		return myEvents;
 	}
 	
-	public Action getMyAction(){
-		if(action == null) System.out.println("throw exception--> action is null");
-		return action;
-	}
-	
-	public List<Predicate> getMyConditionals(){
-		return conditionals;
-	}
-	
-	public void increaseSize(IComponent myComponent, Integer delta){
-		((SizeComponent) myComponent).increaseSize(delta);
+	/**
+	 * 
+	 * @return Collection of IAction objects for this rule
+	 */
+	public Collection<IAction> getActions() {
+		return myActions;
 	}
 
 }

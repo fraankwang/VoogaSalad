@@ -1,40 +1,24 @@
-//Kushal Byatnal
 package authoring.backend.factories;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import engine.backend.components.Component;
+import authoring.backend.game_objects.AuthoringEntity;
+import engine.backend.components.IComponent;
 import engine.backend.entities.Entity;
+import engine.backend.entities.IEntity;
 
 public class EntityFactory {
-	private ComponentFactory myComponentFactory;
-	
+
 	public EntityFactory() {
-		this.myComponentFactory = new ComponentFactory();
+
 	}
 
-	public Entity createEntity(Map<String, String> info){
-		Entity newEntity = new Entity(info.get("name"), info.get("type"), Double.parseDouble(info.get("price")));
-		newEntity.setLevelID(Integer.parseInt(info.get("levelID")));
-		List<Component> entityComponents = createComponents(info);
-		for(Component comp : entityComponents){
-			newEntity.addComponent(comp);
-		}
-		return newEntity;
+	public IEntity createEntity(AuthoringEntity authoringEntity) {
+		String name = authoringEntity.getName();
+		String genre = authoringEntity.getGenre();
+		Map<String, IComponent> components = authoringEntity.getComponents();
+
+		return new Entity(name, genre, components);
 	}
-	
-	private List<Component> createComponents(Map<String, String> info){
-		List<Component> components = new ArrayList<Component>();
-		for (String key : info.keySet()){
-			if(key.contains("Component")){
-				components.add(myComponentFactory.createComponent(key, info.get(key)));
-			}
-		}
-		return components;
-	}
-	
-	
 
 }
