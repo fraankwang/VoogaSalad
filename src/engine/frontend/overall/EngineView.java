@@ -111,10 +111,7 @@ public class EngineView extends ResourceUser{
 	private void handleMove(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
 		if (e.getGestureSource() != myScene && e.getDragboard().hasString()) {
-			
-
-			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());
-			
+			myDummyCursor.updateLocation(e.getSceneX(), e.getSceneY());	
 		}
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
@@ -135,7 +132,6 @@ public class EngineView extends ResourceUser{
 					return;
 				}
 			}
-
 			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
 			}

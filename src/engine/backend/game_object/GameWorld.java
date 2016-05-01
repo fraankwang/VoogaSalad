@@ -44,11 +44,6 @@ public class GameWorld {
 	}
 
 
-
-//	public String getGameType() {
-//		return myGameType;
-//
-//	}
 	public String getName() {
 		return myName;
 
