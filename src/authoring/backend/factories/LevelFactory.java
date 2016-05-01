@@ -19,6 +19,7 @@ import engine.backend.entities.IEntity;
 import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.Level;
 import engine.backend.map.GameMap;
+import engine.backend.rules.Rule;
 import engine.backend.utilities.ComponentTagResources;
 
 public class LevelFactory {
@@ -76,8 +77,13 @@ public class LevelFactory {
 				shopItems.add(item);
 			}
 		}
+<<<<<<< HEAD
 
 		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, entitiesMap);
+=======
+		List<Rule> ruleAgenda = authoringLevel.getRuleAgenda();
+		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, ruleAgenda, entitiesMap);
+>>>>>>> cc09944ea96264d6bc1f62149f3bc8d2d963d77f
 	}
 
 }

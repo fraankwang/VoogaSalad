@@ -104,6 +104,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		// Scene scene = myStartView.buildScene();
 		// myStage.setScene(scene);
 		// myStage.show();
+		animation.stop();
+		stepping = false;
 	}
 
 	public void initGameWorld(File file) {

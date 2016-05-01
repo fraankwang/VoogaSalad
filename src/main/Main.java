@@ -50,7 +50,7 @@ public class Main extends Application {
 	}
 
 	public void createAuthor(Stage stage) {
-		GameAuthoring authoring = new GameAuthoring(stage);
+		GameAuthoring authoring = new GameAuthoring(stage, this);
 	}
 
 	public void createPlayer(Stage stage) {

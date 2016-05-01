@@ -44,23 +44,35 @@ public class LevelsTabDisplay extends TabDisplay {
 	public void update(Observable o, Object arg) {
 		@SuppressWarnings("unchecked")
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
+		update(data);
+	}
+	
 
+	public void update(List<Map<String, String>> data) {
 		((LevelsTabGrid) myGrid).updateLevelsPrimaryDisplay(data);
 	}
+	
 
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
 
 		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
 
-		System.out.println("*****1. LevelsTabDisplay: got default Levels attributes");
-		System.out.println(map);
-
 		return map;
+	}
+
+	@Override
+	public void createNew() {
+		myEditorDisplay.edit(getDefaultAttributesMap());
+	}
+
+	public void initializeHotKeys() {
+		((TabGrid) myGrid).initializeHotKeys();
 	}
 
 	public Map<String, String> getLevels() {
@@ -70,10 +82,5 @@ public class LevelsTabDisplay extends TabDisplay {
 	public String getName() {
 		return "Levels";
 	}
-
-	public void initializeHotKeys() {
-		((TabGrid) myGrid).initializeHotKeys();
-	}
-
 
 }

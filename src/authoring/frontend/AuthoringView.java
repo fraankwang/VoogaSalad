@@ -13,11 +13,12 @@ import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring.frontend.interfaces.IViewManager;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.Main;
 
 /**
  * This class contains the link to the backend through GlobalData, the link to
  * the frontend through myAuthoringViewManager, and acts as a universal
- * referencing point to the primary stage and scene.
+ * referencing point (Singleton) to the primary stage and scene.
  * 
  * @author Frank, benchesnut
  *
@@ -30,16 +31,20 @@ public class AuthoringView implements IAuthoringView {
 	private IViewManager myAuthoringViewManager;
 	private GlobalData myGlobalData;
 
-	public AuthoringView(Stage s, GlobalData globalData) {
+	public AuthoringView(Stage s, GlobalData globalData, Main main) {
 		myPrimaryStage = s;
 		myGlobalData = globalData;
-		myAuthoringViewManager = new AuthoringViewManager(this);
+		myAuthoringViewManager = new AuthoringViewManager(this, s, main);
 	}
 
 	public void start() {
 		myAuthoringViewManager.initialize(myPrimaryStage);
 	}
 
+	public void updateAll(List<Map<String, String>> modes, List<Map<String, String>> levels, List<Map<String, String>> entities) {
+		myAuthoringViewManager.getTabBarElement().updateAll(modes, levels, entities);
+	}
+	
 	@Override
 	public void writeData(Map<String, String> data) {
 		myGlobalData.updateData(data);

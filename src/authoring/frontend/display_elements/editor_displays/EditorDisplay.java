@@ -32,12 +32,6 @@ public abstract class EditorDisplay implements IEditorDisplay {
 	}
 
 	@Override
-	public Node getNode() {
-		return myGrid.getNode();
-
-	}
-
-	@Override
 	public void edit(Map<String, String> info) {
 		myGrid.setAttributesPanel(info);
 		openEditorStage();
@@ -57,6 +51,12 @@ public abstract class EditorDisplay implements IEditorDisplay {
 		myGrid.initializeHotKeys();
 	}
 
-	
+
+	@Override
+	public Node getNode() {
+		return myGrid.getNode();
+
+	}
+
 
 }

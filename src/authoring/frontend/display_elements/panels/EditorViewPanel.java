@@ -72,4 +72,5 @@ public class EditorViewPanel extends Panel {
 	public void setDescription(String description) {
 		myPanelBar.setDescription(description);
 	}
+
 }

@@ -5,7 +5,6 @@ import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.grids.EditorGrid;
 import authoring.frontend.display_elements.panels.EditorViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
-import authoring.frontend.display_elements.panels.RulesEditorPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.ModifiableAttributesPanel;
 import authoring.frontend.display_elements.panels.attributes_panels.modifiable_panels.ModifiableEntityAttributesPanel;
 import javafx.scene.image.Image;
@@ -27,16 +26,25 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 		myEditorGrid = grid;
 	}
 
+	/**
+	 * The default Image displayed in the EditorViewPanel is a question mark.
+	 * The button within the EditorViewPanel allows for editing the Image in the
+	 * PrimaryDisplay and in the ModifiableAttributesPanel.
+	 */
 	@Override
 	public Panel createPrimaryDisplay() {
 		EditorViewPanel editorView = new EditorViewPanel(800 * 0.7, 1200 * 0.7);
 		editorView.initialize();
+<<<<<<< HEAD
 		editorView.setImage(new Image("resources/images/question_mark.png")); // set
 																				// default
+=======
+		editorView.setImage(new Image("resources/images/question_mark.png"));
+>>>>>>> cc09944ea96264d6bc1f62149f3bc8d2d963d77f
 		editorView.setDescription("Entity");
 
 		editorView.getPanelBar().addButton("Upload Image", e -> {
-			String newImage = myController.getAuthoringViewManager().getImageChooser().openChooser();
+			String newImage = myController.getAuthoringViewManager().getObjectChooser().openChooser();
 			editorView.setImage(new Image(newImage));
 			((ModifiableEntityAttributesPanel) myEditorGrid.getAttributesPanel()).updateImageComponent(newImage);
 		});
@@ -44,6 +52,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public RulesEditorPanel createRulesPanel(ModifiableAttributesPanel attributes) {
 		// RulesEditorPanel editorPanel = new RulesEditorPanel(MAX_SIZE,
 		// MAX_SIZE, myController, attributes);
@@ -53,6 +62,8 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 	}
 
 	@Override
+=======
+>>>>>>> cc09944ea96264d6bc1f62149f3bc8d2d963d77f
 	public ModifiableAttributesPanel createModifiableAttributesPanel() {
 		ModifiableAttributesPanel attributes = new ModifiableEntityAttributesPanel(MAX_SIZE, MAX_SIZE, myController);
 		attributes.initialize();

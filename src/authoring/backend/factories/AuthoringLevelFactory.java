@@ -13,6 +13,7 @@ import authoring.parser.GlobalParser;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
 import engine.backend.components.PositionComponent;
+import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
@@ -105,7 +106,7 @@ public class AuthoringLevelFactory {
 		String[] eventData = eventInfo.split("\\+");
 		List<String> events = new ArrayList<String>();
 		for (String event : eventData) {
-			String[] eventElements = event.split("_");
+			String[] eventElements = event.split("-");
 			StringBuilder sb = new StringBuilder();
 			if (eventElements.length > 2) {
 				String[] eventEntities = new String[2];
@@ -132,7 +133,7 @@ public class AuthoringLevelFactory {
 		List<List<String>> actions = new ArrayList<List<String>>();
 		for (String action : actionData) {
 			List<String> elements = new ArrayList<String>();
-			String[] actionElements = action.split("_");
+			String[] actionElements = action.split("-");
 			for (String str : actionElements) {
 				elements.add(str);
 			}
@@ -172,6 +173,7 @@ public class AuthoringLevelFactory {
 			spawnEntity.addComponent(spawner);
 			spawnEntity.addComponent(new DisplayComponent());
 			spawnEntity.addComponent(new PositionComponent());
+			spawnEntity.addComponent(new SizeComponent());
 			spawnEntities.add(spawnEntity);
 		}
 		return spawnEntities;

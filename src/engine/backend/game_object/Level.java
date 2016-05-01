@@ -53,6 +53,7 @@ public class Level {
 		this.numWaves = numWaves;
 		this.myShopItems = shopItems;
 		this.authoredEntities = authoredEntities;
+		this.ruleAgenda = ruleAgenda;
 		this.entities = entities;
 		this.currentWaveIndex = 0;
 		this.setShouldRevert(false);

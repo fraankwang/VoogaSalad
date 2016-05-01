@@ -7,8 +7,8 @@ import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 
 /**
  * The TabGridFactory superclass is responsible for creating the additional
- * unmodifiable attributes Panel UI element.
- * 
+ * unmodifiable attributes Panel UI element. TabGridFactories also have access
+ * to their TabDisplay so that they may access their EditorDisplays.
  * 
  * @author Frank
  *

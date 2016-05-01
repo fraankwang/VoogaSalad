@@ -17,14 +17,25 @@ import authoring.frontend.display_elements.panels.button_dashboards.ButtonDashbo
 public abstract class GridFactory {
 
 	protected IAuthoringView myController;
-	protected final int MAX_SIZE = Integer.MAX_VALUE;
+	protected static final int MAX_SIZE = Integer.MAX_VALUE;
 
 	public GridFactory(IAuthoringView controller) {
 		myController = controller;
 	}
 
+	/**
+	 * Responsible for returning the primary display on the Grid.
+	 * 
+	 * @return
+	 */
 	public abstract Panel createPrimaryDisplay();
 
+	/**
+	 * Responsible for returning the ButtonDashboard on the Grid. This
+	 * ButtonDashboard could be Editor or Main.
+	 * 
+	 * @return
+	 */
 	public abstract ButtonDashboard createButtonDashboard();
 
 }

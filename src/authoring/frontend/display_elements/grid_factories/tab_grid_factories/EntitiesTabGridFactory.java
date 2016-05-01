@@ -11,6 +11,12 @@ import authoring.frontend.display_elements.panels.button_dashboards.MainButtonDa
 import authoring.frontend.display_elements.tab_displays.TabDisplay;
 import authoring.frontend.interfaces.display_element_interfaces.ITabDisplay;
 
+/**
+ * 
+ * @author Frank
+ *
+ */
+
 public class EntitiesTabGridFactory extends TabGridFactory {
 
 	public EntitiesTabGridFactory(IAuthoringView controller, ITabDisplay tabDisplay) {

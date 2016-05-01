@@ -17,6 +17,7 @@ public class RuleFactory {
 		for (List<String> action : actionInfo) {
 			rule.addActions(myActionsFactory.createAction(action));
 		}
+		System.out.println(rule.toString());
 		return rule;
 	}
 
