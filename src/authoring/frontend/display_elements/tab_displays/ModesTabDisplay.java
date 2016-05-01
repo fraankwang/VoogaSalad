@@ -41,11 +41,10 @@ public class ModesTabDisplay extends TabDisplay {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
-		@SuppressWarnings("unchecked")
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
-
 		((ModesTabGrid) myGrid).updateModesPrimaryDisplay(data);
 	}
 	

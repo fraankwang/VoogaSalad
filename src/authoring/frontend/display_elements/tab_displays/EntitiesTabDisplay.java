@@ -188,14 +188,12 @@ public class EntitiesTabDisplay extends TabDisplay {
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-
 		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+		
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-
-		System.out.println("*****1. EntitiesTabDisplay: got default entities attributes");
-		System.out.println(map);
+		
 		return map;
 	}
 

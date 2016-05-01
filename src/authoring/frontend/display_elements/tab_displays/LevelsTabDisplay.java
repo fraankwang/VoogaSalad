@@ -53,12 +53,10 @@ public class LevelsTabDisplay extends TabDisplay {
 		Map<String, String> map = new TreeMap<String, String>();
 
 		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-
-		System.out.println("*****1. LevelsTabDisplay: got default Levels attributes");
-		System.out.println(map);
 
 		return map;
 	}
@@ -74,7 +72,5 @@ public class LevelsTabDisplay extends TabDisplay {
 	public String getName() {
 		return "Levels";
 	}
-
-
 
 }

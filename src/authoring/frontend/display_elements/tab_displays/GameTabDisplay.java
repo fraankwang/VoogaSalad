@@ -39,18 +39,15 @@ public class GameTabDisplay extends TabDisplay {
 	@Override
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
-
 		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
+
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-		
-		System.out.println("*****1. GameTabDisplay: got default Game attributes");
-		System.out.println(map);
+
 		return map;
 	}
 
-	
 	public void initializeHotKeys() {
 		((TabGrid) myGrid).initializeHotKeys();
 	}
