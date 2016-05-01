@@ -5,7 +5,6 @@ package engine.frontend.overall;
 
 import engine.controller.EngineController;
 import engine.frontend.board.BoardPane;
-import engine.frontend.board.EntityView;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
@@ -14,10 +13,8 @@ import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
@@ -114,7 +111,6 @@ public class EngineView extends ResourceUser {
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
 		}
-		// e.consume();
 	}
 
 	/**
@@ -124,13 +120,14 @@ public class EngineView extends ResourceUser {
 	 */
 	private void handleEndMouseRelease(DragEvent e) {
 		if (e.getGestureSource() != myScene) {
-			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
-				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+				if(!e.getDragboard().getString().contains("SpeedPowerUp") && !e.getDragboard().getString().contains("RangePowerUp")){
+					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&")[0], Double.parseDouble(e.getDragboard().getString().split("&")[1]));
+				}			
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-		// e.consume();
 	}
 
 	private boolean isInBoardPane(double x, double y) {

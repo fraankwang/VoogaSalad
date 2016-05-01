@@ -21,7 +21,7 @@ public class CollisionEvent extends EntityEvent {
 	@Override
 	public void setEventID(List<String> identifiers) {
 		Collections.sort(identifiers);
-		eventID = (identifiers.get(0) + identifiers.get(1) + this.getClass().getSimpleName());
+		eventID = (identifiers.get(0) + "-" + identifiers.get(1) + "-" + this.getClass().getSimpleName());
 	}
 
 	@Override

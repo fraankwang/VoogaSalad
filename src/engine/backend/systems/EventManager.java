@@ -237,11 +237,17 @@ public class EventManager implements Observer {
 		boolean noLives = currentGameStatistics.noMoreLives();
 		if (noLives) {
 			myEngineController.levelIsLost();
+			currentGameStatistics.updateHighestLevelUnlocked(currentGameStatistics.getCurrentLevelIndex());
 			resetLevel();
 		} else {
 			if (getCurrentLevel().lastWaveOver() && !isEnemyOnScreen()) {
 				currentGameStatistics.addEndOfLevelLives(currentGameStatistics.getCurrentNumLives());
 				currentGameStatistics.addEndOfLevelResources(currentGameStatistics.getCurrentResources());
+				int numLevelsTotal = myGameWorld.getModes().get(currentGameStatistics.getCurrentMode()).getLevels().size();
+				int nextLevelIndex = currentGameStatistics.getCurrentLevelIndex() + 1;
+				if (numLevelsTotal > nextLevelIndex) {
+					currentGameStatistics.updateHighestLevelUnlocked(currentGameStatistics.getCurrentLevelIndex() + 1);					
+				}
 				myEngineController.levelIsWon();
 				resetLevel();
 			} else {
@@ -282,6 +288,7 @@ public class EventManager implements Observer {
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
 		System.out.println("reseting level here");
+		currentGameStatistics.resetResourcesAndLives();
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
 
@@ -307,11 +314,14 @@ public class EventManager implements Observer {
 	}
 	
 	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
-		if (event.getPowerUp() != null && isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
-			Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
-			Collection<IAction> actions = event.getPowerUp().getActions();
-			applyActions(affectedEntities, actions);
-			subtractFromResources(event.getPowerUp().getPrice()); 
+		if (currentGameStatistics.getCurrentResources() >= event.getPowerUp().getPrice()) {
+			if (event.getPowerUp() != null && isPowerUpApplicable(event.getAffectedEntityID(),
+					((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
+				Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
+				Collection<IAction> actions = event.getPowerUp().getActions();
+				applyActions(affectedEntities, actions);
+				subtractFromResources(event.getPowerUp().getPrice());
+			} 
 		} 
 	}
 	
@@ -375,6 +385,7 @@ public class EventManager implements Observer {
 			}
 			else if(event instanceof PowerUpDroppedEvent){
 				handlePowerUpDroppedEvent((PowerUpDroppedEvent) event);
+				System.out.println("POWER UP NON MAP :" + event);
 			}
 		}
 	}
@@ -391,7 +402,6 @@ public class EventManager implements Observer {
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
 			for (String event : ruleEvents) {
-				System.out.println(event);
 				if (!generatedEventMap.containsKey(event)) {
 					myPossibleEntities.clear();
 					break;
@@ -454,6 +464,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void subtractFromResources(double value){
+		System.out.println("SUBTRACTING WITH " + value);
 		currentGameStatistics.setCurrentResources(currentGameStatistics.getCurrentResources() - value); 
 	}
 
