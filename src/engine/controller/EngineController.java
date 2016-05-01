@@ -332,7 +332,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 	
 	/**
-	 * 
+	 * Returns a list of the current levels that are unlocked for a given mode
 	 * @param mode
 	 * @return
 	 */
@@ -347,7 +347,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	/**
-	 * 
+	 * Switches the mode
 	 */
 	public void switchModeClicked() {
 		initStartView(false);
