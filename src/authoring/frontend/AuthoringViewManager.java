@@ -43,10 +43,12 @@ public class AuthoringViewManager implements IViewManager {
 		myTabBar = new TabBarElement(myController);
 		myTabBar.initialize();
 
+
 		myObjectChooser = new ObjectChooser();
 		myObjectChooser.initialize();
 
-		myMenuBar = new MenuBarElement(myObjectChooser);
+		myMenuBar = new MenuBarElement(myObjectChooser, myController);
+
 		myMenuBar.initialize();
 		myMenuBar.link(myTabBar);
 
