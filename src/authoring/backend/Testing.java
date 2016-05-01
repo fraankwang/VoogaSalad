@@ -103,7 +103,7 @@ public class Testing {
 		Testing test = new Testing();
 		GameWorld game = test.test1();
 		String xml = writer.getXMLfromObject(game);
-		writer.stringToDocument(xml, "gameauthoringtest2.xml");
+		writer.stringToDocument(xml, "gameauthoringtest3.xml");
 		System.out.println("done");
 	}
 
