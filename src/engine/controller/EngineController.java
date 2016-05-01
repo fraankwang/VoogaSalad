@@ -1,7 +1,6 @@
 package engine.controller;
 
 import java.io.File;
-
 /**
  * @author austinwu
  */
@@ -14,7 +13,6 @@ import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_features.HUDValueFinder;
 import engine.backend.game_features.ShopItem;
-import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.systems.EventManager;
 import engine.backend.systems.SystemsController;
@@ -28,7 +26,6 @@ import engine.backend.systems.Events.PowerUpDroppedEvent;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
-import engine.frontend.overall.StartView;
 import engine.frontend.status.DrumpfHUDScreen;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
@@ -37,7 +34,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -66,6 +62,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
 
+	private testingClass myTestingClass;
+	
 	public EngineController(Stage s, Main m) {
 		super(RESOURCE_NAME);
 		myStage = s;
@@ -95,7 +93,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	public void initStartView(boolean firsttime) {
-		testingClass myTestingClass = new testingClass();
+		myTestingClass = new testingClass();
 		myGameWorld = myTestingClass.testFiring();
 		// myGameStatistics = myGameWorld.getGameStatistics();
 
@@ -213,6 +211,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
 		mySystems.sendUserInputEvent(event);
+		System.out.println(event);
 		if (!stepping) {
 			manualRefresh();
 		}

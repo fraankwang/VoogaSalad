@@ -89,7 +89,7 @@ public class EngineView extends ResourceUser{
 
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
-//		myScene.setOnDragOver(e -> handleMove(e));
+		myScene.setOnDragOver(e -> handleMove(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
 		myScene.setOnKeyPressed(e -> handleKeyPress(e));
 		return myScene;
@@ -113,7 +113,6 @@ public class EngineView extends ResourceUser{
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
 		}
-//		e.consume();
 	}
 	
 	/**
@@ -123,12 +122,15 @@ public class EngineView extends ResourceUser{
 	private void handleEndMouseRelease(DragEvent e) {
 		if (e.getGestureSource() != myScene) {
 			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
-				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+				if(!e.getDragboard().getString().equals("SpeedPowerUp") && !e.getDragboard().getString().equals("RangePowerUp")){
+					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+					System.out.println(e.getDragboard().getString());
+					System.out.println("dropping tower");
+				}			
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-//		e.consume();
 	}
 
 	private boolean isInBoardPane(double x, double y) {

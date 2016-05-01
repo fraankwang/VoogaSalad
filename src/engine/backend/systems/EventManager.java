@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
-
 import backend.xml_converting.GameWorldToXMLWriter;
 import backend.xml_converting.ObjectToXMLWriter;
 import engine.backend.components.FiringComponent;
@@ -309,7 +308,7 @@ public class EventManager implements Observer {
 	}
 	
 	private void handlePowerUpDroppedEvent(PowerUpDroppedEvent event){
-		if (isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
+		if (event.getPowerUp() != null && isPowerUpApplicable(event.getAffectedEntityID(), ((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
 			Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
 			Collection<IAction> actions = event.getPowerUp().getActions();
 			applyActions(affectedEntities, actions);
@@ -377,6 +376,7 @@ public class EventManager implements Observer {
 			}
 			else if(event instanceof PowerUpDroppedEvent){
 				handlePowerUpDroppedEvent((PowerUpDroppedEvent) event);
+				System.out.println(event);
 			}
 		}
 	}
