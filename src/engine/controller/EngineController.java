@@ -211,6 +211,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type);
 		mySystems.sendUserInputEvent(event);
+		System.out.println(event);
 		if (!stepping) {
 			manualRefresh();
 		}

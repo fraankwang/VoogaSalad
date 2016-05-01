@@ -122,7 +122,11 @@ public class EngineView extends ResourceUser{
 	private void handleEndMouseRelease(DragEvent e) {
 		if (e.getGestureSource() != myScene) {
 			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
-				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+				if(!e.getDragboard().getString().equals("SpeedPowerUp") && !e.getDragboard().getString().equals("RangePowerUp")){
+					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
+					System.out.println(e.getDragboard().getString());
+					System.out.println("dropping tower");
+				}			
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
