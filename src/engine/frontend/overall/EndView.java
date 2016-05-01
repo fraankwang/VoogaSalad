@@ -1,16 +1,11 @@
 package engine.frontend.overall;
 
-import java.io.File;
 
 import javafx.beans.binding.DoubleExpression;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -21,19 +16,17 @@ public class EndView {
 
 	private Scene myScene;
 	private EngineController myController;
-	private String selectedMode;
-	private Integer selectedLevel;
 
-	private VBox myVBox;
-	private Button loadButton;
-	private ComboBox<String> modeComboBox;
-	private ComboBox<Integer> levelComboBox;
 	private Button restartButton;
 
 	public EndView(EngineController ec) {
 		myController = ec;
 	}
 
+	/**
+	 * Instantiates scene for ending screen
+	 * @return
+	 */
 	public Scene buildScene() {
 		VBox myVBox = new VBox();
 		myScene = new Scene(myVBox, Color.WHEAT);
@@ -58,12 +51,12 @@ public class EndView {
 		return restartButton;
 	}
 
-	public void bindWidth(Region region, DoubleExpression db) {
+	private void bindWidth(Region region, DoubleExpression db) {
 		region.minWidthProperty().bind(db);
 		region.maxWidthProperty().bind(db);
 	}
 
-	public void bindHeight(Region region, DoubleExpression db) {
+	private void bindHeight(Region region, DoubleExpression db) {
 		region.minHeightProperty().bind(db);
 		region.maxHeightProperty().bind(db);
 	}

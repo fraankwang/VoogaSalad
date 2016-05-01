@@ -1,9 +1,10 @@
 package engine.controller;
 
-import java.io.File;
 /**
  * @author austinwu
  */
+import java.io.File;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,14 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	private testingClass myTestingClass;
 
+	/**
+	 * Instantiates engine controller
+	 * 
+	 * @param s
+	 *            - initial stage
+	 * @param m
+	 *            - initial main
+	 */
 	public EngineController(Stage s, Main m) {
 		super(RESOURCE_NAME);
 		myStage = s;
@@ -88,6 +97,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 		initStartView(true);
 	}
 
+	/**
+	 * Initializes the stage size
+	 */
 	private void initStage() {
 		myStage.setMinWidth(loadIntResource("StageMinWidth"));
 		myStage.setMinHeight(loadIntResource("StageMinHeight"));
@@ -95,6 +107,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.setY(loadIntResource("StartY"));
 	}
 
+	/**
+	 * Initializes the Start Splash screen
+	 * 
+	 * @param firsttime
+	 *            - boolean if this is the first time the splash screen has been
+	 *            shown
+	 */
 	public void initStartView(boolean firsttime) {
 		myEventManager = new EventManager(this, myGameWorld);
 		StartView myStartView = new StartView(this, firsttime);
@@ -103,6 +122,12 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myStage.show();
 	}
 
+	/**
+	 * Initialize a game world from XML
+	 * 
+	 * @param file
+	 *            - XML file holding java world
+	 */
 	public void initGameWorld(File file) {
 		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
 		try {
@@ -144,6 +169,11 @@ public class EngineController extends ResourceUser implements IEngineController 
 		toggleStepping(false);
 	}
 
+	/**
+	 * Initializes the HUD
+	 * 
+	 * @return
+	 */
 	public Region setupHUD() {
 		HUDController myHUD = new HUDController();
 		myHUD.init(myEventManager.getCurrentGameStatistics(), new HUDValueFinder());
@@ -151,6 +181,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 		return ((DrumpfHUDScreen) myHUDScreen).getBody();
 	}
 
+	/**
+	 * Initializes the game capture
+	 */
 	private void setupGameCapture() {
 		myGameCapture = new GameCapture(loadIntResource("StartX"), loadIntResource("StartY"),
 				loadIntResource("StageMinWidth"), loadIntResource("StageMinHeight"));
@@ -184,26 +217,65 @@ public class EngineController extends ResourceUser implements IEngineController 
 		});
 	}
 
+	/**
+	 * Makes engine systems iterate through actions dictating the game
+	 */
 	public void step() {
 		if (stepping) {
 			mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), true);
 		}
 	}
 
+	/**
+	 * Updates displayed entities in boardPane when called by engine
+	 * 
+	 * @param xCoord
+	 *            - x position image should be moved to
+	 * @param yCoord
+	 *            - y position image should be moved to
+	 * @param image
+	 *            - Image string location
+	 * @param id
+	 *            - unique ID of image to be displayed
+	 * @param width
+	 *            - width of image to be displayed
+	 * @param height
+	 *            - height of image to be displayed
+	 */
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
 			boolean show) {
 		myEngineView.getBoardPane().updateEntity(xCoord, yCoord, image, id, width, height, show);
 	}
 
+	/**
+	 * Updates displayed shopObjects in ShopPane when called by engine
+	 */
 	public void updateShop(List<ShopItem> shoplist) {
 		myEngineView.getShopPane().updateShop(shoplist);
 	}
 
+	/**
+	 * Updates displayed upgradeObjects in ShopPane when called by engine
+	 * 
+	 * @param upgradelist
+	 *            - list of upgrades to be updated
+	 */
 	public void updateUpgrades(List<ShopItem> upgradelist) {
 		myEngineView.getShopPane().updateUpgrades(upgradelist);
 	}
 
+	/**
+	 * Wrapper method to connect engine with boardPane's attemptTower event
+	 * 
+	 * @param xLoc
+	 *            - int - x location of tower to be added
+	 * @param yLoc
+	 *            - int - y location of tower to be added
+	 * @param type
+	 *            - String - type of tower to be added
+	 */
 	public void attemptTower(double xLoc, double yLoc, String type, double cost) {
+
 		EntityDroppedEvent event = new EntityDroppedEvent(xLoc / myEngineView.getScalingFactor().doubleValue(),
 				yLoc / myEngineView.getScalingFactor().doubleValue(), type, cost);
 		mySystems.sendUserInputEvent(event);
@@ -212,12 +284,26 @@ public class EngineController extends ResourceUser implements IEngineController 
 		}
 	}
 
+	/**
+	 * Wrapper method to connect engine with Entity's attempt to upgrade
+	 * 
+	 * @param id
+	 *            - unique ID of entity to be upgrade
+	 * @param type
+	 *            - type of upgrade to attempt
+	 */
 	public void attemptUpgrade(int id, String type) {
 		PowerUpDroppedEvent event = new PowerUpDroppedEvent(type, id);
 		mySystems.sendUserInputEvent(event);
 		System.out.println("My ID: " + id + "Upgrade type: " + type);
 	}
 
+	/**
+	 * Passes pressed keys to engine
+	 * 
+	 * @param s
+	 *            - String enum representing keyPressed event
+	 */
 	public void keyPressed(String s) {
 		if (lastEntityClickedID != null) {
 			IEvent keyPressedEvent = new KeyPressedEntityEvent(lastEntityClickedID, s);
@@ -225,6 +311,12 @@ public class EngineController extends ResourceUser implements IEngineController 
 		}
 	}
 
+	/**
+	 * Tells backend that an entity has been clicked
+	 * 
+	 * @param myID
+	 *            - unique ID of entity clicked
+	 */
 	// methods we call to the backend:
 	public void entityClicked(int myID) {
 		lastEntityClickedID = myID;
@@ -233,18 +325,31 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	}
 
+	/**
+	 * Tells engine that the next wave button was clicked
+	 */
 	public void nextWaveClicked() {
 		System.out.println("CALLING NEXT WAVE EVENT");
 		NextWaveEvent nextWaveEvent = new NextWaveEvent();
 		myEventManager.handleNextWaveEvent(nextWaveEvent);
 	}
 
+	/**
+	 * Tells engine that the next level button was clicked
+	 */
 	public void nextLevelClicked() {
 		myEventManager.handleGoToNextLevelEvent();
 		initEngineView(false);
 	}
 
+	/**
+	 * Returns a list of the current levels that are unlocked for a given mode
+	 * 
+	 * @param mode
+	 * @return
+	 */
 	public List<Integer> currentLevelsUnlocked(String mode) {
+
 		List<Integer> list = new ArrayList<Integer>();
 		for (Integer i : myGameWorld.getModes().get(mode).getLevels().keySet()) {
 			if (i <= myEventManager.getCurrentGameStatistics().getHighestLevelUnlocked()) {
@@ -254,65 +359,129 @@ public class EngineController extends ResourceUser implements IEngineController 
 		return list;
 	}
 
+	/**
+	 * Switches the mode
+	 */
 	public void switchModeClicked() {
 		toggleStepping(false);
 		initStartView(false);
 	}
 
+	/**
+	 * Engine notifying view that a wave is over and next wave button can be
+	 * enabled
+	 */
 	// methods the backend will call:
 	public void waveIsOver(double delaytime) {
 		myEngineView.getStatusPane().getControlManager().nextWaveEnable(delaytime);
 	}
 
+	/**
+	 * Engine notifying view that a level has been won
+	 */
 	public void levelIsWon() {
 		toggleStepping(false);
-
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 	}
 
+	/**
+	 * Engine notifying view that a level has been lost
+	 */
 	public void levelIsLost() {
 		toggleStepping(false);
 		EndView myEndView = new EndView(this);
 		this.getStage().setScene(myEndView.buildScene());
 	}
 
+	/**
+	 * Manually refreshes the system for debugging
+	 */
 	public void manualRefresh() {
 		mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), false);
 	}
 
+	/**
+	 * Gets the main class used to instantiate the project
+	 * 
+	 * @return
+	 */
 	public Main getMain() {
 		return myMain;
 	}
 
-	public void toggleStepping() {
-		toggleStepping(!stepping);
+	/**
+	 * Sets boolean value for whether the game is being played
+	 * 
+	 * @param b
+	 */
+	public void setPlaying(boolean b) {
+		stepping = b;
 	}
 
+	/**
+	 * Stops systems from stepping and toggles play/pause button
+	 * 
+	 * @param shouldStep
+	 */
 	public void toggleStepping(boolean shouldStep) {
 		stepping = shouldStep;
 		myEngineView.getStatusPane().getControlManager().togglePlayButton(shouldStep);
 	}
+	
+	public void toggleStepping(){
+		toggleStepping(!stepping);
+	}
 
+	/**
+	 * grabs the backgroundImage to be used as a map in BoardPane
+	 * 
+	 * @return
+	 */
 	public String getBackgroundImageFile() {
 		return myEventManager.getCurrentLevel().getMap().getMapImage();
 	}
 
+	/**
+	 * gets GameWorld created by parsing initial XML file
+	 * 
+	 * @return
+	 */
 	public GameWorld getGameWorld() {
 		return myGameWorld;
 	}
 
+	/**
+	 * Returns internal EventManager component
+	 * 
+	 * @return
+	 */
 	public EventManager getEventManager() {
 		return myEventManager;
 	}
 
+	/**
+	 * Returns internal GameCapture component
+	 * 
+	 * @return
+	 */
 	public GameCapture getGameCapture() {
 		return myGameCapture;
 	}
 
+	/**
+	 * Returns internal EngineView component
+	 * 
+	 * @return
+	 */
 	public EngineView getEngineView() {
 		return myEngineView;
 	}
 
+	/**
+	 * Returns Stage created
+	 * 
+	 * @return
+	 */
 	public Stage getStage() {
 		return myStage;
 	}

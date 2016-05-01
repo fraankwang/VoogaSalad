@@ -247,6 +247,8 @@ public class EventManager implements Observer {
 				int nextLevelIndex = currentGameStatistics.getCurrentLevelIndex() + 1;
 				if (numLevelsTotal > nextLevelIndex) {
 					currentGameStatistics.updateHighestLevelUnlocked(currentGameStatistics.getCurrentLevelIndex() + 1);					
+				} else {
+					myEngineController.levelIsLost();
 				}
 				myEngineController.levelIsWon();
 				resetLevel();

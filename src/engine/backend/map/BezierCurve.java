@@ -58,7 +58,7 @@ public class BezierCurve implements IBezierCurve {
 	}
 
 	private Vector calculateNewBezierTangent(double t, Vector p0, Vector p1, Vector p2, Vector p3) {
-
+		//formula found on StackOverflow
 		Vector tangent = new Vector();
 
 		double u = 1 - t;
