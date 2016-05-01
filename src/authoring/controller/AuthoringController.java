@@ -12,16 +12,16 @@ import authoring.backend.data.GlobalData;
  */
 
 public class AuthoringController implements IAuthoringController {
-	
+
 	private final GlobalData globaldata;
 	private final ModelManager model;
-	
+
 	public AuthoringController(GlobalData globaldata) {
 		this.globaldata = globaldata;
 		this.model = new ModelManager(globaldata);
 		setListener();
 	}
-	
+
 	private void setListener() {
 		this.globaldata.getData().addObserver(this);
 	}
@@ -60,12 +60,16 @@ public class AuthoringController implements IAuthoringController {
 			model.updateGame(data);
 			return;
 		}
-		if (type.equals("Create")) {
-			model.exportGame();
+		if (type.equals("Export")) {
+			model.exportGame(data.get("URL"));
+			return;
+		}
+		if (type.equals("Import")) {
+			model.reloadGame(data.get("URL"));
 			return;
 		}
 	}
-	
+
 	private Map<String, String> processData(Map<String, String> data) {
 		for (String key : data.keySet()) {
 			if (data.get(key) == null || data.get(key).equals("")) {
@@ -74,6 +78,5 @@ public class AuthoringController implements IAuthoringController {
 		}
 		return data;
 	}
-	
-}
 
+}

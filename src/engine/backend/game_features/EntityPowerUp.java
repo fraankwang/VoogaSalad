@@ -31,5 +31,4 @@ public class EntityPowerUp {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
 }
