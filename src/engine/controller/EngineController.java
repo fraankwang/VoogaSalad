@@ -1,9 +1,10 @@
 package engine.controller;
 
-import java.io.File;
 /**
  * @author austinwu
  */
+import java.io.File;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,10 +66,14 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private GameCapture myGameCapture;
 
 	private testingClass myTestingClass;
+
 	/**
 	 * Instantiates engine controller
-	 * @param s - initial stage
-	 * @param m - initial main
+	 * 
+	 * @param s
+	 *            - initial stage
+	 * @param m
+	 *            - initial main
 	 */
 	public EngineController(Stage s, Main m) {
 		super(RESOURCE_NAME);
@@ -103,25 +108,23 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Initializes the Start Splash screen
-	 * @param firsttime - boolean if this is the first time the splash screen has been shown
+	 * 
+	 * @param firsttime
+	 *            - boolean if this is the first time the splash screen has been
+	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-//		myTestingClass = new testingClass();
-//		myGameWorld = myTestingClass.testFiring();
-//		// myGameStatistics = myGameWorld.getGameStatistics();
-//
-//		myEventManager = new EventManager(this, myGameWorld);
-//		startGame("test firing", 0);
-
-		 StartView myStartView = new StartView(this, firsttime);
-		 Scene scene = myStartView.buildScene();
-		 myStage.setScene(scene);
-		 myStage.show();
+		StartView myStartView = new StartView(this, firsttime);
+		Scene scene = myStartView.buildScene();
+		myStage.setScene(scene);
+		myStage.show();
 	}
 
 	/**
 	 * Initialize a game world from XML
-	 * @param file - XML file holding java world
+	 * 
+	 * @param file
+	 *            - XML file holding java world
 	 */
 	public void initGameWorld(File file) {
 		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
@@ -157,7 +160,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 * Creates the engineView, starts the game by playing the animation
 	 */
 	private void initEngineView(boolean firsttime) {
-		if(firsttime){
+		if (firsttime) {
 			myEngineView = new EngineView(myStage, this);
 		}
 		myStage.setScene(myEngineView.buildScene());
@@ -166,9 +169,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 		toggleStepping(true);
 	}
 
-	
 	/**
 	 * Initializes the HUD
+	 * 
 	 * @return
 	 */
 	public Region setupHUD() {
@@ -179,7 +182,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	}
 
 	/**
-	 * Initializes the game capture 
+	 * Initializes the game capture
 	 */
 	private void setupGameCapture() {
 		myGameCapture = new GameCapture(loadIntResource("StartX"), loadIntResource("StartY"),
@@ -225,12 +228,19 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Updates displayed entities in boardPane when called by engine
-	 * @param xCoord - x position image should be moved to
-	 * @param yCoord - y position image should be moved to
-	 * @param image - Image string location 
-	 * @param id - unique ID of image to be displayed
-	 * @param width - width of image to be displayed 
-	 * @param height - height of image to be displayed
+	 * 
+	 * @param xCoord
+	 *            - x position image should be moved to
+	 * @param yCoord
+	 *            - y position image should be moved to
+	 * @param image
+	 *            - Image string location
+	 * @param id
+	 *            - unique ID of image to be displayed
+	 * @param width
+	 *            - width of image to be displayed
+	 * @param height
+	 *            - height of image to be displayed
 	 */
 	public void updateEntity(double xCoord, double yCoord, String image, int id, double width, double height,
 			boolean show) {
@@ -246,7 +256,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Updates displayed upgradeObjects in ShopPane when called by engine
-	 * @param upgradelist - list of upgrades to be updated
+	 * 
+	 * @param upgradelist
+	 *            - list of upgrades to be updated
 	 */
 	public void updateUpgrades(List<ShopItem> upgradelist) {
 		myEngineView.getShopPane().updateUpgrades(upgradelist);
@@ -254,9 +266,13 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Wrapper method to connect engine with boardPane's attemptTower event
-	 * @param xLoc - int - x location of tower to be added
-	 * @param yLoc - int - y location of tower to be added
-	 * @param type - String - type of tower to be added
+	 * 
+	 * @param xLoc
+	 *            - int - x location of tower to be added
+	 * @param yLoc
+	 *            - int - y location of tower to be added
+	 * @param type
+	 *            - String - type of tower to be added
 	 */
 	public void attemptTower(double xLoc, double yLoc, String type, double cost) {
 
@@ -270,8 +286,11 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Wrapper method to connect engine with Entity's attempt to upgrade
-	 * @param id - unique ID of entity to be upgrade
-	 * @param type - type of upgrade to attempt
+	 * 
+	 * @param id
+	 *            - unique ID of entity to be upgrade
+	 * @param type
+	 *            - type of upgrade to attempt
 	 */
 	public void attemptUpgrade(int id, String type) {
 		PowerUpDroppedEvent event = new PowerUpDroppedEvent(type, id);
@@ -279,10 +298,11 @@ public class EngineController extends ResourceUser implements IEngineController 
 		System.out.println("My ID: " + id + "Upgrade type: " + type);
 	}
 
-	
 	/**
 	 * Passes pressed keys to engine
-	 * @param s - String enum representing keyPressed event
+	 * 
+	 * @param s
+	 *            - String enum representing keyPressed event
 	 */
 	public void keyPressed(String s) {
 		if (lastEntityClickedID != null) {
@@ -292,10 +312,11 @@ public class EngineController extends ResourceUser implements IEngineController 
 		}
 	}
 
-
 	/**
 	 * Tells backend that an entity has been clicked
-	 * @param myID - unique ID of entity clicked
+	 * 
+	 * @param myID
+	 *            - unique ID of entity clicked
 	 */
 	// methods we call to the backend:
 	public void entityClicked(int myID) {
@@ -322,9 +343,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 		initEngineView(false);
 	}
 
-	
 	/**
 	 * Returns a list of the current levels that are unlocked for a given mode
+	 * 
 	 * @param mode
 	 * @return
 	 */
@@ -347,9 +368,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 		initStartView(false);
 	}
 
-
 	/**
-	 * Engine notifying view that a wave is over and next wave button can be enabled
+	 * Engine notifying view that a wave is over and next wave button can be
+	 * enabled
 	 */
 	// methods the backend will call:
 	public void waveIsOver(double delaytime) {
@@ -361,10 +382,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 */
 	public void levelIsWon() {
 		toggleStepping(false);
-		
+
 		myEngineView.getStatusPane().getControlManager().nextLevelEnable();
 	}
-	
+
 	/**
 	 * Engine notifying view that a level has been lost
 	 */
@@ -383,23 +404,25 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Gets the main class used to instantiate the project
+	 * 
 	 * @return
 	 */
 	public Main getMain() {
 		return myMain;
 	}
 
-
 	/**
 	 * Sets boolean value for whether the game is being played
+	 * 
 	 * @param b
 	 */
 	public void setPlaying(boolean b) {
 		stepping = b;
 	}
-	
+
 	/**
 	 * Stops systems from stepping and toggles play/pause button
+	 * 
 	 * @param shouldStep
 	 */
 	public void toggleStepping(boolean shouldStep) {
@@ -409,6 +432,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * grabs the backgroundImage to be used as a map in BoardPane
+	 * 
 	 * @return
 	 */
 	public String getBackgroundImageFile() {
@@ -417,16 +441,16 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * gets GameWorld created by parsing initial XML file
+	 * 
 	 * @return
 	 */
 	public GameWorld getGameWorld() {
 		return myGameWorld;
 	}
 
-
-
 	/**
 	 * Returns internal EventManager component
+	 * 
 	 * @return
 	 */
 	public EventManager getEventManager() {
@@ -435,6 +459,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Returns internal GameCapture component
+	 * 
 	 * @return
 	 */
 	public GameCapture getGameCapture() {
@@ -443,6 +468,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Returns internal EngineView component
+	 * 
 	 * @return
 	 */
 	public EngineView getEngineView() {
@@ -451,6 +477,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 
 	/**
 	 * Returns Stage created
+	 * 
 	 * @return
 	 */
 	public Stage getStage() {
