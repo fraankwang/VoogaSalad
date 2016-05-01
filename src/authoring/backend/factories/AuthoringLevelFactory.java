@@ -112,6 +112,8 @@ public class AuthoringLevelFactory {
 			if (eventElements.length > 2) {
 				if (eventElements[2].equals("CollisionEvent")) {
 					String[] entities = new String[2];
+					entities[0] = eventElements[0];
+					entities[1] = eventElements[1];
 					Arrays.sort(entities);
 					sb.append(entities[0]);
 					sb.append("-");
