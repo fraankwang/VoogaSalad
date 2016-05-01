@@ -118,8 +118,9 @@ public class EntityComponentSelector {
 			case "FiringComponent":
 				ComboBox<String> ammo = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
 						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
-				ComboBox<String> targets = createComboBox(((EntitiesTabDisplay) myController.getAuthoringViewManager()
+				CheckComboBox targets = new CheckComboBox("Select Targets", ((EntitiesTabDisplay) myController.getAuthoringViewManager()
 						.getTabBarElement().getEntitiesTabDisplay()).getEntityImages().keySet());
+	
 //				ComboBox<String> multiTrack = createComboBox(booleanComboBox);
 				TextField speed = new TextField();
 				TextField sightRange = new TextField();
@@ -255,7 +256,9 @@ public class EntityComponentSelector {
 
 	public Map<String, String> getExtraDefaultAttributes(String genre) {
 		Map<String, String> extraAttributes = new TreeMap<String, String>();
-		
+		extraAttributes.put("Name", null);
+		extraAttributes.put("Genre", null);
+//		extraAttributes.put("DisplayComponent_Image", null);
 		switch (genre) {
 	
 		case "Tower":

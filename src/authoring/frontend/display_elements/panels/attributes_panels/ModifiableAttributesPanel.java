@@ -210,31 +210,4 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 
 	}
 
-	/**
-	 * Allows subclasses of ModifiableAttributePanels to warn the user what is
-	 * wrong.
-	 * 
-	 * @param message
-	 */
-	protected void createAlert(String message) {
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setHeaderText("Attribute Saving Warning");
-		alert.setContentText(message);
-		alert.show();
-	}
-
-	/**
-	 * Error checking that alerts the user why something isn't saving.
-	 */
-	protected void checkAllFilled() {
-		boolean unfilledField = false;
-		for (String attr : myAttributesMap.keySet()) {
-			if (myAttributesMap.get(attr).equals("") || myAttributesMap.get(attr) == null) {
-				unfilledField = true;
-			}
-		}
-		if (unfilledField) {
-			createAlert("You must fill out all fields");
-		}
-	}
 }

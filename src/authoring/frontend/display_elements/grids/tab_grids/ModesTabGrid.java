@@ -55,8 +55,14 @@ public class ModesTabGrid extends TabGrid {
 		((MainButtonDashboard) myButtonDashboard).getDeleteButton().setOnAction(e -> delete(currentInfo, "Mode"));
 	}
 
+	/**
+	 * Updating front end display from back end data. This method loops through
+	 * each of the maps and sets the currentInfo and currentGridViewPanel.
+	 * 
+	 * @param data
+	 */
 	public void updateModesPrimaryDisplay(List<Map<String, String>> data) {
-		
+
 		GridViewPanel gridView = (GridViewPanel) getPrimaryDisplay();
 		gridView.clearImages();
 		gridView.getNode().toBack();
@@ -65,43 +71,56 @@ public class ModesTabGrid extends TabGrid {
 		}
 
 		for (Map<String, String> info : data) {
-
 			ImageView iv = convertToImageView(info.get("Levels"));
-			iv.setOnMouseClicked(e -> iv.requestFocus());
-			iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
-				public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
-						Boolean newValue) {
-					if (newValue) {
-						iv.setOpacity(1);
-						info.remove("Type");
-						setAttributesPanel(info);
-						currentInfo = info;
-						currentInfo.put("Type", "Mode");
-						
-						//TODO: update editor Grid's PrimaryDisplay
-						if (info.get("Levels") != null) {
-							List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
-							currentGridViewPanel = new LevelGridViewPanel(500, 500, null, myController);
-							currentGridViewPanel.initialize();
-							currentGridViewPanel.updateSelectedLevels(selectedLevels);
-							((ModeEditorDisplay) myTabDisplay.getEditor()).setPrimaryDisplay(currentGridViewPanel);
-						}
-						
-					} else {
-						iv.setOpacity(0.2);
-						
-					}
-				}
-			});
+			linkImage(iv, info);
 			gridView.addImage(iv);
+			
 		}
 
 		gridView.resetGrid();
 	}
 
 	/**
-	 * Takes inputted String of level information, parses it, takes a snapshot
-	 * of the constructed GridViewPanel and converts to an ImageView
+	 * Sets the focused property of the ImageView given. Updates currentInfo as
+	 * well as the current LevelGridViewPanel, both of which are utilized when
+	 * the Open Editor button is pressed.
+	 * 
+	 * @param iv
+	 * @param info
+	 */
+	protected void linkImage(ImageView iv, Map<String, String> info) {
+
+		iv.setOnMouseClicked(e -> iv.requestFocus());
+		iv.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+					Boolean newValue) {
+				if (newValue) {
+					iv.setOpacity(1);
+					info.remove("Type");
+					setAttributesPanel(info);
+					currentInfo = info;
+					currentInfo.put("Type", "Mode");
+
+					if (info.get("Levels") != null) {
+						List<String> selectedLevels = GlobalParser.parseLevels(info.get("Levels"));
+						currentGridViewPanel = new LevelGridViewPanel(500, 500, null, myController);
+						currentGridViewPanel.initialize();
+						currentGridViewPanel.updateSelectedLevels(selectedLevels);
+						((ModeEditorDisplay) myTabDisplay.getEditor()).setPrimaryDisplay(currentGridViewPanel);
+					}
+
+				} else {
+					iv.setOpacity(0.2);
+
+				}
+			}
+		});
+
+	}
+
+	/**
+	 * Takes input String of level information, parses it, takes a snapshot of
+	 * the constructed GridViewPanel and converts to an ImageView.
 	 * 
 	 * @param string
 	 * @return
@@ -115,6 +134,7 @@ public class ModesTabGrid extends TabGrid {
 		levels.resetGrid();
 		WritableImage snapshot = levels.getMyGridPane().snapshot(new SnapshotParameters(), null);
 		return new ImageView(snapshot);
+
 	}
 
 }

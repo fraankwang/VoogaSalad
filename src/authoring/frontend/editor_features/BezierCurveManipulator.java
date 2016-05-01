@@ -204,7 +204,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 
 	      x.bind(centerXProperty());
 	      y.bind(centerYProperty());
-	      
+
 	      enableDrag();
 	      
 	      this.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -226,8 +226,11 @@ public class BezierCurveManipulator implements IDisplayElement {
 		    	  myCurve.requestFocus();
 		        }
 	      });
-
+	      
 	    }
+	    
+
+	    
 	    
 	    
 	    /**
@@ -244,11 +247,11 @@ public class BezierCurveManipulator implements IDisplayElement {
 		    	}
 	    	}
 	    }
-
 	    
 	    /**
 	     * Make an anchor movable by dragging it around with the mouse.
 	     */
+
 	    private void enableDrag() {
 	      final Delta dragDelta = new Delta();
 	     
