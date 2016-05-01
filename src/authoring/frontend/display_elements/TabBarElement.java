@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.tab_displays.EntitiesTabDisplay;
 import authoring.frontend.display_elements.tab_displays.LevelsTabDisplay;
 import authoring.frontend.display_elements.tab_displays.ModesTabDisplay;
@@ -137,7 +138,7 @@ public class TabBarElement implements ITabBarElement {
 
 		BorderPane bp = new BorderPane();
 		bp.setCenter(display.getNode());
-		Scene scene = new Scene(bp, 1200, 800);
+		Scene scene = new Scene(bp, Constants.getInt("SCENE_WIDTH"), Constants.getInt("SCENE_HEIGHT"));
 		s.setScene(scene);
 		s.show();
 

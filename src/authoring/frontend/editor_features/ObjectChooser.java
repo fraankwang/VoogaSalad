@@ -2,7 +2,8 @@ package authoring.frontend.editor_features;
 
 import java.util.Map;
 import java.util.TreeMap;
-
+import authoring.frontend.configuration.Constants;
+import authoring.frontend.IAuthoringView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -30,9 +31,10 @@ public class ObjectChooser {
 	private Stage myStage;
 	private Scene myScene;
 	private String mySelection;
+	private IAuthoringView myController;
 
-	public ObjectChooser() {
-
+	public ObjectChooser(IAuthoringView controller) {
+		myController = controller;
 	}
 
 	public void initialize() {
@@ -42,7 +44,7 @@ public class ObjectChooser {
 		myListView.setItems(myObjectsList);
 		mySelection = "";
 		myStage = new Stage();
-		myScene = new Scene(myListView, 600, 800, Color.WHITE);
+		myScene = new Scene(myListView, Constants.getInt("OBJECT_CHOOSER_WIDTH"), Constants.getInt("OBJECT_CHOOSER_HEIGHT"), Color.WHITE);
 		myStage.setScene(myScene);
 		myListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -66,7 +68,7 @@ public class ObjectChooser {
 	 */
 	public void add(String graphic, String name) {
 		Label label = new Label(name);
-		ImageView iv = new ImageView(new Image(graphic));
+		ImageView iv = new ImageView(new Image(myController.getImageMap().get(graphic)));
 		iv.setPreserveRatio(true);
 		iv.setFitHeight(IMAGE_SIZE);
 		label.setGraphic(iv);

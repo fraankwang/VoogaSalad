@@ -162,7 +162,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 		myAddSpawnButton = new Button("Add Spawn");
 		myAddTowerButton = new Button("Add Tower");
 
-		myEntitySelector = new ObjectChooser();
+		myEntitySelector = new ObjectChooser(myController);
 		myEntitySelector.initialize();
 		myEntitySelector.addAll(myPossibleEntities);
 		TextField entityTextField = new TextField("Select Entity");
@@ -200,7 +200,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			String pathID = promptUserInput("Path Number");
 			if (!pathID.equals("")) {
 				String tag = pathID + ":" + selected + ":" + wave;
-				ImageView newImageView = new ImageView(new Image(selectedImagePath));
+				ImageView newImageView = new ImageView(new Image(myController.getImageMap().get(selectedImagePath)));
 				SpawnEntityRow row = new SpawnEntityRow(tag, selected, newImageView, wave, pathID);
 				linkRow(row);
 
@@ -215,7 +215,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 			String selectedImagePath = myPossibleEntities.get(selected);
 			if (!myTowers.containsKey(selected) && myController.getEntities().get(selected).keySet().contains("FiringComponent_Ammunition")) {
 				myTowers.put(selected, selectedImagePath);
-				ImageView towerView = new ImageView(new Image(selectedImagePath));
+				ImageView towerView = new ImageView(new Image(myController.getImageMap().get(selectedImagePath)));
 				towerView.setPreserveRatio(true);
 				towerView.setFitHeight(100);
 				towerView.setFitWidth(100);
@@ -366,7 +366,7 @@ public class ModifiableLevelAttributesPanel extends ModifiableAttributesPanel {
 				String[] components = spawn.split("\\.");
 				String name = components[0];
 				String imagePath = myPossibleEntities.get(name);
-				ImageView newImage = new ImageView(new Image(imagePath));
+				ImageView newImage = new ImageView(new Image(myController.getImageMap().get(imagePath)));
 				String wave = components[1];
 				String number = components[2];
 				String rate = components[3];
