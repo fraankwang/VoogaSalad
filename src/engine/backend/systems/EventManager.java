@@ -375,6 +375,7 @@ public class EventManager implements Observer {
 			}
 			else if(event instanceof PowerUpDroppedEvent){
 				handlePowerUpDroppedEvent((PowerUpDroppedEvent) event);
+				System.out.println(event);
 			}
 		}
 	}

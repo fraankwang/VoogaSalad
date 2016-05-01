@@ -113,7 +113,6 @@ public class EngineView extends ResourceUser{
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
 		}
-//		e.consume();
 	}
 	
 	/**
@@ -128,7 +127,6 @@ public class EngineView extends ResourceUser{
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-//		e.consume();
 	}
 
 	private boolean isInBoardPane(double x, double y) {

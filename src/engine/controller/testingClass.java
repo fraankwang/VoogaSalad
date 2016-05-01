@@ -248,10 +248,9 @@ public class testingClass {
 		tempEntity.addComponent(pathComp);
 
 		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
-		GameShop shop = new GameShop();
-		shop.addItem("tempEntity2", "DrumpfVader.png", 30);
-
-		level.setShopItems(Arrays.asList(item));
+		ShopItem item2 = new ShopItem("SpeedPowerUp", "bullet_sprite.png", 30);
+	
+		level.setShopItems(Arrays.asList(item, item2));
 
 		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);

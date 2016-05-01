@@ -6,6 +6,7 @@ import engine.controller.EngineController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.Event;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,9 +51,15 @@ public class EntityView {
 	
 	private void handleDragDrop(DragEvent e){
 		e.acceptTransferModes(TransferMode.ANY);
-		
-		System.out.println("SHITTY SHIT is happening");
-		System.out.println(e.getDragboard().getString());
+		if (e.getDragboard().hasString()) {
+			String s = e.getDragboard().getString();
+			if(s.equals("RangePowerUp") || s.equals("SpeedPowerUp")){
+				myController.attemptUpgrade(myID, e.getDragboard().getString());
+				e.consume();
+				myController.getStage().getScene().setCursor(Cursor.DEFAULT);
+				myController.getEngineView().getDummyCursor().changePic(null);
+			}
+		}
 	}
 		
 	public Node getNode(){
@@ -80,14 +87,6 @@ public class EntityView {
 	
 	private void updateFocus(){
 		myImageView.requestFocus();
-	}
-	
-	public void handlePowerUpDrop(DragEvent e){
-		e.acceptTransferModes(TransferMode.ANY);
-		System.out.println("Here");
-		if (e.getDragboard().hasString()) {
-			myController.attemptUpgrade(myID, e.getDragboard().getString());
-		}
 	}
 	
 	public boolean contains(double x, double y){
