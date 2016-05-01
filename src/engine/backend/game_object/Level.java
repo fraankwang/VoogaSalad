@@ -43,6 +43,7 @@ public class Level {
 	private boolean sendNextWave;
 	private String lastSerializedVersion;
 	private boolean shouldRevert;
+	private double currentWaveTimer;
 	
 	/**
 	 * Authoring Environment Constructor.
@@ -57,6 +58,7 @@ public class Level {
 		this.entities = entities;
 		this.currentWaveIndex = 0;
 		this.setShouldRevert(false);
+		this.currentWaveTimer = 0;
 	}
 	
 	/**
@@ -255,5 +257,12 @@ public class Level {
 		return index == getNumWaves();
 	}
 
+	public double getCurrentWaveTimer() {
+		return currentWaveTimer;
+	}
+
+	public void setCurrentWaveTimer(double currentWaveTimer) {
+		this.currentWaveTimer = currentWaveTimer;
+	}
 
 }

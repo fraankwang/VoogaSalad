@@ -33,7 +33,7 @@ import javafx.scene.control.TabPane;
 
 public class EntitiesTabDisplay extends TabDisplay {
 
-	private static final List<String> DEFAULT_GENRES = Arrays.asList("Tower", "Enemy", "Ammo");
+	private static final List<String> DEFAULT_GENRES = Arrays.asList("Tower", "Enemy", "Ammo", "Custom");
 
 	private TabPane myEntitiesTabPane;
 	private ObservableList<AuthoringEntity> myEntityList;
@@ -47,7 +47,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 	}
 
 	public void initialize() {
-		myEntitiesTabPane = new TabPane(); // tab of entity types
+		myEntitiesTabPane = new TabPane(); 
 		myEditorDisplay = new EntityEditorDisplay(myController);
 		myEditorDisplay.initialize();
 		myEntities = new TreeMap<String, Map<String, String>>();
@@ -96,6 +96,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 			String name = myGrid.promptNewName();
 			((GridViewPanel) myGrid.getPrimaryDisplay()).setPanelBarDescription(name + " Entities");
 			myEntitiesTabPane.getSelectionModel().getSelectedItem().setText(name);
+			((EntitiesTabGrid) myGrid).setGenre(name);
 		});
 		tabContextMenu.getItems().add(tabMenu);
 		myEntitiesTabPane.setContextMenu(tabContextMenu);
@@ -103,6 +104,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 	private void createNewTab(String name, boolean closeable) {
 		EntitiesTabGrid grid = new EntitiesTabGrid(myController, this);
+		grid.setGenre(name);
 		grid.initialize();
 
 		((GridViewPanel) grid.getPrimaryDisplay()).setPanelBarDescription(name + " Entities");

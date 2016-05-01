@@ -52,7 +52,9 @@ public class Testing {
 		balloon1.put("DisplayComponent_Image", "DrumpfVader.png");
 		balloon1.put("SizeComponent_Width", "30");
 		balloon1.put("SizeComponent_Height", "30");
-		balloon1.put("MovementComponent_Velocity", "6");
+		balloon1.put("MovementComponent_Velocity", "10");
+		balloon1.put("MovementComponent_CanMove", "True");
+		balloon1.put("MovementComponent_CanRotate", "False");
 		
 		dataContainer.updateData(bullet1);
 		dataContainer.updateData(tower1);
@@ -68,7 +70,7 @@ public class Testing {
 		level1.put("MapHeight", "500");
 		level1.put("Entities", "bullet1 tower1 balloon1");
 		level1.put("Paths", "0:0-0,0-0,0-0,200-200 200-200,50-50,150-150,0-300 0-300,150-150,250-250,400-400");
-		level1.put("SpawnEntities", "0:balloon1.0.10.2");
+		level1.put("SpawnEntities", "0:balloon1.0.10.1");
 		
 		dataContainer.updateData(level1);
 		

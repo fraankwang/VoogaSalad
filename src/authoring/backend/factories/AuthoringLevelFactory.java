@@ -12,6 +12,7 @@ import authoring.backend.game_objects.AuthoringLevel;
 import authoring.parser.GlobalParser;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
+import engine.backend.components.PositionComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
 import engine.backend.map.BezierCurve;
@@ -101,7 +102,7 @@ public class AuthoringLevelFactory {
 	}
 	
 	private List<String> parseEvents(String eventInfo) {
-		String[] eventData = eventInfo.split("+");
+		String[] eventData = eventInfo.split("\\+");
 		List<String> events = new ArrayList<String>();
 		for (String event : eventData) {
 			String[] eventElements = event.split("_");
@@ -127,7 +128,7 @@ public class AuthoringLevelFactory {
 	}
 	
 	private List<List<String>> parseActions(String actionInfo) {
-		String[] actionData = actionInfo.split("+");
+		String[] actionData = actionInfo.split("\\+");
 		List<List<String>> actions = new ArrayList<List<String>>();
 		for (String action : actionData) {
 			List<String> elements = new ArrayList<String>();
@@ -170,6 +171,7 @@ public class AuthoringLevelFactory {
 			AuthoringEntity spawnEntity = new AuthoringEntity(entityName, genre);
 			spawnEntity.addComponent(spawner);
 			spawnEntity.addComponent(new DisplayComponent());
+			spawnEntity.addComponent(new PositionComponent());
 			spawnEntities.add(spawnEntity);
 		}
 		return spawnEntities;
@@ -201,7 +203,9 @@ public class AuthoringLevelFactory {
 			temp.add(createCurve(curve));
 		}
 		int pathID = Integer.parseInt(ID);
-		return new Path(temp, pathID);
+		Path path = new Path(temp, pathID);
+		System.out.println(path.toString());
+		return path;
 	}
 	
 	private BezierCurve createCurve(String curve) {

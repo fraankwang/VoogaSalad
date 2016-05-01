@@ -129,8 +129,6 @@ public class EventManager implements Observer {
 	 * @param myEvent
 	 */
 	public void sendUpdatedEntity(UpdateEntityEvent myEvent) {
-		//System.out.println("image3: " + myEvent.getImage());
-		
 		myEngineController.updateEntity(myEvent.getX(), myEvent.getY(), myEvent.getImage(), myEvent.getID(),
 				myEvent.getSizeX(), myEvent.getsizeY(), myEvent.getShow());
 	}
@@ -215,6 +213,7 @@ public class EventManager implements Observer {
 		System.out.println("level serialized");
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
+		System.out.println(levelIndex);
 		myGameWorld.getLevelWithId(modeName, levelIndex)
 				.setLastSerializedVersion(serializeLevel(myGameWorld.getLevelWithId(modeName, levelIndex)));
 	}
@@ -393,6 +392,7 @@ public class EventManager implements Observer {
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
 			for (String event : ruleEvents) {
+				System.out.println(event);
 				if (!generatedEventMap.containsKey(event)) {
 					myPossibleEntities.clear();
 					break;

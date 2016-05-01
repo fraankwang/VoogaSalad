@@ -18,11 +18,15 @@ public class GameWorld {
 
 	//myModes is a map of mode name to Mode object
 	private Map<String, Mode> myModes;
+
 	private String myName;
+	private GameStatistics myGameStatistics;
+
 	
 	/**
 	 * Authoring Environment Constructor
 	 */
+
 	public GameWorld(String name, Map<String, Mode> modes) {
 		this.myName = name;
 		this.myModes = modes;
@@ -41,6 +45,10 @@ public class GameWorld {
 
 	public void setGameName(String name) {
 		this.myName = name;
+	}
+	
+	public void setGameStatistics(GameStatistics gameStatistics) {
+		this.myGameStatistics = gameStatistics;
 	}
 
 	public String getName() {
