@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.EntitiesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
 import authoring.frontend.display_elements.panels.GridViewPanel;
@@ -74,7 +75,7 @@ public class EntitiesTabGrid extends TabGrid {
 	}
 
 	public void openNewEditor() {
-		String newGenre = promptNewName("[ Tower | Enemy | Ammo | Custom ]");
+		String newGenre = promptNewName(Constants.getString("PROMPT_NEW_ENTITY"));
 		if (!newGenre.equals("")) {
 			EntityComponentSelector templateComponentSelector = new EntityComponentSelector(myController);
 			templateComponentSelector.initialize();
@@ -107,7 +108,7 @@ public class EntitiesTabGrid extends TabGrid {
 					info.remove("DisplayComponent_Delete");
 					myEntities.put(info.get("Name"), info.get("DisplayComponent_Image"));
 
-					Image image = new Image(info.get("DisplayComponent_Image"));
+					Image image = new Image(myController.getImageMap().get(info.get("DisplayComponent_Image")));
 					ImageView iv = new ImageView(image);
 					linkImage(iv, info);
 					gridView.addImage(iv);

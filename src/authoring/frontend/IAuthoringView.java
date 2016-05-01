@@ -65,5 +65,7 @@ public interface IAuthoringView {
 	public ObservableList<AuthoringLevel> getLevelList();
 
 	public ObservableList<AuthoringMode> getModeList();
+	
+	Map<String, String> getImageMap();
 
 }

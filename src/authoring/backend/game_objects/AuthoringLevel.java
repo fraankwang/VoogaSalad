@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import engine.backend.entities.IEntity;
+import engine.backend.game_object.Level;
 import engine.backend.map.GameMap;
 import engine.backend.rules.IAction;
 import engine.backend.rules.Rule;
@@ -31,7 +33,17 @@ public class AuthoringLevel {
 		this.spawnEntities = new ArrayList<AuthoringEntity>();
 		initializeInfo();
 	}
-
+	
+	public AuthoringLevel(Level level) {
+		this.myName = level.getName();
+		this.myMap = level.getMap();
+		this.waveDelayTimer = level.getWaveDelayTimer();
+		this.myInfo = new HashMap<String, String>();
+		setUpSpawnEntities(level);
+		setUpRuleAgenda(level);
+		initializeInfo();
+	}
+	
 	private void initializeInfo() {
 		myInfo.put("Type", "Level");
 		myInfo.put("Name", myName);
@@ -41,7 +53,29 @@ public class AuthoringLevel {
 		myInfo.put("MapHeight", myMap.getMapHeight() + "");
 		myInfo.put("Paths", myMap.getPathsInfo());
 	}
-
+	
+	private void setUpSpawnEntities(Level level) {
+		List<IEntity> entities = level.getAuthoredEntities();
+		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
+		for (IEntity entity : entities) {
+			if (entity.hasComponent("SpawnerComponent")) {
+				AuthoringEntity authoringEntity = new AuthoringEntity(entity);
+				spawnEntities.add(authoringEntity);
+			}
+		}
+		setSpawnEntities(spawnEntities);
+	}
+	
+	private void setUpRuleAgenda(Level level) {
+		List<Rule> ruleAgenda = level.getRuleAgenda();
+		List<String> events = new ArrayList<String>();
+		for (Rule rule : ruleAgenda) {
+			List<String> ruleEvents = (List<String>) rule.getEvents();
+			events.addAll(ruleEvents);
+		}
+		setRuleAgenda(level.getRuleAgenda(), events);
+	}
+	
 	public Set<String> getEntities() {
 		return entities;
 	}

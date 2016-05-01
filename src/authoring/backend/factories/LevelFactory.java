@@ -77,7 +77,6 @@ public class LevelFactory {
 				shopItems.add(item);
 			}
 		}
-
 		List<Rule> ruleAgenda = authoringLevel.getRuleAgenda();
 		return new Level(name, map, waveDelayTimer, numWaves, shopItems, authoredEntities, ruleAgenda, entitiesMap);
 

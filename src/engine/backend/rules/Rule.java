@@ -32,6 +32,12 @@ public class Rule {
 		myActions = new ArrayList<IAction>();
 	}
 	
+	@Override
+	public String toString() {
+		String str = Arrays.toString(myEvents.toArray());
+		return str + Arrays.toString(myActions.toArray());
+	}
+
 	/**
 	 * 
 	 * @param events - Collection of Strings representing eventIDs for this rule

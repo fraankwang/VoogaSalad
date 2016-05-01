@@ -5,7 +5,6 @@ package engine.frontend.overall;
 
 import engine.controller.EngineController;
 import engine.frontend.board.BoardPane;
-import engine.frontend.board.EntityView;
 import engine.frontend.shop.ShopPane;
 import engine.frontend.status.MenubarManager;
 import engine.frontend.status.StatusPane;
@@ -14,10 +13,8 @@ import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
@@ -50,6 +47,11 @@ public class EngineView extends ResourceUser {
 
 	private DoubleProperty scalingFactor;
 
+	/**
+	 * Initiates EngineView
+	 * @param s - Stage engine view is initialized in
+	 * @param c - engine controller that controls the various view components
+	 */
 	public EngineView(Stage s, EngineController c) {
 		super(RESOURCE_NAME);
 		myStage = s;
@@ -95,6 +97,10 @@ public class EngineView extends ResourceUser {
 		return myScene;
 	}
 
+	/**
+	 * Handles key event to pass to backend
+	 * @param e - KeyEvent
+	 */
 	private void handleKeyPress(KeyEvent e) {
 		// TODO Auto-generated method stub
 		myController.keyPressed(e.getCode().toString());
@@ -102,6 +108,9 @@ public class EngineView extends ResourceUser {
 	}
 
 	/**
+	 * Handles cursor moving across boardPane to have drag and drop cursor follow correctly
+	 * @param e - DragEvent created by dragging a tower onto the screen
+	 * Handles the changes in mouse position while the mouse is pressed, allows 
 	 * Handles the changes in mouse position while the mouse is pressed, allows
 	 * the image to track the cursor
 	 */
@@ -113,7 +122,6 @@ public class EngineView extends ResourceUser {
 		if (myScene.getCursor() != Cursor.NONE) {
 			myScene.setCursor(Cursor.NONE);
 		}
-		// e.consume();
 	}
 
 	/**
@@ -123,30 +131,18 @@ public class EngineView extends ResourceUser {
 	 */
 	private void handleEndMouseRelease(DragEvent e) {
 		if (e.getGestureSource() != myScene) {
+			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+				if(!e.getDragboard().getString().contains("SpeedPowerUp") && !e.getDragboard().getString().contains("RangePowerUp")){
+					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&")[0], Double.parseDouble(e.getDragboard().getString().split("&")[1]));
+				}			
 
-			System.out.println("dropped something");
-			for( Integer id: myBoardPane.getEntityMap().keySet()){
-				
-				if( myBoardPane.getEntityMap().get(id).contains(e.getSceneX(), e.getSceneY())){
-					myBoardPane.getEntityMap().get(id).handlePowerUpDrop(e);
-					myDummyCursor.changePic(null);
-					this.getStage().getScene().setCursor(Cursor.DEFAULT);
-					//e.consume();
-					return;
-				}
-			}
-
-
-
-			if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
-
-				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString());
 			}
 		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
-		// e.consume();
+
 	}
+
 
 	private boolean isInBoardPane(double x, double y) {
 		boolean xInPane = x > myScene.getX() && x < getUsableBoardWidth().doubleValue();
@@ -155,55 +151,107 @@ public class EngineView extends ResourceUser {
 		return (xInPane && yInPane);
 	}
 
+	/**
+	 * Gets dummy cursor used to mimic drag and drop
+	 * @return - returns cursor node
+	 */
 	public DummyCursor getDummyCursor() {
 		return myDummyCursor;
 	}
 
+	/**
+	 * Gets usable board width from property file
+	 * @return 
+	 */
 	public DoubleExpression getUsableBoardWidth() {
 		return myScene.widthProperty().multiply(loadDoubleResource("BoardMaxWidth"));
 	}
 
+	/**
+	 * Gets usable board height from property file
+	 * @return
+	 */
 	public DoubleExpression getUsableBoardHeight() {
 		return myScene.heightProperty().subtract(myMenuBar.heightProperty())
 				.multiply(loadDoubleResource("BoardMaxHeight"));
 	}
 
+	/**
+	 * Gets usable shop width from property file
+	 * @return
+	 */
 	public DoubleExpression getUsableShopWidth() {
 		return myScene.widthProperty().subtract(getUsableBoardWidth());
 	}
 
+	/**
+	 * Returns stage EngineView was instantiated on
+	 * @return
+	 */
 	public Stage getStage() {
 		return myStage;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	protected Main getMain() {
 		return myController.getMain();
 	}
 
+	/**
+	 * Returns boardPane portion of EngineView
+	 * @return
+	 */
 	public BoardPane getBoardPane() {
 		return myBoardPane;
 	}
 
+	/**
+	 * Returns ShopPane portion of EngineView
+	 * @return
+	 */
 	public ShopPane getShopPane() {
 		return myShopPane;
 	}
 
+	/**
+	 * Returns StatusPane portion of EngineView
+	 * @return
+	 */
 	public StatusPane getStatusPane() {
 		return myStatusPane;
 	}
 
+	/**
+	 * Returns EngineController used to link EngineView with Engine
+	 * @return
+	 */
 	public EngineController getEngineController() {
 		return myController;
 	}
 
+	/**
+	 * Returns game capture object contained in EngineView's scene
+	 * @return
+	 */
 	public GameCapture getGameCapture() {
 		return myController.getGameCapture();
 	}
 
+	/**
+	 * Returns BorderPane contained in EngineView
+	 * @return
+	 */
 	public BorderPane getBorderPane() {
 		return myBorderPane;
 	}
 
+	/**
+	 * Returns DoubleExpression representing scaling size of scene in relation to engine
+	 * @return
+	 */
 	public DoubleExpression getScalingFactor() {
 		return scalingFactor;
 	}

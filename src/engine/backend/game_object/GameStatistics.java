@@ -138,8 +138,9 @@ public class GameStatistics implements IModifiable {
 		return this.currentResources;
 	}
 
-	public void setCurrentResources(double currentResources) {
-		this.currentResources.setValue(currentResources);
+	public void setCurrentResources(double curResources) {
+		this.currentResources.setValue(curResources);
+		System.out.println("VALUE UPDATED TO " + currentResources.getValue() + "AND SHOULD BE " + curResources);
 	}
 
 	public void setCurrentResources(String delta) {
@@ -151,10 +152,10 @@ public class GameStatistics implements IModifiable {
 		// checkEndOfLevel();
 		return (int) currentLevelIndex.getValue();
 	}
-
-	private void updateHighestLevelUnlocked() {
-		if ((int) currentLevelIndex.getValue() > highestLevelUnlocked) {
-			highestLevelUnlocked = (int) currentLevelIndex.getValue();
+	
+	public void updateHighestLevelUnlocked(int index){
+		if (index > highestLevelUnlocked) {
+			highestLevelUnlocked = index;	
 		}
 	}
 
@@ -185,12 +186,12 @@ public class GameStatistics implements IModifiable {
 
 	public void setCurrentLevelIndex(int currentLevelIndex) {
 		this.currentLevelIndex.setValue(currentLevelIndex);
-		updateHighestLevelUnlocked();
+		updateHighestLevelUnlocked(currentLevelIndex);
 	}
 
 	public void setCurrentLevelIndex(String delta) {
 		this.currentLevelIndex.setValue(Integer.parseInt(delta));
-		updateHighestLevelUnlocked();
+		updateHighestLevelUnlocked((int) currentLevelIndex.getValue());
 	}
 
 	private void checkEndOfLevel() {
@@ -226,5 +227,10 @@ public class GameStatistics implements IModifiable {
 		} catch (IllegalArgumentException | InvocationTargetException e) {
 			new DrumpfTowerException(myExceptionLoader.getString(ILLEGAL_ARGS));
 		}
+	}
+
+	public void resetResourcesAndLives() {
+		setCurrentNumLives(initialNumLives);
+		setCurrentResources(initialResources);
 	}
 }

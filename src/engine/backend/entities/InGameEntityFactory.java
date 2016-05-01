@@ -26,6 +26,7 @@ public class InGameEntityFactory {
 	private static final String SECURITY_EXCEPTION = "SecurityException";
 	private static final String ILLEGAL_ARGS = "IllegalArguments";
 	private static final String INSTANTIATION = "ReflectionInstantiation";
+	private static final String ENTITY_DNE = "EntityDNEInMap";
 
 	public InGameEntityFactory(List<IEntity> entities) {
 		myExceptionLoader = new ExceptionLoader();
@@ -56,7 +57,10 @@ public class InGameEntityFactory {
 	 */
 
 	public IEntity createEntity(String entityName) {
+		System.out.println(entityName);
 		IEntity templateEntity = findInMap(entityName);
+		if(templateEntity == null) new DrumpfTowerException(myExceptionLoader.getString(ENTITY_DNE));
+
 		IEntity newEntity = new Entity(initNumEntities + getNextAvailableID(), templateEntity.getName(), templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
