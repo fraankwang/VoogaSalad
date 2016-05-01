@@ -1,16 +1,17 @@
 package engine.backend.entities;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import engine.backend.components.EmptyComponent;
 import engine.backend.components.IComponent;
 import engine.backend.game_object.GameStatistics;
+import exception.DrumpfTowerException;
+import exception.ExceptionLoader;
 
 public class InGameEntityFactory {
 
@@ -18,23 +19,38 @@ public class InGameEntityFactory {
 	private int currentLevelId;
 	private int initNumEntities;
 	private int nextAvailableID;
+	private ExceptionLoader myExceptionLoader;
+
+	private static final String LACK_ACCESS = "LackAccessToClass";
+	private static final String METHOD_DNE = "MethodDoesNotExist";
+	private static final String SECURITY_EXCEPTION = "SecurityException";
+	private static final String ILLEGAL_ARGS = "IllegalArguments";
+	private static final String INSTANTIATION = "ReflectionInstantiation";
+	private static final String ENTITY_DNE = "EntityDNEInMap";
 
 	public InGameEntityFactory(List<IEntity> entities) {
+		myExceptionLoader = new ExceptionLoader();
 		this.myEntityMap = createMap(entities);
 		nextAvailableID = 0;
 		//initNumEntities = 0;
 	}
+<<<<<<< HEAD
 	
 	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities)
 	{
 		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>(); 
 		for(IEntity entity : entities){
 			System.out.println("Name: " + entity.getName());
+=======
+
+	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities) {
+		Map<String, Map<String, IEntity>> mainEntityMap = new HashMap<String, Map<String, IEntity>>();
+		for (IEntity entity : entities) {
+>>>>>>> 1cb9788291b0d6bbefcbdd399e9c22c95e1bd484
 			Map<String, IEntity> typeMap = null;
-			if(mainEntityMap.containsKey(entity.getGenre())){
+			if (mainEntityMap.containsKey(entity.getGenre())) {
 				typeMap = mainEntityMap.get(entity.getGenre());
-			}
-			else{
+			} else {
 				typeMap = new HashMap<String, IEntity>();
 				mainEntityMap.put(entity.getGenre(), typeMap);
 			}
@@ -42,16 +58,21 @@ public class InGameEntityFactory {
 		}
 		return mainEntityMap;
 	}
+
 	/**
 	 * 
 	 * @param entityName
 	 * @return A entity with the entity name given.
 	 */
-	
+
 	public IEntity createEntity(String entityName) {
 		System.out.println(entityName);
 		IEntity templateEntity = findInMap(entityName);
+<<<<<<< HEAD
 		System.out.println(templateEntity);
+=======
+		if(templateEntity == null) new DrumpfTowerException(myExceptionLoader.getString(ENTITY_DNE));
+>>>>>>> 1cb9788291b0d6bbefcbdd399e9c22c95e1bd484
 		IEntity newEntity = new Entity(initNumEntities + getNextAvailableID(), templateEntity.getName(), templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
@@ -77,45 +98,32 @@ public class InGameEntityFactory {
 
 	private IComponent cloneComponent(IComponent component) {
 		try {
-			Constructor constructor = component.getClass().getConstructor(component.getClass());
+			Constructor<? extends IComponent> constructor = component.getClass().getConstructor(component.getClass());
 			return (IComponent) constructor.newInstance(component);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			System.exit(1);
-			e.printStackTrace();
-			return null;
+		} catch (InstantiationException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(INSTANTIATION));
+		} catch (IllegalAccessException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(LACK_ACCESS));
+		} catch (IllegalArgumentException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(ILLEGAL_ARGS));
+		} catch (InvocationTargetException e) {
 		} catch (NoSuchMethodException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return null;
+			new DrumpfTowerException(myExceptionLoader.getString(METHOD_DNE));
 		} catch (SecurityException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return null;
+			new DrumpfTowerException(myExceptionLoader.getString(SECURITY_EXCEPTION));
 		}
-
-		// try {
-		// IComponent clone = component.getClass().newInstance();
-		// for (Field field : component.getClass().getDeclaredFields()) {
-		// field.setAccessible(true);
-		// field.set(clone, field.get(component));
-		// }
-		// return clone;
-		// } catch (Exception e) {
-		// System.out.println(e.getStackTrace());
-		// return null;
-		// }
+		return (IComponent) new EmptyComponent();
 	}
-	
-	public boolean isCurrent(int id){
+
+	public boolean isCurrent(int id) {
 		return this.currentLevelId == id;
 	}
-	
-	public void setEntities(List<IEntity> entities){
+
+	public void setEntities(List<IEntity> entities) {
 		this.myEntityMap = createMap(entities);
 	}
-	
-	public void setID(int id){
+
+	public void setID(int id) {
 		this.currentLevelId = id;
 	}
 	

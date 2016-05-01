@@ -38,7 +38,6 @@ public class Rule {
 		return str + Arrays.toString(myActions.toArray());
 	}
 
-
 	/**
 	 * 
 	 * @param events - Collection of Strings representing eventIDs for this rule

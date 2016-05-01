@@ -34,7 +34,7 @@ public class MobilizeSystem extends GameSystem {
 		
 		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(), ComponentTagResources.movementComponentTag);
 		for (IEntity entity : movableEntities) {
-			System.out.println("ENTITY: " + entity);
+
 			MovementComponent movComponent = (MovementComponent) entity.getComponent(ComponentTagResources.movementComponentTag);
 			PositionComponent posComponent = (PositionComponent) entity.getComponent(ComponentTagResources.positionComponentTag);
 

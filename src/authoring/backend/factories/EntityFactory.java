@@ -8,16 +8,16 @@ import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
 
 public class EntityFactory {
-	
+
 	public EntityFactory() {
-		
+
 	}
-	
+
 	public IEntity createEntity(AuthoringEntity authoringEntity) {
 		String name = authoringEntity.getName();
 		String genre = authoringEntity.getGenre();
 		Map<String, IComponent> components = authoringEntity.getComponents();
-		
+
 		return new Entity(name, genre, components);
 	}
 

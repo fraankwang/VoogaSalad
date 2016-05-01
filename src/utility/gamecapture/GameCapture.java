@@ -20,6 +20,8 @@ import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
 
+import exception.DrumpfTowerException;
+import exception.ExceptionLoader;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
@@ -27,15 +29,21 @@ import javafx.scene.image.WritableImage;
 
 public class GameCapture implements IGameCapture {
 
-	public static final String DEFAULT_RESOURCE = "utility/gamecapture/gamecapture";
+	private static final String DEFAULT_RESOURCE = "utility/gamecapture/gamecapture";
+	private static final String AWT_GAMECAPTURE = "AWTException";
+	private static final String THREAD_INTERUPTED = "ThreadInterrupted";
+	private static final String IMG_FILE_CORRUPTED = "TakeImageCorruption";
+	private static final String IMG_CONVERTION_CORRUPTED = "IMGCovertionFail";
+
 	private ResourceBundle myResources;
 	private IMediaWriter fileWriter;
 
+	private ExceptionLoader myExceptionLoader;
 	private String fileName;
 	private File saveLocation;
 	private String imageFormat;
 	private ICodec.ID videoFormat;
-	
+
 	private boolean capture;
 	private long startTime;
 	private Rectangle captureRegion;
@@ -43,13 +51,16 @@ public class GameCapture implements IGameCapture {
 	private int fps;
 
 	/**
-	 * Constructor for gameCapture, needs the starting position and dimensions of the application in pixels
+	 * Constructor for gameCapture, needs the starting position and dimensions
+	 * of the application in pixels
+	 * 
 	 * @param height
 	 * @param width
 	 * @param posx
 	 * @param posy
 	 */
 	public GameCapture(int height, int width, int posx, int posy) {
+		myExceptionLoader = new ExceptionLoader();
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE);
 		fileName = myResources.getString("DefaultName");
 		saveLocation = new File(myResources.getString("DefaultSaveLocation"));
@@ -75,7 +86,7 @@ public class GameCapture implements IGameCapture {
 					}
 					fileWriter.close();
 				} catch (AWTException e1) {
-					e1.printStackTrace();
+					new DrumpfTowerException(myExceptionLoader.getString(AWT_GAMECAPTURE));
 				}
 			}
 		});
@@ -86,11 +97,11 @@ public class GameCapture implements IGameCapture {
 		BufferedImage screen = robot.createScreenCapture(captureSize);
 		BufferedImage bgrScreen = convertToType(screen, BufferedImage.TYPE_3BYTE_BGR);
 		fileWriter.encodeVideo(0, bgrScreen, System.currentTimeMillis() - startTime, TimeUnit.MILLISECONDS);
-		
+
 		try {
 			Thread.sleep(1000 / fps);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			new DrumpfTowerException(myExceptionLoader.getString(THREAD_INTERUPTED));
 		}
 	}
 
@@ -101,30 +112,34 @@ public class GameCapture implements IGameCapture {
 
 	@Override
 	public void takeSnapshot(Node n) {
-		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "." + imageFormat;
+		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "."
+				+ imageFormat;
 		WritableImage image = n.snapshot(new SnapshotParameters(), null);
 		BufferedImage bi = SwingFXUtils.fromFXImage(image, null);
 		BufferedImage convertedImg = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
-	    convertedImg.getGraphics().drawImage(bi, 0, 0, null);
-		
-	    try {
+		convertedImg.getGraphics().drawImage(bi, 0, 0, null);
+
+		try {
 			ImageIO.write(convertedImg, imageFormat, new File(outputFileName));
 		} catch (IOException e) {
-			e.printStackTrace();
+			new DrumpfTowerException(myExceptionLoader.getString(IMG_CONVERTION_CORRUPTED));
 		}
 	}
-	
+
 	@Override
-	public void takeScreenshot(){
-		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "." + imageFormat;
+	public void takeScreenshot() {
+		String outputFileName = saveLocation + File.separator + fileName + System.currentTimeMillis() + "."
+				+ imageFormat;
 		BufferedImage bi;
 		try {
 			bi = (new Robot()).createScreenCapture(captureRegion);
 			BufferedImage convertedImg = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
-		    convertedImg.getGraphics().drawImage(bi, 0, 0, null);
-		    ImageIO.write(convertedImg, imageFormat, new File(outputFileName));
-		} catch (AWTException | IOException e) {
-			e.printStackTrace();
+			convertedImg.getGraphics().drawImage(bi, 0, 0, null);
+			ImageIO.write(convertedImg, imageFormat, new File(outputFileName));
+		} catch (AWTException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(AWT_GAMECAPTURE));
+		} catch (IOException e) {
+			new DrumpfTowerException(myExceptionLoader.getString(IMG_FILE_CORRUPTED));
 		}
 	}
 
@@ -147,7 +162,7 @@ public class GameCapture implements IGameCapture {
 	public void setFramesPerSecond(int numFramesPerSecond) {
 		fps = numFramesPerSecond;
 	}
-	
+
 	@Override
 	public int getFramesPerSecond() {
 		return fps;
@@ -201,14 +216,14 @@ public class GameCapture implements IGameCapture {
 	public void setCaptureY(int y) {
 		captureRegion.setBounds(captureRegion.x, y, captureRegion.width, captureRegion.height);
 	}
-	
-	@Override 
-	public void setCaptureWidth(int w){
+
+	@Override
+	public void setCaptureWidth(int w) {
 		captureRegion.setBounds(captureRegion.x, captureRegion.y, w, captureRegion.height);
 	}
-	
+
 	@Override
-	public void setCaptureHeight(int h){
+	public void setCaptureHeight(int h) {
 		captureRegion.setBounds(captureRegion.x, captureRegion.y, captureRegion.width, h);
 	}
 }

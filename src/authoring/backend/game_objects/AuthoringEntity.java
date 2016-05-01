@@ -8,7 +8,7 @@ import engine.backend.components.IComponent;
 import engine.backend.entities.IEntity;
 
 public class AuthoringEntity {
-	
+
 	private static final String TYPE = "Type";
 	private static final String GENRE = "Genre";
 	private static final String NAME = "Name";
@@ -16,12 +16,12 @@ public class AuthoringEntity {
 	private static final String COMMA_SPLIT = ",";
 	private static final String SEMICOLON_SPLIT = ":";
 	private static final String UNDERSCORE_SPLIT = "_";
-	
+
 	private String myName;
 	private String myGenre;
 	private Map<String, String> myInfo;
 	private Map<String, IComponent> myComponents;
-	
+
 	public AuthoringEntity(String myName, String myGenre) {
 		this.myName = myName;
 		this.myGenre = myGenre;
@@ -36,7 +36,7 @@ public class AuthoringEntity {
 		setUpComponents((List<IComponent>) entity.getComponents());
 		initializeInfo();
 	}
-	
+
 	private void initializeInfo() {
 		myInfo.put(TYPE, CLASS_TYPE);
 		myInfo.put(GENRE, myGenre);
@@ -65,27 +65,27 @@ public class AuthoringEntity {
 			myInfo.put(tag, componentInfo);
 		}
 	}
-	
+
 	public Map<String, String> getInfo() {
 		return myInfo;
 	}
-	
+
 	public String getName() {
 		return myName;
 	}
-	
+
 	public String getGenre() {
 		return myGenre;
 	}
-	
+
 	public Map<String, IComponent> getComponents() {
 		return myComponents;
 	}
-	
+
 	public IComponent getComponent(String name) {
 		return myComponents.get(name);
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AuthoringEntity) {
@@ -99,5 +99,5 @@ public class AuthoringEntity {
 			return false;
 		}
 	}
-	
+
 }

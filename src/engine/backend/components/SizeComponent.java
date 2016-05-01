@@ -5,9 +5,6 @@
  */
 package engine.backend.components;
 
-
-
-
 public class SizeComponent extends Component implements IComponent {
 	private double width;
 	private double height;
@@ -20,7 +17,7 @@ public class SizeComponent extends Component implements IComponent {
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
 	}
-	
+
 	public SizeComponent(SizeComponent component) {
 		this.width = component.getWidth();
 		this.height = component.getHeight();

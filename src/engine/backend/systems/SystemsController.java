@@ -10,15 +10,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
-
-import javax.swing.text.html.parser.Entity;
-
-import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.IEvent;
-import engine.controller.EngineController;
 
 public class SystemsController {
 
@@ -30,7 +24,6 @@ public class SystemsController {
 	private GameSystem spawningSystem;
 	private UserInputSystem userInputSystem;
 	private List<ISystem> mySystems;
-	private EngineController engineController;
 	private EventManager myEventManager;
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";

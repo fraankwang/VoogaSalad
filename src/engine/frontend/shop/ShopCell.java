@@ -80,8 +80,7 @@ public class ShopCell extends ListCell<ShopItem> {
 				myCostText.setText(myResources.getString("ShopCostPrompt") + myCost);
 			}
 
-//			if (myItem.isCanBuy()) {
-			if (true){
+			if (myItem.isCanBuy()) {
 				setOnDragDetected(e -> selectItem(e));
 				setHBoxOpacity(getDoubleResource("YesOpacity"));
 			} else {
@@ -101,10 +100,9 @@ public class ShopCell extends ListCell<ShopItem> {
 	private void selectItem(MouseEvent e) {
 		myShopPane.getEngineView().getDummyCursor().changePic(myImageView.getImage());
 		myShopPane.getEngineView().getStage().getScene().setCursor(Cursor.NONE);
-		
 		Dragboard db = this.startDragAndDrop(TransferMode.ANY);
 		ClipboardContent content = new ClipboardContent();
-		content.putString(myItem.getItemName());
+		content.putString(myItem.getItemName()+"&"+myItem.getItemValue());
 		db.setContent(content);
 	}
 

@@ -33,13 +33,12 @@ import engine.controller.EngineController;
 
 public class RenderingSystem extends GameSystem {
 
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
+			InGameEntityFactory myEntityFactory, double currentSecond) {
 
 		Collection<IEntity> entities = myLevel.getEntities().values();
-		System.out.println(entities.size());
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
-		for(IEntity myEntity : entities){
-			System.out.println(myEntity.getID());
+		for (IEntity myEntity : entities) {
 			String imageToDisplay = "";
 			double x = Integer.MIN_VALUE;
 			double y = Integer.MIN_VALUE;
@@ -63,10 +62,10 @@ public class RenderingSystem extends GameSystem {
 					sizey = ((SizeComponent) eachComponent).getHeight();
 				}
 			}
-			
+
 			sendUpdateEntityEvent(x, y, imageToDisplay, myEntity.getID(), sizex, sizey, show);
 			myEntity.broadcastEntity();
-			if(delete){
+			if (delete) {
 				entitiesToRemove.add(myEntity);
 			}
 
@@ -78,8 +77,9 @@ public class RenderingSystem extends GameSystem {
 	}
 
 	/**
-	 * Sends the update entity event with the necessary components needed. Event manager
-	 * receives this event.
+	 * Sends the update entity event with the necessary components needed. Event
+	 * manager receives this event.
+	 * 
 	 * @param x
 	 * @param y
 	 * @param image
