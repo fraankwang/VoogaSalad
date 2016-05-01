@@ -137,15 +137,11 @@ public class AuthoringLevel {
 
 		return sb.toString();
 	}
-<<<<<<< HEAD
-
-=======
 	
 	public List<Rule> getRuleAgenda() {
 		return ruleAgenda;
 	}
 	
->>>>>>> cc09944ea96264d6bc1f62149f3bc8d2d963d77f
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AuthoringLevel) {

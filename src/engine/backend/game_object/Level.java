@@ -46,7 +46,7 @@ public class Level {
 	 * Authoring Environment Constructor.
 	 */
 	public Level(String myName, GameMap myMap, double waveDelayTimer, int numWaves, List<ShopItem> shopItems,
-			List<IEntity> authoredEntities, Map<Integer, IEntity> entities) {
+			List<IEntity> authoredEntities, List<Rule> ruleAgenda, Map<Integer, IEntity> entities) {
 		this.myName = myName;
 		this.map = myMap;
 		this.waveDelayTimer = waveDelayTimer;
