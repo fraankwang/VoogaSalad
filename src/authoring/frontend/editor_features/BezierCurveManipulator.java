@@ -158,7 +158,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 				if (mouseEvent.isShiftDown()) {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle(Constants.getString("PATH_INFO_ALERT"));
-					alert.setHeaderText("Path #" + Integer.toString(myPathIndex + 1) + "\n" + "Segment #"
+					alert.setHeaderText("Path #" + Integer.toString(myPathIndex) + "\n" + "Segment #"
 							+ Integer.toString(myNum.get() + 1));
 					alert.show();
 				}
@@ -219,7 +219,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 					if (mouseEvent.isShiftDown()) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle(Constants.getString("PATH_INFO_ALERT"));
-						alert.setHeaderText("Path #" + Integer.toString(myPathIndex + 1) + "\n" + "Segment #"
+						alert.setHeaderText("Path #" + Integer.toString(myPathIndex) + "\n" + "Segment #"
 								+ Integer.toString(myNum.get() + 1));
 						alert.show();
 					}
