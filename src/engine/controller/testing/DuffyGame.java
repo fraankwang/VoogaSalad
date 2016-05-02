@@ -159,9 +159,18 @@ public class DuffyGame implements ITestingGame {
 		tempEntity2.addComponent(tempSize2);
 		tempEntity2.addComponent(tempPosition2);
 		tempEntity2.addComponent(simpleFire);
-
+		
+		IEntity tempEntity3 = new Entity(-5, "tempEntity3", "object3");
+		double tower2X = (327.0 + 566.0)/2;
+		double tower2Y = 274.0;
+		IComponent tempPosition3 = new PositionComponent(tower2X, tower2Y);tempEntity2.addComponent(tempDisplay2);
+		tempEntity3.addComponent(tempDisplay2);
+		tempEntity3.addComponent(tempSize2);
+		tempEntity3.addComponent(tempPosition3);
+		tempEntity3.addComponent(simpleFire);
 		Map<String, IEntity> createdTowers = new HashMap<String, IEntity>();
 		createdTowers.put("tempEntity2", tempEntity2);
+		createdTowers.put("tempEntity3", tempEntity3);
 		myCreatableEntityMap.put("Towers", createdTowers);
 
 		firstLevel.addEntityToMap(tempSpawn);
