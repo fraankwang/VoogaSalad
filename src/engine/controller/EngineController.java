@@ -23,10 +23,11 @@ import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.PowerUpDroppedEvent;
+import engine.controller.testing.AustinGame;
+import engine.controller.testing.ITestingGame;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
-import engine.frontend.overall.StartView;
 import engine.frontend.status.DrumpfHUDScreen;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
@@ -35,7 +36,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -64,8 +64,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Integer lastEntityClickedID;
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
-
-	private testingClass myTestingClass;
 
 	/**
 	 * Instantiates engine controller
@@ -114,11 +112,15 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-
-		StartView myStartView = new StartView(this, firsttime);
-		Scene scene = myStartView.buildScene();
-		myStage.setScene(scene);
-		myStage.show();
+		ITestingGame myTester = new AustinGame();
+		myGameWorld = myTester.initGame();
+		myEventManager = new EventManager(this, myGameWorld);
+		startGame("Duffy", 0, firsttime);
+		
+//		StartView myStartView = new StartView(this, firsttime);
+//		Scene scene = myStartView.buildScene();
+//		myStage.setScene(scene);
+//		myStage.show();
 	}
 
 	/**
@@ -154,7 +156,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 			new DrumpfTowerException(myExceptionLoader.getString(INITGAME));
 		}
 		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
-		// System.out.println(myEntityFactory);
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
@@ -194,7 +195,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private void setupGameCapture() {
 		myGameCapture = new GameCapture(loadIntResource("StartX"), loadIntResource("StartY"),
 				loadIntResource("StageMinWidth"), loadIntResource("StageMinHeight"));
-
+		
 		myStage.xProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
