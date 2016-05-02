@@ -35,6 +35,8 @@ import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
 
 public class AustinGame implements ITestingGame{
+	
+	private static final String IMAGE_DIR = "resources/images/";
 
 	public GameWorld initGame() {
 		GameWorld austin = new GameWorld();
@@ -51,6 +53,61 @@ public class AustinGame implements ITestingGame{
 	private Level getLevel() {
 		Level level = new Level("level1");
 		level.setIndex(0);
+		createRules(level);
+		createSpawns(level);
+
+		IEntity towerEntity = new Entity(0, "SuperTower", "superType");
+		IComponent tempPosition = new PositionComponent(0, 0);
+		IComponent tempMovement = new MovementComponent(6, 0);
+		IComponent tempCollision = new CollisionComponent();
+		IComponent tempDisplay = new DisplayComponent(IMAGE_DIR + "Beekeeper_Icon.png");
+		IComponent tempSize = new SizeComponent();
+		IComponent tempHealth = new HealthComponent(5);
+		IComponent pathComp = new PathComponent(0, 0);
+		
+		Vector myBulletVector = new Vector(0, 1222);
+		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 500, myBulletVector, 1);
+		
+		towerEntity.addComponent(tempDisplay);
+		towerEntity.addComponent(tempSize);
+		towerEntity.addComponent(tempPosition);
+		towerEntity.addComponent(tempMovement);
+		towerEntity.addComponent(tempCollision);
+		towerEntity.addComponent(tempHealth);
+		towerEntity.addComponent(pathComp);
+		towerEntity.addComponent(simpleFire);
+
+		ShopItem item = new ShopItem("SuperTower", IMAGE_DIR + "Beekeeper_Icon.png", 30);
+		ShopItem item2 = new ShopItem("SpeedPowerUp", IMAGE_DIR + "red-ball.png", 30);
+		level.setShopItems(Arrays.asList(item, item2));
+		
+		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
+		IComponent bulletDisplay = new DisplayComponent(IMAGE_DIR + "red-ball.png");
+		IComponent bulletSize = new SizeComponent();
+		mySimpleBullet.addComponent(new CollisionComponent());
+		mySimpleBullet.addComponent(tempPosition);
+		mySimpleBullet.addComponent(new MovementComponent(10, 0));
+		mySimpleBullet.addComponent(bulletDisplay);
+		mySimpleBullet.addComponent(bulletSize);
+		
+		ArrayList<String> myTargets = new ArrayList<String>();
+		myTargets.add("tempEntity");
+		simpleFire.setTargets(myTargets);
+		
+		createMap(level);
+		
+		level.addEntityToMap(towerEntity);
+		level.setCurrentWaveIndex(0);
+		level.setNumWaves(2);
+		level.setWaveDelayTimer(5);
+		
+		List<IEntity> authoredEntities = new ArrayList<IEntity>();
+		authoredEntities.addAll(Arrays.asList(towerEntity, mySimpleBullet));
+		level.setAuthoredEntities(authoredEntities);
+		return level;
+	}
+	
+	private void createRules(Level level){
 		EntityAction action = new EntityAction("tempEntity", "Display", "Delete", "true");
 		EntityAction action4 = new EntityAction("tempEntity", "Display", "CanBeShown", "false");
 		EntityAction action2 = new EntityAction("tempEntity", "Health", "Health", "-5");
@@ -105,41 +162,26 @@ public class AustinGame implements ITestingGame{
 		rule5.addActions(Arrays.asList(levelAction, action, action4, levelAction2));
 		rule5.addEvents(Arrays.asList("tempEntity-EndOfPathEvent"));
 
-		level.setRuleAgenda(
-				Arrays.asList(rule1, rule2, rule3, rule4, rule5, ruleKeyUp, ruleKeyDown, ruleKeyLeft, ruleKeyRight));
-		// level.addActionToEventMap(Arrays.asList("SimpleBullettempEntityCollisionEvent"),
-		// myActions);
+		level.setRuleAgenda(Arrays.asList(rule1, rule2, rule3, rule4, rule5, ruleKeyUp, ruleKeyDown, ruleKeyLeft, ruleKeyRight));
+	}
+	
+	private void createMap(Level level){
 		Path tempPath = new Path();
-		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
-		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
-		BezierCurve tempCurve3 = new BezierCurve(0, 300, 150, 150, 250, 250, 400, 400);
-
-		tempPath.addCurve(tempCurve1);
-		tempPath.addCurve(tempCurve2);
-		tempPath.addCurve(tempCurve3);
-
-		Path tempPath1 = new Path();
-		BezierCurve tempCurve4 = new BezierCurve(600, 4, 0, 0, 0, 0, 2, 100);
-		BezierCurve tempCurve5 = new BezierCurve(250, 200, 50, 50, 250, 450, 0, 200);
-		BezierCurve tempCurve6 = new BezierCurve(0, 300, 950, 50, 250, 250, 200, 400);
-		tempPath1.addCurve(tempCurve4);
-		tempPath1.addCurve(tempCurve6);
-		tempPath1.addCurve(tempCurve5);
+		BezierCurve tempCurve = new BezierCurve(0, 0, 0, 0, 450, 450, 450, 450);
+		tempPath.addCurve(tempCurve);
 
 		Path[] pathArray = new Path[2];
 		pathArray[0] = tempPath;
-		pathArray[1] = tempPath1;
-		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
-
+	
+		GameMap map = new GameMap(IMAGE_DIR + "Spider_Map.png", pathArray, 700, 500);
+		level.setMap(map);
+	}
+	
+	private void createSpawns(Level level){
 		IEntity tempSpawn = new Entity(40, "tempSpawn", "spawner");
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 2);
 		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 4);
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
-
-		IEntity tempSpawn2 = new Entity(-40, "tempSpawn2", "spawner");
-		Spawn spawn3 = new Spawn("tempEntity", 1, 0, 2);
-		Spawn spawn4 = new Spawn("tempEntity", 1, 1, 2);
-		IComponent tempSpawner1 = new SpawnerComponent(Arrays.asList(spawn3, spawn4), 1);
 
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
@@ -148,157 +190,7 @@ public class AustinGame implements ITestingGame{
 		tempSpawn.addComponent(tempSpawner);
 		tempSpawn.addComponent(tempPosition4);
 		tempSpawn.addComponent(tempDisplay4);
-
-		IComponent tempPosition5 = new PositionComponent(0, 100);
-		IComponent tempDisplay5 = new DisplayComponent(false);
-		IComponent tempSize5 = new SizeComponent();
-		tempSpawn2.addComponent(tempSize5);
-		tempSpawn2.addComponent(tempSpawner1);
-		tempSpawn2.addComponent(tempPosition5);
-		tempSpawn2.addComponent(tempDisplay5);
-
-		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns");
-		IComponent tempPosition = new PositionComponent(0, 100);
-		IComponent tempMovement = new MovementComponent(6, 0);
-		IComponent tempCollision = new CollisionComponent();
-		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
-		IComponent tempSize = new SizeComponent();
-		IComponent tempHealth = new HealthComponent(5);
-		IComponent pathComp = new PathComponent(0, 0);
-
-		tempEntity.addComponent(tempDisplay);
-		tempEntity.addComponent(tempSize);
-		tempEntity.addComponent(tempPosition);
-		tempEntity.addComponent(tempMovement);
-		tempEntity.addComponent(tempCollision);
-		tempEntity.addComponent(tempHealth);
-		tempEntity.addComponent(pathComp);
-
-		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
-		ShopItem item2 = new ShopItem("SpeedPowerUp", "bullet_sprite.png", 30);
-
-		level.setShopItems(Arrays.asList(item, item2));
-
-		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
-		IComponent tempPosition2 = new PositionComponent(700, 60);
-		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
-		IComponent tempSize2 = new SizeComponent();
-		IComponent tempCollision2 = new CollisionComponent();
-		Vector myBulletVector = new Vector(0, 1222);
-		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
-		IComponent tempSize3 = new SizeComponent();
-
-		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 500, myBulletVector, 1);
-
-		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
-
-		mySimpleBullet.addComponent(tempCollision2);
-		mySimpleBullet.addComponent(tempPosition);
-		mySimpleBullet.addComponent(new MovementComponent(10, 0));
-		mySimpleBullet.addComponent(tempDisplay3);
-		mySimpleBullet.addComponent(tempSize3);
-		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
-
-		Map<String, IEntity> createdSpawns = new HashMap<String, IEntity>();
-		createdSpawns.put("tempEntity", tempEntity);
-
-		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
-		createdAmmunition.put("SimpleBullet", mySimpleBullet);
-
-		myCreatableEntityMap.put("Ammunition", createdAmmunition);
-		myCreatableEntityMap.put("Spawns", createdSpawns);
-
-		List<IEntity> authoredEntities = new ArrayList<IEntity>();
-		authoredEntities.addAll(Arrays.asList(tempEntity, mySimpleBullet, tempEntity2));
-
-		ArrayList<String> myTargets = new ArrayList<String>();
-		myTargets.add("tempEntity");
-		simpleFire.setTargets(myTargets);
-		tempEntity2.addComponent(tempDisplay2);
-		tempEntity2.addComponent(tempSize2);
-		tempEntity2.addComponent(tempPosition2);
-		tempEntity2.addComponent(simpleFire);
-
-		Map<String, IEntity> createdTowers = new HashMap<String, IEntity>();
-		createdTowers.put("tempEntity2", tempEntity2);
-		myCreatableEntityMap.put("Towers", createdTowers);
-
 		level.addEntityToMap(tempSpawn);
-		// level.addEntityToMap(tempSpawn2);
-		level.addEntityToMap(tempEntity2);
-		level.setCurrentWaveIndex(0);
-		level.setMap(tempMap);
-		level.setNumWaves(2);
-		level.setWaveDelayTimer(5);
-		level.setAuthoredEntities(authoredEntities);
-
-		return level;
 	}
-
-	public GameWorld testCollision() {
-		GameWorld collisionTest = new GameWorld();
-		Mode tempMode = new Mode("tempMode");
-		// Level tempLevel = new Level(0);
-		Path tempPath = new Path();
-		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
-		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
-		BezierCurve tempCurve3 = new BezierCurve(0, 300, 150, 150, 250, 250, 400, 400);
-
-		tempPath.addCurve(tempCurve1);
-		tempPath.addCurve(tempCurve2);
-		tempPath.addCurve(tempCurve3);
-
-		Path[] pathArray = new Path[1];
-		pathArray[0] = tempPath;
-
-		GameMap tempMap = new GameMap("", pathArray, 200, 200);
-
-		IEntity tempEntity = new Entity(0, "tempEntity", "object");
-		IComponent tempPosition = new PositionComponent(0, 60);
-		IComponent tempMovement = new MovementComponent(2, 0);
-		IComponent tempCollision = new CollisionComponent();
-		// IComponent pathComp = new PathComponent(0, 0);
-		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
-		IComponent tempSize = new SizeComponent();
-		tempEntity.addComponent(tempDisplay);
-		tempEntity.addComponent(tempSize);
-		tempEntity.addComponent(tempPosition);
-		tempEntity.addComponent(tempMovement);
-		tempEntity.addComponent(tempCollision);
-		// tempEntity.addComponent(pathComp);
-
-		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2");
-		IComponent tempPosition2 = new PositionComponent(700, 60);
-		IComponent tempMovement2 = new MovementComponent(-4, 0);
-		// IComponent pathComp2 = new PathComponent(0, 0);
-		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
-		IComponent tempSize2 = new SizeComponent();
-		IComponent tempCollision2 = new CollisionComponent();
-		tempEntity2.addComponent(tempDisplay2);
-		tempEntity2.addComponent(tempSize2);
-		tempEntity2.addComponent(tempPosition2);
-		tempEntity2.addComponent(tempMovement2);
-		tempEntity.addComponent(tempCollision2);
-		// tempEntity2.addComponent(pathComp2);
-
-		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3");
-		IComponent tempPosition3 = new PositionComponent(450, 450);
-		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
-		IComponent tempSize3 = new SizeComponent();
-		tempEntity3.addComponent(tempDisplay3);
-		tempEntity3.addComponent(tempSize3);
-		tempEntity3.addComponent(tempPosition3);
-
-		// tempLevel.addToEntities(tempEntity);
-		// tempLevel.addToEntities(tempEntity2);
-		// tempLevel.addToEntities(tempEntity3);
-		// tempLevel.addEntityToMap(tempEntity);
-		// tempLevel.addEntityToMap(tempEntity2);
-		// tempLevel.setMap(tempMap);
-		// tempMode.addLevel(tempLevel);
-		collisionTest.addMode(tempMode);
-		return collisionTest;
-	}
-
 }
 
