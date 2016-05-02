@@ -20,6 +20,7 @@ import engine.backend.components.SpawnerComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
+import engine.backend.game_features.ShopItem;
 import engine.backend.game_object.GameStatistics;
 import engine.backend.game_object.GameWorld;
 import engine.backend.game_object.Level;
@@ -123,9 +124,10 @@ public class DuffyGame implements ITestingGame {
 		setBloonComponents(bloonEntity);
 		IEntity mySimpleBullet = new Entity(2, "SimpleBullet", "Ammunition");
 		setBulletComponents(mySimpleBullet);
-		
+		double tower1X = (150.0 + 327.0)/2;
+		double tower1Y = (320.0 + 158.0)/2;
 		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
-		IComponent tempPosition2 = new PositionComponent(700, 60);
+		IComponent tempPosition2 = new PositionComponent(tower1X, tower1Y);
 		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
 		IComponent tempCollision2 = new CollisionComponent();
@@ -139,7 +141,10 @@ public class DuffyGame implements ITestingGame {
 
 		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
 		createdAmmunition.put("SimpleBullet", mySimpleBullet);
+		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
+		ShopItem item2 = new ShopItem("SpeedPowerUp", "bullet_sprite.png", 30);
 
+		firstLevel.setShopItems(Arrays.asList(item, item2));
 		myCreatableEntityMap.put("Ammunition", createdAmmunition);
 		myCreatableEntityMap.put("Spawns", createdSpawns);
 		
@@ -183,7 +188,9 @@ public class DuffyGame implements ITestingGame {
 	}
 	
 	private void setBloonComponents(IEntity tempEntity){
-		IComponent tempPosition = new PositionComponent(0, 100);
+		double tower1X = (150.0 + 327.0)/2;
+		double tower1Y = (320.0 + 158.0)/2;
+		IComponent tempPosition = new PositionComponent(tower1X, tower1Y);
 		IComponent tempMovement = new MovementComponent(6, 0);
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
@@ -201,7 +208,9 @@ public class DuffyGame implements ITestingGame {
 	}
 	
 	private void setBulletComponents(IEntity mySimpleBullet){
-		IComponent tempPosition = new PositionComponent(0, 100);
+		double tower1X = (150.0 + 327.0)/2;
+		double tower1Y = (320.0 + 158.0)/2;
+		IComponent tempPosition = new PositionComponent(tower1X, tower1Y);
 		IComponent tempMovement = new MovementComponent(6, 0);
 		IComponent tempCollision = new CollisionComponent();
 		IComponent tempSize3 = new SizeComponent();
@@ -215,7 +224,19 @@ public class DuffyGame implements ITestingGame {
 	
 	private GameMap makeGameMap(){
 		Path tempPath = new Path();
-		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
+		BezierCurve curve1 = new BezierCurve(28.0,323.0, 28.0,323.0,147.0,329.0,147.0,329.0); 
+		BezierCurve curve2 =  new BezierCurve(147.0,329.0,150.0,158.0,147.0,329.0,150.0,158.0 );
+		BezierCurve curve3 = new BezierCurve(150.0,158.0,150.0,158.0,327.0,157.0,327.0,157.0 );
+		BezierCurve curve4 = new BezierCurve( 327.0,157.0,327.0,157.0,327.0,383.0,327.0,383.0 );
+		BezierCurve curve5 = new BezierCurve(327.0,383.0,327.0,383.0,566.0,384.0,566.0,384.0 );
+		BezierCurve curve6 = new BezierCurve(566.0,384.0,566.0,384.0,572.0,274.0,572.0,274.0 );
+		BezierCurve curve7 = new BezierCurve(572.0,274.0,572.0,274.0,881.0,270.0,881.0,270.0);
+		//BezierCurve curve8 new BezierCurve(100.0-100.0,150.0-50.0,250.0-150.0,300.0-100.0
+		double tower1X = (150.0 + 327.0)/2;
+		double tower1Y = (320.0 + 158.0)/2;
+		double tower2X = (327.0 + 566.0)/2;
+		double tower2Y = 274.0;
+		/*BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
 		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
 		BezierCurve tempCurve3 = new BezierCurve(0, 300, 150, 150, 250, 250, 400, 400);
 
@@ -229,12 +250,18 @@ public class DuffyGame implements ITestingGame {
 		BezierCurve tempCurve6 = new BezierCurve(0, 300, 950, 50, 250, 250, 200, 400);
 		tempPath1.addCurve(tempCurve4);
 		tempPath1.addCurve(tempCurve6);
-		tempPath1.addCurve(tempCurve5);
+		tempPath1.addCurve(tempCurve5);*/
+		tempPath.addCurve(curve1);
+		tempPath.addCurve(curve2);
+		tempPath.addCurve(curve3);
+		tempPath.addCurve(curve4);
+		tempPath.addCurve(curve5);
+		tempPath.addCurve(curve6);
+		tempPath.addCurve(curve7);
 
 		Path[] pathArray = new Path[2];
 		pathArray[0] = tempPath;
-		pathArray[1] = tempPath1;
-		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
+		GameMap tempMap = new GameMap("tower_defense_map_1.png", pathArray, 900, 600);
 		return tempMap;
 	}
 

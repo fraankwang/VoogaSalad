@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 //import authoring.backend.Testing;
 import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
@@ -24,6 +25,7 @@ import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.PowerUpDroppedEvent;
 import engine.controller.testing.AustinGame;
+import engine.controller.testing.DuffyGame;
 import engine.controller.testing.ITestingGame;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.EngineView;
@@ -112,7 +114,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-		ITestingGame myTester = new AustinGame();
+		ITestingGame myTester = new DuffyGame();
 		myGameWorld = myTester.initGame();
 		myEventManager = new EventManager(this, myGameWorld);
 		startGame("Duffy", 0, firsttime);
