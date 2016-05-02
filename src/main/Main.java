@@ -19,7 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 /**
- * @author Austin Wu The Main file that starts the simulation
+ * @author Austin Wu The Main file that starts the simulation :)
  */
 
 public class Main extends Application {
