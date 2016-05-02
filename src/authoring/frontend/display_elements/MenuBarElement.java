@@ -121,7 +121,7 @@ public class MenuBarElement implements IMenuBarElement {
 			exportGameMap.put("URL", gameFile.getName());
 
 			myController.writeData(exportGameMap);
-			myMain.createPlayer(myStage);
+//			myMain.createPlayer(myStage);
 		});
 
 		return exportGame;
