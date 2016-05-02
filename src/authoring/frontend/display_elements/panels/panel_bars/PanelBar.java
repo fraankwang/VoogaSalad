@@ -1,5 +1,6 @@
 package authoring.frontend.display_elements.panels.panel_bars;
 
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.panels.Panel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -29,10 +30,10 @@ public abstract class PanelBar extends Panel {
 	protected void initializeComponents() {
 		myGridBar = new HBox();
 		myGridBar.setAlignment(Pos.CENTER_LEFT);
-		myGridBar.setSpacing(10);
+		myGridBar.setSpacing(Constants.getInt("PANEL_BAR_SPACING"));
 
 		myDescription = new Label();
-		myDescription.setFont(new Font(25));
+		myDescription.setFont(new Font(Constants.getInt("PANEL_BAR_FONT")));
 	}
 
 	public abstract void setDescription(String description);

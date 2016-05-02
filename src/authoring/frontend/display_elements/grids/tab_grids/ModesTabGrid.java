@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.editor_displays.ModeEditorDisplay;
 import authoring.frontend.display_elements.grid_factories.tab_grid_factories.ModesTabGridFactory;
 import authoring.frontend.display_elements.grids.TabGrid;
@@ -95,7 +96,7 @@ public class ModesTabGrid extends TabGrid {
 			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
 					Boolean newValue) {
 				if (newValue) {
-					iv.setOpacity(1);
+					iv.setOpacity(Constants.getInt("OPACITY_FULL"));
 					info.remove("Type");
 					setAttributesPanel(info);
 					currentInfo = info;
@@ -110,7 +111,7 @@ public class ModesTabGrid extends TabGrid {
 					}
 
 				} else {
-					iv.setOpacity(0.2);
+					iv.setOpacity(Constants.getDouble("OPACITY_BLUR"));
 
 				}
 			}
@@ -126,7 +127,7 @@ public class ModesTabGrid extends TabGrid {
 	 * @return
 	 */
 	private ImageView convertToImageView(String string) {
-		LevelGridViewPanel levels = new LevelGridViewPanel(500, 500, null, myController);
+		LevelGridViewPanel levels = new LevelGridViewPanel(Constants.getInt("LEVEL_GRID_SIZE"), Constants.getInt("LEVEL_GRID_SIZE"), null, myController);
 		levels.initialize();
 		levels.updatePossibleLevels(myController.getLevels());
 		levels.updateSelectedLevels(GlobalParser.parseLevels(string));

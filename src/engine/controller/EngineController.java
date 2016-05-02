@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.backend.Testing;
 //import authoring.backend.Testing;
 import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
@@ -49,14 +50,15 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
-	private ExceptionLoader exceptionLoader;
 
 	private static final String RESOURCE_NAME = "stage";
 	private static final String INITGAME = "StartingGameEvent";
+	private static final String XML_FAIL = "CreateWorldFromXML";
 
 	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean stepping;
 
+	private ExceptionLoader myExceptionLoader;
 	private EventManager myEventManager;
 	private GameWorld myGameWorld;
 	private SystemsController mySystems;
@@ -79,7 +81,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 		super(RESOURCE_NAME);
 		myStage = s;
 		myMain = m;
-		exceptionLoader = new ExceptionLoader();
+		myExceptionLoader = new ExceptionLoader();
 	}
 
 	/**
@@ -114,40 +116,11 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-<<<<<<< HEAD
-		//testingClass myTestingClass = new testingClass();
-		//myGameWorld = myTestingClass.testFiring();
-		// myGameStatistics = myGameWorld.getGameStatistics();
-
-
-		myEventManager = new EventManager(this, myGameWorld);
-//		startGame("test firing", 0);
-
-		// StartView myStartView = new StartView(this, firstTime);
-		// Scene scene = myStartView.buildScene();
-		// myStage.setScene(scene);
-		// myStage.show();
-		animation.stop();
-		stepping = false;
-
-//		myTestingClass = new testingClass();
-//		myGameWorld = myTestingClass.testFiring();
-//		// myGameStatistics = myGameWorld.getGameStatistics();
-//
-//		myEventManager = new EventManager(this, myGameWorld);
-//		startGame("test firing", 0);
-
-		 StartView myStartView = new StartView(this, firsttime);
-		 Scene scene = myStartView.buildScene();
-		 myStage.setScene(scene);
-		 myStage.show();
-=======
 
 		StartView myStartView = new StartView(this, firsttime);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);
 		myStage.show();
->>>>>>> 1ece89c226314188abd03bf3bd77e214f61fda75
 	}
 
 	/**
@@ -162,9 +135,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(file));
 			myEventManager = new EventManager(this, myGameWorld);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block bad xml file error once its
-			// thrown
-			e.printStackTrace();
+			new DrumpfTowerException(myExceptionLoader.getString(XML_FAIL));
 		}
 	}
 
@@ -182,7 +153,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			initEngineView(firsttime);
 			manualRefresh();
 		} catch (IOException e) {
-			new DrumpfTowerException(exceptionLoader.getString(INITGAME));
+			new DrumpfTowerException(myExceptionLoader.getString(INITGAME));
 		}
 		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
 		//System.out.println(myEntityFactory);

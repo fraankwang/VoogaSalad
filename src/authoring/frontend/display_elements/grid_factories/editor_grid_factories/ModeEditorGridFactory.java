@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.grid_factories.editor_grid_factories;
 
 import authoring.frontend.IAuthoringView;
+import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grid_factories.EditorGridFactory;
 import authoring.frontend.display_elements.panels.LevelGridViewPanel;
 import authoring.frontend.display_elements.panels.Panel;
@@ -28,7 +29,7 @@ public class ModeEditorGridFactory extends EditorGridFactory {
 	 */
 	@Override
 	public Panel createPrimaryDisplay() {
-		LevelGridViewPanel levelView = new LevelGridViewPanel(50, 50, null, myController);
+		LevelGridViewPanel levelView = new LevelGridViewPanel(Constants.getDouble("LEVEL_GRID_SIZE"), Constants.getDouble("LEVEL_GRID_SIZE"), null, myController);
 		levelView.initialize();
 		return levelView;
 	}

@@ -60,8 +60,12 @@ public class AuthoringController implements IAuthoringController {
 			model.updateGame(data);
 			return;
 		}
-		if (type.equals("Create")) {
-			model.exportGame();
+		if (type.equals("Export")) {
+			model.exportGame(data.get("URL"));
+			return;
+		}
+		if (type.equals("Import")) {
+			model.reloadGame(data.get("URL"));
 			return;
 		}
 	}

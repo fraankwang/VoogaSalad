@@ -126,10 +126,6 @@ public class GameMap {
 	public Path getPath(int index){
 		return paths[index];
 	}
-<<<<<<< HEAD
-	
-=======
->>>>>>> 1ece89c226314188abd03bf3bd77e214f61fda75
 
 	public void setPaths(Path[] paths) {
 		this.paths = paths;
