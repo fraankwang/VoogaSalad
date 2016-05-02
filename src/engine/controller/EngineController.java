@@ -24,6 +24,7 @@ import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.PowerUpDroppedEvent;
 import engine.controller.testing.AustinGame;
+import engine.controller.testing.DuffyGame;
 import engine.controller.testing.ITestingGame;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.EngineView;
@@ -112,10 +113,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-		ITestingGame myTester = new AustinGame();
+		ITestingGame myTester = new DuffyGame();
 		myGameWorld = myTester.initGame();
 		myEventManager = new EventManager(this, myGameWorld);
-		startGame("Stretch", 0, firsttime);
+		startGame("Duffy", 0, firsttime);
 		
 //		StartView myStartView = new StartView(this, firsttime);
 //		Scene scene = myStartView.buildScene();
