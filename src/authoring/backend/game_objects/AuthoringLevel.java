@@ -39,6 +39,9 @@ public class AuthoringLevel {
 		this.myMap = level.getMap();
 		this.waveDelayTimer = level.getWaveDelayTimer();
 		this.myInfo = new HashMap<String, String>();
+		this.spawnEntities = new ArrayList<AuthoringEntity>();
+		this.entities = new HashSet<String>();
+		setUpEntities(level);
 		setUpSpawnEntities(level);
 		setUpRuleAgenda(level);
 		initializeInfo();
@@ -52,6 +55,15 @@ public class AuthoringLevel {
 		myInfo.put("MapWidth", myMap.getMapWidth() + "");
 		myInfo.put("MapHeight", myMap.getMapHeight() + "");
 		myInfo.put("Paths", myMap.getPathsInfo());
+	}
+	
+	private void setUpEntities(Level level) {
+		List<IEntity> entities = level.getAuthoredEntities();
+		Set<String> entityNames = new HashSet<String>();
+		for (IEntity entity : entities) {
+			this.entities.add(entity.getName());
+		}
+		setEntities(entityNames);
 	}
 
 	private void setUpSpawnEntities(Level level) {

@@ -30,6 +30,7 @@ public class AuthoringMode {
 		this.levels = getLevelMap(mode.getLevels());
 		this.initialNumLives = mode.getGameStatistics().getInitialNumLives();
 		this.initialResources = mode.getGameStatistics().getInitialResources();
+		this.myInfo = new HashMap<String, String>();
 		initializeInfo();
 	}
 
