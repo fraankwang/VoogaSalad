@@ -114,14 +114,14 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-		myTestingClass = new Galaga();
-		myGameWorld = myTestingClass.playGalaga();
-		myEventManager = new EventManager(this, myGameWorld);
-		startGame("Galaga", 0, firsttime);
-//		StartView myStartView = new StartView(this, firsttime);
-//		Scene scene = myStartView.buildScene();
-//		myStage.setScene(scene);
-//		myStage.show();
+//		myTestingClass = new Galaga();
+//		myGameWorld = myTestingClass.playGalaga();
+//		myEventManager = new EventManager(this, myGameWorld);
+//		startGame("Galaga", 0, firsttime);
+		StartView myStartView = new StartView(this, firsttime);
+		Scene scene = myStartView.buildScene();
+		myStage.setScene(scene);
+		myStage.show();
 	}
 
 	/**
