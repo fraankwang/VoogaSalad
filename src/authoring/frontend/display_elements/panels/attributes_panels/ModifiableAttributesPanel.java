@@ -207,9 +207,7 @@ public abstract class ModifiableAttributesPanel extends AttributesPanel {
 		myAttributesMap = info;
 		myAttributes.clear();
 		myAttributes.addAll(myAttributesMap.keySet());
-		System.out.println(
-				"*****3. ModifiableAttrPanel: updated myAttributesMap and myAttributes set with given unmodifiableattributespanel outputs:");
-		System.out.println(myAttributesMap);
+
 		myInputMap.clear();
 
 	}

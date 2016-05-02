@@ -41,7 +41,7 @@ public class Galaga implements ITestingGame{
 		Mode mode = new Mode("Galaga");
 		Level level = getLevel1();
 		mode.addLevel(level);
-		GameStatistics gameStats = new GameStatistics(10, 0);
+		GameStatistics gameStats = new GameStatistics(20, 0);
 		mode.setGameStatistics(gameStats);
 
 		galaga.addMode(mode);
@@ -65,7 +65,7 @@ public class Galaga implements ITestingGame{
 		
 		IComponent playerBulletCollision = new CollisionComponent();
 		IComponent playerBulletDisplay = new DisplayComponent("resources/images/PurpleRedBullet.png");
-		IComponent playerBulletSize = new SizeComponent(50, 100);
+		IComponent playerBulletSize = new SizeComponent(30, 60);
 		
 		playerBullet.addComponent(playerBulletDisplay);
 		playerBullet.addComponent(playerBulletSize);
@@ -92,13 +92,13 @@ public class Galaga implements ITestingGame{
 		IComponent shipCollision = new CollisionComponent();
 		IComponent shipDisplay = new DisplayComponent("resources/images/GalagaShip (1).png");
 		IComponent shipSize = new SizeComponent(60, 60);
-		IComponent shipHealth = new HealthComponent(10);
+		IComponent shipHealth = new HealthComponent(20);
 		
 		FiringComponent shipGun = new FiringComponent();
 		shipGun.setAmmunition("GalagaBullet");
 		shipGun.setDirectionToFire(new Vector(0,-1));
 		shipGun.setAmmunitionSpeed(20);
-		shipGun.setTargets(Arrays.asList("Enemy1", "enemy2"));
+		shipGun.setTargets(Arrays.asList("Enemy1", "enemy2", "enemy3"));
 		shipGun.setEnemyInSightRange(100000);
 		shipGun.setFiringRate(100000000);
 		
@@ -113,15 +113,15 @@ public class Galaga implements ITestingGame{
 		// ship actions
 		EntityAction shipDeathAction = new EntityAction("GalagaShip", "Display", "Delete", "true");
 		EntityAction shipDeathAction1 = new EntityAction("GalagaShip", "Display", "CanBeShown", "false");
-		EntityAction shipCollideAction = new EntityAction("GalagaShip", "Health", "Health", "-1");
-		LevelAction shipDeathAction2 = new LevelAction("CurrentNumLives", "-5");
+		EntityAction shipCollideAction = new EntityAction("GalagaShip", "Health", "Health", "-2");
+		LevelAction shipDeathAction2 = new LevelAction("CurrentNumLives", "-10");
 		
 		LevelAction shipHitAction = new LevelAction("CurrentNumLives", "-1");
 		
-		EntityAction keyActionLeft = new EntityAction("GalagaShip", "Position", "XCoordinate", "-10");
-		EntityAction keyActionRight = new EntityAction("GalagaShip", "Position", "XCoordinate", "10");
-		EntityAction keyActionDown = new EntityAction("GalagaShip", "Position", "YCoordinate", "10");
-		EntityAction keyActionUp = new EntityAction("GalagaShip", "Position", "YCoordinate", "-10");
+		EntityAction keyActionLeft = new EntityAction("GalagaShip", "Position", "XCoordinate", "-20");
+		EntityAction keyActionRight = new EntityAction("GalagaShip", "Position", "XCoordinate", "20");
+		EntityAction keyActionDown = new EntityAction("GalagaShip", "Position", "YCoordinate", "20");
+		EntityAction keyActionUp = new EntityAction("GalagaShip", "Position", "YCoordinate", "-20");
 
 		Rule ruleKeyLeft = new Rule();
 		ruleKeyLeft.addActions(keyActionLeft);
@@ -183,8 +183,8 @@ public class Galaga implements ITestingGame{
 		enemy1Gun.setAmmunition("EnemyBullet");
 		enemy1Gun.setDirectionToFire(new Vector(0,1));
 		enemy1Gun.setAmmunitionAmount(50);
-		enemy1Gun.setAmmunitionSpeed(10);
-		enemy1Gun.setEnemyInSightRange(500);
+		enemy1Gun.setAmmunitionSpeed(6);
+		enemy1Gun.setEnemyInSightRange(600);
 		enemy1Gun.setFiringRate(3);
 		enemy1Gun.setTargets(Arrays.asList("GalagaShip"));
 
@@ -222,9 +222,9 @@ public class Galaga implements ITestingGame{
 				FiringComponent enemy2Gun = new FiringComponent();
 				enemy2Gun.setAmmunition("EnemyBullet");
 				enemy2Gun.setDirectionToFire(new Vector(0,1));
-				enemy2Gun.setAmmunitionSpeed(8);
+				enemy2Gun.setAmmunitionSpeed(5);
 				enemy2Gun.setAmmunitionAmount(50);
-				enemy2Gun.setEnemyInSightRange(400);
+				enemy2Gun.setEnemyInSightRange(500);
 				enemy2Gun.setFiringRate(2);
 				enemy2Gun.setTargets(Arrays.asList("GalagaShip"));
 				
@@ -242,7 +242,68 @@ public class Galaga implements ITestingGame{
 				EntityAction enemy2DeathAction1 = new EntityAction("enemy2", "Display", "Delete", "true");
 				LevelAction enemy2KillAction = new LevelAction("CurrentResources", "10");
 		
-		
+				EntityAction enemyBulletAction2 = new EntityAction("EnemyBullet1", "Display", "CanBeShown", "false");
+				EntityAction enemyBulletAction3 = new EntityAction("EnemyBullet1", "Display", "Delete", "true");
+				
+				//make enemy3
+				
+				IEntity enemy3 = new Entity(560, "enemy3", "Enemies");
+				
+						IComponent enemy3Position = new PositionComponent(0, 100);
+						
+						MovementComponent enemy3Movement = new MovementComponent(5, 0);
+						enemy3Movement.setTheta(0);
+						enemy3Movement.setCanMove(true);
+						enemy3Movement.setCanRotate(false);
+						
+						IComponent enemy3Collision = new CollisionComponent();
+						IComponent enemy3Display = new DisplayComponent("resources/images/Bug3T.png");
+						IComponent enemy3Size = new SizeComponent(40, 40);
+						IComponent enemy3Health = new HealthComponent(1);
+						IComponent enemy3Path = new PathComponent(0, 0);
+						
+						FiringComponent enemy3Gun = new FiringComponent();
+						enemy3Gun.setAmmunition("EnemyBullet1");
+						enemy3Gun.setDirectionToFire(new Vector(0, 1));
+						enemy3Gun.setAmmunitionSpeed(20);
+						enemy3Gun.setEnemyInSightRange(700);
+						enemy3Gun.setFiringRate(2);
+						enemy3Gun.setTargets(Arrays.asList("GalagaShip"));
+						
+						enemy3.addComponent(enemy3Display);
+						enemy3.addComponent(enemy3Size);
+						enemy3.addComponent(enemy3Position);
+						enemy3.addComponent(enemy3Movement);
+						enemy3.addComponent(enemy3Collision);
+						enemy3.addComponent(enemy3Health);
+						enemy3.addComponent(enemy3Gun);
+						enemy3.addComponent(enemy3Path);
+				
+						//EnemyBullet1
+						IEntity enemyBullet1 = new Entity(232, "EnemyBullet1", "Ammo");
+
+						IComponent enemyBulletPosition1 = new PositionComponent(0, 0);
+
+						MovementComponent enemyBulletMovement1 = new MovementComponent(0, -10);
+						enemyBulletMovement1.setTheta(0);
+						enemyBulletMovement1.setCanMove(true);
+						enemyBulletMovement1.setCanRotate(false);
+
+						IComponent enemyBulletCollision1 = new CollisionComponent();
+						IComponent enemyBulletDisplay1 = new DisplayComponent("resources/images/Bug5T.png");
+						IComponent enemyBulletSize1 = new SizeComponent(50, 50);
+
+						enemyBullet1.addComponent(enemyBulletDisplay1);
+						enemyBullet1.addComponent(enemyBulletSize1);
+						enemyBullet1.addComponent(enemyBulletPosition1);
+						enemyBullet1.addComponent(enemyBulletCollision1);
+						enemyBullet1.addComponent(enemyBulletMovement1);
+						
+						// enemy3 actions
+						EntityAction enemy3DeathAction = new EntityAction("enemy3", "Display", "CanBeShown", "false");
+						EntityAction enemy3DeathAction1 = new EntityAction("enemy3", "Display", "Delete", "true");
+						LevelAction enemy3KillAction = new LevelAction("CurrentResources", "15");
+				
 
 //		List<EntityAction> myActions = new ArrayList<EntityAction>();
 //		myActions.add(shipDeathAction);
@@ -254,6 +315,10 @@ public class Galaga implements ITestingGame{
 		playerHitRule.addActions(Arrays.asList(shipHitAction, shipCollideAction, enemyBulletAction, enemyBulletAction1));
 		playerHitRule.addEvents(Arrays.asList("EnemyBullet-GalagaShip-CollisionEvent"));
 
+		Rule playerHitRule1 = new Rule();
+		playerHitRule1.addActions(Arrays.asList(shipHitAction, shipCollideAction, enemyBulletAction2, enemyBulletAction3));
+		playerHitRule1.addEvents(Arrays.asList("EnemyBullet1-GalagaShip-CollisionEvent"));
+		
 		Rule playerDeathRule = new Rule();
 		playerDeathRule.addActions(Arrays.asList(shipDeathAction, shipDeathAction1));
 		playerDeathRule.addEvents(Arrays.asList("GalagaShip-DeathEvent"));
@@ -300,11 +365,29 @@ public class Galaga implements ITestingGame{
 		enemy2HitRule.addActions(Arrays.asList(enemy2DeathAction, enemy2DeathAction1, playerBulletAction, playerBulletAction1, enemy2KillAction));
 		enemy2HitRule.addEvents(Arrays.asList("GalagaBullet-enemy2-CollisionEvent"));
 		
+		//enemy 3 rules
+		Rule enemy3LeaveScreenRule = new Rule();
+		enemy3LeaveScreenRule.addActions(Arrays.asList(enemy3DeathAction, enemy3DeathAction1));
+		enemy3LeaveScreenRule.addEvents(Arrays.asList("enemy3-EndOfPathEvent"));
+		
+		Rule enemy3DeathRule = new Rule();
+		enemy3DeathRule.addActions(Arrays.asList(enemy3DeathAction, enemy3DeathAction1, enemy3KillAction));
+		enemy3DeathRule.addEvents(Arrays.asList("enemy3-DeathEvent"));
+		
+		Rule enemy3CollideRule = new Rule();
+		enemy3CollideRule.addActions(Arrays.asList(enemy3DeathAction, enemy3DeathAction1, shipDeathAction2, shipDeathAction, shipDeathAction1));
+		enemy3CollideRule.addEvents(Arrays.asList("GalagaShip-enemy3-CollisionEvent"));
+		
+		Rule enemy3HitRule = new Rule();
+		enemy3HitRule.addActions(Arrays.asList(enemy3DeathAction, enemy3DeathAction1, playerBulletAction, playerBulletAction1, enemy3KillAction));
+		enemy3HitRule.addEvents(Arrays.asList("GalagaBullet-enemy3-CollisionEvent"));
 
 		level.setRuleAgenda(
-				Arrays.asList(playerHitRule, playerDeathRule, playerFireRule, playerBulletOffMapRule, enemy1LeaveScreenRule, enemy1DeathRule,
-						enemy1CollideRule, enemy2LeaveScreenRule, enemy2DeathRule, enemy2CollideRule, 
-						enemy1HitRule, enemy2HitRule, ruleKeyUp, ruleKeyDown, ruleKeyLeft, ruleKeyRight));
+				Arrays.asList(playerHitRule, playerHitRule1, playerDeathRule, playerFireRule, playerBulletOffMapRule, enemy1LeaveScreenRule, enemy1DeathRule,
+						enemy1CollideRule, enemy2LeaveScreenRule, enemy2DeathRule, enemy2CollideRule, enemy3LeaveScreenRule, enemy3DeathRule, enemy3CollideRule, 
+						enemy1HitRule, enemy2HitRule, enemy3HitRule, ruleKeyUp, ruleKeyDown, ruleKeyLeft, ruleKeyRight));
+		
+		//level.getRuleAgenda().forEach(e -> System.out.println(e));
 		
 		Path tempPath = new Path();
 		BezierCurve tempCurve1 = new BezierCurve(68.0, 6.0, 388.0, 54.0, 76.0, 133.0, 425.0, 150.0);
@@ -345,15 +428,17 @@ public class Galaga implements ITestingGame{
 		GameMap tempMap = new GameMap("resources/images/Galaga-Background1.jpg", pathArray, 640, 960);
 
 		IEntity tempSpawn = new Entity(40, "tempSpawn", "spawner");
-		Spawn spawn = new Spawn("Enemy1", 1, 0, 5);
-		Spawn spawn2 = new Spawn("Enemy1", 1, 1, 5);
-		Spawn spawn3 = new Spawn("enemy2", 2, 2, 7);
+		Spawn spawn = new Spawn("Enemy1", 1, 0, 7);
+		Spawn spawn2 = new Spawn("Enemy1", 1, 1, 7);
+		Spawn spawn3 = new Spawn("enemy2", 1, 2, 7);
+		
 		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2, spawn3), 0);
 
 		IEntity tempSpawn2 = new Entity(-40, "tempSpawn2", "spawner");
 		Spawn spawn4 = new Spawn("enemy2", 2, 0, 5);
 		Spawn spawn5 = new Spawn("enemy2", 2, 1, 5);
-		Spawn spawn6 = new Spawn("Enemy1", 2, 2, 7);
+		Spawn spawn6 = new Spawn("Enemy1", 1, 2, 8);
+		Spawn spawn7 = new Spawn("enemy2", 2, 2, 4);
 		IComponent tempSpawner1 = new SpawnerComponent(Arrays.asList(spawn4, spawn5, spawn6), 1);
 
 		IComponent tempPosition4 = new PositionComponent(0, 100);
@@ -371,6 +456,21 @@ public class Galaga implements ITestingGame{
 		tempSpawn2.addComponent(tempSpawner1);
 		tempSpawn2.addComponent(tempPosition5);
 		tempSpawn2.addComponent(tempDisplay5);
+		
+		//makes another spawner 
+				IEntity tempSpawn3 = new Entity(-50, "tempSpawn3", "spawner");
+				Spawn spawn8 = new Spawn("enemy3", 2, 1, 10);
+				Spawn spawn9 = new Spawn("enemy3", 2, 2, 10);
+				IComponent tempSpawner3 = new SpawnerComponent(Arrays.asList(spawn8, spawn9), 0);
+
+				IComponent tempPosition6 = new PositionComponent(0, 100);
+				IComponent tempDisplay6 = new DisplayComponent(false);
+				IComponent tempSize6 = new SizeComponent();
+				tempSpawn3.addComponent(tempSize6);
+				tempSpawn3.addComponent(tempSpawner3);
+				tempSpawn3.addComponent(tempPosition6);
+				tempSpawn3.addComponent(tempDisplay6);
+		
 
 //		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns");
 //		IComponent tempPosition = new PositionComponent(0, 100);
@@ -419,16 +519,19 @@ public class Galaga implements ITestingGame{
 		Map<String, IEntity> createdSpawns = new HashMap<String, IEntity>();
 		createdSpawns.put("Enemy1", enemy1);
 		createdSpawns.put("enemy2", enemy2);
+		createdSpawns.put("enemy3", enemy3);
 
 		Map<String, IEntity> createdAmmunition = new HashMap<String, IEntity>();
 		createdAmmunition.put("GalagaBullet", playerBullet);
 		createdAmmunition.put("EnemyBullet", enemyBullet);
+		createdAmmunition.put("EnemyBullet1", enemyBullet1);	
+
 
 		myCreatableEntityMap.put("Ammunition", createdAmmunition);
 		myCreatableEntityMap.put("Spawns", createdSpawns);
 
 		List<IEntity> authoredEntities = new ArrayList<IEntity>();
-		authoredEntities.addAll(Arrays.asList(ship, playerBullet, enemy1, enemy2, enemyBullet));
+		authoredEntities.addAll(Arrays.asList(ship, playerBullet, enemy1, enemy2, enemy3, enemyBullet, enemyBullet1));
 
 //		ArrayList<String> myTargets = new ArrayList<String>();
 //		myTargets.add("tempEntity");
@@ -443,11 +546,14 @@ public class Galaga implements ITestingGame{
 
 		level.addEntityToMap(tempSpawn);
 		level.addEntityToMap(tempSpawn2);
+		level.addEntityToMap(tempSpawn3);
 		level.addEntityToMap(ship);
 		level.setCurrentWaveIndex(0);
 		level.setMap(tempMap);
 		level.setNumWaves(2);
-		level.setWaveDelayTimer(10);
+		level.setWaveDelayTimer(5);
+		level.setCurrentWaveTimer(50);
+		level.setSendNextWave(false);
 		level.setAuthoredEntities(authoredEntities);
 
 		return level;
