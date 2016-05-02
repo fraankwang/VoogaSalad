@@ -8,12 +8,12 @@ import engine.backend.game_object.GameWorld;
 public class testSerialize {
 
 	public testSerialize() throws IOException {
-		ITestingGame g = new Galaga();
+		ITestingGame g = new HaydenGame();
 		GameWorld game = g.initGame();
 		GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 		String xml = serializer.getXMLfromObject(game);
 
-		GameWorldToXMLWriter.stringToDocument(xml, "/Users/austinwu/Desktop/galagaGame.xml");
+		GameWorldToXMLWriter.stringToDocument(xml, "/Users/austinwu/Desktop/haydenGame.xml");
 	}
 
 	public static void main(String[] args) throws IOException {
