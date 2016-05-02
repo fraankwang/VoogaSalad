@@ -17,7 +17,7 @@ public class EntityAction implements IAction {
 	private String componentToModifiy;
 	private String valueInComponent;
 	private String newValue;
-	
+
 	/**
 	 * 
 	 * @param entityName
@@ -31,7 +31,7 @@ public class EntityAction implements IAction {
 		this.setValueInComponent(valueInComponent);
 		this.setNewValue(newValue);
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -51,10 +51,10 @@ public class EntityAction implements IAction {
 		return newValue;
 	}
 
-
 	/**
 	 * 
-	 * @param newValue - create the new value to set the variable to
+	 * @param newValue
+	 *            - create the new value to set the variable to
 	 */
 	public void setNewValue(String newValue) {
 		this.newValue = newValue;

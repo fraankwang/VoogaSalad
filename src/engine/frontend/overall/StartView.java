@@ -35,9 +35,9 @@ public class StartView {
 		firsttime = f;
 	}
 
-
 	/**
 	 * Initialize startPrompt scene
+	 * 
 	 * @return Scene - containing view for beginning prompt
 	 */
 	public Scene buildScene() {
@@ -130,8 +130,11 @@ public class StartView {
 
 	/**
 	 * Helps bind width between two Regions
-	 * @param region - Region to bind
-	 * @param db - double expression describing binding
+	 * 
+	 * @param region
+	 *            - Region to bind
+	 * @param db
+	 *            - double expression describing binding
 	 */
 	public void bindWidth(Region region, DoubleExpression db) {
 		region.minWidthProperty().bind(db);
@@ -140,8 +143,11 @@ public class StartView {
 
 	/**
 	 * Helps bind height between two Regions
-	 * @param region - Region to bind
-	 * @param db - double expression describing binding
+	 * 
+	 * @param region
+	 *            - Region to bind
+	 * @param db
+	 *            - double expression describing binding
 	 */
 	public void bindHeight(Region region, DoubleExpression db) {
 		region.minHeightProperty().bind(db);

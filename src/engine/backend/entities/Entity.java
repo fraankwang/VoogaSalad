@@ -1,6 +1,5 @@
 package engine.backend.entities;
 
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -12,19 +11,10 @@ import java.util.Set;
 import engine.backend.components.IComponent;
 import engine.backend.game_object.IModifiable;
 import engine.backend.rules.EntityAction;
-
-import engine.backend.rules.Rule;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.*;
-
-
 import engine.backend.rules.IAction;
 import engine.backend.utilities.ComponentTagResources;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
-
 
 public class Entity extends Observable implements IEntity, IModifiable {
 
@@ -42,14 +32,12 @@ public class Entity extends Observable implements IEntity, IModifiable {
 	private boolean hasBeenModified;
 
 	private EntityStatistics myStats;
-	private ExceptionLoader myExceptionLoader;
 
 	/**
 	 * Initializes an Entity without a unique ID. Authoring Environment
 	 * Constructor.
 	 */
 	public Entity(String myName, String myGenre, Map<String, IComponent> myComponents) {
-		myExceptionLoader = new ExceptionLoader();
 		this.myName = myName;
 		this.myGenre = myGenre;
 		this.myComponents = myComponents;
@@ -113,7 +101,6 @@ public class Entity extends Observable implements IEntity, IModifiable {
 		return myID;
 	}
 
-	
 	public void setLevelID(int levelID) {
 		myID = levelID;
 	}
@@ -171,7 +158,6 @@ public class Entity extends Observable implements IEntity, IModifiable {
 		return myStats;
 	}
 
-
 	@Override
 	public void applyAction(IAction action) {
 		String component = ((EntityAction) action).getComponentToModifiy();
@@ -181,12 +167,12 @@ public class Entity extends Observable implements IEntity, IModifiable {
 
 		String fullName = ComponentTagResources.getComponentTag(component);
 		Class<? extends IComponent> componentClass = getComponent(fullName).getClass();
-		// System.out.println(componentClass.getName());
+		ExceptionLoader myExceptionLoader = new ExceptionLoader();
 		try {
 			Object componentClassInstance = componentClass.newInstance();
 
 			componentClassInstance = componentClass.cast(getComponent(fullName));
-			
+
 			String methodName = PREFIX + instanceVar;
 			setMethod = componentClassInstance.getClass().getMethod(methodName, String.class);
 

@@ -4,8 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 /**
- * The MainButtonDashboard contains a duplicate and delete option in
- * addition to the save and reset changes option.
+ * The MainButtonDashboard contains a duplicate and delete option in addition to
+ * the save and reset changes option.
  * 
  * @author Frank
  *
@@ -29,7 +29,7 @@ public class MainButtonDashboard extends ButtonDashboard {
 		myDeleteButton = new Button("Delete");
 		myDeleteButton.setPrefHeight(myHeight);
 		myDeleteButton.setPrefWidth(myWidth);
-		
+
 	}
 
 	@Override
@@ -42,9 +42,9 @@ public class MainButtonDashboard extends ButtonDashboard {
 	public Button getDeleteButton() {
 		return myDeleteButton;
 	}
-	
+
 	public Button getDuplicateButton() {
 		return myDuplicateButton;
 	}
-	
+
 }

@@ -105,13 +105,15 @@ public class AuthoringLevelFactory {
 	private List<String> parseEvents(String eventInfo) {
 		String[] eventData = eventInfo.split("\\+");
 		List<String> events = new ArrayList<String>();
-		
+
 		for (String event : eventData) {
-			String[] eventElements = event.split("-");
+			String[] eventElements = event.split("~");
 			StringBuilder sb = new StringBuilder();
 			if (eventElements.length > 2) {
 				if (eventElements[2].equals("CollisionEvent")) {
 					String[] entities = new String[2];
+					entities[0] = eventElements[0];
+					entities[1] = eventElements[1];
 					Arrays.sort(entities);
 					sb.append(entities[0]);
 					sb.append("-");
@@ -144,7 +146,7 @@ public class AuthoringLevelFactory {
 		List<List<String>> actions = new ArrayList<List<String>>();
 		for (String action : actionData) {
 			List<String> elements = new ArrayList<String>();
-			String[] actionElements = action.split("-");
+			String[] actionElements = action.split("~");
 			for (String str : actionElements) {
 				elements.add(str);
 			}
@@ -217,7 +219,6 @@ public class AuthoringLevelFactory {
 		}
 		int pathID = Integer.parseInt(ID);
 		Path path = new Path(temp, pathID);
-		System.out.println(path.toString());
 		return path;
 	}
 

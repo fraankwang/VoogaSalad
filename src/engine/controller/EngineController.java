@@ -4,12 +4,10 @@ package engine.controller;
  * @author austinwu
  */
 import java.io.File;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.backend.Testing;
 //import authoring.backend.Testing;
 import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
@@ -155,7 +153,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 			new DrumpfTowerException(myExceptionLoader.getString(INITGAME));
 		}
 		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
-		//System.out.println(myEntityFactory);
+		// System.out.println(myEntityFactory);
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
@@ -330,8 +328,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		mySystems.sendUserInputEvent(clickedEvent);
-		//test
-		//levelIsOver(false);
+		// test
+		// levelIsOver(false);
 
 	}
 
@@ -437,8 +435,8 @@ public class EngineController extends ResourceUser implements IEngineController 
 		stepping = shouldStep;
 		myEngineView.getStatusPane().getControlManager().togglePlayButton(shouldStep);
 	}
-	
-	public void toggleStepping(){
+
+	public void toggleStepping() {
 		toggleStepping(!stepping);
 	}
 

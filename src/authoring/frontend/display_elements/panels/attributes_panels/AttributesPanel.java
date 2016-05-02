@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.panels.attributes_panels;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import authoring.frontend.display_elements.panels.Panel;
 import javafx.geometry.Pos;
@@ -54,7 +55,7 @@ public abstract class AttributesPanel extends Panel {
 		TextField textBox = new TextField();
 		return promptUserInput(promptValue, textBox);
 	}
-	
+
 	protected String promptUserInput(String promptValue, TextField tf) {
 		Stage promptStage = new Stage();
 		promptedString = "";
@@ -73,7 +74,7 @@ public abstract class AttributesPanel extends Panel {
 			promptStage.close();
 			return;
 		});
-		
+
 		tf.setOnAction(e -> {
 			promptedString = tf.getText();
 			promptStage.close();
@@ -90,7 +91,7 @@ public abstract class AttributesPanel extends Panel {
 		promptStage.showAndWait();
 		return promptedString;
 	}
-	
+
 	public String promptUserInput(String promptValue, ComboBox<String> cb) {
 		Stage promptStage = new Stage();
 		promptedString = "";

@@ -19,11 +19,11 @@ public interface ITabDisplay extends IDisplayElement, Observer {
 	public String getName();
 
 	public int getTabIndex();
-	
+
 	public IEditorDisplay getEditor();
 
 	public void openEditorDisplay(Map<String, String> map);
-	
+
 	public void update(List<Map<String, String>> data);
 
 	public void createNew();

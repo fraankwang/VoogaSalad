@@ -1,11 +1,7 @@
 package engine.backend.systems.Events;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import engine.backend.entities.IEntity;
 
 public class CollisionEvent extends EntityEvent {
 

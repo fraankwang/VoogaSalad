@@ -48,25 +48,27 @@ public class EntityEditorGrid extends EditorGrid {
 		GridPane.setRowSpan(myPrimaryDisplay.getNode(), 2);
 		myGrid.add(myModifiableAttributesPanel.getNode(), 1, 0);
 		myGrid.add(myButtonDashboard.getNode(), 1, 1);
-		
+
 	}
-	
+
 	@Override
 	public void setAttributesPanel(Map<String, String> info) {
 		if (info.get("DisplayComponent_Image") == null) {
 			info.put("DisplayComponent_Image", "resources/images/question_mark.png");
 		}
-		((EditorViewPanel) myPrimaryDisplay).setImage(new Image(myController.getImageMap().get(info.get("DisplayComponent_Image"))));
+		((EditorViewPanel) myPrimaryDisplay)
+				.setImage(new Image(myController.getImageMap().get(info.get("DisplayComponent_Image"))));
 		super.setAttributesPanel(info);
 	}
-	
+
 	@Override
 	public void initializeHotKeys() {
 		super.initializeHotKeys();
-		Button addComponentButton = ((ModifiableEntityAttributesPanel) myModifiableAttributesPanel).getAddComponentButton();
-	
-		addComponentButton.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN),
-				new Runnable() {
+		Button addComponentButton = ((ModifiableEntityAttributesPanel) myModifiableAttributesPanel)
+				.getAddComponentButton();
+
+		addComponentButton.getScene().getAccelerators()
+				.put(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN), new Runnable() {
 					@Override
 					public void run() {
 						addComponentButton.fire();

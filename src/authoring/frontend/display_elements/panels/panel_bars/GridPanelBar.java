@@ -48,26 +48,25 @@ public class GridPanelBar extends PanelBar {
 		myGridBar.getChildren().addAll(myDescription, selector);
 		myNode = myGridBar;
 	}
-	
+
 	private HBox assembleColumnSelector() {
 		HBox.setHgrow(myDecreaseColumnsButton, Priority.ALWAYS);
 		HBox.setHgrow(numColumnsLabel, Priority.ALWAYS);
 		HBox.setHgrow(myIncreaseColumnsButton, Priority.ALWAYS);
 		HBox columnSelector = new HBox(myDecreaseColumnsButton, numColumnsLabel, myIncreaseColumnsButton);
-		return columnSelector;	
+		return columnSelector;
 	}
-	
+
 	@Override
 	public void setFontSize(int font) {
 		super.setFontSize(font);
 		numColumnsLabel.setFont(new Font(font));
 	}
-	
+
 	@Override
 	public void setDescription(String description) {
 		myDescription.setText(Constants.getString("PANEL_BAR_DESCRIPTION") + "  " + description);
 
 	}
 
-	
 }
