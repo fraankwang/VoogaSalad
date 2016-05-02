@@ -12,7 +12,7 @@ public class EntityComponents {
 	private static final Map<String, List<String>> myComponents;
 	static {
 		Map<String, List<String>> aMap = new HashMap<String, List<String>>();
-		aMap.put("DisplayComponent", Arrays.asList("DisplayComponent_CanBeShown", "DisplayComponent_Image"));
+		aMap.put("DisplayComponent", Arrays.asList("DisplayComponent_CanBeShown", "DisplayComponent_Image", "DisplayComponent_Delete"));
 		aMap.put("FiringComponent", Arrays.asList("FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed",
 				"FiringComponent_EnemyInSightRange", "FiringComponent_Targets", "FiringComponent_FiringRate"));
 		aMap.put("SizeComponent", Arrays.asList("SizeComponent_Width", "SizeComponent_Height"));
