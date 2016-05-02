@@ -58,6 +58,10 @@ public class DrumpfTowerException extends Exception {
 		DialogPane dialogPane = alert.getDialogPane();
 		dialogPane.getStylesheets().add(getClass().getResource("myDialog.css").toExternalForm());
 		dialogPane.getStyleClass().add("myDialog");
+<<<<<<< HEAD
+=======
+//		alert.showAndWait();
+>>>>>>> 0f9dcbbf574ac528a8823c805304c182d205ffb8
 	}
 
 }

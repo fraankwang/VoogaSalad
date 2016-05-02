@@ -48,14 +48,14 @@ public class testingClass {
 		tempPath.addCurve(tempCurve2);
 		tempPath.addCurve(tempCurve3);
 
-		GameMap tempMap = new GameMap("Park_Path.png", tempPath, 600, 400);
+		GameMap tempMap = new GameMap("resources/images/Park_Path.png", tempPath, 600, 400);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "object");
 		IComponent tempPosition = new PositionComponent(0, 60);
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent tempCollision = new CollisionComponent();
 		IComponent pathComp = new PathComponent(0, 0);
-		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay = new DisplayComponent("resources/images/DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
 		tempEntity.addComponent(tempDisplay);
 		tempEntity.addComponent(tempSize);
@@ -68,7 +68,7 @@ public class testingClass {
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempMovement2 = new MovementComponent(-4, 0);
 		// IComponent pathComp2 = new PathComponent(0, 0);
-		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay2 = new DisplayComponent("resources/images/DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
 		IComponent tempCollision2 = new CollisionComponent();
 		tempEntity2.addComponent(tempDisplay2);
@@ -80,7 +80,7 @@ public class testingClass {
 
 		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3");
 		IComponent tempPosition3 = new PositionComponent(450, 450);
-		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay3 = new DisplayComponent("resoures/images/DrumpfVader.png");
 		IComponent tempSize3 = new SizeComponent();
 		tempEntity3.addComponent(tempDisplay3);
 		tempEntity3.addComponent(tempSize3);
@@ -132,16 +132,16 @@ public class testingClass {
 
 		Rule ruleKeyLeft = new Rule();
 		ruleKeyLeft.addActions(keyActionLeft);
-		ruleKeyLeft.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEvent-LEFT"));
+		ruleKeyLeft.addEvents(Arrays.asList("tempEntity2~KeyPressedEntityEvent~LEFT"));
 		Rule ruleKeyRight = new Rule();
 		ruleKeyRight.addActions(keyActionRight);
-		ruleKeyRight.addEvents(Arrays.asList("tempEntity2KeyPressedEntityEvent-RIGHT"));
+		ruleKeyRight.addEvents(Arrays.asList("tempEntity2~KeyPressedEntityEvent~RIGHT"));
 		Rule ruleKeyUp = new Rule();
 		ruleKeyUp.addActions(keyActionUp);
-		ruleKeyUp.addEvents(Arrays.asList("tempEntity2-KeyPressedEntityEvent-UP"));
+		ruleKeyUp.addEvents(Arrays.asList("tempEntity2~KeyPressedEntityEvent~UP"));
 		Rule ruleKeyDown = new Rule();
 		ruleKeyDown.addActions(keyActionDown);
-		ruleKeyDown.addEvents(Arrays.asList("tempEntity2-KeyPressedEntityEvent-DOWN"));
+		ruleKeyDown.addEvents(Arrays.asList("tempEntity2-KeyPressedEntityEvent~DOWN"));
 
 		LevelAction levelAction = new LevelAction("CurrentNumLives", "-1");
 		LevelAction levelAction2 = new LevelAction("CurrentResources", "4");
@@ -149,29 +149,29 @@ public class testingClass {
 		List<EntityAction> myActions = new ArrayList<EntityAction>();
 		myActions.add(action);
 		List<String> myEvents = new ArrayList<String>();
-		myEvents.add("SimpleBullet-tempEntity-CollisionEvent");
-		myEvents.add("tempEntity-DeathEvent");
+		myEvents.add("SimpleBullet~tempEntity~CollisionEvent");
+		myEvents.add("tempEntity~DeathEvent");
 
 		Rule rule1 = new Rule();
 		rule1.addActions(Arrays.asList(action2, action3, action5));
-		rule1.addEvents(Arrays.asList("SimpleBullet-tempEntity-CollisionEvent"));
+		rule1.addEvents(Arrays.asList("SimpleBullet~tempEntity~CollisionEvent"));
 
 		Rule rule2 = new Rule();
 		rule2.addActions(Arrays.asList(action, action4));
-		rule2.addEvents(Arrays.asList("tempEntity-DeathEvent"));
+		rule2.addEvents(Arrays.asList("tempEntity~DeathEvent"));
 
 		Rule rule3 = new Rule();
 		EntityAction shootAction = new EntityAction("tempEntity2", "Firing", "FireNow", "true");
 		rule3.addActions(Arrays.asList(shootAction));
-		rule3.addEvents(Arrays.asList("tempEntity2-KeyPressedEntityEvent-S"));
+		rule3.addEvents(Arrays.asList("tempEntity2~KeyPressedEntityEvent~Space"));
 
 		Rule rule4 = new Rule();
 		rule4.addActions(Arrays.asList(action3, action5));
-		rule4.addEvents(Arrays.asList("SimpleBullet-OutOfMapEvent"));
+		rule4.addEvents(Arrays.asList("SimpleBullet~OutOfMapEvent"));
 
 		Rule rule5 = new Rule();
 		rule5.addActions(Arrays.asList(levelAction, action, action4, levelAction2));
-		rule5.addEvents(Arrays.asList("tempEntity-EndOfPathEvent"));
+		rule5.addEvents(Arrays.asList("tempEntity~EndOfPathEvent"));
 
 		level.setRuleAgenda(
 				Arrays.asList(rule1, rule2, rule3, rule4, rule5, ruleKeyUp, ruleKeyDown, ruleKeyLeft, ruleKeyRight));
@@ -197,7 +197,7 @@ public class testingClass {
 		Path[] pathArray = new Path[2];
 		pathArray[0] = tempPath;
 		pathArray[1] = tempPath1;
-		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
+		GameMap tempMap = new GameMap("resources/images/Park_Path.png", pathArray, 900, 600);
 
 		IEntity tempSpawn = new Entity(40, "tempSpawn", "spawner");
 		Spawn spawn = new Spawn("tempEntity", 1, 0, 2);
@@ -229,7 +229,7 @@ public class testingClass {
 		IComponent tempPosition = new PositionComponent(0, 100);
 		IComponent tempMovement = new MovementComponent(6, 0);
 		IComponent tempCollision = new CollisionComponent();
-		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay = new DisplayComponent("resources/images/DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
 		IComponent tempHealth = new HealthComponent(5);
 		IComponent pathComp = new PathComponent(0, 0);
@@ -242,18 +242,18 @@ public class testingClass {
 		tempEntity.addComponent(tempHealth);
 		tempEntity.addComponent(pathComp);
 
-		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
-		ShopItem item2 = new ShopItem("SpeedPowerUp", "bullet_sprite.png", 30);
+		ShopItem item = new ShopItem("tempEntity2", "resources/images/DrumpfVader.png", 30);
+		ShopItem item2 = new ShopItem("SpeedPowerUp", "resources/images/bullet_sprite.png", 30);
 
 		level.setShopItems(Arrays.asList(item, item2));
 
 		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
-		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay2 = new DisplayComponent("resources/images/DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
 		IComponent tempCollision2 = new CollisionComponent();
 		Vector myBulletVector = new Vector(0, 1222);
-		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
+		IComponent tempDisplay3 = new DisplayComponent("resources/images/bullet_sprite.png");
 		IComponent tempSize3 = new SizeComponent();
 
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 500, myBulletVector, 1);
@@ -326,7 +326,7 @@ public class testingClass {
 		IComponent tempMovement = new MovementComponent(2, 0);
 		IComponent tempCollision = new CollisionComponent();
 		// IComponent pathComp = new PathComponent(0, 0);
-		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay = new DisplayComponent("resources/images/DrumpfVader.png");
 		IComponent tempSize = new SizeComponent();
 		tempEntity.addComponent(tempDisplay);
 		tempEntity.addComponent(tempSize);
@@ -339,7 +339,7 @@ public class testingClass {
 		IComponent tempPosition2 = new PositionComponent(700, 60);
 		IComponent tempMovement2 = new MovementComponent(-4, 0);
 		// IComponent pathComp2 = new PathComponent(0, 0);
-		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay2 = new DisplayComponent("resources/images/DrumpfVader.png");
 		IComponent tempSize2 = new SizeComponent();
 		IComponent tempCollision2 = new CollisionComponent();
 		tempEntity2.addComponent(tempDisplay2);
@@ -351,7 +351,7 @@ public class testingClass {
 
 		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3");
 		IComponent tempPosition3 = new PositionComponent(450, 450);
-		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay3 = new DisplayComponent("resources/images/DrumpfVader.png");
 		IComponent tempSize3 = new SizeComponent();
 		tempEntity3.addComponent(tempDisplay3);
 		tempEntity3.addComponent(tempSize3);

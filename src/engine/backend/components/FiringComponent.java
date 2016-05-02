@@ -36,6 +36,18 @@ public class FiringComponent extends Component {
 
 		this.myFiringRate = myFiringRate;
 	}
+	
+	public FiringComponent(String myAmmunition, int myAmmunitionAmount, double myAmmunitionSpeed,
+			double myEnemyInSightRange, Vector myDirectionToFire, double myFiringRate, double timer) {
+		this.myAmmunition = myAmmunition;
+		this.myAmmunitionAmount = myAmmunitionAmount;
+		this.myAmmunitionSpeed = myAmmunitionSpeed;
+		this.myEnemyInSightRange = myEnemyInSightRange;
+		this.myDirectionToFire = myDirectionToFire;
+
+		this.timer = timer;
+		this.myFiringRate = myFiringRate;
+	}
 
 	/**
 	 * Initializing a firing component from an existing firing component.
@@ -50,6 +62,7 @@ public class FiringComponent extends Component {
 		this.myDirectionToFire = component.getDirectionToFire();
 		this.myFiringRate = component.getFiringRate();
 		this.timer = component.getTimer();
+		System.out.println(timer);
 		this.myTargets = component.getTargets();
 	}
 

@@ -2,8 +2,10 @@ package authoring.frontend.display_elements.panels;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.configuration.Constants;
@@ -334,7 +336,12 @@ public class RulesEditorPanel extends Panel {
 
 				attributeChooser.getSelectionModel().clearSelection();
 				attributeChooser.getItems().clear();
-				attributeChooser.getItems().addAll(myController.getEntities().get(newValue.getText()).keySet());
+				Set<String> variables = myController.getEntities().get(newValue.getText()).keySet();
+				Set<String> components = new HashSet<String>();
+				variables.forEach(v -> components.add(v.split("_")[0]));
+				components.forEach(c -> {
+					if (c.contains("Component")) attributeChooser.getItems().addAll(EntityComponents.getVariables(c));
+				});
 				attributeChooser.getItems().removeAll(UNMODIFIABLE_ENTITY_ATTRIBUTES);
 				thenStatementBuilder.getChildren().add(selectAttributeBox);
 			}

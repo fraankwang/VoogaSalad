@@ -94,7 +94,6 @@ public class EventManager implements Observer {
 
 	private void revertLevelIfNeeded(Level myLevel, String modeName, int levelIndex) {
 		if (myLevel.shouldRevert()) {
-			System.out.println("Should revert");
 			GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 			myLevel = (Level) serializer
 					.xMLToObject(myGameWorld.getLevelWithId(modeName, levelIndex).getLastSerializedVersion());
@@ -216,10 +215,8 @@ public class EventManager implements Observer {
 	}
 
 	private void serializeLevel() {
-		System.out.println("level serialized");
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
-		System.out.println(levelIndex);
 		myGameWorld.getLevelWithId(modeName, levelIndex)
 				.setLastSerializedVersion(serializeLevel(myGameWorld.getLevelWithId(modeName, levelIndex)));
 	}
@@ -298,7 +295,6 @@ public class EventManager implements Observer {
 	private void resetLevel() {
 		String modeName = currentGameStatistics.getCurrentMode();
 		int levelIndex = currentGameStatistics.getCurrentLevelIndex();
-		System.out.println("reseting level here");
 		currentGameStatistics.resetResourcesAndLives();
 		myGameWorld.getLevelWithId(modeName, levelIndex).setShouldRevert(true);
 	}
@@ -395,7 +391,6 @@ public class EventManager implements Observer {
 				handleNextWaveEvent((NextWaveEvent) event);
 			} else if (event instanceof PowerUpDroppedEvent) {
 				handlePowerUpDroppedEvent((PowerUpDroppedEvent) event);
-				System.out.println("POWER UP NON MAP :" + event);
 			}
 		}
 	}
@@ -425,6 +420,7 @@ public class EventManager implements Observer {
 
 				// apply actions
 				if (myFinalEntities.size() > 0) {
+					//System.out.println("Apply Action for" + rule);
 					applyActions(myFinalEntities, rule.getActions());
 
 					// remove IDs
@@ -475,7 +471,6 @@ public class EventManager implements Observer {
 	}
 
 	private void subtractFromResources(double value) {
-		System.out.println("SUBTRACTING WITH " + value);
 		currentGameStatistics.setCurrentResources(currentGameStatistics.getCurrentResources() - value);
 	}
 
