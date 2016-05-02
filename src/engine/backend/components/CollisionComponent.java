@@ -15,31 +15,31 @@ public class CollisionComponent extends Component {
 
 	private boolean isCollided;
 
-    public CollisionComponent(){
-       isCollided = false;
-    }
-    
-    /**
-     * Initializes a collision component from an existing collision component.
-     * @param component
-     */
-    public CollisionComponent(CollisionComponent component) {
-    	this.isCollided = component.isCollided;
-    }
-    
-    /**
-     * 
-     * @return The boolean for whether or not there has been a collision.
-     */
-    public boolean isCollided() {
-        return isCollided;
-    }
+	public CollisionComponent() {
+		isCollided = false;
+	}
 
-    public void setCollided(boolean collided) {
-        isCollided = collided;
-    }
+	/**
+	 * Initializes a collision component from an existing collision component.
+	 * 
+	 * @param component
+	 */
+	public CollisionComponent(CollisionComponent component) {
+		this.isCollided = component.isCollided;
+	}
 
-    
+	/**
+	 * 
+	 * @return The boolean for whether or not there has been a collision.
+	 */
+	public boolean isCollided() {
+		return isCollided;
+	}
+
+	public void setCollided(boolean collided) {
+		isCollided = collided;
+	}
+
 	@Override
 	/**
 	 * Returns the boolean with its tag

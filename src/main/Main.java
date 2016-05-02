@@ -7,6 +7,8 @@
 package main;
 
 import java.util.Optional;
+
+import authoring.main.GameAuthoring;
 import engine.controller.EngineController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,7 +17,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import authoring.main.GameAuthoring;
 
 /**
  * @author Austin Wu The Main file that starts the simulation

@@ -29,7 +29,7 @@ public class AuthoringEntity {
 		this.myComponents = new HashMap<String, IComponent>();
 		initializeInfo();
 	}
-	
+
 	public AuthoringEntity(IEntity entity) {
 		this.myName = entity.getName();
 		this.myGenre = entity.getGenre();
@@ -42,13 +42,13 @@ public class AuthoringEntity {
 		myInfo.put(GENRE, myGenre);
 		myInfo.put(NAME, myName);
 	}
-	
+
 	private void setUpComponents(List<IComponent> components) {
 		for (IComponent component : components) {
 			addComponent(component);
 		}
 	}
-	
+
 	public void addComponent(IComponent component) {
 		myComponents.put(component.getTag(), component);
 		if (!myGenre.equals("Spawner")) {

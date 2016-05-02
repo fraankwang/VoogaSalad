@@ -27,33 +27,39 @@ public class SizeComponent extends Component implements IComponent {
 	public String toString() {
 		return this.getTag() + " with width: " + this.width + " with height: " + this.height;
 	}
-/**
- * 
- * @return height
- */
+
+	/**
+	 * 
+	 * @return height
+	 */
 	public double getHeight() {
 		return height;
 	}
-/**
- * Increases height and width by the same delta
- * @param delta
- */
+
+	/**
+	 * Increases height and width by the same delta
+	 * 
+	 * @param delta
+	 */
 	public void increaseSize(int delta) {
 		this.width += delta;
 		this.height += delta;
 	}
-/**
- * Parses string to increase size
- * @param delta
- */
+
+	/**
+	 * Parses string to increase size
+	 * 
+	 * @param delta
+	 */
 	public void increaseSize(String delta) {
 		int newVal = Integer.parseInt(delta);
 		increaseSize(newVal);
 	}
-/**
- * 
- * @return width
- */
+
+	/**
+	 * 
+	 * @return width
+	 */
 	public double getWidth() {
 		return width;
 	}
@@ -75,6 +81,7 @@ public class SizeComponent extends Component implements IComponent {
 
 		}
 	}
+
 	public void initWithParams(String[] params) {
 		if (params.length > 0) {
 			this.width = Double.parseDouble(params[0]);

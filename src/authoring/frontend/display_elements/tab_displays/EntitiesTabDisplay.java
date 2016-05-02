@@ -85,7 +85,7 @@ public class EntitiesTabDisplay extends TabDisplay {
 						myEntitiesTabPane.getTabs().add(addNewTypeTab);
 						myGenres.add(newGenre);
 					}
-					
+
 					myEntitiesTabPane.getSelectionModel().select(oldTab);
 				}
 
@@ -165,11 +165,11 @@ public class EntitiesTabDisplay extends TabDisplay {
 		List<Map<String, String>> data = (List<Map<String, String>>) arg;
 		update(data);
 	}
-	
+
 	public void update(List<Map<String, String>> data) {
 		Tab tempTab = myEntitiesTabPane.getSelectionModel().getSelectedItem();
 		updateMyEntities(data);
-		
+
 		for (Tab t : myEntitiesTabPane.getTabs()) {
 			if (!t.getText().equals(Constants.getString("ADD_NEW_BUTTON"))) {
 				myEntitiesTabPane.getSelectionModel().select(t);
@@ -179,7 +179,6 @@ public class EntitiesTabDisplay extends TabDisplay {
 
 		myEntitiesTabPane.getSelectionModel().select(tempTab);
 	}
-	
 
 	/**
 	 * Maps each of the entities to their names. This information is pulled by
@@ -200,11 +199,11 @@ public class EntitiesTabDisplay extends TabDisplay {
 	public Map<String, String> getDefaultAttributesMap() {
 		Map<String, String> map = new TreeMap<String, String>();
 		List<String> defaultAttributes = ((TabGrid) myGrid).getDefaultAttributes();
-		
+
 		for (String attribute : defaultAttributes) {
 			map.put(attribute, null);
 		}
-		
+
 		return map;
 	}
 

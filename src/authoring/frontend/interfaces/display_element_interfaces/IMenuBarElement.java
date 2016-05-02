@@ -16,6 +16,6 @@ public interface IMenuBarElement extends IDisplayElement {
 	public void initialize();
 
 	public void link(ITabBarElement myTabBar);
-	
+
 	ImageImporter getImageImporter();
 }

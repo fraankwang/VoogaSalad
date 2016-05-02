@@ -9,7 +9,6 @@ import java.util.Map;
 
 import engine.backend.components.EmptyComponent;
 import engine.backend.components.IComponent;
-import engine.backend.game_object.GameStatistics;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
 
@@ -32,7 +31,7 @@ public class InGameEntityFactory {
 		myExceptionLoader = new ExceptionLoader();
 		this.myEntityMap = createMap(entities);
 		nextAvailableID = 0;
-		//initNumEntities = 0;
+		// initNumEntities = 0;
 	}
 
 	private Map<String, Map<String, IEntity>> createMap(List<IEntity> entities) {
@@ -57,11 +56,12 @@ public class InGameEntityFactory {
 	 */
 
 	public IEntity createEntity(String entityName) {
-		System.out.println(entityName);
 		IEntity templateEntity = findInMap(entityName);
-		if(templateEntity == null) new DrumpfTowerException(myExceptionLoader.getString(ENTITY_DNE));
+		if (templateEntity == null)
+			new DrumpfTowerException(myExceptionLoader.getString(ENTITY_DNE));
 
-		IEntity newEntity = new Entity(initNumEntities + getNextAvailableID(), templateEntity.getName(), templateEntity.getGenre());
+		IEntity newEntity = new Entity(initNumEntities + getNextAvailableID(), templateEntity.getName(),
+				templateEntity.getGenre());
 		copyComponents(newEntity, templateEntity);
 		return newEntity;
 	}
@@ -114,12 +114,12 @@ public class InGameEntityFactory {
 	public void setID(int id) {
 		this.currentLevelId = id;
 	}
-	
-	public void setInitNumEntities(int num){
+
+	public void setInitNumEntities(int num) {
 		this.initNumEntities = num;
 	}
-	
-	private int getNextAvailableID(){
+
+	private int getNextAvailableID() {
 		nextAvailableID++;
 		return this.nextAvailableID;
 	}

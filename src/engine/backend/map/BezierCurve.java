@@ -27,11 +27,11 @@ public class BezierCurve implements IBezierCurve {
 	public BezierCurve(double[] points) {
 		this(points[0], points[1], points[2], points[3], points[4], points[5], points[6], points[7]);
 	}
+
 	/**
-	 * Bezier curves are defined by 4 vectors.  This intializes them from the first constructor
+	 * Bezier curves are defined by 4 vectors. This intializes them from the
+	 * first constructor
 	 */
-
-
 
 	private void addVectors() {
 		this.vectors = new Vector[4];
@@ -44,8 +44,6 @@ public class BezierCurve implements IBezierCurve {
 	/**
 	 * Returns the vectors X-Y components and separated by a comma
 	 */
-
-
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -63,21 +61,19 @@ public class BezierCurve implements IBezierCurve {
 	/**
 	 * Calculates the new coordinate given a time value t over the bezier curve
 	 */
-	public Vector calculateNewBezierPoint(double t){
+	public Vector calculateNewBezierPoint(double t) {
 		return calculateNewBezierPoint(t, startPointVector, control1Vector, control2Vector, endPointVector);
 	}
+
 	/**
 	 * Calculates the new Tangent of the Bezier point given a time value t.
 	 */
-	public Vector calculateNewBezierTangent(double t){
+	public Vector calculateNewBezierTangent(double t) {
 		return calculateNewBezierTangent(t, startPointVector, control1Vector, control2Vector, endPointVector);
 	}
 
-
-	
-
 	private Vector calculateNewBezierTangent(double t, Vector p0, Vector p1, Vector p2, Vector p3) {
-		//formula found on StackOverflow
+		// formula found on StackOverflow
 		Vector tangent = new Vector();
 
 		double u = 1 - t;
@@ -118,13 +114,10 @@ public class BezierCurve implements IBezierCurve {
 	/**
 	 * returns myLength
 	 */
-	public double getLength(){
+	public double getLength() {
 		return myLength;
 	}
-	
-	
 
-	
 	private double calculateBezierLength() {
 
 		Vector q0 = calculateNewBezierPoint(0, startPointVector, control1Vector, control2Vector, endPointVector);
@@ -145,10 +138,9 @@ public class BezierCurve implements IBezierCurve {
 	}
 
 	/**
-	 * Given velocity, calculate distance of bezier curve, and then divide to find time
-	 * Since V = d/t, t = d/V, this is just a rough approximation. 
+	 * Given velocity, calculate distance of bezier curve, and then divide to
+	 * find time Since V = d/t, t = d/V, this is just a rough approximation.
 	 */
-	
 
 	public double calculateBezierTime(double velocity) {
 		// since V = d/t, t = d/V, this is just a rough approximation.

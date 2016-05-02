@@ -44,7 +44,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 	protected void initializeComponents() {
 		super.initializeComponents();
 	}
-	
+
 	@Override
 	protected void assembleComponents() {
 		myAddNewButton = new Button(Constants.getString("NEW_LEVEL_TO_MODE"));
@@ -69,7 +69,7 @@ public class LevelGridViewPanel extends GridViewPanel {
 
 		myPanelBar.setDescription(Constants.getString("LEVEL_FOR_MODE"));
 		myPanelBar.setFontSize(15);
-		
+
 		myDeleteButton = new Button(Constants.getString("DELETE_BUTTON"));
 		formatDeleteButton();
 
@@ -124,7 +124,8 @@ public class LevelGridViewPanel extends GridViewPanel {
 	}
 
 	/**
-	 * This method is only used for purposes of taking a screenshot to update the image.
+	 * This method is only used for purposes of taking a screenshot to update
+	 * the image.
 	 */
 	public void removeAddNewButton() {
 		myGridPane.getChildren().remove(myAddNewButton);
@@ -132,7 +133,9 @@ public class LevelGridViewPanel extends GridViewPanel {
 	}
 
 	/**
-	 * Takes ordered List<String> of selected levels and maps its index to its name.
+	 * Takes ordered List<String> of selected levels and maps its index to its
+	 * name.
+	 * 
 	 * @return
 	 */
 	public Map<Integer, String> getSelectedLevels() {
@@ -141,15 +144,15 @@ public class LevelGridViewPanel extends GridViewPanel {
 		for (int i = 0; i < mySelectedLevels.size(); i++) {
 			levelsMap.put(i, mySelectedLevels.get(i));
 		}
-		
+
 		return levelsMap;
 	}
 
 	public void reset() {
-		//INCOMPLETE
+		// INCOMPLETE
 		initializeComponents();
 		assembleComponents();
-		
+
 	}
 
 }

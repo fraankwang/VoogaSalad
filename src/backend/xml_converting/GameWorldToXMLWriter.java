@@ -1,7 +1,5 @@
 package backend.xml_converting;
 
-import engine.backend.game_object.GameWorld;
-
 /**
  * Serializes a game world object to XML.
  * 

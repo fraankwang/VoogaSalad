@@ -32,12 +32,15 @@ public class MultiDirectionalFiringComponent extends FiringComponent {
 	public int getNumDirections() {
 		return myDirectionsToFire.size();
 	}
+
 	/**
 	 * Returns the direction Vector at specified index
-	 * @param index i
+	 * 
+	 * @param index
+	 *            i
 	 * @return vector at index
 	 */
-	public Vector getDirectionAtIndex(int i){
+	public Vector getDirectionAtIndex(int i) {
 
 		return myDirectionsToFire.get(i);
 	}

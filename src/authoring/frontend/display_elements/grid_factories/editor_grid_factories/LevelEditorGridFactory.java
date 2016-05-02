@@ -47,7 +47,8 @@ public class LevelEditorGridFactory extends EditorGridFactory {
 	 */
 	@Override
 	public Panel createPrimaryDisplay() {
-		LevelEditorViewPanel editorView = new LevelEditorViewPanel(Constants.getDouble("LEVEL_EDITOR_GRID_SIZE"), Constants.getDouble("LEVEL_EDITOR_GRID_SIZE"));
+		LevelEditorViewPanel editorView = new LevelEditorViewPanel(Constants.getDouble("LEVEL_EDITOR_GRID_SIZE"),
+				Constants.getDouble("LEVEL_EDITOR_GRID_SIZE"));
 		editorView.initialize();
 		editorView.setImage(new Image("resources/images/question_mark.png"));
 		editorView.setDescription("Level");

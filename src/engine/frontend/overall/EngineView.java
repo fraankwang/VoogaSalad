@@ -49,8 +49,11 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Initiates EngineView
-	 * @param s - Stage engine view is initialized in
-	 * @param c - engine controller that controls the various view components
+	 * 
+	 * @param s
+	 *            - Stage engine view is initialized in
+	 * @param c
+	 *            - engine controller that controls the various view components
 	 */
 	public EngineView(Stage s, EngineController c) {
 		super(RESOURCE_NAME);
@@ -99,7 +102,9 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Handles key event to pass to backend
-	 * @param e - KeyEvent
+	 * 
+	 * @param e
+	 *            - KeyEvent
 	 */
 	private void handleKeyPress(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -108,11 +113,14 @@ public class EngineView extends ResourceUser {
 	}
 
 	/**
-	 * Handles cursor moving across boardPane to have drag and drop cursor follow correctly
-	 * @param e - DragEvent created by dragging a tower onto the screen
-	 * Handles the changes in mouse position while the mouse is pressed, allows 
-	 * Handles the changes in mouse position while the mouse is pressed, allows
-	 * the image to track the cursor
+	 * Handles cursor moving across boardPane to have drag and drop cursor
+	 * follow correctly
+	 * 
+	 * @param e
+	 *            - DragEvent created by dragging a tower onto the screen
+	 *            Handles the changes in mouse position while the mouse is
+	 *            pressed, allows Handles the changes in mouse position while
+	 *            the mouse is pressed, allows the image to track the cursor
 	 */
 	private void handleMove(DragEvent e) {
 		e.acceptTransferModes(TransferMode.ANY);
@@ -131,17 +139,16 @@ public class EngineView extends ResourceUser {
 	 */
 	private void handleEndMouseRelease(DragEvent e) {
 
-			if(isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
-				if(!e.getDragboard().getString().contains("SpeedPowerUp") && !e.getDragboard().getString().contains("RangePowerUp")){
-					myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&")[0], Double.parseDouble(e.getDragboard().getString().split("&")[1]));
-				}			
-
+		if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
+			if (!e.getDragboard().getString().contains("SpeedPowerUp")
+					&& !e.getDragboard().getString().contains("RangePowerUp")) {
+				myBoardPane.attemptTower(e.getX(), e.getY(), e.getDragboard().getString().split("&")[0],
+						Double.parseDouble(e.getDragboard().getString().split("&")[1]));
 			}
-
+		}
 		this.getStage().getScene().setCursor(Cursor.DEFAULT);
 		myDummyCursor.changePic(null);
 	}
-
 
 	private boolean isInBoardPane(double x, double y) {
 		boolean xInPane = x > myScene.getX() && x < getUsableBoardWidth().doubleValue();
@@ -152,6 +159,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Gets dummy cursor used to mimic drag and drop
+	 * 
 	 * @return - returns cursor node
 	 */
 	public DummyCursor getDummyCursor() {
@@ -160,7 +168,8 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Gets usable board width from property file
-	 * @return 
+	 * 
+	 * @return
 	 */
 	public DoubleExpression getUsableBoardWidth() {
 		return myScene.widthProperty().multiply(loadDoubleResource("BoardMaxWidth"));
@@ -168,6 +177,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Gets usable board height from property file
+	 * 
 	 * @return
 	 */
 	public DoubleExpression getUsableBoardHeight() {
@@ -177,6 +187,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Gets usable shop width from property file
+	 * 
 	 * @return
 	 */
 	public DoubleExpression getUsableShopWidth() {
@@ -185,6 +196,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Returns stage EngineView was instantiated on
+	 * 
 	 * @return
 	 */
 	public Stage getStage() {
@@ -201,6 +213,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Returns boardPane portion of EngineView
+	 * 
 	 * @return
 	 */
 	public BoardPane getBoardPane() {
@@ -209,6 +222,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Returns ShopPane portion of EngineView
+	 * 
 	 * @return
 	 */
 	public ShopPane getShopPane() {
@@ -217,6 +231,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Returns StatusPane portion of EngineView
+	 * 
 	 * @return
 	 */
 	public StatusPane getStatusPane() {
@@ -225,6 +240,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Returns EngineController used to link EngineView with Engine
+	 * 
 	 * @return
 	 */
 	public EngineController getEngineController() {
@@ -233,6 +249,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Returns game capture object contained in EngineView's scene
+	 * 
 	 * @return
 	 */
 	public GameCapture getGameCapture() {
@@ -241,6 +258,7 @@ public class EngineView extends ResourceUser {
 
 	/**
 	 * Returns BorderPane contained in EngineView
+	 * 
 	 * @return
 	 */
 	public BorderPane getBorderPane() {
@@ -248,7 +266,9 @@ public class EngineView extends ResourceUser {
 	}
 
 	/**
-	 * Returns DoubleExpression representing scaling size of scene in relation to engine
+	 * Returns DoubleExpression representing scaling size of scene in relation
+	 * to engine
+	 * 
 	 * @return
 	 */
 	public DoubleExpression getScalingFactor() {

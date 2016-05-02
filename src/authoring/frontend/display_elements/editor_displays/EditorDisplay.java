@@ -1,6 +1,7 @@
 package authoring.frontend.display_elements.editor_displays;
 
 import java.util.Map;
+
 import authoring.frontend.IAuthoringView;
 import authoring.frontend.configuration.Constants;
 import authoring.frontend.display_elements.grids.EditorGrid;
@@ -52,12 +53,10 @@ public abstract class EditorDisplay implements IEditorDisplay {
 		myGrid.initializeHotKeys();
 	}
 
-
 	@Override
 	public Node getNode() {
 		return myGrid.getNode();
 
 	}
-
 
 }

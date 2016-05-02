@@ -23,7 +23,7 @@ public class UnmodifiableEntityAttributesPanel extends UnmodifiableAttributesPan
 	private BorderPane myWrapper;
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
-	
+
 	public UnmodifiableEntityAttributesPanel(int height, int width, ITabDisplay tabDisplay) {
 		super(height, width, tabDisplay);
 		myDefaultAttributes = Arrays.asList("Genre", "Name", "DisplayComponent_Image");

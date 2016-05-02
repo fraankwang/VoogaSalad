@@ -1,7 +1,5 @@
 package authoring.backend.deprecated;
 
-import engine.backend.rules.Predicate;
-
 public class PredicatesFactory {
 
 	public PredicatesFactory() {
