@@ -17,6 +17,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
+import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
@@ -41,7 +42,7 @@ public class HaydenGame implements ITestingGame{
 		Mode mode = new Mode("Duffy");
 		Level level = getLevel();
 		mode.addLevel(level);
-		GameStatistics gameStats = new GameStatistics(50, 50);
+		GameStatistics gameStats = new GameStatistics(50, 1000);
 		mode.setGameStatistics(gameStats);
 		austin.addMode(mode);
 
@@ -111,48 +112,77 @@ public class HaydenGame implements ITestingGame{
 		// myActions);
 		
 		//world is going to be 900 x 600
+		
+		
+		
+		BezierCurve tempCurve1 = new BezierCurve(900, 60, 900, 60, 0, 60, 0, 60);
+		BezierCurve delay1 = new BezierCurve(0, 60, 0, 60, 0, 60, 0, 60);
+		
+		BezierCurve tempCurve2 = new BezierCurve(900, 180, 900, 180, 0, 180, 0, 180);
+		
+		BezierCurve tempCurve3 = new BezierCurve(900, 300, 900, 300, 0, 300, 0, 300);
+
+		BezierCurve tempCurve4 = new BezierCurve(900, 420, 900, 420, 0, 420, 0, 420);
+		
+		BezierCurve tempCurve5 = new BezierCurve(900, 540, 900, 540, 0, 540, 0, 540);
+		
+
 		Path hPath1 = new Path();
+		hPath1.addCurve(tempCurve1);
 		
-		BezierCurve tempCurve1 = new BezierCurve(900, 90, 900, 90, 0, 90, 0, 90);
-		BezierCurve delay1 = new BezierCurve(0, 90, 0, 90, 0, 90, 0, 90);
+		Path hPath2 = new Path();
+		hPath2.addCurve(tempCurve2);
+
+		Path hPath3 = new Path();
+		hPath3.addCurve(tempCurve3);
 		
-		BezierCurve tempCurve2 = new BezierCurve(900, 270, 900, 270, 0, 270, 0, 270);
-		
-		
-		BezierCurve tempCurve3 = new BezierCurve(900, 450, 900, 450, 0, 450, 0, 450);
+		Path hPath4 = new Path();
+		hPath4.addCurve(tempCurve4);
+	
+		Path hPath5 = new Path();
+		hPath5.addCurve(tempCurve5);
 
-		//tempPath.addCurve(tempCurve1);
-		//tempPath.addCurve(tempCurve2);
-		//tempPath.addCurve(tempCurve3);
 
-		Path tempPath1 = new Path();
-		BezierCurve tempCurve4 = new BezierCurve(600, 4, 0, 0, 0, 0, 2, 100);
-		BezierCurve tempCurve5 = new BezierCurve(250, 200, 50, 50, 250, 450, 0, 200);
-		BezierCurve tempCurve6 = new BezierCurve(0, 300, 950, 50, 250, 250, 200, 400);
-		tempPath1.addCurve(tempCurve4);
-		tempPath1.addCurve(tempCurve6);
-		tempPath1.addCurve(tempCurve5);
+		Path[] pathArray = new Path[5];
+		pathArray[0] = hPath1;
+		pathArray[1] = hPath2;
+		pathArray[2] = hPath3; 
+		pathArray[3] = hPath4;
+		pathArray[4] = hPath5;
+		GameMap tempMap = new GameMap("resources/images/pvzBackground.jpg", pathArray, 900, 600);
 
-		Path[] pathArray = new Path[2];
-		pathArray[0] = tempPath;
-		pathArray[1] = tempPath1;
-		GameMap tempMap = new GameMap("Park_Path.png", pathArray, 900, 600);
-
-		IEntity tempSpawn = new Entity(40, "tempSpawn", "spawner");
-		Spawn spawn = new Spawn("tempEntity", 1, 0, 2);
+		IEntity tempSpawn = new Entity(-1000, "tempSpawn", "spawner");
+		Spawn spawn = new Spawn("tempEntity", 1, 0, 6);
 		Spawn spawn2 = new Spawn("tempEntity", 1, 1, 4);
-		IComponent tempSpawner = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
+		IComponent tempSpawner1 = new SpawnerComponent(Arrays.asList(spawn, spawn2), 0);
 
-		IEntity tempSpawn2 = new Entity(-40, "tempSpawn2", "spawner");
+		IEntity tempSpawn2 = new Entity(-1001, "tempSpawn2", "spawner");
 		Spawn spawn3 = new Spawn("tempEntity", 1, 0, 2);
 		Spawn spawn4 = new Spawn("tempEntity", 1, 1, 2);
-		IComponent tempSpawner1 = new SpawnerComponent(Arrays.asList(spawn3, spawn4), 1);
+		IComponent tempSpawner2 = new SpawnerComponent(Arrays.asList(spawn3, spawn4), 1);
+		
+		IEntity tempSpawn3 = new Entity(-1002, "tempSpawn3", "spawner");
+		Spawn spawn5 = new Spawn("tempEntity", 1, 0, 6);
+		Spawn spawn6 = new Spawn("tempEntity", 1, 1, 4);
+		IComponent tempSpawner3 = new SpawnerComponent(Arrays.asList(spawn5, spawn6), 2);
+
+		IEntity tempSpawn4 = new Entity(-1003, "tempSpawn4", "spawner");
+		Spawn spawn7 = new Spawn("tempEntity", 1, 0, 2);
+		Spawn spawn8 = new Spawn("tempEntity", 1, 1, 2);
+		IComponent tempSpawner4 = new SpawnerComponent(Arrays.asList(spawn7, spawn8), 3);
+		
+		IEntity tempSpawn5 = new Entity(-1004, "tempSpawn5", "spawner");
+		Spawn spawn9 = new Spawn("tempEntity", 1, 0, 6);
+		Spawn spawn10 = new Spawn("tempEntity", 1, 1, 4);
+		IComponent tempSpawner5 = new SpawnerComponent(Arrays.asList(spawn9, spawn10), 4);
+
+
 
 		IComponent tempPosition4 = new PositionComponent(0, 100);
 		IComponent tempDisplay4 = new DisplayComponent(false);
 		IComponent tempSize4 = new SizeComponent();
 		tempSpawn.addComponent(tempSize4);
-		tempSpawn.addComponent(tempSpawner);
+		tempSpawn.addComponent(tempSpawner1);
 		tempSpawn.addComponent(tempPosition4);
 		tempSpawn.addComponent(tempDisplay4);
 
@@ -160,15 +190,39 @@ public class HaydenGame implements ITestingGame{
 		IComponent tempDisplay5 = new DisplayComponent(false);
 		IComponent tempSize5 = new SizeComponent();
 		tempSpawn2.addComponent(tempSize5);
-		tempSpawn2.addComponent(tempSpawner1);
+		tempSpawn2.addComponent(tempSpawner2);
 		tempSpawn2.addComponent(tempPosition5);
 		tempSpawn2.addComponent(tempDisplay5);
+		
+		IComponent tempPosition7 = new PositionComponent(0, 100);
+		IComponent tempDisplay7 = new DisplayComponent(false);
+		IComponent tempSize7 = new SizeComponent();
+		tempSpawn3.addComponent(tempSize7);
+		tempSpawn3.addComponent(tempSpawner3);
+		tempSpawn3.addComponent(tempPosition7);
+		tempSpawn3.addComponent(tempDisplay7);
+		
+		IComponent tempPosition8 = new PositionComponent(0, 100);
+		IComponent tempDisplay8 = new DisplayComponent(false);
+		IComponent tempSize8 = new SizeComponent();
+		tempSpawn4.addComponent(tempSize8);
+		tempSpawn4.addComponent(tempSpawner4);
+		tempSpawn4.addComponent(tempPosition8);
+		tempSpawn4.addComponent(tempDisplay8);
+		
+		IComponent tempPosition9 = new PositionComponent(0, 100);
+		IComponent tempDisplay9 = new DisplayComponent(false);
+		IComponent tempSize9 = new SizeComponent();
+		tempSpawn5.addComponent(tempSize9);
+		tempSpawn5.addComponent(tempSpawner5);
+		tempSpawn5.addComponent(tempPosition9);
+		tempSpawn5.addComponent(tempDisplay9);
 
 		IEntity tempEntity = new Entity(0, "tempEntity", "Spawns");
 		IComponent tempPosition = new PositionComponent(0, 100);
 		IComponent tempMovement = new MovementComponent(6, 0);
 		IComponent tempCollision = new CollisionComponent();
-		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay = new DisplayComponent("resources/images/normalZombie.png");
 		IComponent tempSize = new SizeComponent();
 		IComponent tempHealth = new HealthComponent(5);
 		IComponent pathComp = new PathComponent(0, 0);
@@ -181,18 +235,18 @@ public class HaydenGame implements ITestingGame{
 		tempEntity.addComponent(tempHealth);
 		tempEntity.addComponent(pathComp);
 
-		ShopItem item = new ShopItem("tempEntity2", "DrumpfVader.png", 30);
-		ShopItem item2 = new ShopItem("SpeedPowerUp", "bullet_sprite.png", 30);
+		ShopItem item = new ShopItem("tempEntity2", "resources/images/Peashooter1.png", 30);
+		ShopItem item2 = new ShopItem("SpeedPowerUp", "resources/images/bullet_sprite.png", 30);
 
 		level.setShopItems(Arrays.asList(item, item2));
 
 		IEntity tempEntity2 = new Entity(-5, "tempEntity2", "object2");
 		IComponent tempPosition2 = new PositionComponent(700, 60);
-		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
+		IComponent tempDisplay2 = new DisplayComponent("resources/images/Peashooter1.png");
 		IComponent tempSize2 = new SizeComponent();
 		IComponent tempCollision2 = new CollisionComponent();
 		Vector myBulletVector = new Vector(0, 1222);
-		IComponent tempDisplay3 = new DisplayComponent("bullet_sprite.png");
+		IComponent tempDisplay3 = new DisplayComponent("resources/images/cannonball_2.png");
 		IComponent tempSize3 = new SizeComponent();
 
 		FiringComponent simpleFire = new FiringComponent("SimpleBullet", 100, 5, 500, myBulletVector, 1);
@@ -201,7 +255,7 @@ public class HaydenGame implements ITestingGame{
 
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
-		mySimpleBullet.addComponent(new MovementComponent(10, 0));
+		mySimpleBullet.addComponent(new TrackingMovementComponent(20, 0));
 		mySimpleBullet.addComponent(tempDisplay3);
 		mySimpleBullet.addComponent(tempSize3);
 		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
@@ -231,6 +285,10 @@ public class HaydenGame implements ITestingGame{
 		myCreatableEntityMap.put("Towers", createdTowers);
 
 		level.addEntityToMap(tempSpawn);
+		level.addEntityToMap(tempSpawn2);
+		level.addEntityToMap(tempSpawn3);
+		level.addEntityToMap(tempSpawn4);
+		level.addEntityToMap(tempSpawn5);
 		// level.addEntityToMap(tempSpawn2);
 		level.addEntityToMap(tempEntity2);
 		level.setCurrentWaveIndex(0);
@@ -242,70 +300,7 @@ public class HaydenGame implements ITestingGame{
 		return level;
 	}
 
-	public GameWorld testCollision() {
-		GameWorld collisionTest = new GameWorld();
-		Mode tempMode = new Mode("tempMode");
-		// Level tempLevel = new Level(0);
-		Path tempPath = new Path();
-		BezierCurve tempCurve1 = new BezierCurve(0, 0, 0, 0, 0, 0, 200, 200);
-		BezierCurve tempCurve2 = new BezierCurve(200, 200, 50, 50, 150, 150, 0, 300);
-		BezierCurve tempCurve3 = new BezierCurve(0, 300, 150, 150, 250, 250, 400, 400);
 
-		tempPath.addCurve(tempCurve1);
-		tempPath.addCurve(tempCurve2);
-		tempPath.addCurve(tempCurve3);
-
-		Path[] pathArray = new Path[1];
-		pathArray[0] = tempPath;
-
-		GameMap tempMap = new GameMap("", pathArray, 200, 200);
-
-		IEntity tempEntity = new Entity(0, "tempEntity", "object");
-		IComponent tempPosition = new PositionComponent(0, 60);
-		IComponent tempMovement = new MovementComponent(2, 0);
-		IComponent tempCollision = new CollisionComponent();
-		// IComponent pathComp = new PathComponent(0, 0);
-		IComponent tempDisplay = new DisplayComponent("DrumpfVader.png");
-		IComponent tempSize = new SizeComponent();
-		tempEntity.addComponent(tempDisplay);
-		tempEntity.addComponent(tempSize);
-		tempEntity.addComponent(tempPosition);
-		tempEntity.addComponent(tempMovement);
-		tempEntity.addComponent(tempCollision);
-		// tempEntity.addComponent(pathComp);
-
-		IEntity tempEntity2 = new Entity(1, "tempEntity2", "object2");
-		IComponent tempPosition2 = new PositionComponent(700, 60);
-		IComponent tempMovement2 = new MovementComponent(-4, 0);
-		// IComponent pathComp2 = new PathComponent(0, 0);
-		IComponent tempDisplay2 = new DisplayComponent("DrumpfVader.png");
-		IComponent tempSize2 = new SizeComponent();
-		IComponent tempCollision2 = new CollisionComponent();
-		tempEntity2.addComponent(tempDisplay2);
-		tempEntity2.addComponent(tempSize2);
-		tempEntity2.addComponent(tempPosition2);
-		tempEntity2.addComponent(tempMovement2);
-		tempEntity.addComponent(tempCollision2);
-		// tempEntity2.addComponent(pathComp2);
-
-		IEntity tempEntity3 = new Entity(2, "tempEntity3", "object3");
-		IComponent tempPosition3 = new PositionComponent(450, 450);
-		IComponent tempDisplay3 = new DisplayComponent("DrumpfVader.png");
-		IComponent tempSize3 = new SizeComponent();
-		tempEntity3.addComponent(tempDisplay3);
-		tempEntity3.addComponent(tempSize3);
-		tempEntity3.addComponent(tempPosition3);
-
-		// tempLevel.addToEntities(tempEntity);
-		// tempLevel.addToEntities(tempEntity2);
-		// tempLevel.addToEntities(tempEntity3);
-		// tempLevel.addEntityToMap(tempEntity);
-		// tempLevel.addEntityToMap(tempEntity2);
-		// tempLevel.setMap(tempMap);
-		// tempMode.addLevel(tempLevel);
-		collisionTest.addMode(tempMode);
-		return collisionTest;
-	}
 
 }
 
