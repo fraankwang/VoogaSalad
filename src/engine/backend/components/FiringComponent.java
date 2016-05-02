@@ -37,9 +37,21 @@ public class FiringComponent extends Component {
 		this.myFiringRate = myFiringRate;
 	}
 
+	public FiringComponent(String myAmmunition, int myAmmunitionAmount, double myAmmunitionSpeed,
+			double myEnemyInSightRange, Vector myDirectionToFire, double myFiringRate, double timer) {
+		this.myAmmunition = myAmmunition;
+		this.myAmmunitionAmount = myAmmunitionAmount;
+		this.myAmmunitionSpeed = myAmmunitionSpeed;
+		this.myEnemyInSightRange = myEnemyInSightRange;
+		this.myDirectionToFire = myDirectionToFire;
+
+		this.timer = timer;
+		this.myFiringRate = myFiringRate;
+	}
+
 	/**
 	 * Initializing a firing component from an existing firing component.
-	 * 
+	 *
 	 * @param component
 	 */
 	public FiringComponent(FiringComponent component) {
@@ -50,6 +62,7 @@ public class FiringComponent extends Component {
 		this.myDirectionToFire = component.getDirectionToFire();
 		this.myFiringRate = component.getFiringRate();
 		this.timer = component.getTimer();
+		// System.out.println(timer);
 		this.myTargets = component.getTargets();
 	}
 
@@ -58,7 +71,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The string representing the name of the ammunition.
 	 */
 	public String getAmmunition() {
@@ -67,7 +80,7 @@ public class FiringComponent extends Component {
 
 	/**
 	 * Sets the name of the ammunition. This is the name of a type of entity.
-	 * 
+	 *
 	 * @param myAmmunition
 	 */
 	public void setAmmunition(String myAmmunition) {
@@ -75,7 +88,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return An int representing the amount of ammunition for this firing
 	 *         component.
 	 */
@@ -85,7 +98,7 @@ public class FiringComponent extends Component {
 
 	/**
 	 * Sets the amount of ammunition for this firing component.
-	 * 
+	 *
 	 * @param ammunitionAmount
 	 */
 	public void setAmmunitionAmount(String ammunitionAmount) {
@@ -95,7 +108,7 @@ public class FiringComponent extends Component {
 
 	/**
 	 * Sets the amount of ammunition for this firing component.
-	 * 
+	 *
 	 * @param ammunitionAmount
 	 */
 	public void setAmmunitionAmount(int ammunitionAmount) {
@@ -103,7 +116,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return A double representing the distance for which an enemy is in sight
 	 *         of the entity with this firing component.
 	 */
@@ -114,7 +127,7 @@ public class FiringComponent extends Component {
 	/**
 	 * Sets the range for which an enemy is in sight of the entity with this
 	 * firing component.
-	 * 
+	 *
 	 * @param myEnemyInSightRange
 	 */
 	public void setEnemyInSightRange(double myEnemyInSightRange) {
@@ -122,7 +135,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The vector object which represents a direction. Will be treated
 	 *         as a unit vector.
 	 */
@@ -133,7 +146,7 @@ public class FiringComponent extends Component {
 	/**
 	 * Sets the vector object that represents a direction to fire. This will be
 	 * treated as a unit vector.
-	 * 
+	 *
 	 * @param myDirectionToFire
 	 */
 	public void setDirectionToFire(Vector myDirectionToFire) {
@@ -141,7 +154,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The speed at which the ammunition for this firing component will
 	 *         travel in pixels per seconds.
 	 */
@@ -152,7 +165,7 @@ public class FiringComponent extends Component {
 	/**
 	 * Sets the speed at which the ammunition of this firing component will
 	 * travel in pixels per second.
-	 * 
+	 *
 	 * @param myAmmunitionSpeed
 	 */
 	public void setAmmunitionSpeed(String myAmmunitionSpeed) {
@@ -163,7 +176,7 @@ public class FiringComponent extends Component {
 	/**
 	 * Sets the speed at which the ammunition of this firing component will
 	 * travel in pixels per second.
-	 * 
+	 *
 	 * @param myAmmunitionSpeed
 	 */
 	public void setAmmunitionSpeed(double speed) {
@@ -171,7 +184,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return A list of strings representing the entities that can be targets
 	 *         of the entity with this firing component.
 	 */
@@ -180,7 +193,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean fireNow() {
@@ -188,7 +201,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param bool
 	 */
 	public void setFireNow(boolean bool) {
@@ -201,7 +214,7 @@ public class FiringComponent extends Component {
 
 	/**
 	 * Sets a list of targets based on the entity names of possible targets.
-	 * 
+	 *
 	 * @param myTargets
 	 */
 	public void setTargets(List<String> myTargets) {
@@ -209,7 +222,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return A double value for timer for time till next possible time to
 	 *         fire.
 	 */
@@ -219,7 +232,7 @@ public class FiringComponent extends Component {
 
 	/**
 	 * Sets the double for the timer for time till next possible time to fire.
-	 * 
+	 *
 	 * @param currentSecond
 	 */
 	public void setTimer(double currentSecond) {
@@ -242,7 +255,7 @@ public class FiringComponent extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return A double representing how frequently the entity with this firing
 	 *         component can fire in seconds.
 	 */
@@ -253,7 +266,7 @@ public class FiringComponent extends Component {
 	/**
 	 * Sets how frequently a entity with this firing component can fire if a
 	 * target is in rannge.
-	 * 
+	 *
 	 * @param firingRate
 	 */
 	public void setFiringRate(String firingRate) {
@@ -264,7 +277,7 @@ public class FiringComponent extends Component {
 	/**
 	 * Sets how frequently a entity with this firing component can fire if a
 	 * target is in rannge.
-	 * 
+	 *
 	 * @param firingRate
 	 */
 	public void setFiringRate(double firingRate) {

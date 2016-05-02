@@ -67,7 +67,6 @@ public class FiringSystem extends GameSystem {
 				.getComponent(ComponentTagResources.firingComponentTag);
 
 		if (firingComponent.getTimer() <= 0 || firingComponent.fireNow()) {
-
 			for (int i = 0; i < firingComponent.getNumDirections(); i++) {
 				Vector firedVelVector = null;
 

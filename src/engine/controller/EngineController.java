@@ -65,8 +65,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private EngineView myEngineView;
 	private GameCapture myGameCapture;
 
-	private Galaga myTestingClass;
-
 	/**
 	 * Instantiates engine controller
 	 * 
@@ -114,11 +112,11 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-
-//		myTestingClass = new Galaga();
-//		myGameWorld = myTestingClass.playGalaga();
+//		ITestingGame myTester = new DuffyGame();
+//		myGameWorld = myTester.initGame();
 //		myEventManager = new EventManager(this, myGameWorld);
-//		startGame("Galaga", 0, firsttime);
+//		startGame("Duffy", 0, firsttime);
+
 		StartView myStartView = new StartView(this, firsttime);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);
