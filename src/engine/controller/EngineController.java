@@ -114,6 +114,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
+
 //		myTestingClass = new Galaga();
 //		myGameWorld = myTestingClass.playGalaga();
 //		myEventManager = new EventManager(this, myGameWorld);
@@ -157,7 +158,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 			new DrumpfTowerException(myExceptionLoader.getString(INITGAME));
 		}
 		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
-		// System.out.println(myEntityFactory);
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
 		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
@@ -197,7 +197,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private void setupGameCapture() {
 		myGameCapture = new GameCapture(loadIntResource("StartX"), loadIntResource("StartY"),
 				loadIntResource("StageMinWidth"), loadIntResource("StageMinHeight"));
-
+		
 		myStage.xProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
