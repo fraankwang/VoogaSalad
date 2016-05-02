@@ -115,7 +115,6 @@ public class LevelEditorViewPanel extends EditorViewPanel {
 		for (PathBuilder path : myPathBuilders) {
 			result = result + path.getCoordinatesString() + "_";
 		}
-		System.out.println(result);
 
 		return result.substring(0, result.length() - 1);
 	}
