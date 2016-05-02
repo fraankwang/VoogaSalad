@@ -137,7 +137,7 @@ public class MenuBarElement implements IMenuBarElement {
 			File gameFile = fileChooser.showOpenDialog(null);
 
 			Map<String, String> importGameMap = new HashMap<String, String>();
-			importGameMap.put("Type", "Export");
+			importGameMap.put("Type", "Import");
 			importGameMap.put("URL", gameFile.getName());
 
 			myController.writeData(importGameMap);

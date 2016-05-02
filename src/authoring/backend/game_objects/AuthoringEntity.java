@@ -1,5 +1,6 @@
 package authoring.backend.game_objects;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,9 @@ public class AuthoringEntity {
 	public AuthoringEntity(IEntity entity) {
 		this.myName = entity.getName();
 		this.myGenre = entity.getGenre();
-		setUpComponents((List<IComponent>) entity.getComponents());
+		this.myInfo = new HashMap<String, String>();
+		this.myComponents = new HashMap<String, IComponent>();
+		setUpComponents(entity.getComponents());
 		initializeInfo();
 	}
 
@@ -43,7 +46,7 @@ public class AuthoringEntity {
 		myInfo.put(NAME, myName);
 	}
 
-	private void setUpComponents(List<IComponent> components) {
+	private void setUpComponents(Collection<IComponent> components) {
 		for (IComponent component : components) {
 			addComponent(component);
 		}
