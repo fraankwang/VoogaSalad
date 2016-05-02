@@ -72,7 +72,7 @@ public class ImageImporter {
 		// System.out.println(url.toString());
 		// }
 
-		myImageMap.put(IMAGE_PATH + newFile.getName(), imageFile.toURI().toURL().toString());
+		myImageMap.put(IMAGE_PATH + newFile.getName(), newFile.toURI().toURL().toString());
 		myChooser.add(IMAGE_PATH + newFile.getName(), IMAGE_PATH + newFile.getName());
 	}
 

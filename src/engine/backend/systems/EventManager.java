@@ -413,6 +413,7 @@ public class EventManager implements Observer {
 			Collection<String> ruleEvents = rule.getEvents();
 			Set<Integer> myFinalEntities;
 			for (String event : ruleEvents) {
+				//System.out.println(event);
 				if (!generatedEventMap.containsKey(event)) {
 					myPossibleEntities.clear();
 					break;
@@ -425,6 +426,7 @@ public class EventManager implements Observer {
 
 				// apply actions
 				if (myFinalEntities.size() > 0) {
+					//System.out.println("Apply Action for" + rule);
 					applyActions(myFinalEntities, rule.getActions());
 
 					// remove IDs

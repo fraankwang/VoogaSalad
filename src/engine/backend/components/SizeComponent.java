@@ -17,6 +17,11 @@ public class SizeComponent extends Component implements IComponent {
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
 	}
+	
+	public SizeComponent(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
 
 	public SizeComponent(SizeComponent component) {
 		this.width = component.getWidth();
