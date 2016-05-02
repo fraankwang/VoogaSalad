@@ -24,7 +24,7 @@ public class Testing {
 		bullet1.put("Type", "Entity");
 		bullet1.put("Name", "bullet1");
 		bullet1.put("Genre", "Ammo");
-		bullet1.put("DisplayComponent_Image", "bullet_sprite.png");
+		bullet1.put("DisplayComponent_Image", "resources/images/bullet_sprite.png");
 		bullet1.put("SizeComponent_Width", "10");
 		bullet1.put("SizeComponent_Height", "10");
 		bullet1.put("MovementComponent_Velocity", "50");
@@ -36,7 +36,7 @@ public class Testing {
 		tower1.put("Type", "Entity");
 		tower1.put("Name", "tower1");
 		tower1.put("Genre", "Tower");
-		tower1.put("DisplayComponent_Image", "DrumpfVader.png");
+		tower1.put("DisplayComponent_Image", "resources/images/DrumpfVader.png");
 		tower1.put("FiringComponent_Ammunition", "bullet1");
 		tower1.put("FiringComponent_AmmunitionSpeed", "50");
 		tower1.put("FiringComponent_EnemyInSightRange", "20000");
@@ -50,7 +50,7 @@ public class Testing {
 		balloon1.put("Type", "Entity");
 		balloon1.put("Name", "balloon1");
 		balloon1.put("Genre", "Enemy");
-		balloon1.put("DisplayComponent_Image", "DrumpfVader.png");
+		balloon1.put("DisplayComponent_Image", "resources/images/DrumpfVader.png");
 		balloon1.put("SizeComponent_Width", "30");
 		balloon1.put("SizeComponent_Height", "30");
 		balloon1.put("MovementComponent_Velocity", "10");
@@ -66,7 +66,7 @@ public class Testing {
 		level1.put("Type", "Level");
 		level1.put("Name", "level1");
 		level1.put("WaveDelayTimer", "5");
-		level1.put("MapBackgroundImage", "Park_Path2.png");
+		level1.put("MapBackgroundImage", "resources/images/Park_Path2.png");
 		level1.put("MapWidth", "500");
 		level1.put("MapHeight", "500");
 		level1.put("Entities", "bullet1 tower1 balloon1");

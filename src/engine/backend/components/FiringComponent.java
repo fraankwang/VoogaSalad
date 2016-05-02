@@ -285,11 +285,15 @@ public class FiringComponent extends Component {
 		sb.append(myEnemyInSightRange);
 		sb.append(",");
 		sb.append("Targets:");
-		for (String target : myTargets) {
-			sb.append(target);
-			sb.append("_");
+		if (myTargets.isEmpty()) {
+			sb.append(" ");
+		} else {
+			for (String target : myTargets) {
+				sb.append(target);
+				sb.append("_");
+			}
+			sb.deleteCharAt(sb.length() - 1);
 		}
-		sb.deleteCharAt(sb.length() - 1);
 		sb.append(",");
 		sb.append("FiringRate:");
 		sb.append(myFiringRate);
