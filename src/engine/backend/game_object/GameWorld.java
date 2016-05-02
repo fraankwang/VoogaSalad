@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @author mario_oliver93, raghav kedia
  *
  */
@@ -60,7 +60,7 @@ public class GameWorld {
 	// write the thing to set level here.
 	/**
 	 * Places a level in the map with the key being the level index.
-	 * 
+	 *
 	 * @param modeString
 	 * @param levelIndex
 	 * @param level
@@ -70,8 +70,8 @@ public class GameWorld {
 	}
 
 	public void printWhatIHave() {
-		System.out.println("I am game object " + this.toString() + " and I have been created");
-		System.out.println("I have " + myModes.size() + " mode(s) and they are composed of " + myModes);
+		// System.out.println("I am game object " + this.toString() + " and I have been created");
+		// System.out.println("I have " + myModes.size() + " mode(s) and they are composed of " + myModes);
 	}
 
 	public Map<String, Mode> getModes() {

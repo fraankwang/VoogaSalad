@@ -12,9 +12,9 @@ import exception.ExceptionLoader;
 import utility.hud.Property;
 
 /**
- * 
+ *
  * @author Raghav Kedia
- * 
+ *
  *
  */
 public class GameStatistics implements IModifiable {
@@ -66,7 +66,7 @@ public class GameStatistics implements IModifiable {
 
 	/**
 	 * adds how resources at the end of the level
-	 * 
+	 *
 	 * @param resources
 	 */
 	public void addEndOfLevelResources(double resources) {
@@ -74,7 +74,7 @@ public class GameStatistics implements IModifiable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return initial number of lives
 	 */
 	public int getInitialNumLives() {
@@ -83,7 +83,7 @@ public class GameStatistics implements IModifiable {
 
 	/**
 	 * Sets the initial number of lives
-	 * 
+	 *
 	 * @param initialNumLives
 	 */
 	public void setInitialNumLives(int initialNumLives) {
@@ -93,7 +93,7 @@ public class GameStatistics implements IModifiable {
 
 	/**
 	 * Gets the current number of lives
-	 * 
+	 *
 	 * @return
 	 */
 	public int getCurrentNumLives() {
@@ -106,7 +106,7 @@ public class GameStatistics implements IModifiable {
 
 	/**
 	 * Set current number of lives
-	 * 
+	 *
 	 * @param currentNumLives
 	 */
 	public void setCurrentNumLives(int currentNumLives) {
@@ -115,7 +115,7 @@ public class GameStatistics implements IModifiable {
 
 	/**
 	 * Updates the number of lives by parsing a string parameter into a integer
-	 * 
+	 *
 	 * @param deltaNumLives
 	 */
 	public void setCurrentNumLives(String deltaNumLives) {
@@ -125,7 +125,7 @@ public class GameStatistics implements IModifiable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return initial resources
 	 */
 	public double getInitialResources() {
@@ -134,7 +134,7 @@ public class GameStatistics implements IModifiable {
 
 	/**
 	 * sets the initial resources value
-	 * 
+	 *
 	 * @param initialResources
 	 */
 	public void setInitialResources(double initialResources) {
@@ -152,7 +152,7 @@ public class GameStatistics implements IModifiable {
 
 	public void setCurrentResources(double curResources) {
 		this.currentResources.setValue(curResources);
-		System.out.println("VALUE UPDATED TO " + currentResources.getValue() + "AND SHOULD BE " + curResources);
+		// System.out.println("VALUE UPDATED TO " + currentResources.getValue() + "AND SHOULD BE " + curResources);
 	}
 
 	public void setCurrentResources(String delta) {
