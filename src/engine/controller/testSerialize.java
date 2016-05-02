@@ -9,12 +9,12 @@ import engine.backend.game_object.GameWorld;
 public class testSerialize {
 
 	public testSerialize() throws IOException {
-		Testing test = new Testing();
-		GameWorld g = test.test1();
+		testingClass test = new testingClass();
+		GameWorld g = test.testFiring();
 		GameWorldToXMLWriter serializer = new GameWorldToXMLWriter();
 		String xml = serializer.getXMLfromObject(g);
 
-		GameWorldToXMLWriter.stringToDocument(xml, "gametest.xml");
+		GameWorldToXMLWriter.stringToDocument(xml, "gametest3.xml");
 		// String loadedString =
 		// GameWorldToXMLWriter.documentToString("C:/Users/Yoga2785/Documents/GitHub/voogasalad_DrumpfTower/testFiring04302016.xml");
 		// GameWorld newg = (GameWorld) serializer.xMLToObject(loadedString);
