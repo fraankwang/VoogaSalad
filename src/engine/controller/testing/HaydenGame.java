@@ -17,6 +17,7 @@ import engine.backend.components.PositionComponent;
 import engine.backend.components.SizeComponent;
 import engine.backend.components.Spawn;
 import engine.backend.components.SpawnerComponent;
+import engine.backend.components.TrackingMovementComponent;
 import engine.backend.components.Vector;
 import engine.backend.entities.Entity;
 import engine.backend.entities.IEntity;
@@ -41,7 +42,7 @@ public class HaydenGame implements ITestingGame{
 		Mode mode = new Mode("Duffy");
 		Level level = getLevel();
 		mode.addLevel(level);
-		GameStatistics gameStats = new GameStatistics(50, 50);
+		GameStatistics gameStats = new GameStatistics(50, 1000);
 		mode.setGameStatistics(gameStats);
 		austin.addMode(mode);
 
@@ -254,7 +255,7 @@ public class HaydenGame implements ITestingGame{
 
 		mySimpleBullet.addComponent(tempCollision2);
 		mySimpleBullet.addComponent(tempPosition);
-		mySimpleBullet.addComponent(new MovementComponent(10, 0));
+		mySimpleBullet.addComponent(new TrackingMovementComponent(20, 0));
 		mySimpleBullet.addComponent(tempDisplay3);
 		mySimpleBullet.addComponent(tempSize3);
 		Map<String, Map<String, IEntity>> myCreatableEntityMap = new HashMap<String, Map<String, IEntity>>();
