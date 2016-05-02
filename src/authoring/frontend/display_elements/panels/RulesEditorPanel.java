@@ -54,7 +54,7 @@ public class RulesEditorPanel extends Panel {
 	public static final List<String> MODIFIABLE_LEVEL_ATTRIBUTES = (List<String>) Arrays.asList("NumLives",
 			"CurrentResources");
 	public static final List<String> POSSIBLE_EVENTS = (List<String>) Arrays.asList("CollisionEvent",
-			"CriticalHealthEvent", "DeathEvent", "EntityClickedEvent", "KeyPressedEvent", "EndOfPathEvent");
+			"CriticalHealthEvent", "DeathEvent", "EntityClickedEvent", "KeyPressedEvent", "EndOfPathEvent", "OutOfMapEvent");
 	public static final List<String> UNMODIFIABLE_ENTITY_ATTRIBUTES = (List<String>) Arrays.asList("Type", "Name",
 			"Genre");
 

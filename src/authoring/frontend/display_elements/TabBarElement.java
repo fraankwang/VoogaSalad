@@ -40,9 +40,9 @@ public class TabBarElement implements ITabBarElement {
 	private TabDisplay myModesTabDisplay;
 	private TabDisplay myLevelsTabDisplay;
 	private TabDisplay myEntitiesTabDisplay;
-	private static final int MODES_TAB_INDEX = 1;
-	private static final int LEVELS_TAB_INDEX = 2;
-	private static final int ENTITIES_TAB_INDEX = 3;
+	private static final int MODES_TAB_INDEX = 0;
+	private static final int LEVELS_TAB_INDEX = 1;
+	private static final int ENTITIES_TAB_INDEX = 2;
 	private IAuthoringView myController;
 
 	private boolean tabRemoved = false;

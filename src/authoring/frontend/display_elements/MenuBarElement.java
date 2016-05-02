@@ -121,7 +121,7 @@ public class MenuBarElement implements IMenuBarElement {
 			exportGameMap.put("URL", gameFile.getName());
 
 			myController.writeData(exportGameMap);
-			//myMain.createPlayer(myStage);
+			myMain.createPlayer(myStage);
 		});
 
 		return exportGame;
@@ -137,23 +137,10 @@ public class MenuBarElement implements IMenuBarElement {
 			File gameFile = fileChooser.showOpenDialog(null);
 
 			Map<String, String> importGameMap = new HashMap<String, String>();
-			importGameMap.put("Type", "Export");
+			importGameMap.put("Type", "Import");
 			importGameMap.put("URL", gameFile.getName());
 
 			myController.writeData(importGameMap);
-
-			try {
-				// String string = ObjectToXMLWriter.documentToString(gameFile);
-				// GameWorld game = (GameWorld) writer.xMLToObject(string);
-
-				// List<Map<String, String>> myModes =
-				// List<Map<String, String>> myLevels
-				// List<Map<String, String>> myEntities
-				// myController.updateAll(myModes, myLevels, myEntities);
-
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
 
 		});
 
