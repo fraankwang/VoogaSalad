@@ -1,45 +1,41 @@
 package authoring.backend.game_objects;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 import engine.backend.game_object.Level;
 import engine.backend.game_object.Mode;
 
-public class AuthoringMode {
+public class AuthoringMode extends AuthoringObject {
+	
+	private static final String LIVES = "InitialLives";
+	private static final String RESOURCES = "InitialResources";
+	private static final String LEVELS = "Levels";
 
-	private String myName;
 	private int initialNumLives;
 	private double initialResources;
 
-	private Map<String, String> myInfo;
 	private Map<Integer, String> levels;
 
 	public AuthoringMode(String myName, int initialNumLives, double initialResources, Map<Integer, String> levels) {
-		this.myName = myName;
+		super(myName);
 		this.levels = levels;
 		this.initialNumLives = initialNumLives;
 		this.initialResources = initialResources;
-		this.myInfo = new HashMap<String, String>();
-		initializeInfo();
 	}
 
 	public AuthoringMode(Mode mode) {
-		this.myName = mode.getName();
+		super(mode.getName());
 		this.levels = getLevelMap(mode.getLevels());
 		this.initialNumLives = mode.getGameStatistics().getInitialNumLives();
 		this.initialResources = mode.getGameStatistics().getInitialResources();
-		this.myInfo = new HashMap<String, String>();
-		initializeInfo();
 	}
-
-	private void initializeInfo() {
-		myInfo.put("Type", "Mode");
-		myInfo.put("Name", myName);
-		myInfo.put("InitialLives", initialNumLives + "");
-		myInfo.put("InitialResources", initialResources + "");
-		myInfo.put("Levels", getStringLevelIndexes());
+	
+	@Override
+	protected void initializeSpecificInfo() {
+		getInfo().put(LIVES, initialNumLives + EMPTY);
+		getInfo().put(RESOURCES, initialResources + EMPTY);
+		getInfo().put(LEVELS, getStringLevelIndexes());
 	}
 
 	private Map<Integer, String> getLevelMap(Map<Integer, Level> levels) {
@@ -53,26 +49,18 @@ public class AuthoringMode {
 
 	private String getStringLevelIndexes() {
 		if (levels.isEmpty()) {
-			return "";
+			return EMPTY;
 		} else {
 			StringBuilder sb = new StringBuilder();
 			for (int key : levels.keySet()) {
 				sb.append(key);
-				sb.append(":");
+				sb.append(SEMICOLON_SPLIT);
 				sb.append(levels.get(key));
-				sb.append(" ");
+				sb.append(SPACE_SPLIT);
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			return sb.toString();
 		}
-	}
-
-	public Map<String, String> getInfo() {
-		return myInfo;
-	}
-
-	public String getName() {
-		return myName;
 	}
 
 	public int getInitialLives() {
@@ -85,20 +73,6 @@ public class AuthoringMode {
 
 	public Map<Integer, String> getLevels() {
 		return levels;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof AuthoringMode) {
-			AuthoringMode mode = (AuthoringMode) o;
-			if (this.myName.equals(mode.myName)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
 	}
 
 }

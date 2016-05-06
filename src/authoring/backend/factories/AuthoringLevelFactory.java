@@ -9,6 +9,7 @@ import java.util.Set;
 
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringObject;
 import authoring.parser.GlobalParser;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.IComponent;
@@ -32,7 +33,7 @@ public class AuthoringLevelFactory {
 	public AuthoringLevel createLevel(Map<String, String> data) {
 		GameMap map = new GameMap();
 		Set<String> entities = new HashSet<String>();
-		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
+		List<AuthoringObject> spawnEntities = new ArrayList<AuthoringObject>();
 		String ruleInfo = "";
 		String name = "";
 		double waveDelayTimer = 0;
@@ -78,7 +79,7 @@ public class AuthoringLevelFactory {
 			level.setSpawnEntities(spawnEntities);
 		}
 		if (!ruleInfo.equals("")) {
-			level.setRuleAgenda(createRules(ruleInfo), parseReadEvents(ruleInfo));
+			level.setRuleAgenda(createRules(ruleInfo));
 		}
 		return level;
 	}
@@ -155,18 +156,9 @@ public class AuthoringLevelFactory {
 		return actions;
 	}
 
-	private List<String> parseReadEvents(String ruleInfo) {
-		List<String> events = new ArrayList<String>();
-		for (String rulePair : ruleInfo.split(" ")) {
-			String eventSet = rulePair.split(":")[0];
-			events.add(eventSet);
-		}
-		return events;
-	}
-
-	private List<AuthoringEntity> createSpawnEntities(String info) {
+	private List<AuthoringObject> createSpawnEntities(String info) {
 		Map<String, String[]> spawnInfo = GlobalParser.spawnParse(info);
-		List<AuthoringEntity> spawnEntities = new ArrayList<AuthoringEntity>();
+		List<AuthoringObject> spawnEntities = new ArrayList<AuthoringObject>();
 		for (String key : spawnInfo.keySet()) {
 			int pathID = Integer.parseInt(key);
 			String entityName = "Spawn" + key;
