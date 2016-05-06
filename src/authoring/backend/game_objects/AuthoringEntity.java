@@ -1,3 +1,16 @@
+//This entire file is part of my masterpiece
+//Jonathan Ma
+
+/*
+ * This is a subclass of the AuthoringObject abstract class. It acts primarily as a mirror to the Entity
+ * class in the engine. The reason for splitting up the objects in the authoring environment from the 
+ * objects in the engine is that a lot of the data in the Entity class was getting colluded. This means that
+ * engine was starting to have access to data that should only exist in the authoring environment, which 
+ * is really bad design. This class is included in the masterpiece to show how a subclass of the AuthoringObject
+ * might look and to show how the AuthoringEntity class has changed after being subclassed. The rest of the 
+ * design considerations and analysis for this masterpiece can be found in the comments in AuthoringObject.
+ */
+
 package authoring.backend.game_objects;
 
 import java.util.Collection;

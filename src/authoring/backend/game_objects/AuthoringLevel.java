@@ -1,3 +1,6 @@
+//This isn't part of the masterpiece, but I refactored this class to become subclassed by AuthoringObject.
+//This is to show how the authoring environment objects have changed following the masterpiece. 
+
 package authoring.backend.game_objects;
 
 import java.util.ArrayList;
