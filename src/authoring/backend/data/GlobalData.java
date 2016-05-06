@@ -24,7 +24,7 @@ public class GlobalData {
 		this.entities = new ObservableList<AuthoringEntity>();
 		this.levels = new ObservableList<AuthoringLevel>();
 		this.modes = new ObservableList<AuthoringMode>();
-		this.game = new AuthoringGame();
+		this.game = new AuthoringGame("");
 	}
 
 	public void updateData(Map<String, String> data) {

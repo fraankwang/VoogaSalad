@@ -8,6 +8,7 @@ import java.util.Set;
 
 import authoring.backend.game_objects.AuthoringEntity;
 import authoring.backend.game_objects.AuthoringLevel;
+import authoring.backend.game_objects.AuthoringObject;
 import engine.backend.components.CollisionComponent;
 import engine.backend.components.DisplayComponent;
 import engine.backend.components.PathComponent;
@@ -41,12 +42,12 @@ public class LevelFactory {
 			entity.addComponent(new CollisionComponent());
 			authoredEntities.add(entity);
 		}
-		List<AuthoringEntity> spawnEntities = authoringLevel.getSpawnEntities();
+		List<AuthoringObject> spawnEntities = authoringLevel.getSpawnEntities();
 		Map<Integer, IEntity> entitiesMap = new HashMap<Integer, IEntity>();
 		int entityID = 0;
 		int numWaves = 1;
-		for (AuthoringEntity spawnEntity : spawnEntities) {
-			SpawnerComponent component = (SpawnerComponent) spawnEntity.getComponent("SpawnerComponent");
+		for (AuthoringObject spawnEntity : spawnEntities) {
+			SpawnerComponent component = (SpawnerComponent) ((AuthoringEntity) spawnEntity).getComponent("SpawnerComponent");
 			for (Spawn spawn : component.getSpawns()) {
 				for (IEntity authoredEntity : authoredEntities) {
 					if (authoredEntity.getName().equals(spawn.getSpawningEntityName())) {
@@ -60,7 +61,7 @@ public class LevelFactory {
 				}
 			}
 
-			IEntity entity = entityFactory.createEntity(spawnEntity);
+			IEntity entity = entityFactory.createEntity((AuthoringEntity) spawnEntity);
 			entity.setID(entityID);
 			authoredEntities.add(entity);
 			entitiesMap.put(entityID, entity);

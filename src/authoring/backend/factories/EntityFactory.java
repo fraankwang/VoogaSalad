@@ -13,10 +13,10 @@ public class EntityFactory {
 
 	}
 
-	public IEntity createEntity(AuthoringEntity authoringEntity) {
-		String name = authoringEntity.getName();
-		String genre = authoringEntity.getGenre();
-		Map<String, IComponent> components = authoringEntity.getComponents();
+	public IEntity createEntity(AuthoringEntity spawnEntity) {
+		String name = spawnEntity.getName();
+		String genre = spawnEntity.getGenre();
+		Map<String, IComponent> components = spawnEntity.getComponents();
 
 		return new Entity(name, genre, components);
 	}
