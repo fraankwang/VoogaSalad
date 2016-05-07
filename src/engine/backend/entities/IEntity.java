@@ -25,8 +25,6 @@ public interface IEntity {
 
 	public void addComponent(IComponent component);
 
-	public boolean hasComponent(String tag);
-
 	public String getName();
 
 	public boolean hasBeenModified();

@@ -31,13 +31,6 @@ public class SystemsController {
 
 	private GameClock myGameClock;
 
-	/*
-	 * the this reference to rendering will get removed, so only the event
-	 * handler will get passed fixing rendering system before I remove this
-	 * dependency
-	 * 
-	 * @author == mario
-	 */
 	public SystemsController(int framesPerSecond, EventManager myEventManager) {
 
 		renderingSystem = new RenderingSystem();
@@ -63,8 +56,6 @@ public class SystemsController {
 		mySystems.add(collisionSystem);
 		mySystems.add(healthSystem);
 		mySystems.add(userInputSystem);
-		// mySystems.add(myEventManager);
-		// mySystems.add(renderingSystem);
 
 		myGameClock = new GameClock(framesPerSecond);
 	}
@@ -82,12 +73,10 @@ public class SystemsController {
 		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
 
 		for (ISystem system : mySystems) {
-			system.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(),
-					myGameClock.getCurrentSecond());
+			system.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond());
 		}
 		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
-		myEventManager.handleNonMapEvents(nonMapEvents);
-		nonMapEvents.clear();
+		sendNonMapEvents(nonMapEvents);
 		// handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
 		myEventManager.updateGameShop();
@@ -97,6 +86,11 @@ public class SystemsController {
 		if (!playing) {
 			myGameClock.updateLoopIteration();
 		}
+	}
+	
+	private void sendNonMapEvents(Collection<IEvent> nonMapEvents){
+		myEventManager.handleNonMapEvents(nonMapEvents);
+		nonMapEvents.clear();
 	}
 
 }

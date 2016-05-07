@@ -1,3 +1,18 @@
+// This entire file is part of my masterpiece.
+// Raghav Kedia
+
+/**
+ * This is our Entity class, and it is the heart of our entity-component-system design. In our design, all game objects are entities
+ * that contain different components, and each entity has a unique ID. Through this design, you can customize and entity just by adding
+ * different components to it. There is absolutely no inheritance involved. I think this code clearly exhibits great composition design. 
+ * I also like this code because it makes use of two interfaces. One IEntity interface while is the interface that the rest of the program 
+ * interacts with, and one IModifiable interface which means that an Entity object can be modified through an actions, because it contains 
+ * an applyAction() method. This applyAction() method is used to update the components inside and entity when the event manager is enforcing rules. 
+ * As you can see, because any component, and any variable inside a component can be modified, to generalize the whole process I make use of 
+ * reflection to produce the right method inside a specific component class. This code is also good because it is very readable and modular. 
+ *  
+ */
+
 package engine.backend.entities;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,6 +30,12 @@ import engine.backend.rules.IAction;
 import engine.backend.utilities.ComponentTagResources;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
+
+/**
+ * 
+ * @author raghavkedia
+ *
+ */
 
 public class Entity extends Observable implements IEntity, IModifiable {
 
@@ -117,24 +138,6 @@ public class Entity extends Observable implements IEntity, IModifiable {
 	 */
 	public String getGenre() {
 		return myGenre;
-	}
-
-	/**
-	 * @return A boolean representing whether this entity has the component with
-	 *         the tag.
-	 */
-	public boolean hasComponent(String tag) {
-		if (myComponents.containsKey(tag)) {
-			return true;
-		}
-		// find substring tag
-		Set<String> keys = myComponents.keySet();
-		for (String key : keys) {
-			if (key.contains(tag)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public boolean hasBeenModified() {
