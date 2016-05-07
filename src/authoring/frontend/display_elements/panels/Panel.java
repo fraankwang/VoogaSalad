@@ -16,6 +16,10 @@
  * 
  * This and the UnmodifiableAttributesPanel classes are used because they do a majority of the data processing
  * in the authoring environment, which is arguably one of the core responsibilities of an authoring environment.
+ * Though many of the smaller classes accomplish a visually more impressive functionality, they would not be
+ * much more of a stand-alone "add-on" if they weren't fit into the Panel hierarchy. This superclass allows
+ * for easy modification, and should the GUI change in a way that all Panels would need to change, or all 
+ * Panels would need additional features, this can easily be accomplished in this class.
  * 
  */
 

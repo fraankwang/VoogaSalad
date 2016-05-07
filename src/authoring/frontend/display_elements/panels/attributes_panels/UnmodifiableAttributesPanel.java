@@ -27,6 +27,11 @@
  * panels and the backend in the observer/observable design that we implement, and are responsible for keeping 
  * track of and maintaining their own data.
  * 
+ * I am particularly proud of this code, and despite how annoying it was to debug switching between this class
+ * and its extended classes, this abstract class prevented a lot of duplicated code, which would have been
+ * inevitable given the design of our Entity/Level/Mode hierarchy. The respective panels for each vary wildly,
+ * but the similarities between them are well accounted for in the specified and abstracted methods within
+ * this class.
  */
 
 package authoring.frontend.display_elements.panels.attributes_panels;
