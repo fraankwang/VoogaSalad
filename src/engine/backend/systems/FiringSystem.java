@@ -134,14 +134,14 @@ public class FiringSystem extends GameSystem {
 	}
 
 	@Override
-	public void update(Level myLevel, double currentSecond, SystemSetUp setUp) {
+	public void update(SystemSetUp setUp) {
 		Collection<IEntity> newEntities = new ArrayList<IEntity>();
-		Collection<IEntity> shootingEntities = setUp.getEntitiesWithTag(myLevel.getEntities().values(),
+		Collection<IEntity> shootingEntities = setUp.getEntitiesWithTag(setUp.getCurrentLevel().getEntities().values(),
 				ComponentTagResources.firingComponentTag);
 		shootingEntities.stream().forEach(shootingEntity -> {
-			myLevel.getEntities().values().stream()
+			setUp.getCurrentLevel().getEntities().values().stream()
 					.filter(entity -> isTarget(shootingEntity, entity) && targetIsInRange(shootingEntity, entity))
-					.forEach(entity -> updateFiring(shootingEntity, entity, newEntities, currentSecond,
+					.forEach(entity -> updateFiring(shootingEntity, entity, newEntities, setUp.getCurrentSecond(),
 							setUp.getMyEntityFactory()));
 
 		});

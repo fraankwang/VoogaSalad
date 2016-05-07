@@ -29,10 +29,9 @@ import engine.backend.utilities.ComponentTagResources;
 
 public class RenderingSystem extends GameSystem {
 
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
-			InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(SystemSetUp setUp) {
 
-		Collection<IEntity> entities = myLevel.getEntities().values();
+		Collection<IEntity> entities = setUp.getCurrentLevel().getEntities().values();
 		Collection<IEntity> entitiesToRemove = new ArrayList<IEntity>();
 		for (IEntity myEntity : entities) {
 			String imageToDisplay = "";
@@ -69,7 +68,7 @@ public class RenderingSystem extends GameSystem {
 
 		}
 
-		myLevel.removeEntites(entitiesToRemove);
+		setUp.getCurrentLevel().removeEntites(entitiesToRemove);
 	}
 
 	/**

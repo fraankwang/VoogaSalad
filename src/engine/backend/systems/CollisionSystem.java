@@ -23,15 +23,10 @@ import engine.backend.utilities.ComponentTagResources;
 public class CollisionSystem extends GameSystem {
 
 	@Override
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
-			InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(SystemSetUp setUp) {
 
-		if (!playing) {
-			return;
-		}
-
-		QuadTree quad = setUpQuadTree(myLevel);
-		Collection<IEntity> collidableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+		QuadTree quad = setUpQuadTree(setUp.getCurrentLevel());
+		Collection<IEntity> collidableEntities = setUp.getEntitiesWithTag(setUp.getCurrentLevel().getEntities().values(),
 				ComponentTagResources.collisionComponentTag);
 		collidableEntities.forEach(entity -> quad.insert(entity));
 		Collection<IEntity> retrievedCollidables = new ArrayList<IEntity>();
@@ -45,7 +40,7 @@ public class CollisionSystem extends GameSystem {
 					entitySet.add(entity1);
 					entitySet.add(entity2);
 					//System.out.println(event.getEventID());
-					addToEventMap(myEventMap, event, entitySet);
+					addToEventMap(setUp.getMyEventMap(), event, entitySet);
 				}
 			});
 		});

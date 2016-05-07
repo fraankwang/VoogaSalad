@@ -35,9 +35,9 @@ public class HealthSystem extends GameSystem {
 	}
 
 	@Override
-	public void update(Level myLevel, double currentSecond, SystemSetUp setUp) {
+	public void update(SystemSetUp setUp) {
 
-		for (IEntity entity : setUp.getEntitiesWithTag(myLevel.getEntities().values(),
+		for (IEntity entity : setUp.getEntitiesWithTag(setUp.getCurrentLevel().getEntities().values(),
 				ComponentTagResources.healthComponentTag)) {
 			HealthComponent healthComp = (HealthComponent) entity
 					.getComponent(ComponentTagResources.healthComponentTag);

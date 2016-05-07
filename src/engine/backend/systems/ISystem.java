@@ -6,12 +6,9 @@ public interface ISystem {
 
 	/**
 	 * Updates each system.
-	 * @param myLevel
-	 * @param currentSecond
-	 * @param setUp TODO
-	 * @param playing
+	 * 
+	 * @param setUp
 	 */
-	public void update(Level myLevel, double currentSecond,
-			SystemSetUp setUp);
+	public void update(SystemSetUp setUp);
 
 }

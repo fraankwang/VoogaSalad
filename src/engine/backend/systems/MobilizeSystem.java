@@ -26,14 +26,9 @@ public class MobilizeSystem extends GameSystem {
 	}
 
 	@Override
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
-			InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(SystemSetUp setUp) {
 
-		if (!playing) {
-			return;
-		}
-
-		Collection<IEntity> movableEntities = getEntitiesWithTag(myLevel.getEntities().values(),
+		Collection<IEntity> movableEntities = setUp.getEntitiesWithTag(setUp.getCurrentLevel().getEntities().values(),
 				ComponentTagResources.movementComponentTag);
 		for (IEntity entity : movableEntities) {
 
@@ -45,10 +40,10 @@ public class MobilizeSystem extends GameSystem {
 			if (entity.hasComponent(ComponentTagResources.pathComponentTag)) {
 				PathComponent pathComponent = (PathComponent) entity
 						.getComponent(ComponentTagResources.pathComponentTag);
-				addToEventMap(myEventMap, updatePositionOnPath(entity, posComponent, movComponent, pathComponent,
-						myLevel.getMap().getPath(pathComponent.getPathID())), entity);
+				addToEventMap(setUp.getMyEventMap(), updatePositionOnPath(entity, posComponent, movComponent, pathComponent,
+						setUp.getCurrentLevel().getMap().getPath(pathComponent.getPathID())), entity);
 			} else {
-				addToEventMap(myEventMap, updatePosition(entity, posComponent, movComponent, myLevel.getMap()), entity);
+				addToEventMap(setUp.getMyEventMap(), updatePosition(entity, posComponent, movComponent, setUp.getCurrentLevel().getMap()), entity);
 			}
 			updateRotation(movComponent);
 			entity.setHasBeenModified(true);

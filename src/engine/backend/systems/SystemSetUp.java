@@ -15,18 +15,21 @@ public class SystemSetUp {
 	private Level myLevel;
 	private Map<String, Set<Integer>> myEventMap;
 	private InGameEntityFactory myEntityFactory;
-	private GameSystem gameSystem;
+	private double currentSecond;
 
-	public SystemSetUp(boolean playing, Map<String, Set<Integer>> myEventMap, InGameEntityFactory myEntityFactory, double currentSecond, Level level) {
-		if (!playing)
-			return;
+	public SystemSetUp(boolean playing, Map<String, Set<Integer>> myEventMap, EventManager myEventManager, double currentSecond) {
 		this.myEventMap = myEventMap;
-		this.myEntityFactory = myEntityFactory;
-		gameSystem = new GameSystem() {
-			
-			@Override
-			public void update(Level myLevel, double currentSecond, SystemSetUp setUp) { }
-		};
+		this.myEntityFactory = myEventManager.getEntityFactory();
+		this.currentSecond = currentSecond;
+		this.myLevel = myEventManager.getCurrentLevel();
+	}
+	
+	public Level getCurrentLevel(){
+		return myLevel;
+	}
+	
+	public double getCurrentSecond(){
+		return currentSecond;
 	}
 	
 	/**

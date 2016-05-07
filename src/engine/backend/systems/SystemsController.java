@@ -79,9 +79,9 @@ public class SystemsController {
 
 	public void iterateThroughSystems(Level level, boolean playing) {
 		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
-		setUp = new SystemSetUp(playing, myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond(), myEventManager.getCurrentLevel());
+		setUp = new SystemSetUp(playing, myEventMap, myEventManager, myGameClock.getCurrentSecond());
 		for (ISystem system : mySystems) {
-			system.update(myEventManager.getCurrentLevel(), myGameClock.getCurrentSecond(), setUp);
+			system.update(setUp);
 		}
 		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
 		myEventManager.handleNonMapEvents(nonMapEvents);
@@ -89,7 +89,7 @@ public class SystemsController {
 		// handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
 		myEventManager.updateGameShop();
-		renderingSystem.update(myEventManager.getCurrentLevel(), myGameClock.getCurrentSecond(), setUp);
+		renderingSystem.update(setUp);
 		myEventManager.handleLevelOver();
 		if (!playing) {
 			myGameClock.updateLoopIteration();

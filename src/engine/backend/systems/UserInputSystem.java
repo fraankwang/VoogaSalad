@@ -29,16 +29,15 @@ public class UserInputSystem extends GameSystem {
 	}
 
 	@Override
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
-			InGameEntityFactory myEntityFactory, double currentSecond) {
+	public void update(SystemSetUp setUp) {
 		myMapEvents.forEach(event -> {
-			String identifier = myLevel.getEntityWithID(event.getFirstEntityID()).getName();
+			String identifier = setUp.getCurrentLevel().getEntityWithID(event.getFirstEntityID()).getName();
 			event.setEventID(identifier);
 			if (event instanceof EntityClickedEvent) {
-				IEntity entity = myLevel.getEntityWithID(event.getFirstEntityID());
+				IEntity entity = setUp.getCurrentLevel().getEntityWithID(event.getFirstEntityID());
 				setEntityAsObserved((EntityClickedEvent) event, entity);
 			}
-			addToEventMap(myEventMap, event, event.getEntityIDs());
+			addToEventMap(setUp.getMyEventMap(), event, event.getEntityIDs());
 		});
 		myMapEvents.clear();
 	}
