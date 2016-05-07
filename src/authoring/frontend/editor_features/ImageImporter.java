@@ -48,29 +48,8 @@ public class ImageImporter {
 		try {
 			ImageIO.write(image, "png", newFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// Class[] parameters = new Class[]{URL.class};
-		//
-		// URLClassLoader sysloader = (URLClassLoader)
-		// ClassLoader.getSystemClassLoader();
-		// Class sysclass = URLClassLoader.class;
-		//
-		// try {
-		// Method method = sysclass.getDeclaredMethod("addURL", parameters);
-		// method.setAccessible(true);
-		// method.invoke(sysloader, new Object[]{newFile.toURI().toURL()});
-		// } catch (Throwable t) {
-		// t.printStackTrace();
-		// throw new IOException("Error, could not add URL to system
-		// classloader");
-		// }
-		//
-		// for (URL url: sysloader.getURLs()) {
-		// System.out.println(url.toString());
-		// }
 
 		myImageMap.put(IMAGE_PATH + newFile.getName(), newFile.toURI().toURL().toString());
 		myChooser.add(IMAGE_PATH + newFile.getName(), IMAGE_PATH + newFile.getName());
@@ -87,7 +66,6 @@ public class ImageImporter {
 				try {
 					addNewImage(imageFile);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

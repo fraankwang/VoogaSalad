@@ -60,15 +60,6 @@ public class BezierCurveManipulator implements IDisplayElement {
 		return myNode;
 	}
 
-	public void setSize(double width, double height) {
-		myWidth = width;
-		myHeight = height;
-	}
-
-	public void setNumber(int num) {
-		myNum.set(num);
-	}
-
 	public void initialize() {
 		myCurve = createInitialCurve();
 		myCurve.setOnMouseClicked(e -> myCurve.requestFocus());
@@ -124,6 +115,15 @@ public class BezierCurveManipulator implements IDisplayElement {
 		end = new Anchor(Color.TOMATO, myCurve.endXProperty(), myCurve.endYProperty());
 
 		myNode.getChildren().addAll(myCurve, start, control1, control2, end, controlLine1, controlLine2);
+	}
+	
+	public void setSize(double width, double height) {
+		myWidth = width;
+		myHeight = height;
+	}
+
+	public void setNumber(int num) {
+		myNum.set(num);
 	}
 
 	private CubicCurve createInitialCurve() {

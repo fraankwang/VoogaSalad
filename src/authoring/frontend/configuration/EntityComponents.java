@@ -18,9 +18,6 @@ public class EntityComponents {
 		aMap.put("SizeComponent", Arrays.asList("SizeComponent_Width", "SizeComponent_Height"));
 		aMap.put("HealthComponent", Arrays.asList("HealthComponent_Health", "HealthComponent_CriticalHealth"));
 		aMap.put("PositionComponent", Arrays.asList("PositionComponent_XCoordinate", "PositionComponent_YCoordinate"));
-		// aMap.put("PathComponent", Arrays.asList("PathComponent_PathID"));
-		// aMap.put("CollisionComponent",
-		// Arrays.asList("CollisionComponent_IsCollided"));
 		aMap.put("MovementComponent", Arrays.asList("MovementComponent_Velocity", "MovementComponent_CanMove",
 				"MovementComponent_CanRotate"));
 		aMap.put("PurchaseComponent", Arrays.asList("PurchaseComponent_Value"));

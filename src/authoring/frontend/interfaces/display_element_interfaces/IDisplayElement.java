@@ -18,7 +18,7 @@ public interface IDisplayElement {
 	 * 
 	 * @return
 	 */
-	public Node getNode();
+	Node getNode();
 
 	/**
 	 * Due to the extensibility of multiple subclasses, constructors cannot
@@ -26,5 +26,5 @@ public interface IDisplayElement {
 	 * be created before grid initialization begins). Thus, an initialize method
 	 * is standardized and required to separate the two steps.
 	 */
-	public void initialize();
+	void initialize();
 }
