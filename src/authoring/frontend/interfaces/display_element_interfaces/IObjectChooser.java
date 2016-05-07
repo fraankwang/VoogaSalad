@@ -22,4 +22,6 @@ public interface IObjectChooser extends IDisplayElement {
 	void remove(int index);
 
 	void remove(String name);
+
+	void replace(int index, String graphic, String name);
 }

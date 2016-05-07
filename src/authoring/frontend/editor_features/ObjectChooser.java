@@ -177,6 +177,7 @@ public class ObjectChooser implements IObjectChooser {
 	 * @param graphic
 	 * @param name
 	 */
+	@Override
 	public void replace(int index, String graphic, String name) {
 		List<Label> tempList = new ArrayList<Label>(myObjectsList);
 		myObjectsList.clear();
