@@ -1,3 +1,24 @@
+/**
+ * This class is part of my code masterpiece. 2/2
+ * 
+ * The Panel class is a high-level abstract class that virtually all the visible elements of the 
+ * GUI extend. All Panels have a simple inheritance from the IPanel interface, which allows for modifying
+ * height and width. The initialize method is inherited from the IDisplayElement interface, which the IPanel
+ * interface inherits from. This succession of inheritance allows for all panels to call an initialize method.
+ * This is evident in all the GridFactories, where each Panel created is also initialized immediately afterwards.
+ * 
+ * The methods in this class itself are fairly simple, and that's because of the wide variety of uses a Panel
+ * could have. For example, a GridViewPanel contains a GridPane of images that links each ImageView's focused
+ * property to a currentInfo Map<String, String>, which is needed for opening a ModifiableAttributesPanel from
+ * selecting an entity/level/mode in the UnmodifiableAttributesPanel. The RulesEditorPanel, on the other hand,
+ * has an entirely different set up, with two ListView<String>s that constitute rule-making. These are just
+ * a few examples of how widely used this abstract class is.
+ * 
+ * This and the UnmodifiableAttributesPanel classes are used because they do a majority of the data processing
+ * in the authoring environment, which is arguably one of the core responsibilities of an authoring environment.
+ * 
+ */
+
 package authoring.frontend.display_elements.panels;
 
 import java.util.List;
@@ -32,6 +53,10 @@ public abstract class Panel implements IPanel {
 
 	}
 
+	/**
+	 * Method inherited from IDisplayElement. myNode is created and formatted
+	 * after this call completes.
+	 */
 	public void initialize() {
 		initializeComponents();
 		assembleComponents();
@@ -46,7 +71,7 @@ public abstract class Panel implements IPanel {
 
 	/**
 	 * After each of the varying components are initialized, they are assembled
-	 * differently depending on which Display they are in.
+	 * differently depending on which display they are in.
 	 */
 	protected abstract void assembleComponents();
 
@@ -58,7 +83,7 @@ public abstract class Panel implements IPanel {
 	/**
 	 * Creates GridPane with set row and column constraints.
 	 * 
-	 * @return
+	 * @return a formatted GridPane with the specified constraints
 	 */
 	protected GridPane createGridWrapper(List<Integer> rowConstraints, List<Integer> columnConstraints) {
 		GridPane grid = new GridPane();
