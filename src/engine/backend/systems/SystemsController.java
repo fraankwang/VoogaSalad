@@ -26,8 +26,7 @@ public class SystemsController {
 	private UserInputSystem userInputSystem;
 	private List<ISystem> mySystems;
 	private EventManager myEventManager;
-
-	public static final String DEFAULT_RESOURCE_PACKAGE = "backend.resources/";
+	private SystemSetUp setUp;
 
 	private GameClock myGameClock;
 
@@ -80,10 +79,9 @@ public class SystemsController {
 
 	public void iterateThroughSystems(Level level, boolean playing) {
 		Map<String, Set<Integer>> myEventMap = new HashMap<String, Set<Integer>>();
-
+		setUp = new SystemSetUp(playing, myEventMap, myEventManager.getEntityFactory(), myGameClock.getCurrentSecond(), myEventManager.getCurrentLevel());
 		for (ISystem system : mySystems) {
-			system.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(),
-					myGameClock.getCurrentSecond());
+			system.update(myEventManager.getCurrentLevel(), myGameClock.getCurrentSecond(), setUp);
 		}
 		Collection<IEvent> nonMapEvents = ((UserInputSystem) userInputSystem).getNonMapEvents();
 		myEventManager.handleNonMapEvents(nonMapEvents);
@@ -91,8 +89,7 @@ public class SystemsController {
 		// handle all the generate events
 		myEventManager.handleGeneratedEvents(myEventMap);
 		myEventManager.updateGameShop();
-		renderingSystem.update(playing, myEventManager.getCurrentLevel(), myEventMap, myEventManager.getEntityFactory(),
-				myGameClock.getCurrentSecond());
+		renderingSystem.update(myEventManager.getCurrentLevel(), myGameClock.getCurrentSecond(), setUp);
 		myEventManager.handleLevelOver();
 		if (!playing) {
 			myGameClock.updateLoopIteration();

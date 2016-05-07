@@ -26,29 +26,6 @@ import engine.backend.utilities.ComponentTagResources;
 
 public class FiringSystem extends GameSystem {
 
-	@Override
-	public void update(boolean playing, Level myLevel, Map<String, Set<Integer>> myEventMap,
-			InGameEntityFactory myEntityFactory, double currentSecond) {
-
-		if (!playing) {
-			return;
-		}
-
-		Collection<IEntity> newEntities = new ArrayList<IEntity>();
-		Collection<IEntity> shootingEntities = getEntitiesWithTag(myLevel.getEntities().values(),
-				ComponentTagResources.firingComponentTag);
-		shootingEntities.stream().forEach(shootingEntity -> {
-			myLevel.getEntities().values().stream()
-					.filter(entity -> isTarget(shootingEntity, entity) && targetIsInRange(shootingEntity, entity))
-					.forEach(entity -> updateFiring(shootingEntity, entity, newEntities, currentSecond,
-							myEntityFactory));
-
-		});
-
-		sendAddEntityEvent(newEntities);
-
-	}
-
 	/**
 	 * Updates the firing by getting the firing component from the shooting
 	 * entity. Checks whether or not the entity can shoot and instantiates the
@@ -154,5 +131,21 @@ public class FiringSystem extends GameSystem {
 		AddEntityEvent event = new AddEntityEvent(newEntities);
 		setChanged();
 		notifyObservers(event);
+	}
+
+	@Override
+	public void update(Level myLevel, double currentSecond, SystemSetUp setUp) {
+		Collection<IEntity> newEntities = new ArrayList<IEntity>();
+		Collection<IEntity> shootingEntities = setUp.getEntitiesWithTag(myLevel.getEntities().values(),
+				ComponentTagResources.firingComponentTag);
+		shootingEntities.stream().forEach(shootingEntity -> {
+			myLevel.getEntities().values().stream()
+					.filter(entity -> isTarget(shootingEntity, entity) && targetIsInRange(shootingEntity, entity))
+					.forEach(entity -> updateFiring(shootingEntity, entity, newEntities, currentSecond,
+							setUp.getMyEntityFactory()));
+
+		});
+
+		sendAddEntityEvent(newEntities);
 	}
 }
