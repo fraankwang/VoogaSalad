@@ -1,4 +1,9 @@
+//This entire file is part of my masterpiece
+//Hayden Bader
+
 package engine.frontend.overall;
+
+
 
 /**
  * @author austinwu
@@ -6,20 +11,15 @@ package engine.frontend.overall;
 import java.io.File;
 
 import engine.controller.EngineController;
-import javafx.beans.binding.DoubleExpression;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
-public class StartView {
-	private Scene myScene;
-	private EngineController myController;
+public class StartView extends AbstractVBoxSplash {
 	private boolean firsttime;
 	private String selectedMode;
 	private Integer selectedLevel;
@@ -31,7 +31,7 @@ public class StartView {
 	private Button startButton;
 
 	public StartView(EngineController ec, boolean f) {
-		myController = ec;
+		super(ec);
 		firsttime = f;
 	}
 
@@ -41,8 +41,8 @@ public class StartView {
 	 * @return Scene - containing view for beginning prompt
 	 */
 	public Scene buildScene() {
-		myVBox = new VBox();
-		myScene = new Scene(myVBox, Color.WHEAT);
+		
+		super.buildVBoxScene();
 
 		buildGameChooser();
 		buildModePicker();
@@ -128,29 +128,5 @@ public class StartView {
 		bindWidth(startButton, myScene.widthProperty());
 	}
 
-	/**
-	 * Helps bind width between two Regions
-	 * 
-	 * @param region
-	 *            - Region to bind
-	 * @param db
-	 *            - double expression describing binding
-	 */
-	public void bindWidth(Region region, DoubleExpression db) {
-		region.minWidthProperty().bind(db);
-		region.maxWidthProperty().bind(db);
-	}
 
-	/**
-	 * Helps bind height between two Regions
-	 * 
-	 * @param region
-	 *            - Region to bind
-	 * @param db
-	 *            - double expression describing binding
-	 */
-	public void bindHeight(Region region, DoubleExpression db) {
-		region.minHeightProperty().bind(db);
-		region.maxHeightProperty().bind(db);
-	}
 }
