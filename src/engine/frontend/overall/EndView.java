@@ -1,23 +1,19 @@
+//This entire file is part of my masterpiece
+//Hayden Bader
 package engine.frontend.overall;
 
 import engine.controller.EngineController;
-import javafx.beans.binding.DoubleExpression;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
-public class EndView {
-
-	private Scene myScene;
-	private EngineController myController;
+public class EndView extends AbstractVBoxSplash  {
 
 	private Button restartButton;
 
 	public EndView(EngineController ec) {
-		myController = ec;
+		super(ec);
 	}
 
 	/**
@@ -26,8 +22,9 @@ public class EndView {
 	 * @return
 	 */
 	public Scene buildScene() {
-		VBox myVBox = new VBox();
-		myScene = new Scene(myVBox, Color.WHEAT);
+
+		super.buildVBoxScene();
+		
 		Region myRegion = myController.setupHUD();
 		bindWidth(myRegion, myVBox.widthProperty());
 		bindHeight(myRegion, myVBox.heightProperty().divide(2));
@@ -49,16 +46,7 @@ public class EndView {
 		return restartButton;
 	}
 
-	private void bindWidth(Region region, DoubleExpression db) {
-		region.minWidthProperty().bind(db);
-		region.maxWidthProperty().bind(db);
-	}
-
-	private void bindHeight(Region region, DoubleExpression db) {
-		region.minHeightProperty().bind(db);
-		region.maxHeightProperty().bind(db);
-	}
-
+	
 	private void restart() {
 		myController.initStartView(false);
 	}
