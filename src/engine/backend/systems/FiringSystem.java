@@ -17,6 +17,7 @@ import engine.backend.entities.InGameEntityFactory;
 import engine.backend.game_object.Level;
 import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.utilities.ComponentTagResources;
+import exception.DrumpfTowerException;
 
 /**
  * 
@@ -128,7 +129,13 @@ public class FiringSystem extends GameSystem {
 	private IEntity initilizeFire(String entityName, Vector positionVector, Vector directionToFire, double speed,
 			IEntity targetEntity, InGameEntityFactory myEntityFactory) {
 
-		IEntity ammoEntity = myEntityFactory.createEntity(entityName);
+		IEntity ammoEntity = null;
+		try {
+			ammoEntity = myEntityFactory.createEntity(entityName);
+		} catch (DrumpfTowerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		PositionComponent firedPosComponent = (PositionComponent) ammoEntity
 				.getComponent(ComponentTagResources.positionComponentTag);
 		MovementComponent firedMovComponent = (MovementComponent) ammoEntity

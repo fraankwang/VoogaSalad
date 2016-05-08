@@ -17,6 +17,7 @@ import engine.backend.systems.Events.AddEntityEvent;
 import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.WaveOverEvent;
 import engine.backend.utilities.ComponentTagResources;
+import exception.DrumpfTowerException;
 
 public class SpawningSystem extends GameSystem {
 
@@ -90,7 +91,13 @@ public class SpawningSystem extends GameSystem {
 	private void updateSpawn(Spawn spawn, Vector newPos, Collection<IEntity> newEntities,
 			InGameEntityFactory myEntityFactory, double currentSecond, int pathID) {
 		if (spawn.getTimer() <= 0 && spawn.getNumEntities() > 0) {
-			IEntity newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
+			IEntity newEntity = null;
+			try {
+				newEntity = myEntityFactory.createEntity(spawn.getSpawningEntityName());
+			} catch (DrumpfTowerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			PositionComponent newPositionComponent = new PositionComponent(newPos.getX(), newPos.getY());
 			newEntity.addComponent(newPositionComponent);
 			if (newEntity.hasComponent(ComponentTagResources.pathComponentTag)) {

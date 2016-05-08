@@ -39,6 +39,7 @@ import engine.backend.systems.Events.UpdateEntityEvent;
 import engine.backend.systems.Events.WaveOverEvent;
 import engine.backend.utilities.ComponentTagResources;
 import engine.controller.IEngineController;
+import exception.DrumpfTowerException;
 
 public class EventManager implements Observer {
 
@@ -312,7 +313,13 @@ public class EventManager implements Observer {
 	private void handleEntityDropEvent(EntityDroppedEvent event) {
 		if (currentGameStatistics.getCurrentResources() >= event.getEntityValue()) {
 			subtractFromResources(event.getEntityValue());
-			IEntity newEntity = myEntityFactory.createEntity(event.getEntityName());
+			IEntity newEntity = null;
+			try {
+				newEntity = myEntityFactory.createEntity(event.getEntityName());
+			} catch (DrumpfTowerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			PositionComponent posComp = (PositionComponent) newEntity
 					.getComponent(ComponentTagResources.positionComponentTag);
 			posComp.setPositionVector(new Vector(event.getXCoordinate(), event.getYCoordinate()));
