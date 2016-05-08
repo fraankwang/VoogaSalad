@@ -58,7 +58,7 @@ public interface IGameCapture {
 	String getFileName();
 
 	/**
-	 * Sets Image file type for export. Can be adjusted from frontend, fileTypes
+	 * Sets Image file type for export. Can be adjusted from front end, fileTypes
 	 * should be strings that are in ImageIO.getWriterFormatNames()
 	 * 
 	 * @param imageFileType
@@ -67,7 +67,7 @@ public interface IGameCapture {
 	void setImageFileType(String imageFileType);
 
 	/**
-	 * Gets the image filetype
+	 * Gets the image file type
 	 * 
 	 * @return string representation of image format
 	 */
@@ -88,12 +88,12 @@ public interface IGameCapture {
 	int getFramesPerSecond();
 
 	/**
-	 * Sets the save location for the file to the directory specified by f
+	 * Sets the save location for the file to the directory specified by File f
 	 */
 	void setSaveLocation(File f);
 
 	/**
-	 * returns the current save location
+	 * Returns the current save location
 	 * 
 	 * @return String representation of save location
 	 */

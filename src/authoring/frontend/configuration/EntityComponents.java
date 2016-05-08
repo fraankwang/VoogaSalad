@@ -12,9 +12,9 @@ public class EntityComponents {
 	private static final Map<String, List<String>> myComponents;
 	static {
 		Map<String, List<String>> aMap = new HashMap<String, List<String>>();
-		aMap.put("DisplayComponent", Arrays.asList("DisplayComponent_CanBeShown", "DisplayComponent_Image"));
+		aMap.put("DisplayComponent", Arrays.asList("DisplayComponent_CanBeShown", "DisplayComponent_Image", "DisplayComponent_Delete"));
 		aMap.put("FiringComponent", Arrays.asList("FiringComponent_Ammunition", "FiringComponent_AmmunitionSpeed",
-				"FiringComponent_EnemyInSightRange", "FiringComponent_Targets", "FiringComponent_FiringRate"));
+				"FiringComponent_EnemyInSightRange", "FiringComponent_Targets", "FiringComponent_FiringRate", "FiringComponent_FireNow"));
 		aMap.put("SizeComponent", Arrays.asList("SizeComponent_Width", "SizeComponent_Height"));
 		aMap.put("HealthComponent", Arrays.asList("HealthComponent_Health", "HealthComponent_CriticalHealth"));
 		aMap.put("PositionComponent", Arrays.asList("PositionComponent_XCoordinate", "PositionComponent_YCoordinate"));
@@ -32,12 +32,14 @@ public class EntityComponents {
 	static {
 		Map<String, String> bMap = new HashMap<String, String>();
 		bMap.put("DisplayComponent_CanBeShown", "Boolean");
+		bMap.put("DisplayComponent_Delete", "Boolean");
 		bMap.put("DisplayComponent_Image", "Image");
 		bMap.put("FiringComponent_Ammunition", "Entity");
 		bMap.put("FiringComponent_AmmunitionSpeed", "Numerical");
 		bMap.put("FiringComponent_EnemyInSightRange", "Numerical");
 		bMap.put("FiringComponent_Targets", "Entity");
 		bMap.put("FiringComponent_FiringRate", "Numerical");
+		bMap.put("FiringComponent_FireNow", "Boolean");
 		bMap.put("SizeComponent_Width", "Numerical");
 		bMap.put("SizeComponent_Height", "Numerical");
 		bMap.put("HealthComponent_Health", "Numerical");

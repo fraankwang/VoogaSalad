@@ -44,6 +44,7 @@ public class CollisionSystem extends GameSystem {
 					Set<IEntity> entitySet = new HashSet<IEntity>();
 					entitySet.add(entity1);
 					entitySet.add(entity2);
+					//System.out.println(event.getEventID());
 					addToEventMap(myEventMap, event, entitySet);
 				}
 			});

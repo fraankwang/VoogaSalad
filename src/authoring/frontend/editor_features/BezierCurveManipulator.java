@@ -159,7 +159,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle(Constants.getString("PATH_INFO_ALERT"));
 					alert.setHeaderText("Path #" + Integer.toString(myPathIndex) + "\n" + "Segment #"
-							+ Integer.toString(myNum.get() + 1));
+							+ Integer.toString(myNum.get()));
 					alert.show();
 				}
 			}
@@ -220,7 +220,7 @@ public class BezierCurveManipulator implements IDisplayElement {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle(Constants.getString("PATH_INFO_ALERT"));
 						alert.setHeaderText("Path #" + Integer.toString(myPathIndex) + "\n" + "Segment #"
-								+ Integer.toString(myNum.get() + 1));
+								+ Integer.toString(myNum.get()));
 						alert.show();
 					}
 				}

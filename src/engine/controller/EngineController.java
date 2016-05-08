@@ -24,12 +24,10 @@ import engine.backend.systems.Events.IEvent;
 import engine.backend.systems.Events.KeyPressedEntityEvent;
 import engine.backend.systems.Events.NextWaveEvent;
 import engine.backend.systems.Events.PowerUpDroppedEvent;
-import engine.controller.testing.AustinGame;
-import engine.controller.testing.DuffyGame;
-import engine.controller.testing.ITestingGame;
 import engine.frontend.overall.EndView;
 import engine.frontend.overall.EngineView;
 import engine.frontend.overall.ResourceUser;
+import engine.frontend.overall.StartView;
 import engine.frontend.status.DrumpfHUDScreen;
 import exception.DrumpfTowerException;
 import exception.ExceptionLoader;
@@ -38,6 +36,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -114,15 +113,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-		ITestingGame myTester = new DuffyGame();
-		myGameWorld = myTester.initGame();
-		myEventManager = new EventManager(this, myGameWorld);
-		startGame("Duffy", 0, firsttime);
-		
-//		StartView myStartView = new StartView(this, firsttime);
-//		Scene scene = myStartView.buildScene();
-//		myStage.setScene(scene);
-//		myStage.show();
+		StartView myStartView = new StartView(this, firsttime);
+		Scene scene = myStartView.buildScene();
+		myStage.setScene(scene);
+		myStage.show();
 	}
 
 	/**
