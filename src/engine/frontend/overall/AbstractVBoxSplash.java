@@ -8,16 +8,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import engine.frontend.overall.ResourceUser;
 
-public abstract class AbstractVBoxSplash {
+public abstract class AbstractVBoxSplash{
 	protected Scene myScene;
 	protected EngineController myController;
 	protected VBox myVBox;
+	protected ResourceUser myResources;
 	
 	public AbstractVBoxSplash(EngineController ec){
 		myController = ec;
 	}
-		
+
+
 	public Scene buildVBoxScene(){
 		VBox myVBox = new VBox();
 		myScene = new Scene(myVBox, Color.WHEAT);
