@@ -1,6 +1,11 @@
 package engine.frontend.overall;
 /**
  * @author austinwu
+ * This file is part of my masterpiece. For my masterpiece, I worked on the dynamic 
+ * sizing component of the frontend. The EngineView's buildScene() method sets up all
+ * of the math required for the dynamic sizing- most of the work is done by the  
+ * underlying JavaFX DoubleExpression and subclass classes. 
+ * 
  */
 
 import engine.controller.EngineController;
@@ -26,18 +31,14 @@ import utility.gamecapture.GameCapture;
 
 public class EngineView extends ResourceUser {
 
-	/*
-	 * reorganize/javadoc code LAST things that go off map go "under" the
-	 * borders
-	 */
 	public static final String RESOURCE_NAME = "engine_window";
 
 	private Stage myStage;
 	private Scene myScene;
 
 	private EngineController myController;
+	
 	private MenubarManager myMenubarManager;
-
 	private BorderPane myBorderPane;
 	private MenuBar myMenuBar;
 	private BoardPane myBoardPane;
@@ -45,7 +46,7 @@ public class EngineView extends ResourceUser {
 	private StatusPane myStatusPane;
 	private DummyCursor myDummyCursor;
 
-	private DoubleProperty scalingFactor;
+	private DoubleProperty myScalingFactor;
 
 	/**
 	 * Initiates EngineView
@@ -63,9 +64,8 @@ public class EngineView extends ResourceUser {
 		myBoardPane = new BoardPane(this);
 		myShopPane = new ShopPane(this);
 		myStatusPane = new StatusPane(this);
-
 		myDummyCursor = new DummyCursor(this);
-		scalingFactor = new SimpleDoubleProperty(1);
+		myScalingFactor = new SimpleDoubleProperty();
 	}
 
 	/**
@@ -76,28 +76,34 @@ public class EngineView extends ResourceUser {
 	public Scene buildScene() {
 		myBorderPane = new BorderPane();
 		myScene = new Scene(myBorderPane, Color.WHITE);
-		myMenuBar = myMenubarManager.buildMenuBar();
-		myBorderPane.setTop(myMenuBar);
+		myBorderPane.setTop(myMenubarManager.buildMenuBar());
 
 		SimpleDoubleProperty mapHeight = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapHeight());
 		SimpleDoubleProperty mapWidth = new SimpleDoubleProperty(
 				myController.getEventManager().getCurrentLevel().getMap().getMapWidth());
 
-		scalingFactor
+		myScalingFactor
 				.bind(Bindings.min(getUsableBoardHeight().divide(mapHeight), getUsableBoardWidth().divide(mapWidth)));
-		DoubleExpression boardWidth = mapWidth.multiply(scalingFactor);
-		DoubleExpression boardHeight = mapHeight.multiply(scalingFactor);
+		DoubleExpression boardWidth = mapWidth.multiply(myScalingFactor);
+		DoubleExpression boardHeight = mapHeight.multiply(myScalingFactor);
 		myBorderPane.setLeft(myBoardPane.buildNode(boardWidth, boardHeight));
 		myBorderPane.setRight(myShopPane.buildNode(myScene.widthProperty().subtract(boardWidth), boardHeight));
 		myBorderPane.setBottom(myStatusPane.buildNode(myScene.widthProperty(),
 				myScene.heightProperty().subtract(boardHeight).subtract(myMenuBar.heightProperty())));
+		setupListeners();
+		return myScene;
+	}
+	
+	/**
+	 * Sets up event listeners on the scene
+	 */
+	private void setupListeners(){
 		myBorderPane.getChildren().add(myDummyCursor.buildNode());
 		myScene.setCursor(Cursor.DEFAULT);
 		myScene.setOnDragOver(e -> handleMove(e));
 		myScene.setOnDragDropped(e -> handleEndMouseRelease(e));
 		myScene.setOnKeyPressed(e -> handleKeyPress(e));
-		return myScene;
 	}
 
 	/**
@@ -107,7 +113,6 @@ public class EngineView extends ResourceUser {
 	 *            - KeyEvent
 	 */
 	private void handleKeyPress(KeyEvent e) {
-		// TODO Auto-generated method stub
 		myController.keyPressed(e.getCode().toString());
 		e.consume();
 	}
@@ -263,14 +268,12 @@ public class EngineView extends ResourceUser {
 	public BorderPane getBorderPane() {
 		return myBorderPane;
 	}
-
+	
 	/**
-	 * Returns DoubleExpression representing scaling size of scene in relation
-	 * to engine
-	 * 
+	 * Returns a double expression that is the current map to board scaling factor
 	 * @return
 	 */
-	public DoubleExpression getScalingFactor() {
-		return scalingFactor;
+	public DoubleExpression getScalingFactor(){
+		return myScalingFactor;
 	}
 }

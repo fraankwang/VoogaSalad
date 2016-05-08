@@ -124,6 +124,5 @@ public class EntityView {
 		System.out.println("Min: " + minY + " Max: " + maxY + " y: " + y);
 
 		return (x >= minX && x <= maxX && y >= minY && y <= maxY);
-
 	}
 }

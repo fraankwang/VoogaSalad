@@ -2,6 +2,10 @@ package engine.frontend.overall;
 
 /**
  * @author austinwu
+ * This file is part of my masterpiece. For my masterpiece, I worked on the dynamic 
+ * sizing component of the frontend. The ResourceUser abstracts away the resource bundle
+ * accessing functionality as well as the parsing required to get integers, doubles, and 
+ * regex delimited string arrays. 
  */
 import java.util.ResourceBundle;
 

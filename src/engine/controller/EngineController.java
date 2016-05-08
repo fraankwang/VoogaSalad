@@ -2,6 +2,10 @@ package engine.controller;
 
 /**
  * @author austinwu
+ * This file is part of my masterpiece. The EngineController is responsible for 
+ * connecting all of the various components that are dynamically resizable to
+ * the backend. This allows the EngineView to setup the dynamic sizing throughout
+ * the entire frontend when it is instantiated
  */
 import java.io.File;
 import java.io.IOException;
@@ -48,13 +52,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private Stage myStage;
 	private Main myMain;
 	private Timeline animation;
-
-	private static final String RESOURCE_NAME = "stage";
-	private static final String INITGAME = "StartingGameEvent";
-	private static final String XML_FAIL = "CreateWorldFromXML";
-
-	private static final int NUM_FRAMES_PER_SECOND = 60;
 	private boolean stepping;
+
+	public static final String RESOURCE_NAME = "engine_window";
 
 	private ExceptionLoader myExceptionLoader;
 	private EventManager myEventManager;
@@ -84,7 +84,7 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 * Initializes the animation and starts the
 	 */
 	public void start() {
-		KeyFrame frame = new KeyFrame(Duration.millis(1000 / NUM_FRAMES_PER_SECOND), e -> step());
+		KeyFrame frame = new KeyFrame(Duration.millis(1000 / loadIntResource("NUM_FRAMES_PER_SECOND")), e -> step());
 		animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
@@ -112,11 +112,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-//		ITestingGame myTester = new DuffyGame();
-//		myGameWorld = myTester.initGame();
-//		myEventManager = new EventManager(this, myGameWorld);
-//		startGame("Duffy", 0, firsttime);
-
 		StartView myStartView = new StartView(this, firsttime);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);
@@ -132,10 +127,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public void initGameWorld(File file) {
 		GameWorldToXMLWriter christine = new GameWorldToXMLWriter();
 		try {
-			myGameWorld = (GameWorld) christine.xMLToObject(christine.documentToString(file));
+			myGameWorld = (GameWorld) christine.xMLToObject(GameWorldToXMLWriter.documentToString(file));
 			myEventManager = new EventManager(this, myGameWorld);
 		} catch (IOException e) {
-			new DrumpfTowerException(myExceptionLoader.getString(XML_FAIL));
+			new DrumpfTowerException(myExceptionLoader.getString("XML_FAIL"));
 		}
 	}
 
@@ -144,24 +139,22 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 */
 	public void startGame(String selectedMode, Integer selectedLevel, boolean firsttime) {
 		try {
-			GameEvent e = new GameEvent(selectedMode, selectedLevel);
-			myEventManager.handleGameStartEvent(e);
+			myEventManager.handleGameStartEvent(new GameEvent(selectedMode, selectedLevel));
 			myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
 			myEventManager.setEntityFactory(myEntityFactory);
 			myEventManager.initializeRules();
-			mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
+			mySystems = new SystemsController(loadIntResource("NUM_FRAMES_PER_SECOND"), myEventManager);
 			initEngineView(firsttime);
 			manualRefresh();
 		} catch (IOException e) {
-			new DrumpfTowerException(myExceptionLoader.getString(INITGAME));
+			new DrumpfTowerException(myExceptionLoader.getString(loadStringResource("INITGAME")));
 		}
 		myEntityFactory = new InGameEntityFactory(myEventManager.getCurrentLevel().getAuthoredEntities());
 		myEventManager.setEntityFactory(myEntityFactory);
 		myEventManager.initializeRules();
-		mySystems = new SystemsController(NUM_FRAMES_PER_SECOND, myEventManager);
+		mySystems = new SystemsController(loadIntResource("NUM_FRAMES_PER_SECOND"), myEventManager);
 		initEngineView(firsttime);
 		mySystems.iterateThroughSystems(myEventManager.getCurrentLevel(), false);
-
 	}
 
 	/**
@@ -195,34 +188,14 @@ public class EngineController extends ResourceUser implements IEngineController 
 	private void setupGameCapture() {
 		myGameCapture = new GameCapture(loadIntResource("StartX"), loadIntResource("StartY"),
 				loadIntResource("StageMinWidth"), loadIntResource("StageMinHeight"));
-		
-		myStage.xProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				myGameCapture.setCaptureX(newValue.intValue());
-			}
-		});
-
-		myStage.yProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				myGameCapture.setCaptureY(newValue.intValue());
-			}
-		});
-
-		myStage.widthProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				myGameCapture.setCaptureWidth(newValue.intValue());
-			}
-		});
-
-		myStage.heightProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				myGameCapture.setCaptureHeight(newValue.intValue());
-			}
-		});
+		myStage.xProperty()
+				.addListener((observable, oldValue, newValue) -> myGameCapture.setCaptureX(newValue.intValue()));
+		myStage.yProperty()
+				.addListener((observable, oldValue, newValue) -> myGameCapture.setCaptureY(newValue.intValue()));
+		myStage.heightProperty()
+				.addListener((observable, oldValue, newValue) -> myGameCapture.setCaptureHeight(newValue.intValue()));
+		myStage.widthProperty()
+				.addListener((observable, oldValue, newValue) -> myGameCapture.setCaptureWidth(newValue.intValue()));
 	}
 
 	/**
@@ -325,14 +298,10 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 * @param myID
 	 *            - unique ID of entity clicked
 	 */
-	// methods we call to the backend:
 	public void entityClicked(int myID) {
 		lastEntityClickedID = myID;
 		IEvent clickedEvent = new EntityClickedEvent(myID, myEngineView.getShopPane().getCurrentView());
 		mySystems.sendUserInputEvent(clickedEvent);
-		// test
-		// levelIsOver(false);
-
 	}
 
 	/**
@@ -381,7 +350,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 * Engine notifying view that a wave is over and next wave button can be
 	 * enabled
 	 */
-	// methods the backend will call:
 	public void waveIsOver(double delaytime) {
 		myEngineView.getStatusPane().getControlManager().nextWaveEnable(delaytime);
 	}
@@ -438,6 +406,9 @@ public class EngineController extends ResourceUser implements IEngineController 
 		myEngineView.getStatusPane().getControlManager().togglePlayButton(shouldStep);
 	}
 
+	/**
+	 * Toggles stepping to the boolean inverse of its current value
+	 */
 	public void toggleStepping() {
 		toggleStepping(!stepping);
 	}
@@ -495,5 +466,4 @@ public class EngineController extends ResourceUser implements IEngineController 
 	public Stage getStage() {
 		return myStage;
 	}
-
 }

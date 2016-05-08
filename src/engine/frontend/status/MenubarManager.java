@@ -51,8 +51,7 @@ public class MenubarManager extends ResourceUser {
 
 		Menu filemenu = buildFileMenu();
 		Menu capturemenu = buildCaptureMenu();
-		Menu helpmenu = buildHelpMenu();
-		menubar.getMenus().addAll(filemenu, capturemenu, helpmenu);
+		menubar.getMenus().addAll(filemenu, capturemenu);
 
 		return menubar;
 	}
@@ -135,24 +134,6 @@ public class MenubarManager extends ResourceUser {
 		});
 
 		menu.getItems().addAll(setImageFileType, setNumFramesPerSecond, setSaveLocation, setFileName);
-		return menu;
-	}
-
-	/**
-	 * Builds the help menu UI
-	 * 
-	 * @return Menu to populate help section of MenuBar
-	 */
-	private Menu buildHelpMenu() {
-		Menu menu = new Menu(loadStringResource("HelpPrompt"));
-		CheckMenuItem debugModeItem = new CheckMenuItem(loadStringResource("DebugPrompt"));
-		debugModeItem.setSelected(false);
-		debugModeItem.selectedProperty().addListener(new ChangeListener<Boolean>() {
-			public void changed(ObservableValue ov, Boolean old_val, Boolean new_val) {
-				myEngineView.getShopPane().getCurrentView().setDebug(new_val);
-			}
-		});
-		menu.getItems().add(debugModeItem);
 		return menu;
 	}
 }

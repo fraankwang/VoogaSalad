@@ -9,7 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import engine.backend.entities.IEntity;
-import engine.frontend.overall.ResourceUser;
+import engine.frontend.overall.AbstractPane;
 import javafx.beans.binding.DoubleExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-public class CurrentView extends ResourceUser implements Observer {
+public class CurrentView extends AbstractPane implements Observer {
 
 	public static final String RESOURCE_NAME = "statlabels";
 
@@ -37,8 +37,6 @@ public class CurrentView extends ResourceUser implements Observer {
 
 	private Map<String, Boolean> showMap;
 
-	private boolean debug;
-
 	/**
 	 * Instantiates current view node - displays most recently clicked entity
 	 * and its attributes
@@ -47,12 +45,10 @@ public class CurrentView extends ResourceUser implements Observer {
 	 *            - shop pane - this class's parent node
 	 */
 	public CurrentView(ShopPane sp) {
-		super(RESOURCE_NAME);
+		super(sp.getEngineView(), RESOURCE_NAME);
 		myShopPane = sp;
 		showMap = new HashMap<String, Boolean>();
-		if (!debug) {
-			addDefaultShows(showMap);
-		}
+		addDefaultShows(showMap);
 	}
 
 	/**
@@ -126,20 +122,9 @@ public class CurrentView extends ResourceUser implements Observer {
 			if (s.equals("Image") && !statMap.get("Image").equals(myImageName)) {
 				myImageView.setImage(new Image(statMap.get("Image")));
 				myImageName = statMap.get("Image");
-			} else if (showMap.get(s) || debug) {
+			} else if (showMap.get(s)) {
 				stats.add(s + ": " + statMap.get(s));
 			}
 		}
-	}
-
-	/**
-	 * Enables debug mode
-	 * 
-	 * @param b
-	 *            - boolean of whether debug should be completed
-	 */
-
-	public void setDebug(boolean b) {
-		debug = b;
 	}
 }

@@ -1,3 +1,13 @@
+/**
+ * @author austinwu
+ * This file is part of my masterpiece. For my masterpiece, I worked on the dynamic 
+ * sizing component of the frontend. The Abstract Pane class allows for 
+ * various subclasses to inherit some functionality crucial to the design of 
+ * the frontend player. Specifically, the functionality to bind JavaFX DoubleExpressions
+ * to the width and height properties of the internal Pane, as well as providing
+ * that Pane as a protected variable from which extending subclasses can add and remove
+ * items.
+ */
 package engine.frontend.overall;
 
 import javafx.beans.binding.DoubleExpression;
