@@ -42,11 +42,13 @@ import engine.controller.IEngineController;
 
 public class EventManager implements Observer {
 
-	IEngineController myEngineController;
-	GameWorld myGameWorld;
-	GameStatistics currentGameStatistics;
+	private IEngineController myEngineController;
+	private GameWorld myGameWorld;
+	private GameStatistics currentGameStatistics;
 	private List<Rule> myRuleAgenda;
-	InGameEntityFactory myEntityFactory;
+	private RuleHandler ruleHandler;
+	private ActionHandler actionHandler;
+	private InGameEntityFactory myEntityFactory;
 	private GameShop myGameShop;
 
 	public EventManager(IEngineController engineController, GameWorld game) {
@@ -69,11 +71,13 @@ public class EventManager implements Observer {
 	}
 
 	/**
-	 * Sets the level rules to those for the current level.
+	 * Sets the level rules to those for the current level. Also sets up handlers to handle rules.
 	 * 
 	 * @param level
 	 */
 	public void setLevelRules(Level level) {
+		ruleHandler = new RuleHandler();
+		actionHandler = new ActionHandler(level.getEntities(), currentGameStatistics);
 		setCustomRules(level.getRuleAgenda());
 	}
 
@@ -326,7 +330,7 @@ public class EventManager implements Observer {
 					((EntityAction) event.getPowerUp().getActions().get(0)).getEntityName())) {
 				Collection<Integer> affectedEntities = Arrays.asList(event.getAffectedEntityID());
 				Collection<IAction> actions = event.getPowerUp().getActions();
-				applyActions(affectedEntities, actions);
+				actionHandler.applyActions(affectedEntities, actions);
 				subtractFromResources(event.getPowerUp().getPrice());
 			}
 		}
@@ -353,31 +357,6 @@ public class EventManager implements Observer {
 	}
 
 	/**
-	 * Applies actions to an entity if applicable, else sees if it is a level
-	 * action then changes things accordingly.
-	 * 
-	 * @param entity
-	 * @param actions
-	 */
-	private void applyActions(IEntity entity, Collection<IAction> actions) {
-		for (IAction a : actions) {
-			if (a instanceof EntityAction) {
-				if (((EntityAction) a).getEntityName().equals(entity.getName())) {
-					((IModifiable) entity).applyAction((EntityAction) a);
-				}
-			} else if (a instanceof LevelAction) {
-				currentGameStatistics.applyAction((LevelAction) a);
-			}
-		}
-	}
-
-	private void applyActions(Collection<Integer> entityIDs, Collection<IAction> actions) {
-		Collection<IEntity> myEntities = new ArrayList<IEntity>();
-		entityIDs.forEach(i -> myEntities.add(getCurrentLevel().getEntityWithID(i)));
-		myEntities.forEach(entity -> applyActions(entity, actions));
-	}
-
-	/**
 	 * Takes in collection of non map user events generated, and handles them
 	 * accordingly
 	 * 
@@ -396,41 +375,12 @@ public class EventManager implements Observer {
 	}
 
 	/**
-	 * Takes a generated map of eventIDs and entityIDs for each eventID and
-	 * finds whether a rule in the agenda has the entities and event necessary
-	 * to carryout the actions of each rule. If so, the actions are applied.
+	 * Calls the rule handler to handle generated events;
 	 * 
 	 * @param generatedEventMap
 	 */
 	public void handleGeneratedEvents(Map<String, Set<Integer>> generatedEventMap) {
-		for (Rule rule : myRuleAgenda) {
-			List<Set<Integer>> myPossibleEntities = new ArrayList<Set<Integer>>();
-			Collection<String> ruleEvents = rule.getEvents();
-			Set<Integer> myFinalEntities;
-			for (String event : ruleEvents) {
-				if (!generatedEventMap.containsKey(event)) {
-					myPossibleEntities.clear();
-					break;
-				}
-				myPossibleEntities.add(generatedEventMap.get(event));
-			}
-			if (myPossibleEntities.size() > 0) {
-				myFinalEntities = new HashSet<Integer>(myPossibleEntities.get(0));
-				myPossibleEntities.forEach(e -> myFinalEntities.retainAll(e));
-
-				// apply actions
-				if (myFinalEntities.size() > 0) {
-					//System.out.println("Apply Action for" + rule);
-					applyActions(myFinalEntities, rule.getActions());
-
-					// remove IDs
-					generatedEventMap.values().forEach(s -> s.removeAll(myFinalEntities));
-
-				}
-
-			}
-
-		}
+		ruleHandler.applyRules(generatedEventMap, myRuleAgenda, actionHandler);
 	}
 
 	private void handleAddEntityEvent(IEvent myEvent) {

@@ -6,8 +6,12 @@
 
 package engine.backend.rules;
 
+import engine.backend.entities.IEntity;
+import engine.backend.game_object.GameStatistics;
+import engine.backend.game_object.IModifiable;
+
 /**
- * the rule is going to sreot the component that nends to be hcanges, by how
+ * the rule is going to find the component that needs to be changes, by how
  * much and which method it needs to execute
  */
 
@@ -17,7 +21,12 @@ public class EntityAction implements IAction {
 	private String componentToModifiy;
 	private String valueInComponent;
 	private String newValue;
+	private IAction successor;
 
+	public EntityAction() {
+		
+	}
+	
 	/**
 	 * 
 	 * @param entityName
@@ -82,6 +91,22 @@ public class EntityAction implements IAction {
 
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
+	}
+
+	@Override
+	public void setSuccessor(IAction sucessor) {
+		this.successor = sucessor;
+	}
+
+	@Override
+	public void applyAction(GameStatistics currentGameStatistics, IEntity entity, IAction action) {
+		if (action.getClass() == this.getClass()) {
+			if (((EntityAction) action).getEntityName().equals(entity.getName())) {
+				((IModifiable) entity).applyAction((EntityAction) action);
+			}
+		} else {
+			successor.applyAction(currentGameStatistics, entity, action);
+		}
 	}
 
 }

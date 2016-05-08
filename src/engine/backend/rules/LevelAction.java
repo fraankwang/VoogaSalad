@@ -1,9 +1,17 @@
 package engine.backend.rules;
 
+import engine.backend.entities.IEntity;
+import engine.backend.game_object.GameStatistics;
+
 public class LevelAction implements IAction {
 
 	private String variableToModify;
 	private String deltaValue;
+	private IAction successor;
+	
+	public LevelAction() {
+		
+	}
 
 	/**
 	 * Creates a level action to modify properties of the level
@@ -16,6 +24,7 @@ public class LevelAction implements IAction {
 	public LevelAction(String varToModify, String delta) {
 		this.setVariableToModify(varToModify);
 		this.setDeltaValue(delta);
+		this.setSuccessor(new EntityAction());
 	}
 
 	/**
@@ -61,5 +70,20 @@ public class LevelAction implements IAction {
 		sb.append(deltaValue);
 		return sb.toString();
 	}
+
+	@Override
+	public void setSuccessor(IAction sucessor) {
+		this.successor = sucessor;
+	}
+
+	@Override
+	public void applyAction(GameStatistics currentGameStatistics, IEntity entity, IAction action) {
+		if (action.getClass() == this.getClass()) {
+			currentGameStatistics.applyAction(action);			
+		} else {
+			successor.applyAction(currentGameStatistics, entity, action);
+		}
+	}
+
 
 }

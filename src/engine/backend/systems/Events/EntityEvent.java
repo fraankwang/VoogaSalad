@@ -6,6 +6,8 @@ import java.util.List;
 
 public abstract class EntityEvent implements IEvent {
 
+	private static final int NULL_INT = -1;
+	private static final String DELIMITER = "-";
 	private List<Integer> entityIDs = new ArrayList<Integer>();
 	private String eventID;
 
@@ -15,7 +17,7 @@ public abstract class EntityEvent implements IEvent {
 	 * @param identifiers
 	 */
 	public void setEventID(List<String> identifiers) {
-		this.eventID = (identifiers.get(0) + "-" + this.getClass().getSimpleName());
+		this.eventID = (identifiers.get(0) + DELIMITER + this.getClass().getSimpleName());
 	}
 
 	/**
@@ -24,7 +26,7 @@ public abstract class EntityEvent implements IEvent {
 	 * @param indentifier
 	 */
 	public void setEventID(String indentifier) {
-		this.eventID = (indentifier + "-" + this.getClass().getSimpleName());
+		this.eventID = (indentifier + DELIMITER + this.getClass().getSimpleName());
 	}
 
 	/**
@@ -42,7 +44,7 @@ public abstract class EntityEvent implements IEvent {
 	 *         -1;
 	 */
 	public int getFirstEntityID() {
-		return entityIDs.size() != 0 ? entityIDs.get(0) : -1;
+		return entityIDs.size() != 0 ? entityIDs.get(0) : NULL_INT;
 	}
 
 	/**
@@ -60,7 +62,7 @@ public abstract class EntityEvent implements IEvent {
 	 * @param entityIDs
 	 */
 	public void addEntityID(Collection<Integer> entityIDs) {
-		entityIDs.forEach(i -> this.entityIDs.add(i));
+		entityIDs.forEach(i -> addEntityID(i));
 	}
 
 	public String getEventID() {
