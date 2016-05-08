@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 //import authoring.backend.Testing;
 import backend.xml_converting.GameWorldToXMLWriter;
 import engine.backend.entities.InGameEntityFactory;
@@ -112,11 +113,6 @@ public class EngineController extends ResourceUser implements IEngineController 
 	 *            shown
 	 */
 	public void initStartView(boolean firsttime) {
-//		ITestingGame myTester = new DuffyGame();
-//		myGameWorld = myTester.initGame();
-//		myEventManager = new EventManager(this, myGameWorld);
-//		startGame("Duffy", 0, firsttime);
-
 		StartView myStartView = new StartView(this, firsttime);
 		Scene scene = myStartView.buildScene();
 		myStage.setScene(scene);

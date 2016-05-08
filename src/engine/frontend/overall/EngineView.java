@@ -138,6 +138,7 @@ public class EngineView extends ResourceUser {
 	 * @param e
 	 */
 	private void handleEndMouseRelease(DragEvent e) {
+
 		if (isInBoardPane(e.getX(), e.getY()) && e.getDragboard().hasString()) {
 			if (!e.getDragboard().getString().contains("SpeedPowerUp")
 					&& !e.getDragboard().getString().contains("RangePowerUp")) {

@@ -37,7 +37,10 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 		EditorViewPanel editorView = new EditorViewPanel(Constants.getInt("ENTITY_EDITOR_GRID_SIZE"),
 				Constants.getInt("ENTITY_EDITOR_GRID_SIZE"));
 		editorView.initialize();
-		editorView.setImage(new Image("resources/images/question_mark.png"));
+		editorView.setImage(new Image("resources/images/question_mark.png")); // set
+																				// defaul
+
+
 		editorView.setDescription("Entity");
 
 		editorView.getPanelBar().addButton(Constants.getString("UPLOAD_IMAGE_BUTTON"), e -> {
@@ -47,6 +50,7 @@ public class EntityEditorGridFactory extends EditorGridFactory {
 		});
 		return editorView;
 	}
+
 
 	@Override
 	public ModifiableAttributesPanel createModifiableAttributesPanel() {
